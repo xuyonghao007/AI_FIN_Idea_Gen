@@ -1,0 +1,4051 @@
+Contents lists available at ScienceDirect
+
+Journal of Financial Economics
+
+journal homepage: www.elsevier.com/locate/finec
+
+The passive ownership share is double what you think it is✩
+Alex Chinco a, Marco Sammon b,∗
+a Baruch College, City University of New York, United States of America
+b Harvard Business School, United States of America
+
+A R T I C L E I N F O
+
+A B S T R A C T
+
+Dataset link: Replication package for "The Passi
+ve-Ownership Share Is Double What You Think
+It Is" (Reference data)
+
+Keywords:
+Passive ownership
+Index-linked investing
+Prearranged trades
+Index funds
+Internal indexing
+Reconstitution day
+G11
+G14
+G23
+
+1. Introduction
+
+Each time a stock gets added to or dropped from an index, we ask: ‘‘How much money would have to be
+tracking that index to explain the huge spike in rebalancing volume we observe on reconstitution day?’’ While
+index funds held 16% of the US stock market in 2021, we put the overall passive ownership share at 33.5%. Our
+headline number is twice as large because it reflects index funds as well as other kinds of passive investors,
+such as institutional investors with internally managed index portfolios and active managers who are closet
+indexing.
+
+Index funds manage a lot more money today than they did twenty
+years ago (Investment Company Institute, 2022, ICI). Index funds had
+combined assets under management (AUM) of just $0.4t in 2000,
+roughly 3% of the value of the US stock market. By 2021, these funds
+had $7.2t in AUM, which represented 16% of the market’s value. We
+know this because US equity index mutual funds and exchange-traded
+funds (ETFs) have to regularly disclose their holdings. So it is relatively
+straightforward to calculate the index-fund ownership share.
+
+While this is a phenomenal amount of growth, index funds are
+not the only kind of passive investor. Many institutional investors
+manage index-tracking portfolios on their own behalf, a practice known
+
+as ‘‘internal indexing’’.1 Investors can also invest through separately
+managed index-like accounts. This is called ‘‘direct indexing’’, and it
+is often done for tax reasons.2 Finally, active managers are evaluated
+relative to an index and sometimes engage in ‘‘closet indexing’’.3
+
+These other kinds of passive investors do not face the same dis-
+closure requirements. So in this paper we propose an alternative way
+to estimate the total amount of money held by all kinds of passive
+investors, not just the amount of money held by index funds. We find
+that passive investors tracking five popular indexes collectively owned
+33.5% of the US stock market in 2021.
+
+Our 33.5% estimate for the US passive ownership share is more than
+double the ICI’s index-fund ownership share of 16%. It implies that, for
+every $1 held by an index fund, there is another $1 held by another kind
+
+✩
+
+Nikolai Roussanov was the editor for this article. We would like to thank Shreya Adiraju, Malcolm Baker, Markus Baldauf, Yashar Barardehi, Hank
+Bessembinder, David Brown, Andrea Buffa, Rodney Comegys, Zhi Da, Shaun Davies, Tom Ernst, Richard Evans, Slava Fos, Diego Garcia, Dan Green, Mike Green,
+Robin Greenwood, Valentin Haddad, Davidson Heath, Mike Lemmon, Jiacui Li, Sida Li, Erik Loualiche, Ananth Madhavan, Josh Mollner, Dmitriy Muravyev,
+Stefan Nagel, Anna Pavlova, Julien Penasse, Pavol Povala, Matthew Pritsker, Matt Ringgenberg, Nick Roussanov, Andrei Shleifer, Jim Simpson, Emil Siriwardane,
+Erik Stafford, Eva Sudol, Peggy Sullivan, Adi Sunderam, Laura Tuttle, Dimitri Vayanos, Laura Veldkamp, Luis Viceira, Sunil Wahal, Yajun Wang, and Jeff Wurgler
+for extremely helpful comments and suggestions. We would especially like to thank Patrick Clapp for excellent research support. The paper has also benefited
+from presentations at Baruch, the University of Amsterdam, the Democratize Quant conference, the University of Washington Summer Finance Conference, USF,
+Tulane, the Federal Reserve Board, the Colorado Finance Summit, Norges Bank Index Management, and the Four Corners Academic Conference.
+
+∗ Corresponding author.
+
+E-mail addresses: alexchinco@gmail.com (A. Chinco), mcsammon@gmail.com (M. Sammon).
+
+1 For example, Wigglesworth (2021, p17) writes that ‘‘many big pension plans and sovereign wealth funds have huge internal index-tracking strategies’’.
+2 Separately managed accounts are used by institutional investors and are also available to individuals with as little as $100k (see https://www.wealthfront.
+
+com/tax-loss-harvesting).
+
+3 For example, see Cremers and Petajisto (2009) and Petajisto (2013).
+
+https://doi.org/10.1016/j.jfineco.2024.103860
+Received 19 May 2023; Received in revised form 29 April 2024; Accepted 1 May 2024
+
+JournalofFinancialEconomics157(2024)103860Availableonline21May20240304-405X/©2024ElsevierB.V.Allrightsarereserved,includingthosefortextanddatamining,AItraining,andsimilartechnologies.A. Chinco and M. Sammon
+
+Fig. 1. Volume for Yeti Holdings (YETI) around Russell reconstitution day 2021 in millions of shares. Solid bars represent total volume each day. White bars represent volume
+from 4:00pm to 11:59pm. On June 4th (green), FTSE Russell announced that Yeti would join the Russell 1000 following market close on June 25th (red). June 18th (blue) was
+a triple witching day on the 3rd Friday in June. Gray region is average daily volume from June 4th to 24th. (For interpretation of the references to color in this figure legend,
+the reader is referred to the web version of this article.)
+
+of passive investor. The result holds even though our estimate reflects
+only a subset of indexes; whereas, the ICI’s numbers include all index
+funds no matter what index they track.
+
+The logic behind our approach is simple. Most passive rebalancing
+occurs in a huge spike right at market close on reconstitution days. So
+each time that a stock gets added to or dropped from an index we ask:
+‘‘How much money would have to be tracking that index to explain
+the enormous burst in closing volume on reconstitution day that we
+observe in the data?’’
+
+For example, Yeti Holdings (YETI) migrated from the Russell 2000
+up to the Russell 1000 at the end of trading on Friday June 25th 2021.
+The company entered the Russell 1000 with a weight of 0.019%. To give
+investors time to prepare for the change, FTSE Russell made an official
+announcement three weeks in advance on Friday June 4th. But Yeti
+was so far above the Russell 1000’s size cutoff that it was possible to
+predict its migration months before.4
+
+In an effort to minimize tracking error, a Russell 1000 ETF would
+likely build its 0.019% position in Yeti right at market close on recon-
+stitution day. However, other kinds of passive investors were free to
+rebalance a little early. An active manager with a portion of her AUM
+closet indexed to the Russell 1000 could have bought Yeti shares at any
+point during the week prior to reconstitution day if a good opportunity
+arose. A university endowment that was internally indexing would have
+the same sort of freedom. So you might have expected Yeti’s volume to
+gradually increase in the days prior to June 25th 2021.
+
+That is not what happens in Fig. 1. After remaining flat in the lead
+up, Yeti’s volume suddenly spikes to 11.0m shares on reconstitution day
+itself, with 9.2m trading in the closing auction or immediately after.
+Given that we see no additional volume in the days immediately before
+and after reconstitution, active managers who were closet indexing
+likely did their rebalancing at the close on June 25th just like Russell
+1000 ETFs did. The same goes for university endowments that were
+internal indexing.
+
+Suppose Yeti’s entire spike in volume on June 25th came from
+Russell 1000 rebalancing. Yeti’s closing price was $92.07 per share on
+June 25th 2021. So, under this assumption, passive investors tracking
+the Russell 1000 would have spent 0.019% of their wealth purchasing
+11.0m × $92.07 ≈ $1.0b in Yeti shares
+
+$92.07
+11.0m
+𝑅𝑒𝑐𝑜𝑛𝐷𝑎𝑦𝑉 𝑜𝑙𝑢𝑚𝑒 ×
+𝑃 𝑟𝑖𝑐𝑒
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+value of shares purchased
+
+= 𝐴𝑈 𝑀𝑖𝑛𝑑𝑒𝑥𝑒𝑑 ×
+
+0.019%
+𝐼𝑛𝑑𝑒𝑥𝑊 𝑒𝑖𝑔ℎ𝑡
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+value of required position
+
+(1)
+
+Hence, this group of investors must have had 11.0m ×
+in AUM.
+
+( $92.07
+0.019%
+
+)
+
+= $5.3t
+
+We estimate the US passive ownership share by performing this
+same exercise for every stock added to or dropped from five indexes:
+
+the Russell 1000, the Russell 2000, the S&P 500, the S&P MidCap 400,
+and the Nasdaq 100. Each addition and deletion produces a separate
+estimate for the total AUM tracking an index. Each year we average
+the estimates for the AUM indexed to a given index. The black line in
+Fig. 2 reports the sum of these annual averages for our five indexes as
+a percent of total US stock-market capitalization.
+
+As a point of comparison, Fig. 2 also reports the ICI’s index-fund
+ownership share. We use these numbers as a benchmark because these
+are the numbers that academic researchers typically point to as evi-
+dence for the rise of passive ownership. The ‘‘you’’ in the title refers
+researchers and anyone else who ‘‘forgets that open-ended investment
+funds only hold a slice of markets, and conflate passive’s mutual fund
+industry market share with its overall market ownership’’.5
+
+The ICI’s 16% is not really the right benchmark for market partici-
+pants. Industry reports suggest the number is higher. A 2017 BlackRock
+report put the passive-ownership share at 25.6% (Novick et al., 2017).
+Recent research from Bloomberg Intelligence says passive investors
+own at least 19% of the market (Seyffart, 2023). And even if they did not
+read these reports, institutional investors who were internally indexing
+in 2021 must have known that the overall passive ownership share was
+higher than 16%. The same goes for direct indexers and active managers
+engaged in closet indexing.
+
+However, prior to our paper, it was difficult to know how much
+additional money was tracking an index outside of the index-fund
+universe. Market participants could only make an educated guess based
+on public holdings data. As illustrated by the examples above, these
+guesses tended to be lower than our headline 33.5%. Previous estimates
+based on holdings data were also relatively imprecise, yielding a broad
+range of values. By contrast, under our new approach, each individual
+stock that gets added to or deleted from an index yields a separate point
+estimate for the amount of money tracking that index. This allows us
+to calculate standard errors and cross-validate our results.
+
+The ICI’s 16% is also not a lower bound for our calculation. The
+ICI includes all index funds tracking any index. We only have index
+weights for five indexes. Using fund holdings, we estimate that if all
+passive investing was index-fund investing, we would have estimated a
+value of around 6% not 16% (see Appendix B). In 2021 Vanguard alone
+had roughly $2.25t in equity holdings tracking CRSP indexes, which we
+lack data on. This $2.25t represents 5% of ICI’s baseline 16%. If we were
+to include this $2.25t, our 33.5% would rise to 38.5%.
+
+It is important to be clear about who we are calling passive. There
+is just the single spike in volume at market close on reconstitution day.
+This suggests that all passive investors rebalance in the same way. Our
+procedure counts any holdings that get rebalanced at this one point in
+time as passive holdings; it does not matter who actually owns these
+assets. As such, our numbers likely includes passive investments made
+by people who would not consider themselves to be passive investors.
+
+4 A back-of-the-envelope calculation suggests that, as of the end of April,
+Yeti would have had to lose $200m in market cap by rank day to not migrate
+up to the Russell 1000.
+
+5 Robin Wigglesworth ‘‘How passive are markets, actually?’’ Financial Times.
+
+Sep 4, 2022.
+
+JournalofFinancialEconomics157(2024)1038602A. Chinco and M. Sammon
+
+Fig. 2. Black line depicts the percent of the US stock market owned by passive investors tracking the S&P 500, S&P MidCap 400, Russell 1000, Russell 2000, and Nasdaq 100.
+Calculation is based on total volume experienced by index additions and deletions on reconstitution day. Black ribbon shows the percent of the US stock market owned by domestic
+index equity mutual funds and ETFs according to the Investment Company Institute (ICI). Sample: 2000 to 2021.
+
+For example, suppose an active manager had $250b in total AUM,
+and 20% of this money was closet indexed to the Russell 1000. If the
+= 103k Yeti shares at market close on
+manager bought $50b ×
+June 25th 2021, then we would count his $50b as AUM indexed to the
+Russell 1000.
+
+( 0.019%
+$92.07
+
+)
+
+Other kinds of active investors could be strategically delaying trades
+to take advantage of all the additional volume on reconstitution days.
+But there is no dip in volume for index additions and deletions in
+the days prior to reconstitution. Moreover, by definition, each recon-
+stitution event must involve at least two stocks. And the variation in
+reconstitution-day volume across changes to the same index on the
+same day is almost entirely explained by passive demand.
+
+For example, Sunrun Inc (RUN) also migrated up to the Russell
+1000 on June 25th 2021. But, compared to Yeti, Sunrun entered the
+index with a higher weight, 0.027%, and a lower price, $54.38. So if
+Sunrun had realized the same reconstitution-day volume as Yeti, 11.0m,
+its addition would have implied that there was just 11.0m ×
+=
+$2.2t in AUM tracking the Russell 1000. To produce the same estimate
+as Yeti, $5.3t, Sunrun needed to have much more reconstitution-day
+= 26.4m. This is exactly what the data show!
+volume, $5.3t ×
+Sunrun’s realized a volume 26.8m on June 25th 2021.
+
+( 0.027%
+$54.38
+
+( $54.38
+0.027%
+
+)
+
+)
+
+This pattern holds more generally. On average, when looking across
+changes to the same index on the same day, our estimates are within
+±1% of each other. This is true even though each calculation involves
+a different price and index weight. Additions and deletions do not just
+have higher reconstitution-day volumes. Each stock’s volume increases
+by the precise amount needed by passive rebalancing. There is very
+little left for active managers to explain.
+
+In principle, brokers could be inflating reconstitution-day volumes
+in precisely the right proportions. For example, suppose that Russell
+1000 investors bought 5.5m shares of Yeti and 13.2m shares of Sunrun
+from a broker on the afternoon of June 25th 2021. If their broker
+purchased these shares from Russell 2000 investors in the morning on
+the same day, each stock’s volume on June 25th would be double the
+amount needed by Russell 1000 investors.
+
+In practice, there is no time to buy from one passive investor and
+then sell to another. Fig. 1 shows 9.2m of 11.0m Yeti shares were traded
+in the closing auction or immediately after. 7.7m of these were executed
+in trades specifically tied to the closing auction. Trading happens all at
+once. Brokers cannot be intermediating these trades by getting between
+buyers and sellers on the same day. Our estimates based on narrower
+definitions of rebalancing volume around the close are still well above
+the index-fund ownership share.
+
+Trading is so concentrated on reconstitution days because passive
+investors preschedule their rebalancing trades. They contract with an
+intermediary to rebalance at the closing price on reconstitution day,
+whatever that price happens to be. We give an example showing the
+mechanics of one kind of passive rebalancing trade in Appendix D. Until
+recently, liquidity providers were earning large profits for committing
+
+to rebalancing trades weeks or months in advance.6 At peak, Gold-
+man’s index rebalancing desk reportedly ‘‘[generated] more revenue
+per employee than almost any other’’ at the company.7
+
+This is one reason why the prices of index additions and deletions
+no longer move much on reconstitution days. ‘‘For the New York Stock
+Exchange, Russell reconstitution. . . is the greatest show on earth’’.8
+Moreover, passive investors execute much of this volume right at
+market close. But, because of the way that passive investors rebalance,
+their price impact occurs before their demand shock, at the point in
+time where they prearrange their rebalancing trades.
+
+Tesla’s addition to the S&P 500 on December 18th 2020 provides a
+helpful case study showing what happens when this trading apparatus
+breaks down. S&P Dow Jones’ initial announcement on November 17th
+caught many people by surprise. There was also a lot of uncertainty
+about ‘‘which current constituent Tesla [would] replace [or] how Tesla
+[would] be added. S&P Dow Jones Indices (2020b)’’ As a result, passive
+investors could not prearrange much of their rebalancing, and Tesla
+saw its price jump on reconstitution day.
+
+Theorists often model passive investors as uninformed traders in
+Grossman and Stiglitz (1980). This paradigm assumes that the passive
+ownership share is common knowledge and that these investors choose
+their demand after observing the price. Neither of these assumptions is
+correct. The passive ownership share is not common knowledge among
+market participants, and many passive investors go out of their way
+to preschedule rebalancing trades before seeing the closing price on
+reconstitution day.
+
+Our results also speak to the demand-system asset-pricing literature
+(Koijen and Yogo, 2019). Naïve estimates seem to imply that markets
+are extremely elastic on reconstitution days because there is not much
+same-day price pressure. But nothing could be further from the truth.
+Prices do not move much on reconstitution days because passive in-
+vestors’ rebalancing trades are typically scheduled weeks in advance.
+The correct elasticity calculation needs to reflect the price change that
+occurs when these trades are arranged. Given that passive investors’
+demand is inelastic, one might expect larger effects of flows into and
+out of passive investments on prices (Coval and Stafford, 2007; Lou,
+2012). As an example, our results suggest that the growth of ESG
+investing may lead to asset price changes that are larger than in the
+past.
+
+6 Alex Morrell ‘‘‘It can’t get much worse than this’: A trail of portfolio
+managers have resigned as the once lush index-rebalance strategy dries up’’.
+Business Insider. May 11, 2023.
+
+7 Sridhar Natarajan and Max Abelson ‘‘They Quit Goldman’s Star Trading
+
+Team, Then the Bank Raised Alarms’’. Bloomberg News. Aug 1, 2022.
+
+8 Gordon Charlop, managing director at Rosenblatt Securities, in Chuck
+index rebalancing with
+
+Mikolajczak ‘‘Investors brace for annual Russell
+pandemic imprint’’. Reuters. Jun 18, 2021.
+
+JournalofFinancialEconomics157(2024)1038603A. Chinco and M. Sammon
+
+Related work
+
+This paper builds on several strands of literature connected to index-
+linked investing (Wurgler, 2011). Index inclusions used to generate
+predictable price pressure on reconstitution day (Harris and Gurel,
+1986; Shleifer, 1986; Beneish and Whaley, 1996; Wurgler and Zhu-
+ravskaya, 2002; Madhavan, 2003; Petajisto, 2011; Greenwood and
+Sammon, 2024). These events also affect correlations and liquidity
+(Barberis et al., 2005; Greenwood, 2008; Baker et al., 2011; Chang
+et al., 2015; Burnham et al., 2018; Brogaard et al., 2019).
+
+ETFs have experienced explosive growth in recent years (Madhavan,
+2016; Lettau and Madhavan, 2018), leading to higher closing volumes,
+more volatility, and lower information production for the stocks they
+hold (Israeli et al., 2017; Ben-David et al., 2018; Da and Shive, 2018;
+Chinco and Fos, 2021; Bogousslavsky and Muravyev, 2023). ETFs are
+some of the most actively traded assets (Robertson, 2019; Huang et al.,
+2021). We document that other passive investors trade like ETFs. This
+is separate from how other investors trade ETF shares.
+
+Active investors sometimes park a fraction of their holdings in
+passive-investment vehicles (Cremers and Petajisto, 2009; Cremers
+et al., 2016; Pavlova and Sikorskaya, 2023). Unlike an ETF, active
+managers have no obligation to rebalance right at market close on
+reconstitution day. Nevertheless, we find that they rebalance just like
+an ETF would. This is evidence supporting Gabaix and Koijen (2024)’s
+Inelastic Markets Hypothesis.
+
+Our findings run contrary to order-execution models which predict
+that investors will smooth their demand to limit price impact (Kyle,
+1985; Bertsimas and Lo, 1998; Almgren and Chriss, 2001). Unlike in
+a sunshine-trading model (Admati and Pfleiderer, 1991), markets are
+less liquid for other kinds of investors during normal trading hours on
+reconstitution days. A hot-potato model (Lyons, 1997) cannot explain
+our results since most rebalancing trades get executed all at once
+during the close. Bessembinder et al. (2016) finds different results when
+studying commodity indexes.
+
+Many theory papers use Grossman and Stiglitz (1980) to model the
+rise of passive investing (e.g., see Baruch and Zhang, 2021; Bond and
+García, 2022; Buss and Sundaresan, 2023; Buffa et al., 2022; Lee, 2024;
+Schmalz and Zame, 2024). We argue that this is the wrong framework
+because it assumes that the passive share is common knowledge and
+that investors choose their demand after observing prices. Coles et al.
+(2022) fixes half the problem by assuming inelastic demand in a
+Grossman and Stiglitz setup.
+
+Finally, our analysis connects to the literature looking at how
+passive investors affect firm decisions (Appel et al., 2016; Bebchuk
+et al., 2017; Edmans and Holderness, 2017; Azar et al., 2018; Heath
+et al., 2022; Lewellen and Lewellen, 2022). While this literature focuses
+on index-fund ownership, we point out that there are other ways to
+passively invest.
+
+2. Data description
+
+This section describes the data we use in our analysis. Section 2.1
+details the five indexes in our study. Section 2.2 discusses variable
+construction. Section 2.3 provides summary statistics.
+
+2.1. Five indexes
+
+We estimate the combined AUM of passive investors tracking five
+popular indexes: the S&P 500, the S&P MidCap 400, the Russell 1000,
+the Russell 2000, and the Nasdaq 100.
+
+S&P 500 and MidCap
+
+The S&P 500 is a float-adjusted value-weighted index that, loosely
+speaking, tracks the 500 largest public US companies. The index is
+maintained by S&P Dow Jones (S&P Dow Jones Indices, 2022). The
+S&P MidCap 400 is an analogous index tracking the next largest 400
+US companies. A committee decides who gets added to and dropped
+from each index, and this committee makes its decision based on more
+than just firm size. For example, a firm must have positive earnings the
+quarter before being added.
+
+S&P Dow Jones regularly reconstitutes the S&P 500 and MidCap
+400 on a quarterly basis. These scheduled events take place on the
+third Friday of March, June, September, and December which rep-
+resent triple-witching days when stock options, index options, and
+index futures all expire at the same time. However, the index provider
+also makes ad hoc changes at other times during the quarter due to
+corporate events like bankruptcies or mergers. We find similar point
+estimates for the total AUM indexed to the S&P 500 and MidCap 400
+when using regularly scheduled and ad hoc changes.
+
+For the S&P 500, we have quarterly index membership and changes
+directly from S&P Dow Jones. For the S&P MidCap 400, we have
+quarterly index membership and changes from Siblis Research. We use
+these data to interpolate daily membership and weights in each index.
+For the S&P 500, we include a float-adjustment factor directly from
+the index provider. Our weights for the S&P MidCap 400 are based on
+market capitalization in CRSP and do not include a float-adjustment
+factor.
+
+We treat migrations between the S&P 500 and MidCap 400 as sig-
+nals about AUM indexed to the S&P 500. By contrast, when estimating
+the AUM indexed to the S&P MidCap 400, we only include direct
+additions to and deletions from the index. Fig. 3 shows that we have
+data on 38 changes to the S&P 500 in 2021 (both adds and drops);
+whereas, there were 75 stocks directly added to or dropped from the
+S&P MidCap 400 in our data set.
+
+Russell 1000 and 2000
+
+The Russell 1000 and 2000 are float-adjusted value-weighted in-
+dexes, which are provided by FTSE Russell. The Russell 1000 tracks
+the 1000 largest stocks in the Russell 3000E universe, and the Russell
+2000 tracks the next 2000 largest stocks (FTSE Russell, 2022). Unlike
+the S&P 500 and MidCap 400, membership in the Russell 1000 and
+2000 is largely rule based.
+
+The entire Russell family of US indexes reconstitutes on the last
+Friday in June each year. FTSE Russell ranks stocks by market cap-
+italization in late May. The index provider then formally announces
+changes to the Russell 1000 and 2000 roughly two weeks prior to
+reconstitution day. That being said, it is usually possible to predict
+which stocks will move long before this announcement.
+
+Russell reconstitution day occurs on the fourth Friday in June each
+year. For years 2000 to 2008, we get end-of-month index membership
+from FTSE Russell. We use this end-of-month data to interpolate daily
+index membership and weights. These weights are based on market
+capitalization in CRSP and do not include a float-adjustment factor.
+Starting in 2009, we have daily data on index membership and weights
+directly from FTSE Russell.
+
+Fig. 3 shows that in 2021 FTSE Russell added 55 and 274 stocks
+to the Russell 1000 and 2000 respectively. While the index provider
+rarely makes ad hoc changes prior to reconstitution day, some passive
+investors must divest in response to certain corporate events, such as
+a bankruptcy. They cannot wait until reconstitution day to do their
+rebalancing. For this reason, we do not use stocks that exit the Russell
+3000E universe in our estimation procedure.
+
+JournalofFinancialEconomics157(2024)1038604A. Chinco and M. Sammon
+
+Fig. 3. Number of stocks added to or dropped from each index by year. 𝑦-axis labels represent max, mean, and min. Sample: 2000 to 2021.
+
+Nasdaq 100
+
+2.2. Variable construction
+
+The Nasdaq 100 is a modified value-weighted index provided by
+the Nasdaq. The index tracks securities issued by the 100 largest non-
+financial stocks that are exclusively listed on the Nasdaq exchange.
+Although it has been around since the mid-1980s, the Nasdaq 100’s
+popularity has grown along with the rise of Invesco’s QQQ ETF. Like
+with the S&P 500 and MidCap 400, there is a selection committee that
+decides membership in the Nasdaq 100. Since 2014 the committee has
+included companies with multiple share classes in the index.
+
+Nasdaq regularly reconstitutes the Nasdaq 100 on the third Friday
+in December. Fig. 3 shows that in 2021 there were 17 changes to the
+Nasdaq 100. This annual rebalancing event lines up with the final
+witching day of the calendar year. However, like with the S&P 500 and
+MidCap 400, there are also ad hoc changes to the Nasdaq 100 at other
+times during the year. For example, Honeywell International (HON)
+replaced Alexion Pharmaceuticals (ALXN) on July 20th 2021. We find
+similar point estimates for the AUM indexed to the Nasdaq 100 when
+using both regularly scheduled and ad hoc changes.
+
+We get quarterly data on Nasdaq 100 index membership and changes
+from Siblis Research. We use these data to interpolate daily index
+membership and weights. Our weights for the Nasdaq 100 are based
+on market capitalization in CRSP and do not include a float-adjustment
+factor.
+
+Other indexes
+
+In an ideal world, we would be able to include data on other popular
+indexes in our study, too. Our 33.5% estimate does not reflect the
+passive AUM tracking the MSCI World or the CRSP Total Market. For
+example, using data from Thomson S12, we estimate that in December
+2021 Vanguard had $2.25t in equity holdings tracking CRSP indexes,
+which we lack data on. If we were to include this $2.25t, our 33.5%
+would climb to 38.5%.
+
+To estimate the AUM tracking a particular index, we need accurate
+data on each constituent’s weight in the index. For the Russell 1000 and
+Russell 2000, we purchased daily weights directly from FTSE Russell for
+$7, 500. We are able to interpolate the daily weights for the S&P 500,
+S&P MidCap 400, and Nasdaq 100 from known quarter-end values. For
+the S&P 500, these quarterly values come directly from S&P Dow Jones.
+We have approached other index providers about purchasing similar
+data. When we talked to MSCI, they quoted us a price of $240k for
+the daily data from 2000 to 2021. This pattern of events is consistent
+with the observation that index providers charge sizable licensing fees
+(An et al., 2023). We are not arguing these fees are excessive. We are
+pointing out that it is expensive to acquire information about indexes
+in a timely fashion. The passive investors who pay these fees are not
+uninformed traders.
+
+Each time a stock gets added to or dropped from a index, we
+compute the dollar value of the spike in volume it experiences on re-
+constitution day. Then, under the assumption that this spike represents
+passive rebalancing, we back out the total AUM of passive investors
+given the stock’s weight.
+
+Let 𝐼𝑛𝑑𝑒𝑥𝑊 𝑒𝑖𝑔ℎ𝑡𝑖,𝑛(𝑡𝑅𝑒𝑐𝑜𝑛) denote the 𝑛th stock’s weight in index
+𝑖 on reconstitution day 𝑡𝑅𝑒𝑐𝑜𝑛. For additions, 𝐼𝑛𝑑𝑒𝑥𝑊 𝑒𝑖𝑔ℎ𝑡𝑖,𝑛(𝑡𝑅𝑒𝑐𝑜𝑛)
+represents the stock’s initial weight in index 𝑖 when markets open on the
+following trading day (𝑡𝑅𝑒𝑐𝑜𝑛 + 1). For deletions, 𝐼𝑛𝑑𝑒𝑥𝑊 𝑒𝑖𝑔ℎ𝑡𝑖,𝑛(𝑡𝑅𝑒𝑐𝑜𝑛)
+represents the 𝑛th stock’s final weight in index 𝑖 at market close on
+𝑡𝑅𝑒𝑐𝑜𝑛.
+
+𝓁=1 𝐷𝑎𝑖𝑙𝑦𝑉 𝑜𝑙𝑢𝑚𝑒𝑛(𝑡𝑅𝑒𝑐𝑜𝑛 − 𝓁).
+
+We use several variables to capture the spike in volume experienced
+by index additions and deletions on reconstitution day. 𝐷𝑎𝑖𝑙𝑦𝑉 𝑜𝑙𝑢𝑚𝑒𝑛(𝑡)
+denotes the 𝑛th stock’s volume on day 𝑡 as reported in CRSP. This daily
+data covers our entire sample period from 2000 through 2021. When
+comparing reconstitution-day volume across stocks, we normalize by
+average daily volume during the previous 22 trading days, 𝐴𝐷𝑉 𝑛 =
+1
+22
+
+⋅ ∑22
+Since much of the spike in reconstitution-day volume is tied to
+the closing price, we also use TAQ’s millisecond-level daily-update
+consolidated trade database. This data starts on September 10th 2003,
+which is after the Russell reconstitution day for that calendar year.
+So we only use it from 2004 through 2021. We remove observations
+flagged with ‘‘M’’ and ‘‘Q’’ sale conditions, which represent duplicate
+observations produced by Nasdaq’s trade-reporting protocol (Tuttle,
+2013). We also remove corrected trades. The remaining TAQ volume
+each day matches daily volume reported in CRSP.
+
+Let 𝑉 𝑜𝑙𝑢𝑚𝑒𝐴𝑡𝐶𝑙𝑜𝑠𝑒𝑛(𝑡) denote the 𝑛th stock’s volume at the closing
+auction on day 𝑡. As we discuss in Section 4.2, passive investors often
+use prescheduled trades to rebalance. These trades get executed at the
+price determined by the closing auction at 4:00pm on reconstitution
+day. So they typically hit the tape some time after hours. For this
+reason, our preferred intraday measure of passive rebalancing volume
+is 𝑉 𝑜𝑙𝑢𝑚𝑒1600𝑡𝑜2359𝑛(𝑡), which represents the 𝑛th stock’s volume from
+4:00pm through 11:59pm on reconstitution day.
+
+𝑉 𝑜𝑙𝑢𝑚𝑒𝐴𝑡𝐶𝑙𝑜𝑠𝑖𝑛𝑔𝑃 𝑟𝑖𝑐𝑒𝑛(𝑡) denotes the 𝑛th stock’s volume executed
+at the closing price on day 𝑡 as indicated by trade condition ‘‘6’’ in TAQ.
+Earlier in our sample, prescheduled trades sometimes included price
+improvement, meaning that 𝑉 𝑜𝑙𝑢𝑚𝑒𝐴𝑡𝐶𝑙𝑜𝑠𝑖𝑛𝑔𝑃 𝑟𝑖𝑐𝑒 is likely too conser-
+vative. For example, FTSE Russell added Maxim Integrated Products
+(MXIM) to the Russell 1000 on June 26th 2009. A Russell 1000 investor
+might have prearranged on May 8th to buy 10k Maxim shares at $0.01
+below the closing price on June 26th 2009. These 10k shares would not
+be captured by 𝑉 𝑜𝑙𝑢𝑚𝑒𝐴𝑡𝐶𝑙𝑜𝑠𝑖𝑛𝑔𝑃 𝑟𝑖𝑐𝑒MXIM(June 26th 2009).
+
+We explore a variety of proxies for passive rebalancing volume
+in Section 3.3. None of these other measures is perfect. However, by
+looking at a wide range of proxies, we are able to get a better sense of
+the true scale of passive ownership as well as how much uncertainty
+there is about this level.
+
+JournalofFinancialEconomics157(2024)1038605A. Chinco and M. Sammon
+
+Table 1
+Characteristics of stocks that were added to or dropped from either the S&P 500, the
+S&P MidCap 400, the Russell 1000, the Russell 2000, or the Nasdaq 100. 𝑀𝐶𝑎𝑝:
+Market cap on reconstitution day in billions of dollars. 𝐼𝑛𝑑𝑒𝑥𝑊 𝑒𝑖𝑔ℎ𝑡: Weight in
+index in basis points. 𝐴𝐷𝑉 : Average volume during the 22 trading days prior to
+reconstitution in millions of shares per day. 𝑃 𝑎𝑠𝑡𝑅𝑒𝑡: Return during the 6 months
+prior to reconstitution in percent. Sample: 2000 to 2021.
+
+Table 2
+Reconstitution-day volume for stocks that were added to or dropped from either
+the S&P 500, the S&P MidCap 400, the Russell 1000, the Russell 2000, or the
+Nasdaq 100. 𝐷𝑎𝑖𝑙𝑦𝑉 𝑜𝑙𝑢𝑚𝑒: Total volume. 𝑉 𝑜𝑙𝑢𝑚𝑒1600𝑡𝑜2359: Volume from 4:00pm to
+11:59pm. 𝑉 𝑜𝑙𝑢𝑚𝑒𝐴𝑡𝐶𝑙𝑜𝑠𝑖𝑛𝑔𝑃 𝑟𝑖𝑐𝑒: Volume at the closing price. 𝑉 𝑜𝑙𝑢𝑚𝑒𝐴𝑡𝐶𝑙𝑜𝑠𝑒: Closing
+volume. All volume measures are normalized by 𝐴𝐷𝑉 . Data for 𝑉 𝑜𝑙𝑢𝑚𝑒1600𝑡𝑜2359,
+𝑉 𝑜𝑙𝑢𝑚𝑒𝐴𝑡𝐶𝑙𝑜𝑠𝑖𝑛𝑔𝑃 𝑟𝑖𝑐𝑒, and 𝑉 𝑜𝑙𝑢𝑚𝑒𝐴𝑡𝐶𝑙𝑜𝑠𝑒 start in 2004.
+
+Avg
+
+Sd
+
+Avg
+
+Sd
+
+Avg
+
+Sd
+
+×𝐴𝐷𝑉
+
+Avg
+
+Sd
+
+Avg
+
+Sd
+
+Avg
+
+Sd
+
+Panel A: S&P 500
+
+𝑀𝐶𝑎𝑝 [$1b]
+𝐼𝑛𝑑𝑒𝑥𝑊 𝑒𝑖𝑔ℎ𝑡 [bps]
+𝐴𝐷𝑉 [1 m]
+𝑃 𝑎𝑠𝑡𝑅𝑒𝑡 [%]
+
+Panel B: S&P MidCap
+
+𝑀𝐶𝑎𝑝 [$1b]
+𝐼𝑛𝑑𝑒𝑥𝑊 𝑒𝑖𝑔ℎ𝑡 [bps]
+𝐴𝐷𝑉 [1 m]
+𝑃 𝑎𝑠𝑡𝑅𝑒𝑡 [%]
+
+Panel C: Russell 1000
+
+𝑀𝐶𝑎𝑝 [$1b]
+𝐼𝑛𝑑𝑒𝑥𝑊 𝑒𝑖𝑔ℎ𝑡 [bps]
+𝐴𝐷𝑉 [1 m]
+𝑃 𝑎𝑠𝑡𝑅𝑒𝑡 [%]
+
+12.7
+8.7
+4.9
+10.5
+
+2.8
+19.5
+1.5
+12.2
+
+4.4
+2.4
+1.8
+27.2
+
+25.1
+12.6
+11.1
+41.4
+
+2.1
+13.8
+3.6
+44.7
+
+6.9
+4.4
+5.0
+62.7
+
+Adds
+
+Drops
+
+Panel A: S&P 500
+
+Adds
+
+Drops
+
+14.6
+9.4
+3.3
+21.7
+
+31.8
+13.6
+5.8
+41.7
+
+10.9
+8.0
+6.4
+−0.9
+
+15.3
+11.4
+14.3
+37.9
+
+𝐷𝑎𝑖𝑙𝑦𝑉 𝑜𝑙𝑢𝑚𝑒
+𝑉 𝑜𝑙𝑢𝑚𝑒1600𝑡𝑜2359
+𝑉 𝑜𝑙𝑢𝑚𝑒𝐴𝑡𝐶𝑙𝑜𝑠𝑖𝑛𝑔𝑃 𝑟𝑖𝑐𝑒
+𝑉 𝑜𝑙𝑢𝑚𝑒𝐴𝑡𝐶𝑙𝑜𝑠𝑒
+
+Direct Adds
+
+Direct Drops
+
+Panel B: S&P MidCap
+
+3.1
+22.2
+1.1
+22.1
+
+1.8
+12.2
+1.7
+45.1
+
+2.4
+16.1
+2.0
+0.2
+
+2.3
+14.9
+4.9
+41.1
+
+𝐷𝑎𝑖𝑙𝑦𝑉 𝑜𝑙𝑢𝑚𝑒
+𝑉 𝑜𝑙𝑢𝑚𝑒1600𝑡𝑜2359
+𝑉 𝑜𝑙𝑢𝑚𝑒𝐴𝑡𝐶𝑙𝑜𝑠𝑖𝑛𝑔𝑃 𝑟𝑖𝑐𝑒
+𝑉 𝑜𝑙𝑢𝑚𝑒𝐴𝑡𝐶𝑙𝑜𝑠𝑒
+
+Direct Adds
+
+Migrations
+
+Panel C: Russell 1000
+
+8.9
+4.5
+2.8
+18.1
+
+12.8
+8.7
+5.7
+60.2
+
+3.0
+1.8
+1.4
+29.9
+
+2.1
+0.7
+4.7
+63.2
+
+𝐷𝑎𝑖𝑙𝑦𝑉 𝑜𝑙𝑢𝑚𝑒
+𝑉 𝑜𝑙𝑢𝑚𝑒1600𝑡𝑜2359
+𝑉 𝑜𝑙𝑢𝑚𝑒𝐴𝑡𝐶𝑙𝑜𝑠𝑖𝑛𝑔𝑃 𝑟𝑖𝑐𝑒
+𝑉 𝑜𝑙𝑢𝑚𝑒𝐴𝑡𝐶𝑙𝑜𝑠𝑒
+
+12.4
+8.6
+6.5
+2.7
+
+10.8
+8.0
+5.7
+3.1
+
+5.4
+4.6
+3.3
+1.4
+
+9.9
+8.4
+9.4
+4.6
+
+8.4
+7.1
+5.7
+4.5
+
+4.2
+3.7
+2.9
+2.2
+
+16.5
+12.6
+9.0
+4.1
+
+10.6
+9.2
+8.1
+5.7
+
+8.4
+5.1
+4.3
+1.4
+
+7.2
+5.6
+9.8
+2.7
+
+Direct Adds
+
+Direct Drops
+
+12.5
+9.6
+6.5
+3.7
+
+8.4
+6.9
+5.7
+4.8
+
+9.0
+6.3
+4.9
+2.3
+
+8.1
+6.8
+5.7
+4.0
+
+Direct Adds
+
+Migrations
+
+4.6
+2.5
+1.8
+0.8
+
+4.2
+1.9
+1.3
+1.2
+
+5.6
+5.1
+3.7
+1.5
+
+4.1
+3.8
+3.0
+2.3
+
+Panel D: Russell 2000
+
+Direct Adds
+
+Migrations
+
+Panel D: Russell 2000
+
+Direct Adds
+
+Migrations
+
+𝑀𝐶𝑎𝑝 [$1b]
+𝐼𝑛𝑑𝑒𝑥𝑊 𝑒𝑖𝑔ℎ𝑡 [bps]
+𝐴𝐷𝑉 [1 m]
+𝑃 𝑎𝑠𝑡𝑅𝑒𝑡 [%]
+
+0.6
+3.5
+0.7
+39.2
+
+0.6
+3.5
+2.4
+129.6
+
+Panel E: Nasdaq 100
+
+𝑀𝐶𝑎𝑝 [$1b]
+𝐼𝑛𝑑𝑒𝑥𝑊 𝑒𝑖𝑔ℎ𝑡 [bps]
+𝐴𝐷𝑉 [1 m]
+𝑃 𝑎𝑠𝑡𝑅𝑒𝑡 [%]
+
+12.0
+29.8
+6.4
+11.3
+
+18.6
+39.3
+23.6
+48.9
+
+0.4
+2.4
+0.5
+49.4
+
+15.8
+38.3
+5.6
+30.3
+
+0.5
+2.4
+2.1
+138.8
+
+1.2
+8.5
+1.8
+−8.6
+
+0.7
+3.8
+3.5
+48.7
+
+𝐷𝑎𝑖𝑙𝑦𝑉 𝑜𝑙𝑢𝑚𝑒
+𝑉 𝑜𝑙𝑢𝑚𝑒1600𝑡𝑜2359
+𝑉 𝑜𝑙𝑢𝑚𝑒𝐴𝑡𝐶𝑙𝑜𝑠𝑖𝑛𝑔𝑃 𝑟𝑖𝑐𝑒
+𝑉 𝑜𝑙𝑢𝑚𝑒𝐴𝑡𝐶𝑙𝑜𝑠𝑒
+
+14.2
+14.2
+9.8
+6.4
+
+17.1
+16.8
+20.5
+8.7
+
+Adds
+
+Drops
+
+Panel E: Nasdaq 100
+
+22.4
+43.0
+17.1
+51.5
+
+8.1
+21.4
+7.3
+−7.6
+
+12.8
+33.2
+28.6
+37.7
+
+𝐷𝑎𝑖𝑙𝑦𝑉 𝑜𝑙𝑢𝑚𝑒
+𝑉 𝑜𝑙𝑢𝑚𝑒1600𝑡𝑜2359
+𝑉 𝑜𝑙𝑢𝑚𝑒𝐴𝑡𝐶𝑙𝑜𝑠𝑖𝑛𝑔𝑃 𝑟𝑖𝑐𝑒
+𝑉 𝑜𝑙𝑢𝑚𝑒𝐴𝑡𝐶𝑙𝑜𝑠𝑒
+
+4.7
+2.4
+1.5
+1.5
+
+4.4
+2.3
+1.7
+1.6
+
+15.9
+15.8
+10.9
+7.4
+
+4.7
+2.3
+1.3
+1.5
+
+18.3
+17.7
+22.0
+9.1
+
+3.1
+1.5
+1.0
+1.1
+
+Adds
+
+6.3
+5.4
+4.1
+1.2
+
+4.8
+2.6
+1.6
+1.6
+
+Drops
+
+4.9
+4.3
+4.8
+2.0
+
+5.4
+2.9
+2.2
+2.0
+
+2.3. Summary statistics
+
+3.1. Estimation strategy
+
+Table 1 describes the characteristics of stocks that got added to or
+dropped from each of our five indexes. As expected, index additions are
+different from index deletions. For example, index additions tend to be
+larger and have higher returns over the past 6 months.
+
+We are exploiting the difference between an index switcher’s
+reconstitution-day volume and its own prior volume. We are not
+comparing index switchers to stocks that just missed getting added or
+dropped. We are not using the Russell 1000 cutoff for identification
+(Chang et al., 2015; Appel et al., 2020). We know S&P Dow Jones
+strategically chooses which companies to add (Beneish and Whaley,
+1996; Bennett et al., 2024).
+
+Table 2 then describes the reconstitution-day volume experienced
+by these index additions and deletions. We normalize each stock’s vol-
+ume measures by the stock’s average daily volume during the previous
+22 trading days, 𝐴𝐷𝑉 𝑛. For example, Panel A of Table 2 indicates that,
+on average, changes to the S&P 500 see 12.3 days worth of volume
+on reconstitution day. We also report summary statistics for closing
+volume on reconstitution day, volume from 4:00pm to 11:59pm, and
+volume at the closing price.
+
+3. Passive ownership
+
+This section reports our headline numbers for the US passive own-
+ership share. Section 3.1 describes our estimation strategy. Section 3.2
+reports estimates based on daily volume. Section 3.3 gives a range
+of alternative estimates based on other proxies for rebalancing vol-
+ume. Section 3.4 performs a detailed analysis of potential sources of
+measurement error that might affect our headline numbers.
+
+Here is the core intuition behind our approach. Suppose stock ADD
+replaced stock DROP in index 𝑖 at market close on day 𝑡𝑅𝑒𝑐𝑜𝑛. Let
+𝐴𝑈 𝑀𝑖𝑛𝑑𝑒𝑥𝑒𝑑𝑖(𝑡𝑅𝑒𝑐𝑜𝑛) denote the total AUM held by passive investors
+tracking this index on reconstitution day. Further suppose that ADD
+initially represented 𝐼𝑛𝑑𝑒𝑥𝑊 𝑒𝑖𝑔ℎ𝑡𝑖,ADD of the index. If passive investors
+perfectly matched this portfolio weight, then they had to build new
+positions worth
+
+𝐼𝑛𝑑𝑒𝑥𝑊 𝑒𝑖𝑔ℎ𝑡𝑖,ADD × 𝐴𝑈 𝑀𝑖𝑛𝑑𝑒𝑥𝑒𝑑𝑖(𝑡𝑅𝑒𝑐𝑜𝑛)
+
+(2)
+
+Now imagine that passive investors are the only people trading
+ADD on reconstitution day and that these passive investors do all their
+trading at market close. In this scenario, 𝐷𝑎𝑖𝑙𝑦𝑉 𝑜𝑙𝑢𝑚𝑒ADD(𝑡𝑅𝑒𝑐𝑜𝑛) as
+reported in CRSP would capture all passive rebalancing volume. And
+these trades would be worth
+
+𝐷𝑎𝑖𝑙𝑦𝑉 𝑜𝑙𝑢𝑚𝑒ADD(𝑡𝑅𝑒𝑐𝑜𝑛) × 𝑃 𝑟𝑖𝑐𝑒ADD(𝑡𝑅𝑒𝑐𝑜𝑛)
+
+(3)
+
+where 𝑃 𝑟𝑖𝑐𝑒ADD(𝑡) denotes ADD’s closing price per share on day 𝑡.
+
+We impute the total AUM tracking index 𝑖 by equating (2) and (3)
+
+and solving for 𝐴𝑈 𝑀𝑖𝑛𝑑𝑒𝑥𝑒𝑑𝑖(𝑡𝑅𝑒𝑐𝑜𝑛)
+
+𝐴𝑈 𝑀𝑖𝑛𝑑𝑒𝑥𝑒𝑑
+(cid:58)
+
+𝑖,ADD(𝑡𝑅𝑒𝑐𝑜𝑛) ←
+
+𝐷𝑎𝑖𝑙𝑦𝑉 𝑜𝑙𝑢𝑚𝑒ADD(𝑡𝑅𝑒𝑐𝑜𝑛) × 𝑃 𝑟𝑖𝑐𝑒ADD(𝑡𝑅𝑒𝑐𝑜𝑛)
+𝐼𝑛𝑑𝑒𝑥𝑊 𝑒𝑖𝑔ℎ𝑡𝑖,ADD
+
+(4)
+
+indicates that 𝐴𝑈 𝑀𝑖𝑛𝑑𝑒𝑥𝑒𝑑
+(cid:58)
+
+𝑖,ADD(𝑡𝑅𝑒𝑐𝑜𝑛) is an implied value,
+The tilde
+(cid:58)
+and the ADD subscript indicates that this implied value is based on a
+single addition.
+
+JournalofFinancialEconomics157(2024)1038606A. Chinco and M. Sammon
+
+Fig. 4. Solid line is passive AUM tracking each index implied by using 𝐷𝑎𝑖𝑙𝑦𝑉 𝑜𝑙𝑢𝑚𝑒 as proxy for passive rebalancing volume; 2000 to 2021. Dotted line is passive AUM implied
+by 𝑉 𝑜𝑙𝑢𝑚𝑒1600𝑡𝑜2359; 2004 to 2021.
+
+Fig. 5. Solid line is percent of the US stock market owned by passive investors when using 𝐷𝑎𝑖𝑙𝑦𝑉 𝑜𝑙𝑢𝑚𝑒 as proxy for passive rebalancing; 2000 to 2021. Black ribbon denotes
+percent owned by index funds according to the Investment Company Institute. Dotted line is percent owned by passive investors when using 𝑉 𝑜𝑙𝑢𝑚𝑒1600𝑡𝑜2359 as proxy for passive
+rebalancing; 2004 to 2021.
+
+Fig. 4 shows the average implied 𝐴𝑈 𝑀𝑖𝑛𝑑𝑒𝑥𝑒𝑑
+(cid:58)
+added to or dropped from a given index 𝑖 in year 𝑦:
+
+𝑖,𝑛 across all stocks
+
+𝐴𝑈 𝑀𝑖𝑛𝑑𝑒𝑥𝑒𝑑
+(cid:58)
+
+𝑖(𝑦) = Avg
+
+⎛
+⎜
+⎜
+⎝
+
+𝐴𝑈 𝑀𝑖𝑛𝑑𝑒𝑥𝑒𝑑
+(cid:58)
+
+𝑖,𝑛
+
+stock 𝑛 was added
+to or dropped from
+index 𝑖 in year 𝑦
+
+|
+|
+|
+|
+|
+
+⎞
+⎟
+⎟
+⎠
+
+(5)
+
+The solid lines represent estimates for passive AUM where we proxy for
+passive rebalancing volume with 𝐷𝑎𝑖𝑙𝑦𝑉 𝑜𝑙𝑢𝑚𝑒 as described in Eq. (4).
+The dotted lines perform the same calculation with 𝑉 𝑜𝑙𝑢𝑚𝑒1600𝑡𝑜2359.
+We estimate that there was $15.1t in passive AUM during 2021 when
+treating all reconstitution-day volume as rebalancing volume. When
+using only the volume from 4:00pm to 11:59pm, we get a value of
+$11.0t.
+
+3.2. Headline numbers
+
+To compute the passive ownership share associated with index 𝑖 in
+𝑖(𝑦) by US stock-market capitalization
+
+year 𝑦, we divide 𝐴𝑈 𝑀𝑖𝑛𝑑𝑒𝑥𝑒𝑑
+(cid:58)
+
+𝑖(𝑦)
+𝐴𝑈 𝑀𝑖𝑛𝑑𝑒𝑥𝑒𝑑
+(cid:58)
+𝑇 𝑜𝑡𝑎𝑙𝑀𝑎𝑟𝑘𝑒𝑡𝐶𝑎𝑝(𝑦)
+
+𝑖(𝑦) = 100 ×
+
+%𝐼𝑛𝑑𝑒𝑥𝑒𝑑
+(cid:58)
+Fig. 5 reports these estimates for each index. The solid lines represent
+calculations using 𝐷𝑎𝑖𝑙𝑦𝑉 𝑜𝑙𝑢𝑚𝑒. The dotted lines use 𝑉 𝑜𝑙𝑢𝑚𝑒1600𝑡𝑜2359.
+The bottom-right panel reports the sum across all five index we
+
+(6)
+
+study
+
+%𝐼𝑛𝑑𝑒𝑥𝑒𝑑
+(cid:58)
+
+(𝑦) = %𝐼𝑛𝑑𝑒𝑥𝑒𝑑
+(cid:58)
++ %𝐼𝑛𝑑𝑒𝑥𝑒𝑑
+(cid:58)
++ %𝐼𝑛𝑑𝑒𝑥𝑒𝑑
+(cid:58)
+
+S&P 500(𝑦) + %𝐼𝑛𝑑𝑒𝑥𝑒𝑑
+(cid:58)
+
+S&P MidCap(𝑦)
+
+Russell 1000(𝑦) + %𝐼𝑛𝑑𝑒𝑥𝑒𝑑
+(cid:58)
+
+Nasdaq 100(𝑦)
+
+Russell 2000(𝑦)
+
+(7)
+
+The solid line corresponds to the headline numbers reported in Fig. 2
+from the introduction. When using 𝐷𝑎𝑖𝑙𝑦𝑉 𝑜𝑙𝑢𝑚𝑒 as the proxy for pas-
+sive rebalancing on reconstitution days, we find that 33.5% of the
+US stock market was held by passive investors in 2021. When using
+𝑉 𝑜𝑙𝑢𝑚𝑒1600𝑡𝑜2359 instead of 𝐷𝑎𝑖𝑙𝑦𝑉 𝑜𝑙𝑢𝑚𝑒, we still put the US passive
+ownership share at 24.6% in 2021.
+
+The bottom-right panel in Fig. 5 also reports the share of the
+US stock market owned by index funds. This percentage comes from
+annual reports made by the Investment Company Institute (ICI; e.g.,
+see Fig. 2.9 in Investment Company Institute, 2022). The ICI’s numbers
+reflect the combined holdings of all domestic equity index mutual
+funds and ETFs. These numbers include the AUM of index funds that
+track indexes other than the five in our study, such as Vanguard funds
+tracking the CRSP Total Market index. In December 2021 Vanguard had
+roughly $2.25t tracking CRSP indexes. If we were to remove this $2.25t
+from ICI’s asset base, their 16% would fall to 11%. If we were to include
+this $2.25t, our 33.5% would climb to 38.5%.
+
+There is a 2009 spike in the overall passive ownership share in the
+bottom-right panel of Fig. 5. However, notice that there is no corre-
+sponding spike in the index-fund ownership share. This is consistent
+with investors focusing on internal indexing or direct indexing, rather
+than index-fund investing. One possible explanation is that investors
+were engaging in tax-loss harvesting following the financial crisis. It
+could also be that passive investors held a larger share of the market
+following the financial crisis because active managers reduced their
+leverage after suffering losses.
+
+Table 3 reports the specific numerical values underpinning Fig. 5.
+Since 𝐷𝑎𝑖𝑙𝑦𝑉 𝑜𝑙𝑢𝑚𝑒 comes from CRSP, we can use this proxy to impute
+%𝐼𝑛𝑑𝑒𝑥𝑒𝑑
+𝑖(𝑦) for each of our five indexes all the way back to 2000
+(cid:58)
+in Table 3. We report standard errors clustered by announcement to
+account for the fact that stocks can be added to and dropped from
+
+JournalofFinancialEconomics157(2024)1038607A. Chinco and M. Sammon
+
+Table 3
+Percent of the US stock market owned by passive investors when using 𝐷𝑎𝑖𝑙𝑦𝑉 𝑜𝑙𝑢𝑚𝑒 to proxy for passive rebalancing volume. Numbers
+in parentheses are standard errors clustered by announcement. Sample: 2000 to 2021.
+
+S&P
+500
+
+7.50
+(0.69)
+8.71
+(0.69)
+10.07
+(0.51)
+10.21
+(1.54)
+8.03
+(0.58)
+7.69
+(0.85)
+8.14
+(0.86)
+8.08
+(0.62)
+13.40
+(1.41)
+17.17
+(1.31)
+12.56
+(1.28)
+13.51
+(1.07)
+12.98
+(1.11)
+12.43
+(1.32)
+14.18
+(1.39)
+11.35
+(0.87)
+14.32
+(0.99)
+15.08
+(1.07)
+15.97
+(1.03)
+15.26
+(1.22)
+15.77
+(1.78)
+16.80
+(1.14)
+
+2000
+
+2001
+
+2002
+
+2003
+
+2004
+
+2005
+
+2006
+
+2007
+
+2008
+
+2009
+
+2010
+
+2011
+
+2012
+
+2013
+
+2014
+
+2015
+
+2016
+
+2017
+
+2018
+
+2019
+
+2020
+
+2021
+
+S&P
+MidCap
+
+Russell
+1000
+
+Russell
+2000
+
+Nasdaq
+100
+
+0.49
+(0.04)
+0.67
+(0.05)
+0.86
+(0.10)
+0.63
+(0.05)
+0.67
+(0.04)
+0.76
+(0.05)
+0.63
+(0.06)
+0.72
+(0.03)
+0.98
+(0.09)
+0.93
+(0.05)
+1.04
+(0.06)
+1.16
+(0.08)
+1.11
+(0.15)
+1.02
+(0.08)
+1.09
+(0.07)
+0.99
+(0.05)
+1.11
+(0.06)
+1.19
+(0.06)
+1.15
+(0.06)
+1.23
+(0.06)
+1.01
+(0.04)
+1.12
+(0.04)
+
+2.96
+(0.18)
+2.20
+(0.14)
+2.30
+(0.11)
+3.28
+(0.18)
+4.21
+(0.27)
+3.74
+(0.20)
+6.26
+(0.33)
+5.49
+(0.41)
+9.44
+(0.49)
+11.69
+(0.66)
+8.79
+(0.39)
+9.22
+(0.34)
+9.33
+(0.34)
+7.75
+(0.42)
+9.83
+(0.56)
+7.55
+(0.40)
+8.80
+(0.20)
+9.32
+(0.49)
+10.09
+(0.29)
+12.30
+(1.54)
+11.68
+(0.73)
+10.77
+(0.51)
+
+0.28
+(0.01)
+0.30
+(0.01)
+0.41
+(0.01)
+0.43
+(0.01)
+0.57
+(0.05)
+0.62
+(0.02)
+0.80
+(0.02)
+0.75
+(0.03)
+0.78
+(0.02)
+1.15
+(0.02)
+1.06
+(0.01)
+1.15
+(0.02)
+1.04
+(0.02)
+0.98
+(0.02)
+1.02
+(0.03)
+1.00
+(0.02)
+0.75
+(0.01)
+0.91
+(0.01)
+1.05
+(0.03)
+0.99
+(0.05)
+1.06
+(0.16)
+1.06
+(0.03)
+
+2.16
+(0.43)
+1.77
+(0.20)
+2.40
+(1.23)
+1.20
+(0.15)
+0.78
+(0.08)
+0.71
+(0.07)
+1.10
+(0.23)
+1.29
+(0.18)
+0.71
+(0.06)
+0.91
+(0.11)
+0.88
+(0.27)
+0.87
+(0.11)
+1.07
+(0.04)
+1.04
+(0.06)
+0.64
+(0.12)
+1.18
+(0.17)
+0.94
+(0.13)
+1.61
+(0.30)
+1.17
+(0.19)
+1.75
+(0.63)
+2.67
+(0.56)
+3.76
+(1.18)
+
+Total
+
+13.39
+(1.35)
+13.64
+(1.10)
+16.04
+(1.97)
+15.75
+(1.92)
+14.26
+(1.02)
+13.52
+(1.19)
+16.92
+(1.50)
+16.33
+(1.28)
+25.31
+(2.07)
+31.85
+(2.14)
+24.32
+(2.02)
+25.90
+(1.62)
+25.54
+(1.65)
+23.21
+(1.90)
+26.76
+(2.18)
+22.06
+(1.52)
+25.92
+(1.39)
+28.11
+(1.94)
+29.43
+(1.59)
+31.53
+(3.49)
+32.19
+(3.26)
+33.50
+(2.91)
+
+the S&P 500, S&P MidCap 400, and Nasdaq 100 at different times
+throughout the year. All additions to the Russell 1000 and Russell 2000
+occur simultaneously on the last Friday in June each year. For these two
+indexes, clustering has no effect on our standard errors.
+
+3.3. Range of estimates
+
+Our headline numbers indicate that, given on all the volume experi-
+enced by index additions and deletions on reconstitution days, passive
+investors likely held 33.5% of the US stock market in 2021. Even if we
+look only at the volume from 4:00pm onward on reconstitution days,
+we still get a passive ownership share of 24.6%. This is well above
+the percentage owned by index funds as reported by the ICI, 16%.
+Moreover, the ICI’s numbers include index funds that track indexes not
+included in our sample, like the CRSP Total Market index.
+
+𝐷𝑎𝑖𝑙𝑦𝑉 𝑜𝑙𝑢𝑚𝑒 and 𝑉 𝑜𝑙𝑢𝑚𝑒1600𝑡𝑜2359 are not perfect proxies for pas-
+sive rebalancing volume on reconstitution days. On one hand, both
+measures ignore passive rebalancing done prior to reconstitution day.
+Some passive investors may choose to rebalance months ahead of time.
+And, to the extent that this happens, it will cause us to underestimate
+the true passive ownership share.
+
+On the other hand, 𝐷𝑎𝑖𝑙𝑦𝑉 𝑜𝑙𝑢𝑚𝑒 and 𝑉 𝑜𝑙𝑢𝑚𝑒1600𝑡𝑜2359 could be
+capturing reconstitution-day volume coming from active investors. This
+would lead us to overestimate the true passive ownership share. How-
+ever, the data are not consistent with active investors delaying trades
+to take advantage of the high liquidity experienced by index additions
+and deletions at market close on reconstitution day (see Section 4.1).
+Admati and Pfleiderer (1991)’s sunshine-trading story would not apply
+in a world where passive investors prescheduled all their rebalancing
+trades months in advance via intermediaries.
+
+In Table 4 we report a range of estimates for the US passive
+ownership share based on different proxies for passive rebalancing
+on reconstitution days. That way, readers can judge for themselves
+
+how much extra volume our headline numbers might be capturing.
+Column (1) corresponds to the total reported in Table 3 based on
+𝐷𝑎𝑖𝑙𝑦𝑉 𝑜𝑙𝑢𝑚𝑒. Column (2) reports the results of the same calculation
+but using 𝐷𝑎𝑖𝑙𝑦𝑉 𝑜𝑙𝑢𝑚𝑒 − 𝐴𝐷𝑉 . This column looks at an index addi-
+tion/deletion’s volume on reconstitution day in excess of its volume
+on a typical trading day. It is unlikely that non-Russell investors trade
+the same way on Russell reconstitution day as they would on any
+other day during the previous month. Russell reconstitution day is
+now ‘‘generally considered [to be] the single-biggest trading day in US
+markets’’.9 However, if other investors kept on trading index additions
+and deletions in the exact same way on reconstitution days, then
+column (2) suggests that our headline numbers might be overestimating
+the true passive ownership share by somewhere between 2%pt and
+5%pt.
+
+Column (3) in Table 4 shows that, on a typical day, most trading
+activity occurs during normal market hours. This was true for Yeti
+Holdings (YETI) in Fig. 1 from the introduction, and in Section 4.1 we
+show this pattern holds more generally. However, reconstitution days
+are different. On reconstitution days, the bulk of trading occurs after
+hours. Thus, our passive ownership share based on 𝑉 𝑜𝑙𝑢𝑚𝑒1600𝑡𝑜2359
+is only slightly below our estimate using 𝐷𝑎𝑖𝑙𝑦𝑉 𝑜𝑙𝑢𝑚𝑒.
+
+One important reason for this pattern is that passive investors
+often preschedule rebalancing trades to get executed at the closing
+price on reconstitution day. So we report the %𝐼𝑛𝑑𝑒𝑥𝑒𝑑
+(𝑦) implied by
+(cid:58)
+𝑉 𝑜𝑙𝑢𝑚𝑒𝐴𝑡𝐶𝑙𝑜𝑠𝑖𝑛𝑔𝑃 𝑟𝑖𝑐𝑒 in column (4) in Table 4. These estimates look
+very similar to the ones in column (3) based on 𝑉 𝑜𝑙𝑢𝑚𝑒1600𝑡𝑜2359,
+which is consistent with the idea that much of the volume from
+4:00pm-11:59pm comes from prescheduled trades. There is a larger
+
+9 Rolf Agather, director of North American research at FTSE Russell, as
+quoted by Victor Reklaitis in ‘‘Why Friday could be the year’s biggest trading
+day’’. MarketWatch. Jun 26, 2015.
+
+JournalofFinancialEconomics157(2024)1038608A. Chinco and M. Sammon
+
+Table 4
+Total passive ownership share as implied by six alternative proxies for passive rebalancing on reconstitution days. Column (1): 𝐷𝑎𝑖𝑙𝑦𝑉 𝑜𝑙𝑢𝑚𝑒.
+Column (2): 𝐷𝑎𝑖𝑙𝑦𝑉 𝑜𝑙𝑢𝑚𝑒−𝐴𝐷𝑉 . Column (3): 𝑉 𝑜𝑙𝑢𝑚𝑒1600𝑡𝑜2359. Column (4): 𝑉 𝑜𝑙𝑢𝑚𝑒𝐴𝑡𝐶𝑙𝑜𝑠𝑖𝑛𝑔𝑃 𝑟𝑖𝑐𝑒. Column (5): 𝑉 𝑜𝑙𝑢𝑚𝑒𝐴𝑡𝐶𝑙𝑜𝑠𝑒. Numbers
+in parentheses are standard errors clustered by announcement. Sample: 2004 to 2021.
+
+All
+day
+(1)
+
+14.26
+(1.02)
+13.52
+(1.19)
+16.92
+(1.50)
+16.33
+(1.28)
+25.31
+(2.07)
+31.85
+(2.14)
+24.32
+(2.02)
+25.90
+(1.62)
+25.54
+(1.65)
+23.21
+(1.90)
+26.76
+(2.18)
+22.06
+(1.52)
+25.92
+(1.39)
+28.11
+(1.94)
+29.43
+(1.59)
+31.53
+(3.49)
+32.19
+(3.26)
+33.50
+(2.91)
+
+2004
+
+2005
+
+2006
+
+2007
+
+2008
+
+2009
+
+2010
+
+2011
+
+2012
+
+2013
+
+2014
+
+2015
+
+2016
+
+2017
+
+2018
+
+2019
+
+2020
+
+2021
+
+Minus
+𝐴𝐷𝑉
+(2)
+
+11.84
+(1.02)
+11.36
+(1.05)
+14.12
+(1.39)
+13.37
+(1.27)
+20.42
+(1.72)
+27.64
+(1.96)
+20.61
+(1.62)
+21.86
+(1.44)
+22.33
+(1.67)
+19.51
+(1.77)
+23.08
+(2.00)
+19.92
+(1.31)
+22.83
+(1.35)
+24.67
+(1.68)
+25.98
+(1.40)
+25.12
+(3.08)
+26.24
+(2.71)
+28.65
+(2.91)
+
+4:00pm-
+11:59pm
+(3)
+
+Closing
+price
+(4)
+
+Closing
+auction
+(5)
+
+9.35
+(0.67)
+7.18
+(0.69)
+10.30
+(0.77)
+10.41
+(1.20)
+14.20
+(0.94)
+18.15
+(1.50)
+16.12
+(1.91)
+17.21
+(1.47)
+17.76
+(1.64)
+15.82
+(1.65)
+19.09
+(1.74)
+15.47
+(1.30)
+19.04
+(1.26)
+21.09
+(1.64)
+22.56
+(1.26)
+23.29
+(1.98)
+21.37
+(1.77)
+24.62
+(2.70)
+
+5.47
+(0.48)
+4.40
+(0.46)
+6.63
+(0.45)
+7.42
+(1.02)
+10.83
+(2.74)
+9.91
+(0.86)
+9.62
+(0.99)
+10.78
+(0.69)
+9.87
+(0.84)
+10.31
+(0.89)
+12.02
+(0.88)
+11.86
+(1.04)
+15.42
+(0.99)
+17.46
+(1.35)
+19.06
+(1.03)
+21.71
+(3.16)
+19.35
+(1.37)
+22.53
+(2.10)
+
+1.09
+(0.21)
+0.97
+(0.22)
+1.80
+(0.34)
+2.51
+(0.61)
+2.85
+(0.53)
+4.92
+(0.86)
+4.58
+(0.88)
+3.81
+(0.76)
+4.17
+(0.67)
+3.54
+(0.77)
+4.24
+(1.13)
+5.52
+(0.96)
+6.45
+(1.12)
+9.99
+(1.55)
+11.38
+(1.26)
+10.79
+(2.06)
+11.54
+(1.57)
+13.31
+(1.96)
+
+gap between columns (3) and (4) earlier in our sample. As previously
+noted, it used to be common for prearranged trades to include some
+price improvement.
+
+Finally, column (5) in Table 4 gives our most conservative estimate
+for the US passive ownership share based only on 𝑉 𝑜𝑙𝑢𝑚𝑒𝐴𝑡𝐶𝑙𝑜𝑠𝑒. These
+numbers help address concerns about possible double counting of ac-
+tive trades that get covered after hours. However, if a large institutional
+investor places an upstairs block order for an index addition to be
+executed at the closing price, this order will not hit the tape until after
+market close. So there is good reason to think that the estimates for
+(𝑦) in column (5) is too low. Even still, there is no statistically
+%𝐼𝑛𝑑𝑒𝑥𝑒𝑑
+(cid:58)
+measurable difference between our point estimate for %𝐼𝑛𝑑𝑒𝑥𝑒𝑑
+(2021)
+(cid:58)
+based on 𝑉 𝑜𝑙𝑢𝑚𝑒𝐴𝑡𝐶𝑙𝑜𝑠𝑒, 13.31% ± (1.96%), and ICI’s estimate based on
+index-fund holdings, 16%.
+
+This observation underscores the importance of passive investors
+who operate ‘‘outside the public universe of index funds and ETFs’’.
+We know that closing volume omits some rebalancing trades and that
+our data only includes a subset of indexes. Nevertheless, the num-
+bers in column (5) are on par with the ICI’s estimates for index-fund
+ownership.
+
+3.4. Measurement error
+
+Our headline numbers suggest that the true passive ownership share
+is roughly double the index-fund ownership share. Given the economic
+magnitude of this difference, it is important to thoroughly examine
+potential sources of error in our calculations. We do this in several
+ways.
+
+First, in an ideal world, when ADD replaces DROP in index 𝑖 on
+day 𝑡𝑅𝑒𝑐𝑜𝑛, both of these changes would yield the same value for
+𝐴𝑈 𝑀𝑖𝑛𝑑𝑒𝑥𝑒𝑑𝑖(𝑡𝑅𝑒𝑐𝑜𝑛)
+
+𝐴𝑈 𝑀𝑖𝑛𝑑𝑒𝑥𝑒𝑑
+𝑖,ADD(𝑡𝑅𝑒𝑐𝑜𝑛) = 𝐴𝑈 𝑀𝑖𝑛𝑑𝑒𝑥𝑒𝑑
+(cid:58)
+(cid:58)
+When ADD replaces DROP in index 𝑖, it will generally do so with a
+different weight and closing price. So these two stocks cannot simply
+have higher volumes on reconstitution days. They must each realize
+
+𝑖,DROP(𝑡𝑅𝑒𝑐𝑜𝑛)
+
+(8)
+
+Table 5
+Average absolute difference between the passive ownership share implied by each index
+change and the average passive ownership share implied by all changes to that index
+in the same year. Sample: 2000 to 2021.
+
+S&P
+500
+
+5.49
+
+S&P
+MidCap
+
+0.35
+
+Russell
+1000
+
+1.87
+
+Russell
+2000
+
+0.23
+
+Nasdaq
+100
+
+0.74
+
+Full
+Sample
+
+1.00
+
+|%𝐸𝑟𝑟𝑜𝑟|
+
+higher volumes in exactly the right proportion needed by passive
+investors. Every stock added to or dropped from index 𝑖 on day 𝑡𝑅𝑒𝑐𝑜𝑛
+should yield the same point estimate for 𝐴𝑈 𝑀𝑖𝑛𝑑𝑒𝑥𝑒𝑑𝑖(𝑡𝑅𝑒𝑐𝑜𝑛). We use
+this requirement to gauge the magnitude of our measurement errors.
+
+Let %𝐸𝑟𝑟𝑜𝑟𝑖,𝑛(𝑡𝑅𝑒𝑐𝑜𝑛) denote the difference between the passive share
+implied by a single addition or deletion and the average passive share
+implied by all additions and deletions in the same year
+
+%𝐸𝑟𝑟𝑜𝑟𝑖,𝑛(𝑡𝑅𝑒𝑐𝑜𝑛) = %𝐼𝑛𝑑𝑒𝑥𝑒𝑑
+(cid:58)
+
+𝑖,𝑛(𝑡𝑅𝑒𝑐𝑜𝑛) − %𝐼𝑛𝑑𝑒𝑥𝑒𝑑
+(cid:58)
+
+𝑖(𝑦)
+
+(9)
+
+For example, Yeti’s volume on June 25th 2021 implied that 11.72%
+of the US stock-market was owned by Russell 1000 investors. The
+reconstitution-day volume for the average Russell 1000 addition in
+2021 implied a passive ownership share of 10.77%. Thus, the measure-
+ment error associated with Yeti’s addition to the Russell 1000 on June
+25th 2021 was 11.72% − 10.77% = 0.95%pt.
+
+Table 5 reports the average magnitude of the measurement error
+for each index. The typical Russell 1000 addition yields an estimate
+𝑖,𝑛(𝑡𝑅𝑒𝑐𝑜𝑛) that is ±1.87%pt of the average for the year. The
+for %𝐼𝑛𝑑𝑒𝑥𝑒𝑑
+(cid:58)
+precision of estimate based on Yeti’s addition to the Russell 1000 was
+representative of all Russell 1000 additions.
+
+By comparing our original standard errors to the ones implied by
+this within-event analysis, we find that roughly 4∕5 of our uncertainty
+is coming from within-event differences. For example, to convert the
+numbers in Table 5 into standard errors, you need to divide by a factor
+# changes each year. Fig. 3 tells us that that our data contains 48
+of
+changes to the S&P 500 each year. Table 5 says that the typical S&P 500
+addition/deletion yields an estimate that is ±5.49%pt away from the
+annual average, which would imply a standard error of 5.49%∕
+48 =
+
+√
+
+√
+
+JournalofFinancialEconomics157(2024)1038609A. Chinco and M. Sammon
+
+Table 6
+Predicting over- and underestimates in the passive ownership share. Each column reports the results of a separate univariate
+regression. The dependent variable is always the difference between the passive ownership share implied by each index change
+and the average passive ownership share implied by all changes to that index in the same year, %𝐸𝑟𝑟𝑜𝑟. The right-hand-side
+variable is different in each column. 𝑀𝐶𝑎𝑝 is the market capitalization of the stock being added or dropped on the day before
+reconstitution in billions of dollars. 𝑅𝑒𝑡 is the realized return of the stock being added or dropped on reconstitution day in percent.
+$𝑉 𝑜𝑙𝑢𝑚𝑒 is the dollar volume of the stock being added or dropped on reconstitution day in billions of dollars. 𝐼𝑛𝑑𝑒𝑥𝑊 𝑒𝑖𝑔ℎ𝑡 is
+the weight of the stock being added or dropped in basis points. 𝐼𝑠𝐴𝑑𝑑𝑖𝑡𝑖𝑜𝑛 is an indicator variable that is one if a stock is being
+added to the index and zero otherwise. 𝐼𝑠𝑀𝑖𝑔𝑟𝑎𝑡𝑖𝑜𝑛 is an indicator variable that is one if a stock is being moved between indexes
+and zero otherwise. Numbers in parentheses are 𝑡-stats clustered by announcement. Sample: 2000 to 2021.
+
+(1)
+
+0.07⋆⋆
+(2.09)
+−0.02⋆⋆
+(2.14)
+
+(2)
+
+0.02
+(0.89)
+
+0.00
+(0.08)
+
+(3)
+
+−0.06
+(1.26)
+
+0.19
+(1.43)
+
+Dep variable:
+
+Intercept
+
+𝑀𝐶𝑎𝑝
+
+𝑅𝑒𝑡
+
+$𝑉 𝑜𝑙𝑢𝑚𝑒
+
+𝐼𝑛𝑑𝑒𝑥𝑊 𝑒𝑖𝑔ℎ𝑡
+
+𝐼𝑠𝐴𝑑𝑑𝑖𝑡𝑖𝑜𝑛
+
+𝐼𝑠𝑀𝑖𝑔𝑟𝑎𝑡𝑖𝑜𝑛
+
+%𝐸𝑟𝑟𝑜𝑟
+
+(4)
+
+0.08⋆⋆⋆
+(2.85)
+
+(5)
+
+−0.58⋆⋆⋆
+(4.20)
+
+(6)
+
+−0.16⋆⋆⋆
+(3.95)
+
+−0.01⋆⋆⋆
+(4.46)
+
+0.67⋆⋆⋆
+(4.73)
+
+11, 168
+0.74%
+
+0.65⋆⋆⋆
+(5.11)
+11, 168
+1.16%
+
+# Obs
+Adj. 𝑅2
+
+11, 168
+
+0.66%
+
+11, 087
+−0.01%
+
+11, 168
+1.62%
+
+11, 168
+0.28%
+
+0.80%pt. This value is roughly 4∕5 of the average standard error on the
+S&P 500’s ownership share in Table 3, 1.06%pt. We corroborate this
+point estimate in Appendix B using time-series regressions.
+
+Next, we explore how our measurement errors are related to char-
+acteristics of the stocks being added or dropped. We do this by running
+regressions
+
+%𝐸𝑟𝑟𝑜𝑟𝑖,𝑛(𝑡𝑅𝑒𝑐𝑜𝑛) = ̂𝛼 + ̂𝛽 ⋅ 𝑋𝑖,𝑛(𝑡𝑅𝑒𝑐𝑜𝑛) + ̂𝜀𝑖,𝑛(𝑡𝑅𝑒𝑐𝑜𝑛)
+
+(10)
+
+where 𝑋𝑖,𝑛(𝑡𝑅𝑒𝑐𝑜𝑛) represents one of the following variables: a stock’s
+market cap the day prior to reconstitution, its reconstitution-day return,
+its dollar volume on reconstitution day, its weight in the index, an
+indicator for whether the stock is an addition, an indicator for whether
+the stock was migrated.
+
+Table 6 reports the results of these regressions. The negative coef-
+ficient on 𝑀𝐶𝑎𝑝 in column (1) says that we tend to slightly underesti-
+mate the passive ownership share when analyzing the reconstitution-
+day volume of larger stocks. A $1b increase in an index addition/
+deletion’s market cap is associated with a 2bps underestimate. The zero
+coefficient on 𝑅𝑒𝑡 in column (2) implies that, when an index addition
+or deletion has a large reconstitution-day return, this does not cause us
+to over- or underestimate the passive ownership share.
+
+Column (3) in Table 6 suggests that, when a stock has more dollar
+volume on reconstitution day, we tend to overestimate the passive
+ownership share. Whereas, column (4) implies that, when a stock
+represents a larger share of the index, we tend to underestimate the
+true passive ownership share. It is noteworthy that, while we have
+spent most of our time so far worrying about how reconstitution-day
+volume might be overstating passive rebalancing volume, there is only
+a significant coefficient in column (4) on the index weights. We will
+return to this point shortly.
+
+Finally, columns (5) and (6) in Table 6 show that our estimates for
+the passive ownership share are 67bps and 65bps higher for additions
+and migrations relative to deletions. These two point estimates are
+statistically significant but economically small. 67bps is 20× smaller
+than the US passive ownership share in 2000, 13.4%. These effects likely
+stem from how our sample is constructed. Direct deletions often follow
+corporate events like bankruptcies or mergers, meaning that some
+passive investors cannot wait until reconstitution day to rebalance.
+
+At the end of the day, most of our measurement error seems to be
+coming from uncertainty about the precise weights used by the indexes.
+We get 𝐼𝑛𝑑𝑒𝑥𝑊 𝑒𝑖𝑔ℎ𝑡𝑖,𝑛(𝑡𝑅𝑒𝑐𝑜𝑛) directly from FTSE Russell starting in
+2009. We have to interpolate these values from quarterly or monthly
+observations for the rest of our sample—i.e., for the S&P 500, the S&P
+MidCap 400, the Nasdaq 100, and the Russell 1000/2000 prior to 2009.
+
+Our measurement error all but disappears when we have precise index
+weights directly from the index provider.
+
+The gray lines in Fig. 6 show the passive ownership share tracking
+each index. These lines correspond to the solid lines reported in Fig. 5.
+The white dots in each panel correspond to individual estimates for
+𝑖,𝑛(𝑡𝑅𝑒𝑐𝑜𝑛) that are either 4× larger or smaller than the average
+%𝐼𝑛𝑑𝑒𝑥𝑒𝑑
+(cid:58)
+for the year. There are almost no outliers for the Russell 1000 and
+Russell 2000 starting in 2009 when we have index weights directly
+from FTSE Russell.
+
+Whenever we have to interpolate index weights, we use an ex-
+tremely conservative approach. Most of the outlier white dots are below
+the annual estimates for each index’s ownership share. If we were to
+omit these outliers from our sample, our headline numbers for the US
+passive ownership share would go up as shown by the black line in the
+bottom-right panel.
+
+4. Trading volume
+
+The previous section used the spike in reconstitution-day volume
+experienced by index additions and deletions to impute the US passive
+ownership share. In this section, we provide more information about
+the spike itself. Section 4.1 describes how trading volume jumps up on
+reconstitution day after being nearly flat in the days immediately prior.
+Then, in Section 4.2, we describe the ecosystem that has emerged to
+allow passive investors to rebalance all at once following the closing
+bell on reconstitution day. Finally, in Section 4.3, we look at an
+example of what happens when this ecosystem collapses. We include
+an analysis of the cost to rebalancing all at once on reconstitution day
+in Appendix C.
+
+4.1. Reconstitution day
+
+Fig. 7 shows the average 𝐷𝑎𝑖𝑙𝑦𝑉 𝑜𝑙𝑢𝑚𝑒𝑛(𝑡) for index additions and
+deletions on each day covering a 30-day window around reconstitution.
+To make volume numbers comparable, we normalize the values for
+each stock by 𝐴𝐷𝑉 𝑛. The typical index addition/deletion sees 9.8×
+its normal volume on reconstitution day. There is no index for which
+reconstitution days look ordinary. And some indexes have truly out-
+standing levels of reconstitution-day volume. For example, additions to
+the Russell 2000 see 14.2 days worth of volume on reconstitution day.
+Fig. 8 depicts how the magnitude of the reconstitution-day spike in
+volume has evolved over time for each index in our study. There is not
+an obvious common pattern across all five indexes. Additions to and
+deletions from both the S&P 500 and the S&P MidCap 400 have seen
+
+JournalofFinancialEconomics157(2024)10386010A. Chinco and M. Sammon
+
+Fig. 6. Gray line represents average passive ownership share tracking each index when using 𝐷𝑎𝑖𝑙𝑦𝑉 𝑜𝑙𝑢𝑚𝑒 as proxy for passive rebalancing volume. White dots are estimates for
+passive ownership share implied by specific add/drop events which we classify as outliers. Black dots represent the average passive ownership share implied by all remaining
+changes to the same index on the same date. Black line is the total passive ownership share across all five indexes excluding outliers. Sample: 2000 to 2021.
+
+Fig. 7. Average daily volume for index additions and deletions on days 𝑡 ∈ {𝑡𝑅𝑒𝑐𝑜𝑛 − 22, … , 𝑡𝑅𝑒𝑐𝑜𝑛 + 7}. We normalize volume on day 𝑡 by 𝐴𝐷𝑉 during the 22 trading days before
+reconstitution. All panels have same scale. Red bars and numbers denote reconstitution day. Blue bars denote the triple-witching day on the Friday before Russell reconstitution.
+Sample: 2000 to 2021. (For interpretation of the references to color in this figure legend, the reader is referred to the web version of this article.)
+
+Fig. 8. Black bars denote the average volume on reconstitution day experienced by index additions and deletions in a given year. We normalize each stock’s reconstitution-day
+volume by its 𝐴𝐷𝑉 during the 22 trading days prior to reconstitution. The highest and lowest 𝑦-axis labels in black represent the maximum and minimum annual values. The
+middle 𝑦-axis label in red represents the time-series average over entire sample. Sample: 2000 to 2021. (For interpretation of the references to color in this figure legend, the
+reader is referred to the web version of this article.)
+
+more and more reconstitution-day volume over time. Whereas, we find
+a qualitatively different pattern for changes to the Russell 1000 and
+Russell 2000.
+
+Fig. 9 shows the fraction of 𝐷𝑎𝑖𝑙𝑦𝑉 𝑜𝑙𝑢𝑚𝑒𝑛(𝑡) for index additions and
+deletions that gets executed from 4:00pm-11:59pm on each day in the
+= 100%, then
+30-day window around reconstitution. If
+there was not a single share of the 𝑛th stock traded during normal
+trading hours on day 𝑡. In the 22 days prior to reconstitution, 7.0%
+of daily volume got traded from 4:00pm to 11:59pm for a typical
+index addition/deletion across all five indexes. On reconstitution day,
+
+𝑉 𝑜𝑙𝑢𝑚𝑒1600𝑡𝑜2359𝑛(𝑡)
+𝐷𝑎𝑖𝑙𝑦𝑉 𝑜𝑙𝑢𝑚𝑒𝑛(𝑡)
+
+64.5% of all volume for adds and drops got executed either during the
+closing auction or after hours. For the typical Russell 2000 addition,
+this number is as high as 75.2%.
+
+Since Russell reconstitution day falls on the fourth Friday in June
+each year, there is always a triple witching day on the Friday before.
+Stock options, index options, and index futures all expire at market
+close on the third Friday in June. We would expect a higher fraction
+of volume to occur at the close on these days, and the blue bars in
+Fig. 9 confirm this is the case. However, the spike is nowhere near
+as large. For example, on the triple witching day the Friday before
+
+JournalofFinancialEconomics157(2024)10386011A. Chinco and M. Sammon
+
+Fig. 9. Percent of daily volume executed from 4:00pm–11:59pm for index additions and deletions in days 𝑡 ∈ {𝑡𝑅𝑒𝑐𝑜𝑛 − 22, … , 𝑡𝑅𝑒𝑐𝑜𝑛 + 7}. All panels have same scale. Black 𝑦-axis
+labels represent the percent executed from 4:00pm–11:59pm on a typical day prior to reconstitution. Red bars and numbers are connected to reconstitution day. Blue corresponds
+to the Friday before Russell reconstitution, which falls on a triple witching day. Sample: 2004 to 2021. (For interpretation of the references to color in this figure legend, the
+reader is referred to the web version of this article.)
+
+Russell reconstitution, stocks added to the Russell 2000 have a mere
+𝑉 𝑜𝑙𝑢𝑚𝑒1600𝑡𝑜2359𝑛(𝑡−5)
+= 14.4% of their volume at the close.
+𝐷𝑎𝑖𝑙𝑦𝑉 𝑜𝑙𝑢𝑚𝑒𝑛(𝑡−5)
+It is not optimal for passive investors to wait until market close
+on reconstitution day to do all their rebalancing in textbook order-
+execution models such as Kyle (1985), Bertsimas and Lo (1998), and
+Almgren and Chriss (2001). And if markets really were this liquid
+on reconstitution days, then sunshine-trading models like Admati and
+Pfleiderer (1991) would predict that other traders should also want to
+get in on the action. Yet we see no evidence of investors delaying trades
+to take advantage of reconstitution-day liquidity. Neither class of model
+seems to describe what happens in our data. Moreover, because most
+reconstitution-day volume happens all at once, it cannot be driven by
+hot-potato trading between intermediaries like in Lyons (1997).
+
+4.2. Prearranged trades
+
+ETFs aim to minimize their tracking error, so they wait until market
+close on reconstitution day to rebalance. However, other kinds of
+passive investors do not face the same end-of-day timing pressure. An
+active manager who is closet indexing could gradually rebalance if
+they wanted to. The same goes for a large institutional investor who
+was engaged in internal indexing or had an external direct-indexing
+account.
+
+Nevertheless, in spite of the fact that they do not face the same tim-
+ing constraints as ETFs, we provide evidence that all passive investors
+rebalance like ETFs. There is only a tiny increase in volume in the
+days immediately prior to reconstitution. Then, there is a huge spike
+in volume on reconstitution day, and most of these trades get executed
+from 4:00pm onward. To be able to trade this way, passive investors
+get help from an entire ecosystem of other investors.
+
+Market participants begin preparing for reconstitution events months
+ahead of time. For example, Russell reconstitution day occurs on the
+last Friday in June each year. And Madhavan et al. (2022) suggests
+that from March to May: ‘‘Rebalance facilitators. . . use publicly avail-
+able market information to predict anticipated changes to the index
+to estimate the size of the upcoming index rebalance. And liquidity
+providers, such as hedge funds, use the index predictions to establish
+trade positions in anticipation of supplying liquidity on the rebalance
+effective date’’.
+
+Anecdotally, we have heard from market participants that rebal-
+ance facilitators and liquidity providers begin preparing for Russell
+reconstitution day in January. And our data are consistent with these
+stories. Fig. 10 shows the average daily volume for index additions and
+deletions in the months (rather than days like in Fig. 7) around reconsti-
+tution. The height of each bar represents the percent difference between
+the typical addition/deletion’s daily volume in month 𝑚 and its daily
+
+volume 11 months prior to reconstitution, 100 ×
+)
+1
+tion.
+
+. We see volumes begin to rise 6 months prior to Russell reconstitu-
+
+(
+
+𝐷𝑎𝑖𝑙𝑦𝑉 𝑜𝑙𝑢𝑚𝑒𝑛(𝑚)
+𝐷𝑎𝑖𝑙𝑦𝑉 𝑜𝑙𝑢𝑚𝑒𝑛(𝑚𝑅𝑒𝑐𝑜𝑛−11)
+
+−
+
+While some passive investors do gradually rebalance during the
+months prior to reconstitution, most of the extra volume in Fig. 10
+comes from rebalancing facilitators (e.g., JP Morgan, Goldman Sachs,
+etc.) and liquidity providers (e.g., hedge funds). These traders are
+making preparations so that passive investors can rebalance all at once
+on reconstitution day.
+
+Some passive rebalancing is organized the day of reconstitution
+via market-on-close orders. However, many passive investors prefer
+to prearrange their rebalancing trades. An internal indexer tracking
+the Russell 1000 might contact, say, JP Morgan in February to set up
+rebalancing trades which will be executed at the closing price on the
+last Friday in June. JP Morgan would then line up liquidity providers—
+i.e., a group of hedge funds who are willing to sell each Russell 1000
+addition and a group who is willing to buy each deletion. The deal
+would get finalized months ahead of reconstitution. On reconstitution
+day, these trades would get executed as large upstairs transactions.
+
+Early in our sample period, it was common for prearranged re-
+balancing trades to include price improvement. For example, in 2007
+it would not have been unusual for JP Morgan to sell each Russell
+1000 addition to the internal indexer at the closing price on Russell
+reconstitution day minus $0.01. Our understanding is that this practice
+is much less common today.
+
+As we will see, the practice of prescheduling rebalancing trades
+helps explain why there is little price impact on reconstitution day.
+‘‘The industry does a good job of forecasting and facilitating index
+demand. [ . . . ] Despite the huge volumes, the annual Russell reconsti-
+tution is usually a relatively orderly close. A few stocks typically see
+some market impact late in the day, but in general the index trades are
+matched up pretty well by liquidity providers. Mackintosh (2020)’’
+
+For theorists, there are two noteworthy things about this trading
+arrangement. First, it is explicitly designed so that passive investors can
+trade a specific quantity regardless of the prevailing price. This is the
+exact opposite of Grossman and Stiglitz (1980) in which traders observe
+the equilibrium price before choosing their demand. Second, passive in-
+vestors devote substantial resources to managing reconstitution events.
+They are not uninformed traders in a Grossman and Stiglitz (1980)
+model. There are sell-side analysts specializing in index reconstitution
+events in the same way that there are sell-side analysts studying firm
+
+JournalofFinancialEconomics157(2024)10386012A. Chinco and M. Sammon
+
+Fig. 10. Average daily volume for index additions and deletions in months 𝑚 ∈ {𝑚𝑅𝑒𝑐𝑜𝑛 − 10, … , 𝑚𝑅𝑒𝑐𝑜𝑛 + 3}. 𝑦-axis reports the percent difference between a stock’s average daily
+)
+volume in month 𝑚 and its average daily volume 11 months prior to reconstitution, 100 ×
+− 1
+. All panels have same scale. Red label denotes the month of
+reconstitution. Black label denotes the month prior to reconstitution. Sample: 2001 to 2021. (For interpretation of the references to color in this figure legend, the reader is referred
+to the web version of this article.)
+
+𝐷𝑎𝑖𝑙𝑦𝑉 𝑜𝑙𝑢𝑚𝑒𝑛 (𝑚)
+𝐷𝑎𝑖𝑙𝑦𝑉 𝑜𝑙𝑢𝑚𝑒𝑛 (𝑚𝑅𝑒𝑐𝑜𝑛 −11)
+
+(
+
+Fig. 11. Tesla’s volume in the days around its addition to the S&P 500 in millions of shares. Solid bars represent total volume each day. White bars represent volume from 4:00pm
+to 11:59pm. On November 17th (green), S&P Dow Jones announced that Tesla would join the S&P 500 following market close on December 18th (red). Black 𝑦-axis label denotes
+Tesla’s average daily volume in 6 months prior to this announcement. Gray region is Tesla’s average daily volume from November 17th to December 17th. (For interpretation of
+the references to color in this figure legend, the reader is referred to the web version of this article.)
+
+fundamentals (Nomura, 2022).10 These information providers have
+been around for decades.11
+
+4.3. Case study: Tesla
+
+One way to highlight the importance of prearranged rebalancing is
+to look at what happens in a situation where passive investors could
+not preschedule their rebalancing trades. Market events conspired to
+construct exactly this sort of situation for Tesla Inc (TSLA)’s addition
+to the S&P 500 in December 2020. Here we will lay out the facts and
+document the ways that Tesla’s rebalancing differed that of a typical
+S&P 500 addition. In the following section, we will explore how these
+differences in trading patterns manifested in prices (see Fig. 11).
+
+Investors usually have a good idea about who will be added to
+the S&P 500 before S&P Dow Jones makes its formal announcement.
+However, it came as something of a surprise when the index provider
+announced on November 17th that Tesla would get added to the S&P
+500 on December 18th 2020. Even though the company was the 6th
+largest US firm, S&P Dow Jones had ‘‘passed [Tesla] over in several
+previous index reshuffles’’.12 Many did not expect the company to get
+added in December 2020 either.
+
+10 e.g.,
+
+see
+equity-index/.
+
+also www.bloomberg.com/what-goes-into-maintaining-an-
+
+11 Editorial Board. ‘‘Managing the Russell Recon: A Decade of Change’’.
+
+Traders Magazine. Jun 20, 2005.
+
+In addition to being surprised, S&P 500 investors also had relatively
+little time to prepare. While S&P Dow Jones made a formal announce-
+ment 22 trading days prior to Tesla’s inclusion, this was all the time
+that investors got to prepare. By contrast, for a normal event, investors
+are able to predict the change months ahead of time. Even if investors
+cannot predict exactly which stocks will be added to or dropped from
+the S&P 500, they usually have a shortlist of candidates.
+
+To further complicate matters, rebalancing facilitators found it hard
+to line up liquidity providers. S&P Dow Jones’ initial press release did
+not say ‘‘which current constituent Tesla [would] replace [or] how
+Tesla [would] be added. S&P Dow Jones Indices (2020b)’’ And liquidity
+providers were still feeling the effects of recent losses incurred when
+S&P Dow Jones postponed its March 2020 reconstitution (S&P Dow
+Jones Indices, 2020a).13
+
+In short, the usual trading apparatus behind passive rebalancing
+broke down when Tesla was added to the S&P 500. Only 222.1m∕52.2m
+= 4.2× Tesla’s average daily volume got traded on December 18th 2020,
+and roughly half of this volume took place during normal trading hours,
+(222.1m − 116.4m)∕222.1m = 47.6%. Rather than using prearranged
+trades, S&P 500 investors were forced to do much of their rebalancing
+during the month prior to reconstitution. Tesla’s average daily volume
+from November 17th through December 18th, 52.2m shares, was nearly
+double its average daily volume during the 6 months prior, 29.0m
+shares.
+
+12 Richard Waters ‘‘Tesla to join S&P 500 in December’’. The Financial Times.
+
+13 Nathan Vardi ‘‘Hedge Funds Suffered Losses As Index Rebalancing Trade
+
+Nov 16, 2020.
+
+Went Awry’’. Forbes. Mar 27, 2020.
+
+JournalofFinancialEconomics157(2024)10386013A. Chinco and M. Sammon
+
+Fig. 12. Each bar denotes the average return in excess of the market on reconstitution day for a value-weighted portfolio of either index additions or index deletions. 𝑦-axis has
+units of % per day, and all panels have same scale. The bar for additions to the S&P 500 in 2020 does not include Tesla. The white circle shows the average reconstitution-day
+return in excess of the market for S&P 500 additions in 2020 when including Tesla. Sample: 2000 to 2021.
+
+5. Asset prices
+
+5.2. Elasticity estimates
+
+Passive investors often prearrange their rebalancing trades to be
+executed at market close on reconstitution day. We now look at how
+this practice affects prices. In Section 5.1 we document how there is no
+longer much price pressure on reconstitution days. Prices move when
+trades are arranged not when they are executed. In Section 5.2 we show
+how this disconnect helps explain the wide range of elasticity estimates
+found in the literature.
+
+5.1. Abnormal returns
+
+Given that passive investors are doing so much trading at market
+close on reconstitution day, you might expect to see large price effects
+on reconstitution day. There used to be one (Harris and Gurel, 1986;
+Shleifer, 1986; Beneish and Whaley, 1996; Wurgler and Zhuravskaya,
+2002; Madhavan, 2003; Petajisto, 2011). However, as Greenwood and
+Sammon (2024) document, there is no longer much predictable price
+pressure on reconstitution days.
+
+To illustrate this fact, we form two kinds of value-weighted portfo-
+
+lios on 𝑡𝑅𝑒𝑐𝑜𝑛. We create one for index additions
+
+∑
+
+𝑅𝑒𝑡𝐴𝑑𝑑𝑠𝑖(𝑡𝑅𝑒𝑐𝑜𝑛) =
+
+𝑛∈𝐴𝑑𝑑𝑠𝑖
+∑
+
+𝑀𝐶𝑎𝑝𝑛(𝑡𝑅𝑒𝑐𝑜𝑛 − 1) ⋅ 𝑅𝑒𝑡𝑛(𝑡𝑅𝑒𝑐𝑜𝑛)
+𝑀𝐶𝑎𝑝𝑛′ (𝑡𝑅𝑒𝑐𝑜𝑛 − 1)
+
+𝑛′∈𝐴𝑑𝑑𝑠𝑖
+
+(11)
+
+and another for index deletions, 𝑅𝑒𝑡𝐷𝑟𝑜𝑝𝑠𝑖(𝑡𝑅𝑒𝑐𝑜𝑛).
+
+Fig. 12 reports
+
+the average value of 𝑅𝑒𝑡𝐴𝑑𝑑𝑠𝑖(𝑡𝑅𝑒𝑐𝑜𝑛) and
+𝑅𝑒𝑡𝐷𝑟𝑜𝑝𝑠𝑖(𝑡𝑅𝑒𝑐𝑜𝑛) in excess of the market for all reconstitution events for
+a given index each year. The bottom-right panel show that the returns
+to buying index additions and the returns to selling index deletions
+have steadily converged to nearly zero. This has happened in spite of
+the fact that the overall passive ownership share has grown from 13.4%
+to 33.5% during this same period.
+
+To be clear: index inclusion does affect prices. The effect just does
+not come by way of passive rebalancing demand on reconstitution
+days. Greenwood and Sammon (2024) document that, even in the
+modern era there are announcement-day returns associated with direct
+additions and deletions. Under normal conditions, passive investors
+have already scheduled most of their rebalancing trades well in advance
+of reconstitution day.
+
+Tesla’s addition to the S&P 500 on December 18th 2020 was an
+exception to this rule. S&P 500 investors had a hard time prearranging
+enough rebalancing trades, so Tesla realized a 5.96% reconstitution-
+day return in Fig. 13. When we include Tesla, the returns to S&P
+500 additions in 2020 are 5.14%pt higher than the market return
+(Fig. 12; white dot, lower left panel). All other S&P 500 additions in
+2020 have abnormal reconstitution-day returns of just 1.20% (Fig. 12;
+corresponding black bar).
+
+Because they are often prescheduled, passive investors’ trades can
+affect prices long before they get executed. As a result, if a researcher
+uses too narrow a time window around reconstitution day, she may
+miss the price impact associated with passive demand, making the
+market seem too elastic. This observation can explain the wide range
+of elasticity estimates associated with index reconstitution events. For
+example, Wurgler and Zhuravskaya (2002, Table 4) reports values from
+−11.72 (more elastic) to −1.00 (less elastic).
+
+To highlight this issue, we compute demand elasticities for direct
+additions using price changes at different horizons. We focus on direct
+additions to get the cleanest signal. When a stock gets migrated from,
+say, the Russell 2000 up to the Russell 1000, some of the buying
+pressure coming from Russell 1000 investors will be met by Russell
+2000 investors who need to sell. The same goes for moves between the
+S&P 500 and S&P MidCap 400. We do not include direct drops because
+these changes are often due to an acquisition or bankruptcy, making
+it unclear how much of the associated price change is due to passive
+rebalancing.
+
+Let 𝑀𝑢𝑙𝑡𝑖𝑝𝑙𝑖𝑒𝑟ADD(ℎ) denote the increase in a direct addition’s price
+during the ℎ trading days leading up to reconstitution day divided
+by the stock’s volume on reconstitution day as a fraction of shares
+outstanding
+
+𝑀𝑢𝑙𝑡𝑖𝑝𝑙𝑖𝑒𝑟𝑛(ℎ) =
+
+{ ∏ℎ
+
+𝓁=1[1 + 𝐴𝑏𝑛𝑅𝑒𝑡𝑛(𝑡𝑅𝑒𝑐𝑜𝑛 − 𝓁)]
+𝐷𝑎𝑖𝑙𝑦𝑉 𝑜𝑙𝑢𝑚𝑒𝑛(𝑡𝑅𝑒𝑐𝑜𝑛)∕#𝑆ℎ𝑎𝑟𝑒𝑠𝑛
+
+− 1
+
+(12)
+
+}60∕ℎ
+
+The demand shock is the same at every horizon: a direct addition’s
+reconstitution-day volume as a percent of shares outstanding. The only
+thing that changes as we extend the horizon is the length of time over
+which we measure the price impact. So that longer horizons do not
+look artificially inelastic, we calculate each stock’s return in excess of
+the market, 𝐴𝑏𝑛𝑅𝑒𝑡𝑛(𝑡) = 𝑅𝑒𝑡𝑛(𝑡) − 𝑀𝑘𝑡(𝑡).
+
+We look at horizons ℎ ∈ {60, … , 1} where ℎ = 60 denotes the
+quarter before reconstitution day and ℎ = 1 denotes just reconstitution
+day itself. For each index we first estimate the median price multiplier
+at each horizon. We report the associated demand elasticity values in
+Fig. 14 where
+
+𝐸𝑙𝑎𝑠𝑡𝑖𝑐𝑖𝑡𝑦𝑖(ℎ) = − 1∕𝑀𝑢𝑙𝑡𝑖𝑝𝑙𝑖𝑒𝑟𝑖(ℎ)
+
+(13)
+
+If 𝐸𝑙𝑎𝑠𝑡𝑖𝑐𝑖𝑡𝑦𝑖(ℎ) = −5, demand falls by 5% when prices increase by 1%.
+The red dot and 𝑦-axis label in each panel represents 𝐸𝑙𝑎𝑠𝑡𝑖𝑐𝑖𝑡𝑦𝑖(1).
+This calculation assumes that the price impact of passive investors’
+demand will occur on reconstitution day itself. As a result, it makes
+markets look far too elastic. The bottom-right panel in Fig. 14 indicates
+
+JournalofFinancialEconomics157(2024)10386014A. Chinco and M. Sammon
+
+Fig. 13. Tesla’s closing price in the days around its addition to the S&P 500. On November 17th (green), S&P Dow Jones announced that Tesla would join the S&P 500 following
+market close on December 18th (red). Percentages reported in the figure are realized returns on announcement day and reconstitution day. Black 𝑦-axis label is Tesla’s closing
+price on January 8th. (For interpretation of the references to color in this figure legend, the reader is referred to the web version of this article.)
+
+Fig. 14. Median demand elasticity for direct additions at a particular horizon. The demand shock is reconstitution-day volume as a percent of its shares outstanding. The price
+change is cumulative excess return over the past ℎ ∈ {60, … , 1} trading days (𝑥-axis). The red dot corresponds to the estimate at ℎ = 1, which only use a stock’s price increase on
+reconstitution day. The left-most point in each panel uses a stock’s price increase over the past quarter. The vertical white line in each panel denotes the average time between
+announcement day and reconstitution: 5 trading days for the S&P 500, S&P MidCap 400, and Nasdaq 100; 15 trading days for the Russell 1000 and Russell 2000. (For interpretation
+of the references to color in this figure legend, the reader is referred to the web version of this article.)
+
+that, on average, a 1% increase in a direct addition’s price on reconsti-
+tution day is associated with a 39.2% decrease in demand for the stock
+on reconstitution day.
+
+By contrast, demand looks less elastic once we extend the horizon
+to include the price impact from prearranged trades. The bottom-
+right panel in Fig. 14 indicates that, on average, a 1% increase in a
+direct addition’s price over the quarter leading up to reconstitution is
+associated with a 1.1% decrease in demand on reconstitution day.
+
+What’s more, if our story is correct, then we should see a kink in
+the elasticity estimates at horizons where lots of rebalancing trades
+get prearranged. To test this hypothesis, we exploit differences in
+the timing and information content of announcement days across in-
+dexes. The vertical white line in each panel represents the point at
+which an index provider typically makes a formal announcement about
+upcoming changes.
+
+FTSE Russell typically makes an announcement 15 trading days
+before Russell reconstitution day. However, it is usually possible to
+identify direct additions well before then. So there is no sharp change
+in the elasticity estimates for the Russell 1000 and Russell 2000. The
+values in these two panels gradually fall down and to the right.
+
+S&P Dow Jones and Nasdaq typically announce changes to their in-
+dexes 5 trading days prior to reconstitution. Moreover, their announce-
+ments typically contain new information. Prior to the announcement,
+investors have an idea about a handful of stocks that might be added.
+The announcement then reveals which stock from this shortlist was
+selected for inclusion. Hence, many prearranged rebalancing trades get
+arranged at the announcement. This is when passive investors’ demand
+shock shows up in prices, and using a shorter event window leads to
+spuriously low elasticity estimates in Fig. 14.
+
+We are able to reproduce the range of elasticity estimates (from
+−39.2 to −1.1) found in the literature. However, once you recognize
+
+how passive investors trade, it is clear that values near −1 reflect
+the demand elasticity of rebalancing facilitators, not passive investors.
+Passive investors are perfectly inelastic. They prearrange to trade a
+fixed quantity of additions and deletions at whatever the price happens
+to be on reconstitution day at the close. S&P 500 investors did not buy
+less Tesla because its price went up post announcement.
+
+6. Conclusion
+
+Each time a stock gets added to or dropped from a popular index,
+we ask: ‘‘How much money would have to be tracking that index to
+explain the huge spike in rebalancing volume we observe on reconsti-
+tution day?’’ We find that passive investors held 33.5% of the US stock
+market in 2021. This headline number is roughly double the index-fund
+ownership share in 2021, 16%, because index funds are not the only
+kind of passive investor.
+
+The particular way that we estimate the US passive ownership share
+also gives theorists guidance on how to model the rise of passive in-
+vesting going forward. To start with, there is not widespread agreement
+among market participants about the true passive ownership share. This
+number is not common knowledge. We should not model investors as
+choosing between active and passive strategies given how many other
+investors have made the same decision.
+
+Some market participants were aware that there was a lot of money
+being invested outside of the public index-fund universe. For example,
+in a 2017 white paper, researchers at BlackRock estimated that index
+funds held $5.0t in combined AUM while internal indexers held $6.8t
+(Novick et al., 2017). The Investment Company Institute is also clearly
+aware that index funds are not the only kind of passive investor. They
+are in no way misleading market participants. The title of Fig. 2.9 in
+
+JournalofFinancialEconomics157(2024)10386015A. Chinco and M. Sammon
+
+Fig. A.1. Black circles reflect mutual funds that increased their positions in S&P 500 additions and decreased their positions in S&P 500 deletions with probability ≥ 50% over
+the past 5 years. White squares reflect mutual funds that adjusted their holdings in the correct direction ≥ 80% of the time. The solid line reflects the AUM tracking the S&P 500
+as implied by our methodology. The vertical gray bar denotes 2018, the final year in Pavlova and Sikorskaya (2023).
+
+Investment Company Institute (2022) is ‘‘Index Fund Share of US Stock
+Market Is Small’’.
+
+However, in spite of this disclaimer, ‘‘people often [forgot] that
+open-ended investment funds only [held] a slice of markets, and [con-
+flated] passive’s mutual fund industry market share with its overall
+market ownership’’. Prior to this paper, it was difficult to gauge how
+much additional money was being passively invested outside of index
+funds. And there was not broad appreciation of how strictly passive
+investors track their benchmarks.
+The way that passive investors
+rebalance does not match up with the usual noisy rational-expectations
+paradigm (Grossman and Stiglitz, 1980), which assumes that investors
+observe the equilibrium price before choosing their demand. Instead,
+theorists should focus on passive investors’ inelastic demand à la Had-
+dad et al. (2024). These traders often prearrange rebalancing trades
+to be executed at the closing price on reconstitution day, regardless
+of what that price is. They are sophisticated traders who dedicate
+substantial resources to managing reconstitution.
+
+CRediT authorship contribution statement
+
+Alex Chinco: Writing – review & editing, Writing – original draft,
+Visualization, Validation, Supervision, Software, Methodology, Investi-
+gation, Formal analysis, Data curation, Conceptualization. Marco Sam-
+mon: Writing – review & editing, Writing – original draft, Visualization,
+Validation, Supervision, Software, Methodology, Investigation, Formal
+analysis, Data curation, Conceptualization.
+
+Declaration of competing interest
+
+Authors have nothing to disclose.
+
+Data availability
+
+Replication package for "The Passive-Ownership Share Is Double W
+hat You Think It Is" (Reference data) (Mendeley Data).
+.
+
+Appendix A. Quarterly fund holdings
+
+In the past, researchers have used quarterly fund holdings data
+to study passive ownership. The usual source for this data is Thom-
+son S12. This data exists because the Investment Company Act of
+1940 requires mutual funds, closed-end funds, exchange-traded funds
+(ETFs), and unit investment trusts (UITs) to disclose snapshots of their
+holdings every quarter. In this section, we discuss the advantages of
+using reconstitution-day volume rather than quarterly fund holdings to
+estimate the US passive ownership share.
+
+First, our approach reflects passive investments made outside of
+40 Act funds. In the past, market participants have made educated
+guesses about the overall passive ownership share based on holdings
+data. However, as discussed above, these guesses tended to be well
+
+below our headline 33.5% number. Moreover, when market participants
+made different guesses from one another, it was difficult to reconcile
+their estimates. By contrast, under our new approach, each individual
+stock that gets added to or deleted from an index yields a separate point
+estimate for the amount of money tracking that index. This allows us
+to calculate standard errors and cross-validate our results.
+
+It is possible to use quarterly fund holdings to infer which mutual
+funds are likely benchmarked to an index. However, ‘‘being bench-
+marked to’’ is not the same thing as ‘‘mimicking the precise portfolio
+weights at market close on reconstitution day’’. We are the first to doc-
+ument that most rebalancing volume gets executed in a short window
+of time around market close on reconstitution day. Our data suggest
+that nearly all passive investors get their rebalancing trades executed
+at market close on reconstitution day just like ETFs do.
+
+The amount of money benchmarked to our five indexes is also far
+below the total amount of money being indexed. For example, Pavlova
+and Sikorskaya (2023) estimates that the collective AUM of mutual-
+fund managers who were benchmarked to the S&P 500 was $2.5t in
+2018. We find a similar estimate in Fig. A.1 when we compute the com-
+bined AUM of mutual funds that bought shares of S&P 500 additions
+and sold shares of deletions in more than 50% of reconstitution events
+during the past 5 years. These estimates imply that the AUM of S&P
+500-benchmarked mutual funds is $2.0t less than our $4.5t estimate for
+the AUM passively tracking the S&P 500 in Fig. 4. If we use an 80%
+threshold for benchmarking, the gap grows to $3.2t. And, once again,
+not all mutual funds that are benchmarked to the S&P 500 are passive.
+While we cannot see the holdings of non-index-fund passive in-
+vestors, our approach sheds light on the economic forces behind their
+decisions. While we see a large spike in 2009 in the overall passive
+ownership share in Fig. 2, there is no corresponding spike in the
+index-fund ownership share in Fig. 2 or benchmarking intensity in
+Fig. A.1.
+
+This suggests that, although the index-fund ownership share is slow
+moving, the ownership share of other kinds of passive investors is not.
+One possible explanation is that large institutional investors turned to
+direct indexing in 2009 as a way to do tax-loss harvesting following
+the financial crisis. Another possible explanation is that active man-
+agers substantially reduced their leverage after suffering losses during
+the financial crisis. Both interpretations are consistent with Cremers
+and Petajisto (2009)’s results on the active share among US mutual
+funds. Their updated data reveals a 2009 drop in the active share as
+documented in Mauboussin et al. (2017).
+
+Appendix B. Regression analysis
+
+The share of the market owned by index funds has grown steadily
+over the past twenty years. By contrast, our estimates indicate that the
+market share of other kinds of passive investors increased sharply in
+2009. In Appendix A, we use data on quarterly fund holdings from
+Thomson S12 to corroborate this finding, but suppose you still think
+that this spike is implausible. Under the assumption that index-fund
+
+JournalofFinancialEconomics157(2024)10386016A. Chinco and M. Sammon
+
+Table B.1
+Time-series regressions. Each column reports the results of a separate time-series regression using annual observations. Columns (1)-(6) include one
+observation per year. Column (7) is a pooled specification that includes five observations per year—i.e., one for each index. The state variable in
+panel A is our estimate for the passive ownership share. Sample: 2003 to 2021. The state variable in panel B is the change in these estimates for
+the passive ownership share. Lag # is the coefficient on a lagged value of the state variable. Year is the coefficient on the time trend. Numbers in
+parentheses are 𝑡-stats. Sample: 2004 to 2021.
+
+Panel A: %𝐼𝑛𝑑𝑒𝑥𝑒𝑑
+(cid:58)
+
+S&P
+500
+(1)
+
+Intercept
+
+Lag 1
+
+Lag 2
+
+Lag 3
+
+Year
+
+Index FE
+# Obs
+𝑅2
+
+8.58⋆⋆
+(2.74)
+0.36
+(1.40)
+−0.16
+(0.57)
+−0.20
+(0.76)
+0.43⋆⋆
+(2.54)
+𝑁
+19
+68.6%
+
+Panel B: 𝛥%𝐼𝑛𝑑𝑒𝑥𝑒𝑑
+(cid:58)
+
+S&P
+500
+(1)
+
+Intercept
+
+Lag 1
+
+Lag 2
+
+Lag 3
+
+Index FE
+# Obs
+𝑅2
+
+0.04
+(0.85)
+−0.15
+(0.56)
+−0.24
+(0.94)
+−0.10
+(0.37)
+𝑁
+18
+7.3%
+
+S&P
+MidCap
+(2)
+
+0.38
+(1.44)
+0.33
+(1.32)
+−0.03
+(0.12)
+0.21
+(0.78)
+0.01
+(1.01)
+𝑁
+19
+73.2%
+
+S&P
+MidCap
+(2)
+
+0.03
+(0.80)
+−0.19
+(0.79)
+−0.19
+(0.83)
+0.31
+(1.50)
+𝑁
+18
+31.9%
+
+Russell
+1000
+(3)
+
+2.99⋆⋆
+(2.40)
+0.41
+(1.54)
+0.13
+(0.48)
+−0.03
+(0.12)
+0.15
+(1.07)
+𝑁
+19
+71.1%
+
+Russell
+1000
+(3)
+
+0.07
+(0.93)
+−0.30
+(1.18)
+0.13
+(0.46)
+0.20
+(0.81)
+𝑁
+18
+16.1%
+
+Russell
+2000
+(4)
+
+0.29⋆⋆
+(2.27)
+0.48⋆
+(1.83)
+0.11
+(0.38)
+0.11
+(0.43)
+0.00
+(0.19)
+𝑁
+19
+69.5%
+
+Russell
+2000
+(4)
+
+0.03
+(0.66)
+−0.17
+(0.66)
+0.12
+(0.51)
+0.25
+(1.02)
+𝑁
+18
+10.2%
+
+Nasdaq
+100
+(5)
+
+−0.48
+(1.04)
+0.67⋆⋆
+(2.62)
+0.18
+(0.59)
+0.07
+(0.23)
+0.07⋆⋆⋆
+(3.04)
+𝑁
+19
+70.3%
+
+Nasdaq
+100
+(5)
+
+0.06
+(0.63)
+−0.16
+(0.63)
+−0.05
+(0.20)
+−0.15
+(0.55)
+𝑁
+18
+4.7%
+
+Total
+(6)
+
+11.10⋆⋆
+(2.23)
+0.45
+(1.72)
+−0.05
+(0.16)
+−0.11
+(0.42)
+0.67⋆
+(2.01)
+𝑁
+19
+76.1%
+
+Total
+(6)
+
+0.05
+(1.09)
+−0.20
+(0.75)
+−0.12
+(0.45)
+0.08
+(0.30)
+𝑁
+18
+5.9%
+
+Pooled
+(7)
+
+0.58⋆⋆⋆
+(5.42)
+0.03
+(0.26)
+0.06
+(0.54)
+0.07⋆⋆
+(2.46)
+𝑌
+95
+97.5%
+
+Pooled
+(7)
+
+−0.19⋆
+(1.83)
+−0.02
+(0.21)
+0.01
+(0.06)
+𝑌
+90
+8.6%
+
+ownership is a constant fraction of overall passive ownership, it is
+possible to use a Kalman filter to strip out noise from our estimates.
+
+To motivate our Kalman-filter specification, we run time-series re-
+gressions to understand the auto-regressive structure of our baseline
+estimates. Panel A in Table B.1 reports regressions of the form below
+
+%𝐼𝑛𝑑𝑒𝑥𝑒𝑑
+(cid:58)
+
+𝑖(𝑦) = ̂𝜇 +
+
+3
+∑
+
+𝓁=1
+
+̂𝜃𝓁 ⋅ %𝐼𝑛𝑑𝑒𝑥𝑒𝑑
+(cid:58)
+
+𝑖(𝑦 − 𝓁) + ̂𝜂 ⋅ 𝑦 + ̂𝜀𝑖(𝑦)
+
+(B.1)
+
+Columns (1)–(5) in Table B.1 look at each of our five indexes on its
+own. Column (6) looks at the total passive ownership share for all
+five indexes. There are 22 years from 2000 through 2021, but we
+cannot compute lags the first 3 years. So these first six columns involve
+22 − 3 = 19 annual observations. Column (7) is a pooled specification
+with all five in a given year, 19×5 = 95 observations in total. We include
+a separate intercept term for each index but force the lag coefficients
+and time trend to be the same for all indexes. None of the lags has
+̂𝜃𝓁| < 1, and only the first lag is ever
+a coefficient larger than unity, |
+significant.
+
+However, the passive ownership share has been increasing over the
+past twenty years. The time trend is statistically significant in panel A
+of Table B.1. So in panel B we estimate an analogous specification in
+differences
+
+𝛥%𝐼𝑛𝑑𝑒𝑥𝑒𝑑
+(cid:58)
+
+𝑖(𝑦) = ̂𝜇 +
+
+3
+∑
+
+𝓁=1
+
+̂𝜃𝓁 ⋅ 𝛥%𝐼𝑛𝑑𝑒𝑥𝑒𝑑
+(cid:58)
+
+𝑖(𝑦 − 𝓁) + ̂𝜀𝑖(𝑦)
+
+(B.2)
+
+Again, there is no long-term auto-correlation structure. This suggests
+we only need to include a single lag when estimating our Kalman filter.
+If you thought that index funds always owned a constant share of all
+passive investments, then you could use this additional assumption to
+constrain the evolution of our baseline estimates via a Kalman filter.
+But, before fitting a Kalman filter to the data, we first report what
+this relationship looks like on average. What fraction of all passive
+investments are held by index funds on average during our sample
+period?
+
+Table B.2 reports the results of regressing the index-fund ownership
+
+share on the overall passive ownership share in a given year
+
+%𝐼𝑛𝑑𝑒𝑥𝐹 𝑢𝑛𝑑𝑂𝑤𝑛𝑒𝑑𝑖(𝑦) = ̂𝜅 + ̂𝜆 ⋅ %𝐼𝑛𝑑𝑒𝑥𝑒𝑑
+(cid:58)
+
+𝑖(𝑦) + ̂𝜀𝑖(𝑦)
+
+(B.3)
+
+The first row shows results using the ICI’s numbers for the index-fund
+ownership share. The ICI’s numbers reflect all index funds that track
+any index, including ones we do not have data on. The next five rows
+use Thomson S12 data to compute the ownership share of index funds
+tracking the Russell 1000, the Russell 2000, the S&P 500, the S&P
+MidCap 400, or the Nasdaq 100. We follow Appel et al. (2016) and
+use a name-based classification system. For example, when considering
+the S&P 500, we look for combinations of ‘‘S&P’’, ‘‘S & P’’, ‘‘SandP’’,
+‘‘S and P’’, and ‘‘SP’’ together along with ‘‘500’’. The final row uses the
+combined AUM of index funds that track one of our five indexes.
+
+The 0.54 slope coefficient in panel A of Table B.2 implies that growth
+in index investing is responsible for roughly half of the overall growth
+in passive investing. Index-fund holdings contribute 54 cents of each $1
+increase in overall passive ownership. Panel B shows analogous results
+for each individual index. As expected, the slope coefficients are now
+much smaller. Index funds are responsible for just 23 cents of each
+$1 increase in passive AUM tracking the S&P 500. Russell 1000 index
+funds account for just 4 cents out of every $1 increase in AUM tracking
+the Russell 1000.
+
+In the introduction, we suggested that if all passive investing were
+done via index funds, then we would have estimated a passive own-
+ership share of just 6% in 2021. This remark is based on the slope
+coefficient of 0.16 in the last row of panel B, which implies that 0.16 ×
+33.5% ≈ 6% of the US stock market was owned by the subset of index
+funds tracking our five indexes in 2021. The ICI’s 16% figure is not a
+lower bound because it is based on more indexes.
+We study the data-generating process below
+
+𝑚𝑖(𝑦) = F 𝑥𝑖(𝑦) + 𝜖𝑖(𝑦)
+𝑥𝑖(𝑦) = G 𝑥𝑖(𝑦 − 1) + 𝜀𝑖(𝑦)
+
+(B.4a)
+
+(B.4b)
+
+JournalofFinancialEconomics157(2024)10386017A. Chinco and M. Sammon
+
+Table B.2
+Index-fund share of passive ownership. Coefficient estimates from regressing the index-fund ownership share on the overall passive
+ownership share. Each row represents a separate regression using annual observations. Panel A: Left-hand side is the ICI’s index-fund
+ownership share, which reflects all index funds tracking any index. Right-hand side is the ownership share of passive investors tracking
+the Russell 1000, the Russell 2000, the S&P 500, the S&P MidCap 400, or the Nasdaq 100. Panel B: Left-hand side is ownership share
+of index funds tracking just these five indexes. Right-hand side is ownership share of passive investors tracking the same index. Numbers
+in parentheses are 𝑡-stats. Sample: 2000 to 2021.
+
+Panel A: ICI Factbook
+
+Panel B: Thomson S12
+
+Funds that track
+the. . .
+
+All index funds
+that track any index
+
+S&P 500
+
+S&P MidCap
+
+Russell 1000
+
+Russell 2000
+
+Nasdaq 100
+
+Funds that track one of these five indexes
+
+Intercept
+
+−4.01⋆⋆
+(2.24)
+
+Intercept
+
+−1.00⋆⋆
+(2.33)
+−0.18⋆⋆⋆
+(3.04)
+−0.09⋆
+(2.05)
+−0.06⋆
+(2.28)
+0.11⋆⋆⋆
+(4.14)
+
+−1.16⋆⋆
+(2.47)
+
+Slope
+
+0.54⋆⋆⋆
+(7.18)
+
+Slope
+
+0.23⋆⋆⋆
+(6.73)
+0.42⋆⋆⋆
+(6.74)
+0.04⋆⋆⋆
+(7.80)
+0.25⋆⋆⋆
+(8.73)
+0.07⋆⋆⋆
+(4.34)
+
+0.16⋆⋆⋆
+(8.32)
+
+Adj. 𝑅2
+
+70.7%
+
+# Obs
+
+22
+
+Adj. 𝑅2
+
+# Obs
+
+67.8%
+
+67.9%
+
+74.0%
+
+78.2%
+
+45.9%
+
+76.5%
+
+22
+
+22
+
+22
+
+22
+
+22
+
+22
+
+Fig. B.1. Dashed gray lines represent one-step-ahead forecasts produced by a Kalman filter. These filtered values represent our estimates for the passive ownership share after
+adjusting for the information in the current index-fund ownership share. Solid black lines depict our baseline estimates for the passive ownership share using 𝐷𝑎𝑖𝑙𝑦𝑉 𝑜𝑙𝑢𝑚𝑒 as proxy
+for passive rebalancing. They are identical to the black lines reported in Fig. 5. Sample: 2001 to 2021.
+
+𝑖(𝑦), 1 ]⊤ is the measure-
+𝑚𝑖(𝑦) = [ %𝐼𝑛𝑑𝑒𝑥𝐹 𝑢𝑛𝑑𝑂𝑤𝑛𝑒𝑑𝑖(𝑦), %𝐼𝑛𝑑𝑒𝑥𝑒𝑑
+(cid:58)
+ment vector, which contains the observable index-fund ownership
+share and our estimate for the passive ownership share. 𝑥𝑖(𝑦) =
+[ %𝐼𝑛𝑑𝑒𝑥𝑒𝑑𝑖(𝑦), %𝐼𝑛𝑑𝑒𝑥𝑒𝑑𝑖(𝑦 − 1), 1 ]⊤ is the hidden state vector con-
+taining the ‘‘true’’ passive ownership share.
+
+We parameterize the coefficient matrices and noise terms based on
+the results of the time-series and cross-sectional regressions reported
+above. The coefficient matrix F and the noise term 𝜖𝑖(𝑦) are given by
+
+F =
+
+𝜆
+1
+0
+
+⎛
+⎜
+⎜
+⎝
+
+0
+0
+0
+
+𝜅
+0
+1
+
+⎞
+⎟
+⎟
+⎠
+
+and
+
+𝜖𝑖(𝑦) ∼ Normal
+
+0
+⎤
+0
+⎥
+⎥
+0
+⎦
+
+⎛
+⎡
+⎜
+⎢
+⎜
+⎢
+⎣
+⎝
+
+,
+
+𝜍2
+0
+⎡
+0 𝜛2
+⎢
+⎢
+0
+0
+⎣
+
+0
+⎤
+0
+⎥
+⎥
+0
+⎦
+
+⎞
+⎟
+⎟
+⎠
+
+(B.5)
+
+The 1 in the second row of F captures the idea that our estimation
+procedure yields a noisy measurement of the true passive ownership
+𝑖(𝑦) = %𝐼𝑛𝑑𝑒𝑥𝑒𝑑𝑖(𝑦) + 𝜖𝑖(𝑦), with 1∕𝜛2 denoting the
+share, %𝐼𝑛𝑑𝑒𝑥𝑒𝑑
+(cid:58)
+precision of our estimates.
+
+The coefficient matrix G and the noise term 𝜀𝑖(𝑦) are given by
+
+G =
+
+1 + 𝜃 −𝜃
+⎛
+0
+⎜
+⎜
+0
+⎝
+
+1
+0
+
+𝜇
+0
+1
+
+⎞
+⎟
+⎟
+⎠
+
+and 𝜀𝑖(𝑦) ∼ Normal
+
+0
+⎤
+⎡
+0
+⎥
+⎢
+⎥
+⎢
+0
+⎦
+⎣
+
+⎛
+⎜
+⎜
+⎝
+
+,
+
+𝜎2
+0
+0
+
+⎡
+⎢
+⎢
+⎣
+
+0
+0
+0
+
+0
+⎤
+0
+⎥
+⎥
+0
+⎦
+
+⎞
+⎟
+⎟
+⎠
+
+(B.6)
+
+This structure yields a state-transition equation with a single lag in first
+differences, 𝛥%𝐼𝑛𝑑𝑒𝑥𝑒𝑑𝑖(𝑦) = 𝜇 + 𝜃 ⋅ 𝛥%𝐼𝑛𝑑𝑒𝑥𝑒𝑑𝑖(𝑦 − 1) + 𝜀𝑖(𝑦).
+
+We use maximum likelihood to fit the 7 parameters, {𝜇, 𝜃, 𝜎, 𝜅, 𝜆, 𝜍,
+𝜛}, to the annual data for each of our five indexes. Then we make one-
+step-ahead forecasts of the true passive ownership share, %𝐼𝑛𝑑𝑒𝑥𝑒𝑑𝑖(𝑦).
+These forecasts reflect our baseline estimates for the passive ownership
+
+𝑖(𝑦), as well as the assumption that a constant fraction
+share, %𝐼𝑛𝑑𝑒𝑥𝑒𝑑
+(cid:58)
+of all passive holdings are owned by index funds. Because the index-
+fund ownership share grows at a relatively stable rate, these filtered
+forecasts will be less volatile than our baseline estimates.
+
+The gray dotted lines in Fig. B.1 show the one-step-ahead forecasts
+produced by a Kalman filter. The black lines correspond to our baseline
+estimates as shown in Fig. 5. The filtered values are much smoother
+than our baseline estimates, displaying no spike in ownership following
+the 2008 financial crises. But, again, this is expected. The index-fund
+ownership share increases at a steady rate, and the Kalman filter adjusts
+our baseline estimates to reflect an assumption that index funds own a
+constant fraction of all passive investments.
+
+Both time series start with the same initial value in 2001, but they
+do not have to end in the same place. Indeed, the filtered time series for
+the Nasdaq 100 and the Russell 2000 ends slightly below our baseline
+estimates of the passive ownership share for those indexes. But this is
+not the overarching pattern. Our estimates for the passive ownership
+share of Russell 1000 and S&P 500 investors are slightly above their
+filtered counterparts in 2021. The same is true for our 2021 estimate
+of total passive ownership. This suggests that the main takeaway from
+our analysis is not driven by the spike in passive ownership in 2009.
+
+Appendix C. Investor costs
+
+Many passive investors use prearranged trades to execute their
+rebalancing orders right at market close on reconstitution day. We do
+not know of any official data, but market participants have quoted
+
+JournalofFinancialEconomics157(2024)10386018A. Chinco and M. Sammon
+
+Table C.1
+Daily returns to the S&P 500 and a zero-cost strategy that rebalances the S&P 500’s weights the day after S&P Dow Jones announces an
+upcoming reconstitution. Numbers in parentheses are standard errors. The first column reports results for the full sample: January 2nd
+2002 through December 31st 2021. The next three columns report results for different subperiods: before Tesla’s addition was announced;
+the day after the announcement through reconstitution day; and, the rest of the sample period.
+
+Start date
+End date
+
+S&P 500 [bps]
+
+Lng/Shrt [bps]
+
+# days
+
+Full Sample
+
+Jan 2, 2002
+Dec 31, 2021
+
+4.37⋆⋆
+(1.72)
+0.02⋆⋆⋆
+(0.01)
+5, 036
+
+Before
+Jan 2, 2002
+Nov 17, 2020
+
+3.99⋆⋆
+(1.77)
+0.01
+(0.01)
+4, 754
+
+Relative to Tesla’s Addition
+During
+Nov 18, 2020
+Dec 18, 2020
+
+13.56
+(26.05)
+2.67⋆⋆⋆
+(0.10)
+22
+
+After
+Dec 21, 2020
+Dec 31, 2021
+
+10.53
+(7.58)
+0.01
+(0.03)
+260
+
+Fig. C.1. Cumulative returns to a zero-cost long/short strategy that starts off with $1 on January 2nd 2002. The sample period ends December 31st 2021. The long leg is the
+returns to an early-rebalancing version of the S&P 500, which adjusts its weights to reflect each upcoming reconstitution the morning after the event is announced. The short leg
+is the returns to the S&P 500. On November 17th 2020, S&P Dow Jones announced that Tesla would be joining the S&P 500 after markets closed on December 18th 2020.
+
+Fig. C.2. Volume-weighted average effective spread for index additions and deletions each year on the day after the changed was announced by the index provider. Sample: 2004
+to 2021.
+
+us fees in the range of 5bps. Hence, for there to be a huge spike in
+reconstitution-day volume, the cost of rebalancing in the days prior to
+reconstitution must be at least this high.
+
+We start in Appendix C.1 by looking at whether an S&P 500 investor
+could improve his risk-return profile by rebalancing his portfolio the
+day after S&P Dow Jones announces each reconstitution event. He
+cannot. Hence, any gains from rebalancing early must come from cost
+savings. In Appendix C.2, we then show that the volume-weighted
+spread for S&P 500 index additions and deletions is roughly 5bps on
+the day following the announcement.
+
+C.1. Average returns
+
+Consider a private wealth manager who is internal indexing to the
+S&P 500. The S&P 500 is a value-weighted index, and its constituent
+stocks were worth $10.4t on January 2nd 2002. Suppose the manager
+has $1b in AUM at the start of 2002. In that case, the manager’s assets
+would equate to roughly 0.01% of the total S&P 500 universe. Hence,
+to replicate the S&P 500, he would need to hold 0.01% of the float for
+each S&P 500 stock.
+
+Changes to the S&P 500 are typically announced 5 trading days prior
+to reconstitution. Following each announcement, the manager could
+continue to hold 0.01% of existing S&P 500 constituents until market
+close on reconstitution day. The first row of Table C.1 shows that, from
+January 2nd 2002 through December 31st 2021, the S&P 500 averaged
+returns of 4.37bps per day. Each $1 invested at the start of the sample
+period turned into $6.19 by the end, which amounts to a 11% annualized
+return and a 0.57 annualized Sharpe ratio.
+
+However, the private wealth manager could also rebalance early. On
+the day after each S&P Dow Jones announcement, he could rebalance
+his portfolio so that he held 0.01% of the revised S&P 500 constituent
+list. These weights differ from the official S&P 500 weights for the next
+5 trading days. Then the official S&P 500 weights change to match the
+ones in his early-rebalancing portfolio. The second row of Table C.1
+reports the difference between the returns to this early-rebalancing
+portfolio and the actual S&P 500. Over the entire sample period, this
+new portfolio outperforms the official S&P 500 by just 0.02bps per day.
+A strategy that went $1 long the early-rebalancing portfolio and $1 short
+the S&P 500 on January 2nd 2002 produced just $0.06 in profit by
+December 31st 2021 as shown in Fig. C.1.
+
+JournalofFinancialEconomics157(2024)10386019A. Chinco and M. Sammon
+
+Fig. D.1. Mechanics of a prearranged rebalancing sale.
+
+Table C.1 tells us the private wealth manager cannot boost his
+average return by rebalancing early. For most of the sample period, re-
+balancing the S&P 500 early would have done nothing except increase
+the volatility of the manager’s returns. The cumulative returns to the
+long/short strategy were negative on the Monday before Thanksgiving
+in 2020. The entire $0.06 gain was earned during the remaining 13
+months of the sample period. The third column in Table C.1 shows that
+half of this $0.06 gain came during the 22 trading days following Tesla’s
+announcement. And this is all before considering trading costs.
+
+C.2. Marginal spread
+
+We have just seen that an S&P 500 investor cannot boost his risk-
+return profile by rebalancing early. Hence, any gains from rebalancing
+early must come from cost savings. The effective spread is the differ-
+ence between a stock’s bid and ask prices divided by the midpoint.
+Fig. C.2 shows the volume-weighted average effective spread each year
+for index additions and deletions on the day after the change was
+announced by the index provider.
+
+The bottom-left panel reports results for the S&P 500. The numbers
+indicate that, taking prices as given, an investor that was internal
+indexing to the S&P 500 would have to pay an effective spread of
+between 4bps and 6bps in recent years if he were to rebalance early.
+The numbers are slightly higher for the S&P MidCap 400 and Russell
+
+1000. They are much higher for the Russell 2000 since this index is
+composed of smaller stocks.
+
+Hence, the observed spreads during normal trading hours on the day
+after announcements are on par with what market participants have
+told us about the cost of prearranging a trade. This does not mean that
+the practice of prearranging trades is unimportant. The exact opposite
+is true. If all $7.5t in AUM that was tracking the S&P 500 in 2021 had
+instead tried to rebalance the day after announcements, we would not
+have estimated an effective spread of 6bps in Fig. C.2. The practice
+allows passive investors to push huge volumes through equity markets
+at a cost of 5bps, which is tantamount to the marginal spread on the
+day following an announcement.
+
+Appendix D. Prearranged rebalancing
+
+Dish Network (DISH) was removed from the S&P 500 at market
+close on Friday June 16th 2023. This section describes how an S&P
+500 ETF could work with an authorized participant (AP) to ‘‘sell’’ its
+holdings of Dish Network using a custom redemption basket to avoid
+paying any capital gains tax. Moreover (and more importantly for this
+paper) even though there are a number of steps involved in the process,
+only one transaction will hit the market tape, and this transaction will
+get recorded during or immediately after the closing auction on June
+16th.
+
+JournalofFinancialEconomics157(2024)10386020A. Chinco and M. Sammon
+
+Suppose the S&P 500 ETF in our example initially held $3m worth of
+Dish Network stock when the market opened on June 12th as shown in
+Fig. D.1(a). The ETF’s goal is to remove these shares from its portfolio at
+market close on Friday June 16th 2023. For simplicity, we will assume
+that the fund works with a single AP who handles all its rebalancing
+volume for Dish Network. We will also ignore the addition of Palo Alto
+Networks (PANW), which replaced Dish Network in the S&P 500 at
+the start of trading on Tuesday June 20th 2023. In this example, that
+rebalancing activity is handled entirely separately.
+
+At some point during the days prior to June 16th 2023, the AP will
+kick off the chain of events by exchanging a $3m position in S&P 500
+stocks for $3m worth of new ETF shares as shown in Fig. D.1(b). These
+exact timing of this exchange is not critical. The key thing is that these
+newly created ETF shares must be worth the exact same amount as the
+Dish Network position the ETF wants to get rid of.
+
+The next step of the process is where the custom redemption comes
+into play. At some point before the market closes at 4:00pm on Friday
+June 16th, the AP will arrange to redeem its $3m in new ETF shares.
+Usually, the AP would receive a basket of stocks containing all S&P
+500 stocks. However, in this special circumstance, the AP will instead
+receive the $3m Dish Network position the ETF is trying to get rid of at
+the close. The ETF has now set everything up to remove Dish Network
+from its holdings at the end of trading as shown in Fig. D.1(c). It has
+successfully rebalanced its holdings.
+
+However, the AP is not done yet. They still have a $3m position in
+Dish Network. To complete the process, the AP uses either a market-on-
+close (MOC) order or a pre-arranged upstairs trade to sell these shares
+as shown in Fig. D.1(d). Once this is done, the AP ends the trading day
+on Friday June 16th with no outstanding positions.
+
+There are four things to note about this process. First, because the
+ETF swapped its $3m position in Dish Network for a $3m position in
+S&P 500 stocks, it does not have to pay any capital gains tax. This
+is known as an ‘‘in kind’’ transaction. Second, only the final sale in
+Fig. D.1(d) occurs on a public exchange and counts towards trading
+volume. Share creation and redemption does not contribute to the
+trading volume observed in CRSP and TAQ. This is further evidence
+against possible double counting. Third, notice that the final sale in
+Fig. D.1(d) was executed by the AP not the ETF. Even though the ETF
+was the one who needed to rebalance, the AP was the one who made
+the official trade.
+
+Fourth, even though the process of removing Dish Network from the
+ETF’s portfolio involved multiple steps that could have been spread out
+over an entire week, the only recorded trades got executed at market
+close on Friday June 16th 2023. If the AP used a MOC order to sell its
+$3m position in Dish Network, then these trades would have gotten
+executed during the closing auction. As such they would have been
+recorded as taking place at 4:00pm. However, if the AP was able to
+line up an institutional buyer for these shares, then it would liquidate
+its $3m of Dish Network shares in an upstairs trade tied to the closing
+price. In that case, the trade would get recorded some time after 4:00pm
+on June 16th.
+
+References
+
+Admati, A., Pfleiderer, P., 1991. Sunshine trading and financial market equilibrium.
+
+Rev. Financ. Stud.
+
+Almgren, R., Chriss, N., 2001. Optimal execution of portfolio transactions. J. Risk.
+An, Y., Benetton, M., Song, Y., 2023. Index providers: Whales behind the scenes of
+
+ETFs. J. Financ. Econ.
+
+Baruch, S., Zhang, X., 2021. The distortion in prices due to passive investing. Manage.
+
+Sci.
+
+Bebchuk, L., Cohen, A., Hirst, S., 2017. The agency problems of institutional investors.
+
+J. Econ. Perspect.
+
+Ben-David, I., Franzoni, F., Moussawi, R., 2018. Do ETFs increase volatility? J. Finance.
+Beneish, M., Whaley, R., 1996. An anatomy of the ‘‘S&P Game’’: The effects of changing
+
+the rules. J. Finance.
+
+Bennett, B., Stulz, R., Wang, Z., 2024. Does joining the S&P 500 index hurt
+
+firms? Working Paper.
+
+Bertsimas, D., Lo, A., 1998. Optimal control of execution costs. J. Financial Mark.
+Bessembinder, H., Carrion, A., Tuttle, L., Venkataraman, K., 2016. Liquidity, resiliency
+and market quality around predictable trades: Theory and evidence. J. Financ.
+Econ.
+
+Bogousslavsky, V., Muravyev, D., 2023. Who trades at the close? Implications for price
+
+discovery and liquidity. J. Financial Mark.
+
+Bond, P., García, D., 2022. The equilibrium consequences of indexing. Rev. Financ.
+
+Stud.
+
+Brogaard, J., Ringgenberg, M., Sovich, D., 2019. The economic impact of
+
+index
+
+investing. Rev. Financ. Stud.
+
+Buffa, A., Vayanos, D., Woolley, P., 2022. Asset management contracts and equilibrium
+
+prices. J. Polit. Econ.
+
+Burnham, T., Gakidis, H., Wurgler, J., 2018. Investing in the presence of massive flows:
+
+The case of MSCI country reclassifications. Financ. Anal. J.
+
+Buss, A., Sundaresan, S., 2023. More risk, more information: How passive ownership
+
+can improve informational efficiency. Rev. Financ. Stud.
+
+Chang, Y.-C., Hong, H., Liskovich, I., 2015. Regression discontinuity and the price
+
+effects of stock market indexing. Rev. Financ. Stud.
+
+Chinco, A., Fos, V., 2021. The sound of many funds rebalancing. Rev. Asset Pric. Stud.
+Coles, J., Heath, D., Ringgenberg, M., 2022. On index investing. J. Financ. Econ.
+Coval, J., Stafford, E., 2007. Asset fire sales (and purchases) in equity markets. J.
+
+Financ. Econ.
+
+Cremers, M., Ferreira, M., Matos, P., Starks, L., 2016.
+management: International evidence. J. Financ. Econ.
+
+Indexing and active fund
+
+Cremers, M., Petajisto, A., 2009. How active is your fund manager? A new measure
+
+that predicts performance. Rev. Financ. Stud.
+
+Da, Z., Shive, S., 2018. Exchange traded funds and asset return correlations. Eur.
+
+Financial Manag.
+
+Edmans, A., Holderness, C., 2017. Blockholders: A survey of theory and evidence.
+
+Handb. Econ. Corp. Gov.
+
+FTSE Russell, 2022. Russell US Equity Indices.
+Gabaix, X., Koijen, R., 2024. In search of the origins of financial fluctuations: The
+
+inelastic markets hypothesis. Working Paper.
+
+Greenwood, R., 2008. Excess
+
+comovement of
+
+stock returns: Evidence
+
+from
+
+cross-sectional variation in Nikkei 225 weights. Rev. Financ. Stud.
+
+Greenwood, R., Sammon, M., 2024. The disappearing index effect. J. Finance.
+Grossman, S., Stiglitz, J., 1980. On the impossibility of
+
+informationally efficient
+
+markets. Am. Econ. Rev.
+
+Haddad, V., Huebner, P., Loualiche, E., 2024. How competitive is the stock market?
+
+Theory, evidence, and implications. Working Paper.
+
+Harris, L., Gurel, E., 1986. Price and volume effects associated with changes in the
+
+S&P 500: New evidence of price pressure. J. Finance.
+
+Heath, D., Macciocchi, D., Michaely, R., Ringgenberg, M., 2022. Do index funds
+
+monitor? Rev. Financ. Stud.
+
+Huang, S., O’Hara, M., Zhong, Z., 2021. Innovation and informed trading: Evidence
+
+from industry ETFs. Rev. Financ. Stud.
+
+Investment Company Institute, 2022. Fact Book. Technical Report, link.
+Israeli, D., Lee, C., Sridharan, S., 2017. Is there a dark side to exchange traded funds?
+
+An information perspective. Rev. Account. Stud.
+
+Koijen, R., Yogo, M., 2019. A demand-system approach to asset pricing. J. Polit. Econ.
+Kyle, A., 1985. Continuous auctions and insider trading. Econometrica.
+Lee, J., 2024. Passive investing and price efficiency. Working paper.
+Lettau, M., Madhavan, A., 2018. Exchange-traded funds 101 for economists. J. Econ.
+
+Perspect.
+
+Lewellen, J., Lewellen, K., 2022. Institutional investors and corporate governance: The
+
+incentive to be engaged. J. Finance.
+
+Lou, D., 2012. A flow-based explanation for return predictability. Rev. Financ. Stud.
+Lyons, R., 1997. A simultaneous trade model of the foreign-exchange hot potato. J. Int.
+
+Econ.
+
+Mackintosh, P., 2020. A Record Russell Recon is Coming. Technical Report, link.
+Madhavan, A., 2003. The Russell reconstitution effect. Financ. Anal. J.
+Madhavan, A., 2016. Exchange-Traded Funds and the New Dynamics of Investing.
+
+Oxford University Press.
+
+Appel, I., Gormley, T., Keim, D., 2016. Passive investors, not passive owners. J. Financ.
+
+Madhavan, A., Ribando, J., Udevbulu, N., 2022. Demystifying index rebalancing: An
+
+Econ.
+
+analysis of the costs of liquidity provision. J. Portf. Manag.
+
+Appel, I., Gormley, T., Keim, D., 2020. Identification using Russell 1000/2000 index
+
+Mauboussin, M., Callahan, D., Majd, D., 2017. Looking for Easy Games: How Passive
+
+assignments: A discussion of methodologies. Crit. Finance Rev.
+
+Investing Shapes Active Management. Credit Suisse Report.
+
+Azar, J., Schmalz, M., Tecu, I., 2018. Anticompetitive effects of common ownership. J.
+
+Nomura, 2022. Reconsidering the Recon: Insights from 15 years of Russell Rebalance
+
+Finance.
+
+Data. Technical Report, Client Communications.
+
+Baker, M., Bradley, B., Wurgler, J., 2011. Benchmarks as
+
+limits
+
+to arbitrage:
+
+Novick, B., Cohen, S., Madhavan, A., Bunzel, T., Sethi, J., Matthews, S., 2017. Index
+
+Understanding the low-volatility anomaly. Financ. Anal. J.
+
+Barberis, N., Shleifer, A., Wurgler, J., 2005. Comovement. J. Financ. Econ.
+
+Investing Supports Vibrant Capital Markets. Technical Report, BlackRock.
+Pavlova, A., Sikorskaya, T., 2023. Benchmarking intensity. Rev. Financ. Stud.
+
+JournalofFinancialEconomics157(2024)10386021A. Chinco and M. Sammon
+
+Petajisto, A., 2011. The index premium and its hidden cost for index funds. J. Empir.
+
+Financ.
+
+Petajisto, A., 2013. Active share and mutual fund performance. Financ. Anal. J.
+Robertson, A., 2019. Passive in name only: Delegated management and index investing.
+
+Yale J. Regul.
+
+S&P Dow Jones Indices, 2020b. Tesla added to the S&P 500. Technical Report, link.
+S&P Dow Jones Indices, 2022. S&P 500 fact sheet. Technical Report, link.
+Tuttle, L., 2013. Alternative Trading Systems: Description of ATS Trading in National
+
+Market System Stocks. Division of Economic and Risk Analysis.
+
+Wigglesworth, R., 2021. Trillions: How a Band of Wall Street Renegades Invented the
+
+Schmalz, M., Zame, W., 2024. Index funds, asset prices, and the welfare of investors.
+
+Index Fund and Changed Finance Forever. Penguin.
+
+Working Paper.
+
+Wurgler, J., 2011. On the economic consequences of
+
+index-linked investing.
+
+In:
+
+Seyffart, J., 2023. Passive Index Ownership Levels. Technical Report, Bloomberg
+
+Challenges to Business in the Twenty-First Century.
+
+Intelligence.
+
+Wurgler, J., Zhuravskaya, E., 2002. Does arbitrage flatten demand curves for stocks? J.
+
+Shleifer, A., 1986. Do demand curves for stocks slope down? J. Finance.
+S&P Dow Jones Indices, 2020a. Notice to authorized participants (APs). Technical
+
+Bus.
+
+Report, link.
+
+JournalofFinancialEconomics157(2024)10386022

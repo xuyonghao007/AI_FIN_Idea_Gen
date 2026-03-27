@@ -1,0 +1,5064 @@
+Contents lists available at ScienceDirect
+
+Journal of Financial Economics
+
+journal homepage: www.elsevier.com/locate/jfec
+
+Is it alpha or beta? Decomposing hedge fund returns when models are 
+misspeciﬁed
+David Ardia a, Laurent Barras b,∗, Patrick Gagliardini c,e, Olivier Scaillet d,e
+a GERAD & Department of Decision Sciences, HEC Montréal, Canada
+b Department of Finance, University of Luxembourg, Luxembourg
+c Institute of Finance, Università della Svizzera Italiana, Switzerland
+d Geneva Finance Research Institute, University of Geneva, Switzerland
+e Swiss Finance Institute, Switzerland
+
+A  R  T  I  C  L  E 
+
+I  N  F  O
+
+A  B  S  T  R  A  C  T
+
+We develop a novel approach to separate alpha and beta under model misspeciﬁcation. It comes with formal 
+tests to identify less misspeciﬁed models and sharpen the return decomposition of individual funds. Our hedge 
+fund analysis reveals that: (i) prominent models are as misspeciﬁed as the CAPM, (ii) several factors (time-series 
+momentum, variance, carry) capture alternative strategies and lower performance in all investment categories, 
+(iii) fund heterogeneity in alpha and beta is large—an important result for fund selection and models of active 
+management, (iv) performance is increasingly similar to mutual funds, (v) fund valuation is sensitive to investor 
+sophistication.
+
+Dataset link: https://
+doi .org /10 .5281 /zenodo .10459612
+
+JEL classiﬁcation:
+C55
+C58
+G11
+G12
+G23
+
+Keywords:
+Hedge fund returns
+Alpha
+Beta
+Model misspeciﬁcation
+Large cross-section
+
+1.  Introduction
+
+The average return that any hedge fund 𝑖 delivers to investors is the 
+sum of two components. The alpha component 𝑎𝑐∗
+is based on private 
+𝑖
+information—it captures the net return that the fund produces by using 
+its proprietary information signals. The beta component 𝑏𝑐∗
+is based 
+𝑖
+on public information—it captures the return that the fund produces 
+by following mechanical trading strategies. The economic importance 
+of these two components is potentially large. A commonly held view is 
+that hedge fund managers deliver positive alphas because they are more 
+sophisticated, less constrained, and more incentivized than mutual fund 
+managers. In addition, the literature consistently emphasizes that hedge 
+funds take advantage of the positive returns of alternative strategies that 
+
+are weakly correlated with the equity market (e.g., Carhart et al., 2014; 
+Pedersen, 2015).
+
+Decomposing  returns  is  key  for  evaluating  the  performance  and 
+risk proﬁle of hedge funds. It is therefore important for researchers, 
+investors, and policymakers alike. This decomposition is likely to ex-
+hibit substantial variation across funds as they follow many investment 
+strategies and private information signals (e.g., Lhabitant, 2007). As a 
+result, averaging across funds provides limited information about the 
+entire fund population. For example, it does not reveal how many funds 
+deliver positive alphas—an important quantity for testing the predic-
+tions of equilibrium models of active asset management. Capturing fund 
+heterogeneity is also crucial for hedge fund investors because they can 
+only invest in a handful of funds (Bollen et al., 2021). These arguments 
+
+* Corresponding author at: University of Luxembourg; Faculty of Law, Economics, and Finance; 6 Rue Richard Coudenhove-Kalergi; 1359 Luxembourg, Luxem-
+bourg.
+
+E-mail addresses: david.ardia@hec.ca (D. Ardia), laurent.barras@uni.lu (L. Barras), patrick.gagliardini@usi.ch (P. Gagliardini), olivier.scaillet@unige.ch
+
+(O. Scaillet).
+
+https://doi.org/10.1016/j.jﬁneco.2024.103805
+Received 28 June 2023; Received in revised form 30 January 2024; Accepted 6 February 2024
+
+JournalofFinancialEconomics154(2024)103805Availableonline13February20240304-405X/©2024ElsevierB.V.Allrightsreserved.D. Ardia, L. Barras, P. Gagliardini et al.
+
+call for the estimation of the entire distributions of the alpha and beta 
+components characterized by the densities 𝜙∗
+
+𝑎𝑐 and 𝜙∗
+𝑏𝑐 .
+
+The estimation of these distributions is hampered by misspeciﬁca-
+tion. Capturing all the strategies followed by hedge funds is notoriously 
+diﬃcult, which implies that any chosen model 𝑘 is likely misspeciﬁed—
+that  is,  it  omits  relevant  factors  that  drive  the  beta  components  of 
+individual  funds.  In  this  case,  we  cannot  infer  the  true  components 
+𝑎𝑐∗
+𝑖 and 𝑏𝑐∗
+𝑖 . Instead, we can only observe the estimated components 
+𝑘
+𝑖 , which serve as inputs to compute the distributions  ̂𝜙𝑘
+𝑖 and  ̂𝑏𝑐
+̂𝑎𝑐𝑘
+𝑎𝑐
+and  ̂𝜙𝑘
+𝑏𝑐 . These distributions are imperfect and noisy versions of 𝜙∗
+𝑎𝑐
+and 𝜙∗
+𝑏𝑐 . They are imperfect because the alphas absorb the average re-
+turns of the factors omitted by the model. Put diﬀerently, high alphas 
+are simply hidden betas. The distributions are also noisy because of the 
+sampling variation of the omitted factors. This misspeciﬁcation-driven 
+variation, which aﬀects all funds, does not vanish even when the fund 
+population grows large.
+
+𝑎𝑐 and 𝜙𝑘
+
+We propose a new methodology to address the challenges of mis-
+speciﬁcation. We develop a nonparametric approach for estimating the 
+distributions 𝜙𝑘
+𝑏𝑐 for any chosen factor model. Its key feature 
+is to explicitly account for the dual impact of misspeciﬁcation. First, it 
+provides a framework for comparing models and identifying the ones 
+with greater ability to capture alternative strategies. Using models less 
+prone to misspeciﬁcation produces a sharper identiﬁcation of the true 
+alpha and beta components 𝑎𝑐∗
+𝑖 and 𝑏𝑐∗
+𝑖 . Second, it comes with a full-
+ﬂedged asymptotic theory that incorporates the estimation noise due to 
+misspeciﬁcation. This contribution is crucial to conduct proper statis-
+tical inference on the fund alphas and betas and perform valid model 
+comparison tests.
+
+Our  approach  contributes  to  previous  studies  which  measure  the 
+distribution of fund alphas under correct speciﬁcation (e.g., Barras et 
+al., 2022; Harvey and Liu, 2018). In contrast, we account for the im-
+pact of misspeciﬁcation, which is essential for decomposing hedge fund 
+returns. Our approach also provides the ﬁrst formal comparison of mis-
+speciﬁed models in a large population of funds. It therefore departs from 
+previous tests based on a small number of assets (e.g., Kan and Robotti, 
+2009; Kan et al., 2013). We cannot apply such tests here because they 
+require the inversion of the entire return covariance matrix—an oper-
+ation that cannot be performed because the number of funds is larger 
+than the number of return observations.
+
+To demonstrate the beneﬁts of our approach, we apply it to a set 
+of nine diverse models. In addition to the CAPM, we include four stan-
+dard models commonly used in previous work: the models of Carhart 
+(1997), Fama and French (2015), Fung and Hsieh (2004), and Asness 
+et al. (2013). We examine the two machine learning models of Kozak 
+et al. (2020) trained on 50 characteristic-based equity portfolios. Fi-
+nally, we consider two models formed with ﬁve additional factors that 
+plausibly capture hedge fund strategies: marketwide illiquidity, betting-
+against-beta (BAB), variance (short position), carry, and time-series (TS) 
+momentum.1 The ﬁrst model by Joenväärä et al. (2021) (JKKT) is a 
+Carhart model with illiquidity, BAB, and TS momentum. Based on the 
+work by Carhart et al. (2014) and Pedersen (2015), we form a second 
+model (CP) that includes all ﬁve additional factors (alongside with mar-
+ket and size).
+
+We conduct our analysis between 1994 and 2020 using monthly data 
+on 5,231 hedge funds. Following Joenväärä et al. (2021), we carefully 
+aggregate four diﬀerent databases and mitigate the various biases that 
+aﬀect hedge fund reporting (backﬁll, selectivity, and survivorship). For 
+each model 𝑘, the estimation of the alpha and beta distributions 𝜙𝑘
+𝑎𝑐 and 
+𝑘
+𝑏𝑐 requires as inputs the estimated components  ̂𝑎𝑐𝑘
+𝜙𝑘
+𝑖 for each 
+fund. To this end, we run a regression of the excess return (net of fees) 
+
+𝑖 and  ̂𝑏𝑐
+
+𝑘
+
+𝑖 = ̂𝛼𝑘
+
+𝑖 and  ̂𝑏𝑐
+
+of each fund on the excess returns of the factors included in model 𝑘. 
+We then compute the two components as  ̂𝑎𝑐𝑘
+𝑖 = ̂𝜇𝑖 − ̂𝑎𝑐𝑘
+𝑖 , 
+where ̂𝛼𝑘
+𝑖 and  ̂𝜇𝑖 are the estimated alpha and average return of the fund.
+Our formal comparisons uncover sharp diﬀerences between models. 
+In our baseline analysis, we use as reference the CAPM—a simple model 
+that is ill-equipped to capture hedge fund returns (beyond the market 
+premium). If a proposed model delivers the same alphas as the CAPM, it 
+is therefore unable to capture any of the alternative strategies followed 
+by hedge funds. We reach this conclusion for all the standard and ma-
+chine learning models. In contrast, the JKKT and CP models are able to 
+capture the premia on alternative factors. In particular, the diﬀerence 
+between the CP model and the CAPM is statistically and economically 
+large, stable over time, and robust to the inclusion of factor trading 
+costs and alternative ﬁlters for reducing data biases.
+
+These results have strong implications for the fund return decompo-
+sition. Consistent with previous studies, the standard models produce 
+large alpha components—more than 70% of the funds have a positive 
+alpha equal to 2.7% per year on average.2 At the same time, the aver-
+age beta component due to the non-market factors (i.e., all factors but 
+the market) barely reaches 0.2% per year. Therefore, hedge funds de-
+liver superior performance while being immune to alternative sources 
+of risk. The CP model reverses this conclusion. We ﬁnd that only 50% 
+of the funds deliver positive alphas. The average alpha drops to 0.4% 
+per year, whereas the non-market factors become the main contributors 
+to average returns (2.9% per year).
+
+The ﬁve additional factors are economically important. The major-
+ity of the funds load positively on each of them, which supports the 
+view  that  hedge  funds  follow  alternative  strategies  to  boost  returns 
+(e.g., Carhart et al., 2014). We also ﬁnd that underperforming funds are 
+particularly aggressive in their factor exposures—possibly to boost re-
+turns and hide their lack of skills. Out of the ﬁve factors, the CP model 
+includes the three most relevant ones—TS momentum, variance, and 
+carry—whose respective return contributions are equal to 1.1%, 0.8%, 
+and 0.4% per year. This ﬁnding explains the edge of the CP model over 
+the JKKT model. It is also in line with ample anecdotal evidence that 
+hedge funds follow trends, take short option positions, and buy cheap 
+assets with high carry (Asness et al., 2015; Pedersen, 2015).
+
+Next, we turn to the analysis of three diverse investment categories: 
+(i) equity funds, (ii) macro funds, and (iii) arbitrage funds. We ﬁnd that 
+the superiority of the CP model applies to each category. The average 
+alpha is equal to 0.6%, -0.4%, and 0.9% per year for equity, macro, and 
+arbitrage funds (versus 2.4%, 3.7%, and 2.8% under the CAPM). The 
+widespread reduction in alphas arises because some additional factors 
+transcend style boundaries. For instance, carry is widely used by hedge 
+funds regardless of their styles when they implement currency carry 
+trades, buy high-yield bonds, or favor value stocks (Pedersen, 2015). At 
+the same time, some factors primarily matter for speciﬁc styles. For in-
+stance, TS momentum is crucial for capturing trend-following strategies 
+in the macro category. This result highlights the potential beneﬁts of 
+including style-speciﬁc factors to lower model misspeciﬁcation.
+
+The analysis of investment styles reveals a large fund heterogene-
+ity.  Under  the  CP  model,  the  cross-sectional  volatilities  in  the  alpha 
+and beta components range between 4.9% and 11.0% per year. There-
+fore,  sorting  funds  based  on  the  three  categories  does  not  produce 
+homogeneous groups with similar performance and risk proﬁles. This 
+heterogeneity provides key insights on how to form models using style 
+information.  It  invalidates  the  common  practice  of  peer  benchmark-
+ing which imposes that all funds in a given category are benchmarked 
+against the same style index. It also suggests that style-speciﬁc factor 
+
+1 As discussed in Section 4.2, the illiquidity, BAB, carry, and TS momentum 
+factors are constructed by Pástor and Stambaugh (2003), Frazzini and Pedersen 
+(2014), Koijen et al. (2018), and Moskowitz et al. (2012).
+
+2 A non-exhaustive list of papers that document positive average alphas under 
+the standard models includes Avramov et al. (2013), Buraschi et al. (2014b), 
+Capocci and Hübner (2004), Chen et al. (2017), Diez de los Rios and Garcia 
+(2010), Kosowski et al. (2007).
+
+JournalofFinancialEconomics154(2024)1038052D. Ardia, L. Barras, P. Gagliardini et al.
+
+models are more eﬀective when applied to narrowly-deﬁned investment 
+categories (see, for instance, Duarte et al., 2006).
+
+Fund heterogeneity introduces uncertainty in the fund selection pro-
+cess. To reduce this uncertainty, we examine whether fund character-
+istics that proxy for managerial incentives and ﬂexibility (e.g., perfor-
+mance fees, lockup period) can be used as initial ﬁlters. We ﬁnd that 
+it is the case—the proportion of positive-alpha funds is systematically 
+higher  among  funds  with  higher  incentives/ﬂexibility.  Fund  hetero-
+geneity  has  also  implications  for  models  of  active  management.  The 
+Berk and Green (2004) model predicts that all funds deliver zero al-
+phas. Whereas this prediction holds quite well for mutual funds, it is 
+at odds with our empirical results. In contrast, the model of Gârleanu 
+and Pedersen (2018) is consistent with fund heterogeneity as investors 
+are compensated for search costs—an intuitive explanation given the 
+complex process of evaluating hedge funds.
+
+Our analysis uncovers notable time trends between 1994 and 2020. 
+Whereas hedge funds remain unique in their exposures to alternative 
+strategies, they converge towards mutual funds along two dimensions. 
+First,  their  performance  becomes  increasingly  similar  as  the  gap  in 
+alphas reaches its lowest value of 1.6% in 2020. Second, they load in-
+creasingly on the equity market after the 2008 crisis. The equity market 
+is now the most prevalent risk factor—its average contribution is equal 
+to 2.3% per year, which represents 44% of the total beta component.
+
+Finally, our approach sheds light on the impact of investor sophis-
+tication on hedge fund valuation. Whereas the CP alpha gives the val-
+uation of a hypothetical investor able to replicate the ﬁve additional 
+factors, the CAPM alpha determines the valuation of a less sophisticated 
+investor who can only invest in the market. We ﬁnd that the average 
+valuation gap is large (2.6% per year) as the CAPM investor values the 
+alpha component as well as the return contribution of alternative strate-
+gies she cannot replicate. Examining fund ﬂows, we ﬁnd that real-world 
+hedge fund investors are closer to the CP investor in terms of sophisti-
+cation. Decomposing returns across funds with low and high ﬂows, we 
+ﬁnd that ﬂows primarily respond to the alpha component obtained with 
+the CP model, but not to the beta component (as would a CAPM investor 
+do).
+
+The  remainder  of  the  paper  is  as  follows.  Section 2 presents  the 
+framework for decomposing hedge fund returns. Section 3 describes the 
+methodology. Section 4 presents the hedge fund dataset and the mod-
+els. Section 5 contains the empirical analysis, and Section 6 concludes. 
+The appendix provides additional information on the methodology, the 
+data, and the empirical results.
+
+2.  Decomposing hedge fund returns under misspeciﬁcation
+
+2.1.  Theoretical framework
+
+2.1.1.  Deﬁnition of the alpha and beta components
+
+We  consider  a  population  of  𝑛 funds  over  𝑇 periods  and  denote 
+by 𝑟𝑖,𝑡 the excess net-of-fee return that fund 𝑖 (𝑖 = 1, … , 𝑛) delivers to 
+investors  at  time  𝑡 (𝑡 = 1, … , 𝑇 ).  Our  objective  is  to  decompose  the 
+average  fund  return  𝐸[𝑟𝑖,𝑡] into  its  alpha  and  beta  components.  The 
+deﬁnition of each component hinges on its information source. The al-
+pha component 𝑎𝑐∗
+𝑖 is based on private information—it captures the net 
+return that the fund produces by trading on its proprietary information 
+signals. The beta component 𝑏𝑐∗
+𝑖 is based on public information—it cap-
+tures the return that the fund produces by following mechanical trading 
+strategies. Put diﬀerently, 𝑏𝑐∗
+𝑖 represents the return component that so-
+phisticated investors with access to public information can replicate.
+
+To formalize this intuition, we denote the excess return vector of the 
+mechanical strategies by 𝑓𝑡 and its average value by 𝐸[𝑓𝑡] = 𝜆. If the 
+factors 𝑓𝑡 are known, we can decompose the average fund return as
+
+𝑖 = 𝛼∗
+
+𝐸[𝑟𝑖,𝑡] = 𝑎𝑐∗
+(1)
+where 𝑎𝑐∗
+𝑖 𝜆 corresponds 
+𝑖
+to the average return of a benchmark portfolio with the same betas on 
+
+𝑖 + 𝑏𝑐∗
+is given by the fund alpha 𝛼∗
+
+𝑖 and 𝑏𝑐∗
+
+𝑖 = 𝑏∗′
+
+𝑖 + 𝑏∗′
+
+𝑖 𝜆,
+
+the mechanical strategies as the fund.3 This decomposition allows the 
+number of factors to be large as 𝑓𝑡 includes all the alternative strategies 
+followed by hedge funds. In particular, 𝑓𝑡 includes the returns of dy-
+namic strategies (or managed portfolios). Therefore, the use of constant 
+betas is not restrictive for capturing factor-timing strategies based on 
+public information (see, e.g., Ferson and Schadt, 1996; Haddad et al., 
+2020; Kelly and Pruitt, 2013). To elaborate, suppose that hedge funds 
+commonly  change  their  market  betas  after  observing  a  public  signal 
+𝑧𝑡−1 that predicts the equity market return 𝑟𝑚,𝑡. Equation (1) absorbs 
+the time-variation in betas by including the scaled factor 𝑧𝑡−1
+𝑟𝑚,𝑡 in the 
+vector 𝑓𝑡.4
+
+The magnitude of the beta component depends on the factor premia 
+𝜆. Consistent with standard asset pricing models, these premia can be a 
+compensation for fundamental sources of risk in the economy. They can 
+also reﬂect limits to arbitrage when hedge funds bear nonfundamen-
+tal risk to correct price anomalies caused by behavioral biases (Gromb 
+and Vayanos, 2010). Finally, they can be the outcome of market seg-
+mentation when hedge funds require a premium for holding stocks that 
+constrained investors cannot buy (e.g., Merton, 1987). We remain ag-
+nostic on the drivers of the premia—𝑏𝑐∗
+𝑖 simply controls for strategies 
+that investors can replicate using public information.
+
+2.1.2.  Remarks about the alpha and beta components
+
+The  return  decomposition  in  Equation (1) calls  for  several  com-
+ments. First, the alpha component  𝑎𝑐∗
+is a measure of performance, 
+𝑖
+not skill. Whereas the two notions are commonly used interchangeably, 
+they diﬀer in important ways (Barras et al., 2022; Berk and van Binsber-
+gen, 2015). Skill determines whether funds are able to create value by 
+exploiting superior information. Performance determines whether in-
+vestors hold suﬃcient bargaining power to receive some of this value. 
+Positive performance implies positive skill, but not vice-versa.
+
+Second,  Equation (1) ignores  the  short-term  variations  in  alpha 
+(around its average 𝛼∗
+𝑖 ) that could arise from changing economic con-
+ditions, industry competition, or aggregate mispricing (e.g., Avramov et 
+al., 2013; Pástor et al., 2015, 2017). As discussed below, measuring 𝛼∗
+𝑖
+for hedge funds is a challenging task. Modeling its conditional variation 
+via a proper choice of predictors and functional forms makes the esti-
+mation even more diﬃcult (see, e.g., Gagliardini et al., 2020; Bakalli et 
+al., 2023).
+
+Third, Equation (1) does not require that we model the determinants 
+of 𝑎𝑐∗
+𝑖 and 𝑏𝑐∗
+𝑖 across funds. Both components may depend on several 
+fund characteristics such as fees, share restrictions, or leverage.5 Speci-
+fying these characteristics is useful for identifying funds with high alpha 
+or high exposures to speciﬁc strategies (as discussed in Section 5.3.1). 
+However, it is not necessary for estimating the two components 𝑎𝑐∗
+𝑖 and 
+𝑏𝑐∗
+𝑖 .
+
+2.1.3.  The distributions of the alpha and beta components
+
+Hedge funds follow diverse alternative strategies and rely on mul-
+tiple information signals to create value. It is therefore likely that the 
+alpha and beta components vary across funds. This heterogeneity can-
+not  be  captured  with  a  simple  average—instead,  it  requires  that  we 
+
+𝑖 (see Ferson, 2013).
+
+𝑖 𝐸[𝑓𝑡] cannot be interpreted as the alpha 𝛼∗
+
+3 A key requirement is that all elements in 𝑓𝑡 are excess returns (i.e., tradable 
+factors with zero prices). Otherwise, 𝜆 ≠ 𝐸[𝑓𝑡], implying that the diﬀerence 
+𝐸[𝑟𝑖,𝑡] − 𝑏∗′
+4 This reasoning is also valid if the public signal is observed multiple times 
+between 𝑡 − 1 and 𝑡. For instance, suppose that we observe fund returns at a 
+monthly frequency and that hedge funds change their market betas using daily 
+signals 𝑧𝑑
+𝑟𝑑
+𝑡−1 (𝑑 = 1, 2, ...). In this case, we include the scaled factor 
+𝑚,𝑡
+(ignoring compounding for simplicity), where 𝑟𝑑
+𝑚,𝑡 denotes the daily stock return 
+(Patton and Ramadorai, 2013).
+5 To see how leverage changes the alpha and beta components across funds 
+consider a set of hedge funds with access to the same active strategy whose 
+average net excess return is equal to 𝛼∗ + 𝑏∗′𝜆 = 𝑎𝑐∗ + 𝑏𝑐∗. For each fund 𝑖, both 
+𝑎𝑐∗
+
+𝑖 scale up with its leverage ratio 𝜋𝑖: 𝑎𝑐∗
+
+𝑖 = 𝜋𝑖𝑎𝑐∗ and 𝑏𝑐∗
+
+𝑖 = 𝜋𝑖𝑏𝑐∗.
+
+𝑖 and 𝑏𝑐∗
+
+𝑑 𝑧𝑑
+𝑡−1
+
+∑
+
+JournalofFinancialEconomics154(2024)1038053D. Ardia, L. Barras, P. Gagliardini et al.
+
+estimate the entire cross-sectional distributions characterized by their 
+densities 𝜙∗
+
+𝑎𝑐 and 𝜙∗
+𝑏𝑐 .
+
+Measuring fund heterogeneity is important for several reasons. The 
+alpha  distribution  𝜙∗
+𝑎𝑐 determines  how  many  funds  deliver  positive 
+alphas—a key quantity to test the equilibrium predictions of asset man-
+agement models. It is also useful for hedge fund investors who only 
+select a handful of funds because of multiple frictions (Bollen et al., 
+2021). The alpha distribution allows these investors to determine the 
+range of performance outcomes when selecting funds. In other words, 
+𝜙∗
+𝑎𝑐 has a natural Bayesian interpretation as it provides prior informa-
+tion about individual fund alphas (e.g., Jones and Shanken, 2005; Pástor 
+and Stambaugh, 2002).
+The distribution 𝜙∗
+
+𝑏𝑐 measures how many funds follow mechanical 
+strategies. It also determines whether funds with the same investment 
+style have similar risk proﬁles. While this information obviously mat-
+ters for researchers and investors, it is also relevant for regulators. As 
+discussed by Brown et al. (2010, ch. 12), hedge funds can contribute to 
+systemic risk when they liquidate positions, reduce liquidity provision, 
+or impose losses on counterparties. Contrary to a simple average, 𝜙∗
+𝑏𝑐
+can identify clusters of funds with strong exposures to similar factors.
+
+2.2.  The misspeciﬁcation of hedge fund models
+
+2.2.1.  The prevalence of misspeciﬁcation
+
+The theoretical decomposition in Equation (1) is important for deﬁn-
+ing  the  alpha  and  beta  distributions  𝜙∗
+𝑏𝑐 .  However,  it  does 
+not provide guidance for estimating these distributions for two reasons. 
+First, we do not know the identity of the factors in 𝑓𝑡. Second, data lim-
+itation and overﬁtting issues favor models with a parsimonious number 
+of factors.
+
+𝑎𝑐 and  𝜙∗
+
+Choosing appropriate factors is a daunting task as hedge funds in-
+vest in many countries and asset classes (Lhabitant, 2007). They take 
+nonlinear option positions that are diﬃcult to capture with a limited 
+set of option factors (Karehnke and de Roon, 2020). Hedge funds also 
+follow multiple dynamic strategies in which the portfolio composition 
+or leverage ratio responds to changing economic conditions (Ang et al., 
+2011; Avramov et al., 2013; Bollen and Whaley, 2009). Based on this 
+analysis, there is no hope of capturing the average returns of all the 
+alternative hedge fund strategies. As a result, the empirical return de-
+composition is likely based on a misspeciﬁed model—that is, a model 
+that omits some relevant factors in 𝑓𝑡.6
+
+𝑖 , less sophisticated ones also value 𝑏𝑐∗
+
+Misspeciﬁcation also arises when measuring how hypothetical in-
+vestors  with  diﬀerent  sophistication  levels  value  the  alpha  and  beta 
+components. Whereas the most sophisticated investors only care about 
+𝑎𝑐∗
+𝑖 because it provides exposure 
+to alternative strategies that are diﬃcult to replicate (e.g., Agarwal et 
+al., 2018). To evaluate hedge funds from the viewpoint of a particular 
+investor, we need a model that only includes the factors that she can 
+replicate. This model is therefore misspeciﬁed because it only includes 
+a subset of 𝑓𝑡.
+
+2.2.2.  The dual impact of misspeciﬁcation
+
+𝑎𝑐 and 𝜙∗
+
+Misspeciﬁcation  has  a  dual  impact  on  the  estimation  of  the  dis-
+tributions 𝜙∗
+𝑏𝑐 . First, the estimation is imperfect. To see this 
+point, suppose that we use a misspeciﬁed model 𝑘 that only includes 
+the factors 𝑓 𝑘
+𝑂,𝑡 (with 𝑓𝑡 = (𝑓 𝑘′
+𝑂,𝑡)′). From 
+𝜆𝑘
+Equation (1), we have 𝐸[𝑟𝑖,𝑡] = 𝑎𝑐∗
+𝑖,𝐼 = 𝑏∗′
+𝑖,𝐼 + 𝑏𝑐∗
+𝐼
+𝑖,𝐼
+𝜆𝑘
+and 𝑏𝑐∗
+𝑂 are the beta components due to the included and 
+omitted factors under the true model (i.e.,  𝑏∗
+𝑖,𝑂 are the true 
+
+𝐼,𝑡, but omits the factors 𝑓 𝑘
+𝑖 + 𝑏𝑐∗
+
+, 𝑓 𝑘′
+𝑖,𝑂, where 𝑏𝑐∗
+
+𝑖,𝐼 and  𝑏∗
+
+𝑖,𝑂 = 𝑏∗′
+𝑖,𝑂
+
+𝐼,𝑡
+
+6 One could use holdings-based benchmarks to avoid specifying the factors 
+(e.g., Grinblatt and Titman, 1993; Lo, 2008). However, these measures are still 
+subject to misspeciﬁcation when the fund exhibits time-varying betas (Ferson 
+and Khang, 2002). Another issue is that hedge funds generally do not disclose 
+their portfolio weights.
+
+𝑂,𝐼
+
+fund exposures to 𝑓 𝑘
+beta component 𝑏𝑐∗
+the misspeciﬁed model, which we write as 𝐸[𝑟𝑖,𝑡] = 𝑎𝑐𝑘
+
+𝐼,𝑡 and 𝑓 𝑘
+𝑂,𝑡). The key question is how the omitted 
+𝑖,𝑂 aﬀects the return decomposition obtained with 
+
+𝑖 + 𝑏𝑐𝑘
+𝑖 .
+
+𝑂 + Ψ𝑘
+
+𝑖,𝑂 = 𝑏∗′
+𝑖,𝑂
+
+𝐼 , where 𝛼𝑘
+𝜆𝑘
+
+𝑂,𝑡 and 𝜆𝑘
+𝑂,𝐼 is the matrix of slope coeﬃcients, and 𝑢𝑘
+
+Regressing  the  omitted  factors  on  the  included  factors,  we  have 
+𝑂 = 𝛼𝑘
+𝑓 𝑘
+𝐼,𝑡 + 𝑢𝑘
+𝑓 𝑘
+𝑂 + Ψ𝑘
+𝑂,𝑡 = 𝛼𝑘
+𝑂 is the vec-
+tor of factor alphas, Ψ𝑘
+𝑂,𝑡 is 
+the vector of errors. We can split the omitted beta component into two 
+𝜆𝑘
+parts: 𝑏𝑐∗
+𝐼 , where the split depends on the cor-
+relation between the included and omitted factors (captured by Ψ𝑘
+𝑂,𝐼 ). 
+The ﬁrst part, which arises from the component of 𝑓 𝑘
+𝑂,𝑡 that is orthog-
+onal to 𝑓 𝑘
+𝑖 . The second part, which arises from 
+the component of 𝑓 𝑘
+𝑖 . As a 
+result, we have:
+
+𝑂,𝑡 that is spanned by 𝑓 𝑘
+
+𝐼,𝑡, is absorbed by 𝑎𝑐𝑘
+
+𝐼,𝑡, is absorbed by 𝑏𝑐𝑘
+
+𝛼𝑘
+𝑂 + 𝑏∗′
+
+𝑖,𝑂Ψ𝑘
+
+𝑂,𝐼
+
+𝑂,𝐼
+
+𝑂,𝐼
+
+(3)
+
+(2)
+
+𝑏𝑐𝑘
+
+𝑎𝑐𝑘
+
+𝑖,𝑂𝛼𝑘
+𝑖 + 𝑏∗′
+𝑖,𝑂𝛼𝑘
+𝑖 − 𝑏∗′
+𝑖 and  𝑏𝑘
+
+𝑂 = 𝛼𝑘
+𝑖 ,
+𝑖,𝐼 𝜆𝑘
+𝑂 = 𝑏𝑘′
+𝐼 ,
+𝑖,𝐼 + Ψ𝑘′
+𝑖,𝐼 = 𝑏∗
+
+𝑖 = 𝑎𝑐∗
+𝑖 = 𝑏𝑐∗
+where  𝛼𝑘
+𝑏∗
+𝑖,𝑂 are  the  coeﬃcients  from  the  re-
+gression of the fund return 𝑟𝑖,𝑡 on the factors 𝑓 𝑘
+𝐼,𝑡 included in model 𝑘
+𝑖 and 𝑏𝑐𝑘
+(and a constant). Equations (2)–(3) reveal that 𝑎𝑐𝑘
+𝑖 are informa-
+tive about the true components 𝑎𝑐∗
+𝑖 . However, this information 
+is  polluted—if  the  fund  loads  on  alternative  strategies  with  positive 
+𝛼𝑘
+alphas, 𝑏∗′
+𝑂 is positive and the model-implied alpha component is 
+𝑖,𝑂
+inﬂated (𝑎𝑐𝑘
+𝑖 > 𝑎𝑐∗
+𝑖 ). Misspeciﬁcation produces an imper-
+fect estimation because we can only infer the pseudo-true distributions 
+𝑎𝑐 and 𝜙𝑘
+𝜙𝑘
+𝑏𝑐 (Gourieroux et al., 1984; 
+White, 1982).
+
+𝑏𝑐 , but not the true ones 𝜙∗
+
+𝑖 and 𝑏𝑐𝑘
+
+𝑖 and 𝑏𝑐∗
+
+𝑎𝑐 and 𝜙∗
+
+𝑖 < 𝑏𝑐∗
+
+The second impact of misspeciﬁcation pertains to estimation noise. 
+When model 𝑘 is misspeciﬁed, the densities 𝜙𝑘
+𝑏𝑐 are estimated 
+with substantial noise. The simplest way to illustrate this point is to 
+1,𝑎𝑐 = ∫ +∞
+focus on the average alpha 𝑀 𝑘
+𝑎𝑐(𝑥) is the 
+−∞
+density evaluated at 𝑥. To estimate 𝑀 𝑘
+1,𝑎𝑐 , we run the linear regression 
+under model 𝑘 for each fund:
+
+𝑎𝑐(𝑥)𝑑𝑥, where 𝜙𝑘
+
+𝑎𝑐 and 𝜙𝑘
+
+𝑥𝜙𝑘
+
+𝑛
+
+∑
+
+∑
+
+(4)
+
+𝑖,𝐼 𝑓 𝑘
+
+𝑖 + 𝑏𝑘′
+
+𝑟𝑖,𝑡 = 𝛼𝑘
+
+𝐼,𝑡 + 𝜀𝑘
+𝑖,𝑡 .
+We then compute the cross-sectional mean  ̂𝑀 𝑘
+
+1,𝑎𝑐 = 1
+
+𝑖 ̂𝑎𝑐𝑘
+Contrary to the correctly speciﬁed case, the error terms 𝜀𝑘
+
+𝑖 ̂𝛼𝑘
+𝑖 = 1
+𝑖 .
+𝑛
+𝑖,𝑡 in Equa-
+tion (4) are strongly cross-sectionally correlated because they all de-
+pend  on  the  common  omitted  factors  𝑓 𝑘
+𝑖,𝑡 =
+𝑂,𝑡 is the error vector of 𝑓 𝑘
+𝑖,𝑡 + 𝑏∗′
+𝜀∗
+𝑂,𝑡. Even if the hedge 
+𝑖,𝑂
+fund population size 𝑛 is large, the information is limited because the 
+values of  ̂𝑎𝑐𝑘
+𝑖 (𝑖 = 1, ..., 𝑛) are all impacted by the random realizations 
+𝑂,𝑡. It implies that  ̂𝑀 𝑘
+of the omitted component 𝑢𝑘
+1,𝑎𝑐 is estimated with 
+substantial noise, as discussed in detail in Section 3.
+
+𝑂,𝑡.  Formally,  we  have  𝜀𝑘
+
+𝑂,𝑡, where 𝑢𝑘
+𝑢𝑘
+
+2.3.  A new approach for addressing misspeciﬁcation
+
+2.3.1.  Overview of the approach
+
+We develop a novel approach to estimate the entire alpha and beta 
+distributions for any model. A key feature of our approach is to explic-
+itly account for the dual impact of misspeciﬁcation. First, it allows for 
+an examination of multiple models to address the imperfect separation 
+between alpha and beta. Given the diversity in hedge fund strategies, 
+several  models  can  reasonably  be  used  for  decomposing  returns.  By 
+designing  formal  comparison  tests,  we  identify  models  less  prone  to 
+misspeciﬁcation  and  more  able  to  capture  the  true  distributions  𝜙∗
+𝑎𝑐
+and 𝜙∗
+
+𝑏𝑐 .7
+
+7 Another beneﬁt of this comparison analysis is to measure how hypothetical 
+investors with diﬀerent sophistication levels value hedge fund investments—an 
+issue that we examine empirically in Section 5.5.
+
+JournalofFinancialEconomics154(2024)1038054D. Ardia, L. Barras, P. Gagliardini et al.
+
+Second, our approach comes with a full-ﬂedged inferential theory to 
+incorporate the estimation noise caused by misspeciﬁcation. We derive 
+the asymptotic properties of the estimated distributions in a setting that 
+accounts for the large population of hedge funds observed in the data 
+(i.e., we let 𝑛 to grow large). Using these results, we (i) conduct proper 
+statistical inference on the distributions for each model, and (ii) obtain 
+valid tests for comparing models.
+
+Our approach departs from previous studies that estimate the al-
+pha distribution (e.g., Chen et al., 2017; Harvey and Liu, 2018). First, 
+it does not assume that the model is correctly speciﬁed—an important 
+feature given the diﬃculty in modeling hedge fund returns. Second, it 
+provides a framework for estimating both the alpha and beta distribu-
+tions. Third, it is ﬂexible because it imposes no restrictions on the shape 
+of these distributions. Fourth, it is simple and fast as it does not rely on 
+sophisticated and computer-intensive Gibbs sampling and expectation 
+maximization methods. Last but not least, it allows us to conduct statis-
+tical inference and formal testing guided by econometric theory.
+
+2.3.2.  Comparing models using the CAPM
+
+The comparison of models ultimately hinges on their ability to cap-
+ture alternative strategies. These strategies, which are weakly correlated 
+with the equity market, represent a deﬁning feature of hedge funds.8 Su-
+perior models capture the positive premia earned on alternative strate-
+gies and thus deliver alpha components close to zero. In contrast, highly 
+misspeciﬁed models are unable to do so and produce larger alphas. To 
+distinguish between these models, we use the CAPM as a reference—
+that is, we formally compare the alphas under any proposed model 𝑘
+and the CAPM.
+
+The CAPM is a natural reference for two reasons. First, it controls 
+for the equity market risk taken by hedge funds—an opener evaluation 
+practice among academics and practitioners. Second, it is the simplest 
+and thus the least equipped model for capturing alternative strategies. 
+To formalize this point, we refer to the CAPM as model 0 and denote 
+by 𝑓 0
+𝑂,𝑡 the set of alternative strategies. If 
+𝑓 0
+𝑂 = 𝜆0
+𝑂,𝐼 = 0), we have 𝛼0
+𝐼,𝑡 and 𝑓 0
+𝑂. As a result, 
+the CAPM alpha entirely absorbs the beta component 𝑏𝑐∗
+𝑖,𝑂 due to the 
+alternative strategies:
+
+𝐼,𝑡 the market factor and by 𝑓 0
+
+𝑂,𝑡 are uncorrelated (Ψ0
+
+𝑎𝑐0
+
+𝑖,𝑂 .
+
+𝑖,𝑂𝜆0
+
+𝑖,𝑂𝛼0
+
+𝑖 + 𝑏∗′
+
+𝑖 + 𝑏∗′
+
+𝑖 + 𝑏𝑐∗
+
+𝑖 = 𝑎𝑐∗
+
+𝑂 = 𝑎𝑐∗
+
+𝑂 = 𝑎𝑐∗
+Building on this insight, our comparison analysis delivers a strong mes-
+sage. If the alpha distributions 𝜙𝑘
+𝑎𝑐 and 𝜙0
+𝑎𝑐 are identical, it implies that 
+model 𝑘 is as misspeciﬁed as the CAPM. In other words, model 𝑘 is 
+unable to capture any of the alternative strategies followed by hedge 
+funds.9
+
+(5)
+
+2.3.3.  A simple illustrative example
+
+𝑖 + 𝑏∗
+
+Before presenting our approach in more detail, we brieﬂy illustrate 
+its usefulness using a simple example. We assume that the correct hedge 
+fund model includes the market and three uncorrelated alternative fac-
+3,  where  𝜆𝑚 is  the 
+1 + 𝑏∗
+tors:  𝐸[𝑟𝑖,𝑡] = 𝛼∗
+𝑖,2
+equity premium, and 𝜆𝑗 denotes the premium of each alternative fac-
+tor 𝑗 (𝑗 = 1, 2, 3), which we set equal to 𝜆𝑚. For each fund, the alpha 
+component 𝛼∗
+𝑖,𝑚 from a normal 
+𝑖
+𝑏 ), and 𝑏∗
+, 𝜎∗2
+𝑁(𝜇∗
+is positive to 
+𝑏
+capture the view that hedge funds load on alternative strategies (each 
+
+is drawn from a normal 𝑁(𝜇∗
+, 𝜎∗2
+𝑖,𝑗 from a normal 𝑁(𝜇∗
+𝑏𝑗
+
+𝛼, 𝜎∗2
+𝛼 ), 𝑏∗
+𝑏 ), where 𝜇∗
+𝑏𝑗
+
+𝑖,𝑚𝜆𝑚 + 𝑏∗
+𝑖,1
+
+2 + 𝑏∗
+𝑖,3
+
+𝜆
+
+𝜆
+
+𝜆
+
+draw is mutually independent). We further assume that the ﬁrst factor 
+= 𝜇∗
+is more important by setting 𝜇∗
+𝑏
+1
+
+𝑏 and 𝜇∗
+𝑏
+2
+
+We consider a misspeciﬁed hedge fund (HF) model (model 1) that 
+
+= 𝜇∗
+𝑏
+3
+
+= 𝜇∗
+
+𝑏 ∕3.
+
+includes the market and two out of the three alternative factors (𝑓
+1
+and 𝑓
+2). We compare this model with the CAPM (model 0), which only 
+includes the market. For each model, we assume that we observe the 
+fund alpha and beta components without errors, leaving aside estima-
+tion noise for now. Given the above assumptions, the alpha and beta 
+densities are normal. Under the CAPM, we have
+
+𝑎𝑐0
+
+𝑏𝑐0
+
+𝑖 ∼ 𝑁(𝜇∗
+𝑖 ∼ 𝑁(𝜇∗
+
+𝛼 + (𝜇∗
+𝑏
+1
+𝑏 𝜆2) ,
+𝑏 𝜆, 𝜎∗2
+
++ 𝜇∗
+𝑏
+2
+
++ 𝜇∗
+𝑏
+3
+
+)𝜆, 𝜎∗2
+
+𝛼 + 3𝜎∗2
+
+𝑏 𝜆2) ,
+
+while the HF model produces the following densities:
+
+𝑎𝑐1
+
+𝑏𝑐1
+
+𝑖 ∼ 𝑁(𝜇∗
+𝑖 ∼ 𝑁((𝜇∗
+
+𝛼 + 𝜇∗
+𝑏
+3
+𝑏 + 𝜇∗
+𝑏
+1
+
+𝜆, 𝜎∗2
+
+𝛼 + 𝜎∗2
+
+𝑏 𝜆2) ,
+)𝜆, 3𝜎∗2
+
+𝑏 𝜆2) .
+
++ 𝜇∗
+𝑏
+2
+
+(6)
+
+(7)
+
+(8)
+
+(9)
+
+𝑎𝑐 and 𝜙1
+
+𝛼 = 1.4%, 𝜆 = 7.5%, 𝜇∗
+
+𝑏 = 0.4.10 The comparison of 𝜙0
+
+To begin, we plot in Panel A of Fig. 1 the two alpha densities using 
+𝑏 = 0.3, 
+𝛼 = 0%, 𝜎∗
+the following parameter values: 𝜇∗
+and 𝜎∗
+𝑎𝑐 reveals that the mag-
+nitude of the alpha components decreases substantially under the HF 
+model (𝜙1
+𝑎𝑐 moves to the left towards zero). This diﬀerence arises be-
+cause the HF model captures two alternative strategies (out of three) 
+and thus produces a sharper identiﬁcation of 𝑎𝑐∗
+𝑖 . The implica-
+tions for performance evaluation are economically important. Under the 
+CAPM, the average alpha reaches 3.8% per year. Under the HF model, 
+the average drops to 0.8% per year and moves closer to the true average 
+𝜇∗
+𝛼 equal to zero.
+
+𝑖 and 𝑏𝑐∗
+
+In addition to reducing the magnitude of the alphas, the HF model 
+also produces a lower dispersion as it absorbs the variation due to fac-
+𝜆2). However, this result depends on the 
+tors 1 and 2 (the term 2𝜎∗2
+𝑏
+speciﬁc assumptions in our simple example—in particular, we assume 
+that funds choose similar factor exposures regardless of their true alphas 
+(i.e., we set 𝑐𝑜𝑟𝑟[𝛼∗
+𝑖,𝑗 ] = 0). If we relax this assumption, a lower aver-
+age does not necessarily come with a lower dispersion. In the empirical 
+analysis, we simply let the data speak—our approach is nonparametric 
+and thus does not require any assumptions on the joint distributions of 
+𝑖 and 𝑏∗
+𝛼∗
+
+𝑖 , 𝑏∗
+
+𝑖,𝑗 .
+
+𝑖,𝑚 + 𝑏𝑐1
+
+𝑏𝑐 and 𝜙1
+
+𝑖,1 + 𝑏𝑐1
+𝑖,1, 𝑏𝑐1
+
+Next, we repeat the analysis for the two beta densities 𝜙0
+
+𝑏𝑐 . 
+Consistent with intuition, Panel B is the mirror image of Panel A as the 
+magnitude of the beta components rises under the HF model (𝜙1
+𝑏𝑐 moves 
+to the right away from zero). We can go one step further and decom-
+pose 𝑏𝑐1
+𝑖,2, where 𝑏𝑐1
+𝑖 as 𝑏𝑐1
+𝑖,𝑚 is the beta component due to 
+the market, and 𝑏𝑐1
+𝑖,2 are the beta components due to the two ad-
+ditional factors in the HF model. We can then determine the economic 
+and 𝜙1
+importance of these factors using their densities 𝜙1
+, which 
+𝑏𝑐
+𝑏𝑐
+2
+1
+are both normal: 𝑏𝑐1
+𝜆2). This 
+𝜆, 𝜎∗2
+∼ 𝑁(𝜇∗
+∼ 𝑁(𝜇∗
+𝑏
+𝑏
+𝑏
+𝑖,1
+2
+1
+analysis  identiﬁes  factor  1  as  the  most  relevant—its  contribution  to 
+hedge fund returns equals 2.3% per year on average and is positive 
+for 77% of the funds. In contrast, these values are only equal to 0.8% 
+and 60% for factor 2.
+
+𝜆2) and 𝑏𝑐1
+𝑖,2
+
+𝜆, 𝜎∗2
+𝑏
+
+3.  Methodology
+
+3.1.  Estimation procedure
+
+8 For instance, Carhart et al. (2014) deﬁne alternative (exotic) betas as expo-
+sures to risk factors that are uncorrelated with global equity markets and have 
+positive expected returns. They also note that “it is fair to characterize hedge 
+funds as providing considerable exposure to equity market risk and to alterna-
+tive risk premiums.”
+9 Whereas we use the CAPM for the baseline analysis, our comparison tests 
+can be applied to any pair of models. We can therefore replace the CAPM with 
+any model commonly used for performance evaluation (see Section 5.1.1).
+
+We consider a total of 𝐾 models indexed by 𝑘 (𝑘 = 0, … , 𝐾 − 1), 
+where model 0 denotes the CAPM. Each model 𝑘 is allowed to be mis-
+
+𝛼 , 𝜎∗
+
+𝛼 , and 𝜆 in percent per year. For simplicity, we set 𝜇∗
+10 We express 𝜇∗
+𝛼
+equal to zero and calibrate 𝜎∗
+𝛼 using the value reported by Barras et al. (2022, 
+Table VI). We further set 𝜆 equal to the average market return and 𝜇𝑏, 𝜎𝑏 equal 
+to the cross-sectional mean and volatility of the market betas in our sample of 
+hedge funds.
+
+JournalofFinancialEconomics154(2024)1038055D. Ardia, L. Barras, P. Gagliardini et al.
+
+Fig. 1. Distributions of the Alpha and Beta Components – A Simple Example.
+This ﬁgure compares the average return decomposition obtained with a candidate hedge fund (HF) model and the CAPM. Panel A plots the cross-sectional distribu-
+tions of the alpha components (annualized) under both models. In this simple example, the average fund returns are explained by four factors (the market and three 
+alternative factors 1, 2, and 3 with similar premia), and hedge funds load more aggressively on factor 1 than on factors 2 and 3. Whereas the CAPM omits factors 1, 
+2, and 3, the HF model only omits factor 3. Panel B repeats the analysis for the beta components.
+
+𝐼,𝑡 but omits the factors 𝑓 𝑘
+
+speciﬁed as it includes the factors 𝑓 𝑘
+𝑂,𝑡. We are 
+interested in (i) the density 𝜙𝑘
+𝑎𝑐 of the alpha component, (ii) the density 
+𝑏𝑐 of the beta component, and (iii) the density 𝜙𝑘
+𝜙𝑘
+𝑏𝑐,𝑗 of the beta com-
+ponent due to each factor 𝑗 included in model 𝑘. We summarize the 
+shape of each of these densities with the following characteristics: (i) 
+the cross-sectional mean and standard deviation, denoted by 𝑀 𝑘
+1 and 
+𝑀 𝑘
+2 , (ii) the proportion of funds with a return component below a given 
+value 𝑎, denoted by 𝑃 𝑘(𝑎), and (iii) the quantile at a given percentile 
+level 𝑢, denoted by 𝑄𝑘(𝑢) = (𝑃 𝑘)−1(𝑢).
+
+𝑖 = 𝛼𝑘
+
+𝑖,𝐼,𝑗 and 𝜆𝑘
+
+𝐼,𝑗 , where 𝑏𝑘
+𝜆𝑘
+
+To estimate the distribution characteristics of each density, we need 
+to  estimate  the  fund  components  𝑎𝑐𝑘
+𝑖,𝑗 =
+𝑏𝑘
+𝐼,𝑗 is the beta and premium associated with 
+𝑖,𝐼,𝑗
+factor 𝑗 in model 𝑘. For each fund, we compute these values by running 
+the time-series regression in Equation (4). We interpret this regression 
+as a random coeﬃcient model (e.g., Hsiao, 2003) in which 𝛼𝑘
+𝑖 and 𝑏𝑘
+𝑖,𝐼
+are not ﬁxed parameters, but random realizations from a continuum of 
+
+𝐼 ,  and  𝑏𝑐𝑘
+𝜆𝑘
+
+𝑖 = 𝑏𝑘′
+𝑖,𝐼
+
+𝑖 ,  𝑏𝑐𝑘
+
+funds in order to invoke cross-sectional limits.11 We also assume that at 
+least one omitted factor is strong in the sense that it has a pervasive im-
+pact on the cross-section of fund returns.12 This mild assumption, which 
+delivers a well-deﬁned convergence rate for the distribution characteris-
+tics, is supported by the diagnostic criterion of Gagliardini et al. (2019)
+(see Section 4.3). The least-square estimate ̂𝛾 𝑘
+
+𝑖,𝐼 )′ is given by
+
+𝑖 = ( ̂𝛼𝑘
+
+𝑖 , ̂𝑏𝑘′
+
+𝑖 = ( ̂𝑄𝑘
+̂𝛾 𝑘
+
+𝑥,𝑖)−1 1
+𝑇𝑖
+
+∑
+
+𝑡
+
+𝐼𝑖,𝑡𝑥𝑘
+
+𝑡 𝑟𝑖,𝑡 ,
+
+(10)
+
+11 Barras et al. (2022) and Gagliardini et al. (2016) use the same sampling 
+scheme to measure mutual fund performance and test the arbitrage pricing the-
+ory in a large cross-section of assets.
+12 More formally, an omitted factor is strong if the largest eigenvalue of the 
+residual covariance matrix of hedge fund returns does not vanish as the popu-
+lation size 𝑛 grows large. In contrast, a factor is weak if its loading vanishes at 
+a rate 1∕
+𝑇 (Gagliardini et al., 2019). Our formulation allows for weak factors 
+in both 𝑓 𝑘
+
+𝐼,𝑡 and 𝑓 𝑘
+
+𝑂,𝑡.
+
+√
+
+JournalofFinancialEconomics154(2024)1038056D. Ardia, L. Barras, P. Gagliardini et al.
+
+where 𝐼𝑖,𝑡 is an indicator variable equal to one if 𝑟𝑖,𝑡 is observable, 𝑇𝑖 =
+∑
+𝑡 . We then compute the 
+
+𝐼,𝑡)′, and  ̂𝑄𝑘
+𝑡 𝐼𝑖,𝑡𝑥𝑘
+alpha and beta components for each fund as
+
+𝑡 = (1, 𝑓 𝑘′
+
+𝑥,𝑖 = 1
+𝑇𝑖
+
+𝑡 𝐼𝑖,𝑡, 𝑥𝑘
+
+𝑡 𝑥𝑘′
+
+∑
+
+̂𝑎𝑐𝑘
+
+̂𝑏𝑐
+
+𝑖 = ̂𝛼𝑘
+𝑖 ,
+𝑘
+𝑖 = ̂𝜇𝑖 − ̂𝛼𝑘
+𝑖 ,
+𝑘
+̂𝜆𝑘
+𝑖,𝑗 = ̂𝑏𝑘
+𝐼,𝑗 ,
+
+𝑖,𝐼,𝑗
+
+̂𝑏𝑐
+
+(11)
+
+(12)
+
+(13)
+
+𝑘
+𝑖
+
+is  the  empirical  counterpart  of  𝑏𝑐𝑘
+
+where  ̂𝑏𝑐
+∑
+1
+𝑇𝑖
+empirical average of 𝑓 𝑘
+
+𝑡 𝐼𝑖,𝑡𝑟𝑖,𝑡 is the average fund return, and  ̂𝜆𝑘
+𝐼,𝑗,𝑡.
+
+𝑖 = 𝐸[𝑟𝑖𝑡] − 𝑎𝑐𝑘
+∑
+
+𝑖 ,  ̂𝜇𝑖 =
+𝐼,𝑗,𝑡 is the 
+
+𝑡 𝐼𝑖,𝑡𝑓 𝑘
+
+𝐼,𝑗 = 1
+𝑇𝑖
+
+}
+
+(
+
+min
+
+2,𝑇
+
+√
+
+𝑒𝑖𝑔
+
+∕𝑒𝑖𝑔
+
+̂𝑄𝑘
+𝑥,𝑖
+
+̂𝑄𝑘
+𝑥,𝑖
+
+Next,  we  account  for  the  unbalanced  nature  of  the  hedge  fund
+sample. Following Barras et al. (2022) and Gagliardini et al. (2016), 
+we introduce a formal selection rule 𝟏𝜒
+𝑖 equal to one if the following 
+{
+conditions are met: 𝟏𝜒
+𝑖 = 𝟏 
+, where 𝜏𝑖,𝑇 = 𝑇 ∕𝑇𝑖, 
+)
+
+1,𝑇 , CN𝑖 ≤ 𝜒
+)
+
+𝜏𝑖,𝑇 ≤ 𝜒
+(
+
+is the condition number of  ̂𝑄𝑘
+
+𝑥,𝑖, 
+CN𝑖 =
+max
+and  𝜒
+1,𝑇 ,  𝜒
+2,𝑇 denote  the  two  threshold  values.  The  ﬁrst  condition 
+𝜏𝑖,𝑇 ≤ 𝜒
+1,𝑇 excludes funds for which the sample size is too small. The 
+second condition CN𝑖 ≤ 𝜒
+2,𝑇 excludes funds for which the time-series 
+regression is subject to multicollinearity problems (e.g., Belsley et al., 
+2004).  Both  thresholds  𝜒
+2,𝑇 increase  with  the  sample  size 
+𝑇 —with more return observations, we estimate the fund coeﬃcients 
+with greater accuracy, which allows for a less stringent selection rule. 
+Applying this selection rule, we work with a population size equal to 
+𝑛𝜒 =
+
+1,𝑇 and  𝜒
+
+∑𝑛
+
+𝟏𝜒
+𝑖 .
+
+The ﬁnal step is to compute the distribution characteristics using 
+the  vector  of  estimated  components.  We  compute  the  mean,  stan-
+dard  deviation,  proportion,  and  quantile  of  the  alpha  distribution 
+
+𝑖=1
+
+(
+
+∑
+
+∑
+
+)
+
+1∕2
+
+𝑖
+
+̂𝑎𝑐𝑘
+
+̂𝑀 𝑘
+
+̂𝑀 𝑘
+
+2 =
+
+1 = 1
+𝑛𝜒
+∑
+
+𝑖 𝟏𝜒
+𝑖 , 
+as 
+, 
+̂𝑃 𝑘(𝑎) = 1
+𝑖 ≤ 𝑎}, and  ̂𝑄𝑘(𝑢) = ( ̂𝑃 𝑘)−1(𝑢). To obtain the char-
+𝑖 𝟏{ ̂𝑎𝑐𝑘
+𝑛𝜒
+acteristics of the distributions of the beta components, we use the same 
+𝑘
+formulas after replacing  ̂𝑎𝑐𝑘
+
+𝑖 )2 − ( 1
+𝑛𝜒
+
+𝑖 ( ̂𝑎𝑐𝑘
+
+𝑖 with  ̂𝑏𝑐
+
+𝑖 or  ̂𝑏𝑐
+
+𝑖 𝟏𝜒
+
+𝑖 𝟏𝜒
+
+𝑖 𝟏𝜒
+
+𝑘
+𝑖,𝑗 .
+
+̂𝑎𝑐𝑘
+
+𝑖 )2
+
+1
+𝑛𝜒
+
+𝑖
+
+∑
+
+3.2.  Properties of the distribution characteristics
+
+We begin our theoretical analysis by examining the properties of the 
+distribution characteristics  ̂𝑀 𝑘
+2 ,  ̂𝑃 𝑘(𝑎), and  ̂𝑄𝑘(𝑢). The following 
+1 ,  ̂𝑀 𝑘
+proposition derives the asymptotic distribution of the estimated char-
+acteristics of the alpha distribution 𝜙𝑘
+𝑎𝑐 as the numbers of funds 𝑛 and 
+observations 𝑇 grow large. To capture the large cross-sectional dimen-
+sion of the hedge fund population observed in the data, we require that 
+𝑛 is larger than 𝑇 .
+
+Proposition 1. As 𝑛, 𝑇 → ∞, such that 𝑇 ∕𝑛 → 0, we obtain the following 
+properties  for  the  estimated  characteristics  of  𝜙𝑘
+𝑎𝑐 under  the  misspeciﬁed 
+model 𝑘:
+√
+(
+
+)
+
+𝑇
+
+̂𝑀 𝑘
+
+𝑠 − 𝑀 𝑘
+𝑠
+)
+̂𝑃 𝑘(𝑎) − 𝑃 𝑘(𝑎)
+)
+̂𝑄𝑘(𝑢) − 𝑄𝑘(𝑢)
+
+(
+
+(
+
+𝑠 ]) ,
+
+→𝑑 𝑁(0, 𝑉 [𝑀 𝑘
+→𝑑 𝑁(0, 𝑉 [𝑃 𝑘(𝑎)]) ,
+→𝑑 𝑁(0, 𝑉 [𝑄𝑘(𝑢)]) ,
+
+√
+
+√
+
+𝑇
+
+𝑇
+
+(14)
+
+(15)
+
+(16)
+
+where 𝑠 ∈ {1, 2} and →𝑑 denotes convergence in distribution. The variance 
+terms are given by
+
+[(
+
+)
+
+]
+
+= 𝐸
+
+where 𝜂𝑘
+𝑀𝑠
+moments  with  𝑔𝑘
+
+′ 𝜕𝑔𝑘
+𝜕𝑀 𝑘
+𝑠
+𝑖
+𝑖 ] is the vector of uncentered 
+𝜕𝑎𝑐𝑘
+𝜕𝐸[𝑔𝑘
+𝑖 ]
+𝑖
+𝑖 , (𝑎𝑐𝑘
+𝑖 = (𝑎𝑐𝑘
+𝑖 )2)′,  ⊗ denotes  the  Kronecker  product, 
+]
+[
+
+, 𝐸[𝑔𝑘
+
+𝑏∗
+𝑖,𝑂
+
+𝑄𝑘
+
+𝑥 = 𝐸[𝑥𝑘
+
+𝑡 𝑥𝑘′
+
+𝑡 ], Ω𝑘
+
+𝑢𝑥 = lim
+𝑇 →∞
+
+𝑉
+
+1√
+𝑇
+
+∑
+
+𝑡
+
+𝑂,𝑡 ⊗ 𝑥𝑘
+𝑢𝑘
+
+𝑡
+
+, 𝜂𝑘
+
+𝑃 (𝑎) = 𝐸[𝑏∗
+
+𝑖,𝑂
+
+|𝑎𝑐𝑘
+
+𝑖 =
+
+𝑎𝑐(𝑎), 𝑏∗
+
+𝑖,𝑂 and 𝑢𝑘
+
+𝑎]𝜙𝑘
+with the omitted factors 𝑓 𝑘
+at 𝑎.
+
+𝑂,𝑡 denote the vectors of betas and residuals associated 
+𝑎𝑐(𝑎) is the probability density evaluated 
+
+𝑂,𝑡, and 𝜙𝑘
+
+Proof. See the appendix.
+
+To save space, we refer the reader to the appendix for the theoretical 
+analysis of the distributions 𝜙𝑘
+𝑏𝑐 and 𝜙𝑘
+𝑏𝑐,𝑗 whose estimated characteris-
+tics have the same properties as in Proposition 1. These results allow 
+for formal tests on the shape of the alpha or beta distribution. Denot-
+ing  the  generic  estimated  characteristic  by  ̂𝐶 𝑘 ∈ { ̂𝑀 𝑘
+𝑠 ,  ̂𝑃 𝑘(𝑎),  ̂𝑄𝑘(𝑢)}, 
+we can test the null hypothesis:
+
+𝐻
+
+0 ∶ 𝐶 𝑘 = 𝜐,
+
+(20)
+
+where 𝜐 is a given scalar. For instance, we can test whether the pro-
+portion of positive-alpha funds equals 50% (𝜐 = 0.5), or whether the 
+average beta component due to any factor 𝑗 is null (𝜐 = 0).
+
+𝑖 instead of 𝑎𝑐𝑘
+
+Proposition 1 reveals two important insights about inference under 
+misspeciﬁcation. First, the estimated characteristics converge towards 
+their respective parameter values. Asymptotically, we are able to es-
+timate  the  alpha  distribution  𝜙𝑘
+𝑎𝑐 under  model  𝑘 without  bias,  even 
+though we use as inputs noisy versions of the fund components (i.e., we 
+use  ̂𝑎𝑐𝑘
+𝑖 ). Under misspeciﬁcation, Proposition 1 therefore 
+provides a theoretical justiﬁcation for the common practice of reporting 
+cross-sectional summary statistics (e.g., boxplots) based on estimated 
+coeﬃcients without any bias adjustment.13 Second, the variance of the 
+𝑇 (and 
+estimators is large because the convergence rate is equal to 1∕
+𝑛)—a result that formalizes our previous point that misspec-
+not 1∕
+iﬁcation  ampliﬁes  estimation  noise.  This  result  is  a  priori  surprising 
+because the characteristics are all computed as cross-sectional averages 
+(we sum across 𝑛 funds, not across 𝑇 periods).
+
+√
+
+√
+
+None of these properties hold when the model is correctly speciﬁed—
+a setting examined in detail by Barras et al. (2022). In this case, the 
+estimated distribution characteristics must be adjusted for the error-in-
+variable (EIV) bias that arises because we use as inputs noisy versions 
+of the fund coeﬃcients. In addition, the characteristics are estimated 
+√
+𝑛
+with greater precision because the convergence rate is equal to 1∕
+(instead of 1∕
+
+𝑇 ).
+
+√
+
+𝑖 , ̄𝜀∗
+
+𝑖 = ̄𝜀∗
+𝑖,𝑡, 𝜀∗
+
+𝑂, where ̄𝜀𝑘
+̄𝑢𝑘
+𝑖 + 𝑏∗′
+𝑖,𝑂
+𝑖,𝑡, and 𝑢𝑘
+𝑂,𝑡. The average ̄𝜀∗
+
+The strong impact of misspeciﬁcation on inference stems from the 
+properties of the fund error terms. The estimation error on the alpha 
+component  ̂𝑎𝑐𝑘
+𝑖 , and ̄𝑢𝑘
+𝑖 involves the term ̄𝜀𝑘
+𝑂
+denote the time-series averages of 𝜀𝑘
+𝑖 ob-
+tained with the correct model is weakly correlated across funds, which 
+implies that its impact on the estimated characteristics vanishes with 
+the population size 𝑛. It is not the case for the average error term  ̄𝑢𝑘
+𝑂
+of the omitted factors because it aﬀects all funds simultaneously. This 
+𝑇 . 
+term is noisy because it converges to zero at the rate equal to 1/
+As a result, the noise contained in  ̄𝑢𝑘
+𝑂 (i) slows down the convergence 
+√
+𝑇 , and (ii) dom-
+rate of the estimated characteristics from 1∕
+inates  in  magnitude  the  EIV  bias,  which  makes  any  bias  adjustment 
+unnecessary.14
+
+𝑛 to 1∕
+
+√
+
+√
+
+(
+
+𝑉 [𝑀 𝑘
+
+𝑠 ] =
+
+𝜂𝑘′
+𝑀𝑠
+
+⊗ 𝐸′
+
+(
+
+𝑥)−1
+
+1(𝑄𝑘
+1(𝑄𝑘
+
+)
+
+(
+
+Ω𝑘
+𝑢𝑥
+)
+
+𝜂𝑘
+𝑀𝑠
+(
+
+)
+
+⊗ (𝑄𝑘
+
+𝑥)−1𝐸
+1
+
+⊗ (𝑄𝑘
+
+𝑥)−1𝐸
+1
+
+𝑉 [𝑃 𝑘(𝑎)] =
+
+𝜂𝑘′
+𝑥)−1
+𝑃 (𝑎)
+𝑉 [𝑄𝑘(𝑢)] = 𝑉 [𝑃 𝑘(𝑄𝑘(𝑢))]∕𝜙𝑘
+
+⊗ 𝐸′
+
+Ω𝑘
+𝑢𝑥
+𝑎𝑐(𝑄𝑘(𝑢))2 ,
+
+𝜂𝑘
+𝑃 (𝑎)
+
+,
+)
+
+,
+
+(17)
+
+(18)
+
+(19)
+
+13 For  instance,  Almeida  et  al.  (2020),  Capocci  and  Hübner  (2004),  and 
+Kosowski et al. (2007) follow this practice when reporting the characteristics of 
+the distribution of hedge fund alphas.
+14 Our Monte Carlo simulations calibrated on our sample of funds conﬁrm 
+these  results  in  ﬁnite  samples  (see  the  appendix).  When  the  model  is  mis-
+speciﬁed, the mean squared error (MSE) of each characteristic estimator (i) 
+
+JournalofFinancialEconomics154(2024)1038057D. Ardia, L. Barras, P. Gagliardini et al.
+
+3.3.  Comparison tests between models
+
+𝑎𝑐 and  𝜙𝑙
+
+We now turn to the comparison tests based on the alpha distribu-
+tions.  We  compare  the  distributions  𝜙𝑘
+𝑎𝑐 between  two  mod-
+els  𝑘 and  𝑙 (𝑘, 𝑙 = 0, ..., 𝐾 − 1). Our comparison framework is highly 
+ﬂexible because we can apply it to both nested and non-nested mod-
+els (models are nested if one is included in the other). When we set 
+𝑙 = 0, the comparison is made with respect to the CAPM. We compute 
+the  diﬀerences  in  distribution  characteristics  between  the  two  mod-
+els  as  Δ ̂𝑀
+2,  Δ ̂𝑃 (𝑎) = ̂𝑃 𝑘(𝑎) − ̂𝑃 𝑙(𝑎), 
+2 = ̂𝑀 𝑘
+and Δ ̂𝑄(𝑢) = ̂𝑄𝑘(𝑢) − ̂𝑄𝑙(𝑢). Proposition 2 derives the asymptotic dis-
+tribution of each estimated diﬀerence as the numbers of funds 𝑛 and 
+observations 𝑇 grow large.
+
+1 − ̂𝑀 𝑙
+
+2 − ̂𝑀 𝑙
+
+1 = ̂𝑀 𝑘
+
+1,  Δ ̂𝑀
+
+Proposition 2. As 𝑛, 𝑇 → ∞ such that 𝑇 ∕𝑛 → 0, we obtain the following 
+properties for the diﬀerences in the estimated characteristics of 𝜙𝑘
+𝑎𝑐 and 𝜙𝑙
+𝑎𝑐
+under the misspeciﬁed models 𝑘 and 𝑙:
+
+√
+
+)
+
+(
+Δ ̂𝑀𝑠 − Δ𝑀𝑠
+𝑇
+)
+(
+Δ ̂𝑃 (𝑎) − Δ𝑃 (𝑎)
+)
+Δ ̂𝑄(𝑢) − Δ𝑄(𝑢)
+
+(
+
+→𝑑 𝑁
+
+(
+
+)
+0, 𝑉 [Δ𝑀𝑠]
+
+,
+
+→𝑑 𝑁 (0, 𝑉 [Δ𝑃 (𝑎)]) ,
+
+→𝑑 𝑁 (0, 𝑉 [Δ𝑄(𝑢)]) ,
+
+(21)
+
+(22)
+
+(23)
+
+√
+
+√
+
+𝑇
+
+𝑇
+
+where 𝑠 ∈ {1, 2}. The variance of the characteristic diﬀerences are equal to
+
+𝑠] ,
+
+𝑠 , 𝑀 𝑙
+
+𝑠 ] + 𝑉 [𝑀 𝑙
+
+𝑠] − 2𝐶𝑜𝑣[𝑀 𝑘
+
+𝑉 [Δ𝑀 𝑠] = 𝑉 [𝑀 𝑘
+𝑉 [Δ𝑃 (𝑎)] = 𝑉 [𝑃 𝑘(𝑎)] + 𝑉 [𝑃 𝑙(𝑎)] − 2𝐶𝑜𝑣[𝑃 𝑘(𝑎), 𝑃 𝑙(𝑎)] ,
+𝑉 [Δ𝑄(𝑢)] = 𝑉 [𝑄𝑘(𝑢)] + 𝑉 [𝑄𝑙(𝑢)] − 2𝐶𝑜𝑣[𝑄𝑘(𝑢), 𝑄𝑙(𝑢)] ,
+where 𝑉 [𝑀 𝑘
+obtained from Proposition 1. The covariance terms are given by
+
+(26)
+𝑠], 𝑉 [𝑃 𝑘(𝑎)], 𝑉 [𝑃 𝑙(𝑎)], 𝑉 [𝑄𝑘(𝑢)], and 𝑉 [𝑄𝑙(𝑢)] are 
+
+𝑠 ], 𝑉 [𝑀 𝑙
+
+(24)
+
+(25)
+
+𝐶𝑜𝑣[𝑀 𝑘
+
+𝑠 , 𝑀 𝑙
+
+𝑠] =
+
+𝐶𝑜𝑣[𝑃 𝑘(𝑎), 𝑃 𝑙(𝑎)] =
+
+𝐶𝑜𝑣[𝑄𝑘(𝑢), 𝑄𝑙(𝑢)] =
+
+where Ω𝑘𝑙
+
+𝑢𝑥 = lim
+𝑇 →∞
+
+[
+𝐶𝑜𝑣 
+
+(
+(𝜂𝑘′
+𝑀𝑠
+(
+
+𝜂𝑘′
+𝑃 (𝑎)
+
+⊗ 𝐸′
+
+⊗ 𝐸′
+
+1(𝑄𝑘
+1(𝑄𝑘
+
+𝑥)−1
+
+𝑥)−1
+
+(
+
+(
+
+)
+
+)
+
+Ω𝑘𝑙
+𝑢𝑥
+
+Ω𝑘𝑙
+𝑢𝑥
+
+𝜂𝑙
+𝑀𝑠
+
+⊗ (𝑄𝑙
+
+𝑥)−1𝐸
+1
+
+𝜂𝑙
+𝑃 (𝑎)
+
+⊗ (𝑄𝑙
+
+𝑥)−1𝐸
+1
+
+𝐶𝑜𝑣[𝑃 𝑘(𝑄𝑘(𝑢)), 𝑃 𝑙(𝑄𝑙(𝑢))]
+
+,
+
+𝑎𝑐(𝑄𝑘(𝑢))𝜙𝑙
+𝜙𝑘
+
+𝑎𝑐(𝑄𝑙(𝑢))
+
+∑
+
+1√
+𝑇
+
+𝑡 𝑢𝑘
+𝑂,𝑡
+
+⊗ 𝑥𝑘
+
+𝑡 , 1√
+𝑇
+
+∑
+
+]
+
+𝑡 𝑢𝑙
+
+𝑂,𝑡
+
+⊗ 𝑥𝑙
+𝑡
+
+.
+
+)
+
+, (27)
+)
+
+,
+
+(28)
+
+(29)
+
+Proof. See the appendix.
+
+The results in Proposition 2 provide simple comparison tests for each 
+pair of models 𝑘 and 𝑙. We denote the generic estimated characteristic 
+diﬀerence by  Δ ̂𝐶 ∈ {Δ ̂𝑀𝑠, Δ ̂𝑃 (𝑎), Δ ̂𝑄(𝑢)}. We can then test the null 
+hypothesis that each characteristic diﬀerence equals zero:
+
+𝐻
+
+0 ∶ Δ𝐶 = 0.
+
+(30)
+
+Misspeciﬁcation arises naturally in pairwise comparisons because com-
+peting models cannot be all correct. Therefore, the impact of misspec-
+iﬁcation discussed in Proposition 1 carries over to model comparisons. 
+Proposition 2 shows that the comparison tests inherit the high estima-
+tion noise caused by misspeciﬁcation as each characteristic diﬀerence 
+𝑇 . In other words, the bar for 
+converges at a slow rate equal to 1∕
+detecting signiﬁcant diﬀerences between models is considerably higher 
+when the tests are properly adjusted for misspeciﬁcation.
+
+√
+
+Our approach departs from previous studies (e.g., Kan and Robotti, 
+2009; Kan et al., 2013) which derive comparison tests for misspeciﬁed 
+models under a ﬁxed number of assets 𝑛 (single asymptotics with 𝑛 ﬁxed 
+
+is primarily driven by the variance (and not by the ﬁnite-sample bias), and (ii) 
+decreases with 𝑇 , but not with 𝑛.
+
+and 𝑇 → ∞). These tests require the inversion of the entire covariance 
+matrix of returns—an operation that cannot be performed with thou-
+sands of hedge funds, but only hundreds of observations. To address 
+this issue, we derive comparison tests in which 𝑛 grows large (double 
+asymptotics with 𝑛 and 𝑇 → ∞). Another important diﬀerence is that 
+we do not focus on a single aggregate measure of asset alphas (e.g., 
+Hansen-Jagannathan distance), but instead focus on the disaggregated 
+distribution to capture fund heterogeneity.
+
+3.4.  Estimation of the asymptotic variance terms
+
+Conducting inference requires consistent estimators of the variance 
+terms in Propositions 1 and 2. For each distribution characteristic, the 
+variance depends on the error term 𝑢𝑘
+𝑖,𝑂 associated with 
+the omitted factors. For instance, the estimated average  ̂𝑀 𝑘
+1 is more 
+volatile when the variance of the factor residuals 𝑉 [𝑢𝑘
+𝑂,𝑡] and the mag-
+nitude of the average betas 𝐸[𝑏∗
+𝑖,𝑂 are 
+not observable, estimating 𝑉 is not trivial.
+
+𝑖,𝑂] increase. Because 𝑢𝑘
+
+𝑂,𝑡 and betas 𝑏∗
+
+𝑂,𝑡 and 𝑏∗
+
+To  address  this  issue,  we  derive  a  consistent  variance  estimator 
+𝑡 ̂𝛾 𝑘
+𝑖,𝑡 = 𝑟𝑖,𝑡 − 𝑥𝑘′
+𝑖 . 
+𝑇 ( ̂𝐶 𝑘 − 𝐶 𝑘) and 
+
+based on the observed fund residuals of each model  ̂𝜀𝑘
+The  estimators  of  the  asymptotic  variances  of 
+√
+
+√
+
+𝑇 (Δ ̂𝐶 − Δ𝐶) are given by
+∑
+
+∑
+
+∑
+
+̂𝑉 [ ̂𝐶 𝑘] =
+
+̂𝑉 [Δ ̂𝐶] =
+
+1
+𝜒 𝑇
+𝑛2
+1
+𝜒 𝑇
+𝑛2
+
+𝑖
+∑
+
+𝑗
+∑
+
+𝑡
+∑
+
+𝑖 𝜏𝑖,𝑇 𝐼𝑖,𝑡𝟏𝜒
+𝟏𝜒
+
+𝑗 𝜏𝑗,𝑇 𝐼𝑗,𝑡 ̂𝑎𝑖,𝑡( ̂𝐶 𝑘) ̂𝑎𝑗,𝑡( ̂𝐶 𝑘) ,
+
+𝑖 𝜏𝑖,𝑇 𝐼𝑖,𝑡𝟏𝜒
+𝟏𝜒
+
+𝑗 𝜏𝑗,𝑇 𝐼𝑗,𝑡 ̂𝑎Δ
+
+𝑖,𝑡(Δ ̂𝐶) ̂𝑎Δ
+
+𝑗,𝑡(Δ ̂𝐶) ,
+
+(31)
+
+(32)
+
+𝑡
+
+𝑗
+
+𝑖
+where the terms  ̂𝑎𝑖,𝑡( ̂𝐶 𝑘) and  ̂𝑎Δ
+and Δ ̂𝐶 (see 
+the appendix). The following proposition shows that  ̂𝑉 [ ̂𝐶 𝑘] and  ̂𝑉 [Δ ̂𝐶]
+are consistent variance estimators as the numbers of funds 𝑛 and obser-
+vations 𝑇 grow large.
+
+𝑖,𝑡(Δ ̂𝐶) are functions of  ̂𝐶 𝑘
+
+Proposition 3. As 𝑛, 𝑇 → ∞ such that 𝑇 ∕𝑛 → 0, we have
+
+̂𝐶 𝑘] →𝑝 𝑉 [
+̂𝐶 𝑘] ,
+̂𝑉 [
+̂𝑉 [Δ ̂𝐶] →𝑝 𝑉 [Δ ̂𝐶] ,
+where →𝑝 denotes convergence in probability.
+
+(33)
+
+(34)
+
+Proof. See the appendix.
+
+4.  Data and model construction
+
+4.1.  Hedge fund dataset
+
+We collect the monthly net-of-fee returns of hedge funds between 
+January 1994 and December 2020. We combine four databases (Bar-
+clayhedge, HFR, Morningstar, TASS) to mitigate the selection bias that 
+arises  from  the  voluntary  nature  of  information  disclosure  by  hedge 
+funds. We remove the ﬁrst 12 months of data for each fund to control 
+for backﬁll bias. The appendix provides more detail on the construc-
+tion of the dataset, which largely follows Joenväärä et al. (2021). For 
+comparison purposes, we also collect the monthly net-of-fee returns of 
+actively managed U.S. equity funds over the same period following Bar-
+ras et al. (2022).
+
+Table 1 reports summary statistics for the equal-weighted portfolio 
+of all hedge funds in our sample, as well as three investment styles: 
+(i) equity funds (long-short and market neutral), which rely on discre-
+tionary or quantitative analysis to detect mispriced stocks, (ii) macro 
+funds (global macro and managed futures), which take directional bets 
+across asset classes using broad economic and ﬁnancial indicators, and 
+(iii) arbitrage funds (relative value and event driven), which exploit 
+various sources of mispricing primarily in the debt market. Overall, the 
+
+JournalofFinancialEconomics154(2024)1038058D. Ardia, L. Barras, P. Gagliardini et al.
+
+Table 1
+Summary Statistics for the Equal-Weighted Portfolio of Hedge Funds.
+This table provides summary statistics for the equal-weighted portfolio of all existing funds 
+at the start of each month in the entire population and three investment categories: (i) eq-
+uity funds (long-short, market neutral), (ii) macro funds (global macro, managed futures), 
+and (iii) arbitrage funds (relative value, event driven). We report the annualized mean and 
+standard deviation, skewness, kurtosis, and quantiles at 10% and 90% of the portfolio ex-
+cess return. The statistics are computed using monthly data between January 1994 and 
+December 2020.
+
+Moments
+
+Quantiles
+
+Mean
+
+Std Dev.
+
+Skewness
+
+Kurtosis
+
+10%
+
+All Funds
+
+Equity
+
+Long-Short
+Market Neutral
+
+Macro
+
+Global Macro
+Managed Futures
+
+Arbitrage
+
+Relative Value
+Event Driven
+
+5.45
+
+6.73
+7.24
+3.07
+
+4.40
+5.05
+4.09
+
+5.40
+4.90
+6.08
+
+5.49
+
+8.70
+9.68
+2.72
+
+6.12
+5.79
+6.73
+
+4.96
+4.47
+6.11
+
+-0.31
+
+-0.47
+-0.44
+-0.58
+
+0.40
+0.24
+0.47
+
+-2.16
+-2.46
+-1.74
+
+4.51
+
+5.32
+5.31
+5.75
+
+3.57
+3.30
+3.74
+
+14.57
+18.03
+11.79
+
+-1.58
+
+-2.56
+-2.90
+-0.66
+
+-1.68
+-1.66
+-1.79
+
+-0.97
+-0.78
+-1.30
+
+90%
+
+2.34
+
+3.30
+3.68
+1.13
+
+2.59
+2.50
+2.92
+
+1.83
+1.60
+2.35
+
+𝑖 , 𝑏𝑐𝑘
+
+results are similar to those reported by Getmansky et al. (2015) between 
+1996 and 2014.
+
+𝑖 , and 𝑏𝑐𝑘
+
+To obtain reliable estimates of 𝑎𝑐𝑘
+
+𝑖,𝑗 in the unbalanced 
+panel of hedge funds, we apply the selection rule of Section 3.1. Taking 
+the same thresholds as Barras et al. (2022), we set the minimum number 
+of return observations equal to 60 and the minimum condition number 
+for each model equal to 15. Empirically, the second threshold plays no 
+role, which implies that the sample of selected funds is identical across 
+all models (𝑛𝜒 = 5,231 funds). To address the concern that the results 
+depend on the construction of the hedge fund database, we consider 
+alternative ﬁlters in the appendix.15 Consistent with intuition, we ﬁnd 
+that these changes have the same impact across models. As a result, 
+they leave the model comparison unchanged.
+
+4.2.  Hedge fund models
+
+We apply our methodology to nine models examined in previous 
+work. These models only include tradable factors, which allows us to 
+use the fund-by-fund regression in Equation (4) to compute the alpha 
+and beta components. Our selection focuses on omnibus models that 
+aim at explaining the return of any given hedge fund. We therefore do 
+not include models whose factors vary with each individual fund (e.g., 
+Bollen and Whaley, 2009; O’Doherty et al., 2016).
+
+In addition to the CAPM, we consider four standard models. The cho-
+sen set is by no means exhaustive but provides a good representation of 
+the models commonly used for performance evaluation. We select the 
+Carhart (1997) model and the Five-Factor model of Fama and French 
+(2015), which includes the market, size, value, momentum, proﬁtabil-
+ity, and investment factors. We examine the well-known model of Fung 
+and Hsieh (2004), which includes two equity factors (market and size), 
+two bond factors (term and default), and three option straddles (bond, 
+commodity, and currency). Finally, we consider the model of Asness et 
+al. (2013), which adds to the CAPM two global value and momentum 
+factors across international asset classes.
+
+Next, we consider the models of Kozak et al. (2020) based on ma-
+chine  learning.  These  authors  apply  lasso  and  ridge  penalizations  to 
+
+15 We change the fund selection rule by imposing 36 or 84 minimum return 
+observations. We also apply the more stringent backﬁll bias correction of Joen-
+väärä et al. (2021), which eliminates all the observations before the fund listing 
+date. Finally, we use the ﬁve ﬁlters proposed by Straumann (2009) to remove 
+errors in reported fund returns.
+
+form models with the highest out-of-sample ability to explain the av-
+erage returns of 50 characteristic-based equity portfolios.16 We use the 
+two models presented in their Table 4, which impose sparsity by se-
+lecting  ﬁve  factors  only.  The  ﬁrst  one  is  formed  with  the  portfolios 
+themselves, while the second one is formed with their principal com-
+ponents. We also add the market to both models for consistency with 
+the other models.
+
+Finally, we consider two models that include ﬁve factors (referred to 
+as additional factors): illiquidity, betting against beta (BAB), variance 
+(short position), carry, and time-series (TS) momentum. These factors 
+are based on economic intuition and plausibly capture several strate-
+gies followed by hedge funds.17 We consider the model of Joenväärä 
+et al. (2021, JKKT), which extends the Carhart (1997) model by in-
+cluding the illiquidity, BAB, and TS momentum factors. Building on the 
+work of Carhart et al. (2014) and Pedersen (2015), we examine an-
+other model (CP) which replaces the ﬁve non-equity factors of Fung 
+and Hsieh (2004) (bond factors and straddles) with the ﬁve additional 
+factors. Measuring the trading costs of these factors is diﬃcult because 
+it requires timely price information on a wide range of markets. Given 
+this uncertainty, we conduct our baseline analysis using the original 
+factor returns.
+
+Table 2 reports summary statistics for the excess returns of the fac-
+tors.18 We  ﬁnd  that  all  but  one  factor  (bond  term)  deliver  positive 
+premia. Therefore, hedge funds boost their average returns when they 
+increase their factor betas. Unreported results also show that the factors 
+capture distinct strategies—only 11 pairwise correlations out of 153 are 
+
+16 We thank Serhiy Kozak for providing us with the data and code. In principle, 
+we could expand the set of candidate factors using machine learning techniques. 
+However, these techniques require a considerably large number of return ob-
+servations (Gu et al., 2020), which is not the case for hedge fund datasets.
+17 The illiquidity factor of Pástor and Stambaugh (2003) captures marketwide 
+changes in market liquidity. The BAB strategy of Frazzini and Pedersen (2014)
+exploits the price distortions caused by leverage-constrained investors on low-
+and high-beta stocks. The variance factor tracks the realized variance of the 
+S&P 500. The global carry and TS momentum factors of Koijen et al. (2018)
+and Moskowitz et al. (2012) invest in assets with high carry and positive 12-
+month returns across international asset classes. TS momentum departs from 
+traditional cross-sectional momentum, which only invests in assets with past 
+returns higher than the cross-sectional average.
+18 We deﬁne the variance and straddle factors as short positions to obtain 
+positive premia (i.e., these short positions perform poorly in bad times when 
+realized variance is high (Bakshi and Kapadia, 2003)).
+
+JournalofFinancialEconomics154(2024)1038059D. Ardia, L. Barras, P. Gagliardini et al.
+
+Table 2
+Summary Statistics for the Hedge Fund Factors.
+This table provides summary statistics for the factors used in the construction of the nine hedge 
+fund models. Panel A reports the statistics for the US equity market and the standard factors used 
+for performance evaluation. The size, value, momentum, investment, and proﬁtability factors are 
+computed using US equity data. The global value and momentum factors are constructed across 
+multiple international asset classes. The term and default factors are computed using US bond 
+data. The bond, commodity, and currency straddles are computed using option data on bonds, 
+commodities, and currencies. Panel B reports the statistics for the additional hedge fund factors. 
+The illiquidity and betting-against-beta (BAB) factors are computed using US equity data. The 
+variance factor is computed using index option data on the S&P500. The carry and time-series 
+(TS) momentum factors are constructed across multiple international asset classes. We deﬁne 
+the straddle and variance factors as short positions to obtain positive premia. We report the 
+annualized mean and standard deviation, skewness, kurtosis, and quantiles at 10% and 90% of 
+the excess returns of the factors. The statistics are computed using monthly data between January 
+1994 and December 2020.
+
+Panel A: Market and Standard Factors
+
+Moments
+
+Quantiles
+
+Mean
+
+Std Dev.
+
+Skewness
+
+Kurtosis
+
+10%
+
+Market
+Size
+Value
+Momentum
+Investment
+Proﬁtability
+Global Value
+Global Momentum
+Term
+Default
+Straddle on Bonds
+Straddle on Commodities
+Straddle on Currencies
+
+8.81
+1.61
+0.20
+4.67
+2.11
+3.77
+1.30
+3.26
+-0.18
+0.01
+16.00
+2.99
+11.27
+
+15.48
+10.83
+10.88
+17.15
+7.04
+9.38
+6.19
+7.55
+0.89
+0.77
+57.86
+50.38
+69.02
+
+-0.64
+0.38
+0.05
+-1.42
+0.67
+-0.47
+-0.64
+-0.30
+-0.03
+1.90
+-1.85
+-1.32
+-1.56
+
+4.26
+7.54
+5.84
+12.88
+5.09
+13.49
+12.25
+5.46
+4.22
+17.66
+8.99
+6.07
+6.64
+
+-5.15
+-3.49
+-3.30
+-5.07
+-2.14
+-2.03
+-1.72
+-2.25
+-0.35
+-0.20
+-19.68
+-19.71
+-23.36
+
+Panel B: Additional Factors
+
+Moments
+
+Quantiles
+
+Mean
+
+Std Dev.
+
+Skewness
+
+Kurtosis
+
+10%
+
+6.52
+8.58
+38.10
+6.85
+11.11
+
+12.97
+13.77
+23.80
+4.96
+12.56
+
+-0.27
+-0.36
+-4.57
+0.01
+0.16
+
+4.49
+6.10
+29.76
+3.98
+3.16
+
+-3.60
+-3.58
+-1.03
+-1.10
+-3.54
+
+Illiquidity
+BAB
+Variance
+Carry
+TS Momentum
+
+90%
+
+6.02
+3.69
+3.47
+5.50
+2.70
+2.90
+1.76
+2.69
+0.29
+0.19
+17.73
+15.74
+20.15
+
+90%
+
+4.99
+5.21
+7.61
+2.34
+5.71
+
+above 0.5 (in absolute value). Table 3 provides a complete list of the 
+nine models with the factors they include (see the appendix for details 
+on the data sources of the factors).
+
+4.3.  Misspeciﬁcation statistics
+
+Before moving to the main empirical results, we examine the mis-
+speciﬁcation of the nine models. An intuitive statistic is the adjusted 𝑅2
+of the fund-by-fund regression in Equation (4). A high 𝑅2 is a signal of 
+low misspeciﬁcation because the omitted factors must have implausi-
+bly high premia to substantially aﬀect the fund return decomposition. 
+Table 4 shows that the average 𝑅2 is relatively low across all models—
+the values range between 20.4% and 31.0%, leaving plenty of room for 
+omitted factors.
+
+In theory, a correct model could deliver a low 𝑅2 if hedge funds take 
+large idiosyncratic positions to exploit their private information. In this 
+case, a low 𝑅2 might capture skill, not misspeciﬁcation (Titman and Tiu, 
+2011). To address this issue, we compute the criterion of Gagliardini et 
+al. (2019). As 𝑛 and 𝑇 converge to inﬁnity, it is positive with probability 
+one if (i) the model is misspeciﬁed, and (ii) at least one omitted factor 
+is strong (see the appendix). We ﬁnd that this criterion is systematically 
+positive. This result conﬁrms that all the models are misspeciﬁed. It also 
+validates our estimation assumption that one of the omitted factors is 
+strong.
+
+While misspeciﬁed, the nine models are likely to produce diﬀerent 
+return decompositions. Table 4 provides preliminary evidence consis-
+tent with this view. For each model 𝑘, we report the relative importance 
+
+𝑘
+
+𝑖,𝑚
+
+of  each  component  of  the  average  fund  return:  (i)  the  alpha  com-
+ponent  ̂𝑎𝑐𝑘
+𝑖 , (ii) the beta component due to the market computed as 
+𝑖,𝑚 = ̂𝑏𝑘
+̂𝜆𝑚, and (iii) the beta component due to the non-market (nm) 
+̂𝑏𝑐
+factors (all factors but the market) computed as  ̂𝑏𝑐
+. For 
+instance, the relative importance of the alpha component is equal to 
+47.1% on average under the Carhart model but drops to 18.0% under 
+the JKKT model. Interpreting these diﬀerences requires formal compar-
+ison tests—a point we examine below.
+
+̂𝜆𝑘
+𝐼𝑛𝑚
+
+𝑘
+𝑖,𝐼𝑛𝑚
+
+= ̂𝑏𝑘′
+
+𝑖,𝐼𝑛𝑚
+
+Looking at the population of US equity mutual funds, we see that the 
+average 𝑅2 is substantially higher (above 80%). In addition, all models 
+lead to the same conclusion that mutual fund returns are driven by a 
+single component—the equity market. In short, these results conﬁrm 
+that accounting for misspeciﬁcation is crucial for hedge funds but not 
+for mutual funds.
+
+5.  Empirical results
+
+5.1.  Hedge fund return decomposition
+
+5.1.1.  Formal model comparison
+
+We  begin  the  empirical  analysis  with  the  formal  model  compari-
+son.  This  analysis  determines  whether  some  models  do  a  better  job 
+than the CAPM at capturing the alternative strategies followed by hedge 
+funds. Applying our methodology, we compare the alpha distributions 
+under each proposed model and the CAPM. We explicitly test for dif-
+ferences in the mean and standard deviation, proportions of negative-
+
+JournalofFinancialEconomics154(2024)10380510D. Ardia, L. Barras, P. Gagliardini et al.
+
+Table 3
+The Set of Hedge Fund Models.
+This table summarizes the set of nine hedge fund models chosen for the empirical 
+analysis. This set includes the CAPM as reference model as well as three distinct 
+groups. The ﬁrst group includes the standard models used in previous work, namely 
+the Carhart, Five-Factor, Fung-Hsieh, and Asness-Moskowitz-Pedersen (AMP) mod-
+els. The second group includes the two machine learning models of Kozak, Nagel, 
+and Shantosh (KNS) formed with ﬁve characteristic-based equity portfolios and ﬁve 
+principal components of these portfolios. The ﬁnal group includes two models formed 
+with the additional hedge fund factors. The ﬁrst one is the model of Joenväärä et al. 
+(2021) (JKKT). The second one combines the factors proposed by Carhart et al. (2014)
+and Pedersen (2018) (CP).
+
+Model
+
+List of Included Factors
+
+Reference Model
+CAPM
+
+Market
+
+Standard Models
+Carhart
+Five-Factor
+Fung-Hsieh
+AMP
+
+Market, Size, Value, Momentum
+Market, Size, Value, Investment, Proﬁtability
+Market, Size, Term, Default, Straddles (Bonds, Commodities, Currencies)
+Market, Global Value and Momentum
+
+Machine Learning Models
+KNS1
+KNS2
+
+Market, Five Characteristic-Based Equity Factors
+Market, Five Principal Component Equity Factors
+
+Additional Models
+JKKT
+CP
+
+Market, Size, Value, Momentum, Illiquidity, BAB, TS Momentum
+Market, Size, Illiquidity, BAB, Variance, Carry, TS Momentum
+
+Table 4
+Model Misspeciﬁcation Statistics.
+This table provides misspeciﬁcation statistics for the CAPM, the four standard models (Carhart, Five-Factor, Fung-
+Hsieh, AMP), the two machine learning models (KNS1, KNS2), and the two models with the additional factors (JKKT 
+and CP). For each model, we measure the relative importance of the three components of the average fund return: 
+(i) the alpha component (Alpha), (ii) the beta component due to the market (Beta Mkt), and the beta component 
+due to the non-market factors (Beta Non-Mkt). These proportions, which are averaged across all funds, sum up to 
+100%. We also compute the average adjusted 𝑅2 of the time-series regression of the fund return on the factor returns. 
+We conduct this analysis for the entire hedge fund population (ﬁrst four columns) and for the entire mutual fund 
+population (last four columns).
+
+Hedge Funds
+
+Mutual Funds
+
+Relative Importance (%)
+
+Relative Importance (%)
+
+Alpha
+
+Beta Mkt
+
+Beta Non-Mkt
+
+𝑅2
+
+Alpha
+
+Beta Mkt
+
+Beta Non-Mkt
+
+CAPM
+
+52.75
+
+47.25
+
+Carhart
+Five-Factor
+Fung-Hsieh
+AMP
+
+KNS1
+KNS2
+
+JKKT
+CP
+
+47.14
+49.04
+54.10
+47.08
+
+52.52
+64.01
+
+17.97
+6.64
+
+46.60
+46.65
+40.56
+47.37
+
+48.24
+51.03
+
+44.28
+41.19
+
+0.00
+
+6.26
+4.31
+5.34
+5.55
+
+-0.76
+-15.04
+
+37.75
+52.17
+
+20.43
+
+-15.23
+
+115.23
+
+25.28
+24.85
+30.24
+24.36
+
+24.47
+26.39
+
+31.01
+30.26
+
+-17.16
+-16.38
+-14.96
+-15.37
+
+-17.41
+-6.27
+
+-20.01
+-24.33
+
+110.57
+110.27
+107.78
+115.01
+
+114.58
+115.99
+
+110.20
+109.06
+
+0.00
+
+6.58
+6.11
+7.18
+0.36
+
+2.84
+-9.73
+
+9.81
+15.27
+
+𝑅2
+
+81.34
+
+88.98
+88.99
+85.88
+84.55
+
+83.40
+87.09
+
+89.65
+87.15
+
+∑𝑛
+
+and positive-alpha funds, and quantiles at 10% and 90%. To compute 
+the standard deviation of the estimated diﬀerences, we replace 𝑇 with 
+𝟏𝜒
+𝑇𝜒 = 1
+𝑖 𝑇𝑖,  where  𝑇 and  𝑇𝜒 are  equal  to  324  and  125  ob-
+𝑛𝜒
+servations. As a result, we account for the increased noise due to the 
+unbalanced nature of the hedge fund panel.
+
+𝑖=1
+
+The  comparison  tests  reported  in  Table 5 reveal  several  new  in-
+sights.  We  observe  a  striking  similarity  between  the  CAPM  and  the 
+four  standard  models  (Carhart,  Five-Factor,  Fung-Hsieh,  and  Asness-
+Moskowitz-Pedersen). Only one of the 24 characteristic diﬀerences is 
+statistically signiﬁcant. Properly accounting for misspeciﬁcation is key 
+when interpreting these diﬀerences. Suppose that we naively use the 
+𝑇𝜒
+convergence rate of 1∕
+under misspeciﬁcation. In this case, we ﬁnd that 75% of the 24 charac-
+teristic diﬀerences are signiﬁcant at the 5% level. Applying the correct 
+
+𝑛𝜒 , instead of the appropriate rate of 1∕
+
+√
+
+√
+
+procedure, we conclude that the standard models are no better than the 
+CAPM at capturing alternative hedge fund strategies.
+
+Similarly,  the  machine  learning  models  produce  the  same  alpha 
+distributions as the CAPM. Whereas these models do a great job at ex-
+plaining  the  average  returns  of  characteristic-based  equity  portfolios 
+(Kozak et al., 2020), they are not trained on strategies beyond the eq-
+uity space. Their limited success in the hedge fund population highlights 
+the importance of accounting for other asset classes, such as bonds, cur-
+rencies, and commodities.
+
+The only exceptions are the JKKT and CP models. The tests reveal 
+highly signiﬁcant diﬀerences relative to the CAPM. These diﬀerences 
+hold after replacing the CAPM with any of the standard and machine 
+learning  models.  They  also  hold  when  accounting  for  factor  trading 
+costs using estimates from previous studies (see the appendix). In short, 
+
+JournalofFinancialEconomics154(2024)10380511D. Ardia, L. Barras, P. Gagliardini et al.
+
+Table 5
+Formal Model Comparisons.
+This table compares the CAPM with the four standard models (Carhart, Five-Factor, Fung-Hsieh, AMP), the two machine 
+learning models (KNS1, KNS2), and the two models with the additional factors (JKKT and CP). We compute the diﬀerences 
+in characteristics between the cross-sectional distributions of the alpha components under the CAPM and each model. We 
+report the diﬀerences in the annualized mean and standard deviation, the proportions of funds with negative and positive 
+alphas, and the annualized quantiles at 10% and 90%. Figures in parentheses denote the standard deviation of the estimated 
+diﬀerences. ∗∗∗, ∗∗, ∗ indicate that the null hypothesis of equal characteristics is rejected at the 1%, 5%, and 10% levels.
+
+Moments (Ann.)
+
+Proportions (%)
+
+Quantiles (Ann.)
+
+Mean
+
+Std Dev.
+
+Negative
+
+Positive
+
+10%
+
+90%
+
+-0.31 (0.40)
+-0.21 (0.46)
+0.08 (0.60)
+-0.31 (0.42)
+
+-0.01 (0.39)
+0.63 (0.49)
+
+-0.19 (0.31)
+0.02 (0.34)
+-0.20 (0.35)
+0.06 (0.37)
+
+0.43 (0.29)
+0.20 (0.31)
+
+2.27 (2.50)
+2.41 (3.01)
+0.52 (3.88)
+2.50 (2.44)
+
+1.59 (1.78)
+-2.47 (2.65)
+
+-2.27 (2.50)
+-2.41 (3.01)
+-0.52 (3.88)
+-2.50 (2.44)
+
+-1.59 (1.78)
+2.47 (2.65)
+
+-0.02 (0.40)
+-0.01 (0.50)
+0.28 (0.56)
+-0.17 (0.37)
+
+-0.26 (0.29)
+0.58 (0.41)
+
+-0.60∗ (0.34)
+-0.18 (0.40)
+-0.15 (0.47)
+-0.34 (0.45)
+
+0.19 (0.38)
+0.65 (0.47)
+
+-1.93∗∗∗ (0.67)
+-2.56∗∗∗ (0.76)
+
+0.41 (0.50)
+2.13∗∗∗ (0.50)
+
+14.76∗∗∗ (4.01)
+19.82∗∗∗ (4.27)
+
+-14.76∗∗∗ (4.01)
+-19.82∗∗∗ (4.27)
+
+-2.32∗∗∗ (0.66)
+-4.22∗∗∗ (0.73)
+
+-1.98∗∗∗ (0.68)
+-1.42∗ (0.76)
+
+Carhart
+Five-Factor
+Fung-Hsieh
+AMP
+
+KNS1
+KNS2
+
+JKKT
+CP
+
+Table 6
+Decomposition of Average Fund Returns.
+This table shows the decomposition of average fund returns under the CAPM, the four standard models 
+(Carhart, Five-Factor, Fung-Hsieh, AMP), the two machine learning models (KNS1, KNS2), and the two models 
+with the additional factors (JKKT and CP). Panel A reports the characteristics of the cross-sectional distribu-
+tion of the alpha components under each model. We report the annualized mean and standard deviation, 
+the proportions of funds with negative and positive alphas, and the annualized quantiles at 10% and 90%. 
+Figures in parentheses denote the standard deviation of the estimated characteristics. Panel B reports the 
+characteristics of the cross-sectional distribution of beta components under each model.
+
+Moments (Ann.)
+
+Panel A: Distribution of the Alpha Components
+Proportions (%)
+
+Quantiles (Ann.)
+
+Mean
+
+Std Dev.
+
+Negative
+
+Positive
+
+10%
+
+90%
+
+CAPM
+
+2.93 (0.94)
+
+7.01 (0.48)
+
+27.15 (5.49)
+
+72.85 (5.49)
+
+-3.95 (0.67)
+
+10.06 (0.67)
+
+Carhart
+Five-Factor
+Fung-Hsieh
+AMP
+
+2.62 (0.84)
+2.72 (0.89)
+3.01 (0.74)
+2.62 (0.92)
+
+6.82 (0.31)
+7.03 (0.31)
+6.81 (0.29)
+7.08 (0.28)
+
+29.42 (5.08)
+29.55 (5.23)
+27.66 (3.60)
+29.65 (5.62)
+
+70.58 (5.08)
+70.45 (5.23)
+72.34 (3.60)
+70.35 (5.62)
+
+-3.97 (0.57)
+-3.96 (0.63)
+-3.67 (0.47)
+-4.12 (0.59)
+
+9.46 (0.55)
+9.87 (0.54)
+9.90 (0.51)
+9.71 (0.54)
+
+KNS1
+KNS2
+
+JKKT
+CP
+
+2.92 (0.87)
+3.56 (0.86)
+
+7.44 (0.42)
+7.21 (0.37)
+
+28.73 (5.13)
+24.68 (4.33)
+
+71.27 (5.13)
+75.32 (4.33)
+
+-4.21 (0.63)
+-3.37 (0.55)
+
+10.24 (0.60)
+10.70 (0.62)
+
+1.00 (0.73)
+0.37 (0.86)
+
+7.42 (0.31)
+9.15 (0.40)
+
+41.90 (4.80)
+46.97 (5.31)
+
+58.10 (4.80)
+53.03 (5.31)
+
+-6.27 (0.60)
+-8.17 (0.77)
+
+8.07 (0.38)
+8.64 (0.44)
+
+Moments (Ann.)
+
+Panel B: Distribution of the Beta Components
+Proportions (%)
+
+Quantiles (Ann.)
+
+Mean
+
+Std Dev.
+
+Negative
+
+Positive
+
+10%
+
+90%
+
+CAPM
+
+2.62 (0.83)
+
+4.37 (0.67)
+
+22.54 (9.57)
+
+77.46 (9.57)
+
+-0.71 (0.61)
+
+8.01 (0.73)
+
+Carhart
+Five-Factor
+Fung-Hsieh
+AMP
+
+2.94 (0.81)
+2.83 (0.84)
+2.55 (0.78)
+2.94 (0.84)
+
+4.30 (0.52)
+4.48 (0.51)
+4.39 (0.52)
+4.66 (0.49)
+
+17.99 (5.68)
+20.61 (5.62)
+22.58 (5.98)
+18.98 (5.41)
+
+82.01 (5.68)
+79.39 (5.62)
+77.42 (5.98)
+81.02 (5.41)
+
+-0.65 (0.42)
+-1.06 (0.41)
+-1.23 (0.44)
+-0.96 (0.43)
+
+8.20 (0.72)
+8.32 (0.75)
+7.96 (0.67)
+8.56 (0.73)
+
+KNS1
+KNS2
+
+JKKT
+CP
+
+2.64 (0.80)
+2.00 (0.82)
+
+5.14 (0.57)
+4.47 (0.49)
+
+23.04 (5.71)
+27.53 (7.96)
+
+76.96 (5.71)
+72.47 (7.96)
+
+-1.37 (0.56)
+-1.61 (0.59)
+
+8.38 (0.86)
+7.28 (0.69)
+
+4.56 (0.83)
+5.19 (0.93)
+
+5.90 (0.42)
+7.64 (0.49)
+
+13.90 (2.20)
+15.91 (2.17)
+
+86.10 (2.20)
+84.09 (2.17)
+
+-0.50 (0.28)
+-1.17 (0.35)
+
+11.12 (0.74)
+12.78 (1.11)
+
+the  JKKT  and  CP  models  are  better  equipped  to  capture  alternative 
+strategies and sharpen the fund return decomposition.
+
+5.1.2.  Magnitude of the alpha and beta components
+
+We now turn to the return decomposition for the entire population. 
+For each model 𝑘, we apply our methodology to infer the main char-
+acteristics of (i) the distribution of the alpha components  ̂𝜙𝑘
+𝑎𝑐 , and (ii) 
+the distribution of the beta components  ̂𝜙𝑘
+𝑏𝑐 . We report these results in 
+Table 6.
+
+Both the CAPM and the standard models produce large alpha com-
+ponents. Panel A shows that the average alpha clusters around 2.8% 
+per year, and the proportion of positive-alpha funds is always above 
+70%. These results are in line with the previous literature which ﬁnds 
+that hedge funds deliver superior performance. Another takeaway from 
+these models is that hedge funds are only exposed to market risk. Panel 
+B shows that the average beta component equals 2.6% under the CAPM 
+and remains unchanged as we include proﬁtability, bond, or straddle 
+factors. In short, hedge funds deliver high alphas to investors while be-
+ing immune to alternative sources of risk.
+
+JournalofFinancialEconomics154(2024)10380512D. Ardia, L. Barras, P. Gagliardini et al.
+
+Fig. 2. Distributions of the Alpha and Beta Components.
+This ﬁgure compares the average return decomposition obtained with the two models with the additional factors (JKKT and CP) and the CAPM. Panel A plots the 
+cross-sectional distributions of the alpha components (annualized) under the three models. Panel B repeats the analysis for the beta components.
+
+The JKKT and CP models reverse these conclusions. For instance, the 
+CP model delivers an average beta component of 5.2%, which is twice 
+as large as under the CAPM. At the same time, it brings the average 
+alpha down to 0.4% per year and the proportion of positive-alpha funds 
+down to 53.0%. These results highlight the importance of the additional 
+factors included in the JKKT and CP models. As discussed by Asness et 
+al. (2013) and Pedersen (2015), there is ample anecdotal evidence that 
+hedge  funds  hold  illiquid  assets,  take  levered  positions,  trade  equity 
+options, buy cheap assets with high carry, and follow trends in asset 
+prices.
+
+To visualize these results, we plot in Fig. 2 the densities of the two 
+components for the CAPM, the JKKT model, and the CP model. In line 
+with our illustrative example in Fig. 1, these two models capture the 
+premia of alternative strategies and thus produce (i) a shift of the alpha 
+distribution towards zero and (ii) a shift of the beta distribution away 
+from zero.
+
+5.1.3.  Economic importance of each factor
+
+Our previous analysis highlights the key role played by the addi-
+tional factors. To measure their economic importance separately, we 
+
+break down the total beta component obtained with the CP model into 
+the respective contributions due to market, size, illiquidity, BAB, vari-
+ance, carry, and TS momentum. Using these estimated quantities, we 
+then  apply  our  methodology  to  infer  the  main  characteristics  of  the 
+beta distribution 𝜙𝑘
+
+𝑏𝑐,𝑗 for each factor.
+
+Table 7 shows that the equity market is the most prevalent source 
+of risk as 78% of the funds have positive market betas. On average, the 
+market contribution equals 2.3% per year, representing 44% of the total 
+beta component. We also ﬁnd that a majority of funds load positively on 
+each of the ﬁve additional strategies. They are therefore widely used by 
+hedge funds to boost their returns. Interestingly, individual funds do not 
+load on all of them simultaneously. As shown in Panel B, the pairwise 
+correlations between the factor components only range between -18% 
+and 14%.
+
+TS momentum, variance, and carry are the most important addi-
+tional factors. Their average contributions are all statistically signiﬁcant 
+and equal to 1.1%, 0.8%, and 0.4% per year. In the top decile of funds 
+with the highest exposures, these contributions reach 4.5%, 4.5%, and 
+2.7% per year. The unique feature of the CP model is to include all three 
+factors, which explains its edge over the JKKT model. It consistently 
+
+JournalofFinancialEconomics154(2024)10380513D. Ardia, L. Barras, P. Gagliardini et al.
+
+Table 7
+Economic Importance of the Hedge Fund Factors.
+This table measures the economic importance of each factor in the CP model as a driver of average fund returns. 
+Panel A reports the characteristics of the cross-sectional distribution of the beta components due to each factor. We 
+report the annualized mean and standard deviation, the proportions of funds with negative and positive contributions, 
+and the annualized quantiles at 10% and 90%. Figures in parentheses denote the standard deviation of the estimated 
+characteristics. Panel B reports the cross-sectional correlation between the beta components for each pair of factors.
+
+Panel A: Distribution of the Beta Components for Each Factor
+
+Moments (Ann.)
+
+Proportions (%)
+
+Quantiles (Ann.)
+
+Mean
+
+Std Dev.
+
+Negative
+
+Positive
+
+10%
+
+90%
+
+Market
+Size
+Illiquidity
+Betting Against Beta
+Variance
+Carry
+Time-Series Momentum
+
+2.29 (1.27)
+0.23 (0.26)
+0.05 (0.07)
+0.35 (0.25)
+0.78 (0.25)
+0.43 (0.17)
+1.06 (0.32)
+
+3.84 (1.19)
+1.01 (0.32)
+1.26 (0.29)
+2.22 (0.69)
+5.17 (0.70)
+2.56 (0.46)
+4.03 (0.78)
+
+21.62 (6.13)
+38.23 (4.26)
+44.94 (3.25)
+35.14 (3.80)
+36.74 (1.89)
+39.21 (2.38)
+42.86 (1.51)
+
+78.38 (6.13)
+61.77 (4.26)
+55.06 (3.25)
+64.86 (3.80)
+63.26 (1.89)
+60.79 (2.38)
+57.14 (1.51)
+
+-0.55 (0.15)
+-0.31 (0.03)
+-0.75 (0.24)
+-1.30 (0.44)
+-3.08 (0.54)
+-1.89 (0.37)
+-1.35 (0.34)
+
+Size
+
+-0.08
+
+Market
+Size
+Illiquidity
+Betting Against Beta
+Variance
+Carry
+
+Panel B: Correlations Between the Beta Components
+Variance
+
+Illiquidity
+
+BAB
+
+-0.01
+-0.07
+
+-0.01
+-0.00
+-0.09
+
+-0.03
+-0.06
+0.14
+-0.07
+
+Carry
+
+-0.02
+0.06
+-0.02
+0.03
+0.04
+
+6.99 (2.05)
+1.02 (0.53)
+0.85 (0.38)
+2.23 (0.90)
+4.53 (0.87)
+2.73 (0.51)
+4.49 (0.72)
+
+TS Mom
+
+-0.18
+0.05
+0.08
+-0.05
+-0.09
+-0.13
+
+delivers lower average alphas and lower proportions of positive-alpha 
+funds (both in the population and for all investment categories). For this 
+reason, we primarily focus on the CP model for the rest of our analysis.
+
+5.2.  Hedge fund investment styles
+
+5.2.1.  A closer look at equity, macro, and arbitrage funds
+
+Whereas the CP model includes factors that plausibly capture several 
+hedge fund strategies, it is not designed for a particular style. There-
+fore, an important question is whether the superiority of the CP model 
+holds across categories. To examine this issue, we re-estimate the alpha 
+and beta distributions for equity, macro, and arbitrage funds under the 
+CAPM, the JKKT model, and the CP model. The other models deliver 
+the same results as the CAPM and are thus not shown.
+
+Table 8 conﬁrms the strong diﬀerences between the CP model and 
+the CAPM. Among equity and arbitrage funds, the average alphas under 
+the CP model are equal to 0.6% and 0.9% per year (versus 2.4% and 
+2.8% for the CAPM). In the macro category, the diﬀerence is even larger 
+as  the  majority  of  funds  deliver  a  negative  alpha  equal  to  -0.4%  on 
+average (versus 3.7% for the CAPM). For completeness, we examine 
+multi-strategy funds and funds of funds which could be more diﬃcult 
+to model given their diversity. In both categories, the appendix shows 
+that the CP model still delivers a sharp reduction in alphas.
+
+These  results  suggest  that  the  additional  factors  in  the  CP  model 
+transcend style boundaries. Carry provides a good illustration of this 
+phenomenon. This strategy invests in cheap assets with a high diﬀer-
+ence between spot and forward prices. As discussed by Pedersen (2015), 
+carry is routinely implemented by hedge funds, regardless of their in-
+vestment styles. It is the case when they buy value stocks, high interest 
+rate currencies, or backwarded commodities. Consistent with this analy-
+sis, Table 9 reveals that carry matters for all three categories. Its average 
+beta component is always positive and ranges between 0.34% (equity) 
+and 0.56% (arbitrage) per year.
+
+Table 9 also shows that variance transcends style boundaries. Its av-
+erage return contribution among equity and arbitrage funds is equal to 
+1.1% per year. The economic importance of variance reﬂects the option 
+strategies followed by these funds. For instance, mortgage, ﬁxed income 
+volatility, and merger arbitrage activities all involve taking short option 
+positions (Duarte et al., 2006; Mitchell and Pulvino, 2001). In addition, 
+the variance factor captures unexpected increases in asset correlations 
+(Driessen et al., 2009). As such, it signals crisis times when equity and 
+
+arbitrage funds suﬀer from less eﬀective hedging strategies and tighter 
+funding constraints (Buraschi et al., 2014b).
+
+At the same time, some factors in the CP model cater to speciﬁc 
+styles. For instance, TS momentum plays a key role for macro funds—its 
+average contribution reaches 3.10% per year. This result is consistent 
+with the intuition that global funds rely on past returns to determine 
+their asset allocation and exploit trends caused by behavioral biases, 
+frictions, or slow-moving capital.19 Another example is BAB which pri-
+marily matters for arbitrage funds. These funds extensively use leverage 
+to exploit price distortions in capital markets (Ang et al., 2011). It is 
+therefore  plausible  that  some  of  these  distortions  originate  from  the 
+leverage constraints faced by traditional investors and captured by the 
+BAB strategy.
+
+5.2.2.  The heterogeneity across funds
+
+The return decomposition within styles in Table 8 uncovers a large 
+fund heterogeneity. Starting with the alpha distribution, we see that 
+the CP model produces a cross-sectional volatility between 6.8% (ar-
+bitrage) and 11.0% (macro) per year. Similarly, the beta distribution 
+covers a wide interval as its volatility ranges between 4.9% (arbitrage) 
+and 9.6% (macro) per year. These values are similar to those obtained 
+in the entire population—Table 6 reports a volatility of 9.2% and 7.6% 
+per year for the alpha and beta distributions.20 The rationale for form-
+ing groups is to summarize the information conveyed by factor models 
+and identify funds with similar performance and risk levels. Meeting 
+this objective is however diﬃcult for hedge funds given their diverse 
+strategies.
+
+It might be surprising that the CP model always produces a higher 
+dispersion in alphas than the CAPM. A priori, the CAPM should gener-
+ate a higher variance because its alpha absorbs the dispersion due to 
+𝜆2 in our example in Fig. 1). Whereas 
+the omitted factors (the term 2𝜎∗2
+𝑏
+
+19 Managed futures funds (a subset of macro funds) are well known for follow-
+ing trends. Unsurprisingly, the appendix shows that the average contribution of 
+TS momentum for these funds is even higher (3.7% per year).
+20 This heterogeneity may partly be driven by misclassiﬁcation. First, data 
+providers use diﬀerent style classiﬁcations that need to be reconciled when 
+creating the aggregate database (see the appendix). Second, the methodology 
+used by each provider (e.g., clustering) and the information provided by funds 
+could introduce classiﬁcation noise. Third, the reported styles are not frequently 
+updated and may therefore not always reﬂect the actual fund strategies.
+
+JournalofFinancialEconomics154(2024)10380514D. Ardia, L. Barras, P. Gagliardini et al.
+
+Table 8
+Decomposition of Average Fund Returns – Investment Categories.
+This table shows the decomposition of average fund returns under the CAPM and the two models with the 
+additional factors (JKKT and CP) across investment styles. Panel A reports the characteristics of the cross-
+sectional distributions of the alpha and beta components across equity funds (long-short, market neutral). 
+We report the annualized mean and standard deviation, the proportions of funds with negative and positive 
+alphas, and the annualized quantiles at 10% and 90%. Figures in parentheses denote the standard deviation 
+of the estimated characteristics. Panels B and C repeat the analysis for macro funds (global macro, managed 
+futures) and arbitrage funds (relative value, event driven).
+
+Moments (Ann.)
+
+Panel A: Equity Funds
+Proportions (%)
+
+Quantiles (Ann.)
+
+Mean
+
+Std Dev.
+
+Negative
+
+Positive
+
+10%
+
+90%
+
+Distribution of the Alpha Components
+CAPM
+JKKT
+CP
+
+2.40 (1.06)
+1.12 (0.81)
+0.58 (0.96)
+
+7.09 (0.48)
+6.98 (0.31)
+9.08 (0.49)
+
+30.23 (6.31)
+42.98 (5.48)
+47.38 (5.46)
+
+69.77 (6.31)
+57.02 (5.48)
+52.62 (5.46)
+
+-4.52 (0.83)
+-5.73 (0.75)
+-7.84 (1.02)
+
+9.54 (0.96)
+7.77 (0.66)
+8.53 (0.79)
+
+Distribution of the Beta Components
+4.18 (1.16)
+CAPM
+5.46 (1.18)
+JKKT
+6.00 (1.31)
+CP
+
+5.19 (0.70)
+5.75 (0.54)
+7.58 (0.61)
+
+12.94 (8.25)
+10.59 (2.37)
+13.69 (2.77)
+
+87.06 (8.25)
+89.41 (2.37)
+86.31 (2.77)
+
+-0.14 (0.74)
+-0.10 (0.43)
+-0.75 (0.56)
+
+10.66 (1.39)
+12.19 (1.41)
+13.71 (1.77)
+
+Moments (Ann.)
+
+Panel B: Macro Funds
+Proportions (%)
+
+Quantiles (Ann.)
+
+Mean
+
+Std Dev.
+
+Negative
+
+Positive
+
+10%
+
+90%
+
+Distribution of the Alpha Components
+CAPM
+JKKT
+CP
+
+3.71 (1.72)
+-0.14 (1.42)
+-0.39 (1.65)
+
+8.04 (0.78)
+9.14 (0.65)
+11.04 (0.70)
+
+25.73 (6.47)
+51.52 (7.66)
+51.83 (7.02)
+
+74.27 (6.47)
+48.48 (7.66)
+48.17 (7.02)
+
+-4.26 (0.89)
+-9.25 (1.43)
+-10.91 (1.58)
+
+12.41 (2.14)
+8.70 (0.75)
+10.26 (1.00)
+
+Distribution of the Beta Components
+1.01 (1.08)
+CAPM
+4.87 (1.11)
+JKKT
+5.11 (1.33)
+CP
+
+3.70 (0.68)
+7.49 (0.74)
+9.62 (0.79)
+
+43.44 (21.78)
+20.32 (3.33)
+23.74 (3.89)
+
+56.56 (21.78)
+79.68 (3.33)
+76.26 (3.89)
+
+-1.76 (1.29)
+-1.57 (0.44)
+-2.60 (0.63)
+
+5.44 (0.66)
+12.86 (1.30)
+14.18 (1.35)
+
+Moments (Ann.)
+
+Panel C: Arbitrage Funds
+
+Proportions (%)
+
+Quantiles (Ann.)
+
+Mean
+
+Std Dev.
+
+Negative
+
+Positive
+
+10%
+
+90%
+
+Distribution of the Alpha Components
+CAPM
+JKKT
+CP
+
+2.81 (1.24)
+1.97 (0.89)
+0.87 (1.06)
+
+5.61 (0.44)
+5.70 (0.29)
+6.81 (0.44)
+
+24.74 (9.71)
+31.03 (8.00)
+41.64 (9.30)
+
+75.26 (9.71)
+68.97 (8.00)
+58.36 (9.30)
+
+-2.79 (1.31)
+-3.66 (0.92)
+-5.48 (1.20)
+
+8.67 (0.63)
+7.60 (0.50)
+7.62 (0.49)
+
+Distribution of the Beta Components
+2.31 (0.98)
+CAPM
+3.14 (0.81)
+JKKT
+4.25 (0.98)
+CP
+
+3.02 (0.66)
+3.57 (0.42)
+4.90 (0.56)
+
+13.63 (8.51)
+11.60 (3.04)
+10.86 (2.29)
+
+86.37 (8.51)
+88.40 (3.04)
+89.14 (2.29)
+
+-0.08 (0.45)
+-0.09 (0.32)
+-0.10 (0.33)
+
+5.88 (1.22)
+7.28 (1.03)
+9.42 (1.37)
+
+this eﬀect is at play, it is more than oﬀset by the reduction in vari-
+ance due to the negative cross-sectional correlation between the alpha 
+and beta components. This correlation arises because poorly performing 
+funds load aggressively on alternative strategies—possibly to hide their 
+lack of skill. To elaborate, consider the worst-performing macro funds 
+under the CP model. These funds load heavily on the ﬁve additional 
+factors to boost their returns. Unreported results show that their aver-
+age beta component is three times larger than in the population (16.1% 
+versus 5.2% per year). By controlling for these factor exposures, the CP 
+model uncovers the strong underperformance of these funds—the 10%-
+quantile equals -8.2% per year (versus -4.0% only under the CAPM).
+
+5.2.3.  Benchmarking using style-speciﬁc models
+
+A natural question is whether models formed with style-speciﬁc fac-
+tors can sharpen the decomposition of hedge fund returns. Our previous 
+analysis reveals the existence of a trade-oﬀ. On the one hand, these 
+models may capture the prevalent strategies in each style and be less 
+prone to misspeciﬁcation. On the other hand, the observed heterogene-
+ity calls against using rigid style models which assume that all funds 
+follow  similar  strategies.  Heterogeneity  may  also  increase  the  list  of 
+candidate style factors to choose from and thus the risk of data mining.
+In this context, the common approach of peer benchmarking is prob-
+lematic for hedge funds. This approach uses as benchmark a style index 
+
+that includes all funds in a given investment category (e.g., Hunter et 
+al., 2014; Buraschi et al., 2014a). Using a style index produces substan-
+tial misspeciﬁcation because it imposes a constant beta component for 
+all funds with the same style—a restriction that is inconsistent with the 
+heterogeneity reported in Table 8. It implies that any fund with a beta 
+component lower than average is mechanically credited with a lower 
+alpha. Another issue is that hedge fund style indices are not investible 
+given the numerous constraints that prevent investors from forming di-
+versiﬁed hedge fund portfolios.21
+
+The above trade-oﬀ suggests that models with style-speciﬁc factors 
+are  likely  to  perform  better  on  homogeneous  categories  with  well-
+deﬁned strategies. For instance, Duarte et al. (2006) show the beneﬁts 
+of using these models for explaining the returns of ﬁxed income ar-
+bitrage  funds  (e.g.,  swap  spread,  yield  curve  arbitrage).  In  contrast, 
+ﬁnding  appropriate  style  factors  to  cover  the  three  broad  categories 
+examined here is more challenging. As a simple illustration, we con-
+sider a style-based version of the CP model in which we replace the 
+
+21 Investability is less problematic for mutual funds. As noted by Hunter et al. 
+(2014): “Even the least sophisticated investor always has a fallback strategy of 
+equally-weighting (or value-weighting) all funds in the group every period; this 
+tradeable strategy is quite simple.”
+
+JournalofFinancialEconomics154(2024)10380515D. Ardia, L. Barras, P. Gagliardini et al.
+
+Table 9
+Economic Importance of the Hedge Fund Factors – Investment Categories.
+This table measures the economic importance of each factor in the CP model as a driver of average fund returns across 
+investment styles. Panel A reports the characteristics of the cross-sectional distributions of the beta components due to 
+each factor across equity funds (long-short, market neutral). We report the annualized mean and standard deviation, the 
+proportions of funds with negative and positive contributions, and the annualized quantiles at 10% and 90%. Figures in 
+parentheses denote the standard deviation of the estimated characteristics. Panel B and C repeat the analysis for macro 
+funds (global macro, managed futures) and arbitrage funds (relative value, event driven).
+
+Panel A: Equity Funds
+
+Moments (Ann.)
+
+Proportions (%)
+
+Quantiles (Ann.)
+
+Mean
+
+Std Dev.
+
+Negative
+
+Positive
+
+10%
+
+90%
+
+Market
+Size
+Illiquidity
+Betting Against Beta
+Variance
+Carry
+Time-Series Momentum
+
+3.67 (2.07)
+0.42 (0.57)
+0.14 (0.10)
+0.25 (0.21)
+0.67 (0.25)
+0.34 (0.17)
+0.51 (0.17)
+
+4.53 (1.22)
+1.32 (0.42)
+1.49 (0.35)
+2.66 (0.80)
+5.06 (0.70)
+2.80 (0.46)
+2.83 (0.55)
+
+14.54 (8.16)
+32.68 (11.70)
+44.13 (2.66)
+38.48 (3.90)
+38.58 (2.19)
+44.78 (2.67)
+42.08 (2.04)
+
+Panel B: Macro Funds
+
+85.46 (8.16)
+67.32 (11.70)
+55.87 (2.66)
+61.52 (3.90)
+61.42 (2.19)
+55.22 (2.67)
+57.92 (2.04)
+
+-0.19 (0.61)
+-0.35 (0.11)
+-0.85 (0.25)
+-1.71 (0.55)
+-3.12 (0.54)
+-2.11 (0.41)
+-1.56 (0.46)
+
+9.33 (3.18)
+1.65 (1.04)
+1.27 (0.48)
+2.55 (1.05)
+4.46 (0.85)
+2.73 (0.52)
+3.05 (0.74)
+
+Moments (Ann.)
+
+Proportions (%)
+
+Quantiles (Ann.)
+
+Mean
+
+Std Dev.
+
+Negative
+
+Positive
+
+10%
+
+90%
+
+Market
+Size
+Illiquidity
+Betting Against Beta
+Variance
+Carry
+Time-Series Momentum
+
+1.18 (0.62)
+0.07 (0.09)
+-0.08 (0.10)
+0.21 (0.19)
+0.22 (0.35)
+0.41 (0.26)
+3.10 (1.11)
+
+3.47 (1.10)
+0.83 (0.20)
+1.26 (0.31)
+1.99 (0.65)
+6.56 (0.87)
+2.79 (0.57)
+5.83 (1.23)
+
+35.11 (4.40)
+50.59 (9.02)
+54.07 (3.37)
+40.83 (4.63)
+49.41 (3.11)
+41.89 (3.33)
+24.43 (3.26)
+
+64.89 (4.40)
+49.41 (9.02)
+45.93 (3.37)
+59.17 (4.63)
+50.59 (3.11)
+58.11 (3.33)
+75.57 (3.26)
+
+-1.40 (0.35)
+-0.43 (0.28)
+-0.90 (0.37)
+-1.30 (0.47)
+-4.73 (0.92)
+-2.43 (0.58)
+-0.73 (0.12)
+
+4.87 (1.62)
+0.64 (0.20)
+0.75 (0.28)
+1.84 (0.76)
+4.55 (0.76)
+3.23 (0.64)
+10.22 (2.20)
+
+Moments (Ann.)
+
+Panel C: Arbitrage Funds
+Proportions (%)
+
+Quantiles (Ann.)
+
+Mean
+
+Std Dev.
+
+Negative
+
+Positive
+
+10%
+
+90%
+
+Market
+Size
+Illiquidity
+Betting Against Beta
+Variance
+Carry
+Time-Series Momentum
+
+1.68 (0.90)
+0.16 (0.20)
+0.07 (0.12)
+0.61 (0.39)
+1.47 (0.42)
+0.56 (0.20)
+-0.30 (0.19)
+
+2.52 (0.75)
+0.60 (0.17)
+0.87 (0.18)
+1.76 (0.58)
+3.34 (0.55)
+1.91 (0.34)
+1.53 (0.37)
+
+16.96 (6.38)
+32.82 (8.47)
+36.89 (7.20)
+25.35 (4.61)
+21.90 (2.39)
+29.67 (3.66)
+62.12 (4.12)
+
+83.04 (6.38)
+67.18 (8.47)
+63.11 (7.20)
+74.65 (4.61)
+78.10 (2.39)
+70.33 (3.66)
+37.88 (4.12)
+
+-0.19 (0.21)
+-0.11 (0.04)
+-0.40 (0.06)
+-0.68 (0.14)
+-0.78 (0.08)
+-0.86 (0.17)
+-1.64 (0.57)
+
+4.40 (1.44)
+0.56 (0.45)
+0.60 (0.32)
+2.15 (0.95)
+4.59 (0.97)
+2.37 (0.52)
+0.82 (0.17)
+
+carry and TS momentum factors with their style-speciﬁc counterparts. 
+For each category, the appendix shows that these replacements decrease 
+the ability of the CP model to capture hedge fund returns.
+
+5.3.  The implications of fund heterogeneity
+
+5.3.1.  Hedge fund selection
+
+The large heterogeneity in alphas implies that investors face substan-
+tial uncertainty in their fund selection process. One possible approach 
+for reducing this uncertainty is to use fund characteristics to improve 
+the detection of positive-alpha funds. To examine this issue, we focus 
+on a sophisticated investor who evaluates performance using the CP 
+model and has access to two sets of characteristics. The ﬁrst set proxies 
+for managerial incentives and includes management fees, performance 
+fees, and a high-water mark dummy. The second set proxies for manage-
+rial ﬂexibility and includes a lockup period dummy and a notice period 
+dummy. For each characteristic, we sort funds in two groups and apply 
+our methodology to estimate their respective alpha distributions.
+
+Panel A of Table 10 reports the results for the ﬁrst set of characteris-
+tics. We ﬁnd that sorting funds on each proxy for managerial incentives 
+increases the likelihood of selecting positive-alpha funds. For instance, 
+close to 60.0% of the funds that charge high performance fees produce 
+a positive alpha equal to 1.1% per year on average. In contrast, the av-
+erage alpha is negative among funds with low performance fees (-1.5%) 
+as only 39.2% of them deliver positive alphas.
+
+Panel B documents similar patterns for lockup and notice periods. 
+Funds with higher ﬂexibility tend to perform better, possibly because 
+they can invest in illiquid assets and exploit arbitrage opportunities that 
+
+take time to be proﬁtable. In short, all ﬁve characteristics are useful for 
+partially discriminating between inferior and superior funds. This re-
+sult emphasizes the importance of managerial incentives and ﬂexibility 
+as determinants of fund performance, which is in line with previous 
+studies by Agarwal et al. (2009), Aragon (2007), and Joenväärä et al. 
+(2021).
+
+5.3.2.  Models of active management
+
+The observed heterogeneity has also implications for the models of 
+Berk and Green (2004) and Gârleanu and Pedersen (2018)—two popu-
+lar equilibrium models of active management. In the model of Berk and 
+Green (2004), skilled funds have bargaining power because they are in 
+short supply. As investors compete for performance, they drive the al-
+phas of all funds towards zero and eliminate any heterogeneity (after 
+an adjustment period due to learning). This prediction holds quite well 
+for mutual funds—Barras et al. (2022) ﬁnd that the standard deviation 
+of the alpha distribution only equals 1.4% per year. However, it is at 
+odds with the alpha volatility of 9.2% per year obtained with the CP 
+model.
+
+In contrast, the model of Gârleanu and Pedersen (2018) predicts that 
+alphas vary across funds in equilibrium. In this model, skilled funds de-
+liver positive alphas because they must compensate investors for the 
+costs of searching funds. At the same time, unskilled funds deliver neg-
+ative alphas as they charge fees to unsophisticated investors. Modeling 
+the equilibrium of the hedge fund industry using search models is intu-
+itive given the complex process for evaluating hedge funds (Lhabitant, 
+2007). If the results in Table 6 reﬂect equilibrium outcomes, an open 
+
+JournalofFinancialEconomics154(2024)10380516D. Ardia, L. Barras, P. Gagliardini et al.
+
+Table 10
+Fund Characteristics and Alphas.
+This table examines how the alpha component varies across groups of funds sorted on fund characteristics. Panel A reports 
+the characteristics of the cross-sectional distribution of the alpha component for groups sorted on proxies of managerial 
+incentives, which are management fees, performance fees, and a dummy that takes a value of one if the fund has a high 
+water mark provision. We set the cutoﬀ levels at the usual 2% for management fees and 20% for performance fees. We report 
+the annualized mean and standard deviation, the proportions of funds with negative and positive contributions, and the 
+annualized quantiles at 10% and 90%. Figures in parentheses denote the standard deviation of the estimated characteristics. 
+Panel B repeats the analysis using proxies of managerial ﬂexibility, which are two dummies that take a value of one if the 
+fund imposes a lockup period or a notice period.
+
+Moments (Ann.)
+
+Panel A: Managerial Incentives
+Proportions (%)
+
+Quantiles (Ann.)
+
+Mean
+
+Std Dev.
+
+Negative
+
+Positive
+
+10%
+
+90%
+
+Low Management Fees
+High Management Fees
+
+0.01 (0.81)
+1.28 (1.27)
+
+8.03 (0.38)
+11.41 (0.59)
+
+49.04 (5.91)
+41.72 (4.99)
+
+50.96 (5.91)
+58.28 (4.99)
+
+-7.63 (0.84)
+-10.08 (1.32)
+
+7.39 (0.48)
+11.31 (0.67)
+
+Low Performance Fees
+High Performance Fees
+
+-1.53 (0.98)
+1.11 (0.90)
+
+7.30 (0.41)
+9.70 (0.41)
+
+60.77 (7.43)
+41.44 (5.08)
+
+39.23 (7.43)
+58.56 (5.08)
+
+-8.17 (1.18)
+-8.20 (0.80)
+
+5.44 (0.50)
+9.85 (0.51)
+
+No High Water Mark
+High Water Mark
+
+-1.44 (1.35)
+1.17 (0.87)
+
+9.97 (0.74)
+8.82 (0.43)
+
+58.38 (5.48)
+41.55 (5.58)
+
+41.62 (5.48)
+58.45 (5.58)
+
+-10.23 (1.20)
+-7.39 (0.89)
+
+7.48 (0.83)
+9.36 (0.46)
+
+Moments (Ann.)
+
+Panel B: Managerial Flexibility
+Proportions (%)
+
+Quantiles (Ann.)
+
+Mean
+
+Std Dev.
+
+Negative
+
+Positive
+
+10%
+
+90%
+
+No Lockup Period
+Lockup Period
+
+No Notice Period
+Notice Period
+
+0.03 (0.85)
+1.77 (1.00)
+
+9.23 (0.39)
+8.86 (0.50)
+
+48.77 (5.27)
+37.40 (6.06)
+
+51.23 (5.27)
+62.60 (6.06)
+
+-8.52 (0.87)
+-6.26 (1.17)
+
+8.12 (0.51)
+10.08 (0.58)
+
+-0.62 (1.45)
+0.73 (0.87)
+
+9.72 (0.56)
+9.03 (0.41)
+
+56.50 (6.22)
+43.67 (5.63)
+
+43.50 (6.22)
+56.33 (5.63)
+
+-9.48 (1.22)
+-7.72 (0.90)
+
+8.72 (1.11)
+8.71 (0.49)
+
+question is whether these costs are suﬃciently large to match the het-
+erogeneity observed in the data.
+
+5.4.  Return decomposition over time
+
+5.4.1.  Hedge funds versus mutual funds
+
+∑𝑛𝜒
+̂𝑎𝑐𝑘
+𝑖
+∑𝑛𝜒
+𝑖
+
+The universe of hedge funds has expanded substantially since 1994. 
+As a result, the average return decomposition may be subject to no-
+table time trends. Using the CP model, we track the evolution of (i) 
+the average alpha component  ̂𝑀 𝑘
+1,𝑎𝑐 = 1
+𝑖 , (ii) the average beta 
+𝑛𝜒
+𝑘
+̂𝑏𝑐
+component due to the market  ̂𝑀 𝑘
+1,𝑏𝑐,𝑚 = 1
+𝑖,𝑚, and (iii) the av-
+𝑛𝜒
+erage beta component due to the non-market (nm) factors (all factors 
+𝑘
+but the market)  ̂𝑀 𝑘
+̂𝑏𝑐
+𝑖,𝐼𝑛𝑚 . We start the analysis at the 
+end of 2003 and estimate each cross-sectional average using the entire 
+return history for each fund up to that point in time. As we move for-
+ward in time, we expand the set of return observations and add new 
+hedge funds once they satisfy the fund selection rule. For comparison 
+purposes, we conduct the same analysis for mutual funds using the tra-
+ditional Carhart model.
+
+∑𝑛𝜒
+𝑖
+
+= 1
+𝑛𝜒
+
+1,𝑏𝑐,𝐼𝑛𝑚
+
+Fig. 3 identiﬁes two sources of convergence between hedge funds 
+and mutual funds. First, performance becomes increasingly similar—at 
+the  end  of  2020,  the  gap  in  average  alphas  drops  to  1.6%.  Under-
+standing the drivers of this trend is an important topic for hedge fund 
+researchers. One intuitive explanation is the presence of scalability con-
+straints. As a result of the growth of the hedge fund industry, it becomes 
+increasingly diﬃcult to maintain the same performance level. Bollen et 
+al. (2021) ﬁnd support for this explanation, but also suggest that central 
+bank interventions might have reduced the proﬁtability of hedge fund 
+strategies. Second, hedge funds load increasingly on the equity market. 
+At the end of 2020,  ̂𝑀 𝑘
+1,𝑏𝑐,𝑚 reaches its highest level at 2.3% per year. 
+Whereas it remains smaller than for mutual funds (7.8%), it follows the 
+same trend after the 2008 crisis. This trend is relevant for investors ea-
+ger to capture hedge fund alphas. Given the sizable market exposure 
+of hedge funds, they need a proper hedging strategy to maintain their 
+optimal allocation to the equity market.
+
+5.4.2.  Diﬀerences between models
+
+Next, we examine the diﬀerences between models over time. We 
+compute the diﬀerence in average alphas between (i) the CAPM and 
+the Fung-Hsieh model, (ii) the CAPM and the CP model, (iii) the Fung-
+Hsieh and CP models. Fig. 4 reveals that the CP model always delivers 
+smaller alphas as hedge funds consistently use non-market factors to 
+boost their returns. The average contribution of these factors captured 
+by  ̂𝑀 𝑘
+represents at least 52% of the average hedge fund return 
+between 2003 and 2020. We also see that the Fung-Hsieh model does a 
+better job at capturing returns than the CAPM early on. However, this 
+ability progressively vanishes after the 2008 crisis.
+
+1,𝑏𝑐,𝐼𝑛𝑚
+
+1,𝑏𝑐,𝐼𝑛𝑚
+
+1,𝑏𝑐,𝐼𝑛𝑚
+
+The gap produced by the CP model slightly narrows over time as 
+̂𝑀 𝑘
+falls  from  4.4%  to  2.9%  per  year.  We  ﬁnd  little  evidence 
+that hedge funds reduce their factor exposures over time. Instead, the 
+decrease in  ̂𝑀 𝑘
+is caused by the reduction in alternative factor 
+premia.22 An open question is whether this trend will continue. On the 
+one hand, variance, carry, and TS momentum have high Sharpe ratios—
+an observation made by Dew-Becker et al. (2017), Koijen et al. (2018), 
+and Moskowitz et al. (2012). As a result, investors should have incen-
+tives to exploit these factors and drive down their returns. On the other 
+hand, Ilmanen et al. (2021) go back to 1926 and ﬁnd little evidence of 
+arbitrage activities that permanently reduce alternative factor premia.
+
+The large diﬀerence between the Fung-Hsieh and CP models may be 
+surprising as one might expect the straddles to overlap with the vari-
+ance factor. Conceptually, there are two reasons why this is not the 
+case. First, a straddle position beneﬁts from trends but not necessarily 
+from variance. For example, consider a highly volatile period for an as-
+set during which the ending price is the same as the starting price. In 
+this case, the payoﬀ of the straddle is zero, whereas the payoﬀ of the 
+variance factor is large. Second, the straddles in the Fung-Hsieh model 
+cover the bond, currency, and commodity markets. In contrast, the vari-
+ance factor focuses on the equity market.
+
+22 For instance, the premium on carry drops from 8.8% to 6.8% per year be-
+tween 2003 and 2020.
+
+JournalofFinancialEconomics154(2024)10380517D. Ardia, L. Barras, P. Gagliardini et al.
+
+Fig. 3. Time-Variation in the Average Return Components.
+This ﬁgure compares the return decomposition for hedge funds and mutual funds. Panel A plots the evolution of the average return components (annualized) under 
+the CP model: (i) the alpha component (Alpha), (ii) the beta component due to the market (Beta Mkt), and the beta component due to the non-market factors (Beta 
+Non-Mkt), which are size, illiquidity, BAB, variance, carry, and TS momentum. At the end of each month, we measure the three components of each fund using its 
+entire return history up to that point and take cross-sectional averages across all existing funds. The initial estimates cover the period 1994 to 2003, while the last 
+ones cover the entire period 1994 to 2020. Panel B repeats the analysis for mutual funds using the traditional Carhart (1997) model, which includes size, value, and 
+momentum as non-market factors.
+
+5.5.  The sophistication of hedge fund investors
+
+5.5.1.  Impact of sophistication on hedge fund valuation
+
+In addition to sharpening the estimation of the distributions 𝜙∗
+
+𝑎𝑐 and 
+𝜙∗
+𝑏𝑐 , our comparison analysis measures how hypothetical investors with 
+diﬀerent sophistication levels value hedge funds. We ﬁrst consider a so-
+phisticated investor able to replicate all the factors in the CP model. The 
+valuation of this investor is given by the alpha under the CP model. We 
+can formalize this intuition using the stochastic discount factor (SDF) 
+framework. Writing the investor SDF 𝑚𝑘
+𝑡 as a linear function of the CP 
+factors, we have 𝛼𝑘
+𝑡 𝑟𝑖,𝑡], where 𝑟𝑓 is the risk-free rate. A 
+positive 𝛼𝑘
+𝑖 signals that the investor can increase his overall utility by 
+investing in the fund (e.g., Chen and Knez, 1996; Ferson, 2013).23 Next, 
+
+𝑖 = (1 + 𝑟𝑓 )𝐸[𝑚𝑘
+
+we consider a less sophisticated investor who can only invest in the 
+equity market. Her hedge fund valuation is given by the CAPM alpha: 
+𝑖 = (1 + 𝑟𝑓 )𝐸[𝑚0
+𝛼0
+
+𝑡 is a linear function of the market.
+
+𝑡 𝑟𝑖,𝑡], where 𝑚0
+
+Table 6 shows that the average valuation is close to zero for the CP 
+investor (0.4% per year), but substantially higher for the CAPM investor 
+(2.9%). This valuation gap is consistent with intuition. Whereas both 
+investors value the alpha component 𝑎𝑐∗
+𝑖 , the CAPM investor also values 
+the beta component due to all the strategies she cannot replicate. This 
+component, denoted by 𝑏𝑐∗
+𝑖,𝑂 in Equation (5), includes the contributions 
+of the TS momentum, variance, and carry factors.24
+
+23 See also Almeida et al. (2020) and Karehnke and de Roon (2020) for a recent 
+application of the SDF framework in which investors have nonlinear preferences 
+(i.e., 𝑚𝑡 is a nonlinear function of the factors).
+
+24 This point is well summarized by Cochrane (2011): “I tried telling a hedge 
+fund manager, ‘You don’t have alpha. Your returns can be replicated with a 
+value-growth, momentum, currency and term carry, and short-vol strategy.’ He 
+said, ‘Exotic beta is my alpha. I understand those systematic factors and know 
+how to trade them. My clients don’t.”’
+
+JournalofFinancialEconomics154(2024)10380518D. Ardia, L. Barras, P. Gagliardini et al.
+
+Fig. 4. Time-Variation in the Diﬀerences between Models.
+This ﬁgure plots the evolution of the diﬀerences in average alphas (annualized) between: (i) the CAPM and the CP model, and (ii) the Fung-Hsieh model and the CP 
+model. At the end of each month, we measure the alpha of each fund under all three models, take cross-sectional averages across all existing funds, and then compute 
+the diﬀerences between models. The initial estimates cover the period 1994 to 2003, while the last ones cover the entire period 1994 to 2020. The diﬀerences in the 
+average beta components are not reported because they are identical to the ones obtained with the alpha component (with opposite signs).
+
+5.5.2.  Measuring sophistication using ﬂows
+
+6.  Conclusion
+
+As a ﬁnal exercise, we study the sophistication of real-world hedge 
+fund investors. Our analysis builds on the premise that investors learn 
+about funds by observing past returns. As they update their valuation 
+over time, they reallocate capital accordingly. If this mechanism is at 
+play, fund ﬂows contain information about investor preference for alpha 
+and beta. With misspeciﬁed models, the learning process is likely to be 
+noisier than for mutual funds. To address this issue, we compare the 
+entire  distributions  of  the  alpha  and  beta  components  between  low-
+and high-ﬂow funds.
+
+We proceed in three steps. First, we follow Barras et al. (2010) and 
+partition our data into non-overlapping subperiods of ﬁve years, be-
+ginning with 1996 to 2000 and ending with 2016 to 2020. For each 
+subperiod, we include all funds that pass the fund selection rule and 
+compute  their  average  monthly  ﬂows  and  return  decomposition  ob-
+𝑘
+𝑘
+tained with the CP model ( ̂𝑎𝑐𝑘
+𝑖,𝐼𝑛𝑚 ). Second, we sort funds 
+into ﬂow quintiles (from low to high) and pool these ﬁve-year records 
+together across all time periods. Third, we apply our methodology to 
+compute the distributions of the alpha and beta components for each 
+(pooled) ﬂow quintile.
+
+𝑖,𝑚,  ̂𝑏𝑐
+
+𝑖 ,  ̂𝑏𝑐
+
+Panel A of Table 11 reveals that ﬂows are primarily directed into 
+funds with positive contemporaneous alphas. In the high-ﬂow group, 
+the alpha is equal to 3.3% per year on average and positive for 70.4% of 
+the funds.25 In the low-ﬂow group, these numbers drop substantially (-
+0.6% and 45.2%). In spite of these diﬀerences, the evidence is consistent 
+with our premise that learning about fund alphas is quite noisy—we 
+observe a large overlap between the alpha distributions.
+
+If real-world investors are unsophisticated, they not only chase al-
+phas, but also past or market-adjusted returns. In other words, they also 
+direct capital into funds that load aggressively on the market and alter-
+𝑘
+native factors (i.e., funds with high  ̂𝑏𝑐
+𝑖,𝐼𝑛𝑚 ). Panels B and C do 
+not support this interpretation. For the two sets of factors, the average 
+beta components are actually larger in the low-ﬂow group than in the 
+high-ﬂow group. In short, the overall evidence suggests that real-world 
+investors chase alphas more aggressively than betas and are therefore 
+closer to the CP investor than the CAPM investor in terms of sophistica-
+tion.
+
+𝑖,𝑚 and  ̂𝑏𝑐
+
+𝑘
+
+Decomposing hedge fund returns is challenging because models are 
+likely  misspeciﬁed—that  is,  they  omit  relevant  factors  for  capturing 
+hedge fund strategies. Model misspeciﬁcation makes the estimation of 
+the alpha and beta components both imperfect and noisy. To mitigate 
+these  challenges,  we  develop  a  new  approach  to  estimate  and  com-
+pare the distributions of the alpha and beta components across models. 
+Our  approach  improves  the  imperfect  separation  between  alpha  and 
+beta contributions by identifying models less prone to misspeciﬁcation. 
+It also explicitly accounts for estimation noise based on a full-ﬂedged 
+asymptotic theory in a large cross-section of funds.
+
+Our comparison analysis yields several insights. We ﬁnd that the 
+standard  models  are  similar  to  the  CAPM  and  thus  ill-equipped  for 
+separating alpha and beta. In contrast, several economically motivated 
+factors—primarily, TS momentum, variance, and carry—capture the re-
+turns of hedge funds in all investment categories. Including these factors 
+increases the relative importance of the beta component and uncovers 
+a gradual convergence in performance towards mutual funds. Another 
+important ﬁnding is the large heterogeneity observed across funds. This 
+result has several implications for the use of benchmarks based on style 
+information, the role of uncertainty in the fund selection process, and 
+the predictions of equilibrium models of active management.
+
+Our methodology is ﬂexible and can be applied in other situations 
+where models are misspeciﬁed. For instance, it can be used to further 
+improve the decomposition of hedge fund returns in more specialized
+investment categories. It can also be applied to international mutual 
+funds for which the set of trading strategies is substantially larger than 
+for traditional US equity funds.
+
+CRediT authorship contribution statement
+
+David  Ardia: Data  curation,  Formal  analysis,  Investigation,  Soft-
+ware, Writing – review & editing. Laurent Barras: Conceptualization, 
+Investigation, Supervision, Validation, Visualization, Writing – original 
+draft, Writing – review & editing. Patrick Gagliardini: Conceptualiza-
+tion, Methodology. Olivier Scaillet: Conceptualization, Methodology.
+
+Declaration of competing interest
+
+25 If the hedge fund industry is subject to capacity constraints, the cumulative 
+ﬂows into positive-alpha funds could explain why the average hedge fund alpha 
+decreases over the period 2003-2020 (see Fig. 3).
+
+The authors declare that they have no known competing ﬁnancial 
+interests or personal relationships that could have appeared to inﬂuence 
+the work reported in this paper.
+
+JournalofFinancialEconomics154(2024)10380519D. Ardia, L. Barras, P. Gagliardini et al.
+
+Table 11
+Fund Flows and Investor Sophistication.
+This table measures how investor ﬂows contemporaneously respond to the diﬀerent components of the av-
+erage fund return under the CP model: (i) the alpha component, (ii) the beta component due to the market, 
+and (iii) the beta component due to the non-market factors (size, illiquidity, BAB, variance, carry, TS mo-
+mentum). For each of the non-overlapping ﬁve-year periods between 1996 and 2020, we measure the three 
+components for all funds. We then rank them according to their average monthly net ﬂows and group them 
+into quintiles (low, 2, 3, 4, high). Panel A reports the characteristics of the cross-sectional distribution of the 
+alpha components (pooled over all ﬁve-year periods) for the ﬁve ﬂow groups. We report the annualized mean 
+and standard deviation, the proportions of funds with negative and positive alphas, and the annualized quan-
+tiles at 10% and 90%. Figures in parentheses denote the standard deviation of the estimated characteristics. 
+Panels B and C repeat the analysis for the beta components due to the market and the non-market factors.
+
+Moments (Ann.)
+
+Proportions (%)
+
+Quantiles (Ann.)
+
+Panel A: Distribution of the Alpha Components
+
+Mean
+
+Std Dev.
+
+Negative
+
+Positive
+
+10%
+
+90%
+
+-0.57 (1.54)
+0.39 (1.33)
+1.52 (1.32)
+2.92 (1.44)
+3.25 (1.24)
+
+10.71 (0.79)
+9.03 (0.72)
+8.42 (0.76)
+8.85 (0.82)
+9.87 (0.61)
+
+54.84 (5.88)
+47.82 (5.66)
+41.49 (6.10)
+34.57 (6.90)
+29.61 (5.31)
+
+45.16 (5.88)
+52.18 (5.66)
+58.51 (6.10)
+65.43 (6.90)
+70.39 (5.31)
+
+-10.53 (1.33)
+-9.01 (0.98)
+-7.18 (0.90)
+-5.97 (1.18)
+-4.92 (0.98)
+
+9.55 (0.74)
+9.15 (0.83)
+10.33 (0.65)
+13.00 (0.56)
+13.18 (0.74)
+
+Panel B: Distribution of the Beta Components (Market Factor)
+
+Moments (Ann.)
+
+Proportions (%)
+
+Quantiles (Ann.)
+
+Mean
+
+Std Dev.
+
+Negative
+
+Positive
+
+10%
+
+90%
+
+2.32 (1.98)
+3.15 (2.45)
+2.91 (2.26)
+2.40 (1.84)
+1.95 (1.45)
+
+4.19 (1.75)
+5.09 (1.75)
+4.94 (1.84)
+4.42 (1.74)
+3.90 (1.61)
+
+18.19 (19.41)
+14.25 (18.87)
+15.85 (18.60)
+19.96 (15.33)
+23.07 (13.06)
+
+81.81 (19.41)
+85.75 (18.87)
+84.15 (18.60)
+80.04 (15.33)
+76.93 (13.06)
+
+-0.53 (0.84)
+-0.17 (1.19)
+-0.17 (1.13)
+-0.33 (0.71)
+-0.46 (0.45)
+
+8.37 (3.00)
+10.34 (4.27)
+9.48 (4.06)
+8.29 (3.30)
+7.31 (2.63)
+
+Panel C: Distribution of the Beta Components (Non-Market Factors)
+
+Moments (Ann.)
+
+Proportions (%)
+
+Quantiles (Ann.)
+
+Mean
+
+Std Dev.
+
+Negative
+
+Positive
+
+10%
+
+90%
+
+2.38 (0.90)
+2.13 (0.83)
+2.14 (0.81)
+2.30 (0.78)
+2.37 (0.81)
+
+8.18 (3.58)
+7.36 (3.03)
+6.94 (3.28)
+7.16 (3.19)
+7.82 (3.09)
+
+32.13 (8.54)
+35.93 (12.43)
+32.07 (11.95)
+34.30 (8.29)
+33.70 (6.23)
+
+67.87 (8.54)
+64.07 (12.43)
+67.93 (11.95)
+65.70 (8.29)
+66.30 (6.23)
+
+-4.43 (1.93)
+-4.26 (1.59)
+-4.23 (2.02)
+-3.88 (1.79)
+-3.81 (1.70)
+
+10.44 (3.66)
+9.60 (3.57)
+9.34 (3.59)
+9.63 (3.59)
+8.65 (3.46)
+
+Low
+2
+3
+4
+High
+
+Low
+2
+3
+4
+High
+
+Low
+2
+3
+4
+High
+
+Data availability
+
+The authors do not have permission to share data.
+Code and fake pseudodata are available at https://doi .org /10 .5281 /
+
+zenodo .10459612.
+
+Acknowledgements
+
+Nick Roussanov was the editor for this article. We thank him and 
+an  anonymous  referee  for  numerous  helpful  insights.  We  also  thank 
+Vikas Agarwal, Sandro Andrade, Daniel Andrei, Lieven Baele, Matteo 
+Barbagli, Sebastien Betermier, Mark Carhart, Tinghua Duan, René Gar-
+cia, Helyoth Hessou, Juha Joenväärä, Bing Lian, Andrew Lo, Stijn van 
+Nieuwerburgh,  Andrew  Patton,  Phorn-Arpha  Phutphithak,  Alexandru 
+Popescu, Mirco Rubin, Lorenzo Schoenleber, Daniel Schmidt, Andrea 
+Tamoni, Ashish Tiwari, Yao Tong, participants at the 2019 McGill/HEC 
+Summer Workshop, the 2020 Paris December Conference, the 2021 Eu-
+ropean Meeting of the Econometric Society, the 2021 SoFiE conference, 
+the 2021 Western Financial Association (WFA) meeting, the 2022 An-
+nual Hedge Fund Research Conference, the 2022 CFE-CMStatistics con-
+ference, the 2022 European Financial Management Association meet-
+ing, the 2022 International Conference of French Finance Association, 
+the 2022 SFI Research days, the 2022 RFinance conference, the 2022 
+VieCo  conference,  the  2023  Belgian  Financial  Research  Forum,  the 
+2023 Conference on Professional Asset Management, the 2023 LTI As-
+set Pricing Conference, the 2023 National Bureau of Economic Research 
+(NBER) Summer Institute, and seminar participants at the International 
+Centre for Pension Management, Wilfried Laurier, McGill, Kepos Capi-
+tal, Queen Mary, Pictet Bank, Rutgers, and the Universities of EMlyon, 
+Geneva, Ghent, Iowa, Luxembourg, Liège, Miami, and Sherbrooke for 
+
+their comments. We thank the Canadian Derivatives Institute (CDI) for 
+its ﬁnancial support (CDI-2016-R2089), and the organizing committee 
+of the AFFI conference for the best asset pricing paper award. The ﬁrst 
+author also acknowledges ﬁnancial support by the Natural Sciences and 
+Engineering Research Council of Canada (grant RGPIN-2022-03767).
+
+Appendix A.  Supplementary material
+
+Supplementary material related to this article can be found online 
+
+at https://doi .org /10 .1016 /j .jﬁneco .2024 .103805.
+
+References
+
+Agarwal, V., Daniel, N.D., Naik, N.Y., 2009. Role of managerial incentives and discretion 
+
+in hedge fund performance. J. Finance 64, 2221–2256.
+
+Agarwal, V., Green, T.C., Ren, H., 2018. Alpha or beta in the eye of the beholder: what 
+
+drives hedge fund ﬂows? J. Financ. Econ. 127, 417–434.
+
+Almeida, C., Ardison, K., Garcia, R., 2020. Nonparametric assessment of hedge fund per-
+
+formance. J. Econom. 214, 349–378.
+
+Ang, A., Gorovyy, S., van Inwegen, G.B., 2011. Hedge fund leverage. J. Financ. Econ. 102, 
+
+102–126.
+
+Aragon, G.O., 2007. Share restrictions and asset pricing: evidence from the hedge fund 
+
+industry. J. Financ. Econ. 83, 33–58.
+
+Asness, C.S., Ilmanen, A., Israel, R., Moskowitz, T.J., 2015. Investing with style. J. Invest. 
+
+Asness, C.S., Moskowitz, T.J., Pedersen, L.H., 2013. Value and momentum everywhere. J. 
+
+Manag. 13, 27–63.
+
+Finance 68, 929–985.
+
+Avramov, D., Barras, L., Kosowski, R., 2013. Hedge fund return predictability under the 
+
+magnifying glass. J. Financ. Quant. Anal. 48, 1057–1083.
+
+Bakalli, G., Guerrier, S., Scaillet, O., 2023. A penalized two-pass regression to predict 
+stock returns with time-varying risk premia. J. Econom. 237 (2, Part C), 105375.
+Bakshi, G., Kapadia, N., 2003. Delta-hedged gains and the negative market volatility risk 
+
+premium. Rev. Financ. Stud. 16, 527–566.
+
+JournalofFinancialEconomics154(2024)10380520mance appraisal. J. Finance 64, 985–1035.
+
+Brown, S., Lynch, A., Petajisto, A., 2010. Hedge funds, mutual funds, and ETFs. In: 
+Acharya, V.V., Coole, T.F., Richardson, M.P., Walter, I. (Eds.), Regulating Wall Street: 
+The Dodd-Frank Act and the New Architecture of Global Finance. Wiley, pp. 351–366.
+Buraschi, A., Kosowski, R., Sritrakul, W., 2014a. Incentives and endogenous risk taking: 
+
+a structural view on hedge fund alphas. J. Finance 69, 2819–2870.
+
+Buraschi, A., Kosowski, R., Trojani, F., 2014b. When there is no place to hide: correlation 
+risk and the cross-section of hedge fund returns. Rev. Financ. Stud. 27, 581–616.
+Capocci, D., Hübner, G., 2004. Analysis of hedge fund performance. J. Empir. Finance 11, 
+
+D. Ardia, L. Barras, P. Gagliardini et al.
+
+Barras, L., Gagliardini, P., Scaillet, O., 2022. Skill, scale, and value creation in the mutual 
+
+Grinblatt, M., Titman, S., 1993. Performance measurement without benchmarks: an ex-
+
+fund industry. J. Finance 77, 601–638.
+
+amination of mutual fund returns. J. Bus. 66, 47–68.
+
+Barras, L., Scaillet, O., Wermers, R., 2010. False discoveries in mutual fund performance: 
+
+measuring luck in estimated alphas. J. Finance 65, 179–216.
+
+Gromb, D., Vayanos, D., 2010. Limits of arbitrage. Annu. Rev. Financ. Econ. 2, 251–275.
+Gu, S., Kelly, B., Xiu, D., 2020. Empirical asset pricing via machine learning. Rev. Financ. 
+
+Belsley, D.A., Kuh, E., Welsch, R.E., 2004. Regression Diagnostics: Identifying Inﬂuential 
+
+Stud. 33, 2223–2273.
+
+Data and Sources of Collinearity. Wiley.
+
+Berk, J., Green, R., 2004. Mutual fund ﬂows and performance in rational markets. J. Polit. 
+
+Haddad, V., Kozak, S., Santosh, S., 2020. Factor timing. Rev. Financ. Stud. 33, 1980–2018.
+Harvey, C.R., Liu, Y., 2018. Detecting repeatable performance. Rev. Financ. Stud. 31, 
+
+Berk, J.B., van Binsbergen, J.H., 2015. Measuring skill in the mutual fund industry. J. 
+
+Econ. 112, 1269–1295.
+
+Financ. Econ. 118, 1–20.
+
+Financ. Anal. J. 77, 109–132.
+
+Bollen, N.P., Joenväärä, J., Kauppila, M., 2021. Hedge fund performance: end of an era? 
+
+tion with active peer benchmarks. J. Financ. Econ. 112, 1–29.
+
+Bollen, N.P.B., Whaley, R.E., 2009. Hedge fund risk dynamics: implications for perfor-
+
+factor timing: a century of evidence. J. Invest. Manag. 19, 15–57.
+
+2499–2552.
+
+Hsiao, C., 2003. Analysis of Panel Data. Cambridge University Press.
+Hunter, D., Kandel, E., Kandel, S., Wermers, R., 2014. Mutual fund performance evalua-
+
+Ilmanen, A.S., Israel, R., Lee, R., Moskowitz, T.J., Thapar, A.K., 2021. Factor premia and 
+
+Joenväärä, J., Kauppila, M., Kosowski, R., Tolonen, P., 2021. Hedge fund performance: 
+are stylized facts sensitive to which database one uses? Crit. Finance Rev. 10, 1–70.
+Jones, C., Shanken, J., 2005. Mutual fund performance with learning across funds. J. 
+
+Kan, R., Robotti, C., 2009. Model comparison using the Hansen-Jagannathan distance. 
+
+Financ. Econ. 78, 507–552.
+
+Rev. Financ. Stud. 22, 3449–3490.
+
+Kan, R., Robotti, C., Shanken, J., 2013. Pricing model performance and the two-pass 
+
+cross-sectional regression methodology. J. Finance 68, 2617–2649.
+
+Karehnke, P., de Roon, F., 2020. Spanning tests for assets with option-like payoﬀs: the 
+
+case of hedge funds. Manag. Sci. 66, 5969–5989.
+
+Kelly, B., Pruitt, S., 2013. Market expectations in the cross-section of present values. J. 
+
+Koijen,  R.S.J.,  Moskowitz,  T.J.,  Pedersen,  L.H.,  Vrugt,  E.B.,  2018.  Carry.  J.  Financ. 
+
+Kosowski, R., Naik, N., Teo, M., 2007. Do hedge funds deliver alpha? A Bayesian and 
+
+Kozak, S., Nagel, S., Santosh, S., 2020. Shrinking the cross-section. J. Financ. Econ. 135, 
+
+Lhabitant, F.-S., 2007. Handbook of Hedge Funds. Wiley.
+Lo, A., 2008. Where do alphas come from? A measure of the value of active investment 
+
+55–89.
+
+Carhart, M., 1997. On persistence in mutual fund performance. J. Finance 52, 57–82.
+Carhart, M., Cheah, U.-W., Santis, G.D., Farrell, H., Litterman, R., 2014. Exotic beta revis-
+
+Finance 68, 1721–1756.
+
+Chen, Y., Cliﬀ, M., Zhao, H., 2017. Hedge funds: the good, the bad, and the lucky. J. 
+
+Econ. 127, 197–225.
+
+ited. Financ. Anal. J. 70, 24–52.
+
+Financ. Quant. Anal. 52, 1081–1109.
+
+Rev. Financ. Stud. 9, 511–555.
+
+Chen, Z., Knez, P.J., 1996. Portfolio performance measurement: theory and applications. 
+
+bootstrap analysis. J. Financ. Econ. 84, 229–264.
+
+Cochrane, J.H., 2011. Presidential address: discount rates. J. Finance 66, 1047–1108.
+Dew-Becker, I., Giglio, S., Le, A., Rodriguez, M., 2017. The price of variance risk. J. 
+
+271–292.
+
+Financ. Econ. 123, 225–250.
+
+Diez de los Rios, A., Garcia, R., 2010. Assessing and valuing the nonlinear structure of 
+
+management. J. Invest. Manag. 6, 1–29.
+
+hedge fund returns. J. Appl. Econom. 26, 193–212.
+
+Merton, R.C., 1987. A simple model of capital market equilibrium with incomplete infor-
+
+Driessen, J., Maenhout, P.J., Vilkov, G., 2009. The price of correlation risk: evidence from 
+
+mation. J. Finance 42, 483–510.
+
+equity options. J. Finance 64, 1377–1406.
+
+Mitchell, M., Pulvino, T., 2001. Characteristics of risk and return in risk arbitrage. J. 
+
+Duarte, J., Longstaﬀ, F.A., Yu, F., 2006. Risk and return in ﬁxed-income arbitrage: nickels 
+
+Finance 56, 2135–2175.
+
+in front of a steamroller? Rev. Financ. Stud. 20, 769–811.
+
+Moskowitz, T.J., Ooi, Y.H., Pedersen, L.H., 2012. Time series momentum. J. Financ. 
+
+Fama, E.F., French, K.R., 2015. A ﬁve-factor asset pricing model. J. Financ. Econ. 116, 
+
+Econ. 104, 228–250.
+
+O’Doherty, M.S., Savin, N.E., Tiwari, A., 2016. Hedge fund replication: a model combina-
+
+Ferson, W.E., 2013. Ruminations on investment performance measurement. Eur. Financ. 
+
+tion approach. Rev. Finance 21, 1767–1804.
+
+1–22.
+
+Manag. 19, 4–13.
+
+Gagliardini, P., Ossola, E., Scaillet, O., 2016. Time-varying risk premium in large cross-
+
+Patton, A., Ramadorai, T., 2013. On the high frequency dynamics of hedge fund risk 
+
+Ferson, W.E., Khang, K., 2002. Conditional performance measurement using portfolio 
+
+weights: evidence for pension funds. J. Financ. Econ. 65, 249–282.
+
+Ferson, W.E., Schadt, R.W., 1996. Measuring fund strategy and performance in changing 
+
+economic conditions. J. Finance 51, 425–461.
+
+Frazzini, A., Pedersen, L.H., 2014. Betting against beta. J. Financ. Econ. 111, 1–25.
+Fung, W., Hsieh, D.A., 2004. Hedge fund benchmarks: a risk-based approach. Financ. 
+
+Anal. J. 60, 65–80.
+
+sectional equity data sets. Econometrica 84, 985–1046.
+
+Gagliardini, P., Ossola, E., Scaillet, O., 2019. A diagnostic criterion for approximate factor 
+
+structure. J. Econom. 212, 503–521.
+
+Gagliardini, P., Ossola, E., Scaillet, O., 2020. Estimation of large dimensional conditional 
+factor models in ﬁnance. In: Handbook of Econometrics. Elsevier, pp. 219–282.
+Gârleanu, N., Pedersen, L.H., 2018. Eﬃciently ineﬃcient markets for assets and asset 
+
+management. J. Finance 73, 1663–1712.
+
+Getmansky, M., Lee, P.A., Lo, A.W., 2015. Hedge funds: a dynamic industry in transition. 
+
+Gourieroux, C., Monfort, A., Trognon, A., 1984. Pseudo maximum likelihood methods: 
+
+Annu. Rev. Financ. Econ. 7, 483–577.
+
+theory. Econometrica 52, 681–700.
+
+Pástor, L., Stambaugh, R.F., 2002. Mutual fund performance and seemingly unrelated 
+
+assets. J. Financ. Econ. 63, 315–349.
+
+Pástor, L., Stambaugh, R.F., 2003. Liquidity risk and expected stock returns. J. Polit. 
+
+Pástor, L., Stambaugh, R.F., Taylor, L.A., 2015. Scale and skill in active management. J. 
+
+Pástor, L., Stambaugh, R.F., Taylor, L.A., 2017. Do funds make more when they trade 
+
+Econ. 111, 642–685.
+
+Financ. Econ. 116, 23–45.
+
+more? J. Finance 72, 1483–1528.
+
+exposures. J. Finance 68, 597–635.
+
+Pedersen, L.H., 2015. Eﬃciently Ineﬃcient. Princeton University.
+Pedersen, L.H., 2018. Sharpening the arithmetic of active management. Financ. Anal. 
+
+Straumann, D., 2009. Measuring the quality of hedge fund data. J. Altern. Invest. 12, 
+
+Titman, S., Tiu, C., 2011. Do the best hedge funds hedge? Rev. Financ. Stud. 24, 123–168.
+White, H., 1982. Maximum likelihood estimation of misspeciﬁed models. Economet-
+
+J. 74, 21–36.
+
+26–40.
+
+rica 50, 1–25.
+
+JournalofFinancialEconomics154(2024)10380521

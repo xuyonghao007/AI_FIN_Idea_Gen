@@ -1,0 +1,5173 @@
+Journal of Financial Economics 161 (2024) 103926 
+
+Contents lists available at ScienceDirect
+
+Journal of Financial Economics
+
+journal homepage: www.elsevier.com/locate/finec
+
+Modeling volatility in dynamic term structure models✩
+Hitesh Doshi a, Kris Jacobs a,∗, Rui Liu b
+a University of Houston, United States of America
+b Duquesne University, United States of America
+
+A R T I C L E I N F O
+
+A B S T R A C T
+
+We propose no-arbitrage term structure models with volatility factors that follow GARCH processes. The
+models’ tractability is similar to canonical affine term structure models, but they fit yield volatility much
+better, especially for long-maturity yields. This improvement does not come at the expense of a deterioration
+in yield fit. Because of the improved volatility fit, the model performs substantially better in pricing Treasury
+futures options. We conclude that the specification of the volatility factors is critical. Modeling volatility as a
+function of (lagged) squared innovations to factors improves on models where volatility is a linear function
+of the factors.
+
+JEL classification:
+G12
+C58
+E43
+
+Keywords:
+Term structure
+Affine models
+Stochastic volatility
+GARCH
+Treasury futures options
+
+1. Introduction
+
+There is a wealth of evidence in the literature indicating that volatil-
+ity implied by standard no-arbitrage term structure models corresponds
+poorly to measures of realized volatility or other model-free estimates.
+For state-of-the-art affine term structure models (ATSMs) with stochas-
+tic volatility, simultaneously matching the properties of the conditional
+means and variances of yields is indeed the key empirical challenge.
+These models are characterized by an inherent tension between fitting
+yields and yield volatility, partly because the mean and variance of
+yields are driven by the levels of the same state variables.1
+
+We propose no-arbitrage term structure models in which the volatil-
+ity factors follow GARCH processes. Given this specification, the bond
+prices can be computed analytically. The models’ tractability is thus
+similar to that of canonical affine volatility models, but they capture
+the time variation in the conditional variances of yields much more
+accurately. The model is motivated by the well-established literature
+on ARCH and GARCH models (Engle, 1982; Bollerslev, 1986). We in-
+corporate GARCH dynamics into state-of-the-art term structure models
+
+by relating the conditional volatility to the lagged squared residuals of
+the factors driving yields. From a modeling perspective, this is a critical
+difference with standard ATSMs with stochastic volatility, which model
+volatility as a linear combination of the level of the yield factors.
+
+While this may appear to be a trivial distinction, we show that
+it greatly matters for the models’ ability to capture the stylized facts
+of the time series and cross-section of conditional volatility. In the
+empirical analysis, we follow the existing literature and focus on a
+version of the model with three latent factors, but for simplicity and
+parsimony we only endow the volatility of the residuals of the first
+factor with a GARCH dynamic in our baseline model. We estimate the
+model using monthly Treasury yields from November 1971 to October
+2019. Following the existing literature, we use both realized volatility
+and EGARCH(1,1) as model-free ‘‘true’’ volatility benchmarks.2 We find
+that the no-arbitrage model with GARCH dynamics performs well in
+capturing the ‘‘true’’ volatility, especially at longer maturities (4–5 and
+10 years). The proposed model captures the high volatility periods of
+the early 1980s well at longer maturities, and fits the low volatility
+
+✩
+
+Nikolai Roussanov was the editor for this article. We would like to thank the editor, two anonymous referees, Liuren Wu, and our discussants Scott Joslin,
+
+Anh Le and Guillaume Roussellet for helpful comments.
+
+∗ Corresponding author.
+
+E-mail addresses: hdoshi@bauer.uh.edu (H. Doshi), kjacobs@bauer.uh.edu (K. Jacobs), liur2@duq.edu (R. Liu).
+
+1 See Dai and Singleton (2000, 2002), Duffee (2002), Longstaff and Schwartz (1992), Collin-Dufresne et al. (2009), Duarte (2004) for evidence on the volatility
+fit of these models and the trade-off between fitting yields and yield volatility. See Joslin and Le (2021) for a discussion of the role no-arbitrage restrictions play
+in the tension between fitting first and second moments.
+
+2 Andersen and Benzoni (2010) and Christensen et al. (2014) use realized volatility as a benchmark to assess the volatility fit of ATSMs. Cieslak and Povala
+(2016) use realized covariance models to extract stochastic volatility from a term structure model with multivariate volatility components. GARCH and EGARCH
+benchmarks are used by, among others, Bikbov and Chernov (2011), Collin-Dufresne et al. (2009), Dai and Singleton (2003).
+
+https://doi.org/10.1016/j.jfineco.2024.103926
+Received 2 August 2022; Received in revised form 9 August 2024; Accepted 15 August 2024
+
+Available online 30 August 2024 
+0304-405X/© 2024 Published by Elsevier B.V. 
+
+H. Doshi et al.
+
+Journal of Financial Economics 161 (2024) 103926 
+
+periods well for intermediate and long maturities. The unconditional
+correlation between model-implied and realized (EGARCH(1, 1)) volatil-
+ity is 65% (80%) on average across maturities. We also compute the
+root mean squared errors (RMSEs) based on the difference between
+model-implied and model-free volatility. The RMSE on average across
+all maturities is about 20 basis points. In summary, the proposed
+baseline model performs well in fitting the conditional second moment
+of yields, even though it contains only one volatility factor.
+
+We compare the implications of the proposed model with those
+from standard affine stochastic volatility models. We estimate a three-
+factor affine model with one factor driving the volatility process, the
+essentially affine 𝐴1(3) model (see Dai and Singleton, 2000; Duffee,
+2002). To facilitate the comparison with our proposed model, we also
+consider a restricted version of the canonical 𝐴1(3) model, in which the
+dynamics of the yield curve factors are the closest possible to those in
+our proposed model. The critical difference with the new model is that
+in both the canonical and restricted 𝐴1(3) models, the volatility process
+depends on the level of the factors driving the yield curve. Consistent
+with the literature, we find that the two benchmark models do not
+perform as well in capturing the time-variation in the conditional
+yield volatilities. On average across all maturities, the unconditional
+correlation with the realized volatility (EGARCH) estimates is 47%
+(68%) for the canonical 𝐴1(3) and restricted 𝐴1(3) models.3 The pro-
+posed no-arbitrage model with GARCH volatility therefore substantially
+outperforms the benchmark models.
+
+All models struggle to simultaneously capture the high level of
+volatility during the monetary experiment in the early 1980s and
+the low volatility afterward, but the no-arbitrage GARCH model per-
+forms better. The canonical and restricted 𝐴1(3) models overestimate
+yield volatility more strongly across the maturity spectrum during the
+low-volatility period between the mid-1980s to 2000. The proposed no-
+arbitrage model with GARCH volatility outperforms the two benchmark
+models by more than 40% on average across maturities in terms of
+yield volatility RMSE. These findings suggest that we can substantially
+improve the ability of ATSMs to fit yield volatility by endowing the
+volatility factor with a GARCH process. The state-of-the art stochastic
+volatility term structure models are not able to accurately model the
+dynamics of volatility, because by design a linear combination of the
+yield factors is not able to capture the second moment of yields. Note
+that the differences are not due to the discrete- versus continuous-time
+specification of the models. The improved performance of the GARCH
+models is due to their specification of the variance as a function of
+(lagged) squared innovations rather than as a function of the levels of
+the yield factors.
+
+To demonstrate that the proposed model’s improved ability in fitting
+conditional yield volatility does not come at the expense of a poor fit for
+the level of yields, we compare the in-sample yield fit of the proposed
+model and the benchmark models. The yield RMSE of the proposed
+model is only slightly higher than that of the two benchmark stochastic
+volatility models. Moreover, we find that the proposed model captures
+the empirical patterns in bond risk premia, as characterized by the
+regression coefficients in the Campbell and Shiller (1991) regressions,
+very well. These findings indicate that the proposed model provides
+an adequate fit to the conditional means as well as the variances of
+yields. If the GARCH model better captures yield volatility, it should
+outperform competing models for securities whose payoffs are highly
+volatility-dependent. We illustrate this by using the model estimates
+from Treasury yields to value Treasury futures options. We confirm that
+the performance of the GARCH model is vastly superior to that of the
+𝐴1(3) model.
+
+We contribute to several strands of literature. As mentioned above,
+an extensive literature has questioned the ability of ATSMs with
+stochastic volatility to model conditional volatility.4 We show that the
+performance of term structure models in fitting conditional volatility
+can be improved greatly with a different specification of the volatility
+factor. This improvement does not come at the expense of the fit of
+the first moment of yields. Our contribution is related to previous
+attempts to build ARCH/GARCH volatility into no-arbitrage term struc-
+ture models. In particular, Heston and Nandi (2003) use a very similar
+setup. However, they calibrate their model using zero-coupon bond
+prices for a two-week sample. This limited empirical exercise does not
+allow them to analyze the modeling of yield volatility or the model’s
+potential to resolve the tension between modeling yield levels and
+volatilities. We estimate a more general model using a long sample
+of Treasury yields data. We also explicitly compare the performance
+of the proposed model to that of state-of-the-art stochastic volatility
+models. In other related work, Haubrich et al. (2012) and Koeda and
+Kato (2015) incorporate GARCH-type process in macro-finance term
+structure models. The main difference between these studies and ours
+is that they do not explicitly investigate the implications of their
+models for yield volatility. Subsequent to our work, Realdon (2022)
+and Hansen (2023) also study affine term structure models with GARCH
+latent factors driving the short rate.
+
+Our work also complements a rich literature that provides alter-
+native solutions to model interest rate volatility in a no-arbitrage
+framework. Collin-Dufresne and Goldstein (2002) and Collin-Dufresne
+et al. (2009) propose an unspanned stochastic volatility model by
+imposing a set of parametric restrictions to break the spanning of condi-
+tional volatilities by yields. Creal and Wu (2015) show that models with
+spanned volatility fit the cross section of the yield curve better, while
+those with unspanned volatility fit volatility better. However, Joslin
+(2018) and Joslin and Konchitchki (2018) show that the unspanned
+stochastic volatility restrictions unduly constrain other aspects of model
+dynamics, and that these restrictions are rejected by the data. The
+performance of our model is not necessarily informative about the
+costs and benefits of spanned and unspanned models; its distinguishing
+feature is the parametric GARCH assumption that models volatility as
+a function of (lagged) squared innovations to factors instead of a linear
+function of the factors, and this feature determines its performance in
+the volatility dimension. Ghysels et al. (2014) propose a term structure
+model that combines closed-form solutions for bond prices due to
+a Gaussian structure under the risk-neutral measure with a GARCH
+dynamic under the physical measure. Our approach relies on the same
+dynamics under both measures. Finally, the class of models we propose
+is also related to an existing literature that goes beyond the affine
+paradigm. Examples include affine-quadratic models (see Ahn et al.,
+2002, 2003; Leippold and Wu, 2002), regime-switching models (see for
+example Dai et al., 2007; Bansal and Zhou, 2002; Bansal et al., 2004;
+Ang and Bekaert, 2002), and other nonlinear models (see for example
+Ahn and Gao, 1999; Feldhütter et al., 2018. We complement these
+studies by offering a parsimonious yet flexible model for capturing
+interest rate volatility.
+
+The paper proceeds as follows. Section 2 presents the specification
+of term structure models with GARCH volatility and the benchmark
+ATSMs with stochastic volatility. Section 3 discusses the data. Section 4
+discusses the parameter estimates for the term structure models, the
+models’ performance in fitting the conditional volatility of yields, the
+model-implied term structure of unconditional yield volatility, and the
+trade-off between fitting the conditional means and variances of yields.
+Section 5 presents robustness results. Section 6 uses the model and
+the parameter estimates from Treasury yields to price Treasury futures
+options, and Section 7 concludes.
+
+3 The performance of ATSMs in matching yields volatilities is somewhat
+model- and sample-dependent. We find a positive correlation as in Jacobs and
+Karoui (2009), because we also use a relative long sample of Treasury yields
+and include the high inflation period. In Andersen and Benzoni (2010) and
+Collin-Dufresne et al. (2009), the performance of these models is worse.
+
+4 See for example Collin-Dufresne and Goldstein (2002), and Andersen
+and Benzoni (2010). See also Heidari and Wu (2003), Fan et al. (2003),
+Jagannathan et al. (2003), and Li and Zhao (2006). See Bikbov and Chernov
+(2011), and Tang and Xia (2007) for studies using different fixed-income data.
+
+2 
+
+H. Doshi et al.
+
+2. Models
+
+In this section, we first discuss the structure of the proposed ATSMs
+with GARCH volatility. Subsequently, we briefly discuss the models
+we use as empirical benchmarks throughout the paper. We use the
+canonical affine stochastic volatility models as specified in Dai and
+Singleton (2000), in which the conditional covariance of the state
+variables is an affine function of the level of the state variables. This
+class of models is motivated by a rich body of literature showing that
+the volatility of yield curve is, at least partially, related to the properties
+of the yield curve. For example, interest rate volatility is usually high
+when interest rates are high and when the yield curve exhibits higher
+curvature (see Cox et al., 1985; Litterman and Scheinkman, 1991;
+Longstaff and Schwartz, 1992). We also consider a restricted version
+of the canonical affine stochastic volatility model as an additional
+benchmark. In this model, the volatility process is an affine function
+of the state variables, and the dynamics of the state variables are the
+closest possible to the model we propose. The only difference between
+this benchmark and the newly proposed model is the specification of
+the volatility process.
+
+2.1. ATSMs with GARCH volatility
+
+We propose a discrete-time term structure model with analytical so-
+lutions for bond prices, in which the volatility factors follow a GARCH
+process. This specification of the volatility process is motivated by the
+large literature on ARCH and GARCH modeling. There is considerable
+evidence that these processes provide a good description of interest
+rate volatility (Koedijk et al., 1997; Brenner et al., 1996; Christiansen,
+2005). The GARCH literature is formulated in discrete time, which
+facilitates model implementation.
+
+Our approach retains the tractability of affine models while inherit-
+ing the ability of GARCH models to accurately capture time variation in
+yield volatility. The existing literature has concluded that at least three
+factors are needed to explain term structure dynamics (see for example
+Litterman and Scheinkman, 1991; Knez et al., 1994). Accordingly,
+we use ATSMs with three latent state variables, with the following
+dynamics under the physical measure 𝑃 and the risk-neutral measure
+𝑄:
+
+𝑋𝑡+1 = 𝐾 𝑃
+
+0 + 𝐾 𝑃
+
+1 𝑋𝑡 +
+
+√
+
+𝛴𝑡+1𝜖𝑡+1,
+
+𝑋𝑡+1 = 𝐾 𝑄
+
+0 + 𝐾 𝑄
+
+1
+
+𝑋𝑡 +
+
+√
+
+𝛴𝑡+1𝜖𝑡+1,
+
+𝑟𝑡 = 𝜌0 + 𝜌1𝑋𝑡,
+
+(2.1)
+
+(2.2)
+
+(2.3)
+
+0 and 𝜖𝑡+1 are 3 × 1 vectors, and 𝐾 𝑃
+
+where 𝑋𝑡+1, 𝐾 𝑃
+1 is a 3 × 3 diagonal
+matrix. 𝑟𝑡 denotes the short rate, 𝜌0 is a scalar, 𝜌1 is a 1 × 3 vector, and
+𝜖𝑡+1 is assumed to be distributed 𝑁(0, 𝐼). The conditional covariance
+matrix 𝛴𝑡+1 is a 3 × 3 diagonal matrix with the 𝑖th diagonal element
+𝜎2
+𝑖,𝑡+1 governed by a GARCH(1, 1) dynamic:
+
+Journal of Financial Economics 161 (2024) 103926 
+
+in a very straightforward way. If 𝛽𝑖 = 𝛼𝑖 = 0, the volatility for the 𝑖th
+state variable is constant over time.5
+
+To link the physical and risk-neutral measures, we specify the
+
+pricing kernel to take the form
+
+𝑚𝑡+1 = exp(−𝑟𝑡 −
+
+′
+𝜆
+𝑡 𝜆𝑡 − 𝜆
+
+′
+
+𝑡 𝜖𝑡+1),
+
+1
+2
+
+(2.6)
+
+where 𝜆𝑡 is a 3 × 1 vector. We use an essentially affine specification
+for the price of risk (Duffee, 2002; Dai and Singleton, 2002; Cheridito
+et al., 2007), which gives:
+
+(√
+
+𝛴𝑡+1
+
+)−1 (𝜆0 + 𝜆1𝑋𝑡
+
+) ,
+
+𝜆𝑡 =
+
+(2.7)
+
+where 𝜆0 is a 3 × 1 vector, and 𝜆1 is a 3 × 3 diagonal matrix. The 𝑃 - and
+𝑄-parameters in Eqs. (2.1) and (2.2) are therefore related as follows:
+
+0 − 𝜆0,
+1 − 𝜆1.
+
+𝐾 𝑄
+0 = 𝐾 𝑃
+𝐾 𝑄
+1 = 𝐾 𝑃
+The model-implied price of a zero coupon bond ̂𝑃 𝑛
+
+(2.8)
+
+𝑡 with maturity 𝑛
+
+is given by
+(
+
+̂𝑃 𝑛
+𝑡 = exp
+
+𝐴𝑛(𝛩𝑄) + 𝐵
+
+′
+
+𝑛(𝛩𝑄)𝑋𝑡 +
+
+)
+
+𝐶𝑖,𝑛(𝛩𝑄)𝜎2
+
+𝑖,𝑡+1
+
+,
+
+∑
+
+𝑖
+
+(2.9)
+
+where 𝐴𝑛(𝛩𝑄), 𝐵𝑛(𝛩𝑄) and 𝐶𝑖,𝑛(𝛩𝑄) are functions of the parameters
+𝛩𝑄 = {𝐾 𝑄
+, 𝐾 𝑄
+, 𝜌0, 𝜌1, 𝜔𝑖, 𝛽𝑖, 𝛼𝑖} under the 𝑄-dynamics, satisfying the
+1
+0
+following recursive relations
+
+𝐴𝑛 = −𝜌0 + 𝐴𝑛−1 + 𝐵
+
+′
+
+𝑛−1𝐾 𝑄
+
+0 +
+
+∑
+
+(
+𝐶𝑖,𝑛𝜔𝑖 −
+
+𝑖
+
+1
+2
+
+log
+
+(
+1 − 2𝛼𝑖𝐶𝑖,𝑛−1
+
+))
+
+, (2.10)
+
+′
+
+𝐵𝑛 = −𝜌
+
+1 + 𝐵
+
+′
+
+𝑛−1𝐾 𝑄
+
+1
+
+,
+
+𝐶𝑖,𝑛 =
+
+𝐵2
+
+𝑖,𝑛−1
+2(1 − 2𝛼𝑖𝐶𝑖,𝑛−1)
+
++ 𝛽𝑖𝐶𝑖,𝑛−1,
+
+(2.11)
+
+(2.12)
+
+where 𝐴𝑛 and 𝐶𝑖,𝑛 are scalars, and 𝐵𝑛 is a 3 × 1 vector with 𝐵𝑖,𝑛 is the
+𝑖th element. The initial conditions are 𝐴1 = −𝜌0, 𝐵1 = −𝜌′
+1 and 𝐶𝑖,1 = 0.
+The derivation of the recursive relations is provided in Appendix A. For
+the model with a single time-varying volatility factor, 𝛽𝑖 = 𝛼𝑖 = 0 for
+𝐵2
+𝑖 = 2 and 3. Therefore 𝐶𝑖,𝑛 = 1
+𝑖,𝑛−1 for 𝑖 = 2 and 3. For the model with
+2
+two time-varying volatility factors, 𝛽𝑖 = 𝛼𝑖 = 0 and 𝐶𝑖,𝑛 = 1
+𝑖,𝑛−1 for
+2
+𝑖 = 3.
+
+𝐵2
+
+The model-implied continuously compounded 𝑛-maturity yield ̂𝑦𝑛
+
+𝑡 is
+
+given by
+
+̂𝑦𝑛
+𝑡 = 𝐴𝑛 + 𝐵
+
+′
+
+𝑛𝑋𝑡 +
+
+′
+
+= 𝐴𝑛 + 𝐵
+
+𝑛𝑋𝑡 +
+
+∑
+
+𝑖
+
+∑
+
+𝑖
+
+′
+
+𝐶 𝑖,𝑛𝜎2
+
+𝑖,𝑡+1
+
+(
+
+𝐶 𝑖,𝑛
+
+𝜔𝑖 + 𝛽𝑖𝜎2
+
+𝑖,𝑡 + 𝛼𝑖
+
+(2.13)
+
+𝑋𝑖,𝑡−1)2
+
+)
+
+,
+
+(𝑋𝑖,𝑡 − 𝐾 𝑃
+
+1(𝑖,𝑖)
+
+0(𝑖) − 𝐾 𝑃
+𝜎2
+𝑖,𝑡
+
+where 𝐴𝑛 = − 𝐴𝑛
+
+, 𝐵
+
+𝑛 = −
+
+𝑛
+
+𝐵′
+𝑛
+𝑛
+
+, and 𝐶 𝑖,𝑛 = −
+
+𝐶𝑖,𝑛
+𝑛
+
+.
+
+We extract the conditional volatilities of yields using the filtered
+time-series of 𝑋𝑡 and the estimated model parameters. The model-
+implied conditional variance of the 𝑛-maturity yield is given by
+
+𝜎2
+𝑖,𝑡+1 = 𝜔𝑖 + 𝛽𝑖𝜎2
+
+𝑖,𝑡 + 𝛼𝑖𝜖2
+𝑖,𝑡,
+
+(2.4)
+
+̂𝑣𝑎𝑟𝑡(𝑦𝑛
+
+𝑡+1) = 𝐵
+
+′
+
+𝑛𝑣𝑎𝑟𝑡(𝑋𝑡+1)𝐵𝑛 + 𝜎2
+𝑒 ,
+
+(2.14)
+
+where 𝜖𝑖,𝑡 is the 𝑖th element of vector 𝜖𝑡. 𝜔𝑖, 𝛽𝑖 and 𝛼𝑖 are scalars. To
+ensure that 𝜎2
+𝑖,𝑡+1 is positive, we restrict 𝜔𝑖, 𝛽𝑖 and 𝛼𝑖 to be positive
+numbers. 𝜎2
+𝑖,𝑡+1 is known as of time 𝑡, given the history of 𝑋𝑖,𝑡 and initial
+variance 𝜎𝑖,0 as follows
+
+where 𝜎2
+𝑒 is the variance of the pricing errors. Appendix B provides
+the computation of the conditional variance based on the Kalman filter
+algorithm.
+
+𝑖,𝑡+1 = 𝜔𝑖 + 𝛽𝑖𝜎2
+𝜎2
+
+𝑖,𝑡 + 𝛼𝑖
+
+(𝑋𝑖,𝑡 − 𝐾 𝑃
+
+1(𝑖,𝑖)
+
+0(𝑖) − 𝐾 𝑃
+𝜎2
+𝑖,𝑡
+
+𝑋𝑖,𝑡−1)2
+
+,
+
+(2.5)
+
+0(𝑖) is the 𝑖th element of 𝐾 𝑃
+where 𝑋𝑖,𝑡 is the 𝑖th state variable, 𝐾 𝑃
+0 , and
+𝐾 𝑃
+1(𝑖,𝑖) is the 𝑖th diagonal element of 𝐾 𝑃
+1 . Note that this approach filters
+the time-varying volatility from the observations of the state variables
+
+3 
+
+5 The option pricing literature uses a related dynamic due to Heston and
+Nandi (2000), which contains an additional parameter to capture the so-called
+leverage effect in index options and the skewness of the return distribution.
+We have estimated a more general version of (2.5) with this extra parameter.
+It does not lead to an improved fit, which intuitively is due to the limited
+skewness in the yield data.
+
+H. Doshi et al.
+
+Journal of Financial Economics 161 (2024) 103926 
+
+2.2. Canonical ATSMs with stochastic volatility
+
+where
+
+The main benchmark model considered in the paper is the widely
+used canonical affine stochastic volatility model. Using the classifi-
+cation of Dai and Singleton (2000), we denote the class of affine
+stochastic volatility models as 𝐴𝑗 (3), with 𝑗 = 1, 2 or 3 factors driving
+the conditional variance of the three state variables. The instantaneous
+spot interest rate 𝑟𝑡 is given by
+
+𝑟𝑡 = 𝜌0 + 𝜌1𝑋𝑡,
+
+(2.15)
+
+where 𝜌0 is a scalar and 𝜌1 is a 1 × 3 vector. Most of this literature uses
+continuous-time specifications, and we follow this approach.6 The state
+variables 𝑋𝑡 follow an affine diffusion under the risk-neutral measure
+𝑄
+
+√
+
+,
+
+𝛴𝑡𝑑𝑊 𝑄
+𝑡
+
+0𝛥 − 𝑋𝑡)𝑑𝑡 +
+
+1𝛥(𝐾 𝑄
+0𝛥 is a 3 × 1 vector, 𝐾 𝑄
+
+𝑑𝑋𝑡 = 𝐾 𝑄
+where 𝐾 𝑄
+is a 3 × 1 vec-
+tor of independent standard Brownian motions under the risk-neutral
+measure 𝑄, and 𝛴𝑡 is the conditional covariance matrix of 𝑋𝑡. 𝛴𝑡 is a
+3 × 3 diagonal matrix with the 𝑖th diagonal element given by
+
+1𝛥 is a 3 × 3 matrix, 𝑊 𝑄
+
+(2.16)
+
+𝑡
+
+𝜎2
+𝑖,𝑡 = 𝑎𝑖 + 𝑏
+
+′
+
+𝑖 𝑋𝑡,
+
+(2.17)
+
+where 𝑎𝑖 is a scalar, and 𝑏𝑖 is a 3 × 1 vector. We define 𝑎 = [𝑎1, 𝑎2, 𝑎3],
+which is a 3 × 1 vector, and 𝑏 = [𝑏1, 𝑏2, 𝑏3], which is a 3 × 3 matrix.
+In the 𝐴1(3) model, 𝑏𝑖 is a vector of zeros for 𝑖 = 2 and 𝑖 = 3, and
+in the 𝐴2(3) model, 𝑏𝑖 is a vector of zeros for 𝑖 = 3. In the canonical
+𝐴𝑗 (3) model, all three state variables have a time-varying conditional
+variance, which is an affine function of 𝑗 = 1, 2 or 3 state variables.
+
+The model-implied price of a zero coupon bond ̂𝑃 𝑛
+
+𝑡 with maturity 𝑛
+
+is given by (see Duffie and Kan, 1996)
+
+− 𝐼 −𝜆1,
+
+1𝛥 = 𝐾 𝑄
+𝐾 𝑃
+
+1𝛥 −
+
+⎛
+⎜
+⎜
+⎜
+⎝
+
+1𝛥𝐾 𝑃
+𝐾 𝑃
+
+0𝛥 = 𝐾 𝑄
+
+1𝛥
+
+𝜆01𝑏′
+𝜆02𝑏′
+𝜆03𝑏′
+
+1
+
+2
+
+3
+
+𝐾 𝑄
+
+0𝛥 +
+
+⎛
+⎜
+⎜
+⎝
+
+⎞
+⎟
+⎟
+⎟
+⎠
+𝑎1𝜆01
+𝑎2𝜆02
+𝑎3𝜆03
+
+.
+
+⎞
+⎟
+⎟
+⎠
+
+We denote element 𝑖 of 𝜆0 by 𝜆0𝑖. We define 𝐼 − as a 3 × 3 diagonal
+matrix. The 𝑖th diagonal element 𝐼 −
+𝑖 = 1 if the 𝑖th diagonal element of
+is zero, we have 𝐼 −
+𝛴−
+𝑡
+𝑖
+= 0
+
+is nonzero. If the 𝑖th diagonal element of 𝛴−
+𝑡
+
+We follow the Dai and Singleton identification scheme to ensure
+the 𝜎2
+𝑖,𝑡 are strictly positive for all 𝑖.8 The 𝐴𝑗 (3) models are different
+from our proposed model in the parameterization for both the state
+variables and the volatility process. In the proposed GARCH model, the
+feedback matrix 𝐾 𝑃
+1 is a diagonal matrix. In the canonical 𝐴𝑗 (3) models,
+following the admissibility constraints of Dai and Singleton (2000),9
+
+[
+
+𝐾 𝑃
+
+1𝛥 =
+
+𝐾 𝑃
+
+1𝛥𝑗×𝑗
+
+𝐾 𝑃
+
+1𝛥(3−𝑗)×𝑗
+
+0𝑗×(3−𝑗)
+
+𝐾 𝑃
+
+1𝛥(3−𝑗)×(3−𝑗)
+
+]
+
+,
+
+(2.24)
+
+1𝛥𝑗×𝑗 is a 𝑗 × 𝑗 matrix, 𝐾 𝑃
+
+1𝛥(3−𝑗)×𝑗 is a (3 − 𝑗) × 𝑗 matrix, and
+1𝛥(3−𝑗)×(3−𝑗) is a (3 − 𝑗) × (3 − 𝑗) matrix. For the volatility process
+
+where 𝐾 𝑃
+𝐾 𝑃
+in Eq. (2.17),
+
+[
+
+[
+
+𝑎 =
+
+𝑏 =
+
+0𝑗×1
+1(3−𝑗)×1
+
+𝐼
+𝑗×𝑗
+0(3−𝑗)×𝑗
+
+]
+
+,
+
+𝑏𝑗×(3−𝑗)
+0(3−𝑗)×(3−𝑗)
+
+]
+
+.
+
+(2.25)
+
+(2.26)
+
+̂𝑃 𝑛
+𝑡 = exp
+
+(
+𝐴𝑛(𝛩𝑄) + 𝐵
+
+′
+
+𝑛(𝛩𝑄)𝑋𝑡
+
+)
+
+,
+
+(2.18)
+
+We provide more details on the estimation of these stochastic volatility
+models in Appendix C.
+
+where 𝐴𝑛(𝛩𝑄) and 𝐵𝑛(𝛩𝑄) are functions of the parameters under the 𝑄-
+dynamics, 𝛩𝑄 = {𝐾 𝑄
+, 𝜌0, 𝜌1, 𝑎, 𝑏}, through a set of Riccati ordinary
+0𝛥
+differential equations. The model-implied continuously compounded
+𝑛-maturity yield ̂𝑦𝑛
+
+, 𝐾 𝑄
+1𝛥
+
+𝑡 is given by
+
+̂𝑦𝑛
+𝑡 = 𝐴𝑛 + 𝐵
+
+′
+
+𝑛𝑋𝑡,
+
+(2.19)
+
+where 𝐴𝑛 = − 𝐴𝑛
+
+, and 𝐵
+𝑛
+The pricing kernel 𝜋𝑡
+
+′
+
+𝑛 = −
+
+𝐵′
+𝑛
+.
+𝑛
+is given by
+
+′
+
+𝑡
+
+,
+
+𝑡 𝑑𝑊 𝑃
+
+= −𝑟𝑡𝑑𝑡 − 𝛬
+
+𝑑𝜋𝑡
+𝜋𝑡
+where 𝑊 𝑃
+is a 3 × 1 vector of independent standard Brownian motions
+𝑡
+under the physical measure 𝑃 , and the 3 × 1 vector 𝛬𝑡 denotes the
+market price of risk. We adopt the essentially affine specification for
+the price of risk as in Duffee (2002) and Dai and Singleton (2002).7
+
+(2.20)
+
+√
+
+𝛬𝑡 =
+
+𝛴𝑡𝜆0 +
+
+√
+
+𝛴−
+
+𝑡 𝜆1𝑋𝑡,
+
+(2.21)
+
+where 𝜆0 is a 3 × 1 vector and 𝜆1 is a 3 × 3 matrix. In 𝐴𝑗 (3) models, the
+diagonal matrix 𝛴−
+𝑖 𝑋𝑡)−1 for
+𝑖 = 𝑗 + 1, … , 3.
+
+𝑡 has zeros in its first 𝑗 entries and (𝑎𝑖 + 𝑏′
+
+The dynamics of the state variables under the physical measure 𝑃
+
+can be written in terms of 𝛬𝑡 and Eq. (2.16)
+𝑑𝑋𝑡 = 𝐾 𝑄
+
+𝛴𝑡𝛬𝑡𝑑𝑡 +
+
+0𝛥 − 𝑋𝑡)𝑑𝑡 +
+
+1𝛥(𝐾 𝑄
+
+𝛴𝑡𝑑𝑊 𝑃
+𝑡
+
+√
+
+√
+
+.
+
+(2.22)
+
+To facilitate the comparison with our proposed model, we also
+consider a restricted version of the canonical affine stochastic volatility
+model as a benchmark model. In the restricted model, we constrain
+1𝛥 and 𝐾 𝑄
+𝐾 𝑃
+1𝛥 to be diagonal matrices.10 This model is nested within the
+canonical specification. The dynamics of the state variables under the
+restricted model are similar to those in our proposed model. The only
+difference is the specification of the volatility process. In the restricted
+𝐴𝑗 (3) model, the conditional variance of the state variables is a linear
+combination of the levels of 𝑗 = 1, 2 or 3 state variables. The difference
+with our model is therefore a rather subtle and technical one, and
+exclusively due to the volatility dynamic.
+
+3. Data
+
+We first discuss the sample of Treasury yields we use to estimate the
+term structure models. We then discuss the sample of Treasury futures
+options data we use for the option pricing application.
+
+3.1. Treasury yield data
+
+We use monthly data on continuously compounded zero-coupon
+bond yields with maturities of three and six months, and one, two,
+three, four, five, and ten years. The three- and six-months yields are
+obtained from the Federal Reserve Economic Data. The one to five, and
+
+The physical dynamic in the essentially affine model is then given by
+
+8 The identification constraints can be applied to either the 𝑃 - or
+
+𝑑𝑋𝑡 = 𝐾 𝑃
+
+1𝛥(𝐾 𝑃
+
+0𝛥 − 𝑋𝑡)𝑑𝑡 +
+
+√
+
+𝛴𝑡𝑑𝑊 𝑃
+𝑡
+
+,
+
+(2.23)
+
+6 See Le et al. (2010) for related discrete-time models.
+7 Jacobs and Karoui (2009) show that the specification of the price of risk
+
+𝑄-parameters, see Dai and Singleton (2000), and Singleton (2006).
+
+9 We refer to Dai and Singleton (2000) equations 15–19 for details on
+the admissibility restrictions. Joslin and Le (2021) show that for no-arbitrage
+affine term structure models, these admissibility constraints give rise to tension
+in joint estimation of the physical and risk-neutral dynamics.
+
+10 To get diagonal 𝐾 𝑄
+
+1𝛥, restrictions are imposed on the specification of the
+
+has a minimal impact on modeling conditional volatility.
+
+market price of risk.
+
+4 
+
+H. Doshi et al.
+
+Journal of Financial Economics 161 (2024) 103926 
+
+Table 1
+Summary statistics for yields and volatilities.
+
+Panel A: Yields
+
+Central moments
+
+3 month
+6 month
+1 year
+2 year
+3 year
+4 year
+5 year
+10 year
+
+Mean (%)
+4.6244
+4.7501
+5.1127
+5.3417
+5.5349
+5.7027
+5.8501
+6.3594
+
+Panel B: Realized Volatilities
+
+Central moments
+
+1 year
+2 year
+3 year
+4 year
+5 year
+10 year
+
+Mean (bps)
+23.2313
+26.1794
+27.4345
+27.6734
+27.5106
+26.4272
+
+Panel C: EGARCH Volatilities
+
+Central moments
+
+3 month
+6 month
+1 year
+2 year
+3 year
+4 year
+5 year
+10 year
+
+Mean (bps)
+29.5289
+28.6691
+35.4025
+35.9635
+35.0766
+34.0902
+33.2059
+30.3622
+
+St.Dev (%)
+3.4488
+3.4363
+3.5684
+3.5021
+3.4155
+3.3274
+3.2450
+2.9598
+
+St.Dev (bps)
+19.1239
+17.6976
+16.7397
+15.8503
+15.1577
+13.8500
+
+St.Dev (bps)
+33.0125
+29.0062
+28.5081
+22.0695
+16.5472
+13.1045
+11.1209
+9.0130
+
+Skewness
+0.6335
+0.5503
+0.4668
+0.3936
+0.3768
+0.3806
+0.3916
+0.4340
+
+Skewness
+2.5249
+2.4249
+2.3646
+2.2507
+2.1224
+1.7106
+
+Skewness
+2.8007
+2.6993
+2.3117
+2.1404
+1.9735
+1.8018
+1.6611
+1.3719
+
+Kurtosis
+3.3177
+3.0660
+2.8273
+2.6794
+2.6240
+2.6082
+2.6131
+2.7129
+
+Kurtosis
+11.2102
+11.0406
+10.8820
+10.4456
+9.8979
+7.4772
+
+Kurtosis
+11.9469
+12.2778
+10.3576
+9.2477
+8.2257
+7.1088
+6.1600
+4.6081
+
+Autocorrelation
+
+Lag 1
+0.9906
+0.9916
+0.9906
+0.9915
+0.9921
+0.9924
+0.9924
+0.9920
+
+Autocorrelation
+
+Lag 1
+0.7363
+0.7138
+0.7140
+0.7240
+0.7306
+0.7537
+
+Autocorrelation
+
+Lag 1
+0.9699
+0.9665
+0.9611
+0.9722
+0.9721
+0.9710
+0.9719
+0.9655
+
+Lag 12
+0.8640
+0.8755
+0.8879
+0.9020
+0.9090
+0.9126
+0.9140
+0.9115
+
+Lag 12
+0.4920
+0.4571
+0.4260
+0.4120
+0.4141
+0.4690
+
+Lag 12
+0.6995
+0.6705
+0.7131
+0.7253
+0.7203
+0.7160
+0.7264
+0.6987
+
+Lag 30
+0.6455
+0.6693
+0.7074
+0.7542
+0.7809
+0.7968
+0.8060
+0.8141
+
+Lag 30
+0.1442
+0.0607
+0.0238
+0.0180
+0.0288
+0.0819
+
+Lag 30
+0.2779
+0.3072
+0.4225
+0.4274
+0.4065
+0.3861
+0.3803
+0.3660
+
+Notes to Table: We present summary statistics for the data used in estimation. We present the sample mean, standard deviation, skewness,
+kurtosis, and autocorrelations for each of the yields (Panel A) and yield volatilities (Panels B and C). The yields are continuously compounded
+monthly zero-coupon bond yields. The monthly realized volatility in Panel B is the square root of monthly realized variance. We construct
+monthly realized variance using within-month squared changes in daily yields. Panel C reports on the EGARCH(1, 1) estimates of changes in
+monthly yields. The EGARCH(1, 1) is estimated assuming that the conditional mean of changes in monthly yields is generated by an AR(1)
+process. The sample period is from 1971:11 to 2019:10.
+
+ten year yields are from the Gürkaynak et al. (2007, GSW) dataset. The
+sample period is from November 1971 to October 2019.11
+
+Panel A of Table 1 reports the summary statistics of the yields, Panel
+B reports the realized volatilities, and Panel C reports the EGARCH(1, 1)
+volatilities.12 Both measures of ‘‘true’’ volatility are maturity-specific.
+Note that we do not have high-frequency data available to construct
+realized volatility over the entire sample period for which yields
+are available. We therefore follow the approach pioneered by Schw-
+ert (1989) in the equity return literature and construct measures of
+monthly realized volatility using within-month squared changes in
+daily yields. We present results for one- to five- and ten-year maturities.
+The EGARCH(1, 1) is estimated assuming that the conditional mean of
+changes in monthly yields is generated by an AR(1) process.
+
+On average, the yield curve is upward sloping, and both EGARCH
+and realized volatilities are hump-shaped as a function of maturity.
+The yields for all maturities are highly persistent, and exhibit positive
+skewness and mild excess kurtosis at short maturities. A comparison of
+the two benchmarks shows that the realized volatilities are much less
+persistent than the EGARCH (1, 1) volatilities for all maturities. Both
+volatility measures exhibit excess kurtosis and positive skewness for all
+maturities.
+
+11 The GSW dataset is obtained from the Federal Reserve, available at
+http://www.federalreserve.gov/pubs/feds/2006/200628/200628abs.html. We
+use November 1971 as the start date because it is the earliest date with
+uninterrupted availability of 10-year yield data.
+
+12 We use the EGARCH(1, 1) benchmark because it is used in the existing
+literature. We verified that the results are very similar when using other
+GARCH benchmarks.
+
+3.2. Treasury options data
+
+We document the models’ performance in pricing derivatives using
+monthly data on options on U.S. Treasury futures. The options data
+and the corresponding underlying futures data are obtained from the
+Chicago Mercantile Exchange (CME) for the May 1988 to June 2016
+sample period. We use quarterly maturity futures options contracts on
+underlying Treasuries with five- and ten-year maturities. We use all
+available options data with option maturity less than 270 days and
+moneyness between 90% and 110%. The moneyness is defined as the
+ratio of strike price to underlying futures price.
+
+The underlying futures contracts have some features that are criti-
+cally important for option pricing. Most importantly, the coupon rate
+for the Treasury underlying these futures contracts is fixed at 8% prior
+to February 2000 and at 6% after February 2000. We divide the options
+data for both five- and ten-year underlying Treasury futures into three
+groups based on its maturity: <90 days, 90–182 days, and 182–270
+days. We further divide these options into six moneyness groups:
+90%–95%, 95–97.5%, 97.5%–100%, 100–102.5%, 102.5%–105%, and
+105%–110%. Panels A and B of Table 2 present summary statistics on
+the implied volatilities of the option contracts in the sample for each
+underlying treasury futures in various maturity-moneyness group. The
+implied volatilities are computed using the Black model. The risk-free
+rate used to compute the implied volatilities is based on the Nelson–
+Siegel–Svensson parameters provided in the GSW dataset. The implied
+volatilities exhibit a smile pattern in the moneyness dimension. As
+expected, the average implied volatilities are larger for futures options
+written on ten-year Treasuries compared to futures options on five-
+year Treasuries. The average implied volatility across moneyness and
+maturity for the options on five-year Treasury futures is between 2.83%
+and 6.84%. The average implied volatility for options on ten-year
+Treasury futures is between 4.31% and 8.12%.
+
+5 
+
+H. Doshi et al.
+
+Journal of Financial Economics 161 (2024) 103926 
+
+Table 2
+Summary statistics for futures options.
+
+Panel A: Implied Volatility: Options on Five-Year Treasury Futures
+
+Maturity
+<90
+90–182
+182–270
+All
+N
+
+Moneyness (K/F)
+
+90–95
+6.84%
+5.41%
+5.57%
+6.26%
+949
+
+95–97.5
+4.41%
+4.29%
+4.47%
+4.35%
+2063
+
+97.5–100
+3.00%
+3.53%
+3.83%
+3.32%
+4333
+
+100–102.5
+2.83%
+3.37%
+3.67%
+3.15%
+3731
+
+Panel B: Implied Volatility: Options on Ten-Year Treasury Futures
+
+Maturity
+<90
+90–182
+182–270
+All
+N
+
+Moneyness (K/F)
+
+90–95
+8.12%
+7.13%
+6.79%
+7.48%
+3395
+
+95–97.5
+5.50%
+6.00%
+6.03%
+5.83%
+3012
+
+97.5–100
+4.55%
+5.56%
+5.79%
+5.27%
+3903
+
+100–102.5
+4.31%
+5.39%
+5.68%
+5.07%
+3661
+
+102.5–105
+4.01%
+3.97%
+3.71%
+3.98%
+1229
+
+102.5–105
+5.06%
+5.52%
+5.68%
+5.37%
+2531
+
+105–110
+6.51%
+5.18%
+4.07%
+5.91%
+396
+
+105–110
+7.19%
+6.39%
+5.80%
+6.64%
+2319
+
+All
+3.81%
+3.79%
+3.86%
+3.80%
+
+All
+5.79%
+5.97%
+5.94%
+5.90%
+
+N
+5811
+6429
+461
+
+N
+6707
+9531
+2583
+
+Notes to Table: We present summary statistics for option-implied volatilities for a sample of Treasury futures options. The sample period is
+from May 1988 to June 2016. Panels A and B report the average implied volatilities from futures options with underlying five- and ten-year
+Treasuries, for various moneyness and maturity groups. N indicates the number of option contracts in each group.
+
+4. Term structure models: Empirical results
+
+4.2. Parameter estimates
+
+To retain a low-dimensional structure for the affine term structure
+model, our baseline empirical analysis focuses on a model with one
+time-varying volatility factor. That is, we set 𝑖 = 1 in Eq. (2.4) in the
+proposed term structure model with GARCH volatility. Only the first
+state variable has a time-varying variance. We refer to this model as
+the no-arbitrage GARCH model. As our main benchmark model, we
+therefore choose the canonical 𝐴1(3) model, which also has one factor
+driving the conditional variances of the state variables. Dai and Sin-
+gleton (2000) conclude that this model offers the best characterization
+of unconditional yield volatilities and a sufficiently flexible correlation
+structure among three-factor models with stochastic volatility. Note
+that this model has a time-varying variance for all three state variables.
+However, the dynamic of the variance is driven by only one state
+variable. We also consider a restricted version of the canonical 𝐴1(3)
+model, where the feedback matrix of the state variables is diagonal, as
+in the no-arbitrage GARCH model.
+
+In this section, we first discuss how we implement the term struc-
+ture models. We then present the parameter estimates for these three
+models, with a focus on comparing the models’ ability to explain the
+conditional volatility of the yield curve. Subsequently, we examine the
+unconditional volatility implied by these models. We also document the
+tension between matching yields and yield volatilities in these models,
+and we discuss their implications for the expectations hypothesis.
+
+4.1. Estimation method
+
+To ensure the most meaningful empirical comparison, we estimate
+the models using a similar implementation. The term structure model
+with GARCH volatility can be expressed using a state–space representa-
+tion. The observed yield curve 𝑦𝑡 = ̂𝑦𝑡 + 𝑒𝑡 is the measurement equation,
+where ̂𝑦𝑡 is the model-implied yield as specified in Eq. (2.13), and 𝑒𝑡
+is a vector of measurement errors that is assumed to be 𝑖.𝑖.𝑑. normal.
+We assume that the error variance 𝜎2
+𝑒 is the same across maturities to
+ensure that all maturities receive similar weight in the likelihood. The
+state equation is given by Eq. (2.1). We apply the Kalman filter to the
+state–space representation of the model. We estimate the parameters
+𝛩 = {𝐾 𝑃
+, 𝜌0, 𝜌1, 𝜔𝑖, 𝛽𝑖, 𝛼𝑖} and filter the state variables
+0
+𝑋𝑡 using maximum likelihood. Appendix B provides the details on
+the Kalman filter algorithm.13 The estimation of the benchmark 𝐴1(3)
+model proceeds in a similar way and is discussed in Appendix C.
+
+, 𝐾 𝑄
+0
+
+, 𝐾 𝑄
+1
+
+, 𝐾 𝑃
+1
+
+Table 3 presents parameter estimates for the no-arbitrage GARCH
+model (Panel A), the canonical 𝐴1(3) model (Panel B), and the re-
+stricted 𝐴1(3) model (Panel C). The no-arbitrage GARCH model has
+22 parameters, including the variance 𝜎2
+𝑒 of the measurement errors.
+The canonical 𝐴1(3) model has 24 parameters, and the restricted 𝐴1(3)
+model has 14 parameters. In the no-arbitrage GARCH model and the
+restricted 𝐴1(3) model, the conditional mean under the 𝑃 -measure is
+more restricted than in the canonical 𝐴1(3) model. For all models,
+the estimates satisfy the admissibility conditions under the physical
+measure 𝑃 . The state variables in the canonical and restricted 𝐴1(3)
+models follow a first order VAR process when sampled monthly. To
+facilitate the comparison with the estimates from the discrete-time no-
+arbitrage GARCH model, we report the estimated parameters of the
+discretized VAR process for both benchmark models.
+
+The time series properties of the state variables critically depend
+on the speed of mean reversion in the feedback matrix 𝐾 𝑃
+1 . For the no-
+arbitrage GARCH model, the first state variable, which has time-varying
+volatility, is highly persistent. The second and third state variables are
+less persistent than the first. Some of the implications of the canonical
+and restricted 𝐴1(3) models are similar to the no-arbitrage GARCH
+model. The comparison with the restricted 𝐴1(3) model is more conve-
+nient because the structure of the model is similar. Specifically, the 𝐾 𝑃
+1
+and 𝐾 𝑄
+1 matrices are also diagonal, which facilitates the interpretation
+of factor persistence. Similar to the GARCH model, the first state
+variable is the most persistent in the restricted 𝐴1(3) model and plays
+the role of level factor, whereas the third variable is strongly mean
+reverting. However, in contrast to the no-arbitrage GARCH model, in
+the restricted 𝐴1(3) model the third factor is more mean-reverting under
+the 𝑃 -measure compared to.the 𝑄-measure.
+
+The structure of volatility in the no-arbitrage GARCH model criti-
+cally differs from that in the benchmark models. In the canonical and
+restricted 𝐴1(3) models, the level factor mainly affects the volatility of
+the second factor, as indicated by the second entry in the 𝑏 vector.
+Duffee (2002) and Jacobs and Karoui (2009) report similar results.
+In our benchmark no-arbitrage GARCH model on the other hand, by
+design it is the volatility of the first (level) factor that plays a critical
+role. The estimated volatility dynamic is persistent (𝛽 = 0.9182).
+We investigate no-arbitrage GARCH models with additional volatility
+factors in Section 5.2.
+
+4.3. Conditional yield volatility
+
+13 See Duffee and Stanton (2012) and Christoffersen et al. (2014) for
+
+estimation using the Kalman filter.
+
+In this section, we examine the properties of the model-implied
+conditional yield volatilities. We present the model-implied conditional
+
+6 
+
+H. Doshi et al.
+
+Journal of Financial Economics 161 (2024) 103926 
+
+Table 3
+Parameter estimates.
+
+Panel A: The No-Arbitrage GARCH Model
+𝐾 𝑃
+0
+
+𝐾 𝑃
+1
+
+0.0036
+−0.0029
+0.0019
+
+𝜌0
+
+−0.0002
+
+𝜔 × 1𝑒4
+
+0.0008
+
+0.9996
+
+0.9855
+
+𝜌1
+
+0.8826
+
+0.0004
+
+−0.0491
+
+0.1074
+
+𝛼
+
+𝛽
+
+0.0530
+
+0.9182
+
+𝜎2
+2 × 1𝑒4
+0.1623
+
+Panel B: The Canonical 𝑨𝟏(𝟑) Model
+𝐾 𝑃
+𝐾 𝑃
+1
+0
+
+0.0708
+0.0002
+0.0002
+
+𝜌0
+
+−0.0012
+
+𝑎
+
+0.9763
+−0.0001
+−0.0001
+
+0.9732
+−0.0001
+
+−0.0001
+0.7978
+
+𝜌1
+
+0.0036
+
+0.0016
+
+0.0134
+
+𝑏
+
+𝐾 𝑄
+0
+
+0.0009
+−0.0064
+0.0031
+
+𝜎2
+3 × 1𝑒4
+0.2055
+
+𝐾 𝑄
+0
+
+0.0708
+0.0002
+0.0002
+
+𝐾 𝑄
+1
+
+0.9963
+
+Log Likelihood
+
+21987.48
+
+𝐾 𝑄
+1
+
+1.0003
+−0.0012
+−0.0002
+
+Log Likelihood
+
+22239.58
+
+0.9611
+
+0.8295
+
+0.9684
+−0.0002
+
+−0.0002
+0.8379
+
+0.0000
+
+1.0000
+
+1.0000
+
+1.0000
+
+12.8712
+
+0.2459
+
+Panel C: The Restricted 𝑨𝟏(𝟑) Model
+𝐾 𝑃
+𝐾 𝑃
+1
+0
+
+0.9808
+
+0.1026
+0.0000
+0.0000
+
+𝜌0
+
+−0.0022
+
+𝑎
+
+0.9716
+
+𝜌1
+
+0.7879
+
+0.0022
+
+−0.0017
+
+0.0133
+
+𝑏
+
+𝐾 𝑄
+1
+
+1.0002
+
+𝐾 𝑄
+0
+
+0.1026
+0.0000
+0.0000
+
+0.9711
+
+0.8525
+
+Log Likelihood
+
+22206.68
+
+0.0000
+
+1.0000
+
+1.0000
+
+1.0000
+
+10.0435
+
+0.1874
+
+Notes to Table: We present the estimated parameters and log likelihoods for the no-arbitrage GARCH model (Panel A), the canonical 𝐴1(3)
+model (Panel B), and the restricted 𝐴1(3) model (Panel C). In the restricted 𝐴1(3) model, we set the feedback matrix to be a diagonal matrix.
+The estimates are based on monthly zero-coupon bond yields from 1971:11 to 2019:10. The state variables in the canonical and restricted 𝐴1(3)
+models follow a first order VAR process when sampled monthly.
+
+volatilities together with the realized volatilities in Fig. 1 and with
+the EGARCH(1, 1) volatilities in Fig. 2. Appendices B and C discuss
+the derivation of the implied one-month conditional volatilities from
+the no-arbitrage GARCH model and the 𝐴1(3) model respectively. We
+observe a close correspondence between the realized volatility and the
+EGARCH volatility, but the realized volatilities are more noisy than
+the EGARCH(1, 1) volatilities for all maturities.14 This is not surprising,
+because the realized volatilities are ex-post realizations as opposed
+to conditional expectations, and therefore less persistent. The esti-
+mated conditional volatilities from the canonical and restricted 𝐴1(3)
+models are very similar. All three models struggle to simultaneously
+match both the high volatility during the monetary experiment in
+the early 1980s with the lower volatility before and after. However,
+the no-arbitrage GARCH model better captures the data, especially
+at longer maturities, regardless of whether we use the EGARCH or
+realized volatility as the ‘‘true’’ volatility. In summary, the no-arbitrage
+GARCH model appears to better capture the time-variation in the
+second moment of yields, especially at longer maturities.
+
+To further assess the quality of the estimated conditional volatilities,
+Panel A of Table 4 reports the unconditional correlations between
+model-implied and realized volatilities, and Panel B reports the uncon-
+ditional correlations between model-implied and EGARCH(1, 1) volatil-
+ities. A first observation is that the correlations with both realized and
+
+14 We do not report realized volatility results for the three- and six-month
+
+maturities due to data availability.
+
+EGARCH volatilities are positive at all maturities for all models.15 The
+estimated conditional volatilities from the no-arbitrage GARCH model
+have the highest correlation with both the realized volatilities and the
+EGARCH estimates at all maturities. For example, the unconditional
+correlation with the EGARCH(1, 1) volatilities is as high as 92% for the
+5-year yield, while it is about 72-73% for the two benchmark models.
+On average across all maturities, the unconditional correlation with
+realized volatilities for the no-arbitrage GARCH model is 65%, while for
+the canonical and restricted 𝐴1(3) models it is 47% . The unconditional
+correlation with EGARCH(1, 1) volatilities for the no-arbitrage GARCH
+model is 80% on average across all maturities, while for the canonical
+𝐴1(3) and restricted 𝐴1(3) models it is 68%.16
+
+15 As discussed in Jacobs and Karoui (2009), the performance of the stochas-
+tic volatility model in fitting yield volatility is sensitive to the model and
+sample under consideration. We find a positive correlation as in Jacobs and
+Karoui (2009), because we also use a relative long sample of Treasury yields
+and include the high inflation period. Andersen and Benzoni (2010), and
+Collin-Dufresne et al. (2009) do not find a significant positive correlation.
+
+16 The models’ relative performance is similar when directly considering the
+latent variance factors from the models and the two measures of the ‘‘true’’
+variance instead. For example, based on the one-year yield, the variance factor
+from the no-arbitrage GARCH model has the highest unconditional correlation
+with the realized variance (53%) as well as the EGARCH estimates (72%).
+The correlations with the realized variance for the two benchmark models are
+approximately 42%. The correlations with the EGARCH(1, 1) variance for the
+two benchmark models are approximately 52%.
+
+7 
+
+H. Doshi et al.
+
+Journal of Financial Economics 161 (2024) 103926 
+
+Fig. 1. Model-implied conditional volatility by maturity: Comparison with realized volatility.
+Notes to Figure: We plot the implied one-month conditional yield volatility for different models. For each maturity, the dotted line (red) represents ‘‘model-free’’ volatility, measured
+by the square root of realized variance. The maturity-specific monthly realized variances are computed using within-month squared changes in daily yields. The solid line (blue)
+represents the conditional volatility from the no-arbitrage GARCH model. The dash–dot line (magenta) represents the conditional volatility from the canonical 𝐴1(3) model. The
+dashed line (green) represents the conditional volatility from the restricted 𝐴1(3) model. In the restricted 𝐴1(3) model, we set the feedback matrix to be a diagonal matrix. (For
+interpretation of the references to color in this figure legend, the reader is referred to the web version of this article.)
+
+Fig. 2. Model-implied conditional volatility by maturity: Comparison with EGARCH volatility.
+Notes to Figure: We plot the implied one-month conditional yield volatility for different models. For each maturity, the dotted line (red) represents ‘‘model-free’’ volatility, measured
+by the EGARCH(1, 1) volatility. The maturity-specific EGARCH(1, 1) is estimated assuming that the conditional mean of changes in monthly yields is generated by an AR(1) process.
+The solid line (blue) represents the conditional volatility from the no-arbitrage GARCH model. The dash–dot line (magenta) represents the conditional volatility from the canonical
+𝐴1(3) model. The dashed line (green) represents the conditional volatility from the restricted 𝐴1(3) model. In the restricted 𝐴1(3) model, we set the feedback matrix to be a diagonal
+matrix. (For interpretation of the references to color in this figure legend, the reader is referred to the web version of this article.)
+
+8 
+
+H. Doshi et al.
+
+Journal of Financial Economics 161 (2024) 103926 
+
+Table 4
+Unconditional correlations for conditional volatility implied by different models.
+
+Panel A: Unconditional Correlations with Realized Volatility
+
+No-Arbitrage GARCH
+Canonical 𝐴1(3)
+Restricted 𝐴1(3)
+
+1 year
+
+2 year
+
+3 year
+
+4 year
+
+5 year
+
+10 year
+
+Avg.
+
+0.56
+0.54
+0.54
+
+0.61
+0.51
+0.51
+
+0.65
+0.48
+0.49
+
+0.68
+0.46
+0.46
+
+0.69
+0.43
+0.44
+
+0.71
+0.38
+0.39
+
+0.65
+0.47
+0.47
+
+Panel B: Unconditional Correlations with EGARCH(1, 1) Volatility
+
+3 month
+
+6 month
+
+1 year
+
+2 year
+
+3 year
+
+4 year
+
+5 year
+
+10 year
+
+Avg.
+
+No-Arbitrage GARCH
+Canonical 𝐴1(3)
+Restricted 𝐴1(3)
+
+0.65
+0.58
+0.57
+
+0.66
+0.60
+0.60
+
+0.70
+0.68
+0.68
+
+0.79
+0.73
+0.73
+
+0.85
+0.74
+0.75
+
+0.90
+0.74
+0.75
+
+0.92
+0.72
+0.73
+
+0.91
+0.61
+0.62
+
+0.80
+0.68
+0.68
+
+Notes to Table: Panel A presents the unconditional correlations between the realized volatility and the one-month conditional volatility implied
+by the no-arbitrage GARCH model, the canonical 𝐴1(3) model, and the restricted 𝐴1(3) model. We construct monthly realized variance using
+within-month squared changes in daily yields. Panel B presents the unconditional correlations between the EGARCH(1, 1) volatility and the
+one-month conditional volatility implied by the three models. The EGARCH(1, 1) is estimated assuming that the conditional mean of changes in
+monthly yields is generated by an AR(1) process. In the restricted 𝐴1(3) model, we set the feedback matrix to be a diagonal matrix. The last
+column shows the average correlation across all maturities.
+
+Table 5
+Conditional volatility fit.
+
+Panel A: RMSEs of Volatility Based on Realized Volatility
+
+No-Arbitrage GARCH
+Canonical 𝐴1(3)
+Restricted 𝐴1(3)
+
+Improvement on Can. 𝐴1(3)
+Improvement on Rest. 𝐴1(3)
+
+1 year
+
+2 year
+
+3 year
+
+4 year
+
+5 year
+
+10 year
+
+Avg.
+
+31.85
+53.12
+59.82
+
+22.79
+38.94
+43.16
+
+18.85
+32.03
+34.37
+
+16.69
+28.07
+28.97
+
+15.40
+25.58
+25.38
+
+12.86
+20.33
+17.76
+
+19.74
+33.01
+34.91
+
+40.04%
+46.76%
+
+41.47%
+47.20%
+
+41.16%
+45.16%
+
+40.52%
+42.37%
+
+39.80%
+39.32%
+
+36.74%
+27.58%
+
+39.95%
+41.40%
+
+Panel B: RMSEs of Volatility Based on EGARCH(1, 1) Volatility
+1 year
+
+3 month
+
+6 month
+
+2 year
+
+3 year
+
+4 year
+
+5 year
+
+10 year
+
+Avg.
+
+No-Arbitrage GARCH
+Canonical 𝐴1(3)
+Restricted 𝐴1(3)
+
+48.36
+68.31
+76.39
+
+40.05
+59.02
+66.69
+
+28.92
+42.92
+49.18
+
+19.04
+29.32
+33.38
+
+12.77
+22.94
+25.33
+
+9.15
+19.53
+20.49
+
+7.23
+17.54
+17.31
+
+5.57
+14.09
+11.19
+
+21.39
+34.21
+37.50
+
+Improvement on Can. 𝐴1(3)
+Improvement on Rest. 𝐴1(3)
+
+29.21%
+36.69%
+
+32.15%
+39.95%
+
+32.60%
+41.19%
+
+35.06%
+42.96%
+
+44.34%
+49.59%
+
+53.14%
+55.33%
+
+58.80%
+58.25%
+
+60.45%
+50.23%
+
+43.22%
+46.77%
+
+Notes to Table: We present the volatility fit for the no-arbitrage GARCH model, the canonical 𝐴1(3) model, and the restricted 𝐴1(3) model. In
+the restricted 𝐴1(3) model, we set the feedback matrix to be a diagonal matrix. In Panel A, the RMSEs are computed by using realized volatility
+as a measure of model-free volatility. We construct monthly realized variance using within-month squared changes in daily yields. In Panel B,
+the RMSEs are computed by using an EGARCH(1, 1) model as a measure of model-free volatility. The EGARCH(1, 1) is estimated assuming that
+the conditional mean of changes in monthly yields is generated by an AR(1) process. RMSEs are reported in basis points. We also present the
+percentage RMSE improvement of the no-arbitrage GARCH model over the canonical and restricted 𝐴1(3) models. The last column shows the
+averages across all maturities.
+
+To provide additional insight into the models’ ability to fit volatility,
+we also examine the root mean squared errors (RMSEs) of model-
+implied conditional volatilities. Panel A of Table 5 reports the RMSEs
+between model-implied and realized volatilities, and Panel B of Table 5
+reports the RMSEs between model-implied and EGARCH volatilities.
+Both are expressed in basis points. The no-arbitrage GARCH model
+outperforms both benchmark models in fitting the volatility across
+all maturities for both ‘‘true’’ volatility measures. The model does a
+particularly good job at the intermediate and long end of the yield
+curve, although it only has a single volatility factor. For example, for
+4, 5 and 10 years, the RMSEs based on EGARCH volatilities are below
+10 basis points.
+
+The RMSE improvement of the no-arbitrage GARCH model over
+the two benchmark models is about 40% on average across maturities
+when realized volatility is used as the measure of true volatility. When
+EGARCH(1, 1) volatility is used as the measure of true volatility, the
+average RMSE improvement over the two 𝐴1(3) models is even higher.
+The improvement of the RMSEs between model-implied and EGARCH
+volatilities is more significant at longer maturities. For example, for the
+5-year yield, the improvement in RMSEs is about 58%. In summary,
+the no-arbitrage GARCH model performs better in capturing the time
+variability of conditional volatility despite using a single volatility
+factor. This finding suggests that the improvements mainly result from
+the GARCH specification of the volatility process.
+
+4.4. The term structure of unconditional volatility
+
+We investigate model-implied unconditional volatility. Fig. 3
+presents the term structure of unconditional yield volatility implied by
+the no-arbitrage GARCH model and the canonical and restricted 𝐴1(3)
+models, and compares these with the ‘‘model-free’’ term structures of
+unconditional realized and EGARCH(1, 1) volatility. The unconditional
+𝐴1(3) and no-arbitrage GARCH model volatilities are computed as the
+averages of the conditional volatility path generated by each model.
+Fig. 3 shows that the no-arbitrage GARCH implied term structure
+matches the EGARCH(1, 1) implied term structure and the term struc-
+ture of realized volatility more closely than the benchmark 𝐴1(3)
+models. The term structures implied by the two benchmark models
+are very similar. Volatility monotonically decreases as a function of
+maturity for all models, but volatility is higher at all maturities for the
+benchmark models.
+
+4.5. The trade-off between fitting yield levels and volatilities
+
+The tension between matching the first and second moments of
+Treasury yields in ATSMs has been documented in many studies (Dai
+and Singleton, 2000, 2002; Duffee, 2002; Duarte, 2004; Joslin and
+Le, 2021). In particular, Dai and Singleton (2002) note ‘‘a tension in
+
+9 
+
+H. Doshi et al.
+
+Journal of Financial Economics 161 (2024) 103926 
+
+be diagonal and the variance to be constant. This restricted version is
+comparable to the canonical 𝐴1(3) model. In the third restricted JSZ
+specification, we restrict the feedback matrix (𝐾1) and the constant
+variance–covariance matrix to be diagonal. This restricted form is more
+comparable to the no-arbitrage GARCH model, in which the feedback
+matrix is diagonal. Perhaps not surprisingly, the yield fit of this JSZ
+specification is most similar to that of the no-arbitrage GARCH model.
+The maximum flexible 𝐴0(3) model provides the best in-sample
+fit of yields. This is not surprising, since the model has the rich-
+est specification for the conditional mean of the state variables. All
+three restricted forms have marginally higher average RMSEs than
+the maximum flexible model. However, the Gaussian models are by
+design unable to capture the time variation of yield volatility. In
+comparison to the maximum flexible 𝐴0(3) model, all models in Panel
+A provide a worse fit to the cross-section of yield levels to acquire
+flexibility in fitting conditional variances. This is inevitable, since in
+these non-Gaussian models, the state variables driving both yields and
+yield volatilities are the same and are spanned by the cross section
+of yields. In the canonical 𝐴1(3) model, all three state variables are
+non-Gaussian. The non-Gaussian state variables must be positive and
+enter the conditional variance. As discussed in Joslin and Le (2021),
+this admissibility constraint creates a tension between fitting the yields
+and yield volatilities. In the no-arbitrage GARCH model, we have a
+different specification for the factor with time-varying volatility. The
+variance of this factor follows a GARCH specification, which results
+in a very simple admissibility constraint. This simpler constraint does
+not seem to result in a substantial deterioration of the fit for the
+conditional mean of yields compared to the benchmark 𝐴1(3) models
+and the Gaussian JSZ models in Panel B, while providing a better fit to
+conditional volatility. In summary, these findings confirm the tension
+between matching yields and yield volatilities, but the no-arbitrage
+GARCH model provides a very favorable trade-off.
+
+4.6. The expectations hypothesis
+
+We conclude that the in-sample yield fit of the no-arbitrage GARCH
+model is almost as good as that of the benchmark models. We now
+examine the ability of the no-arbitrage GARCH model to capture the
+time series properties of the yield data by focusing on the predictability
+patterns observed in the data. Campbell and Shiller (1991) show that
+under the expectations hypothesis, a regression coefficient of 𝜑𝑛 = 1
+obtains in the following regression
+
+𝑦𝑛−1
+𝑡+1 − 𝑦𝑛
+
+𝑡 = 𝜓𝑛 + 𝜑𝑛
+
+)
+
+(
+
+𝑦𝑛
+𝑡 − 𝑦1
+𝑡
+𝑛 − 1
+
++ 𝑒𝑛
+
+𝑡+1,
+
+(4.1)
+
+where 𝑦𝑛
+is the 𝑛-month yield at time 𝑡. However, Dai and Singleton
+𝑡
+(2002) show that actual estimates of 𝜑𝑛 are negative. They then show
+that the Gaussian model is consistent with these patterns in the data,
+while no-arbitrage stochastic volatility models are not able to match
+the observed pattern.
+
+We conduct this regression analysis using our sample and the yields
+implied by the different models we investigate. Fig. 4 presents the re-
+sults based on a twelve-month holding period. We find deviations from
+the expectations hypothesis, consistent with the existing literature. The
+estimated coefficients are all negative, and more negative for longer
+maturities. However, we find that in our sample, all models, including
+the canonical and restricted 𝐴1(3) models and the no-arbitrage GARCH
+model can match the empirical patterns of bond risk premia as char-
+acterized by the regression coefficients. We conclude that not only do
+the improvements provided by the no-arbitrage GARCH for the purpose
+of fitting yield volatilities not come at the expense of fitting the yield
+level, the model is also able to rationalize the deviations from the
+expectations hypothesis observed in the data.
+
+Fig. 3. The term structure of unconditional volatility.
+Notes to Figure: We plot the term structure of average yield volatility implied by
+different models together with the term structure of ‘‘model-free’’ realized volatility and
+EGARCH volatility. The solid line with asterisk (black) represents the term structure
+of realized volatility, and the diamond line (red) represents the EGARCH(1, 1) term
+structure. The cross line (blue) represents the term structure of volatility from the
+no-arbitrage GARCH model. The square line (magenta) represents the term structure of
+volatility from the canonical 𝐴1(3) model. The circle line (green) represents the term
+structure of volatility from the restricted 𝐴1(3) model. In the restricted 𝐴1(3) model,
+we set the feedback matrix to be a diagonal matrix. The 𝑥-axis is yield maturity in
+months. (For interpretation of the references to color in this figure legend, the reader
+is referred to the web version of this article.)
+
+matching simultaneously the historical properties of the conditional
+means and variances of yields’’. Joslin and Le (2020) study the mech-
+anism underlying this tension, and argue that imposing a spanning
+condition may prevent a no-arbitrage model from fully capturing the
+predictability patterns of bond yields in the data.
+
+The no-arbitrage GARCH model belongs to the class of spanned
+affine models. Since the GARCH volatility is one of the factors that
+determine bond yields, it is spanned by the yields. The estimation of
+this model could therefore be subject to the same tension. We now
+show that the improved volatility fit is not obtained at the expense
+of poor yield fit. Panel A of Table 6 reports the RMSEs of yields in
+basis points for the no-arbitrage GARCH model and the two benchmark
+models. On average across all maturities, the in-sample RMSE of yields
+for the no-arbitrage GARCH model with a single volatility factor is 9.88
+basis points on average, compared to approximately 8.4 basis points
+for the benchmark models. This finding suggests that the improvement
+of the no-arbitrage GARCH model in fitting conditional volatility, as
+shown in Section 4.3, does not come at a high cost in terms of fitting
+the conditional mean of yields.
+
+For comparison, we also present the fit of yields for Gaussian models
+with constant variance–covariance matrix. We consider the canonical
+representation of Joslin, Singleton, and Zhu (2011, henceforth referred
+to as JSZ), which allows for stable and tractable estimation of the 𝐴0(3)
+three-factor Gaussian model.17 Panel B of Table 6 shows the RMSEs
+for the maximum flexible specification of the JSZ model and also for
+three restricted models. In the first restricted model, we use a diagonal
+variance–covariance matrix with constant variance. In the second re-
+stricted model, we set the (1, 2) and (1, 3) entries of the feedback matrix
+(𝐾1) to zero and we also restrict the variance–covariance matrix to
+
+17 We refer to JSZ (2011) for implementation details.
+
+10 
+
+H. Doshi et al.
+
+Journal of Financial Economics 161 (2024) 103926 
+
+Table 6
+Yield fit.
+
+Panel A: Stochastic Volatility Models
+
+3 month
+
+6 month
+
+1 year
+
+2 year
+
+3 year
+
+4 year
+
+5 year
+
+10 year
+
+Avg.
+
+No-Arbitrage GARCH
+Canonical 𝐴1(3)
+Restricted 𝐴1(3)
+
+8.13
+7.47
+7.82
+
+Panel B: Gaussian Models
+
+11.89
+13.17
+12.85
+
+16.21
+16.02
+16.36
+
+8.10
+4.95
+4.88
+
+6.38
+4.94
+4.72
+
+6.61
+5.94
+5.82
+
+6.95
+6.06
+6.22
+
+14.81
+9.22
+8.48
+
+9.88
+8.47
+8.39
+
+3 month
+
+6 month
+
+1 year
+
+2 year
+
+3 year
+
+4 year
+
+5 year
+
+10 year
+
+Avg.
+
+JSZ
+JSZ Restricted_1
+JSZ Restricted_2
+JSZ Restricted_3
+
+7.93
+7.38
+5.72
+9.41
+
+10.30
+10.83
+13.09
+12.48
+
+12.84
+13.61
+15.28
+14.13
+
+4.63
+4.35
+5.81
+6.90
+
+5.06
+4.95
+4.81
+6.28
+
+5.63
+5.88
+6.94
+7.12
+
+5.93
+5.74
+7.86
+7.48
+
+7.68
+7.76
+7.82
+9.00
+
+7.50
+7.56
+8.42
+9.10
+
+Notes to Table: We present RMSEs based on the yield fit for the time-varying volatility models (Panel A) and the Gaussian models (Panel B).
+Panel A reports results for the no-arbitrage GARCH model, the canonical 𝐴1(3) model, and the restricted 𝐴1(3) model. In the restricted 𝐴1(3)
+model, we set the feedback matrix to be a diagonal matrix. In Panel B, we consider the canonical representation of Joslin, Singleton, and Zhu
+(2011, referred to as JSZ). We present the results for the maximum flexible specification of the JSZ model and also for three restricted JSZ
+canonical forms. In the first restricted version, we set the variance–covariance matrix to be a diagonal matrix. In the second restricted version,
+we also set the (1, 2) and (1, 3) entries of the feedback matrix to be zeros. In the third restricted version, we set the feedback matrix to be a
+diagonal matrix. The last column in the table shows the average across all maturities. RMSEs are reported in basis points.
+
+monthly variance for the 𝑛-maturity yield is thus computed as
+
+𝑣𝑎𝑟(𝑦𝑛
+
+𝑡+1) =
+
+𝑀
+∑
+
+𝑚=1
+
+(
+𝛥𝑦𝑛
+
+𝑡+𝑚∕𝑀
+
+)2
+
+.
+
+(5.1)
+
+As discussed above, the resulting measures are somewhat noisy because
+they are ex-post realizations as opposed to conditional expectations.
+We now repeat our analysis using the (ex ante) conditional expectation
+of the realized variance instead. The literature has shown that an
+ARMA(1, 1) provides a good fit to the logarithm of the realized variance:
+
+log(𝑣𝑎𝑟(𝑦𝑛
+
+𝑡+1)) = 𝛾 log(𝑣𝑎𝑟(𝑦𝑛
+
+𝑡 )) + 𝛿𝜀𝑡 + 𝜀𝑡+1,
+
+(5.2)
+
+where 𝜀𝑡+1 is assumed to be distributed 𝑁(0, 𝜎2
+𝑡,𝜀). We refer to this
+model as the realized variance model. The model-implied one-month
+conditional variance of the 𝑛-maturity yield is then given by:
+
+̂𝑣𝑎𝑟𝑡(𝑦𝑛
+
+𝑡+1) = (𝑣𝑎𝑟(𝑦𝑛
+
+𝑡 ))𝛾 exp
+
+(
+
+𝛿𝜀𝑡 +
+
+)
+
+.
+
+𝜎2
+𝑡,𝜀
+2
+
+(5.3)
+
+Fig. 4. The Campbell–Shiller expectations hypothesis regression.
+Notes to Figure: We plot the estimated coefficients from the Campbell–Shiller expecta-
+tion hypothesis regression using yields implied by different models. The diamond line
+(red) represents the estimates using the yield data. The cross line (blue) represents
+the estimates from yields implied by the no-arbitrage GARCH model. The square line
+(magenta) shows the estimates from yields implied by the canonical 𝐴1(3) model. The
+circle line (green) is for the estimates from yields implied by the restricted 𝐴1(3) model.
+In the restricted 𝐴1(3) model, we set the feedback matrix to be a diagonal matrix. The
+asterisk line (cyan) is for the estimates using yields from the Joslin, Singleton, and
+Zhu (2011) specification of the Gaussian 𝐴0(3) model. The 𝑥-axis is yield maturity in
+years. (For interpretation of the references to color in this figure legend, the reader is
+referred to the web version of this article.)
+
+5. Robustness
+
+In this section, we first investigate an alternative model of the
+realized variance as a measure of ‘‘true volatility’’ to evaluate model
+performance. Next, we discuss the performance of related models and
+possible extensions.
+
+5.1. An alternative realized variance measure
+
+Fig. 5 presents the one-month conditional volatilities implied by
+this realized variance model and the three no-arbitrage models with
+time-varying volatility. Panel A of Table 7 reports the unconditional
+correlations between the one-month conditional volatilities implied by
+the realized variance model and those implied by the three models.
+Panel B of Table 7 presents the RMSEs of model-implied volatilities
+when the conditional volatility implied by the realized variance model
+is used as a model-free volatility measure. The findings are consistent
+with those in Figs. 1–2 and Tables 4–5. The estimates from the no-
+arbitrage GARCH model comove more closely with those from the
+realized variance model, especially at longer maturities. This is re-
+flected in higher correlations and lower RMSEs in Table 7. We conclude
+that our results in Section 4.3 are robust to the measurement of the
+realized variance and that the no-arbitrage GARCH model performs
+well for the purpose of modeling conditional volatility.
+
+5.2. Models with multiple volatility factors
+
+In this section, we investigate the performance of no-arbitrage
+GARCH models with multiple volatility factors. Table 8 presents the
+parameter estimates for the no-arbitrage GARCH models with two and
+three volatility factors as well as the log-likelihood. Fig. 6 plots the
+results.18 The likelihood ratio tests indicate that the models with two
+
+As discussed in Section 3.1, we construct the monthly realized
+variance using within-month squared changes in daily yields. Assuming
+that 𝑀 observations are available within a month, the estimate of the
+
+18 For ease of exposition, we only present results for four different maturities
+for realized volatility and EGARCH volatility respectively. The results for the
+remaining maturities are reported in Figure IA1 in the internet appendix.
+
+11 
+
+H. Doshi et al.
+
+Journal of Financial Economics 161 (2024) 103926 
+
+Table 7
+Conditional volatility fit based on expected realized variance.
+
+Panel A: Unconditional Correlations
+
+No-Arbitrage GARCH
+Canonical 𝐴1(3)
+Restricted 𝐴1(3)
+
+Panel B: RMSEs of Volatility
+
+1 year
+
+2 year
+
+3 year
+
+4 year
+
+5 year
+
+10 year
+
+0.69
+0.64
+0.64
+
+0.75
+0.61
+0.61
+
+0.80
+0.57
+0.58
+
+0.83
+0.53
+0.54
+
+0.85
+0.50
+0.51
+
+0.84
+0.43
+0.44
+
+Avg.
+
+0.79
+0.55
+0.55
+
+1 year
+
+2 year
+
+3 year
+
+4 year
+
+5 year
+
+10 year
+
+Avg.
+
+No-Arbitrage GARCH
+Canonical 𝐴1(3)
+Restricted 𝐴1(3)
+
+Improvement on Can. 𝐴1(3)
+Improvement on Rest. 𝐴1(3)
+
+28.86
+50.17
+56.92
+
+42.48%
+49.31%
+
+19.34
+35.78
+40.04
+
+45.95%
+51.70%
+
+15.26
+28.89
+31.24
+
+47.16%
+51.13%
+
+13.26
+25.16
+26.04
+
+47.31%
+49.09%
+
+12.14
+22.92
+22.69
+
+47.03%
+46.47%
+
+10.28
+18.26
+15.71
+
+43.69%
+34.58%
+
+16.52
+30.20
+32.11
+
+45.60%
+47.05%
+
+Notes to Table: We present the unconditional correlations and the volatility fit for various models when the conditional volatility implied by the
+realized variance model is used as a measure of model-free yield volatility. We construct the measure of monthly variance using within-month
+squared changes in daily yields. The logarithm of the realized variance follows an ARMA(1, 1) process. Panel A presents the unconditional
+correlations between the one-month conditional volatility from the realized variance model and the one-month conditional volatility implied by
+the no-arbitrage GARCH model, the canonical 𝐴1(3) model, and the restricted 𝐴1(3) model. In the restricted 𝐴1(3) model, we set the feedback
+matrix to be a diagonal matrix. Panel B reports the volatility RMSEs in basis points for the three models. We also present the percentage
+improvement in RMSE for the no-arbitrage GARCH model over the canonical and restricted 𝐴1(3) models. The last column shows the averages
+across all maturities.
+
+and three volatility factors fit the data significantly better than the
+model with one volatility factor. Fig. 6 indicates that the multifactor
+models are able to capture the large increase in volatility in the early
+1980s much better, but they are also not able to model volatility at
+short maturities during calmer periods. The time series of the model-
+implied conditional volatilities are also highly correlated across models,
+and all models fit the ‘‘true’’ volatility much better at longer maturities.
+In the model with three volatility factors, the second and third variance
+factors are small in magnitude but highly correlated with realized vari-
+ance and EGARCH variance.19 The second and third volatility factors
+also mean revert more quickly than the first factor. The estimated
+mean reversion parameters for the three variance factors are 𝛽1 = 0.93,
+𝛽2 = 0.80, and 𝛽3 = 0.70 respectively.
+
+Table 9 reports the correlations with realized and EGARCH(1,1)
+volatility for these models, as well as the corresponding RMSEs. The
+two factor-model provides some improvements on the one-factor model.
+The three-factor model further improves the correlation number, but it
+leads to a slightly higher RMSE.
+
+5.3. The no-arbitrage GARCH model with principal components as factors
+
+The main advantage of the GARCH framework is that the filtering
+of the volatility process is relatively straightforward. The question
+therefore arises if we can further simplify the model by pre-specifying
+the factors, rather than filtering them. The term structure literature has
+demonstrated that Gaussian models fit the data well when using the
+principal components of the yields as factors. Motivated by this finding,
+we now investigate the performance of the no-arbitrage GARCH model
+when its factors are the first three principal components, rather than
+factors estimated using the Kalman filter. Since the state variables are
+observable in this case, filtering is no longer required in the estimation.
+Consistent with the main model analyzed above, we use a model in
+which only the first principal component has a time-varying variance.
+Panels A and B of Table 9 report the models’ performance in matching
+yield volatility when the realized volatility is used to measure the
+
+19 The first variance factor has the lowest unconditional correlation with
+both the realized variance (31%) and the EGARCH estimates (34%). For the
+second and third variance factors, the correlations with the realized variance
+are about 72% and 80% respectively. The correlations with the EGARCH
+variance are about 83% and 80% respectively for the second and third variance
+factors.
+
+‘‘true’’ conditional volatility, while Panels C and D show the results
+when the EGARCH(1, 1) volatility is used.
+
+Compared to the benchmark models, the estimated conditional
+volatilities from the no-arbitrage GARCH model with three principal
+components have a higher correlation with both the realized volatil-
+ities and the EGARCH estimates. Moreover, the RMSE is lower than
+that of the benchmark models. On average across all maturities, the
+unconditional correlation with realized volatilities for the no-arbitrage
+GARCH model with three principal components is 68%. The uncondi-
+tional correlation with EGARCH(1, 1) volatilities for the no-arbitrage
+GARCH model with three principal components is 89% on average
+across all maturities. The average RMSE improvement is approximately
+30% in Panel B and 39% in Panel D. Overall, the improvements in
+performance compared to the benchmark models are thus similar to
+those in Tables 4–5, confirming the benefits of the GARCH dynamic.
+
+5.4. Other models and extensions
+
+We compare the performance of the baseline no-arbitrage GARCH
+model in (2.1)–(2.4) with the 𝐴1(4) model of Joslin and Konchitchki
+(2018), henceforth JK) and a quadratic term structure model with Gaus-
+sian factors and a diagonal companion matrix.20 We also investigate an
+extension of the baseline no-arbitrage GARCH model. Panels A and C
+of Table 10 indicate that the correlations of the no-arbitrage GARCH
+model with realized volatility and EGARCH volatility significantly ex-
+ceed those for the JK 𝐴1(4) and quadratic models. The no-arbitrage
+GARCH model also achieves a lower RMSE than the quadratic model
+in Panels B and D, but the JK 𝐴1(4) outperforms the no-arbitrage
+GARCH model from the perspective of RMSE (Panels B and D) due to
+a lower volatility level at short maturities. The no-arbitrage GARCH
+model performs better from the perspective of correlation (Panels A
+and C). Panel E indicates that the yield fit is very similar to that of the
+no-arbitrage 𝐴0(3) GARCH.
+
+Table 10 also reports on an extension of the no-arbitrage GARCH
+model. The no-arbitrage GARCH model in Section 2.1 combines a
+GARCH dynamic with the structure of the 𝐴0(3) model. This is a logical
+approach because in the 𝐴0(3) model, there are no factors determining
+volatility, which creates a natural role for the GARCH dynamic. How-
+ever, it is possible that we can further improve on the performance
+
+20 See for instance Longstaff (1989), Ahn et al. (2002), and Constantinides
+
+(1992) on quadratic models.
+
+12 
+
+H. Doshi et al.
+
+Journal of Financial Economics 161 (2024) 103926 
+
+Fig. 5. Model-implied conditional volatility: comparison with the expected realized variance.
+Notes to Figure: We plot the one-month conditional volatility of the yield curve implied by different models. For each maturity, the dotted line (red) represents the conditional
+volatility implied by the realized variance model. We construct a measure of monthly variance using within-month squared changes in daily yields and estimate its conditional
+expectation assuming that the logarithm of the realized variance follows an ARMA(1, 1) process. The solid line (blue) represents the conditional volatility from the no-arbitrage
+GARCH model. The dash–dot line (magenta) represents the conditional volatility from the canonical 𝐴1(3) model. The dashed line (green) represents the conditional volatility from
+the restricted 𝐴1(3) model. In the restricted 𝐴1(3) model, we set the feedback matrix to be a diagonal matrix. (For interpretation of the references to color in this figure legend,
+the reader is referred to the web version of this article.)
+
+of the no-arbitrage 𝐴0(3) model by introducing an additional volatility
+factor with a more traditional structure, i.e., as in the 𝐴1(3) model. It is
+critical to make the resulting model internally consistent, which means
+it has to be explicitly formulated in discrete time. This can be done
+using the approach in Le et al. (2010), who rely on Poisson mixtures of
+standard gamma distributions.
+
+The no-arbitrage GARCH model can in principle be combined with
+the framework in Le et al. (2010) in different ways. We implement
+a simple generalization of the no-arbitrage 𝐴0(3) GARCH model to
+gauge the benefit of an additional volatility factor with a different
+structure. Specifically, we enrich the model in (2.1)–(2.3) with a fourth
+factor specified according to Eqs. (4)–(5) in Le et al. (2010), which is
+described by three parameters. The level of this fourth factor affects the
+variance of the second and third factor. We refer to the resulting model
+as the no-arbitrage 𝐴1(4) GARCH model because it has four factors, one
+of which is a traditional stochastic volatility factor, while another factor
+has a GARCH structure. The Online Appendix contains the recursive
+pricing formulas for this model.
+
+Table 10 compares the performance of this model with that of
+the no-arbitrage GARCH 𝐴0(3) model we have used throughout the
+
+paper. The no-arbitrage GARCH 𝐴1(4) model is clearly very promising:
+it outperforms the no-arbitrage GARCH 𝐴0(3) model in the volatility
+dimension in all four panels (A–D). The yield fit in Panel E is also
+very good. These results suggest that combining the two approaches for
+volatility modeling to construct more general discrete-time no-arbitrage
+GARCH 𝐴𝑀 (𝑁) models is a promising avenue for future research.
+
+6. Pricing treasury futures options
+
+We first provide a brief discussion of the literature on fixed income
+option pricing. We then price Treasury futures options using the no-
+arbitrage GARCH model and the benchmark canonical 𝐴1(3) model.
+Volatility is a critical determinant of option prices, and this exercise
+is therefore designed to exploit superior modeling of the volatility
+dynamics. This valuation exercise is out-of-sample, because we use the
+parameters from Table 3, which are estimated on Treasury bonds.
+
+6.1. Fixed income derivatives
+
+The prices of options and many other derivatives are very sensitive
+to volatility. It therefore stands to reason that improved volatility
+
+13 
+
+H. Doshi et al.
+
+Journal of Financial Economics 161 (2024) 103926 
+
+Table 8
+Parameter estimates for the no-arbitrage GARCH model with multiple volatility factors.
+
+Panel A: Two Volatility Factors
+𝐾 𝑃
+0
+
+𝐾 𝑃
+1
+
+0.0031
+−0.0026
+0.0019
+
+𝜌0
+
+−0.0002
+
+𝜔 × 1𝑒4
+
+0.0094
+0.0091
+
+0.9996
+
+0.9831
+
+𝜌1
+
+0.9041
+
+0.0003
+
+−0.0470
+
+0.1156
+
+𝛼 × 1𝑒4
+
+517.1944
+0.0385
+
+𝛽
+
+0.9258
+0.8000
+
+𝜎2
+3 × 1𝑒4
+0.2124
+
+Panel B: Three Volatility Factors
+𝐾 𝑃
+0
+
+𝐾 𝑃
+1
+
+0.0031
+−0.0026
+0.0019
+
+𝜌0
+
+−0.0002
+
+𝜔 × 1𝑒4
+
+0.0094
+0.0454
+0.0179
+
+0.9996
+
+0.9831
+
+𝜌1
+
+0.9041
+
+0.0003
+
+−0.0470
+
+0.1156
+
+𝛼 × 1𝑒4
+
+517.1944
+0.0862
+0.0425
+
+𝛽
+
+0.9258
+0.8000
+0.7000
+
+𝐾 𝑄
+1
+
+0.9962
+
+𝐾 𝑄
+0
+
+0.0006
+−0.0054
+0.0033
+
+0.9639
+
+0.8409
+
+Log Likelihood
+
+22226.95
+
+𝐾 𝑄
+1
+
+0.9962
+
+𝐾 𝑄
+0
+
+0.0006
+−0.0054
+0.0033
+
+0.9639
+
+0.8409
+
+Log Likelihood
+
+22439.59
+
+Panel C: Likelihood Ratio Test
+
+Three vs One Volatility Factor
+
+Two vs One Volatility Factor
+
+P Value
+Statistics
+Critical Value
+
+0.0000
+904.2304
+9.4877
+
+0.0000
+478.9404
+5.9915
+
+Notes to Table: We present the estimated parameters and log likelihoods for the no-arbitrage GARCH model with two volatility factors (Panel
+A) and the no-arbitrage GARCH model with three volatility factors (Panel B). The estimates are based on monthly zero coupon bond yields
+from 1971:11 to 2019:10. Panel C presents the 𝑝-value, the likelihood ratio test statistics, and the critical values for the no-arbitrage GARCH
+model, testing between the models with three and one volatility factors, and between the models with two and one volatility factors.
+
+modeling should lead to more accurate option prices and superior
+performance when hedging against fluctuations in option prices. To
+remain as close as possible to the models and parameter estimates in
+Section 4, we focus on Treasury futures options. For both the newly
+proposed model with GARCH volatility as well as the competing 𝐴1(3)
+model, futures prices are available in closed form and option prices
+can be readily computed. It is therefore straightforward to use the
+parameters in Section 4 that are estimated from Treasuries for this
+valuation exercise.
+
+The existing literature on the pricing of Treasury futures options
+is very limited. Most of the literature on fixed income option pricing
+instead uses caps or swaption data. See for instance Almeida et al.
+(2011), Collin-Dufresne and Goldstein (2002), Han (2007), Li and Zhao
+(2006), Heidari and Wu (2009), and Trolle and Schwartz (2009) for
+examples.21 While the newly proposed model with GARCH volatility
+can be used for pricing and hedging swaptions, it is not obvious how
+to use the parameter estimates from Section 4 for this purpose. We
+therefore value options on Treasury futures instead, using either the
+model with GARCH volatility or the competing 𝐴1(3) model. We expect
+the model with GARCH volatility to outperform the 𝐴1(3) model for the
+purpose of hedging Treasury futures options.
+
+21 A growing literature studies other aspects of Treasury futures options.
+Bakshi et al. study Treasury option returns. Cieslak and Povala (2016) use
+option-implied volatilities to improve the estimation of term structure models.
+Beber and Brandt (2006) and Cremers et al. (2021) study the relation between
+implied volatility of Treasury options and economic data. Choi et al. (2017)
+document variance risk premiums, while Bauer and Chernov (2024) study
+option-implied skewness.
+
+14 
+
+6.2. Modeling time-variation in treasury futures options prices
+
+We examine the performance of the no-arbitrage GARCH model
+and the A1 (3) model in pricing options out-of-sample. We compute
+option prices using the parameters in Table 3, which are estimated
+from Treasury bonds. Option pricing based on the dynamics of the
+underlying securities can give rise to large pricing errors, but our main
+objective is to illustrate performance differences between the models in
+pricing options.
+
+We first examine the ability of the models to match the time-
+variation in the option-implied volatilities. We compare the at-the-
+money implied volatility for an option with 90 days to maturity at
+the end of each month for the models with that in the data. We
+focus on options written on futures contracts on five- and ten-year
+maturity Treasuries. We compute the data-based at-the-money implied
+volatilities through interpolation. For each underlying Treasury futures
+contract, we construct a constant maturity (90 days) at-the-money
+implied volatility at the end of each month. Specifically, we run the fol-
+lowing regression using all available options with different moneyness
+and maturity in a given month.
+
+𝜎(𝑚, 𝑇 ) = 𝑎 + 𝑏𝑚 + 𝑐𝑇 + 𝑑𝑚2 + 𝑒𝑇 2 + 𝑓 𝑚𝑇 + 𝜀,
+
+where 𝑚 indicates moneyness defined as strike price scaled by under-
+lying futures price, 𝑇 indicates maturity and 𝜎(𝑚, 𝑇 ) indicates Black
+implied volatility. The risk-free rate used to compute the implied
+volatilities is based on the Nelson–Siegel–Svensson parameters pro-
+vided in the GSW dataset. We use the estimated parameters from this
+regression to compute the at-the-money volatility for 90 days maturity
+at the end of each month.
+
+Fig. 7 plots the time series of the at-the-money volatilities for the 90-
+days constant maturity option and compares it with the at-the-money
+
+H. Doshi et al.
+
+Journal of Financial Economics 161 (2024) 103926 
+
+Table 9
+Results for the no-arbitrage GARCH models with multiple volatility factors and with three principal components.
+
+Panel A: Unconditional Correlations with Realized Volatility
+
+Two Volatility Factors
+Three Volatility Factors
+Three PCs
+
+Panel B: RMSEs of Volatility Based on Realized Volatility
+
+Two Volatility Factors
+Three Volatility Factors
+Three PCs
+Improvement on Can. 𝐴1(3)
+Two Volatility Factors
+Three Volatility Factors
+Three PCs
+Improvement on Rest. 𝐴1(3)
+Two Volatility Factors
+Three Volatility Factors
+Three PCs
+
+1 year
+0.62
+0.68
+0.72
+
+1 year
+34.04
+38.87
+26.47
+
+35.92%
+26.82%
+50.17%
+
+43.10%
+35.02%
+55.75%
+
+Panel C: Unconditional Correlations with EGARCH(1, 1) Volatility
+
+Two Volatility Factors
+Three Volatility Factors
+Three PCs
+
+3 month
+0.79
+0.86
+0.84
+
+6 month
+0.79
+0.85
+0.85
+
+1 year
+0.79
+0.84
+0.89
+
+Panel D: RMSEs of Volatility Based on EGARCH(1, 1) Volatility
+
+Two Volatility Factors
+Three Volatility Factors
+Three PCs
+Improvement on Can. 𝐴1(3)
+Two Volatility Factors
+Three Volatility Factors
+Three PCs
+Improvement on Rest. 𝐴1(3)
+Two Volatility Factors
+Three Volatility Factors
+Three PCs
+
+3 month
+51.17
+51.52
+31.57
+
+25.08%
+24.58%
+53.79%
+
+33.01%
+32.56%
+58.67%
+
+6 month
+42.17
+43.96
+28.61
+
+28.56%
+25.52%
+51.52%
+
+36.78%
+34.09%
+57.10%
+
+1 year
+28.75
+29.92
+24.44
+
+33.01%
+30.29%
+43.05%
+
+41.54%
+39.17%
+50.30%
+
+2 year
+0.63
+0.66
+0.70
+
+2 year
+23.04
+26.84
+23.06
+
+40.82%
+31.07%
+40.77%
+
+46.61%
+37.82%
+46.57%
+
+2 year
+0.81
+0.84
+0.93
+
+2 year
+18.26
+19.46
+18.07
+
+37.72%
+33.62%
+38.37%
+
+45.30%
+41.70%
+45.87%
+
+3 year
+0.65
+0.66
+0.69
+
+3 year
+18.31
+20.93
+21.30
+
+42.85%
+34.65%
+33.49%
+
+46.74%
+39.10%
+38.02%
+
+3 year
+0.83
+0.84
+0.94
+
+3 year
+12.26
+13.51
+13.93
+
+46.56%
+41.10%
+39.28%
+
+51.60%
+46.65%
+45.00%
+
+4 year
+0.67
+0.67
+0.67
+
+4 year
+15.78
+17.59
+20.40
+
+43.76%
+37.33%
+27.32%
+
+45.52%
+39.29%
+29.59%
+
+4 year
+0.85
+0.85
+0.94
+
+4 year
+8.77
+9.93
+12.22
+
+55.12%
+49.16%
+37.43%
+
+57.21%
+51.53%
+40.35%
+
+5 year
+0.68
+0.69
+0.66
+
+5 year
+14.28
+15.54
+19.93
+
+44.19%
+39.25%
+22.10%
+
+43.75%
+38.77%
+21.48%
+
+5 year
+0.88
+0.86
+0.92
+
+5 year
+6.78
+7.77
+11.77
+
+61.33%
+55.68%
+32.93%
+
+60.81%
+55.08%
+32.03%
+
+10 year
+0.70
+0.70
+0.62
+
+10 year
+11.65
+11.91
+18.91
+
+42.71%
+41.43%
+6.98%
+
+34.41%
+32.95%
+−6.48%
+
+10 year
+0.90
+0.89
+0.84
+
+10 year
+4.89
+5.01
+12.45
+
+65.30%
+64.43%
+11.59%
+
+56.33%
+55.24%
+−11.25%
+
+Avg.
+0.66
+0.68
+0.68
+
+Avg.
+19.52
+21.95
+21.68
+
+41.71%
+35.09%
+30.14%
+
+43.36%
+37.16%
+30.82%
+
+Avg.
+0.83
+0.85
+0.89
+
+Avg.
+21.63
+22.64
+19.13
+
+44.08%
+40.55%
+38.49%
+
+47.82%
+44.50%
+39.76%
+
+Notes to Table: We present the unconditional correlations and the volatility fit for the no-arbitrage GARCH models with two volatility factors, with
+three volatility factors, and with three principal components as factors, in which only the first principal component has a time-varying variance. Panel A
+presents the unconditional correlations between the realized volatility and the one-month conditional volatility implied by the three models. We construct
+monthly realized variance using within-month squared changes in daily yields. Panel C present the unconditional correlations between the EGARCH(1, 1)
+volatility and the one-month conditional volatility implied by the three models. The EGARCH(1, 1) is estimated assuming that the conditional mean of
+changes in monthly yields is generated by an AR(1) process. Panels B and D present the volatility fit for the three models. In Panel B, the RMSEs are
+computed by using realized volatility as a measure of model-free volatility. In Panel D, the RMSEs are computed by using an EGARCH(1, 1) model as a
+measure of model-free volatility. We also present the percentage RMSE improvement of the three models over the canonical and restricted 𝐴1(3) models.
+RMSEs are reported in basis points. The last column shows the averages across all maturities.
+
+implied volatilities obtained from the two models. The model-implied
+option price and the resulting implied volatility are computed through
+simulation, because option prices are not available in closed form.
+Using the parameters in Table 3, we simulate the underlying Treasury
+prices up to the option horizon (3 months), which in turn allows us
+to compute option prices. We then use the Black model to convert
+the option prices into implied volatilities, relying on the model-based
+futures price. Panel A of Fig. 7 presents the implied volatilities for
+both models and the data-based implied volatility for an underlying
+Treasury futures contract with a five-year maturity. Panel B shows the
+corresponding picture for the ten-year Treasury futures contract. The
+level of the implied volatility based on the data is higher in the Panel
+B, but the conclusions are similar for both panels. While both models
+overprice the options, the overpricing is much more severe for the
+A1(3) model for most of the sample. We conclude that the no-arbitrage
+GARCH model is able to capture the level and time-series patterns in
+the implied volatility relatively well.
+
+6.3. The cross-section of treasury futures options prices
+
+To further examine the performance of each model in pricing op-
+tions, we compute the model implied option prices for all traded Trea-
+sury futures options in our sample period with moneyness 𝑚 between
+90 and 110 percent and maturity up to 270 days. Since our estimation
+uses data at the monthly frequency, we perform this out-of-sample
+
+exercise at the same frequency. At the end of every month, we compute
+model-implied option prices for all available options and the corre-
+sponding Black implied volatilities. To compute this monthly model-
+implied option price, we convert the days-to-maturity into months by
+dividing by 30 and rounding it to the nearest integer. We then compare
+the model-based implied volatilities with the Black implied volatilities
+based on the data for all calls and puts in the sample.
+
+Table 11 presents the RMSEs (root mean squared error) and the
+MAE (mean absolute error) for various maturity-moneyness groups of
+options on five-year Treasury futures. The no-arbitrage GARCH model
+strongly outperforms the 𝐴1(3) model, both in terms of RMSE and MAE.
+On average across all options, it achieves an RMSE (MAE) of 1.83%
+(1.52%), compared with 2.86% (2.47%) for the 𝐴1(3) model. Moreover,
+this outperformance is quite consistent across moneyness and maturity
+brackets, except for the deep OTM calls (deep ITM puts). Table 12
+presents the results for options on ten-year maturity Treasury futures.
+The results are similar, except that the no-arbitrage GARCH model
+now strongly outperforms the 𝐴1(3) model both in terms of RMSE and
+MAE for all moneyness-maturity brackets. We conclude that the GARCH
+model performs substantially better in valuing Treasury futures options
+compared to the 𝐴1(3) model. This improved performance is due to the
+fact that option prices are very sensitive to volatility, and the GARCH
+model vastly outperforms the 𝐴1(3) model for the purpose of volatility
+modeling.
+
+15 
+
+H. Doshi et al.
+
+Journal of Financial Economics 161 (2024) 103926 
+
+Fig. 6. Model-implied conditional volatility in the no-arbitrage GARCH model with multiple volatility factors.
+Notes to Figure: We plot the one-month conditional volatility of the yield curve implied by the no-arbitrage GARCH model with different numbers of volatility factors together with
+the realized volatility (left four panels) and the EGARCH(1, 1) volatility (right four panels) respectively. The dotted line (red) in the left panels represents the realized volatility.
+The dotted line (red) in the right panels represents the EGARCH(1, 1) volatility. The solid line (blue) represents the volatility from the no-arbitrage GARCH model with a single
+volatility factor. The dash–dot line (black) represents the volatility from the model with two volatility factors. The dashed line (green) represents the volatility from the model
+with three volatility factors. (For interpretation of the references to color in this figure legend, the reader is referred to the web version of this article.)
+
+We emphasize that while the no-arbitrage GARCH model outper-
+forms the benchmark models, the option pricing errors are still large.
+This is not surprising given that the valuation exercise is out-of-sample
+and relies on parameters estimated on the underlying securities. Pre-
+sumably estimating the model from option data would generate smaller
+errors, but we keep this exercise for future work. We also repeated the
+option pricing exercise using the multifactor no-arbitrage GARCH mod-
+els from Section 5.2, which provide a superior fit for volatility. Tables
+IA1 and IA2 in the internet appendix report the pricing results that cor-
+respond to Tables 11 and 12. The two-factor model significantly outper-
+forms the one-factor model. It also outperforms the three-factor model.
+Figure IA2 plots the time series of ATM implied volatilities, which
+yields similar results. The relatively good performance of the more
+parsimonious two-factor model is not necessarily surprising, as more
+parsimonious models may perform better in out-of-sample exercises.
+
+7. Conclusion
+
+In the term structure literature, state-of-the-art models face diffi-
+culties in simultaneously fitting the time variation in yield levels and
+
+volatilities. We propose parsimonious yet flexible models with closed-
+form solutions that outperform benchmark models in this dimension.
+Our results suggest that the performance of ATSMs in matching yield
+volatility critically depends on the specification of the volatility dynam-
+ics. In standard ATSMs with stochastic volatility, the volatility dynamic
+is a linear combination of the levels of the yield curve factors. We in-
+stead propose a no-arbitrage term structure model where the volatility
+factor is written as a function of the (lagged) squared innovations to the
+yields.
+
+The model combines the tractability of ATSMs with improved mod-
+eling of yield volatility. We estimate the model using monthly yield
+data from 1971 to 2019, and find that the model-implied conditional
+volatility is highly correlated with measures of ‘‘model-free’’ volatility,
+especially at longer maturities. The model significantly outperforms
+benchmark stochastic volatility models for the purpose of fitting yield
+volatility. It also provides a good fit to the conditional mean of yields,
+suggesting that the improved volatility fit is not obtained at the expense
+of yield fit. These findings are robust to various variations in the empir-
+ical setup. We illustrate how these improvements in volatility modeling
+
+16 
+
+H. Doshi et al.
+
+Journal of Financial Economics 161 (2024) 103926 
+
+Table 10
+Additional benchmark models.
+
+Panel A: Unconditional Correlations with Realized Volatility
+
+No-Arbitrage 𝐴0(3) GARCH
+JK 𝐴1(4) Model
+Quadratic Model
+No-Arbitrage 𝐴1(4) GARCH
+
+1 year
+0.56
+0.51
+0.57
+0.76
+
+Panel B: RMSEs of Volatility Based on Realized Volatility
+
+No-Arbitrage 𝐴0(3) GARCH
+JK 𝐴1(4) Model
+Quadratic Model
+No-Arbitrage 𝐴1(4) GARCH
+
+1 year
+31.85
+20.03
+36.42
+27.03
+
+Panel C: Unconditional Correlations with EGARCH(1, 1) Volatility
+
+No-Arbitrage 𝐴0(3) GARCH
+JK 𝐴1(4) Model
+Quadratic Model
+No-Arbitrage 𝐴1(4) GARCH
+
+3 month
+0.65
+0.57
+0.65
+0.90
+
+6 month
+0.66
+0.60
+0.66
+0.91
+
+1 year
+0.70
+0.66
+0.70
+0.94
+
+Panel D: RMSEs of Volatility Based on EGARCH(1, 1) Volatility
+1 year
+28.92
+23.83
+27.76
+21.63
+
+No-Arbitrage 𝐴0(3) GARCH
+JK 𝐴1(4) Model
+Quadratic Model
+No-Arbitrage 𝐴1(4) GARCH
+
+3 month
+48.36
+30.33
+48.71
+41.17
+
+6 month
+40.05
+25.96
+41.21
+33.18
+
+Panel E: RMSEs of Yields
+
+No-Arbitrage 𝐴0(3) GARCH
+JK 𝐴1(4) Model
+Quadratic Model
+No-Arbitrage 𝐴1(4) GARCH
+
+3 month
+8.13
+12.42
+9.69
+8.06
+
+6 month
+11.89
+11.35
+12.69
+12.45
+
+1 year
+16.21
+20.15
+14.22
+15.02
+
+2 year
+0.61
+0.45
+0.50
+0.73
+
+2 year
+22.79
+18.08
+26.65
+18.14
+
+2 year
+0.79
+0.67
+0.70
+0.95
+
+2 year
+19.04
+17.61
+18.92
+12.93
+
+2 year
+8.10
+8.95
+7.53
+6.57
+
+3 year
+0.65
+0.39
+0.44
+0.69
+
+3 year
+18.85
+17.64
+22.19
+14.72
+
+3 year
+0.85
+0.64
+0.68
+0.93
+
+3 year
+12.77
+12.86
+14.50
+8.56
+
+3 year
+6.38
+4.13
+7.23
+5.18
+
+4 year
+0.68
+0.33
+0.40
+0.66
+
+4 year
+16.69
+17.25
+19.79
+13.24
+
+4 year
+0.90
+0.60
+0.65
+0.90
+
+4 year
+9.15
+10.60
+12.20
+6.90
+
+4 year
+6.61
+6.72
+7.24
+7.33
+
+5 year
+0.69
+0.29
+0.36
+0.63
+
+5 year
+15.40
+16.78
+18.35
+12.60
+
+5 year
+0.92
+0.56
+0.62
+0.86
+
+5 year
+7.23
+9.52
+10.89
+6.55
+
+5 year
+6.95
+10.06
+6.74
+9.45
+
+10 year
+0.71
+0.24
+0.32
+0.54
+
+10 year
+12.86
+15.43
+15.25
+13.03
+
+10 year
+0.91
+0.46
+0.54
+0.73
+
+10 year
+5.57
+8.80
+8.86
+6.88
+
+10 year
+14.81
+5.78
+8.84
+6.67
+
+Avg.
+0.65
+0.37
+0.43
+0.67
+
+Avg.
+19.74
+17.54
+23.11
+16.46
+
+Avg.
+0.80
+0.60
+0.65
+0.89
+
+Avg.
+21.39
+17.44
+22.88
+17.23
+
+Avg.
+9.88
+9.95
+9.27
+8.84
+
+Notes to Table: We present the unconditional correlations, the volatility fit, and the yield fit for the no-arbitrage 𝐴0(3) model with GARCH,
+the Joslin and Konchitchki (2018) 𝐴1(4) model, the quadratic model, and the no-arbitrage 𝐴1(4) model with GARCH. Panel A presents the
+unconditional correlations between the realized volatility and the one-month conditional volatility implied by the four models. We construct
+monthly realized variance using within-month squared changes in daily yields. Panel C presents the unconditional correlations between the
+EGARCH(1, 1) volatility and the one-month conditional volatility implied by the four models. The EGARCH(1, 1) is estimated assuming that the
+conditional mean of changes in monthly yields is generated by an AR(1) process. Panels B and D present the volatility fit for the four models.
+In Panel B, the RMSEs are computed by using realized volatility as a measure of model-free volatility. In Panel D, the RMSEs are computed by
+using an EGARCH(1, 1) model as a measure of model-free volatility. Panel E presents RMSEs based on the yield fit for the four models. RMSEs
+are reported in basis points. The last column shows the averages across all maturities.
+
+lead to dramatically better performance when pricing Treasury futures
+options.
+
+It is worth emphasizing that our approach may not be the only one
+that provides improved modeling of conditional volatility. Moreover,
+it may be possible to construct even better models using related ap-
+proaches, and we plan to address this in future work. Our objective
+in this paper is merely to show that it is possible to write down par-
+simonious term structure models that allow for improved modeling of
+yield volatility as compared to state-of-the art models in this literature,
+without sacrificing the model’s ability to fit the first moment of yields.
+
+Hitesh Doshi: Writing – review & editing, Writing – original draft,
+Methodology, Formal analysis, Conceptualization. Kris Jacobs: Writing
+– review & editing, Writing – original draft, Methodology, Formal anal-
+ysis, Conceptualization. Rui Liu: Writing – original draft, Investigation,
+Formal analysis, Conceptualization.
+
+Declaration of competing interest
+
+= exp(−𝜌0 − 𝜌1𝑋𝑡).
+
+(A.1)
+
+𝑛𝑋𝑡 + ∑
+
+Suppose that the price of a 𝑛-period bond is given by 𝑃 𝑛
+𝑡 = exp
+(
+𝐴𝑛 + 𝐵′
+. Matching coefficients gives 𝐴1 = −𝜌0, 𝐵1 =
+−𝜌′
+1 and 𝐶𝑖,1 = 0. In order to solve for 𝐴𝑛, 𝐵𝑛 and 𝐶𝑖,𝑛 we derive the
+bond price under the risk neutral probability measure
+
+𝑖 𝐶𝑖,𝑛𝜎2
+
+𝑖,𝑡+1
+
+)
+
+𝑡 = 𝐸𝑄
+𝑃 𝑛
+
+𝑡 [exp(−𝑟𝑡)𝑃 𝑛−1
+𝑡+1 ]
+
+[
+
+= 𝐸𝑄
+𝑡
+
+exp
+
+(
+
+(
+−𝜌0 − 𝜌1𝑋𝑡
+
+)
+
+exp
+
+(
+
+𝐴𝑛−1 + 𝐵′
+
+𝑛−1𝑋𝑡+1 +
+
+[
+
+× 𝐸𝑄
+𝑡
+
+exp
+
+(
+
+∑
+
+(
+
+𝑖
+
+𝐵𝑖,𝑛−1𝜎𝑖,𝑡+1𝜖𝑖,𝑡+1 + 𝐶𝑖,𝑛−1𝛼𝑖𝜖2
+
+𝑖,𝑡+1
+
+𝑖
+)]
+
+)
+
+.
+
+∑
+
+𝑖
+
+∑
+
+𝐶𝑖,𝑛−1𝜎2
+
+𝑖,𝑡+2
+
+𝐶𝑖,𝑛−1𝜔𝑖 +
+
+)]
+
+∑
+
+𝑖
+
+)
+
+𝐶𝑖,𝑛−1𝛽𝑖𝜎2
+
+𝑖,𝑡+1
+
+(A.2)
+
+Completing the square in the portion to which the expectation ap-
+plies, using the fact that for a standard normal 𝑧, 𝐸 (𝑎(𝑧 + 𝑏)2)
+=
+exp
+recursive relations in Eqs. (2.10) , (2.11), and (2.12).
+
+, and matching coefficients results in the
+
+log(1 − 2𝑎) + 𝑎𝑏2
+1−2𝑎
+
+(
+− 1
+2
+
+)
+
+CRediT authorship contribution statement
+
+= exp
+
+−𝜌0 − 𝜌1𝑋𝑡 + 𝐴𝑛−1 + 𝐵′
+
+𝑛−1(𝐾 𝑄
+
+0 + 𝐾 𝑄
+
+1
+
+𝑋𝑡) +
+
+No conflict of interest to disclose.
+
+Appendix B. Implementing ATSMs with GARCH volatility
+
+Appendix A. Bond valuation in ATSMs with GARCH volatility
+
+To derive the recursions in Eqs. (2.10), (2.11) and (2.12), we first
+
+note that the price of a one-period bond, 𝑛 = 1, is as follows
+
+𝑃 (𝑡, 𝑡 + 1) = 𝐸𝑄
+𝑡
+
+[
+
+]
+exp(−𝑟𝑡)
+
+This appendix summarizes the derivation of the conditional vari-
+ance for the affine model in a GARCH framework. The contemporane-
+ous forecast of the state vector and its corresponding covariance matrix
+are denoted by 𝑋𝑡|𝑡 and 𝑃𝑡|𝑡. The Kalman filter algorithm proceeds as
+follows at any time 𝑡:
+
+17 
+
+H. Doshi et al.
+
+Journal of Financial Economics 161 (2024) 103926 
+
+Fig. 7. The time-series of at-the-money implied volatility.
+Notes to Figure: We plot the time series of constant-maturity (90 days) at-the-money implied volatility computed using the 𝐴1(3) and no-arbitrage GARCH models, together with
+the corresponding implied volatility from the data. Panel A reports on options written on five-year Treasury futures contracts. Panel B reports on options on ten-year Treasury
+futures contracts.
+
+1. Given 𝑋𝑡|𝑡 and 𝑃𝑡|𝑡, compute the one-period ahead forecast of the
+
+state vector and its corresponding covariance matrix22
+𝑋𝑡+1|𝑡 = 𝐾 𝑃
+
+0 + 𝐾 𝑃
+
+1 𝑋𝑡|𝑡,
+
+and
+𝑃𝑡+1|𝑡 = 𝐾 𝑃 ′
+
+1 𝑃𝑡|𝑡𝐾 𝑃
+
+1 + 𝛴𝑡+1|𝑡.
+
+The volatility factor can be computed based on Eq. (2.5)
+
+𝑖,𝑡+2|𝑡 = 𝜔𝑖 + 𝛽𝑖𝜎2
+𝜎2
+
+𝑖,𝑡+1|𝑡 + 𝛼𝑖
+
+0(𝑖) − 𝐾 𝑃
+
+1(𝑖,𝑖)
+
+𝑡 (𝑋𝑖,𝑡+1 − 𝐾 𝑃
+𝐸𝑃
+𝜎2
+𝑖,𝑡+1|𝑡
+
+𝑋𝑖,𝑡)2
+
+= 𝜔𝑖 + 𝛽𝑖𝜎2
+
+𝑖,𝑡+1|𝑡 + 𝛼𝑖.
+
+(B.1)
+
+(B.2)
+
+(B.3)
+
+2. Compute the one-period ahead forecast of 𝑦𝑡+1 and its corre-
+
+sponding covariance matrix
+′
+
+𝑦𝑡+1|𝑡 = 𝐴 + 𝐵
+
+𝑋𝑡+1|𝑡 +
+
+′
+
+= 𝐴 + 𝐵
+
+𝑋𝑡+1|𝑡 +
+
+∑
+
+𝑖
+∑
+
+𝑖
+
+𝐶 𝑖𝜎2
+
+𝑖,𝑡+2|𝑡
+
+(
+
+𝐶 𝑖
+
+𝜔𝑖 + 𝛽𝑖𝜎2
+
+𝑖,𝑡+1|𝑡 + 𝛼𝑖
+
+)
+
+,
+
+(B.4)
+
+where 𝑦𝑡+1|𝑡 is an 𝑁 × 1 vector, 𝐴 and 𝐶 𝑖 are 𝑁 × 1 vectors, and
+𝐵 is a 3 × 𝑁 matrix, where 𝑁 denotes the number of available
+yields in the term structure. Furthermore,
+
+′
+
+𝑉𝑡+1|𝑡 = 𝐵
+
+𝑃𝑡+1|𝑡𝐵 + 𝑅,
+
+(B.5)
+
+where 𝑅 is an 𝑁 × 𝑁 diagonal matrix. We assume that the
+variance of the pricing errors 𝜎2
+𝑒 on the diagonal is the same
+across maturities.
+
+3. Compute the forecast error of 𝑦𝑡+1, 𝑒𝑡+1|𝑡 = 𝑦𝑡+1 − 𝑦𝑡+1|𝑡.
+4. Update the contemporaneous forecast of the state vector and its
+
+corresponding covariance matrix
+
+𝑋𝑡+1|𝑡+1 = 𝑋𝑡+1|𝑡 + 𝑃𝑡+1|𝑡𝐵𝑉 −1
+
+𝑡+1|𝑡𝑒𝑡+1|𝑡,
+
+𝑃𝑡+1|𝑡+1 = 𝑃𝑡+1|𝑡 − 𝑃𝑡+1|𝑡𝐵𝑉 −1
+
+𝑡+1|𝑡𝐵
+
+′
+
+𝑃𝑡+1|𝑡.
+
+and compute the smoothed volatility factor
+
+𝑖,𝑡+2|𝑡+1 = 𝜔𝑖 + 𝛽𝑖𝜎2
+𝜎2
+
+𝑖,𝑡+1 + 𝛼𝑖
+
+(𝑋𝑖,𝑡+1 − 𝐾 𝑃
+0(𝑖) − 𝐾 𝑃
+𝜎2
+𝑖,𝑡+1
+
+1(𝑖,𝑖)
+
+𝑋𝑖,𝑡)2
+
+.
+
+(B.6)
+
+(B.7)
+
+(B.8)
+
+22 We use the first two unconditional moments in the first step of the
+
+recursion.
+
+5. Return to the first step.
+
+18 
+
+H. Doshi et al.
+
+Journal of Financial Economics 161 (2024) 103926 
+
+Table 11
+Option pricing errors for options on five-year treasury futures.
+
+Panel A: Root Mean Squared Error: No-Arbitrage GARCH
+
+Maturity
+<90
+90–182
+182–270
+All
+
+Moneyness (K/F)
+
+90–95
+3.17%
+0.77%
+0.42%
+2.48%
+
+95–97.5
+1.21%
+1.05%
+0.89%
+1.13%
+
+Panel B: Root Mean Squared Error: 𝑨𝟏(𝟑)
+
+Moneyness (K/F)
+
+Maturity
+<90
+90–182
+182–270
+All
+
+90–95
+3.94%
+1.97%
+1.42%
+3.28%
+
+95–97.5
+2.31%
+2.25%
+2.44%
+2.29%
+
+97.5–100
+2.24%
+1.59%
+1.20%
+1.87%
+
+97.5–100
+3.33%
+2.70%
+2.76%
+2.98%
+
+Panel C: Mean Absolute Error: No-Arbitrage GARCH
+
+Maturity
+<90
+90–182
+182–270
+All
+
+Moneyness (K/F)
+
+90–95
+1.96%
+0.55%
+0.27%
+1.38%
+
+95–97.5
+1.01%
+0.91%
+0.73%
+0.96%
+
+Panel D: Mean Absolute Error: 𝑨𝟏(𝟑)
+
+Moneyness (K/F)
+
+Maturity
+<90
+90–182
+182–270
+All
+
+90–95
+2.67%
+1.39%
+1.30%
+2.14%
+
+95–97.5
+1.96%
+1.98%
+2.36%
+1.97%
+
+97.5–100
+2.11%
+1.42%
+1.10%
+1.69%
+
+97.5–100
+3.03%
+2.42%
+2.70%
+2.69%
+
+100–102.5
+2.33%
+1.71%
+1.27%
+1.98%
+
+100–102.5
+3.42%
+2.80%
+2.89%
+3.08%
+
+100–102.5
+2.19%
+1.54%
+1.18%
+1.80%
+
+100–102.5
+3.14%
+2.54%
+2.83%
+2.81%
+
+102.5–105
+1.39%
+1.33%
+1.31%
+1.36%
+
+102.5–105
+2.47%
+2.40%
+2.74%
+2.44%
+
+102.5–105
+1.20%
+1.18%
+1.23%
+1.19%
+
+102.5–105
+2.13%
+2.15%
+2.67%
+2.16%
+
+105–110
+2.81%
+1.17%
+1.41%
+2.24%
+
+105–110
+1.90%
+1.73%
+2.88%
+1.84%
+
+105–110
+1.77%
+0.91%
+1.36%
+1.40%
+
+105–110
+1.43%
+1.43%
+2.86%
+1.45%
+
+All
+2.18%
+1.49%
+1.20%
+1.83%
+
+All
+3.14%
+2.58%
+2.76%
+2.86%
+
+All
+1.82%
+1.29%
+1.09%
+1.52%
+
+All
+2.68%
+2.28%
+2.69%
+2.47%
+
+Notes to Table: We present the root mean squared error (RMSE) and the mean absolute error (MAE) for a sample of call and
+put Treasury futures options. The underlying security is the five-year maturity Treasury futures contract. The sample period
+is from May 1988 to June 2016. Panels A and B present the RMSEs for the no-arbitrage GARCH model and the 𝐴1(3) model
+respectively. Panels C and D present the MAEs for these two models. The errors are computed for different moneyness and
+maturity groups. Moneyness ranges between 90% and 110%. The maturities are divided into three groups: less than 90 days,
+90 to 182 days, and 182 to 270 days.
+
+The quasi log-likelihood for observation 𝑡 + 1 is then
+
+log 𝑓𝑡(𝛩) = −
+
+𝑁
+2
+
+log(2𝜋) −
+
+1
+2
+
+log(det(𝑉𝑡+1|𝑡)) −
+
+1
+2
+
+𝑒
+
+′
+
+𝑡+1|𝑡𝑉 −1
+
+𝑡+1|𝑡𝑒𝑡+1|𝑡.
+
+The model-implied conditional variance of yields is computed as
+
+(B.9)
+
+̂𝑣𝑎𝑟𝑡(𝑦𝑡+1) = 𝑑𝑖𝑎𝑔(𝑉𝑡+1|𝑡).
+
+(B.10)
+
+Note that in the empirical investigation, we use the conditional
+variance of yield differences, which is also equal to Eq. (B.9).
+
+Appendix C. Estimation of canonical ATSMs with stochastic
+volatility
+
+This appendix summarizes the method used to estimate canonical
+affine stochastic volatility models. A three-factor latent model can
+be expressed using a state–space representation. The observed yields
+𝑦𝑡 = ̂𝑦𝑡 + 𝑒𝑡 constitute the measurement equation, where ̂𝑦𝑡 is the
+model-implied yield as specified in Eq. (2.19), and 𝑒𝑡 is a vector of
+measurement errors that is assumed to be 𝑖.𝑖.𝑑. normal. We assume that
+the errors have equal variance 𝜎2
+𝑒 across maturities to ensure similar
+weights in the likelihood. The state Eq. (2.23) can be discretized as
+𝑋𝑡+1 = 𝐾 𝑃
+𝑡+1|𝑡 is assumed to be distributed 𝑁(0,
+𝛴𝑡). We estimate the 𝑃 - and 𝑄-parameters simultaneously by applying
+the Kalman filter to the state–space representation.
+
+𝑡+1, where 𝜖𝑃
+
+0 + 𝐾 𝑃
+
+𝑋𝑡 + 𝜖𝑃
+
+1
+
+1. Given 𝑋𝑡|𝑡 and 𝑃𝑡|𝑡, compute the one-period ahead forecast of the
+
+state vector and its corresponding covariance matrix23
+
+1 𝑋𝑡|𝑡,
+
+0 + 𝐾 𝑃
+
+𝑋𝑡+1|𝑡 = 𝐾 𝑃
+and
+𝑃𝑡+1|𝑡 = 𝐾 𝑃 ′
+where the volatility factor is computed based on Eq. (2.17)
+
+1 𝑃𝑡|𝑡𝐾 𝑃
+
+1 + 𝛴𝑡|𝑡.
+
+(C.1)
+
+(C.2)
+
+𝜎2
+𝑖,𝑡|𝑡 = 𝑎𝑖 + 𝑏
+
+′
+
+𝑖 𝑋𝑡,
+
+(C.3)
+
+where 𝜎2
+
+𝑖,𝑡|𝑡 is the 𝑖th diagonal element of the 3 × 3 matrix 𝛴𝑡|𝑡.
+
+2. Compute the one-period ahead forecast of 𝑦𝑡+1 and its corre-
+
+sponding covariance matrix
+
+′
+
+𝑦𝑡+1|𝑡 = 𝐴 + 𝐵
+
+𝑋𝑡+1|𝑡,
+
+(C.4)
+
+where 𝑦𝑡+1|𝑡 is a 𝑁 × 1 vector, 𝐴 is a 𝑁 × 1 vector, 𝐵 is a 3 × 𝑁
+matrix, and 𝑁 denotes the number of available yields in the term
+structure.
+
+′
+
+𝑉𝑡+1|𝑡 = 𝐵
+
+𝑃𝑡+1|𝑡𝐵 + 𝑅,
+
+(C.5)
+
+where 𝑅 is a 𝑁 ×𝑁 diagonal matrix. We assume that the variance
+of the pricing errors 𝜎2
+𝑒 on the diagonal is the same across
+maturities.
+
+3. Compute the forecast error of 𝑦𝑡+1, 𝑒𝑡+1|𝑡 = 𝑦𝑡+1 − 𝑦𝑡+1|𝑡.
+
+The contemporaneous forecast of the state vector and its corre-
+sponding covariance matrix are denoted by 𝑋𝑡|𝑡 and 𝑃𝑡|𝑡. The Kalman
+filter algorithm works as follows at any time 𝑡:
+
+23 We use the first two unconditional moments in the first step of the
+
+recursion.
+
+19 
+
+H. Doshi et al.
+
+Journal of Financial Economics 161 (2024) 103926 
+
+Table 12
+Option pricing errors for options on ten-year treasury futures.
+
+Panel A: Root Mean Squared Error: No-Arbitrage GARCH
+
+Maturity
+<90
+90–182
+182–270
+All
+
+Moneyness (K/F)
+
+90–95
+2.36%
+1.59%
+1.40%
+1.91%
+
+95–97.5
+3.12%
+2.05%
+1.78%
+2.46%
+
+Panel B: Root Mean Squared Error: 𝑨𝟏(𝟑)
+
+Moneyness (K/F)
+
+Maturity
+<90
+90–182
+182–270
+All
+
+90–95
+4.17%
+3.30%
+3.43%
+3.67%
+
+95–97.5
+4.49%
+3.77%
+3.96%
+4.07%
+
+97.5–100
+3.66%
+2.33%
+1.89%
+2.77%
+
+97.5–100
+5.05%
+4.00%
+4.19%
+4.39%
+
+Panel C: Mean Absolute Error: No-Arbitrage GARCH
+
+Maturity
+< 90
+90–182
+182–270
+All
+
+Moneyness (K/F)
+
+90–95
+1.64%
+1.30%
+1.18%
+1.42%
+
+95–97.5
+2.83%
+1.82%
+1.54%
+2.14%
+
+Panel D: Mean Absolute Error: 𝑨𝟏(𝟑)
+
+Moneyness (K/F)
+
+Maturity
+<90
+90–182
+182–270
+All
+
+90–95
+3.18%
+2.76%
+3.17%
+2.97%
+
+95–97.5
+4.13%
+3.34%
+3.74%
+3.68%
+
+97.5–100
+3.46%
+2.12%
+1.71%
+2.48%
+
+97.5–100
+4.65%
+3.56%
+4.00%
+3.98%
+
+100–102.5
+3.69%
+2.44%
+2.01%
+2.87%
+
+100–102.5
+5.09%
+4.07%
+4.27%
+4.47%
+
+100–102.5
+3.50%
+2.24%
+1.85%
+2.61%
+
+100–102.5
+4.63%
+3.62%
+4.07%
+4.03%
+
+102.5–105
+3.03%
+2.36%
+2.06%
+2.59%
+
+102.5–105
+4.42%
+3.85%
+4.15%
+4.10%
+
+102.5–105
+2.80%
+2.16%
+1.91%
+2.36%
+
+102.5–105
+3.90%
+3.38%
+3.96%
+3.64%
+
+105–110
+1.82%
+1.96%
+2.17%
+1.93%
+
+105–110
+2.73%
+3.09%
+3.77%
+3.04%
+
+105–110
+1.50%
+1.72%
+2.03%
+1.67%
+
+105–110
+2.27%
+2.66%
+3.62%
+2.61%
+
+All
+3.06%
+2.15%
+1.89%
+2.48%
+
+All
+4.46%
+3.74%
+4.02%
+4.05%
+
+All
+2.66%
+1.91%
+1.69%
+2.14%
+
+All
+3.85%
+3.26%
+3.81%
+3.55%
+
+Notes to Table: We present the root mean squared error (RMSE) and the mean absolute error (MAE) for a sample of call and
+put Treasury futures options. The underlying security is the ten-year maturity Treasury futures contract. The sample period
+is from May 1988 to June 2016. Panels A and B present the RMSEs for the no-arbitrage GARCH model and the 𝐴1(3) model
+respectively. Panels C and D present the MAEs for these two models. The errors are computed for different moneyness and
+maturity groups. Moneyness ranges between 90% and 110%. The maturities are divided into three groups: less than 90 days,
+90 to 182 days, and 182 to 270 days.
+
+4. Update the contemporaneous forecast of the state vector and its
+
+Almeida, C., Graveline, J., Joslin, S., 2011. Do options contain information about excess
+
+corresponding covariance matrix
+
+𝑋𝑡+1|𝑡+1 = 𝑋𝑡+1|𝑡 + 𝑃𝑡+1|𝑡𝐵𝑉 −1
+and
+
+𝑡+1|𝑡𝑒𝑡+1|𝑡,
+
+𝑃𝑡+1|𝑡+1 = 𝑃𝑡+1|𝑡 − 𝑃𝑡+1|𝑡𝐵𝑉 −1
+
+𝑡+1|𝑡𝐵
+
+′
+
+𝑃𝑡+1|𝑡.
+
+(C.6)
+
+(C.7)
+
+5. Return to the first step.
+
+The quasi log-likelihood for observation 𝑡 + 1 is then
+
+log 𝑓𝑡(𝛩) = −
+
+𝑁
+2
+
+log(2𝜋) −
+
+1
+2
+
+log(det(𝑉𝑡+1|𝑡)) −
+
+1
+2
+
+𝑒
+
+′
+
+𝑡+1|𝑡𝑉 −1
+
+𝑡+1|𝑡𝑒𝑡+1|𝑡.
+
+The model-implied conditional variance of yields is computed as
+
+(C.8)
+
+̂𝑣𝑎𝑟𝑡(𝑦𝑡+1) = 𝑑𝑖𝑎𝑔(𝑉𝑡+1|𝑡).
+Note that in the empirical investigation, we use the conditional
+variance of yield differences, which is also equal to Eq. (C.9).
+
+(C.9)
+
+Appendix D. Supplementary data
+
+Supplementary material related to this article can be found online
+
+at https://doi.org/10.1016/j.jfineco.2024.103926.
+
+References
+
+Ahn, D.H., Dittmar, R.F., Gallant, A.R., 2002. Quadratic term structure models: Theory
+
+and evidence. Rev. Financ. Stud. 15 (1), 243–288.
+
+Ahn, D.H., Dittmar, R.F., Gallant, A.R., Gao, B., 2003. Purebred or hybrid?: Reproducing
+the volatility in term structure dynamics. J. Econometrics 116 (1–2), 147–180.
+Ahn, D.H., Gao, B., 1999. A parametric nonlinear model of term structure dynamics.
+
+Rev. Financ. Stud. 12 (4), 721–762.
+
+20 
+
+bond returns. J. Econometrics 164, 35–44.
+
+Andersen, T., Benzoni, L., 2010. Do bonds span volatilityrisk in the US Treasury market?
+A specification test for affine monetarypolicy regimes and the term structure of
+interest rates. J. Finance 65 (2), 603–653.
+
+Ang, A., Bekaert, G., 2002. Regime switches in interest rates. J. Bus. Econom. Statist.
+
+20 (2), 163–182.
+
+Bakshi, G., Crosby, J., Gao, X., 2022. The puzzle of Treasury option returns. In: Working
+
+Paper, University of Maryland.
+
+Bansal, R., Tauchen, G., Zhou, H., 2004. Regime-shifts in term structure, expectations
+hypothesis puzzle, and the real business cycle. J. Bus. Econom. Statist. 22 (4),
+396–409.
+
+Bansal, R., Zhou, H., 2002. Term structure of interest rates with regime shifts. J. Finance
+
+57 (5), 1997–2043.
+
+Bauer, M., Chernov, M., 2024. Interest rate skewness and biased beliefs. J. Finance 79
+
+(1), 173–217.
+
+Beber, A., Brandt, M., 2006. The effect of macroeconomic news on beliefs and
+preferences: Evidence from the options market. J. Monetary Econ. 53 (8),
+1997–2039.
+
+Bikbov, R., Chernov, M., 2011. Yield curve and volatility:Lessons from the Eurodollar
+
+futures and options. J. Financ. Econom. 9 (1), 66–105.
+
+Bollerslev, T., 1986. Generalized autoregressive conditionalheteroskedasticity. J.
+
+Econometrics 31 (3), 307–327.
+
+Brenner, R.J., Harjes, R.H., Kroner, K.F., 1996. Another look at models of the short-term
+
+interest rate. J. Financ. Quant. Anal. 31 (01), 85–107.
+
+Campbell, J.Y., Shiller, R.J., 1991. Yield spreads and interest rate movements: A bird’s
+
+eye view. Rev. Econ. Stud. 58 (3), 495–514.
+
+Cheridito, P., Filipović, D., Kimmel, R.L., 2007. Market price of risk specifications for
+
+affine models: theory and evidence. J. Financ. Econ. 83 (1), 123–170.
+
+Choi, H., Mueller, P., Vedolin, A., 2017. Bond variance riskpremiums. Rev. Finan. 21
+
+(3), 987–1022.
+
+Christensen, J.H., Lopez, J.A., Rudebusch, G.D., 2014. Can spanned term structure
+factors drive stochastic yield volatility? In: Working Paper, Federal Reserve Bank
+of San Francisco.
+
+Christiansen, C., 2005. Multivariate term structure models withlevel and heteroskedas-
+
+ticity effects. J. Bank. Financ. 29 (5), 1037–1057.
+
+Christoffersen, P., Dorion, C., Jacobs, K., Karoui, L., 2014. Nonlinear Kalman filtering
+
+in affine term structure models. Manage. Sci. 60 (9), 2248–2268.
+
+H. Doshi et al.
+
+Journal of Financial Economics 161 (2024) 103926 
+
+Cieslak, A., Povala, P., 2016. Information in the termstructure of yield curve volatility.
+
+J. Finance 71 (3), 1393–1436.
+
+Collin-Dufresne, P., Goldstein, R.S., 2002. Do bonds spanthe fixed income mar-
+kets? Theory and evidence for unspanned stochasticvolatility. J. Finance 57 (4),
+1685–1730.
+
+Collin-Dufresne, P., Goldstein, R.S., Jones, C.S., 2009. Can interest rate volatility be
+extracted from the cross section of bondyields? J. Financ. Econ. 94 (1), 47–66.
+Constantinides, G.M., 1992. A theory of the nominal termstructure of interest rates.
+
+Haubrich, J., Pennacchi, G., Ritchken, P., 2012. Inflation expectations, real rates, and
+risk premia: Evidence from inflation swaps. Rev. Financ. Stud. 25 (5), 1588–1629.
+Heidari, M., Wu, L., 2003. Are interest rate derivatives spanned by the term structure
+
+of interest rates? J. Fixed Income 13 (1), 75–86.
+
+Heidari, M., Wu, L., 2009. A joint framework for consistently pricing interest rates and
+
+interest rate derivatives. J. Financ. Quant. Anal. 44 (3), 517–550.
+
+Heston, S.L., Nandi, S., 2000. A closed-form GARCH option valuation model. Rev.
+
+Financ. Stud. 13 (3), 585–625.
+
+Rev. Financ. Stud. 5 (4), 531–552.
+
+Heston, S.L., Nandi, S., 2003. A two-factor term structure model under GARCH
+
+Cox, J.C., Ingersoll Jr., J.E., Ross, S.A., 1985. A theory of the term structure of interest
+
+volatility. J. Fixed Income 13 (1), 87–95.
+
+rates. Econometrica 53 (2), 385–407.
+
+Creal, D.D., Wu, J.C., 2015. Estimation of affine termstructure models with spanned or
+
+unspanned stochastic volatility. J. Econometrics 185 (1), 60–81.
+
+Cremers, M., Fleckenstein, M., Gandhi, P., 2021. Treasuryyield implied volatility and
+
+real activity. J. Financ. Econ. 140 (2), 412–445.
+
+Jacobs, K., Karoui, L., 2009. Conditional volatility in affine term-structure models:
+Evidence from Treasury and swap markets. J. Financ. Econ. 91 (3), 288–318.
+Jagannathan, R., Kaplin, A., Sun, S., 2003. An evaluation of multi-factor CIR models
+using LIBOR, swap rates, and cap and swaptionprices. J. Econometrics 116 (1–2),
+113–146.
+
+Dai, Q., Singleton, K.J., 2000. Specification analysis of affine term structure models. J.
+
+Joslin, S., 2018. Can unspanned stochastic volatility models explain the cross section
+
+Finance 55 (5), 1943–1978.
+
+of bond volatilities? Manage. Sci. 64 (4), 1707–1726.
+
+Dai, Q., Singleton, K.J., 2002. Expectation puzzles, time-varying risk premia, and affine
+
+Joslin, S., Konchitchki, Y., 2018. Interest rate volatility, the yield curve, and the
+
+models of the term structure. J. Financ. Econ. 63 (3), 415–441.
+
+macroeconomy. J. Financ. Econ. 128 (2), 344–362.
+
+Dai, Q., Singleton, K.J., 2003. Term structure dynamics in theory and reality. Rev.
+
+Joslin, S., Le, A., 2021. Interest rate volatility and no-arbitrage term structure models.
+
+Financ. Stud. 16 (3), 631–678.
+
+Manage. Sci. 67 (12), 7391–7416.
+
+Dai, Q., Singleton, K.J., Yang, W., 2007. Regime shifts in a dynamic term structure
+
+Knez, P.J., Litterman, R., Scheinkman, J., 1994. Explorations into factors explaining
+
+model of US treasury bond yields. Rev. Financ. Stud. 20 (5), 1669–1706.
+
+money market returns. J. Finance 49 (5), 1861–1882.
+
+Duarte, J., 2004. Evaluating an alternative risk preference in affine term structure
+
+Koeda, J., Kato, R., 2015. The role of uncertainty in theterm structure of interest rates:
+
+models. Rev. Financ. Stud. 17 (2), 379–404.
+
+A GARCH-ATSM approach. Appl. Econ. 47 (34–35), 3710–3722.
+
+Duffee, G.R., 2002. Term premia and interest rate forecasts in affine models. J. Finance
+
+Koedijk, K.G., Nissen, F.G., Schotman, P.C., Wolff, C.C., 1997. The dynamics of
+
+57 (1), 405–443.
+
+Duffee, G.R., Stanton, R.H., 2012. Estimation of dynamicterm structure models. Q. J.
+
+Finan. 2 (2), 1–51.
+
+short-term interest rate volatility reconsidered. Eur. Finan. Rev. 1 (1), 105–130.
+Le, A., Singleton, K.J., Dai, Q., 2010. Discrete-time affine Q term structure models with
+
+generalized market prices of risk. Rev. Financ. Stud. 23 (5), 2184–2227.
+
+Duffie, D., Kan, R., 1996. A yield-factor model of interest rates. Math. Finance 6 (4),
+
+Leippold, M., Wu, L., 2002. Asset pricing under the quadratic class. J. Financ. Quant.
+
+379–406.
+
+Anal. 37 (2), 271–295.
+
+Engle, R., 1982. ARCH with estimates of variance of United Kingdom inflation.
+
+Li, H., Zhao, F., 2006. Unspanned stochastic volatility:Evidence from hedging interest
+
+Econometrica 50 (4), 987–1007.
+
+rate derivatives. J. Finance 61 (1), 341–378.
+
+Fan, R., Gupta, A., Ritchken, P., 2003. Hedging in the possible presence of un-
+spanned stochastic volatility: Evidence from swaption markets. J. Finance 58 (5),
+2219–2248.
+
+Litterman, R.B., Scheinkman, J., 1991. Common factors affecting bond returns. J. Fixed
+
+Income 1 (1), 54–61.
+
+Longstaff, F.A., 1989. A nonlinear general equilibrium model of the term structure of
+
+Feldhütter, P., Heyerdahl-Larsen, C., Illeditsch, P., 2018. Risk premia and volatilities
+
+interest rates. J. Financ. Econ. 23 (2), 195–224.
+
+in a nonlinear term structure model. Rev. Finan. 22 (1), 337–380.
+
+Longstaff, F.A., Schwartz, E.S., 1992. Interest rate volatility and the term structure: A
+
+Ghysels, E., Le, A., Park, S., Zhu, H., 2014. Risk and return trade-off in the U.S. Treasury
+
+two-factor general equilibrium model. J. Finance 47 (4), 1259–1282.
+
+market. In: Working Paper, University of North Carolina.
+
+Realdon, M., 2022. Matching daily yields of all maturities and their volatility. In:
+
+Gürkaynak, R.S., Sack, B., Wright, J.H., 2007. The US Treasury yield curve: 1961 to
+
+Working Paper, Brunel University London.
+
+the present. J. Monetary Econ. 54 (8), 2291–2304.
+
+Schwert, G.W., 1989. Why does stock market volatility change over time? J. Finance
+
+Han, B., 2007. Stochastic volatilities and correlations of bond yields. J. Finance 62 (3),
+
+44 (5), 1115–1153.
+
+1491–1524.
+
+Singleton, K.J., 2006. Empirical Dynamic Asset Pricing. Princeton University Press,
+
+Hansen, A.L., 2023. A joint model for the term structure of interest rates and realized
+
+Princeton, NJ.
+
+volatility. J. Financ. Econom. 21 (4), 1196–1227.
+
+Tang, H., Xia, Y., 2007. An international examination of affine term structure models
+
+and the expectations hypothesis. J. Financ. Quant. Anal. 42 (1), 41–80.
+
+Trolle, A., Schwartz, E., 2009. A general stochastic volatility model for the pricing of
+
+interest rate derivatives. Rev. Financ. Stud. 22 (5), 2007–2057.
+
+21 
+
+

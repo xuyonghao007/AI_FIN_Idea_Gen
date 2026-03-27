@@ -1,0 +1,4419 @@
+Journal of Financial Economics 172 (2025) 104112 
+
+Contents lists available at ScienceDirect
+
+Journal of Financial Economics
+
+journal homepage: www.elsevier.com/locate/finec
+
+The trade imbalance network and currency returns(cid:73)
+Ai Jun Hou a
+a Stockholm University, Stockholm Business School, Sweden
+b University of Cambridge, Cambridge Judge Business School, Girton College and the Centre for Economic Policy Research, United Kingdom
+c University of Nottingham, Nottingham University Businss School, United Kingdom
+
+, Lucio Sarno b, Xiaoxia Ye c,∗
+
+A R T I C L E   I N F O
+
+A B S T R A C T
+
+We introduce in the theory of Gabaix and Maggiori (2015) a network structure to capture the complexity of the 
+balance sheets of financial intermediaries, using the Leontief inverse-based centrality. We use this framework 
+in a multi-country world with imperfect financial markets to study how currency risk premia are connected to 
+financiers’ risk bearing capacity. Guided by the theory, we construct a Centrality Based Characteristic (CBC), 
+based on the centrality of the trade imbalance network and variance–covariance matrix of currency returns. 
+Sorting currencies on CBC generates a high Sharpe ratio, and the resulting excess returns reflect a novel source 
+of predictability.
+
+Dataset link: https://data.mendeley.com/datas
+ets/3srtwd7rv2/2
+
+JEL classification:
+F31
+F37
+G12
+G15
+
+Keywords:
+Trade imbalance network
+Currency premia
+Carry trade
+Network centrality
+
+1. Introduction
+
+International  trade  and  trade  imbalances  across  countries  play 
+crucial roles in determining macroeconomic and financial outcomes 
+around the world.1 They are also a driving force of exchange rate fluc-
+tuations and currency risk premia in a variety of theories of exchange 
+rate determination (see, e.g., Gourinchas and Rey, 2007; Gabaix and 
+Maggiori, 2015; Colacito et al., 2018; Maggiori, 2022). Motivated by 
+this literature, empirical research has documented a predictive link 
+between external imbalances and currency excess returns in the cross 
+section of countries (see, e.g., Della Corte et al., 2012, 2016; Della Corte 
+and Krecetovs, 2021).
+
+However, a potential tension exists between theory and empirical 
+research in this area. Specifically, the theory of international trade and 
+exchange rate dynamics is typically set up in a two-country frame-
+work, whereas empirical work on currency asset pricing is conducted 
+in the cross-section of countries, under the implicit assumption that 
+theories about bilateral relationships between countries can be readily 
+generalized to a multi-country setting.2 This is not necessarily the case 
+without additional assumptions. More importantly, it seems likely that 
+generalization of two-country theories to a multi-country setting can 
+generate additional insights about exchange rate dynamics by capturing 
+
+(cid:73)
+
+Acknowledgments. Nick Roussanov was the editor for this article. We are greatly indebted for comments and constructive suggestions to Nick Roussanov, 
+an anonymous Referee, and Matteo Maggiori. We also thank Valentina Bruno, Vasco Carvalho, Magnus Dahlquist, Pasquale Della Corte, Ziran (Josh) Ding, Ilias 
+Filippou, Minyou Fan, Xiang Fang, Po-Hsuan Hsu, Zhengyang Jiang, Olga Kolokolova, Ingomar Krohn, Jiadong Liu, Jiatao Liu, Yang Liu, Juan Lin, Dong Lou, 
+Jiaming Mao, Thomas Maurer, Danny Mcgowan, Linlin Niu, Junghum Park, Ilaria Piatti, Swapnil Singh, Yajun Xiao, Ran Xing, Gang Zhang, Yaoyuan Zhang, 
+Yinggang Zhou, and participants at presentations given at the University of Cambridge, Stockholm University, the Bank of Lithuania, the 13th Workshop on 
+Exchange Rates at the Bank of Canada, Queen’s Business School, SUFE, XJTLU, WISE Xiamen University, Frontiers of Factor Investing 2024 Conference, the Swiss 
+Society for Financial Market Research (SGF) Conference 2024, WFA 2024, CFRC 2024, CICF 2024, and EFA 2024, for their helpful comments and discussions. 
+We are grateful to Gian Maria Milesi-Ferretti, Philip Lane, and Agustín Bénétrix for kindly sharing with us updated data of their papers. For the purpose of open 
+access, the authors have applied a Creative Commons Attribution (CC BY) license to any Author Accepted Manuscript version arising from this submission. All 
+errors are our responsibility.
+∗ Corresponding author.
+
+E-mail addresses:  aijun.hou@sbs.su.se (A.J. Hou), l.sarno@jbs.cam.ac.uk (L. Sarno), xiaoxia.ye@nottingham.ac.uk (X. Ye).
+
+1 For example, Caballero and Krishnamurthy (2009) find that trade imbalances are a crucial part of the mechanism that led to the global financial crisis.
+2 By ‘‘multi-country’’ we mean more than one exchange rate or, equivalently, more than two countries.
+
+https://doi.org/10.1016/j.jfineco.2025.104112
+Received 18 April 2024; Received in revised form 29 May 2025; Accepted 31 May 2025
+Available online 24 June 2025 
+0304-405X/© 2025 The Authors. Published by Elsevier B.V. This is an open access article under the CC BY license ( http://creativecommons.org/licenses/by/4.0/ ). 
+
+ 
+ 
+ 
+A.J. Hou et al.
+
+indirect relationships in the trade imbalance network that are hidden 
+in a two-country setting. Indeed, Richmond (2019) provides theory and 
+empirical evidence that the total trade network is linked to currency 
+risk premia in a model that assumes complete financial markets.
+
+In this paper, we build on this line of research by extending the 
+theory of Gabaix and Maggiori (2015) to study currency risk premia 
+in a multi-country world with imperfect financial markets and a fully-
+fledged trade imbalance network.3 In the theory, currency returns are 
+linked  to  financiers’  limited  risk  bearing  capacity,  captured  by  the 
+complexity of their balance sheets in the trade imbalance network. 
+Then, guided by the theory, we construct a Centrality Based Char-
+acteristic (hereafter CBC), based on the centrality of the imbalance 
+network and the variance–covariance of currency returns. We show that 
+sorting currencies on CBC generates strong predictability of currency 
+excess returns in the cross section of countries, and a high Sharpe 
+ratio. The source of this predictability is novel in the sense that the 
+resulting excess returns from the cross-sectional strategy that sorts on
+CBC cannot be explained by various standard currency factors and 
+intermediary asset pricing factors. In turn, we find that this multi-
+country extension provides both fresh insights into the link between 
+trade imbalances and exchange rate dynamics, and a novel investment 
+strategy.
+
+In the theory of Gabaix and Maggiori (2015), countries run trade 
+imbalances in imperfect financial markets and financiers bear the re-
+sulting currency risk by buying the currency of the deficit country and 
+shorting the currency of the surplus country.4 However, the financiers’ 
+ability to take long (short) positions (i.e., risk-bearing or risk-absorbing 
+capacity) depends on the riskiness of their balance sheets. To incen-
+tivize financiers, the currency of the deficit country has to depreciate 
+contemporaneously and is expected to appreciate in the future to com-
+pensate for the risk financiers take. Essentially, the imbalance presents 
+the financiers with investment options, but financial constraints limit 
+their ability to take buy and sell positions. This leads financiers to 
+alter the size and composition of their balance sheets, ultimately af-
+fecting the exchange rate. Two important determinants of currency 
+premia arise in the model: financiers’ risk-bearing capacity (or limited 
+commitment of risk-bearing), and the external imbalance of individual 
+countries.5 In their Online Appendix, Gabaix and Maggiori (2015, OA) 
+show that their two-country model can be readily extended to a multi-
+country setting, where the limited risk-bearing capacity is proxied using 
+the variance–covariance matrix of exchange rates. However, this multi-
+country extension is a direct generalization of the two-country model 
+and, therefore, it does not explore the effects of the trade imbalance 
+network on financiers’ risk-bearing capacity and its implications for 
+currency asset pricing.
+
+In the global trading system, bilateral imbalances and interdepen-
+dence between countries constitute a global trade imbalance network 
+that contains rich information on financier’s balance sheets and risk-
+bearing capacity. Yet, the effect of the imbalance network structure 
+on financiers’ limited risk-bearing commitment and currency premia 
+has been largely overlooked in the literature. Therefore, we extend 
+the theory of Gabaix and Maggiori (2015) to explicitly incorporate the 
+information contained in the trade imbalance network into financiers’ 
+limited risk-bearing commitment. We use the Leontief inverse of the 
+adjacency matrix of the global trade imbalance network to represent 
+
+3 We refer to Gabaix and Maggiori (2015) for the two-country model of 
+exchange rate determination in their published paper, and to Gabaix and 
+Maggiori  (2015,  OA)  for  a  simple  demonstration  of  the  extension  to  the 
+multi-country framework in their Online Appendix.
+
+4 A  related  literature  examines  the  impact  of  frictions  in  international 
+financial markets. For example, Du and Schreger (2016) show that currency 
+market frictions have important implications on local currency credit spreads.
+5 The pricing power of the imbalance risk factor identified by Della Corte 
+et al. (2016) empirically supports the trade imbalance’s impact on currency 
+premia in Gabaix and Maggiori (2015)’s theory.
+
+Journal of Financial Economics 172 (2025) 104112 
+
+the financiers’ risk-bearing capacity and show that the Leontief inverse-
+based centrality effectively captures the complexity of financiers’ global 
+balance sheets.6
+
+Specifically, the complexity of financiers’ balance sheets increases 
+with the centrality of countries they intermediate by offering more in-
+vestment options (Aldasoro and Alves, 2018) sasidevan2019systemic.7 
+From the financiers’ point of view, the net deficit (surplus) of a country 
+constitutes an investment opportunity to take a long (short) position 
+in this country’s currency on their balance sheets, which has to be 
+balanced by a short (long) position in other currencies. Long (short) 
+positions increase (decrease) financiers’ investment options. For any in-
+dividual country, its net deficit only partially measures the investment 
+options financiers have with its currency since its net deficit induces 
+deficit and surplus in some other countries, which further contribute 
+to financiers’ investment options with the currency depending on the 
+closeness of this particular country with the other countries in the 
+global  trade  imbalance  network.  This  complexity  can  be  precisely 
+quantified by the Leontief inverse-based centrality of the global trade 
+imbalance network.
+
+We argue that exploring the extensive information implicit in the 
+global imbalance network offers deeper insights on currency premia be-
+yond those offered in studies focusing only on the size of the imbalance 
+of individual countries (e.g., Della Corte et al., 2016). We undertake 
+this exploration from both theoretical and empirical perspectives. The-
+oretically, we extend the framework developed by Gabaix and Maggiori 
+(2015) to a multi-country setting that allows financiers’ limited risk-
+bearing commitment to be a function of the adjacency matrix of the 
+global imbalance network. An equilibrium can be obtained by solving 
+a fixed point problem in recursive optimizations. As in Gabaix and 
+Maggiori  (2015),  the  linear  pricing  function  of  currency  premia  is 
+maintained in equilibrium, i.e. the expected currency return can be 
+written as a linear function of net deficits, with the coefficient capturing 
+outside investment options. This linear pricing function provides the 
+flexibility  to  incorporate  both  imbalance  network  centrality,  which 
+is a function (the Leontief inverse) of the adjacency matrix, and the 
+variance–covariance  matrix  of  currency  returns  into  the  financiers’ 
+limited risk-bearing commitment. The model has two key parameters 
+that capture the contributions of centrality and the variance–covariance 
+of exchange rate returns, respectively, to financiers’ limited risk-bearing 
+commitment. These two parameters can be readily calibrated to test 
+the hypothesis that the centrality of the imbalance network and the 
+variance–covariance of exchange rates explain the cross-section of ex-
+pected currency excess returns beyond the individual countries’ net 
+deficit size.
+
+In the empirical analysis, we employ data for up to 41 currencies 
+from 1995 to 2021. First, we provide evidence, using a training sub-
+sample of the data from 1995 to 2002, that these two parameters are 
+significantly different from zero, controlling for net deficits. Secondly, 
+based on the calibrated parameters and keeping them constant out of 
+the sample, we construct CBC for each currency and use it to conduct 
+
+6 The Leontief inverse of matrix 𝐀 is given by:
+
+(𝐈 − 𝐀)−1 =
+
+∞
+∑
+
+𝑘=0
+
+(𝐀)𝑘
+
+and is closely related to the Katz-Bonacich centrality, which captures the sum 
+of the direct and indirect influence of each node in a network (Simonovits, 
+1975).
+
+7 Du and Schreger (2022b) demonstrate that currency mismatch on corpo-
+rate balance sheets can be a source of sovereign default risk. Avdjiev et al. 
+(2019) show that currencies with higher exposures to the dollar factor exhibit 
+larger covered interest-rate parity (CIP) deviations and thereby offer greater 
+potential arbitrage profits for traders who have balance sheet capacity to 
+exploit them.
+
+2 
+
+A.J. Hou et al.
+
+Fig. 1.  CBC versus currency risk premia.
+Notes: This figure plots the global trade CBC measure of 41 currencies versus the 
+average of annualized risk premia. The plots contain averages over three seven-year 
+periods, i.e., 2003–2008, 2009–2015, 2016–2021. The trade data are collected from 
+the UN Comtrade Database. The foreign exchange (spot and forward currency rates) 
+are collected from Thomson Reuters Datastream. The centrality measure is log-scaled. 
+For the 𝐸𝑢𝑟𝑜 area, we construct a region by aggregating trade information from all 
+economic regions that adopted the euro in 1999.
+
+portfolio sorts and formal asset pricing tests.8 The results from portfolio 
+sorts show that, going from low CBC countries to high CBC countries, 
+the currency portfolio returns increase monotonically. The high-minus-
+low portfolio (long the portfolio with the highest CBC, and short the 
+portfolio with the lowest CBC) generates an annualized Sharpe ratio of 
+0.65. This is higher than the Sharpe ratios obtained from sorting on the 
+total trade network centrality of Richmond (2019, TTNC), the global 
+imbalance measure of Della Corte et al. (2016, GImb), and the carry 
+trade based on our sample. Existing currency factors and intermediate 
+asset  pricing  factors  (Adrian  et  al.,  2014;  He  et  al.,  2017)  cannot 
+subsume the information in the CBC factor (defined as the time series 
+of excess returns from the strategy that sorts on CBC), indicating that 
+the CBC factor captures different information.
+
+To illustrate the intuition, Fig.  1 shows a clear positive relation 
+between the CBC and currency premia, and nicely summarizes the 
+insight of our exploration on the global imbalance trade network. This 
+figure shows the scatter plot of the time series average of currency 
+excess returns for a U.S. investor (vertical axis) versus the time series 
+average of CBCs (horizontal axis) for three different subsample periods. 
+Countries with higher CBC, such as Mexico and New Zealand, have 
+higher currency premia. On the contrary, countries with lower CBC, 
+such as Japan and Thailand, have lower currency premia. This illustra-
+tive evidence suggests that CBC is a key characteristic to understand 
+currency premia, which we document through formal tests in the paper.
+The theory allows us to decompose currency risk premia into three 
+components that are related to total imbalance, individual importance, 
+and neighborhood importance. Via a variance decomposition, we em-
+pirically show that the neighborhood component explains about 68% of 
+the total variation in cross-sectional currency premia, highlighting the 
+importance of the network structure in understanding the dynamics of 
+currency premia, and hence the value added by our extension of the 
+Gabaix–Maggiori theory. To complement this variance decomposition, 
+
+8 We also carry out the exercise using a recursively updated CBC measure 
+where the two calibrated parameters are updated as new information becomes 
+available, whilst still conditioning only on available information at the time of 
+sorting. We find that the results are qualitatively identical to the case where 
+we do not update the calibrated parameters, because they are quite stable over 
+time.
+
+3 
+
+Journal of Financial Economics 172 (2025) 104112 
+
+we also run panel regressions of currency risk premia on the three 
+components, providing corroborating evidence of the dominant role 
+of the neighborhood component in terms of explanatory power. To 
+further demonstrate the usefulness of this framework, we also conduct 
+counterfactual analyses to study the impacts of the 2018–2019 China–
+US trade war and the international sanctions against Russia in 2022 on 
+currency premia via the trade imbalance network. We find that these 
+two events have far-reaching effects on premia of currencies that are 
+not directly involved in the events, emphasizing the complexity of the 
+chain effect of international events and the usefulness of a quantitative 
+framework like the one developed in this paper.
+
+We carry out several other additional analyses, and we mention here 
+two especially relevant ones. First, we empirically explore alternative 
+networks to replace the trade imbalance network. These include two 
+variants of the capital flow network—the portfolio investment network 
+and the foreign direct investment (FDI) network—as well as the total 
+trade network. We find that the connection between currency excess 
+returns and any of these networks is substantially weaker than the 
+connection with the trade imbalance network. Second, we explore the 
+relationship between CBC and various proxies of risk bearing capacity 
+used  in  the  relevant  literature,  including  the  TED  spread,  the  VIX, 
+indices of implied volatility in currency markets, i.e., the VXY index for 
+G7 countries (VXY-G7) and the VXY index for emerging market coun-
+tries (VXY-EM), the amount of financial commercial paper outstanding, 
+and a measure of global illiquidity in currency markets. The correlation 
+between the CBC factor and each of these variables has the expected 
+sign, suggesting that CBC captures information embedded in all of these 
+proxies and is, therefore, intuitively related to risk bearing capacity. 
+However, none of these variables subsumes fully the information in
+CBC (i.e., the correlations are imperfect), suggesting that CBC cannot 
+easily be replaced by any available individual variable. Further, we 
+provide evidence that domestic financial intermediaries hold less of the 
+outstanding debt for countries with higher CBC, again suggesting that
+CBC is negatively related to risk bearing capacity.
+
+Related literature. Our theoretical work relates to several areas 
+of the foreign exchange literature. This paper is distinct within this 
+thread of the literature in that we push forward the development of 
+multi-country settings and the trade imbalance network in the theory 
+of  currency  asset  pricing  with  financial  frictions.  First,  the  theoreti-
+cal model augments Gabaix and Maggiori (2015, OA)’s multi-country 
+setting with imperfect financial markets by incorporating global im-
+balance network centrality (via the Leontief inverse) as a measure of 
+financiers’ outside investment options. With different emphases, Jiang 
+(2021) extends Gabaix and Maggiori (2015)’s two-country model by 
+adding the government to study the implications of the US government 
+debt  issuance  on  the  US  dollar  exchange  rate;  Della  Corte  and  Fu 
+(2021) also use the two-country setting of Gabaix and Maggiori (2015) 
+and introduce global tariff uncertainty to analyze how different tariff 
+policies in the US affect the US dollar exchange rate. In contrast, our 
+paper is the first to introduce a network into the framework of Gabaix 
+and Maggiori (2015) to capture the complexity of financiers’ balance 
+sheets through a multi-country lens.9
+
+There  are  also  theoretical  studies  that  focus  on  the  connection 
+between currency risk and country-level characteristics while assum-
+ing frictionless financial markets. For example, Colacito et al. (2018) 
+develops a frictionless risk-sharing model with recursive preferences 
+and shows that heterogeneous exposure to global growth shocks results 
+in  the  reallocation  of  international  resources  and  currency  adjust-
+ments.  Richmond  (2019)  builds  a  general  equilibrium  model  with 
+perfect  financial  markets  and  shows  that  the  consumption  growth 
+
+9 Subsequent papers are following suit to explore related issues; for exam-
+ple, Bahaj et al. (2024) explore the role of cross-border financial connections, 
+proxied  through  a  network  of  gross  financial  positions,  in  mitigating  or 
+amplifying trade shocks.
+
+A.J. Hou et al.
+
+of countries with high centrality in the total trade network is more 
+exposed to global consumption growth shocks, resulting in lower in-
+terest rates, and thereby currency risk premia. There are three key 
+differences between Richmond’s theory and ours: (a) Our imbalance 
+network differs significantly from Richmond (2019)’s total trade net-
+work.  Richmond  (2019)’s  trade  network  is  based  on  bilateral  total 
+trade (export plus import, i.e., the total trade intensity), forming an 
+un-directional network, while our imbalance trade network is based on 
+bilateral trade deficit (export minus import, the total trade imbalance), 
+forming a directional network. This difference generates distinct predic-
+tions for the mechanism that drives currency risk premia. In Richmond 
+(2019)’s trade network, central countries’ currencies appreciate during 
+bad  times  due  to  the  increased  relative  price  of  their  consumption 
+bundle, whereas in our imbalance network, central countries’ curren-
+cies  depreciate  contemporaneously  and  appreciate  in  the  future  to 
+compensate for the risk financiers take. These fundamental differences 
+imply a negative relation between our CBC and Richmond (2019)’s 
+centrality characteristics, which we will observe in the data.10 (b) Rich-
+mond (2019)’s theory focuses on fundamental risks (global consump-
+tion growth risks), while our emphasis is on financial intermediaries’ 
+risk-bearing  capacity.11  (c)  Richmond  (2019)  circumvents  financial 
+intermediation risks by assuming perfect financial markets (i.e., un-
+limited risk-bearing capacity), while we allow for imperfect financial 
+markets (i.e., limited risk-bearing capacity of financial intermediaries). 
+Therefore, while our model shares the focus on the international trade 
+network and currency returns with Richmond (2019), the mechanism 
+through which trade imbalances impact on currency risk premia is 
+fundamentally different, and the definition of centrality itself is also 
+different. We examine the relationship between the centrality measure 
+of Richmond (2019) and ours later in the paper, both empirically and 
+through simulation exercises.
+
+Second, our empirical work contributes to the literature on currency 
+asset pricing and cross-sectional currency investment strategies. Lustig 
+et al. (2011) identify a ‘‘slope’’ factor in exchange rates by sorting 
+currencies on their forward discounts and show that this factor accounts 
+for much of the cross-sectional variation in currency returns. Menkhoff 
+et al. (2012b, 2017) show momentum and value strategies in foreign 
+exchange markets deliver high excess returns. Using individual country-
+level  net  deficit  as  a  risk  characteristic,  Della  Corte  et  al.  (2016) 
+identify an imbalance risk factor with significantly positive currency 
+risk premia.12 Ready et al. (2017) demonstrate that countries producing 
+commodity goods are distinct from countries producing final goods, 
+and provide evidence that sorting currencies based on the import ratio 
+(the  ratio  of  net  imports  of  finished  goods  to  net  exports  of  basic 
+commodities) generates a sizable spread in average currency excess re-
+turns. Colacito et al. (2020) find that business cycle risk has significant 
+pricing power for currency portfolio returns. Dahlquist and Hasseltoft 
+
+10 Therefore, the factor (trading strategy) returns are defined differently: 
+in Richmond (2019), the factor portfolio is Peripheral minus Central (PMC), 
+i.e., buying peripheral and selling central countries’ currencies, while in our 
+imbalance framework, the factor portfolio represents a strategy of buying high 
+CBC currencies and selling low CBC currencies.
+11 In Richmond (2019)’s theory, the key driver of the variation in cross-
+sectional currency returns is the countries’ heterogeneous exposure to global 
+consumption shocks. Countries with different total trade links to countries that 
+are important for the production of tradable goods have different exposures to 
+global shocks. Hence, currencies’ centrality in the total trade network measures 
+the exposure to consumption risk.
+12 Global imbalances play an important role in our understanding of the 
+international financial system. As stated by Jiang et al. (2024), these imbal-
+ances have manifested in the sustained net capital flows into U.S. financial 
+markets. Using a demand system-based approach, Jiang et al. (2024) find 
+that the supply of global savings and issuances as well as monetary policies 
+contribute to the increasingly negative U.S. net foreign asset position, while 
+shifts in investors’ demand partially offset this trend.
+
+4 
+
+Journal of Financial Economics 172 (2025) 104112 
+
+(2020) find that a risk factor based on a trading strategy that goes long 
+currencies with strong economic momentum and short currencies with 
+weak economic momentum captures cross-country differences in carry. 
+Our paper adds to this strand of the literature a novel, theoretically 
+motivated  characteristic  that  is  valuable  for  designing  a  profitable 
+currency investment strategy.
+
+Third, our paper is also related to the literature that studies how 
+international trade affects currency risk. Recent studies suggest that 
+common factors account for a large portion of the variation in bilat-
+eral exchange rates (e.g., Verdelhan, 2018). Furthermore, international 
+trade  significantly  influences  a  country’s  exposure  to  the  common 
+factors.  Lustig  and  Richmond  (2020)  show  that  the  trade  network 
+centrality, as defined by Richmond (2019), is the best predictor of 
+a country’s average exposure to systematic risk. Jiang and Richmond 
+(2023) further find that global trade network closeness has explanatory 
+power  for  exchange  rate  comovements.  Hassan  et  al.  (2023)  show 
+that  bilateral  trade  agreements  can  substantially  reduce  systematic 
+exchange rate risk, using Richmond (2019)’s measure of total trade 
+centrality. Moreover, Fang and Liu (2021) show, both theoretically and 
+empirically, that financiers’ leverage constraints drive exchange rates, 
+with capital inflows (i.e., net exports) increasing as these constraints 
+become more pronounced. Our paper contributes by providing a com-
+prehensive investigation into the direct and indirect impact of the trade 
+imbalance (net exporter) network on the cross-sectional variation in 
+currency risk premia, hence discovering new facts on the relationship 
+between international trade and currency asset pricing.
+
+Additionally,  our  paper  also  joins  the  literature  on  the  role  of 
+financial  intermediaries  in  the  pricing  of  financial  assets  (see,  e.g., 
+He and Krishnamurthy, 2013; Adrian et al., 2014; He et al., 2017; 
+Fleckenstein  and  Longstaff,  2020,  2022;  Du  et  al.,  2023;  Maggiori, 
+2022; Du and Schreger, 2022a; Wang and Zhang, 2025). Differently 
+from this literature, the focal point of this paper is on the international
+trade imbalance network and currency markets. In the context of the 
+foreign exchange literature, other than the theoretical study of Gabaix 
+and Maggiori (2015), there is empirical evidence in Cenedese et al. 
+(2021) that regulation on the leverage ratio requirement of financial 
+intermediaries is related to deviations from covered interest parity. 
+Also, Fang (2021) finds a positive relation between country-level bank-
+ing sector capital ratios and currency returns; Fang and Liu (2021) 
+provide  further  evidence  that  exchange  rates  and  capital  flows  are 
+related to intermediaries’ leverage constraints. Our paper provides both 
+theoretical developments and empirical results that the role of financial 
+intermediaries is key to understanding the pricing of foreign exchange 
+risk.
+
+2. The model
+
+In this section, we introduce in the theory of Gabaix and Maggiori 
+(2015) a network structure to capture the complexity of the balance 
+sheets  of  financial  intermediaries,  using  the  Leontief  inverse-based 
+centrality. We use this framework to guide our subsequent empirical 
+analysis. Moreover, based on the intuition that financiers’ limited com-
+mitment is related to their outside investment options, we extend the 
+theory to explicitly connect currency risk premia to their centrality 
+in the global trade imbalance network, which can be considered as a 
+proxy for the financiers’ credit constraint. We conclude the section by 
+providing elements of a microfoundation for the proposed specification 
+of the credit constraint.
+
+2.1. Multi-country setting
+
+}
+
+There are two periods: 𝑡 = 0, 1 and 𝑛 countries in the model. We 
+define {𝑥𝑡
+𝑖 as the US dollar (USD) bilateral exchange rate of country 
+𝑖 at period 𝑡, where 𝑖 = 1, 2, … , 𝑛. An increase in {𝑥𝑡
+𝑖 indicates an 
+appreciation of country 𝑖’s currency against the USD. The US is the 
+
+}
+
+A.J. Hou et al.
+
+Journal of Financial Economics 172 (2025) 104112 
+
+primary country 1, for which we normalize {𝑥𝑡
+𝑥𝑡 is the vector of exchange rates at period 𝑡.
+
+}
+1 = 1 in both periods; 
+
+}
+
+We define the global trading imbalance networks in the two periods 
+via an 𝑛 × 𝑛 adjacency matrix 𝐀𝑡 of a directed weighted graph on 𝑛
+vertices, where {𝐀𝑡
+𝑖𝑖 = 0 for 𝑖 = 1, … , 𝑛, and {𝐀𝑡
+𝑖𝑗 > 0 for 𝑗 ≠ 𝑖 is 
+the USD value of country 𝑗’s net import from country 𝑖. In other words, 
+if {𝐀𝑡
+}
+𝑖𝑗 > 0, then country 𝑗 is a net debtor of country 𝑖 with deficit of 
+}
+{𝐀𝑡
+𝑖𝑗 . The global trading network can also be described in terms of the 
+exports and imports matrix, e.g., the 𝜉 matrix in Gabaix and Maggiori 
+(2015, OA). We show the explicit relation between 𝐀 and 𝜉 below.
+
+}
+
+Gabaix and Maggiori (2015, OA) use the export and import matrix 
+𝜉𝑡 in the derivations of their multi-country model (see Section A.3.B): 
+for 𝑖 ≠ 𝑗, {𝜉𝑡}𝑖𝑗 < 0 and represents exports of country 𝑖 to country 𝑗
+in country 𝑗’s currency; the diagonal term {𝜉𝑡}𝑗𝑗 > 0 represents the 
+total imports of country 𝑗 in its currency from all other countries and 
+is defined as: {𝜉𝑡}𝑗𝑗
+
+≜ − ∑
+
+𝑖≠𝑗 {𝜉𝑡}𝑖𝑗 .
+
+Let 𝑞𝑖 be the USD value of country 𝑖’s bonds held by financiers; 
+hence, 𝑞 is the vector of the bonds’ values of all countries. Also, the 
+fact that financiers have zero initial capital implies ∑𝑛
+𝑗=1 𝑞𝑗 = 0. The 
+net demand for currency 𝑖 in the spot market, expressed in USD, must 
+be zero in period 0’s equilibrium: 
+
+𝒏
+∑
+
+−
+
+{𝝃0}𝒊𝒋{𝒙0}𝒋 + 𝒒𝒊 = 0.
+
+𝒋=1
+
+In matrix form, Eq.  (1) can be written as: 
+
+−𝜉0𝑥0 + 𝑞 = 0.
+
+(2)
+
+By the definitions of 𝐀 and 𝜉, we have: 
+
+)+
+
+(
+{𝜉𝑡}𝑗𝑖{𝑥𝑡}𝑖 − {𝜉𝑡}𝑖𝑗 {𝑥𝑡}𝑗
+
+{𝐀𝑡}𝑖𝑗 =
+where (𝑧)+ = 𝑧 if 𝑧 > 0, and 0 otherwise. Given Eq.  (3), the following 
+holds: 
+(𝜉𝑡𝐃𝑡
+𝐀𝑡 − 𝐀⊺
+𝑡 =
+where 𝐃𝑡 = diag
+
+− 𝜉𝑡𝐃𝑡,
+)
+(𝑥𝑡
+.
+
+(3)
+
+(4)
+
+)⊺
+
+In equilibrium, financiers absorb all imbalances in the trading net-
+work in period 0. Given the definition of 𝐀𝑡, we have the following 
+proposition. 
+
+Proposition 1.   In equilibrium at period 0, the USD value of the bonds’ 
+held by financiers, 𝑞, must satisfy: 
+(
+𝐀0 − 𝐀⊺
+where 𝓁 is an 𝑛 × 1 column vector of ones.
+
+𝓁 + 𝑞 = 0,
+
+(5)
+
+)
+
+0
+
+(
+
+)
+
+Proof.   By  the  definition  of  𝐀0,  each  element  in  the  𝑖th  row  (𝑗th 
+column) of 𝐀0 represents the net USD value surplus (deficit) the 𝑖th 
+(𝑗th) country has with each country. This means that each element 
+in  the  𝑖th  row  of 
+  represents  the  net  imbalance  in  USD 
+the 𝑖th country has with each country, and the 𝑖th element of vector 
+(
+𝐀⊺
+𝓁 is the USD total net imbalance of the 𝑖th country.
+− 𝐀0
+0
+When the market clears, these imbalances have to be absorbed by 
+𝐀⊺
+𝓁 = 𝑞. This completes the 
+0
+
+(
+the financiers. Therefore, we have 
+proof.  □
+
+− 𝐀0
+
+− 𝐀0
+
+𝐀⊺
+0
+
+)
+
+)
+
+It can be easily shown that Eq.  (5) is equivalent to Eq.  (1): 
+(
+
+)
+
+𝓵 = 𝝃0𝐃0𝓵 − (𝝃0𝐃0
+
+)⊺
+
+𝓵 = 𝝃0𝒙0.
+
+𝒒 =
+
+𝐀⊺
+0
+
+− 𝐀0
+
+(6)
+
+)⊺
+
+The second equality is by Eq.  (4), and the third equality is by the 
+fact that (𝜉0𝐃0
+𝓁 = 0 and 𝐃0𝓁 = 𝑥0.13 Financiers will unwind their 
+positions in period 1. Therefore, we also have 
+(𝐀1 − 𝐀⊺
+
+𝓁 − 𝑞 = 0.
+
+(7)
+
+)
+
+1
+
+13 (𝜉0𝐃0
+i.e., {𝜉𝑡}𝑗𝑗
+
+)⊺
+≜ − ∑
+
+𝑖≠𝑗 {𝜉𝑡}𝑖𝑗 .
+
+𝓁 = 0  is  immediately  implied  by  the  definition  of  {𝜉𝑡}𝑗𝑗 , 
+
+2.2. Demand function of credit constrained financiers
+
+To incorporate interest costs in the financiers’ objective function, 
+we define the vector of interest-adjusted exchange rates in period 1 as 
+̄𝑥1
+
+≜ 𝛿𝑥1 with 
+
+𝜹 =
+
+⎡
+⎢
+⎢
+⎢
+⎢
+⎢
+⎣
+
+1
+0
+
+0
+1+𝒓2
+1+𝒓1
+⋱
+
+⋯
+⋯
+
+0
+0
+
+0 ⋯ ⋯
+
+1+𝒓𝒏
+1+𝒓1
+
+⎤
+⎥
+⎥
+⎥
+⎥
+⎥
+⎦
+
+where 𝑟𝑖 is the risk-free interest rate of country 𝑖.14 Since financiers only 
+have limited commitment, there is a downward-sloping demand curve, 
+which can be derived from the financiers’ objective function. In period 
+0, the financiers optimally set 𝜃⋆ = 𝐃−1
+𝑞⋆ to maximize their expected 
+0
+return (objective function) while subject to a quadratic outside option 
+constraint15: 
+E ( ̄𝑥1 − 𝑥0
+
+)⊺ 𝜃⋆, 𝑠.𝑡. E ( ̄𝑥1 − 𝑥0
+
+)⊺ 𝜃⋆ ≥ (𝜃⋆)⊺(Γ𝐃0)𝜃⋆,
+
+(8)
+
+max
+𝜃⋆
+where 
+
+(1)
+
+Γ =
+
+[𝑤𝐈 + (1 − 𝑤)𝐕] Ω, Ω =
+
+(
+𝐈 − 𝛼𝐀⊺
+0
+
+)−1
+
+,
+
+(9)
+
+𝐈 is the 𝑛 × 𝑛 identity matrix, 𝐕 is the variance–covariance matrix of 
+𝑥𝑡, Ω is the Leontief inverse of 𝐀0, and both 𝑤 and 𝛼 are in [0, 1]. 
+This specification of Γ nests Gabaix and Maggiori (2015)’s variance–
+covariance matrix setup, with Γ = 𝐕 when 𝑤 = 𝛼 = 0.16 Gabaix 
+and Maggiori (2015) emphasize that financiers’ outside options should 
+increase with the size, volatility, or complexity of their balance sheets. 
+Closely related to imbalance network centrality, Ω captures the com-
+plexity of financiers’ balance sheets. Therefore, incorporating both Ω
+and 𝐕 in Γ allows us to more accurately capture (Gabaix and Maggiori, 
+2015)’s idea regarding financiers’ outside option constraints than the 
+variance–covariance matrix alone. We provide a deeper discussion of 
+Ω in relation to the trade imbalance network in Section 2.3 and its 
+risk-sharing foundation in Section 2.4.
+financiers  only  have 
+downward-sloping 
+
+there
+is 
+Following
+Gabaix  and  Maggiori  (2015,  OA),  this  demand  for  assets  —  which 
+establishes a relation between all currencies’ interest-adjusted expected 
+appreciation (currency risk premia) E ( ̄𝑥1 − 𝑥0
+) and 𝑞 — can be solved 
+from the constrained optimization problem in (8) using linear program-
+ming (all technical details are presented in Internet Appendix A) and 
+is given by: 
+)
+E ( ̄𝑥1 − 𝑥0
+
+limited  commitment, 
+
+Since 
+a 
+
+demand 
+
+curve. 
+
+= Γ𝑞.
+
+(10)
+
+14 As in Gabaix and Maggiori (2015), the model treats interest rates as 
+exogenous. It is worth emphasizing that the interest rate differential does 
+not completely account for currency risk premia. The positive excess return 
+and depreciation of a country’s currency are associated with a decrease in 
+risk-bearing capacity. This effect manifests itself even when all countries have 
+the same interest rate, thus being fundamentally different from the pure carry 
+trade. We also address this issue empirically in later sections.
+15 The quadratic constraint in (8) is equivalent to having two quadratic 
+terms:
+
+(𝜃⋆)⊺(Γ𝐃0)𝜃⋆ = (𝜃⋆)⊺(Γ1𝐃0)𝜃⋆ + (𝜃⋆)⊺(Γ2𝐃0)𝜃⋆
+where  Γ1 = 𝐕(1 − 𝑤)Ω  and  Γ2 = 𝑤Ω.  Γ1  represents  an  imbalance-
+network-adjusted version of the variance–covariance matrix constraint in the 
+original Gabaix and Maggiori (2015, OA)’s specification, and Γ2 represents a 
+centrality constraint accounting for the complexity of financiers’ balance sheets 
+(in reduced form).
+16 This setup captures the impact of riskiness measured by the variance 
+of the currency. Della Corte et al. (2016) use changes in the VXY (implied-
+volatility) index as a proxy for conditional FX volatility and report evidence 
+supporting Gabaix and Maggiori (2015)’s setup.
+
+5 
+
+A.J. Hou et al.
+
+Journal of Financial Economics 172 (2025) 104112 
+
+This key equation establishes a fundamental relation connecting all cur-
+rencies’ interest-adjusted expected appreciation (currency risk premia), 
+) to the trade imbalance network via Γ𝑞 and provides the 
+E ( ̄𝑥1 − 𝑥0
+theoretical guidance for our empirical analysis. The model captures the 
+essence of financiers’ limited commitment in the context of complex 
+trade networks, i.e., financiers based in countries with higher centrality 
+face more outside options. In other words, the model predicts that cur-
+rency risk premia are closely related to imbalance network centrality. 
+The mechanism described above implies a testable prediction, which 
+we summarize in Hypothesis  1. 
+
+Hypothesis 1.   Cross-sectional currency risk premia are positively 
+associated with currencies’ centrality in the trade imbalance network, 
+i.e. currencies with higher (lower) centrality offer larger (smaller) risk 
+premia.
+
+In this setting, 𝑥0 and 𝑥1 are endogenous variables solved from Eqs. 
+(5), (7) and (10).17 For now, since the focus is on the relation between 
+E ( ̄𝑥1 − 𝑥0
+) and 𝐀0, we concentrate on Eqs.  (5) and (10). Assuming the 
+existence of a solution to a fixed point problem, we can treat both 𝐀0
+and 𝑥0 as given, and Γ as a function of 𝐀0, with Eq.  (10) still holding. 
+The detailed derivations are provided in Internet Appendix B. We will 
+explore the relation between Γ and 𝐀0, which is the functional form of 
+Γ in 𝐀0, in detail shortly.
+
+2.3. Trade imbalance network and risk bearing capacity of financiers
+
+Financiers’ risk bearing capacity captures the limited commitment 
+to  intermediating  in  international  financial  markets.  It  is  inversely 
+related to the financiers’ outside options and liquidity shocks, which 
+are represented by Γ in the model. Financiers’ outside options increase 
+in the complexity of their balance sheet. Here we echo Gabaix and 
+Maggiori (2015) and refer to balance sheet complexity as the idea that 
+financiers’ balance sheets become more complex when they hold larger 
+and riskier positions, increasing the cost for creditors to unwind their 
+positions in the event of default. This underscores the importance of 
+centrality in the trade imbalance network —- countries at the core of 
+the network have financiers with more complex portfolios, resulting in 
+higher intermediation costs and reduced risk-bearing capacity. Gabaix 
+and Maggiori (2015) employ the variance–covariance matrix of ex-
+changes rate returns as a proxy for such complexity, intended to be 
+related to the size and volatility of the balance sheet.
+
+In a multi-country setting, however, centrality is also an important 
+dimension of the complexity of balance sheets, and hence of the outside 
+options of financiers. Albeit in a different context, this idea is in the 
+essence of the theoretical results of Hojman and Szeidl (2008), who 
+show that there is a positive relation between network centrality and 
+agents’ payoffs. Intuitively, a country’s financial constraints are affected 
+not just by its own imbalances but also by the imbalances of its trade 
+partners. A financier dealing with a country that has significant trade 
+linkages  with  other  countries  must  consider  second-order  effects—
+imbalances in connected countries affect liquidity and risk exposure. 
+This creates higher intermediation costs because the financier must 
+adjust for additional risk layers.
+
+Incorporating  the  Leontief  inverse  of  𝐀⊺
+
+0  into  Γ,  as  in  Eq.   (9), 
+elegantly captures the above intuition and effectively weights countries 
+based on their centrality in the global trade imbalance network. The 
+Leontief inverse is closely related to Katz/Bonacich centrality (see, e.g., 
+Ballester et al., 2006; Acemoglu et al., 2012; Sharkey, 2017). To see 
+the intuition more clearly, we spell out the financiers’ outside option 
+in dollar values (see eq. (A.29) and Proposition A.8 in Gabaix and 
+Maggiori, 2015, OA): 
+𝜃⊺ [𝑤𝐈 + (1 − 𝑤)𝐕] (
+
+(11)
+
+)−1
+
+𝑞,
+
+𝐈 − 𝛼𝐀⊺
+0
+
+17 The detailed derivations are in Internet Appendix B.
+
+(𝑥0
+
+)
+where  𝜃 = 𝐃−1𝑞  and  𝐃 = diag
+.  𝜃  can  be  expressed  in  the 
+normal form as 𝜃𝑖, which captures the holdings of country 𝑖’s bonds 
+by financiers, expressed in number of bonds, and the outside option is 
+the weighted sum of 𝜃𝑖s with the weight being the importance of the 
+𝑖th country in the imbalance network: 
+𝜃⊺ [𝑤𝐈 + (1 − 𝑤)𝐕] (
+
+𝑤 + (1 − 𝑤)
+
+𝑛
+∑
+
+𝑛
+∑
+
+(12)
+
+)−1
+
+𝑞 =
+
+[
+
+]
+
+𝐕𝑖𝑗
+
+𝑐𝑖,
+
+𝜃𝑖
+
+𝐈 − 𝛼𝐀⊺
+0
+
+𝑖=1
+
+𝑗=1
+
+(
+𝐈 − 𝛼𝐀⊺
+0
+
+)−1
+
+where 𝑐 =
+𝑞. Here 𝑐 is a variant of Bonacich central-
+ity  (Bonacich,  1987)  and  is  defined  by:  𝑐 = 𝑞 + 𝛼𝐀⊺𝑐.18  Follow-
+ing Sharkey (2017), 𝑐 is a measure of centrality that can be interpreted 
+as the sum of two components: the first one is 𝑞, which can be thought 
+of as the basic centrality that each country has; and the second one, 𝛼𝐀⊺
+is the additional centrality driven by how important its neighbors are in 
+the network. The parameter 𝛼, which is non-negative and less than one, 
+controls the contribution of the second component to 𝑐. When 𝛼 = 0, 
+𝑐 = 𝑞. In Internet Appendix C, we demonstrate through a numerical 
+analysis that the rankings of elements in 𝑟𝑝 and 𝑞 can significantly differ 
+)−1
+under the setting of Γ =
+
+(
+
+.
+
+𝐈 − 𝛼𝐀⊺
+0
+
+2.4. A risk-sharing microfoundation for the leontief inverse
+
+Section 2.3 establishes the centrality implication of Ω being the 
+Leontief inverse. In this subsection, we delve deeper into the impli-
+cations of Γ for individual financiers, aiming to establish the basic 
+elements of a microfoundation for Eq.  (9).
+
+In  Internet  Appendix  D,  we  show  that  all  financiers’  collective 
+optimization is attained through the implementation of individually 
+optimal strategies by financiers in each country. For the financier in 
+charge of the 𝑖th country, the individual constrained optimization is: 
+
+( ̄𝑥(𝑖,1)
+𝑥(𝑖,0)
+
+E
+
+max
+𝑞⋆
+𝑖
+
+)
+
+− 1
+
+𝑞⋆
+𝑖 , 𝑠.𝑡. E
+
+( ̄𝑥(𝑖,1)
+𝑥(𝑖,0)
+
+)
+
+− 1
+
+≥
+
+𝑞⋆
+𝑖
+
+𝑛
+∑
+
+𝑗=1
+
+1
+𝑞𝑖
+
+Γ𝑖𝑗 𝑞𝑗
+
+(𝑞⋆
+𝑖 )2
+𝑥(𝑖,0)
+
+.
+
+(13)
+
+In equilibrium, 𝑞𝑖 = 𝑞⋆
+dollar value are: 
+
+𝑖  and the 𝑖th financier’s divertable funds (DF𝑖) in 
+
+.
+
++
+
+∑
+
+(14)
+
+DF𝑖 =
+
+⎡
+⎢
+⎢
+⎢
+⎢
+⎢
+⎢
+⎣
+
+Γ𝑖𝑗 𝑞𝑗 𝑞𝑖
+
+1
+𝑥(𝑖,0)
+
+{Γ}𝑖𝑖 𝑞2
+𝑖
+⏟⏞⏟⏞⏟
+primary risk
+
+𝑗≠𝑖
+⏟⏞⏞⏞⏟⏞⏞⏞⏟
+risk adjustment
+
+⎤
+⎥
+⎥
+⎥
+⎥
+⎥
+⎥
+⎦
+Funding a country with a net deficit results in the establishment of 
+long positions in domestic bonds and short positions in foreign bonds 
+on the financier’s balance sheet. Conversely, financing a net surplus 
+country leads to the creation of long positions in foreign bonds and 
+short positions in domestic bonds. Creditors, in their lending to the 
+financier, correctly foresee the incentives for fund diversion, leading 
+them to set the divertable funds in Eq.  (14) as a credit constraint in 
+their dealings with the financier. Consequently, Eq.  (14) captures risks 
+that creditors encounter. An effective risk metric should account for 
+both domestic and foreign bonds, along with the risk-sharing among 
+creditors from different countries within the trade network. The first 
+term  in  the  square  brackets  above  is  the  primary  risk  of  providing 
+the intermediating service to country 𝑖, which is the two-country case 
+of Gabaix and Maggiori (2015, Eq. (8)). Nevertheless, this term only 
+addresses domestic bonds on the financier’s balance sheet, overlooking 
+the positions of foreign bonds and the risk-sharing among creditors. The 
+second term, risk adjustment, within the square brackets above, explic-
+itly encompasses these additional risk adjustments.19 We illustrate this 
+argument using a simple three-currency example.
+
+18 The Bonacich centrality, as defined e.g. in Sharkey (2017), is: 𝑟 = 𝐀⊺𝓁 +
+𝛼𝐀⊺𝑟 ⇒ 𝑟 = (𝐈 − 𝛼𝐀⊺)−1 𝐀⊺𝓁.
+19 Here we use ‘risk sharing’ and ‘risk adjustment’ to describe the compo-
+nents in the 𝑖th financier’s divertable funds that are related to other countries’ 
+trade imbalance, i.e., 𝑞𝑗 for 𝑗 ≠ 𝑖.
+
+6 
+
+A.J. Hou et al.
+
+Journal of Financial Economics 172 (2025) 104112 
+
+Table 1
+A three-currency example with financiers’ long and short positions and their divertable funds.
+Net imbalance 𝑞
+
+DB and FB adjusted divertable funds
+
+Financier A
+
+B2A + C2A
+
+Long
+DB: B2A
+DB: C2A
+
+Short
+FB: B2A
+FB: C2A
+
+Financier B
+
+FB: B2A
+FB: B2C
+
+DB: B2A
+DB: B2C
+
+-B2A - B2C
+
+Financier C
+
+DB: B2C
+FB: C2A
+
+FB: B2C
+DB: C2A
+
+B2C - C2A
+
+⎡
+⎢
+𝛤𝐴𝐴(B2A + C2A)
+⎢
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+⎢
+long positions
+⎣
+
+⎤
+⎥
+− (𝛤𝐴𝐵 B2A + 𝛤𝐴𝐶 C2A)
+⎥
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+⎥
+short positions
+⎦
+
+(B2A + C2A)
+⏟⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏟
+𝑞𝐴
+
+⎡
+⎢
+(𝛤𝐵𝐴B2A + 𝛤𝐵𝐶 B2C)
+⎢
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+⎢
+long positions
+⎣
+
+⎤
+⎥
+− 𝛤𝐵𝐵 (B2A + B2C)
+⎥
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+⎥
+short positions
+⎦
+
+(−B2A − B2C)
+⏟⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏟
+𝑞𝐵
+
+⎡
+⎢
+(𝛤𝐶𝐶 B2C + 𝛤𝐶𝐴C2A)
+⎢
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+⎢
+long positions
+⎣
+
+⎤
+⎥
+− (𝛤𝐶𝐵 B2C + 𝛤𝐶𝐶 C2A)
+⎥
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+⎥
+short positions
+⎦
+
+(B2C − C2A)
+⏟⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏟
+𝑞𝐶
+
+Risk sharing adjustment
+
+−B2C(𝛤𝐴𝐵 − 𝛤𝐴𝐶 )(B2A + C2A)
+
+−C2A(𝛤𝐵𝐴 − 𝛤𝐵𝐶 )(B2A + B2C)
+
+−B2A(𝛤𝐶𝐵 − 𝛤𝐶𝐴)(B2C − C2A)
+
+Notes: This table summarizes the balance sheet information of the financiers in a simple three-currency network example. The first and second columns 
+show the long and short positions, respectively. DB denotes Domestic Bonds and FB denotes Foreign Bonds. The third column shows the net imbalance, 
+i.e. the elements in 𝑞. The fourth and fifth columns show the two components in the divertable funds: DB and FB adjusted divertable component and 
+risk-sharing component, respectively. The imbalance network is shown in the directed graph below in which the arrow of the edge in each pair points 
+towards the deficit country in that pair:
+
+A
+
+B2A
+
+C2A
+
+B
+
+C
+
+B2C
+
+The trade deficit adjacent matrix is:
+
+A
+0,
+B2A,
+C2A,
+
+B
+0,
+0,
+0,
+
+A
+
+B
+
+C
+
+⎡
+⎢
+⎢
+⎣
+
+C
+
+0
+B2C
+0
+
+⎤
+.
+⎥
+⎥
+⎦
+
+We denote the risk bearing capacity matrix by 𝛤  in this example. 
+For simplicity, we assume that 𝛤𝑖𝑗 > 0 for all 𝑖 and 𝑗.20 Full details of 
+this three-currency example are outlined in Table  1. In this illustration, 
+Country A registers trade deficits with both Countries B and C, denoted 
+by deficit amounts B2 A and C2 A, respectively. Country B, conversely, 
+records trade surpluses against both Countries A and C, represented 
+by  surplus  amounts  B2  A  and  B2C,  respectively.  Lastly,  Country  C 
+experiences a trade surplus of C2 A with Country A and a deficit of 
+B2C with Country B. As mentioned above, financing trades between 
+countries create long–short positions of domestic and foreign bonds on 
+the balance sheet of financiers. This information is summarized in the 
+first two columns of Table  1. Applying Eq.  (14) to this example, we 
+have: (see the Eqs. (15) to (17) given as in Box  I). 
+
+Checking Eqs. (15) to (17) with the first two columns in Table  1, 
+we find that the off-diagonal terms in 𝛤  allow the divertable funds to 
+adjust for risks related to the positions of foreign bonds. Non-zero off-
+diagonal terms in 𝛤  also capture the risk-sharing adjustments in the last 
+terms of Eqs. (15) to (17) (see the last column in Table  1 as well). We 
+categorize financiers into two types: deficit and surplus. A financier’s 
+risk-sharing term is proportionate to the edge weight of the other pair 
+of financiers. It reduces (increases) the financier’s risks if the financier 
+has a stronger connection to a financier of the opposite (same) type 
+within the pair. To spell out this intuition, consider Financier A’s risk-
+sharing term: −B2C(𝛤𝐴𝐵 − 𝛤𝐴𝐶 )(B2A + C2A). Here, 𝛤𝐴𝐵 − 𝛤𝐴𝐶 compares 
+
+20 This  assumes,  when  there  are  negative  off-diagonal  terms  in  𝐕,  the 
+diagonal terms in 𝐕 and Ω are positive enough to ensure the off-diagonal terms 
+[𝑤𝐈 + (1 − 𝑤)𝐕] Ω are positive. This is generally true as covariance is 
+in Γ =
+typically smaller than variance in magnitude.
+
+the connection between A and B with that between A and C. In the B 
+and C pair, B is the surplus type, and C is the deficit type. Given that 
+Country A is in net deficit (𝑞𝐴 = B2A + C2A > 0), if 𝛤𝐴𝐵 > 𝛤𝐴𝐶 — 
+indicating that A has a stronger connection with the opposite-type B — 
+the risk-sharing term reduces A’s risks; otherwise, it increases them.
+
+To further elaborate on the mechanism, the risk-sharing term in Eqs. 
+(15) to (17) can be interpreted as reflecting the diversification benefits 
+of holding bonds across multiple countries. A financier’s balance sheet 
+risk is mitigated when exposures to different countries partially offset 
+one another — particularly when those countries are interconnected 
+through trade and belong to different categories (deficit or surplus).21 
+In  this  context,  the  trade  imbalance  network  serves  as  a  reduced-
+form  proxy  for  real-side  economic  linkages.  For  instance,  the  term 
+𝛤𝐴𝐵 captures the extent to which bonds from countries A and B can 
+hedge each other’s risks. A higher value of 𝛤𝐴𝐵 indicates stronger trade 
+ties and greater diversification potential, especially when the countries 
+belong to opposite trade categories. However, when a country is highly 
+central in the trade imbalance network — linked to many other deficit 
+countries — the risks borne by its financiers tend to co-move with 
+global factors, thereby limiting potential diversification benefits. Con-
+sequently, financiers demand higher risk premia to intermediate these 
+central  countries’  trade  imbalances.22  In  summary,  this  risk-sharing 
+mechanism incentivizes financiers to facilitate a better balance between 
+
+21 Several existing studies document that bilateral goods trade helps explain 
+patterns in capital holdings; see, e.g., Chau (2022) and Lane and Milesi-Ferretti 
+(2008).
+22 While  the  exchange  rate  variance–covariance  matrix  offers  a  similar 
+perspective, it is an ex post measure and provides limited insight into the 
+structural  drivers  of  exchange  rate  co-movements.  In  contrast,  the  trade 
+
+7 
+
+A.J. Hou et al.
+
+Journal of Financial Economics 172 (2025) 104112 
+
+DF𝐴 =
+
+⎡
+⎢
+𝛤𝐴𝐴(B2A + C2A)
+⎢
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+⎢
+long positions
+⎣
+
+⎤
+⎥
+− (𝛤𝐴𝐵B2A + 𝛤𝐴𝐶 C2A)
+⎥
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+⎥
+short positions
+⎦
+
+DF𝐵 =
+
+⎡
+⎢
+(𝛤𝐵𝐴B2A + 𝛤𝐵𝐶 B2C)
+⎢
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+⎢
+long positions
+⎣
+
+⎤
+⎥
+− 𝛤𝐵𝐵(B2A + B2C)
+⎥
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+⎥
+short positions
+⎦
+
+(B2A + C2A)
+⏟⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏟
+𝑞𝐴
+
+,
+− B2C(𝛤𝐴𝐵 − 𝛤𝐴𝐶 )(B2A + C2A)
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+risk-sharing with B and C
+
+(−B2A − B2C)
+⏟⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏟
+𝑞𝐵
+
+,
+− C2A(𝛤𝐵𝐴 − 𝛤𝐵𝐶 )(B2A + B2C)
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+risk-sharing with A and C
+
+DF𝐶 =
+
+⎡
+⎢
+(𝛤𝐶𝐶 B2C + 𝛤𝐶𝐴C2A)
+⎢
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+⎢
+long positions
+⎣
+
+⎤
+⎥
+− (𝛤𝐶𝐵B2C + 𝛤𝐶𝐶 C2A)
+⎥
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+⎥
+short positions
+⎦
+
+(B2C − C2A)
+⏟⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏟
+𝑞𝐶
+
+− B2A(𝛤𝐶𝐵 − 𝛤𝐶𝐴)(B2C − C2A)
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+risk sharing with A and B
+
+.
+
+Box I. 
+
+Ω𝑖𝑗 = 1{𝑖=𝑗} + 𝛼
+
+}
+
+{
+
+𝐀⊺
+0
+
+𝑖,𝑗
+
++ 𝛼2
+
+𝑛
+∑
+
+𝑟=1
+
+}
+
+{
+
+𝐀⊺
+0
+
+𝑖,𝑟
+
+}
+
+{
+
+𝐀⊺
+0
+
+𝑟,𝑗
+
++ 𝛼3
+
+𝑛
+∑
+
+{(
+
+𝑟=1
+
+)2}
+
+𝐀⊺
+0
+
+{
+
+𝐀⊺
+0
+
+}
+
+𝑟,𝑗
+
+𝑖,𝑟
+
++ … ,
+
+Box II. 
+
+(15)
+
+(16)
+
+(17)
+
+(18)
+
+deficit  and  surplus  countries  in  the  global  trade  network,  thereby 
+reducing overall systemic risk.
+
+Generalizing from the simple example above, when specifying Γ, it 
+is essential that for any 𝑖 ≠ 𝑗, the off-diagonal element Γ𝑖𝑗 encapsulates 
+the degree of connection between countries 𝑖 and 𝑗 in the imbalance 
+network. Simply treating Γ as the variance–covariance matrix or a 
+diagonal matrix does not meet this requirement. To illustrate, if country 
+𝑖  serves  as  both  a  direct  debtor  and  a  two-step  indirect  debtor  to 
+country 𝑗, country 𝑖 is directly linked to country 𝑗 through the direct 
+edge  from  vertex  𝑖  to  vertex  𝑗  –  the  (normalized)  weight  of  this 
+edge quantifies the direct connection. Moreover, country 𝑖 is indirectly 
+linked to country 𝑗 via two connected edges from vertex 𝑖 to vertex 𝑗, 
+and the product of the (normalized) weights of these edges measures 
+the indirect connection. It is important to assign a lower weight to an 
+indirect connection compared to a direct contribution. Mathematically, 
+this degree of connection can be precisely defined using the adjacency 
+matrix 𝐀0 as: (see the Eq. (18) given as in Box  II) where 1{𝑖=𝑗} = 1 if 𝑖 =
+𝑗 and 0 otherwise. When 𝑖 ≠ 𝑗, the second term in Eq. (18) accounts for 
+country 𝑖’s role as a direct debtor to country 𝑗, the third term accounts 
+for country 𝑖’s role as a debtor to country 𝑗’s debtors, and so on. In 
+terms of the network representation of the economy, Ω𝑖𝑗 accounts for 
+all possible deficit chains (net import relations) that connect country 𝑖
+to country 𝑗 across the network (Carvalho and Tahbaz-Salehi, 2019). It 
+is straightforward to see that given Eq.  (18), Ω is the Leontief inverse 
+of the imbalance network adjacency matrix 𝐀0 as it can be expressed 
+in terms of the convergent power series (see, Stewart, 1998, Theorem 
+4.20)23: 
+
+Ω =
+
+(
+
+𝐈 − 𝛼𝐀⊺
+0
+
+)−1
+
+=
+
+∞
+∑
+
+𝑘=0
+
+)𝑘
+
+(
+𝛼𝐀⊺
+0
+
+.
+
+(19)
+
+[𝑤𝐈 + (1 − 𝑤)𝐕] Ω  as  in  Eq.   (9)  flexibly  integrates 
+Specifying  Γ =
+both degrees of connection between countries within the imbalance 
+network with currency volatility and covariance into financiers’ credit 
+constraints.
+
+imbalance network yields a more structural understanding of risk-sharing and 
+diversification, particularly through its implications for intermediaries’ balance 
+sheets.
+23 See also Ballester et al. (2006). Here we assume 𝛼 is smaller than the 
+norm of the inverse of the largest eigenvalue of 𝐀⊺
+0.
+
+∑
+
+∑
+
+𝑗∈{𝐴,𝐵,𝐶} DF𝑗
+𝑗∈{𝐴,𝐵,𝐶} |𝑞𝑗 |
+
+To validate the risk reduction mechanism, we perform a numerical 
+example based on the aforementioned simple three-currency scenario. 
+To  flesh  out  the  crucial  role  played  by  Ω  in  the  divertable  funds, 
+we set 𝑤 = 1, i.e., Γ = Ω, in this numerical example, without loss 
+of generality. We assess the DF Ratio, defined as the ratio of total 
+divertable funds to the overall imbalance size, 
+, under three 
+different settings of 𝛤 . The first setting (Diagonal 𝛤 ) involves setting 
+𝛤  as a diagonal matrix, representing a scenario where neither foreign 
+bonds nor risk-sharing are considered. The second setting (Uninforma-
+tive Off-diagonal 𝛤 ) incorporates a 𝛤  with uninformative off-diagonal 
+elements in each row, accounting for foreign bonds but excluding risk-
+sharing. The third setting (Leontief Inverse 𝛤 ) considers both foreign 
+bonds and risk-sharing. The comparative results are presented in Fig. 
+2. We observe that configuring 𝛤  as the Leontief inverse yields the most 
+significant reduction in the DF Ratio, providing confirmation of the 
+risk reduction mechanism. While there may be alternative settings of 
+𝛤  that could yield similar effects, we contend that the Leontief inverse 
+offers an elegant and parsimonious approach that addresses the benefits 
+and  costs  of  foreign  bond  positions  and  encourages  risk-sharing.  It 
+seems reasonable to expect that creditors and financiers may naturally 
+incorporate a Leontief inverse-like structure in negotiations, integrating 
+it into financiers’ credit constraints.24
+
+)−1
+
+(
+𝐈 − 𝛼𝐀⊺
+0
+
+It is important to point out that the microfoundations presented 
+here  only  show  a  risk-based  explanation  of  why  Γ  can  be  related 
+to 
+. This illustrates, for example, how in a three-country 
+setting 𝑞𝐵 and 𝑞𝐶 matter differently for 𝑞𝐴 due to differences in 𝛤𝐴𝐵 and 
+𝛤𝐴𝐶 . However, a caveat is in order. The network structure is linked to Γ
+in our generalization of the Gabaix–Maggiori setup via the augmented 
+(quadratic) outside option constraint in Eqs.  (8) and (9). We postulate 
+that the Leontief inverse Ω captures the trade imbalance network, given 
+the central role of trade imbalances for financial intermediation in this 
+theory. However, it is conceivable that the network structure relevant 
+
+24 Exploring the deeper foundations of these constraints lies beyond the 
+scope of this paper. The reader can consider it a reduced-form specification of 
+a more complex contracting problem. Such foundations might be elaborated 
+in financial complexity models, where larger and riskier balance sheets create 
+more intricate positions. These complex positions, in turn, become harder to 
+manage and more costly for creditors to unwind when they seek to recover 
+their funds in the event of a financier’s default.
+
+8 
+
+A.J. Hou et al.
+
+Journal of Financial Economics 172 (2025) 104112 
+
+Fig. 2.  Risk reduction effect of the Leontief inverse 𝛤 .
+, across three different settings of 
+Note: The bar chart in this figure compares the DF Ratio defined as the ratio of total divertable funds to overall imbalance size, 
+𝛤 in the three-currency example. Diag 𝛤 is the setting with a diagonal 𝛤 ; Uninf. off-diag 𝛤 is a 𝛤 with uninformative off-diagonal elements in each row; Leontief inverse 
+𝛤 is (𝐼 − 0.6𝐴⊺)−1. The off-diagonal elements on row 𝑗 of the Uninf. off-diag 𝛤 are the average value of the off-diagonal elements on row 𝑗 of the Leontief inverse 𝛤 . The 
+
+𝑗∈{𝐴,𝐵,𝐶} DF𝑗
+𝑗∈{𝐴,𝐵,𝐶} ‖𝑞𝑗 ‖
+
+∑
+
+∑
+
+numerical values are B2 A = 0.25, C2 A = 0.1, and B2C = 0.2 and the numerical value of the three different 𝛤 s are as below: Diag 𝛤 =
+
+A
+
+1
+0
+0
+
+A
+
+B
+
+C
+
+⎡
+⎢
+⎢
+⎣
+
+B
+
+0
+1
+0
+
+C
+
+0
+0
+1
+
+⎤
+, Uninf. off-diag 𝛤 =
+⎥
+⎥
+⎦
+
+A
+
+1
+0
+0.07
+
+B
+0.12
+1
+0.07
+
+C
+0.12
+0
+1
+
+A
+
+B
+
+C
+
+⎡
+⎢
+⎢
+⎣
+
+⎤
+, Leontief inverse 𝛤 =
+⎥
+⎥
+⎦
+
+A
+
+B
+
+C
+
+⎡
+⎢
+⎢
+⎣
+
+A
+
+1
+0
+0
+
+B
+0.17
+1
+0.13
+
+C
+0.07
+0
+1
+
+.
+
+⎤
+⎥
+⎥
+⎦
+
+to the outside option constraint captures (also) other dimensions of the 
+international economic ties across countries, such as the capital flow 
+network, or others. Thus, we will explore different networks empirically 
+to establish the adequateness of the trade imbalance network relative 
+to other plausible network structures.25
+
+3. Data and variable construction
+
+This section provides details on all data employed in the subsequent 
+empirical  analysis.  The  dataset  consists  of  bilateral  trade,  bilateral 
+capital flows, and currency returns data.
+
+3.1. Data on trade imbalance and capital networks
+
+Trade imbalance network. The Global Trade Deficit Network is con-
+structed based on yearly bilateral trade data (in USD), which is col-
+lected from the United Nations Commodity Trade Statistics Database 
+(UN Comtrade) from 1995 to 2021.2627 For the Euro area, from 1999, 
+
+we aggregate all Euro countries into one entity by summing up all their 
+trades with other non-Euro countries. These data allow us to construct 
+the export/import matrix 𝜉 described in Section 2.1, from which we 
+can further construct 𝐀𝑖𝑗 using Eq.  (3). To avoid 𝐀𝑖𝑗 being affected by 
+country size, we also normalize 𝐀𝑖𝑗 to be the ratio of the net imbalance 
+to its corresponding value of total trade. More technical details are 
+presented in Internet Appendix H.
+
+Capital  flow  networks.  Besides  the  trade  imbalance  network,  we 
+construct several capital flow networks and compare their performance 
+with the trade imbalance network in the empirical analysis. Bilateral 
+capital flows consist of both portfolio investment and Foreign Direct In-
+vestment (FDI). We collect the bilateral portfolio investment data from 
+the IMF’s Coordinated Portfolio Investment Survey (CPIS) database, 
+and bilateral FDI stocks and flows from the United Nations Conference 
+on Trade and Development (UNCTAD)’s statistics database. Since the 
+original CPIS data is known to be subject to the ‘’residency’’ bias (Cop-
+pola et al., 2021),28 we use the restated CPIS data from Coppola et al. 
+(2021) for the available countries and then merge it with the original 
+
+25 In theory one could microfound the outside option constraint to link 
+explicitly the trade imbalance network to the Γ matrix. This could possibly 
+be achieved, for example, by adding an additional layer of theory with a 
+trade matching search model (e.g. Melitz, 2003; Helpman et al., 2004; Eaton 
+et al., 2024; Ahn et al., 2011; Benguria, 2021). We leave this task to future 
+research since, even doing so, the empirical question remains open on whether 
+alternative network structures are more relevant than the trade imbalance 
+network in driving Γ. Therefore, we explore this issue empirically in the paper.
+26 Each country reports import and export values relative to each of its trad-
+ing partners. However, there is a well-known inconsistency in their reported 
+values. One reason for this is that imports are normally reported at Cost, 
+Insurance, and Freight (CIF) value, while exports are normally reported at 
+Freight On Board (FOB) value. Therefore, we choose to only use the reported 
+export value and set the country’s import value as its partner’s reported export 
+to this country. If we cannot find the corresponding bilateral export data, we 
+use the import data reported by the partner country.
+27 The bilateral trade data we collect here include both intermediate goods 
+and final goods. Ready et al. (2017) elucidate the rationale behind countries 
+producing intermediate goods typically offering higher average interest rates, 
+whereas  countries  exporting  final  goods  tend  to  maintain  lower  interest 
+
+rates. Consequently, they contend that the trade composition within various 
+countries influences exchange rates through the currency carry trade. Chau 
+(2022) shows that overlooking intermediate input linkages in portfolio analysis 
+results in a weaker explanation of the data, highlighting the need to consider 
+the entire trade network structure when making portfolio decisions. In a global 
+economy where financiers exhibit limited commitment, such as in our model, 
+comprehending currency returns hinges on grasping the dynamics of currency 
+demand and supply in global trade. The aggregation of both intermediate and 
+final goods provides a holistic depiction of the currency demand and supply 
+landscape spanning various countries.
+28 For  example,  when  global  companies  finance  themselves  via  foreign 
+subsidiaries located in tax havens, standard economic data associates such 
+offshore securities with the location of the issuing affiliates, rather than the 
+country of their ultimate parents. Coppola et al. (2021) demonstrate that 
+residency-based CPIS data can offer a highly distorted view of global portfolios. 
+For instance, US investments into China are understated, while investments 
+into tax havens are overstated. To address this issue, Coppola et al. (2021) 
+propose a new methodology to restate equity flows into tax havens to the 
+correct ultimate issuing countries. We are grateful to Antonio Coppola and 
+Matteo Maggiori for their help in understanding the CPIS data.
+
+9 
+
+A.J. Hou et al.
+
+Journal of Financial Economics 172 (2025) 104112 
+
+CPIS data for other countries in our entire sample. The restated CPIS 
+data from Coppola et al. (2021) is available from 2007 to 2020 and is 
+obtained from the global capital allocation project website.29
+
+3.2. Currency excess returns
+
+Spot and forward exchange rates. The currency data are taken from 
+Thomson Reuters Datastream for the period from 1995 to 2021. We 
+use  daily  spot  and  forward  (at  various  maturities)  exchange  rates 
+against  USD.  Following  Lustig  et  al.  (2011)  and  Richmond  (2019), 
+among others, we build end-of-month series based on daily data for 
+41 economic regions: Australia, Austria, Belgium, Canada, Mainland 
+China, Czech Republic, Denmark, Europe, Finland, France, Germany, 
+Greece, Hong Kong (China), Hungary, India, Indonesia, Ireland, Italy, 
+Japan, Kuwait, Malaysia, Mexico, Netherlands, New Zealand, Norway, 
+Philippine, Poland, Portugal, Russia, Saudi Arabia, Singapore, South 
+Korea,  South  Africa,  Spain,  Sweden,  Switzerland,  Thailand,  Turkey, 
+U.K., United Arab Emirates, United States of America. Data for some 
+currencies  do  not  cover  the  whole  period.  For  the  Euro  area,  we 
+subsume all countries included in the Euro zone after 1999. The sample 
+size  varies  for  different  currencies,  most  importantly  because  some 
+currencies  cease  to  exist  due  to  the  adoption  of  the  euro.  Hence, 
+the panel of individual currencies is unbalanced. The detailed data 
+availability is presented in Table A1 in the Internet Appendix.
+
+Currency  excess  returns.  We  use  𝑠𝑖𝑡 = 𝑙𝑜𝑔(𝑆𝑖𝑡)  to  denote  the  log 
+spot exchange rate in units of foreign currency per US dollar, and 
+𝑓𝑡 = 𝑙𝑜𝑔(𝐹𝑡) for the log forward exchange rate, also in units of foreign 
+currency per US dollar. Hence, an increase in 𝑠 means an appreciation 
+of the home currency (USD). For any variables that pertain to the home 
+country (the US), we drop the subscript. The log excess return 𝑟𝑥𝑖,𝑡 from 
+buying foreign currency 𝑖 in the forward market and then selling it in 
+the spot market after one month is: 
+
+𝑟𝑥𝑖,𝑡 = 𝑓𝑖,𝑡−1 − 𝑠𝑖,𝑡.
+
+(20)
+
+This excess return can also be stated as Forward Discount (FD) plus 
+Spot Return (SR): 
+
+𝑟𝑥𝑖,𝑡 = 𝑓𝑖,𝑡−1 − 𝑠𝑖,𝑡−1
+⏟⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏟
+𝐹 𝐷
+
++ 𝑠𝑖,𝑡−1 − 𝑠𝑖,𝑡
+⏟⏞⏞⏞⏟⏞⏞⏞⏟
+𝑆𝑅
+
+.
+
+(21)
+
+Under  covered  interest  parity  (CIP),  the  interest  rate  differential  is 
+approximately equal to FD, i.e. 𝑟𝑖,𝑡 − 𝑟𝑡 ≈ 𝑓𝑖,𝑡 − 𝑠𝑖,𝑡, where 𝑟𝑖,𝑡 and 
+𝑟𝑡 denote country 𝑖’s and US nominal risk-free rates over the matu-
+rity of the forward contract, respectively. Following common practice 
+in the literature, we compute currency excess returns using forward 
+rates rather than interest rate differentials for two main reasons. First, 
+marginal investors (such as, e.g., hedge funds and large banks) that 
+are responsible for the determination of exchange rates trade mostly 
+using forward contracts (e.g., Koijen et al., 2018). Second, for many 
+countries,  forward  rates  are  available  for  longer  time  periods  than 
+short-term interest rates.
+
+3.3. Empirical construction of  CBC
+
+We spell out Γ in Eq.  (9) as a function of 𝐕 and 𝐀0: 
+
+Γ (𝐕, 𝑤, 𝐀0, 𝛼)
+
+=
+
+[𝑤𝐈 + (1 − 𝑤)𝐕] (
+
+𝐈 − 𝛼𝐀⊺
+0
+
+)−1
+
+,
+
+(22)
+
+(
+𝐈 − 𝛼𝐀⊺
+where 0 ≤ 𝑤 ≤ 1 and 0 ≤ 𝛼 < 1. This function nests 𝐕 and 
+0
+as special cases:
+)
+Γ (𝐕, 0, 𝐀0, 0
+Γ (𝐕, 1, 𝐀0, 𝛼)
+
+= 𝐕,
+(
+
+)−1
+
+=
+
+.
+
+𝐈 − 𝛼𝐀⊺
+0
+
+)−1
+
+(23)
+
+(24)
+
+29 https://www.globalcapitalallocation.com.
+
+10 
+
+Given Proposition  1, currency risk premia can be written as: 
+E ( ̄𝑥1 − 𝑥0
+
+[𝑤𝐈 + (1 − 𝑤)𝐕] (
+
+− 𝐀0
+
+)−1 (
+
+𝓁.
+
+=
+
+)
+
+)
+
+𝐈 − 𝛼𝐀⊺
+0
+
+𝐀⊺
+0
+
+(25)
+
+As 𝑤 and 𝛼 are unknown non-negative parameters, we construct a 
+characteristic based on Eq.  (25) for a range of combinations of positive 
+𝑤  and  𝛼.  If  such  characteristic  has  significant  predictive  power  on 
+observed currency risk premia for some reasonable values of 𝑤 and 
+𝛼, then trade imbalance network centrality contains valuable informa-
+tion about risk premia in the FX market. Hereafter, we refer to this 
+centrality-based characteristic as CBC, i.e., 
+
+𝐶𝐵𝐶 =
+
+[𝑤𝐈 + (1 − 𝑤)𝐕] (
+
+𝐈 − 𝛼𝐀⊺
+0
+
+)−1 (
+
+𝐀⊺
+0
+
+)
+
+𝓁.
+
+− 𝐀0
+
+(26)
+
+It is apparent that a plausible calibration of 𝑤 and 𝛼 requires some 
+in-sample  estimation.  However,  once  we  calibrate  𝑤  and  𝛼  over  a 
+training sample period, we rely purely on out-of-sample analysis that 
+keeps 𝑤 and 𝛼 constant for the purpose of evaluating the predictive 
+performance of CBC in a cross-sectional investment strategy and for 
+comparing it to other predictive variables studied in the literature as 
+well as to alternative network types.
+
+Next, we describe the details of the empirical construction of CBC. 
+Given the adjacency matrix 𝐀 of the imbalance networks and currency 
+risk premia, we calibrate 𝑤 and 𝛼 to compute the CBCs using Eq.  (26). 
+We allow 𝑤 and 𝛼 to vary every year and calibrate conditioning only 
+on information available. Specifically, at each year 𝑡, we match 𝐀 and 
+𝐕 from previous years (up to 𝑡−1) to their next year’s realized currency 
+risk premia (up to 𝑡) and conduct a 300 × 300 grid search from 0 to 
+1 for both 𝑤 and 𝛼 to find all combinations of 𝑤 and 𝛼 that result in 
+positive and statistically significant (with 𝑝-value < 0.005) Spearman 
+correlations between CBCs and the realized currency risk premia (all 
+data up to 𝑡).30 The estimates of 𝑤 and 𝛼 at year 𝑡 are the weighted 
+average of the points identified on the grid with the weights being 
+the Spearman correlation coefficients. The calibrated 𝑤 and 𝛼 at year 
+𝑡 are then the averages of all estimates up to year 𝑡. The calibrated 𝑤
+and 𝛼, alongside year-t 𝐀 and 𝐕, are used to compute CBC at time t
+via Eq.  (26) for predicting currency excess returns at time 𝑡 + 1. This 
+setup ensures that the constructed CBC is only based on the information 
+available up to the point of construction, for each exchange rate. We 
+use the sample from 1995 to 2002 for initial calibration and start the 
+out-of-sample CBC construction from 2003 to the end of the sample in 
+2021.
+
+We plot the calibrated 𝑤 and 𝛼 and the resulting Spearman correla-
+tions in Fig.  3. Both 𝑤 and 𝛼 appear remarkably stable over time. For 
+example, 𝑤 stabilizes around 0.52 early in the sample, confirming the 
+information from the variance–covariance matrix is useful in predicting 
+currency risk premia. More importantly for the purpose of our paper, 
+we find that 𝛼 is in the range between 0.68 and 0.74 and converges 
+to  around  0.68,  clearly  very  far  from  zero.  This  suggests  that  the 
+imbalance network centrality has significant predictive power for the 
+cross-sectional variation of currency excess returns, even controlling 
+for the variance–covariance matrix of returns. The Spearman correla-
+tions between CBC, calculated using these calibrated values of 𝑤 and 
+𝛼, and currency excess returns (risk premia) are large, in the range 
+from 0.12 to 0.3 (Fig.  3(b)). In Fig.  3(b), we also plot the Spearman 
+correlations for cases assuming Γ = 𝐕 (𝑤 = 0, 𝛼 = 0) and Γ = 𝐈
+
+30 To make Spearman correlations meaningful, we apply a rank-preserving 
+transformation to the original CBCs at 𝑡 − 1 so that their max and min values 
+match those of the currency risk premia at 𝑡 − 1. Again no future information 
+is used in the calibration at each time 𝑡. Also, we require a 𝑝-value < 0.005 to 
+establish statistical significance rather than a conventional significance level 
+of, e.g., 0.05, because we are considering a large number of combinations of 
+𝑤 and 𝛼. Hence we face a potential multiple hypothesis testing bias, which 
+calls for more conservative p-values (see, e.g., Harvey et al., 2016).
+
+A.J. Hou et al.
+
+Journal of Financial Economics 172 (2025) 104112 
+
+Fig. 3.  Calibrated 𝑤 and 𝛼 over time.
+Note: In this figure, Panel (a) plots the calibrated 𝑤 and 𝛼 over time; Panel (b) plots Spearman correlations coefficient between all CBCs and currency risk premia over time. The 
+sample period is from 2003 to 2021 (and the initial values of 𝑤 and 𝛼 are calibrated using data from 1995 to 2002). The data frequency is yearly and the calibration is done 
+in yearly expanding windows. In Panel (b), the solid line is the Spearman correlation of the currency risk premia and the model expected currency return based on calibrated 
+𝑤 and 𝛼 shown in Panel (a), and the dashed line (dash-dotted line) is the Spearman correlation of the currency risk premia and the model expected currency return assuming 
+𝑤 = 0 and 𝛼 = 0 (𝑤 = 1 and 𝛼 = 0), i.e., Γ = 𝐕 (Γ = 𝐈).
+
+(𝑤 = 1, 𝛼 = 0). When Γ = 𝐕, the Spearman correlation is negative, 
+albeit small in magnitude, indicating that 𝐕 per se is not a strong 
+candidate for Γ empirically. The case of Γ = 𝐈 essentially only uses 
+the  total  imbalance  to  explain  currency  risk  premia.  We  find  that 
+the  Spearman  correlation  is  consistently  lower  than  the  correlation 
+obtained for the case of CBC with calibrated 𝑤 and 𝛼. In essence, 
+augmenting the variance–covariance matrix of currency excess returns 
+with trade imbalance network information significantly improves the 
+model’s ability to explain currency risk premia, consistent with the 
+theory.
+
+To show how the relative positions of the CBCs change, we plot 
+the positions of the top, middle and bottom three currencies in the 
+percentage  ranks  over  time  in  Fig.   4.  Net  importing  economic  re-
+gions (e.g., Kuwait, Mexico, South Africa) are clearly in the top panel, 
+whereas net exporting economic regions (e.g., Mainland China, Hong 
+Kong  (China),  Thailand)  are  in  the  bottom  panel.  We  also  observe 
+that  currencies  in  the  middle  panel  display  higher  turnover  in  the 
+relative ranks than those in the top and bottom, indicating pronounced 
+time-variation of the premia for the majority of currencies.
+
+In short, the calibration exercise provides a first indication of the 
+usefulness of the information implicit in the imbalance network and 
+variance–covariance matrix that goes beyond the total imbalance. We 
+then test whether the constructed CBCs have stronger performance in 
+
+explaining currency risk premia than existing factors that are based 
+solely on total imbalances in an out-of-sample setting. In the out-of-
+sample analysis we use CBC in two different variants: one where 𝑤
+and 𝛼 are updated when constructing CBC in the way described above, 
+conditioning on new information becoming available at time t ; and 
+another where we simply set 𝑤 and 𝛼 equal to the calibrated values 
+obtained during the 1995–2002 period and never change them over the 
+out-of-sample period. In the latter, more conservative case, for given 
+values of 𝑤 and 𝛼, variation in CBC across currencies and time is driven 
+exclusively by international trade data and the variance–covariance 
+matrix of returns. In our empirical analysis below, we report evidence 
+for both cases, i.e. using either constant 𝑤 and 𝛼 or time-varying 𝑤
+and 𝛼, and show that the our central results are qualitatively the same 
+under either of these settings.
+
+4. Empirical analysis
+
+In this section, we first show that sorting currencies into portfolios 
+based on their CBCs generates a sizable spread in excess returns, and 
+a CBC long–short cross-sectional strategy yields high average excess 
+returns and Sharpe ratio in an out-of-sample setting. These excess re-
+turns are driven not only by interest rate differentials (as is the case for 
+carry), but also by spot predictability in the cross section of currencies. 
+
+11 
+
+A.J. Hou et al.
+
+Journal of Financial Economics 172 (2025) 104112 
+
+Fig. 4.  CBC relative percentage ranks over time.
+Note: The top, middle, and bottom panels in this figure show the over-time dynamics of the positions of the top, middle, and bottom three currencies, respectively, in the percentage 
+ranks. The currencies in different panels are identified through their full sample average percentage ranks, which are shown in the parentheses right next to their legends in the 
+plot. For example, the top three currencies are the top three currencies with the highest full sample average CBC ranks in descending order.
+
+We also consider other networks as alternatives to the trade imbalance 
+network in the Leontief inverse. Since the theoretical framework allows 
+for  the  Leontief  inverse  to  capture  any  of,  for  example,  the  trade 
+imbalance network, the capital flow network (either portfolio flows or 
+FDI) or the total trade network to be plausibly considered, we construct
+CBC using all of these candidate networks. We find that constructing
+CBC with the trade imbalance network performs much better than any 
+of the alternatives considered, as its predictive power for the cross-
+section of currency excess returns turns out to be stronger than the 
+alternative networks. We then compare the performance of various risk 
+factors relative to a CBC factor (computed as the excess return of the
+CBC strategy described above) using Barillas–Shanken regressions, and 
+find that none of the factors considered subsumes the information in 
+the CBC factor.
+
+Next, we show that there is a strong link between the CBC factor 
+and the cross-section of currency excess returns within a standard asset 
+pricing framework. We also present both panel regressions and a vari-
+ance decomposition to quantify the importance of the trade network 
+effects in explaining the variation in currency premia across countries. 
+Additionally, we conduct a counterfactual analysis to demonstrate the 
+usefulness  of  this  framework  in  assessing  the  impact  of  significant 
+international events on currency premia.
+
+network centrality (TTNC) proposed by Richmond (2019); the trade 
+imbalance (TImb) defined as the total net import (this is equivalent 
+to setting Γ equal to 𝐈); the forward discount (FD), the carry trade 
+characteristic used in a vast literature; global imbalances (GImb) stud-
+ied  by  Della  Corte  et  al.  (2016);  the  variance–covariance  weighted 
+trade imbalance (𝐕-weighted TImb) denoted as 𝐕𝑞 (this is equivalent 
+to setting Γ equal to 𝐕).
+
+Monthly currency excess returns are used in this exercise, consistent 
+with the vast majority of papers in the currency asset pricing literature. 
+However, portfolio sorts are based on variables constructed using the 
+information from the year prior to the realized currency returns, since
+CBC can only be constructed at the yearly frequency. Hence, the sorted 
+portfolios are re-balanced yearly. To ensure a level playing field across 
+all sorting variables, we construct the benchmark variables using yearly 
+data  even  though  some  of  them  (e.g.,  FD)  are  available  at  higher 
+frequency.  The  portfolio  sorts  are  carried  out  such  that  the  safest 
+currencies are in the low (short) portfolio and the riskiest in the high 
+(long) portfolio. Specifically, currencies are sorted in ascending order 
+of CBC, TImb, FD, and 𝐕-weighted TImb, and in descending order of
+TTNC into four groups (G1 to G4) because according to Richmond 
+(2019), more central countries’ currencies in the total trade network 
+have lower risk premia.31 For CBC portfolios, we use two construction 
+
+4.1. CBC and other portfolio sorts
+
+4.1.1. The predictive power of CBC in the cross section.
+
+We start this analysis by assessing the predictive power of CBC for 
+the cross-section of currency excess returns. We form four portfolios 
+sorted on CBC, and five other benchmarks variables: the Total trade 
+
+31 For GImb, the portfolios are formed from a 2 × 2 conditional double 
+sort by 𝑛𝑓 𝑎 and 𝑙𝑑𝑐, following Della Corte et al. (2016), where 𝑛𝑓 𝑎 is the 
+net foreign asset position (the difference between foreign assets and foreign 
+liabilities) relative to the size of the economy (GDP) and 𝑙𝑑𝑐 is the proportion 
+of  external  liabilities  denominated  in  domestic  currency.  The  end-of-year 
+
+12 
+
+A.J. Hou et al.
+
+Table 2
+Portfolio sorting performance comparison.
+  Sorting Var.
+
+G1
+
+  CBC (updated)
+  CBC (static)
+
+Panel A
+
+Panel B
+
+TTNC
+TImb
+FD
+GImb
+𝐕-weighted TImb
+DOL
+
+𝐶𝑃 𝐼𝑆
+𝐶𝑃 𝐼𝑆𝑇 𝐻
+𝐶𝑃 𝐼𝑆𝐹 𝑅
+𝐹 𝐷𝐼
+𝑅𝑀𝐴𝐷𝐽
+
+Journal of Financial Economics 172 (2025) 104112 
+
+G2
+
+G3
+
+G4
+
+−0.06
+−0.33
+
+0.74
+0.37
+−0.12
+−1.00
+0.21
+–
+
+−0.74
+−0.56
+−0.62
+−0.41
+0.19
+
+0.13
+−0.05
+
+−0.54
+0.37
+0.49
+0.96
+−0.17
+–
+
+−0.33
+−0.40
+−0.38
+−0.50
+−0.15
+
+0.20
+0.50
+
+1.30
+1.71
+1.41
+1.72
+1.69
+–
+
+−1.68
+−1.80
+−1.80
+−2.05
+1.34
+
+3.14
+3.25
+
+1.78
+0.76
+1.49
+1.01
+1.44
+–
+
+−0.79
+−0.77
+−0.73
+−0.53
+1.83
+
+G4 - G1
+Return
+
+3.21**
+3.58***
+
+1.04
+0.40
+1.61
+2.01*
+1.23
+0.83
+
+−0.06
+−0.21
+−0.12
+−0.12
+1.63
+
+Sharpe
+
+0.54
+0.65
+
+0.23
+0.08
+0.21
+0.45
+0.13
+0.13
+
+−0.01
+−0.02
+−0.01
+−0.01
+0.18
+
+FD
+
+2.54
+2.73
+
+3.04
+2.05
+7.01
+1.41
+1.15
+1.39
+
+1.66
+1.64
+1.71
+1.96
+1.33
+
+SR
+
+0.67
+0.85
+
+−2.00
+−1.65
+−5.40
+0.60
+0.08
+−0.56
+
+−1.72
+−1.85
+−1.82
+−2.08
+0.30
+
+SR
+Return
+
+0.21 
+0.24 
+−1.92 
+−4.18 
+−3.36 
+0.30 
+0.06 
+−0.67 
+30.21 
+8.80 
+15.75 
+17.65 
+0.18 
+
+Note: This table compares the performance of CBC-sorted portfolio with that of various characteristic-sorted portfolios. Panel A includes: total trade network centrality (TTNC), 
+trade imbalance (TImb), forward discount (FD), and global imbalance (GImb), variance–covariance weighted trade imbalance (𝐕-weighted TImb), as well as the average currency 
+excess return (DOL). TTNC is proposed by Richmond (2019), TImb is inspired by Gabaix and Maggiori (2015), FD is the carry trade characteristic from Lustig et al. (2011), GImb
+is used by Della Corte et al. (2016), and 𝐕-weighted TImb is inspired by Gabaix and Maggiori (2015, OA). The DOL is the currency ‘‘market’’ return in dollars available to a 
+U.S. investor (Lustig et al., 2011). Panel B includes alternative CBCs calibrated on other networks: 𝐶𝑃 𝐼𝑆, 𝐶𝑃 𝐼𝑆𝑇 𝐻 , 𝐶𝑃 𝐼𝑆𝐹 𝑅, 𝐹 𝐷𝐼, and 𝑅𝑀𝐴𝐷𝐽 . 𝐶𝑃 𝐼𝑆 is the network based on 
+the original financial linkages without any restatements reported in Coordinated Portfolio Investment Survey (CPIS). 𝐶𝑃 𝐼𝑆𝑇 𝐻 denotes the network based on the CPIS financial 
+linkages but reallocates only securities that, under residency, are issued by affiliates located in tax havens. 𝐶𝑃 𝐼𝑆𝐹 𝑅 refers to the network based on the CPIS financial linkages 
+and reallocates all securities that, under residency, are issued by affiliates from all countries. Detailed restatement procedures can be found in Coppola et al. (2021). 𝐹 𝐷𝐼 is 
+based on bilateral foreign direct investment stocks of all sample countries. 𝑅𝑀𝐴𝐷𝐽  refers to the network from Richmond (2019), which is based on the adjacency matrix of total 
+trade. For the characteristics in Panel A and 𝑅𝑀𝐴𝐷𝐽 , the sample period is from 2003 to 2021, which is the out-of-sample period for 𝛼 and 𝑤 calibration. For the alternative CBCs 
+based on 𝐶𝑃 𝐼𝑆, 𝐶𝑃 𝐼𝑆𝑇 𝐻 , 𝐶𝑃 𝐼𝑆𝐹 𝑅, and 𝐹 𝐷𝐼, the sample period is from 2008 to 2021 due to the data availability. Two sets of results, ‘‘updated’’ and ‘‘static’’, are reported 
+for CBC where CBC (updated) is calculated based on annually updated 𝛼 and 𝑤 while CBC (static) is based on static 𝛼 and 𝑤 calibrated from the initial sample before 2003. 
+The sorted portfolios are rebalanced yearly. All returns and Sharpe ratios are annualized. All returns are in percentage. All characteristics except the alternative CBCs based on 
+𝐶𝑃 𝐼𝑆, 𝐶𝑃 𝐼𝑆𝑇 𝐻 , 𝐶𝑃 𝐼𝑆𝐹 𝑅, and 𝐹 𝐷𝐼 are constructed based on information from the previous calendar year-end. For the alternative CBCs based on 𝐶𝑃 𝐼𝑆, 𝐶𝑃 𝐼𝑆𝑇 𝐻 , 𝐶𝑃 𝐼𝑆𝐹 𝑅, 
+and 𝐹 𝐷𝐼, 𝛼 and 𝑤 are calibrated in sample using their available sample period from 2008 to 2021. Currencies are sorted in ascending order into quartiles (G1 to G4) for all 
+characteristics except TTNC and GImb. Currencies are sorted in the descending order of TTNC. For GImb the G1 to G4 are formed from a 2 × 2 conditional double sorting by 𝑛𝑓 𝑎
+and 𝑙𝑑𝑐 following Della Corte et al. (2016). The last five columns, respectively, report Return (average return), Sharpe, FD (forward discount), SR (spot return), and  SR
+Return  of the 
+factors from longing G4 and shorting G1. ***, **, and * indicate the statistical significance level of 1%, 5%, and 10%, respectively. The significance level for the average return 
+is calculated from t-test.
+
+methods for the sorting variable over the out-of-sample period 2003-
+2021: recursive, where 𝑤 and 𝛼 are updated over time conditioning 
+on new information becoming available (CBC updated); and constant, 
+based on the calibrated values of 𝑤 and 𝛼 obtained over the 1995–2002 
+sample period (CBC static).
+
+Using the excess returns of the long–short strategy, we define a 
+tradable factor for each sorting variable mentioned above. For example, 
+the CBC factor is defined as the excess return of the long–short strategy 
+(G4 minus G1), where G1 and G4 portfolios are the first and fourth 
+quartile  portfolios  sorted  by  CBC,  respectively.  We  also  consider  a 
+dollar factor as in Lustig et al. (2011), i.e. the currency excess return on 
+a portfolio strategy long all foreign currencies with equal weights and 
+short the domestic currency, and denoted as DOL. This gives us seven 
+factors: CBC (which is available in two variants, updated and static),
+TTNC, TImb, FD, GImb, 𝐕-weighted TImb, and DOL. DOL is routinely 
+used as the first factor in candidate pricing kernels in a vast literature 
+on currency asset pricing, essentially playing the role of a level currency 
+factor similar to the market factor in equity asset pricing models.
+
+The  results  for  the  portfolio  sorts  for  CBC  and  the  benchmark 
+strategies described above are shown in Panel A of Table  2. Columns 
+G1 to G4 present the equal-weighted average excess returns of the 
+different portfolios. Recall that we use CBC in two different ways in 
+this out-of-sample analysis. Starting from the case where 𝑤 and 𝛼 are 
+updated over time conditioning on new information becoming available 
+(CBC updated), we find that the average returns increase monotonically 
+
+series on foreign assets and liabilities and gross domestic product (GDP) are 
+from Lane and Milesi-Ferretti (2001, 2007), kindly updated by Gian Maria 
+Milesi-Ferretti. The end-of-year series on the proportion of external liabilities 
+denominated in domestic currency are from Bénétrix et al. (2015), who update 
+the data from Lane and Shambaugh (2010), kindly provided by Philip Lane and 
+Agustín Bénétrix.
+
+from the first portfolio G1 to the last portfolio G4. When using CBC
+constructed based on the calibrated values of 𝑤 and 𝛼 obtained over the 
+1995–2002 period (CBC static), the results are qualitatively identical. 
+This result is not surprising given the stability displayed by 𝑤 and 𝛼
+over time illustrated earlier, and it is reassuring in that it should allay 
+any concern about potential look-ahead bias. The monotonic increase 
+in the excess returns of portfolios G1 to G4 also occurs for FD, i.e. carry. 
+Comparing the average excess returns of the long–short portfolio (long 
+G4 and short G1) shows that CBC clearly delivers, across all strategies, 
+the highest average return (statistically significant at least at the 5% 
+significance level), and the highest annualized Sharpe ratio, i.e., 0.54 
+and 0.65 for CBC updated and static, respectively.
+
+To see how the various characteristics perform over time, we also 
+plot the long–short portfolios’ cumulative returns from 2003 to 2021 in 
+Fig.  5. Several characteristics have strong performance before 2008, but 
+after 2008 CBC clearly dominates relative to other sorting variables.
+
+While our theoretical framework directly models the currency risk 
+premium 𝑟𝑝 as in Eq.  (10), and the variable 𝑟𝑥𝑖,𝑡 as defined in Eq.  (20) 
+serves as a precise empirical counterpart to 𝑟𝑝, it is instructive to dissect 
+the factor returns outlined in Table  2 into FD and SR. This allows us 
+to scrutinize the relative contributions of these two components to the 
+average excess returns resulting from various sorting variables, and to 
+ascertain whether a characteristic (strategy) generates returns only by 
+capturing the interest rate differential (carry, FD) across countries or 
+whether it also has predictive power for spot exchange rate returns 
+(SR). The results from decomposing the excess returns into the interest 
+rate component, FD, and the spot rate component, SR, are presented 
+in the last three columns of Table  2. We find that for CBC (updated), 
+2.5%, out of the 3.21% excess return, is attributable to FD, with a 
+similar value of 2.7% observed for CBC static. Consequently, the spot 
+component contributes around 21% (24%) of the excess return for the
+CBC updated (static) factor, which is non-trivial. The spot component 
+represents 30% of the GImb factor, and 6% of the 𝐕-weighted TImb fac-
+tor. However, for TTNC, TImb, and FD, the spot component is negative, 
+
+13 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+A.J. Hou et al.
+
+Journal of Financial Economics 172 (2025) 104112 
+
+Fig. 5.  Cumulative returns over time in portfolio sorting comparison.
+Note: This figure plots the cumulative returns of buying G4 and selling G1 in the portfolio sorting using as characteristics: CBC, total trade network centrality (TTNC), trade 
+imbalance (TImb), forward discount (FD), global imbalance (GImb), and variance–covariance weighted trade imbalance (𝐕-weighted TImb), as well as the average currency excess 
+return (DOL). TTNC is proposed by Richmond (2019), TImb is inspired by Gabaix and Maggiori (2015), FD is the carry trade characteristic from Lustig et al. (2011), GImb is used 
+by Della Corte et al. (2016), and 𝐕-weighted TImb is inspired by Gabaix and Maggiori (2015, OA). DOL is the currency ‘‘market’’ return in dollars available to a U.S. investor (Lustig 
+et al., 2011). The sample period is 2003–2021, which is the out-of-sample period in our out-of-sample analysis. All returns are in percentage. All characteristics are constructed 
+based on information one year prior to the realized currency returns. Currencies are sorted in the ascending order of CBC, TImb, FD, and 𝐕-weighted TImb, and in the descending 
+order of TTNC into quartiles (G1 to G4). For GImb the G1 to G4 are formed from a 2 × 2 conditional double sorting by 𝑛𝑓 𝑎 and 𝑙𝑑𝑐 following Della Corte et al. (2016). The 
+sorted portfolios are rebalanced yearly.
+
+indicating that these characteristics extract all of the positive excess 
+return from interest rate differentials. The FD factor (carry trade) stands 
+out with the highest FD component at 7%, but its spot component is 
+also the most negative at −5.4%, consistent with the literature and 
+the  mechanics  of  the  currency  carry  trade.  Overall,  with  the  spot 
+predictability component accounting for over 20% of its excess return,
+CBC is a currency characteristic that does not only capture interest rate 
+differentials but also predicts currency returns out of sample.
+
+4.1.2. Trade imbalance network v.s. alternative networks.
+
+In this section, we present the results from comparing the trade 
+imbalance network with alternative networks. These include: the CPIS 
+network, which is based on bilateral financial asset and liability link-
+ages; the FDI network, which is based on bilateral FDI; and the total 
+trade network of Richmond (2019). This allows us to analyze in more 
+depth the potential differences between the trade imbalance network 
+centrality and the centrality of the total trade network of Richmond 
+(2019), as well as network centrality measures based on both short-
+term (portfolio) flows and long-term (FDI) flows. To mitigate ‘‘resi-
+dency’’ bias, we use the restated CPIS data from Coppola et al. (2021) 
+for the available countries and then merge it with the original CPIS data 
+for other countries in our sample. The restated CPIS data covers the 
+period from 2007 to 2020, while the currency data spans 2008–2021.
+Due to the limited sample period and the low frequency of the data, 
+conducting both in-sample and out-of-sample analyses for the alterna-
+tive networks based on CPIS and FDI is not feasible. Therefore, we 
+restrict our analysis of the alternative networks to in-sample estimation 
+and apply the same method as in Section 3.3 to estimate the parameters 
+𝛼 and 𝑤 of Eq.  (26) for each alternative CBC constructed in this section.
+We compare the performance of these alternative CBCs against the 
+trade imbalance network-based CBC, and report the results in Panel B 
+of Table  2. The CPIS network is based on the original CPIS financial 
+linkages without restatements. 𝐶𝑃 𝐼𝑆𝑇 𝐻  adjusts the CPIS network by 
+reallocating securities issued by affiliates in tax havens. 𝐶𝑃 𝐼𝑆𝐹 𝑅 ex-
+tends this reallocation to securities issued by affiliates in all countries. 
+The FDI network is constructed from bilateral data covering all sample 
+countries. 𝑅𝑀𝐴𝐷𝐽 , from Richmond (2019), is based on the adjacency 
+matrix of total trade. These networks yield five alternative CBCs. The 
+results in Panel B of Table  2 make clear that none of the alternative 
+networks exhibit comparable performance to CBC constructed using the 
+trade imbalance network. Specifically, all long–short (G4-G1) portfolios 
+
+constructed from these alternative CBCs yield average excess returns 
+that are low and statistically insignificantly different from zero, and 
+low  Sharpe  ratios.  Furthermore,  the  excess  returns  from  G1  to  G4 
+do  not  display  a  monotonic  pattern.  These  results  suggest  that  the 
+trade imbalance network is empirically superior to these alternative 
+networks in terms of predictive power for the cross-section of currency 
+excess returns, which we interpret as evidence that the trade imbalance 
+network is (more) naturally aligned with our CBC measure, as predicted 
+by the theoretical framework.32
+
+4.1.3. Spanning regressions
+
+Next, we ask how the time-series variation of the CBC factor is 
+related to that of various factors. By design, this CBC factor captures 
+financiers’  limited  commitment  embedded  in  the  global  imbalance 
+network. Therefore, it is also interesting to check if the CBC factor is 
+correlated with intermediary asset pricing factors, in addition to all 
+other factors considered so far in Panel A of Table  2. To this end, 
+we consider two well-known intermediary asset pricing factors due 
+to Adrian et al. (2014, AEM) and He et al. (2017, HKM). The details 
+for constructing the tradable AEM and HKM factors are presented in 
+Internet Appendix I.
+
+According  to  Barillas  and  Shanken  (2017),  when  all  factors  are 
+tradable, OLS regressions are all that is needed to establish whether one 
+factor prices another and the focus can be directly on the alpha of the 
+regression. Therefore, we regress the CBC factor on each of the above 
+existing factors and examine the size and statistical significance of the 
+alpha in the regression to test whether any of these factors subsumes 
+the information in CBC. In essence, the alpha coefficients alongside 
+their statistical significance allow us to assess whether the CBC factor is 
+subsumed by these factors. The results are reported in Table  3a. These 
+results show that the alpha coefficients are statistically significant for 
+
+32 This result is particularly clear-cut, given that the alternative networks 
+are tested in sample, rather than out of sample, and yet they underperform 
+relative to CBC based on trade imbalances. We present in Internet Appendix 
+J.2 the in-sample results from estimating 𝛼 and 𝑤 for all alternative CBCs 
+on the same, overlapping sample period (2008–2021), for comparison. Given 
+these estimates of 𝛼 and 𝑤, the results also confirm over a common sample 
+period that the CBC measure constructed using the trade imbalance network 
+displays the strongest correlation with (predictive power for) currency excess 
+returns across all of the networks considered.
+
+14 
+
+A.J. Hou et al.
+
+Journal of Financial Economics 172 (2025) 104112 
+
+Beta
+
+T-Beta
+
+T-Alpha
+
+0.41***
+0.06
+0.29**
+
+2.43
+2.73
+2.24
+3.00
+3.07
+2.42
+2.82
+2.56
+
+3.51
+0.50
+2.23
+−0.40
+−2.38
+3.33
+1.45
+0.91
+
+Alpha (%)
+2.78**
+3.18***
+2.75**
+3.35***
+3.48***
+2.84**
+3.91***
+3.04**
+
+Table 3
+Time-series variation of CBC factor in relation to various factors.
+  (a) How well various factors explain the CBC factor
+  CBC is on LHS
+  TTNC
+  TImb
+  FD
+  GImb
+  𝐕-weighted TImb
+  DOL
+  AEM
+  HKM
+  (b) How well the CBC factor explains various factors
+  CBC is on RHS
+𝑅2
+10.00% 
+  TTNC
+0.24%  
+  TImb
+13.44% 
+  FD
+0.29%  
+  GImb
+12.02% 
+  𝐕-weighted TImb
+23.98% 
+  DOL
+4.14%  
+  AEM
+  HKM
+0.54%  
+Notes: Panel (a) in this table presents the Alpha and Beta coefficients from regressing the CBC factor (defined as the G4 - G1 
+portfolio returns) on various factors. Panel (b) presents the Alpha and Beta coefficients from regressing various factors on the
+CBC factor. The column labeled ‘T-Alpha’ (‘T-Beta’) reports the 𝑡-statistics of Alpha (Beta) estimates based on Newey–West 
+standard errors. Alpha estimates are in annualized percentage. ***, **, and * indicate 1%, 5%, and 10% significance levels, 
+respectively. The sample period is 2003–2021.
+
+Alpha (%)
+0.26
+0.27
+0.10
+2.13**
+2.97
+−0.90
+−1.52
+1.39
+
+𝑅2
+10.00% 
+0.24%  
+13.44% 
+0.29%  
+12.02% 
+23.98% 
+4.14%  
+0.54%  
+
+0.26
+0.25
+0.07
+1.97
+1.56
+−0.68
+−1.02
+1.43
+
+3.80
+0.49
+3.65
+−0.39
+−3.05
+5.63
+1.53
+0.98
+
+−0.04
+−0.55***
+0.54***
+0.18
+0.05
+
+−0.07
+−0.22**
+0.44***
+0.23
+0.11
+
+0.25***
+0.04
+0.47***
+
+T-Alpha
+
+T-Beta
+
+Beta
+
+all regressions, and they are economically large. This is clear evidence 
+that the CBC factor captures information that cannot be spanned by 
+these currency pricing factors or the intermediary asset pricing factors 
+considered.
+
+We then ask the question whether and how well the CBC factor 
+explains other factors by regressing each of these factors on the CBC
+factor. Again, we focus on the size and statistical significance of the 
+alpha in the regression to test whether CBC subsumes the information 
+in each of the factors considered.33 The results are reported in Table  3b. 
+We find that all of the alphas except one are statistically insignificantly 
+different from zero. The only exception is that the alpha coefficient of 
+the GImb factor of Della Corte et al. (2016) is statistically significant. 
+This suggests that although the GImb factor delivers a lower return than 
+the CBC factor in the performance comparison shown in Panel A of 
+Table  2, it carries some information that cannot be explained by the
+CBC factor, amounting to an alpha of just over 2% per annum.34
+
+4.1.4. Summing up
+
+In summary, the performance comparison in this section confirms 
+the predictive power of CBC both in- and out-of-sample, and further 
+suggests that its information content cannot be subsumed by any of 
+the alternative factors considered. In the following section, we proceed 
+to a formal cross-sectional asset pricing test.
+
+4.2. Cross-sectional asset pricing tests
+
+4.2.1. Motivating cross-sectional asset pricing tests
+
+Let us start by noting that it is not obvious analytically that our 
+theoretical framework implies heterogeneous risk exposures of CBC-
+sorted portfolios and, hence, the validity of cross-sectional asset pric-
+ing tests. This consideration applies equally to the Gabaix–Maggiori 
+
+theory on which our theory builds. We address this issue at the out-
+set of this section by studying the cross-sectional implications of the 
+Gabaix–Maggiori model via simulation.
+
+We report this simulation analysis in detail in Internet Appendix B, 
+whereas we summarize here only its main features and learning points. 
+We first show that the model can be rewritten as a nonlinear one-
+factor model for currency returns. Unsurprisingly, the cross-section of 
+currency returns cannot be expressed as an analytical function of the 
+risk exposure, say 𝛽, of a portfolio excess return sorted on CBC. In our 
+simulation design, we consider a two-period version of the model, and 
+allow for a generic source of uncertainty in the second period.35 We 
+then calibrate the model and conduct a simulation analysis to explore 
+the relationship between the model’s expected returns, CBC and 𝛽.
+
+The results of 1000 simulations (see Figure A4 in Internet Appendix 
+E) show clearly how the currencies of countries with positive (negative) 
+𝛽 experience positive (negative) average returns in equilibrium. This 
+evidence  confirms  the  intuition  that  the  model  implies  CBC-sorted 
+portfolios should have different risk exposures to a common risk factor, 
+justifying the use of cross-sectional asset pricing tests to verify the 
+validity of the model. See Internet Appendix B for a detailed discussion 
+of the design and results of these simulations. It is important to note, 
+however, that in the simulation CBC-sorted portfolios are not by design 
+related to risk exposures to the common factor, as we are not assuming 
+that CBC is correlated with risk exposures; put another way, currency 
+returns’ heterogeneous risk exposures arise endogenously instead of 
+exogenously from the simulation design.
+
+4.2.2. Results from asset pricing tests
+
+In the cross-sectional asset pricing tests, we consider a set of 24 test 
+assets, which are the four portfolio excess returns (G1 to G4) for each 
+
+33 See Hou and Robinson (2006) for a similar practice of placing a key factor 
+on either side of regressions separately.
+34 This is presumably because GImb is constructed using not only information 
+on external imbalances but also data on the proportion of external liabilities 
+denominated in domestic currency, which does not enter the construction of
+CBC.
+
+35 We refer to a ‘‘generic’’ source of uncertainty here because in the data 
+generating process uncertainty is not structurally related to financial interme-
+diation. However, in light of the empirical evidence presented later in the 
+paper that CBC-sorted excess returns comove with financial intermediation 
+capacity,  it  is  tempting  to  think  of  this  generic  source  of  uncertainty  as 
+capturing financial intermediation risk.
+
+15 
+
+A.J. Hou et al.
+
+Journal of Financial Economics 172 (2025) 104112 
+
+of the six sorting variables: CBC static, TTNC, TImb, FD, GImb and 𝐕-
+weighted TImb. We then perform the two-step Fama–Macbeth (FMB) 
+procedure using a two-factor pricing kernel with DOL and CBC.36
+
+In  Panel  A  of  Table   4,  we  present  the  results  of  the  first  step 
+of  the  FMB  procedure  applied  to  the  CBC  portfolios,  i.e.,  the  time 
+series regression of each CBC portfolio excess return on an intercept 
+(alpha), the DOL factor and the CBC factor. The estimated coefficients 
+of  the  DOL  factor  are  positive  and  strongly  statistically  significant, 
+but they are also similar for the four portfolio returns, as expected 
+from a level factor and consistent with the literature (Lustig et al., 
+2011; Della Corte et al., 2016). In contrast, the estimated coefficients 
+on the CBC factor increase monotonically from G1 (−0.417) to G4 
+(0.583),  indicating  clear  heterogeneous  exposures  of  the  four  CBC-
+sorted portfolios and suggesting that CBC is a slope, pricing factor. 
+Panel  A  also  reports  the  average  absolute  alpha,  both  for  the  four 
+time series regressions of the CBC portfolio excess returns and for all 
+24 time series regressions. These average absolute alphas are small, 
+and the Gibbons–Shanken–Ross tests (GRS4 and GRS24) suggest that 
+the null hypothesis that the alphas are jointly zero cannot be rejected 
+at  conventional  statistical  significance  levels.  In  turn,  this  evidence 
+indicates that the two-factor model can price both the cross-section of
+CBC-sorted portfolio returns and the full cross-section of 24 portfolio 
+excess returns.
+
+Panel B reports the results of the second step of the FMB procedure, 
+i.e., the cross-sectional regression, where we estimate the price of risk 
+of  CBC.  In  addition  to  the  24  average  portfolio  excess  returns,  we 
+also add the six benchmark factors (G4 - G1, see Section 4.1) to the 
+test assets, as suggested by Lewellen et al. (2010). The risk premium 
+estimate for DOL (𝜆𝐷𝑂𝐿) is statistically significant, but it is small in 
+magnitude, less than one percent annualized (0.056 × 12 = 0.672), 
+which is not surprising and consistent with the literature. The risk 
+premium estimate of the CBC factor (𝜆𝐶𝐵𝐶 ) is positive and strongly 
+statistically significant; its magnitude implies a risk premium of more 
+than four percent annualized (0.344 × 12 = 4.128). The cross-sectional 
+regression has an 𝑅2 of 0.753, suggesting that the model adequately 
+captures the cross-sectional variation in the test asset returns. Further-
+more, the result from the 𝜒 2 test for the null that the alphas are jointly 
+zero confirms the earlier conclusion from the GRS test and indicates 
+that the pricing errors are statistically insignificantly different from 
+zero.
+
+In Panel C, we report results from the second step of FMB where 
+we fix the risk premium of CBC to its sample mean, which is 0.298. By 
+no-arbitrage, since CBC is a return-based factor, the estimate of the risk 
+premium must equal the factor mean. However, in Panel B, we find that 
+the 95% confidence interval of the estimated 𝜆𝐶𝐵𝐶 does not include (by 
+a very small margin) the sample mean of the CBC factor.37 Therefore, 
+it seems useful to check that the two-factor model prices the test assets 
+when the risk premium of CBC is set to be the factor mean. We find that 
+the 𝑅2 is lower in this case (0.454), but the 𝜒 2 test continues to confirm 
+that the pricing errors are zero and hence the results are qualitatively 
+identical. This verifies that the pricing ability of the two-factor model 
+does not depend on the ability to treat 𝜆𝐶𝐵𝐶 as a free parameter in 
+estimation.
+
+Overall, the asset pricing test results in this section confirm that 
+currency risk premia are tightly linked to the CBC factor, which is 
+strongly priced in the cross-section of test assets considered in our 
+setting.
+
+36 In the asset pricing tests below, we use CBC in its static variant, but the 
+results are qualitatively unchanged when using its updated variant.
+37 Specifically, given the estimate of the standard error of 0.041, the lower 
+bound of the 95% confidence interval is 0.303, whereas the sample mean of 
+the CBC factor is 0.298, which is consistent with the annualized value of 3.58% 
+reported in Panel A of Table  2.
+
+Table 4
+Results from cross-sectional asset pricing tests.
+  Panel A: Fama–MacBeth regression step one
+
+  CBC 1
+  Std err
+  CBC2
+  Std err
+  CBC3
+  Std err
+  CBC4
+  Std err
+
+𝛽𝐷𝑜𝐿
+
+0.879***
+0.014
+1.031***
+0.026
+1.184***
+0.023
+0.879***
+0.014
+
+p-value
+
+𝛽𝐶𝐵𝐶
+
+−0.417***
+0.022
+−0.135***
+0.045
+−0.028
+0.027
+0.583***
+0.022
+
+𝑅2
+
+0.945
+
+0.881
+
+0.932
+
+0.972
+
+𝑛−𝑘
+
+𝑛−𝑘
+
+𝜒 2
+
+𝜒 2
+
+𝑅2
+
+𝑅2
+
+0.298
+
+0.454
+
+0.006
+
+0.999
+
+0.055
+
+0.007
+
+0.753
+
+0.056
+
+p-value
+
+p-value
+
+0.344
+0.024
+
+0.035
+0.041
+
+0.712
+0.167
+
+  GRS4
+  GRS24
+  ̄𝛼𝑎𝑏𝑠,4
+  ̄𝛼𝑎𝑏𝑠,24
+  Panel B: Fama–MacBeth regression step two
+  𝜆𝐷𝑂𝐿
+  Std err
+  𝜆𝐶𝐵𝐶
+  Std err
+  Panel C: Fama–MacBeth regression step two with 𝜆𝐶𝐵𝐶 fixed
+  𝜆𝐷𝑂𝐿
+  Std err
+  𝜆𝐶𝐵𝐶
+Note:  In  this  table,  we  report  the  results  from  the  Fama–Macbeth  cross-sectional 
+regression. The test assets include four portfolios sorted on CBC (static), and the five 
+other benchmark characteristics: Total trade network centrality (TTNC), proposed by 
+Richmond (2019); trade imbalance (TImb), defined as total net import (equivalent to 
+setting 𝚪 equal to 𝐈); forward discount (FD), a common carry trade characteristic in the 
+literature, e.g., Lustig et al. (2011); global imbalances (GImb), studied by Della Corte 
+et al. (2016); and variance–covariance weighted trade imbalance (𝐕-weighted TImb), 
+denoted as 𝐕𝑞 (equivalent to setting 𝚪 equal to 𝐕). DOL represents the currency excess 
+return on a portfolio strategy that longs all foreign currencies with equal weights and 
+shorts the domestic currency (USD). Panel A reports the results from the first step of the 
+Fama–MacBeth regression, conducted using the 24 test assets of the six characteristics. 
+‘Std err’ denotes the standard error. GRS4 and GRS24 are tests for the four CBC and the 
+24 test assets, respectively, as described by Gibbons et al. (1989) testing whether the 
+intercepts of the regression are jointly different from zero. The p-values are reported. 
+̄𝛼𝑎𝑏𝑠,4 and ̄𝛼𝑎𝑏𝑠,24 represent the averages of the absolute values of the alphas obtained 
+from regressions of the four and 24 test assets, respectively. Panel B reports the results 
+from the second step of the Fama–MacBeth regression using both the 24 test assets and 
+the six factors. 𝜒 2
+𝑛−𝑘 tests if the intercepts are jointly zero. The p-values are reported. 
+Panel C repeats the same regression as Panel B, but with the CBC risk premium fixed 
+at 0.298, the sample mean return of the CBC factor. All regressions are based on the 
+monthly log returns. ***, **, and * indicate the statistical significance level of 1%, 5%, 
+and 10%, respectively.
+
+0.999
+
+4.3. The dominant role of neighborhood importance
+
+In the Gabaix–Maggiori theory, the external imbalances in the trad-
+ing network are a key characteristic explaining currency risk premia, 
+as the expected currency appreciation in a country is positively related 
+to the long position in bonds that financiers hold in this country. The 
+value  of  this  position  is  the  total  imbalance  (deficit  defined  to  be 
+positive, and surplus defined to be negative) of this country in Gabaix 
+and  Maggiori  (2015).  As  shown  in  Proposition   1,  the  result  that  𝑞
+is both the total imbalance and the position financiers hold can be 
+generalized to a multi-country setting. However, whether the cross-
+sectional relation between the currency risk premia and 𝑞 is positive 
+is not straightforward given that Γ is now a matrix, while it is a scalar 
+in a two-country setting.
+
+To see this point in our setting, we spell out from Eq.  (10) the 𝑖th 
+)
+element of E ( ̄𝑥1 − 𝑥0
+, which we call 𝑟𝑝𝑖 (i.e., risk premia for currency 
+𝑖) for convenience: 𝑟𝑝𝑖 = Γ𝑖𝑖𝑞𝑖 + ∑
+𝑘≠𝑖 Γ𝑖𝑘𝑞𝑘. The difference between 
+the risk premia of two currencies 𝑖 and 𝑗 is: (see the Eq.  (27) given 
+as in Box  III) where 𝛥𝑞𝑖𝑗 = 𝑞𝑖 − 𝑞𝑗 . Thus Eq.  (27) makes clear that the 
+
+16 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+A.J. Hou et al.
+
+Journal of Financial Economics 172 (2025) 104112 
+
+(27)
+
+Neighb. 
+−0.013  
+(0.096)  
+0.684  
+(0.131)
+
+Indiv.  
+
+𝑟𝑝𝑖 − 𝑟𝑝𝑗 = Γ𝑖𝑖𝑞𝑖 +
+
+Γ𝑖𝑘𝑞𝑘 − Γ𝑗𝑗 𝑞𝑗 −
+
+Γ𝑗𝑘𝑞𝑘
+
+∑
+
+𝑘≠𝑗
+) 𝑞𝑗 +
+
+∑
+
+𝑘≠𝑖
+(Γ𝑖𝑖 − Γ𝑗𝑖
+
+=
+
+=
+
+) 𝑞𝑖 −
+
+(Γ𝑗𝑗 − Γ𝑖𝑗
+
+∑
+
+(Γ𝑖𝑘 − Γ𝑗𝑘
+
+) 𝑞𝑘
+
+) 𝛥𝑞𝑖𝑗
+(Γ𝑖𝑖 − Γ𝑗𝑖
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏟
+total imbalance
+
++
+
+)
+
+)] 𝑞𝑗
+[(Γ𝑖𝑖 − Γ𝑗𝑖
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+individual importance
+
+−
+
+𝑘≠𝑖 or 𝑗
+(Γ𝑗𝑗 − Γ𝑖𝑗
+
++
+
+∑
+
+) 𝑞𝑘
+(Γ𝑖𝑘 − Γ𝑗𝑘
+𝑘≠𝑖 or 𝑗
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+neighborhood importance
+
+Box III. 
+
+Table 5
+Panel regression results for three components.
+
+  Total Imb.
+
+  Indiv.
+
+  Neighb.
+
+Pair-wise currency premia difference
+0.142***
+(4.62)
+
+0.075***
+(3.57)
+
+0.339***
+(18.06)
+
+0.064**
+(2.18)
+0.074***
+(3.73)
+0.326***
+(16.33)
+
+7211
+8.13
+Pair & year
+
+7211
+2.16
+Pair & year
+
+7211
+2.42
+Pair & year
+
+  Observations
+7211
+  Adjusted R2 (%)
+8.39
+  Fixed Effects
+Pair & year 
+Note: This table presents the standardized beta coefficients from panel regressions of 
+the pair-wise currency premia differences on total imbalance (Total Imb.), individual 
+importance (Indiv.) and neighborhood importance (Neighb.), univariate (columns 2 to 
+4) and multivariate (column 5). The regressions use 7211 pair-year data. 𝑡-statistics 
+based on robust standard errors are reported in parentheses. Number of observations 
+and adjusted R2’s are reported at the bottom. Both pair-specific and year fixed effects 
+are controlled. The sample period is 2003–2021.
+
+cross-sectional variation in 𝑟𝑝𝑖 has three components: total imbalance, 
+individual importance, and neighborhood importance. This means that 
+the  total  imbalance  𝑞  is  not  the  sole  driver  of  the  cross-section  of 
+currency risk premia. Indeed, 𝑞𝑖 > 𝑞𝑗 does not necessarily imply 𝑟𝑝𝑖 >
+𝑟𝑝𝑗 except for most simplified cases, e.g., when Γ is a diagonal matrix 
+with Γ𝑖𝑖 positively related to 𝑞𝑖. In essence, Eq.  (27) highlights the 
+importance of the network structure reflected in Γ for explaining the 
+cross-section of currency risk premia. Next, we explore the role of Γ
+as a function of 𝐀 in explaining currency risk premia. Guided by Eq. 
+(27), we can empirically analyze the relative importance of these three 
+components in driving the cross-section of currency premia via both 
+panel regressions and a variance decomposition.
+
+First, using panel regressions, we regress pair-wise realized cur-
+rency  premia  differences  on  these  three  components.  To  gauge  the 
+relative explanatory power of each component, we follow Johannesson 
+et al. (2023) and report the standardized beta coefficients for these 
+regressions in Table  5, enabling direct comparison across regressions. 
+The univariate regressions in Columns 2 to 4 of Table  5 reveal that 
+the neighborhood importance component has a standardized beta co-
+efficient of about 0.34, more than twice that of the total imbalance 
+component (0.14) and four times that of the individual importance 
+component (0.08). In the multivariate regression (column 5 of Table  5), 
+the standardized beta coefficients for the individual and neighborhood 
+importance components remain nearly unchanged, while that of the 
+total imbalance component decreases by half. This pattern is also re-
+flected in the adjusted R2 values. Overall, this panel regression exercise 
+showcases the dominant role of neighborhood importance in explaining 
+the actual pair-wise currency premia differences and, therefore, the 
+value added of allowing for network effects to explain currency risk 
+premia.
+
+Second, we use the model to decompose all unique pair-wise cur-
+rency premia differences, 𝛥𝑟𝑝𝑖,𝑗 = 𝑟𝑝𝑖 − 𝑟𝑝𝑗 defined in Eq.  (27), into the 
+three components over all sample years, allowing for a variance de-
+composition. Thus, in this variance decomposition, we focus on model-
+implied (rather than realized) pair-wise currency premia differences. 
+
+Table 6
+Variance decomposition of model-implied currency premia.
+  (a) Mean and variance ratio
+
+  Mean
+
+  VR
+
+𝛥𝑟𝑝𝑖,𝑗
+
+−0.014
+(0.116)
+–
+
+  (b) Correlation matrix
+
+  Total Imb.
+
+  Indiv.
+
+Total Imb.
+−0.007
+(0.039)
+0.114
+(0.055)
+
+Indiv.
+
+0.005
+(0.026)
+0.049
+(0.037)
+
+𝛥𝑟𝑝𝑖,𝑗
+
+Total Imb.
+
+0.568
+(0.159)
+0.073
+(0.261)
+0.958
+(0.032)
+
+−0.424
+(0.305)
+0.392
+(0.159)
+
+  Neighb.
+
+−0.007 
+(0.244) 
+Note: Panel (a) presents the sample mean (Mean) of 𝛥𝑟𝑝𝑖,𝑗 , total imbalance (Total 
+Imb.), individual importance (Indiv.) and neighborhood importance (Neighb.), and 
+the variance ratio (VR) of Total Imb., Indiv. and Neighb. VR is defined as ratio of 
+sample variance of one of the three components to that of 𝛥𝑟𝑝𝑖,𝑗 . Panel (b) presents the 
+correlation coefficient matrix of 𝛥𝑟𝑝𝑖,𝑗 , Total Imb., Indiv. and Neighb. Standard errors 
+are shown in parentheses. The standard error of Mean is the sample standard deviation. 
+Other standard errors are the time-series standard deviation of yearly estimates. The 
+sample period is 2003–2021.
+
+We  adjust  the  three  components  so  that  each  year’s  model-implied 
+premia have the same min and max values as their empirical coun-
+terparts in that year via an affine rank-preserving transformation.38 
+The variance decomposition exercise is in the spirit of Nozawa (2017). 
+Pooling all these pair-year data together (both cross-sectional and time-
+series) allows us to compute the variance ratios of the three components 
+relative to 𝛥𝑟𝑝𝑖,𝑗 .39
+
+The  results  are  presented  in  Table   6.  The  sample  means  of  the 
+three components are close to zero, so is the sample mean of 𝛥𝑟𝑝𝑖,𝑗 , as 
+shown in Table  6a. The variance ratio (VR) results in Table  6a provide 
+interesting insights: the total imbalance component explains about 11% 
+of the cross-sectional variation in the implied currency premia; the 
+individual importance component explains very little of the variation, 
+about 5%; the majority, around 68%, of the variation is explained by 
+the neighborhood importance component. This result further highlights 
+the importance of considering all three components rather than just 
+total imbalances, as predicted by the theory.
+
+38 Given a vector of 𝑣, a target maximum 𝑎, and a target minimum 𝑏, the 
+affine rank-preserving transformation is defined as:
+
+̄𝑣 =
+
+[
+
++
+
+𝑎
+max(𝑣) − min(𝑣)
+[
+
+max(𝑣)𝑏
+max(𝑣) − min(𝑣)
+
+−
+
+𝑏
+max(𝑣) − min(𝑣)
+
+]
+
+𝑣
+
+−
+
+min(𝑣)𝑎
+max(𝑣) − min(𝑣)
+
+]
+
+.
+
+Since ̄𝑣 is an affine transformation of 𝑣, it preserves the rankings of elements 
+in 𝑣. From the above definition, max( ̄𝑣) = 𝑎 and min( ̄𝑣) = 𝑏.
+39 The elements of 𝑞 are involved in the variance decomposition through all 
+three components as shown in Eq.  (27).
+
+17 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+A.J. Hou et al.
+
+Journal of Financial Economics 172 (2025) 104112 
+
+Fig. 6.  Variance decomposition with varying 𝛼 and 𝑤.
+Note: The panels in this figure plot the (re-scaled) variance ratios of total imbalance (Total Imb.), individual importance (Indiv.), and neighborhood importance (Neigh.) given 
+different values of 𝛼 and 𝑤. 𝛼 goes from 0 to 0.9 in all three panels. The left panel shows the variance ratios components for 𝑤 = 0.05, the center panel for 𝑤 = 0.5, and the 
+right panel for 𝑤 = 0.9. The results are generated based on the data in the out-of-sample period, from 2003 to 2021. For ease of presentation, the variance ratios are re-scaled to 
+sum of one, with their relative importance preserved for each combination of 𝛼 and 𝑤.
+
+It is worth noting that the VRs do not add up to one as the three 
+components are not orthogonal by construction. Their correlation coef-
+ficients are shown in Table  6b. Again, among the three components, the 
+neighborhood importance has a very high correlation with 𝛥𝑟𝑝𝑖,𝑗 (0.96 
+with a standard error of 0.03). The total imbalance component is also 
+significantly positively correlated with 𝛥𝑟𝑝𝑖,𝑗 (0.57 with standard error 
+of  0.16).  The  individual  importance  component  is  not  significantly 
+correlated with 𝛥𝑟𝑝𝑖,𝑗 or either of the other two components. The total 
+imbalance and the neighborhood importance components are positively 
+correlated, which is intuitively consistent with the notion that countries 
+with a larger imbalance tend to have larger centrality and stronger 
+connections with other countries.
+
+To show the extent to which 𝛼 and 𝑤 affect the distribution of the 
+VRs, we vary 𝛼 and 𝑤 from zero to one and recompute these VRs for 
+various combinations of 𝛼 and 𝑤 from the variance decomposition. 
+The results are shown in Fig.  6. Overall, the results confirm that the 
+neighborhood component is crucial in explaining the cross-sectional 
+variation in the implied currency premia when 𝛼 is not zero and 𝑤
+is not one. The total imbalance dominates the other two components 
+only when 𝛼 approaches zero and 𝑤 approaches one, i.e., when Γ
+approaches the identity matrix, 𝐈.40
+
+As specified in Eq.  (22), our empirical setup has much flexibility 
+that accommodates the total imbalance component-only scenario as a 
+special case (𝑤 = 1 and 𝛼 = 0). The fact that the calibrated model 
+is far away from the total imbalance component-only scenario speaks 
+directly to the importance of the trade imbalance network in explaining 
+the variation of the implied currency premia. The results in Table  6 
+and Fig.  6 quantify the relative importance of the three components, 
+echoing the same message from the panel regressions in Table  5. The 
+dominance of the neighborhood importance component highlights the 
+essential role of trade imbalance network centrality emphasized in our 
+theoretical motivation.
+
+4.4. Relationships between trade imbalance network and risk bearing ca-
+pacity
+
+In this section, we present more direct evidence on the relationship 
+between the trade imbalance network and financiers’ risk-bearing ca-
+pacity. Risk bearing capacity as such is not observable since it is a 
+concept that captures various dimensions that affect the willingness 
+and/or ability of financiers to bear risk.
+
+40 It is interesting to note that the effect of 𝛼 on the neighborhood im-
+portance is nonlinear: as 𝛼 moves away from zero towards one, the impact 
+increases and peaks around 𝛼 = 0.3, and then decreases slightly and stabilizes. 
+This observation could be a feature embedded in the global trade imbalance 
+network.
+
+18 
+
+4.4.1. Evidence from excess returns and common proxies of risk-bearing 
+capacity
+
+First, we examine how the currency excess returns obtained from 
+portfolios sorted on CBC correlate with various proxies for risk-bearing 
+capacity.  To  this  end,  we  consider  various  proxies  for  risk-bearing 
+capacity proposed in the existing literature. In Gabaix and Maggiori 
+(2015)’s framework, risk-bearing capacity is influenced by shocks to 
+conditional foreign exchange (FX) volatility. Della Corte et al. (2016) 
+utilize changes in the VXY index as a stand-in for conditional FX volatil-
+ity risk to approximate risk-bearing capacity. Two VXY indices (VXY-G7 
+and VXY-EM), developed by JP Morgan, serve as the FX equivalent of 
+the VIX index and track the implied volatility of currencies in G7 and 
+emerging countries, respectively. They capture overall currency volatil-
+ity by using a turnover-weighted approach. This method aggregates 
+volatility  data  from  three-month,  at-the-money  forward  options  for 
+each currency group (G7 or emerging markets). Meanwhile, Fang and 
+Liu (2021) theoretically and empirically show that leverage constraints 
+of financiers drive exchange rates, using the TED spread, exchange 
+rate volatility, and the liquidity-based measure of financial commercial 
+paper outstanding (FCPO) as proxies.
+
+Following this literature, we proxy financiers’ risk-bearing capacity 
+using the TED spread, defined as the interest rate difference between 
+three-month  interbank  deposit  rate  and  three-month  Treasury  bill; 
+the foreign exchange volatility indices VXY-G7 and VXY-EM; and the 
+liquidity-based measure FCPO. In addition, we also employ another 
+illiquidity-based proxy specific for the FX market, the global FX bid–ask 
+spread (GBAS), introduced by Menkhoff et al. (2012a).41 Finally, we 
+also consider the Chicago Board Options Exchange (CBOE) Volatility 
+Index, VIX.
+
+All of the above indicators are counter-cyclical (the TED spread, 
+volatility indices, illiquidity), except for FCPO. Therefore, risk bearing 
+capacity is expected to be high (low) when the TED spread, volatility 
+indices VIX, VXY-G7, VXY-EM, and the illiquidity measure GBAS are 
+low (high), and when FCPO is high (low). Since the excess returns of 
+the CBC strategy are pro-cyclical (given their positive average mean), 
+they are expected to be high in good times (when risk bearing capacity 
+is high), and low in bad times (when risk bearing capacity is low). This 
+means that one would expect that CBC excess returns are correlated 
+negatively with all of these proxies of risk-bearing capacity except for 
+
+41 The GBAS measure from Menkhoff et al. (2012a), denoted as 𝜓 𝐹 𝑋
+
+, is 
+
+𝑡
+
+)]
+
+[
+
+∑
+
+∑
+
+𝜏∈𝑇𝑡
+
+𝜅∈𝐾𝜏
+
+( 𝜓 𝜅
+𝜏
+𝐾𝜏
+
+calculated as, 𝜓 𝐹 𝑋
+
+𝑡 = 1
+𝑇𝑡
+
+, where 𝜓 𝜅
+
+𝑡  is the percentage bid–ask 
+
+spread of currency 𝜅 on day 𝜏. Higher BAS values indicate lower liquidity, so 
+the aggregate measure 𝜓 𝐹 𝑋
+ serves as a global proxy for FX market illiquidity. 
+𝑇𝑡 denotes the total number of trading days in month t.
+
+𝑡
+
+A.J. Hou et al.
+
+Journal of Financial Economics 172 (2025) 104112 
+
+VIX
+
+TED
+
+FCPO
+
+VXY-G7
+
+VXY-EM
+
+0.097
+1.459
+0.146
+
+−0.061
+−0.922
+0.357
+
+−0.150**
+−2.274
+0.024
+
+−0.356***
+−5.020
+0.000
+
+−0.341***
+−4.787
+0.000
+
+−0.280***
+−4.388
+0.000
+
+−0.345***
+−5.530
+0.000
+
+−0.214***
+−3.297
+0.001
+
+−0.338***
+−4.735
+0.000
+
+−0.503***
+−7.680
+0.000
+
+Table 7
+Link between imbalance network and risk bearing capacity.
+  Returns
+  CBC strategy
+  𝑡-statistic
+  𝑝-value
+  Group 1
+  𝑡-statistic
+  𝑝-value
+  Group 2
+  𝑡-statistic
+  𝑝-value
+  Group 3
+  𝑡-statistic
+  𝑝-value
+  Group 4
+−0.502***
+  𝑡-statistic
+−7.658
+  𝑝-value
+0.000
+Note: This table shows correlations between the excess returns from portfolios sorted on CBC and various proxies for risk-bearing capacity, 
+including the TED spread (TED, defined as the interest rate difference between three-month interbank deposit rate and three-month Treasury 
+bill); implied volatility indices for the equity market (VIX) and foreign exchange markets (VXY-G7 for G7 countries and VXY-EM for emerging 
+markets); financial commercial paper outstanding (FCPO); and the global bid–ask spread (GBAS, the global foreign exchange illiquidity measure 
+proposed by Menkhoff et al. 2012a). The table presents the correlations between the excess returns of the CBC strategy (G4 minus G1) and the 
+four groups of portfolios (G1 to G4) sorted in ascending order of CBC, with the proxies for risk bearing capacity. All returns are annualized. All 
+risk bearing capacity proxies are in the form of log differences, except for GBAS, which is in first differences. ***, **, and * indicate statistical 
+significance levels of 1%, 5%, and 10%, respectively. The sample period is 2003–2021.
+
+GBAS
+−0.138**  
+−2.102
+0.037
+−0.170*** 
+−2.597
+0.010
+−0.277*** 
+−4.338
+0.000
+−0.212*** 
+−3.254
+0.001
+−0.220*** 
+−3.384
+0.001
+
+−0.6081***
+−10.103
+0.000
+
+−0.562***
+−8.952
+0.000
+
+−0.372***
+−6.031
+0.000
+
+−0.615***
+−10.275
+0.000
+
+−0.404***
+−6.645
+0.000
+
+−0.196***
+−3.007
+0.003
+
+−0.445***
+−7.471
+0.000
+
+−0.454***
+−6.713
+0.000
+
+−0.472***
+−7.069
+0.000
+
+−0.150**
+−2.275
+0.024
+
+0.243***
+3.770
+0.000
+
+0.279***
+4.369
+0.000
+
+0.298***
+4.695
+0.000
+
+0.242***
+3.744
+0.000
+
+FCPO. One would also expect that the exposure of G4 portfolio excess 
+returns sorted on CBC is strongly negative (positive) for counter-cyclical 
+(pro-cyclical) indicators, and that G1 portfolio excess returns are less 
+strongly exposed to these proxies.
+
+We calculate the correlations between the annualized returns of 
+the CBC strategy (G4 minus G1) and the four portfolio groups (G1 to 
+G4) sorted in ascending order of CBC, with each of the proxies for 
+risk-bearing capacity — namely, the TED spread, VIX, VXY-G7, VXY-
+EM, FCPO, and GBAS.42 The correlation results, presented in Table  7, 
+show that the excess returns of the CBC strategy (G4-G1) are negatively 
+correlated with all risk-bearing capacity measures, except for FCPO, 
+consistent with the notion that CBC excess returns are higher when risk 
+bearing capacity is high. The correlation with FCPO is not statistically 
+significantly different from zero, although it has the expected posi-
+tive sign, whereas the correlations with all other proxies are strongly 
+statistically significantly different from zero.
+
+We  also  note  from  Table   7  that  the  individual  portfolio  excess 
+returns sorted on CBC (G1 to G4) comove with these proxies for risk-
+bearing capacity with the same sign as the CBC strategy excess returns 
+(and statistically significant), but the correlation of the excess returns 
+for G4 is higher (in absolute size) than the correlation for G1. Indeed, 
+for  three  indicators  (the  TED  spread,  VIX,  VXY-G7),  the  exposures 
+display a monotonic pattern as one moves from G1 to G4. This is again 
+consistent with what one would expect if the trade imbalance network 
+is related to risk bearing capacity. However, it is also clear that the 
+correlations are far from being perfect, with the strongest correlation 
+reaching about −0.615 (for VXY-EM with the CBC Group 3 returns). In 
+turn, this suggests that, while CBC excess returns are related to all of 
+these proxies that capture different dimensions of risk bearing capacity, 
+none of these proxies is likely to subsume fully the information in CBC 
+excess returns.
+
+4.4.2. Evidence from CBC and sovereign debt holdings
+
+Next, we explore the direct association between CBC and sovereign 
+debt  holdings.  As  highlighted  by  Fang  et  al.  (2025),  the  evolving 
+
+42 All risk-bearing capacity proxies are calculated as log differences, except 
+GBAS, which is calculated in first differences. We have also tested AR(1) 
+residuals and percentage change transformations for these variables and the 
+results are qualitatively the same.
+
+composition of sovereign debt investors offers valuable insights into fi-
+nanciers’ sensitivity to financing costs and sovereign debt sustainability. 
+Given that sovereign debt is primarily held by institutional investors, 
+we argue that net sovereign holdings – defined as domestic investors’ 
+holdings minus foreign investors’ holdings – are related to their risk-
+bearing capacity and outside options. Specifically, when financiers have 
+better  outside  options  (e.g.,  due  to  the  greater  complexity  of  their 
+balance sheets stemming from operating in a more central position 
+in the global trade imbalance network), their risk-bearing capacity is 
+lower (Gabaix and Maggiori, 2015). In such cases, they can secure 
+higher currency returns by investing their capital abroad, leading them 
+to  reduce  their  holdings  of  domestic  bonds.  In  our  model,  CBC  is 
+expected to be negatively associated with risk bearing capacity and, 
+therefore, positively associated with outside options. Consequently, the 
+mechanism in our theoretical framework implies a negative correlation 
+between CBC and net sovereign holdings. In Fig.  7 we provide evidence 
+that supports this logical implication of the mechanism.
+
+For this exercise, we employ a subset of the data used and made 
+available  by  Fang  et  al.  (2025),  to  match  our  sample  period  and 
+universe of countries. These data contain the domestic and foreign 
+holdings of sovereign debt in 27 currencies. The domestic holdings are 
+decomposed into domestic central bank (CB), domestic bank (DB), and 
+domestic non-bank holdings (DN); the foreign holdings are decomposed 
+into  foreign  official  (OF),  foreign  bank  (FB),  and  foreign  non-bank 
+holdings (FN).43 The holdings of bank and non-bank institutions are 
+of course very different from the holdings of central banks and inter-
+national agencies, as the latter are far less (or not at all) motivated by 
+risk-return considerations, and indeed (Fang et al., 2025) argue that 
+(changes in) these holdings are largely inelastic to changes in prices. 
+Therefore, we consider not only total net sovereign holdings, but also 
+net sovereign holdings net of the official sector (i.e. net of the central 
+banks and official groups), and the net holdings of the official sector, 
+separately. Specifically, we define three net sovereign debt holdings 
+ratios: (1) the net sovereign debt non-official holding ratio, defined 
+as domestic bank plus domestic non-bank minus foreign bank minus 
+foreign non-bank, scaled by total sovereign debt outstanding, [𝐷𝐵 +
+𝐷𝑁 − 𝐹 𝐵 − 𝐹 𝑁]∕𝐷; (2) the net sovereign debt holding ratio, defined 
+
+43 For more details of the data, the reader is referred to the data section and 
+Internet Appendix of Fang et al. (2025).
+
+19 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+A.J. Hou et al.
+
+Journal of Financial Economics 172 (2025) 104112 
+
+Fig. 7.  CBC and sovereign debt net (domestic - foreign) holdings.
+Note: This figure presents the average net sovereign debt holding ratios across four groups, G1 to G4, based on three distinct definitions: (1) net sovereign debt non-official holding 
+ratio, defined as domestic bank plus domestic non-bank minus foreign bank minus foreign non-bank, scaled by total sovereign debt outstanding (represented by bars with solid 
+outlines); (2) net sovereign debt holding ratio defined as domestic total holdings minus foreign total holdings, scaled by total sovereign debt outstanding (represented by bars with 
+dashed outlines); (3) net sovereign debt official holding ratio defined as domestic central bank holdings minus foreign official holdings, scaled by total sovereign debt outstanding 
+(represented by bars with dash-dotted outlines). These net sovereign debt holding ratios are sorted annually into quartiles (G1 to G4) in ascending order based on their currency’s
+CBC. The sample period spans from 2000 to 2018. Sovereign debt holding data are sourced from Fang et al. (2025). The figure legends display the correlation coefficients between 
+CBC and the three net sovereign debt holding ratios, with statistical significance denoted by stars: ***, **, and * indicate significance at the 1%, 5%, and 10% levels, respectively.
+
+as domestic holdings minus foreign holdings, scaled by total sovereign 
+debt outstanding, [𝐷𝐵 + 𝐷𝑁 − 𝐹 𝐵 − 𝐹 𝑁 + (𝐶𝐵 − 𝑂𝐹 )]∕𝐷; (3) the net 
+sovereign debt official holding ratio, defined as domestic central bank 
+holdings minus foreign official holdings, scaled by total sovereign debt 
+outstanding, [𝐶𝐵 − 𝑂𝐹 ]∕𝐷. These net sovereign debt holding ratios are 
+sorted annually into quartiles (G1 to G4) in ascending order based on 
+their currency’s CBC. Fig.  7 shows the over-time average values of these 
+ratios across the four groups, G1 to G4. Among the three investor types, 
+non-official investors (bank and non-bank investors) are conceptually 
+closest to the financiers in our model, and hence our primary interest 
+is on the behavior of the net sovereign debt non-official holding ratio.
+The results shown in Fig.  7 indicate that the net sovereign debt 
+non-official  holding  ratio  decreases  monotonically  from  G1  to  G4, 
+which  suggests  domestic  bank  and  non-bank  institutions  hold  less 
+of the outstanding debt for higher CBC countries. This is consistent 
+with CBC being associated negatively with risk-bearing capacity. This 
+interpretation is further supported by the negative correlation between 
+CBC and the net sovereign debt non-official holding ratio (about −0.1), 
+which is statistically significant at the 5% level.
+
+This  monotonicity  pattern  also  holds  for  the  net  sovereign  debt 
+holding ratio, which is not surprising because the net holdings of the 
+official sector, [𝐶𝐵 − 𝑂𝐹 ]∕𝐷 are fairly small relative to the non-official 
+sector. However, although the net sovereign debt holding ratio de-
+creases monotonically from G1 to G4, the negative correlation of −0.07
+is not statistically significant, which raises the question of whether 
+the  official  sector  net  holdings  are  unrelated  to  the  CBC  and  their 
+inclusion in the net holdings ratio weakens the correlation with CBC. 
+Indeed, official investors – such as central banks, governments, and 
+international organizations – are likely to be less sensitive to outside 
+options, and Fig.  7 shows clearly that net sovereign debt holdings by 
+official investors display a non-monotonic and fairly flat pattern across 
+the CBC groups. This corroborates the presumption that these holdings 
+are not related to risk-bearing capacity. In this sense, the lack of a 
+statistically  significant  relationship  between  the  net  official  holding 
+ratio and CBC serves as a placebo test, reinforcing the argument that 
+CBC is related to the risk-bearing capacity of financial intermediaries.44
+
+In summary, we find clear relationships between the returns of the 
+CBC strategy as well as the CBC measure per se and various risk-bearing 
+capacity proxies, implying that the trade imbalance network centrality 
+is indeed related to financiers’ risk-bearing capacity. Of course, this 
+statement needs to be interpreted with caution as risk bearing capacity 
+is  not  directly  observable,  and  the  proxies  we  use  in  this  analysis 
+may well capture information that is not solely related to risk bearing 
+capacity.
+
+4.5. Centrality in the trade imbalance network v.s. the total trade network
+
+In this section we dig deeper into the differences between Richmond 
+(2019)’s centrality, which is based on total trade, and our proposed 
+trade imbalance network centrality. It is clear from our earlier discus-
+sion that, although both measures of centrality focus on international 
+trade, they are very different in terms of both their definitions and the 
+mechanism via which they impact on the cross-section of currency risk 
+premia. This is the case for a number of reasons, not least because Rich-
+mond’s theory is based on a model with complete financial markets, 
+whereas in our theoretical extension of the Gabaix–Maggiori theory, 
+we allow for incomplete financial markets.
+
+Throughout the paper we have worked within our theoretical frame-
+work with incomplete financial markets. In this section we consider, 
+indirectly, if this is necessary or, instead, one could rationalize our 
+results in complete markets within the Richmond model. We report this 
+analysis in detail in Internet Appendix G, whereas we summarize here 
+only its main features and learning points.
+
+We simulate currency returns data based on the theoretical frame-
+work of Richmond (2019), and hence under complete financial mar-
+kets. Given that we are simulating from Richmond’s model, the total 
+trade centrality measure is linked perfectly with currency risk premia 
+by construction. We then compute the trade imbalance network central-
+ity, under our definition of centrality, within the model of Richmond 
+(2019),  and  explore  the  relationship  between  the  trade  imbalance 
+network and currency risk premia in this setting.
+
+44 A caveat is in order. This exercise is carried out using holdings data, 
+but ideally one would want to estimate the cross-demand elasticity between 
+demand for countries 𝑖 and 𝑗’s bonds as a function of the trade relationship 
+between countries 𝑖 and 𝑗. This would require estimating a structural model, 
+
+or identifying demand for sovereign bonds using a fully-fledged asset demand 
+system as in Fang et al. (2025), preferably country by country. This is a 
+nontrivial task that is not possible to carry out on our data given the short 
+sample period and the small number of observations at our disposal.
+
+20 
+
+A.J. Hou et al.
+
+Journal of Financial Economics 172 (2025) 104112 
+
+Fig. 8.  Counterfactual analysis: the effect of US–China trade war on currency premia.
+Note: In this figure, Panel (a) plots the global trade imbalance network based on 2017 pairwise bilateral imports and exports, Panel (b) plots the same network with pairs CNY 
+and USD replaced by the data in 2019. The upper parts of the panels are network graphs in which the arrows in edges point towards the debtors (deficit parties), the length of 
+edges is inversely proportional to the size of the relative deficit, and the size of nodes is proportional to their CBC. The middle and lower parts in Panel (a) show respectively the 
+percentage ranks of all currencies’ CBCs in ascending order and rank-preserved transformed CBCs matching the cross-sectional mean and standard deviation of currency risk premia 
+in 2017 for the base case; while the middle part in Panel (b) shows the same order with currencies, whose ranks have changed, highlighted: currencies becoming lower (higher) 
+in the ranks are highlighted in red (blue) bars and the size of changes is indicated on the top of the bars; the lower part in Panel (b) shows the rank-preserved transformed CBCs 
+after the change.  (For interpretation of the references to color in this figure legend, the reader is referred to the web version of this article.)
+
+The results indicate that the relationship we observed in our em-
+pirical work disappears in this model, i.e., the currencies of central 
+countries  in  the  trade  imbalance  network  do  not  offer  higher  risk 
+premia anymore. This implies that the trade imbalance network in a 
+complete-markets setting like the one of Richmond (2019) is not related 
+to the cross-section of currency risk premia. We view this as indirect 
+evidence that incomplete markets are required for the link between the 
+trade imbalance network and currency risk premia to arise.
+
+As a note of caution, it should be clear that this simulation exercise 
+is not a test of Richmond’s theory against our theory. It is merely an 
+exercise to address the question of whether our empirical findings in 
+this paper could be rationalized in a complete-markets setting, and 
+the theory of Richmond (2019) is the logical candidate model for this 
+purpose.
+
+4.6. Counterfactual analysis
+
+In this subsection, we apply our framework to assess the impact of 
+two recent international events on global currency premia via counter-
+factual analyses. We look at the US–China trade war starting in 2018, 
+and the collective trade sanctions against Russia in the wake of its 2022 
+invasion of Ukraine.
+
+In 2018, the US and China escalated tariffs that ultimately covered 
+about $450 billion in trade flows. By late 2019, the US had imposed 
+tariffs  on  roughly  $350  billion  of  Chinese  imports,  and  China  had 
+retaliated  on  $100  billion  US  exports,  with  many  of  the  escalated 
+tariffs  persisting  beyond  2021  (Fajgelbaum  and  Khandelwal,  2022; 
+Fajgelbaum et al., 2023). In response to the 2022 Russian invasion 
+of  Ukraine,  a  broad  swathe  of  countries  have  imposed  a  bevy  of 
+sanctions against Russia. More than 35 countries (including many large 
+industrialized economies) have participated in efforts to limit Russia’s 
+access to the global economy (Allen, 2022). Existing studies on the 
+US–China trade war and the sanctions against Russia focus on real 
+economic impact (Fajgelbaum and Khandelwal, 2022; Allen, 2022) and 
+costs for equity markets (Huang and Lu, 2022). Using counterfactual 
+analyses, our framework allows us to pin down the effects of these 
+
+events on the trade imbalance network and the implications on global 
+currency risk premia.
+
+4.6.1. US-China trade war
+
+In our data, we find the relative deficit (defined as the ratio of net 
+import to total trade) the US had with China went up to 0.60 in 2019 
+from 0.54 in 2017. This indicates that the trade war had a larger reduc-
+tion in China’s imports from the US than the other way around. This is 
+consistent with existing evidence that US consumers of imported goods 
+have borne the brunt of the tariffs through higher prices (Fajgelbaum 
+and Khandelwal, 2022). The effect of the US–China trade war clearly 
+goes  beyond  impacting  these  two  countries,  as  bystander  countries 
+increased their trades with the US and China (Fajgelbaum et al., 2023). 
+In our counterfactual analysis, we take the adjacency matrix of the 
+global trade imbalance network in 2017 as the base and replace its rows 
+and columns corresponding to the US and China with those from the 
+adjacency matrix in 2019. By doing so, we essentially isolate changes in 
+the adjacency matrix due to the trade war. We attribute any resulting 
+changes in the CBC ranks to the impact of the US–China trade war. 
+We present the results in Fig.  8. Interestingly, we find that the rank 
+of CNY has not changed and the seven currencies noticeably affected 
+are THB (3% raise in the percentage ranks), RUB (3% drop), GBP (3% 
+raise), IDR (3% drop), PHP (3% raise), SEK (3% drop), ZAR (3% raise), 
+SAR (3% raise), and MXN (6% drop). The fact that these currencies are 
+not directly involved in the US–China trade war shows that within a 
+complex trade imbalance network, one international event could have 
+far-reaching effects on seemingly unrelated currencies.
+
+4.6.2. Russia-Ukraine conflict
+
+Next, we turn to study the impact of the collective trade sanctions 
+against Russia in response to its 2022 invasion of Ukraine. With ref-
+erence to Funakoshi et al. (2022), we identify a group of currencies, 
+USD, EUR, GBP, AUD, JPY, CAD, CHF, NOK, PLN, KRW, and NZD, 
+corresponding to the countries/economies that have imposed severe 
+trade sanctions against Russia. For illustration purposes, we simply as-
+sume the sanctions make Russia’s trade activities with these currencies 
+
+21 
+
+A.J. Hou et al.
+
+Journal of Financial Economics 172 (2025) 104112 
+
+Fig. 9.  Counterfactual analysis: the effect of collective sanctions on Russia on currency premia.
+Note: In this figure, Panel (a) plots the global trade imbalance network based on 2021 pairwise bilateral imports and exports, Panel (b) plots the same network with the values of 
+elements in the adjacency matrix related to RUB and a group of currencies shrink by 90%. The group of currencies are USD, EUR, GBP, AUD, JPY, CAD, CHF, NOK, PLN, KRW, 
+and NZD, with reference to Funakoshi et al. (2022). The upper parts of the panels are network graphs in which the arrows in edges point towards the debtors (deficit parties), 
+the length of edges is inversely proportional to the size of the relative deficit, and the size of nodes is proportional to their CBC. The middle and lower parts in Panel (a) show 
+respectively the percentage ranks of all currencies’ CBCs in ascending order and rank-preserved transformed CBCs matching the cross-sectional mean and standard deviation of 
+currency risk premia in 2021 for the base case; while the middle part in Panel (b) shows the same order with currencies, whose ranks have changed, highlighted: currencies 
+becoming lower (higher) in the ranks are highlighted in red (blue) bars and the size of changes is indicated on the top of the bars; the lower part in Panel (b) shows the 
+rank-preserved transformed CBCs after the change.  (For interpretation of the references to color in this figure legend, the reader is referred to the web version of this article.)
+
+shrink by 90% of the figures in 2020.45 Specifically, we implement 
+the reduction of trade activities by multiplying 0.1 to the values of 
+elements related to RUB and the group of currencies in the adjacency 
+matrix of the trade imbalance network in 2020. Then, we compare the 
+ranks of CBC before and after this reduction. The results, shown in 
+Fig.  9, suggest a significant impact on global currency premia in this 
+case. There are seven currencies whose CBC ranks change noticeably. 
+Among the seven currencies, RUB has the largest drop, 6%, in the 
+percentage ranks. It is worth noting that DKK (3% drop), THB (3% 
+drop),  and  ZAR  (3%  raise)  are  not  in  the  group  of  countries  that 
+imposed severe sanctions on Russia but display noticeable changes, 
+while GBP, AUD, JPY, CAD, CHF, and PLN, which are in the group, do 
+not display much of a change. This analysis again shows that the global 
+trade imbalance network brings complexity in assessing the effect of 
+significant international events on currency premia. Our framework 
+provides a useful tool for conducting such analyses.
+
+5. Conclusions
+
+Imbalances in trade and capital flows shape our understanding of 
+foreign exchange rate fluctuations and currency risk premia. Differ-
+ent strands of the literature have studied how currency risk premia 
+are determined either in frictionless markets characterized by a rich 
+global trade network or in imperfect financial markets where frictions 
+generate limited risk-bearing capacity in a two-country setting. In this 
+paper, we consider a model of currency risk premia determination that 
+combines these two important features of currency risk premia determi-
+nation: imperfect financial markets and a global trade network. In the 
+
+45 We choose 2020 instead of 2021 as the reference year to avoid the unusual 
+impact of Russia’s abnormal trading activities in 2021 on the network. There 
+was a dramatic increase in Russia’s exports in 2021 relative to the average level 
+from previous years. According to Russian official sources, its goods exports 
+totaled $492 billion in 2021, up 46% from 2020 (CRS, 2023).
+
+theory, the expected returns of currencies are connected to their cen-
+trality in the global trade imbalance network through financiers’ lim-
+ited commitment, captured using the Leontief inverse-based centrality 
+of the global trade imbalance network.
+
+The theory provides clear testable implications and hence, guided 
+by the model, we construct a currency-level risk characteristic (CBC) 
+based on a score from the calibrated model that combines network 
+centrality and variance–covariance of currency returns. Empirically, 
+we find that sorting currencies on CBC generates a large spread in 
+excess returns, implying that CBC embeds strong predictive power for 
+the cross-section of currency excess returns and carries a significantly 
+positive risk premium. The time series variation in the CBC excess 
+returns generated by this cross-sectional strategy cannot be explained 
+by a variety of currency pricing factors or by well-known intermediary 
+asset pricing factors. Taken together, these results point to a novel, 
+systematic source of currency risk embedded in the CBC factor.
+
+Overall, this study provides theoretical and empirical support for 
+the existence of a connection between currency returns, risk-bearing 
+capacity and the global trade imbalance network, which is a robust 
+relation largely overlooked in previous research. However, more work 
+remains to be done. Further research is warranted, for example, to 
+fully endogeneize the trade imbalance network in models of imperfect 
+financial markets by providing a deeper microfoundation of our results, 
+and  to  explore  empirically  the  role  of  disaggregated  trade  data  on 
+international goods and services at different stages of production. We 
+leave these challenges to future research.
+
+CRediT authorship contribution statement
+
+Ai Jun Hou: Writing – review & editing, Writing – original draft, 
+Visualization, Software, Methodology, Investigation, Formal analysis, 
+Data curation, Conceptualization. Lucio Sarno: Writing – review & 
+editing, Writing – original draft, Validation, Methodology, Investiga-
+tion, Formal analysis, Conceptualization.  Xiaoxia Ye:  Writing – re-
+view  &  editing,  Writing  –  original  draft,  Visualization,  Validation, 
+Software, Methodology, Investigation, Formal analysis, Data curation, 
+Conceptualization.
+
+22 
+
+A.J. Hou et al.
+
+Declaration of competing interest
+
+The corresponding author confirms that he have NO affiliations with 
+or involvement in any organization or entity with any financial inter-
+est (such as honoraria; educational grants; participation in speakers’ 
+bureaus;  membership,  employment,  consultancies,  stock  ownership, 
+or other equity interest; and expert testimony or patent-licensing ar-
+rangements), or non-financial interest (such as personal or professional 
+relationships, affiliations, knowledge or beliefs) in the subject matter 
+or materials discussed in this manuscript.
+
+Appendix A. Supplementary data
+
+Supplementary material related to this article can be found online 
+
+at https://doi.org/10.1016/j.jfineco.2025.104112.
+
+Data availability
+
+The original data and replication code are available at https://data
+
+.mendeley.com/datasets/3srtwd7rv2/2.
+
+References
+
+Acemoglu, D., Carvalho, V.M., Ozdaglar, A., Tahbaz-Salehi, A., 2012. The network 
+
+origins of aggregate fluctuations. Econometrica 80 (5), 1977–2016.
+
+Adrian, T., Etula, E., Muir, T., 2014. Financial intermediaries and the cross-section of 
+
+asset returns. J. Financ. 69 (6), 2557–2596.
+
+Ahn, J., Khandelwal, A., Wei, S.-J., 2011. The role of intermediaries in facilitating 
+
+trade. J. Int. Econ. 84, 73–85.
+
+Aldasoro, I., Alves, I., 2018. Multiplex interbank networks and systemic importance: 
+
+An application to European data. J. Financ. Stab. 35, 17–37.
+
+Allen, S.H., 2022. The uncertain impact of sanctions on Russia. Nat. Hum. Behav. 6 
+
+(6), 761–762.
+
+Avdjiev, S., Du, W., Koch, C., Shin, H.S., 2019. The dollar, bank leverage, and deviations 
+
+from covered interest parity. Am. Econ. Rev.: Insights 1 (2), 193–208.
+
+Bahaj, S., Massacci, D., Corte, P.D., Seyde, E., 2024. Beyond bilateral flows: indirect con-
+nections and exchange rates. http://dx.doi.org/10.2139/ssrn.4951075, Available At 
+SSRN: https://ssrn.com/abstract=4951075.
+
+Ballester, C., Calvó-Armengol, A., Zenou, Y., 2006. Who’s who in networks. Wanted: 
+
+The key player. Econometrica 74 (5), 1403–1417.
+
+Barillas, F., Shanken, J., 2017. Which alpha? Rev. Financ. Stud. 30 (4), 1316–1338.
+Bénétrix, A.S., Lane, P.R., Shambaugh, J.C., 2015. International currency exposures, 
+
+valuation effects and the global financial crisis. J. Int. Econ. 96, 98–109.
+
+Benguria, F., 2021. The matching and sorting of exporting and importing firms: Theory 
+
+and evidence. J. Int. Econ. 131, 100430.
+
+Bonacich, P., 1987. Power and centrality: A family of measures. Am. J. Sociol. 92 (5), 
+
+Caballero, R.J., Krishnamurthy, A., 2009. Global imbalances and financial fragility. Am. 
+
+1170–1182.
+
+Econ. Rev. 99 (2), 584–588.
+
+Econ. 11, 635–663.
+
+Cenedese, G., Della Corte, P., Wang, T., 2021. Currency mispricing and dealer balance 
+
+sheets. J. Financ. 76 (6), 2763–2803.
+
+Chau, V.T., 2022. International portfolio investments with trade networks. Work. Pap..
+Colacito, R., Croce, M.M., Gavazzoni, F., Ready, R., 2018. Currency risk factors in a 
+
+recursive multicountry economy. J. Financ. 73 (6), 2719–2756.
+
+Colacito, R., Riddiough, S.J., Sarno, L., 2020. Business cycles and currency returns. J. 
+
+Financ. Econ. 137 (3), 659–678.
+
+Coppola, A., Maggiori, M., Neiman, B., Schreger, J., 2021. Redrawing the map of 
+global capital flows: The role of cross-boarder financing and tax havens. Q. J. 
+Econ. 1499–1556.
+
+CRS, 2023. Russia’s Trade and Investment Role in the Global Economy. Technical 
+
+Report, the Congressional Research Service.
+
+Journal of Financial Economics 172 (2025) 104112 
+
+Du, W., Hebert, B., Huber, A.W., 2023. Are intermediary constraints priced? Rev. 
+
+Financ. Stud. 36 (4), 1464–1507.
+
+Du, W., Schreger, J., 2016. Local currency sovereign risk. J. Financ. 71 (3), 1027–1070.
+Du, W., Schreger, J., 2022a. CIP deviations, the dollar, and frictions in international 
+capital markets. In: Handbook of International Economics. Vol. 6, Elsevier, pp. 
+147–197.
+
+Du, W., Schreger, J., 2022b. Sovereign risk, currency risk, and corporate balance sheets. 
+
+Rev. Financ. Stud. 35 (10), 4587–4629.
+
+Eaton, J., Eslava, M., Jinkins, D., Krizan, C.J., Tybout, J., 2024. A search and learning 
+
+model of export dynamics. Pa. State Univ..
+
+Fajgelbaum, P., Goldberg, P.K., Kennedy, P.J., Khandelwal, A., Taglioni, D., 2023. The 
+US-China Trade War and Global Reallocations. Working Paper 29562, National 
+Bureau of Economic Research.
+
+Fajgelbaum, P.D., Khandelwal, A.K., 2022. The economic impacts of the US–China trade 
+
+war. Annu. Rev. Econ. 14, 205–228.
+
+Fang, X., 2021. Intermediary leverage and the currency risk premium. Available At 
+
+Fang, X., Hardy, B., Lewis, K.K., 2025. Who holds sovereign debt and why it matters. 
+
+The Review of Financial Studies hhaf031.
+
+Fang, X., Liu, Y., 2021. Volatility, intermediaries, and exchange rates. J. Financ. Econ. 
+
+SSRN 3290317.
+
+141 (1), 217–233.
+
+Fleckenstein,  M.,  Longstaff,  F.A.,  2020.  Renting  balance  sheet  space:  Intermediary 
+balance sheet rental costs and the valuation of derivatives. Rev. Financ. Stud. 33 
+(11), 5051–5091.
+
+Fleckenstein,  M.,  Longstaff,  F.A.,  2022.  The  market  risk  premium  for  unsecured 
+
+consumer credit risk. Rev. Financ. Stud. 35 (10), 4756–4801.
+
+Funakoshi, M., Lawson, H., Deka, K., 2022. Tracking Sanctions Against Russia. Re-
+port, Thomson Reuters, URL https://www.reuters.com/graphics/UKRAINE-CRISIS/
+SANCTIONS/byvrjenzmve/.
+
+Gabaix, X., Maggiori, M., 2015. International liquidity and exchange rate dynamics. Q. 
+
+Gibbons, M.R., Ross, S.A., Shanken, J., 1989. A test of the efficiency of a given portfolio. 
+
+Gourinchas, P.-O., Rey, H., 2007. International financial adjustment. J. Political Econ. 
+
+J. Econ. 130 (3), 1369–1420.
+
+Econometrica 57, 1121–1152.
+
+115 (4), 665–703.
+
+Financ. Stud. 29 (1), 5–68.
+
+Harvey, C.R., Liu, Y., Zhu, H., 2016. . . . And the cross-section of expected returns. Rev. 
+
+Hassan, R., Loualiche, E., Pecora, A.R., Ward, C., 2023. International trade and the risk 
+
+in bilateral exchange rates. J. Financ. Econ. 150 (103711).
+
+He, Z., Kelly, B., Manela, A., 2017. Intermediary asset pricing: New evidence from 
+
+many asset classes. J. Financ. Econ. 126 (1), 1–35.
+
+He, Z., Krishnamurthy, A., 2013. Intermediary asset pricing. Am. Econ. Rev. 103 (2), 
+
+732–770.
+
+Helpman, E., Melitz, M.J., Yeaple, S.R., 2004. Export versus FDI with heterogeneous 
+
+firms. Am. Econ. Rev. 94, 300–316.
+
+Hojman, D.A., Szeidl, A., 2008. Core and periphery in networks. J. Econom. Theory 
+
+Hou, K., Robinson, D.T., 2006. Industry concentration and average stock returns. J. 
+
+Huang, L., Lu, F., 2022. The cost of Russian sanctions on the global equity markets. 
+
+Jiang, Z., 2021. US fiscal cycle and the dollar. J. Monet. Econ. 124, 91–106.
+Jiang, Z., Richmond, R., 2023. Origins of international factor structures. J. Financ. 
+
+Econ. 147, 1–26.
+
+J. Financ. 79 (3), 2025–2076.
+
+variables. Rev. Account. Stud. 1–31.
+
+127 (2), 197–225.
+
+Johannesson, E., Ohlson, J.A., Zhai, S.W., 2023. The explanatory power of explanatory 
+
+Koijen, R.S.J., Moskowitz, T.J., Pedersen, L., Vrugt, E.B., 2018. Carry. J. Financ. Econ. 
+
+Lane, P.R., Milesi-Ferretti, G.M., 2001. Measures of foreign assets and liabilities for 
+
+industrial and developing countries. J. Int. Econ. 55, 263–294.
+
+Lane, P.R., Milesi-Ferretti, G.M., 2007. The external wealth of nations mark II: Revised 
+and extended estimates of foreign assets and liabilities, 1970–2004. J. Int. Econ. 
+73, 223–250.
+
+Lane, P., Milesi-Ferretti, G.M., 2008. International investment patterns. Rev. Econ. Stat. 
+
+90, 538–549.
+
+Lane, P.R., Shambaugh, J.C., 2010. Financial exchange rates and international currency 
+
+Lewellen, J., Nagel, S., Shanken, J., 2010. A skeptical appraisal of asset pricing tests. 
+
+139 (1), 295–309.
+
+Financ. 61 (4), 1927–1956.
+
+Available At SSRN 4060927.
+
+Lustig, H., Richmond, R.J., 2020. Gravity in the exchange rate factor structure. Rev. 
+
+Lustig,  H.,  Roussanov,  N.,  Verdelhan,  A.,  2011.  Common  risk  factors  in  currency 
+
+Dahlquist, M., Hasseltoft, H., 2020. Economic momentum and currency returns. J. 
+
+exposure. Am. Econ. Rev. 100 (1), 518–540.
+
+Della Corte, P., Fu, H., 2021. US political cycles and international stock returns. In: 
+
+J. Financ. Econ. 96, 175–194.
+
+Della Corte, P., Krecetovs, A., 2021. Current account uncertainty and currency premia. 
+
+Financ. Stud. 33 (8), 3492–3540.
+
+Financ. Econ. 136 (1), 152–167.
+
+2021 AFA Conference Paper.
+
+Manag. Sci..
+
+Della  Corte,  P.,  Riddiough,  S.J.,  Sarno,  L.,  2016.  Currency  premia  and  global 
+
+markets. Rev. Financ. Stud. 24 (11), 3731–3777.
+
+imbalances. Rev. Financ. Stud. 29 (8), 2161–2193.
+
+Della Corte, P., Sarno, L., Sestieri, G., 2012. The predictive information content of 
+external imbalances for exchange rate returns: how much is it worth? Rev. Econ. 
+Stat. 94 (1), 100–115.
+
+Maggiori, M., 2022. International macroeconomics with imperfect financial markets. In: 
+
+Handbook of International Economics. Vol. 6, Elsevier, pp. 199–236.
+
+Melitz, M.J., 2003. The impact of trade on intra-industry reallocations and aggregate 
+
+induatry productivity. Econometrica 71, 1695–1725.
+
+23 
+
+Carvalho, V.M., Tahbaz-Salehi, A., 2019. Production networks: A primer. Annu. Rev. 
+
+Jiang, Z., Richmond, R.J., Zhang, T., 2024. A portfolio approach to global imbalances. 
+
+A.J. Hou et al.
+
+Journal of Financial Economics 172 (2025) 104112 
+
+Menkhoff, L., Sarno, L., Schmeling, M., Schrimpf, A., 2012a. Carry trades and global 
+
+Richmond, R.J., 2019. Trade network centrality and currency risk premia. J. Financ. 
+
+Menkhoff, L., Sarno, L., Schmeling, M., Schrimpf, A., 2012b. Currency momentum 
+
+Sharkey, K.J., 2017. A control analysis perspective on Katz centrality. Sci. Rep. 7, 
+
+foreign exchange volatility. J. Financ. LXVII (2), 681–718.
+
+strategies. J. Financ. Econ. 106 (3), 660–684.
+
+74 (3), 1315–1361.
+
+17247.
+
+Menkhoff, L., Sarno, L., Schmeling, M., Schrimpf, A., 2017. Currency value. Rev. Financ. 
+
+Simonovits, A., 1975. A note on the underestimation and overestimation of the Leontief 
+
+Stud. 30 (2), 416–441.
+
+inverse. Econ.: J. Econ. Soc. 493–498.
+
+Nozawa,  Y.,  2017.  What  drives  the  cross-section  of  credit  spreads?:  A  variance 
+
+decomposition approach. J. Financ. 72 (5), 2045–2072.
+
+Stewart, G.W., 1998. Matrix Algorithms: Volume 1: Basic Decompositions. SIAM.
+Verdelhan, A., 2018. The share of systematic variation in bilateral exchange rates. J. 
+
+Ready, R., Roussanov, N., Ward, C., 2017. Commodity trade and the carry trade: A 
+
+Financ. 73 (1), 375–418.
+
+tale of two countries. J. Financ. 72 (6), 2629–2684.
+
+Wang, X., Zhang, M., 2025. Financially constrained intermediaries and the international 
+
+pass-through of monetary policy. Available At SSRN 4478436.
+
+24 
+
+

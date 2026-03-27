@@ -1,0 +1,4400 @@
+Journal of Financial Economics 172 (2025) 104108 
+
+Contents lists available at ScienceDirect
+
+Journal of Financial Economics
+
+journal homepage: www.elsevier.com/locate/finec
+
+Show me the receipts: B2B payment timeliness and expected returns(cid:73)
+Paul Lieberman a, Atanas Mihov b, Andy Naranjo c, Mihail Velikov d,∗
+a SPY Capital Management, LLC, Springfield, USA
+b University of Kansas, School of Business, Lawrence, USA
+c University of Florida, Warrington College of Business, Gainesville, USA
+d Pennsylvania State University, Smeal College of Business, University Park, USA
+
+A R T I C L E   I N F O
+
+A B S T R A C T
+
+Trade credit is an important source of firm financing, yet its rich informational content pertaining to payment 
+timeliness is under-explored in asset pricing. Using an extensive data set from a leading private information 
+exchange on business payment performance, we study the effects of trade credit payment timeliness on stock 
+returns. We document two distinct channels through which trade credit payment behavior impacts future 
+stock returns — slow diffusion of information and risk stemming from a customer firm’s vertical bargaining 
+power position in the supply chain. Consistent with our first channel, a sudden delay in a firm’s payment 
+to its suppliers predicts significantly lower future returns for its stock. Consistent with our second channel, 
+firms that pay their bills moderately late on a consistent basis relative to terms earn significantly higher stock 
+returns.
+
+Dataset link: Replication code for Show Me the
+Receipts: B2B Payment Timeliness and Expecte
+d Returns (Original data)
+
+JEL classification:
+G12
+G14
+G32
+
+Keywords:
+B2B payments
+Trade credit
+Payment behavior
+Stock returns
+
+1. Introduction
+
+Trade credit – the short-term financing (e.g., 30, 60, 90 days) that 
+a supplier provides to a buyer for the purchase of goods and services – 
+is an important source of external finance for firms. About a quarter of 
+corporate debt is trade credit, and the size of this trade credit is roughly 
+three times the size of bank loans and 15 times the size of commercial 
+paper (Rajan and Zingales, 1995; Barrot, 2016; Ivashina et al., 2016; 
+Freeman, 2020). Non-financial firms are the main providers of short-
+term corporate financing to their customers. Despite the importance 
+of trade credit for business-to-business contracting, research of its rich 
+information  content  in  asset  pricing  is  limited.1  In  this  paper,  we 
+provide novel evidence of the impact of trade credit on asset prices 
+by focusing on the timeliness of customer payments.
+
+Although a supplier sets the amount and terms (typically 30 days) of 
+trade credit before supply chain transactions, the equilibrium outcome 
+includes the actual post-sales payment determined by the downstream 
+customer’s  ability  and  willingness  to  pay.  We  explore  two  distinct 
+channels relating customer payment behavior to equity prices. First, 
+if a firm’s speed of trade credit payment reflects its privately known 
+fundamentals, but this information is not widely available or immedi-
+ately priced by investors, timely trade credit payment information  can 
+lead to predictable returns via a slow diffusion of information channel. 
+Specifically, a firm’s sudden aggressive management of payment terms 
+and sharp increases in late payments to suppliers can indicate that a
+
+(cid:73)
+
+Nikolai Roussanov was the editor for this article. The authors thank Dun & Bradstreet for providing their Credit Score Archive Database and Nikolai Roussanov, 
+an anonymous referee, Manuel Adelino, Justin Balthrop, Will Bazley, Cecilia Bustamante, Carolyn Takeda-Brown, Gjergji Cici, Youngmin Choi, Kayla Freeman, 
+Lorenzo Garlappi, Mohammad Ghaderi, Matt Gustafson, Jie (Jack) He, Alejandro Lopez-Lira, Richard Marquit, Jay Ritter, Antoinette Schoar, Angel Tengulov, 
+Baolian Wang, Guofu Zhou, the Dun & Bradstreet’s Advanced Analytics Services team, and conference participants at the 2022 Financial Management Association 
+Annual Meeting for helpful comments and suggestions. The views expressed in this study and any remaining mistakes are those of the authors alone.
+
+E-mail addresses:  plieberm@gmail.com (P. Lieberman), amihov@ku.edu (A. Mihov), andy.naranjo@warrington.ufl.edu (A. Naranjo), velikov@psu.edu 
+
+∗ Corresponding author.
+
+(M. Velikov).
+
+1 A notable exception is Grigoris et al. (2023), who show that firms extending more trade credit earn lower risk premiums driven by lower exposures to 
+
+systematic costs involved in the search for potential customers.
+
+https://doi.org/10.1016/j.jfineco.2025.104108
+Received 16 June 2023; Received in revised form 19 May 2025; Accepted 23 May 2025
+Available online 11 June 2025 
+0304-405X/© 2025 Elsevier B.V. All rights are reserved, including those for text and data mining, AI training, and similar technologies. 
+
+ 
+ 
+ 
+P. Lieberman et al.
+
+company is struggling to generate cash flows and is likely heading into 
+distress, resulting in lower future stock returns.2
+
+Second, a firm’s trade credit payment behavior often reflects its 
+vertical bargaining power in the supply chain, enabling some firms 
+to  consistently  delay  payments  to  suppliers.3  Delaying  payments  to 
+suppliers can serve as a tactical working capital strategy that improves 
+the focal (customer) firm’s short-term cash flows while reducing the 
+need for external short-term financing.4 While this practice may sta-
+bilize cash flows from current operations, it also creates rigidity in 
+supplier relationships. This rigidity impedes firms’ ability to capitalize 
+on new opportunities arising from supply chain pressures, such as pent-
+up demand. Consequently, late-paying firms’ growth options become 
+less valuable during periods of high aggregate supply chain pressure — 
+a state associated with high marginal utility for investors. This reduced 
+flexibility makes late payers poorer hedges against systematic supply 
+chain pressure risk, leading to higher expected returns.
+
+The prior asset pricing literature has paid little attention to the 
+supply chain payment behavior of firms and their asset pricing effects 
+due, in part, to the difficulty of obtaining reliable data on trade credit 
+payment  transactions.  In  this  paper,  we  provide  direct  tests  of  the 
+informational  content  of  trade  credit  payment  timeliness  on  equity 
+returns using a proprietary data set of trade credit offerings between 
+suppliers and buyers from Dun & Bradstreet (D&B)’s corporate trade 
+credit  payment  program.  The  available  data  covers  publicly  listed 
+firms headquartered in the U.S. with monthly payment behavior data 
+relative to trade credit terms, which are substantially richer than typical 
+accounts payable disclosures.5
+
+Our analysis focuses on D&B’s flagship PAYDEX score, which has 
+been recognized as the standard in commercial credit reporting for 
+more than thirty-five years (e.g., Kallberg and Udell, 2003). The score 
+is calculated based on the payment experiences reported to D&B by a 
+company’s suppliers and measures the promptness of a company’s bill 
+paying relative to agreed terms.6 The score ranges from 1 to 100, with 
+higher scores indicating a company’s history of more timely payments 
+
+2 Anecdotally, this channel has received support in the popular press. For 
+example, before it collapsed in 2018, the U.K. construction behemoth Carillion 
+had effectively doubled its payment periods to suppliers, an observation that 
+tipped hedge funds to start shorting Carillion’s stock. See Financial Times: 
+‘‘Anatomy of a trade: the persistence of Carillion’s short sellers’’ (D. McCrum 
+and M. Johnson, Apr. 5, 2017); ‘‘Carillion used suppliers as a line of credit, 
+say MPs’’ (G. Plimmer, May 13, 2018).
+
+3 See, for example, The Wall Street Journal: ‘‘Small Firms’ Big Customers Are 
+Slow to Pay’’ (A. Loten, Jun. 6, 2012); ‘‘P&G, Big Companies Pinch Suppliers 
+on Payments’’ (S. Ng, Apr. 17, 2013).
+
+4 Per  U.S.-based  accrual  accounting  practices,  companies  record  expen-
+ditures  when  matched  with  related  earnings,  not  when  actually  paid. 
+Accordingly,  paying  earlier  or  later  has  no  direct  impact  on  net  income. 
+However, it does impact the statement of cash flows. Accounts payable is the 
+summed amount that a firm owes its suppliers that are payable in the near 
+future (e.g., 30, 60, 90 days, etc.). Without payables and trade credit, a firm 
+would have to pay for all of its goods and services at the time of purchase. 
+However, with trade credit, a firm can temporarily increase operating cash 
+flow by simply stretching out its accounts payable (i.e., delaying payments 
+to suppliers). This practice can also affect firm performance by potentially 
+constraining suppliers’ ability to provide liquidity to rivals, particularly in the 
+case of shared suppliers (e.g., Freeman et al., 2022).
+
+5 The program is the largest of its kind in the world. At the core of Dun 
+&  Bradstreet’s  database  is  a  proprietary  trade  program  composed  of  over 
+15,000 participants across 60 countries. D&B collects trade terms, invoices, and 
+customer payments from suppliers participating in the program and updates 
+them daily for the aggregated firm-level statistics, including 5 million trade 
+credit payment per day and about 2 billion observations per year.
+
+6 It is important to understand that the information underlying PAYDEX 
+cannot be inferred from a company’s public financial statements. While finan-
+cial statements provide information on accounts payable balances which reflect 
+trade credit, they do not provide any direct information on the age of such 
+liabilities. In fact, changes in a company’s accounts payable balances may not 
+
+Journal of Financial Economics 172 (2025) 104108 
+
+and lower credit risk. While lenders and suppliers often use PAYDEX 
+scores to make credit decisions (e.g., whether to extend credit to a 
+business), it has not been used significantly in the equity trading space. 
+The paucity of research in this area is also remarkable given PAY-
+DEX’s widespread use by credit practitioners, and particularly financial 
+institutions.
+
+We build two distinct measures of firms’ payment behavior infor-
+mational content based on PAYDEX. First, we calculate a standardized 
+measure of ‘‘late payment shocks’’ that captures changes in a firm’s 
+speed of payment to suppliers and increases in late payment behavior 
+(𝑍𝑝𝑎𝑦𝑑𝑒𝑥). We show that this measure captures an increasing likelihood 
+of  financial  distress.  Second,  we  create  a  measure  that  captures  a 
+buyer’s persistence in moderately late payments to suppliers relative 
+to terms (Late Payment Consistency or 𝐿𝑃 𝐶), and we show that this 
+measure  is  robustly  related  to  a  firm’s  market  power  and  strategic 
+supply-chain position. We highlight the novelty of these two measures 
+and contrast them against prior literature, which has usually measured 
+trade credit in terms of ‘‘flows’’ rather than payment timeliness as we 
+do.
+
+Using our novel measures, we provide two noteworthy findings. 
+First, we find that significant increases in the delay of a firm’s payment 
+to suppliers predict substantially lower stock returns for the firm. To 
+demonstrate this relation, we develop long/short trading strategies that 
+take a long position in a value-weighted portfolio of stocks with high 
+𝑍𝑝𝑎𝑦𝑑𝑒𝑥 and a short position in a value-weighted portfolio of stocks 
+with low 𝑍𝑝𝑎𝑦𝑑𝑒𝑥. Our first headline result is that the zero-investment 
+portfolio earns an average excess return of 18 basis points per month 
+with a significant t-statistic of 1.81. The strategy alphas range between 
+20 and 23 basis points depending on the factor model, with t-statistics 
+equal to or exceeding 1.98 in all cases.
+
+While these results are directionally consistent with our hypothesis, 
+the payment delay effect is asymmetric. Firms that suddenly start to 
+pay significantly late should underperform going forward. However, 
+there is no obvious reason to expect that firms which suddenly start 
+to pay early will outperform. Early payment usually reflects early pay-
+ment discounts, while it is a sub-optimal working capital management 
+decision in most other instances. To get around this asymmetric effect, 
+we use a decomposition of the PAYDEX score into payment types that 
+capture slow and current payment behavior separately. We proceed to 
+calculate two additional scores, 𝑍𝑠𝑙𝑜𝑤 and 𝑍𝑐𝑢𝑟𝑟𝑒𝑛𝑡, that are similarly 
+defined to 𝑍𝑝𝑎𝑦𝑑𝑒𝑥. 𝑍𝑠𝑙𝑜𝑤 captures shocks in a firm’s balance of ‘‘slow’’ 
+dollars payable to suppliers. 𝑍𝑐𝑢𝑟𝑟𝑒𝑛𝑡 captures shocks in a firm’s balance 
+of ‘‘current’’ dollars payable to suppliers. The long/short strategy based 
+on 𝑍𝑠𝑙𝑜𝑤 yields an average monthly return of 37 basis points, with a 
+statistically significant t-statistic of 3.43. We also obtain similar alphas, 
+which range between 41 and 46 basis points per month, with t-statistics 
+in all cases exceeding three. On the other hand, as expected, the 𝑍𝑐𝑢𝑟𝑟𝑒𝑛𝑡
+signal does not produce economically nor statistically robust average 
+returns and alphas.
+
+Our second noteworthy finding reveals that firms paying their bills 
+moderately late on a consistent basis earn substantially higher stock 
+returns. While this payment behavior reflects firms’ vertical bargaining 
+power  and  can  improve  working  capital  management,  we  argue  it 
+also creates ‘‘sticky’’ supplier relationships. This dependence constrains 
+firms’ ability to adapt to supply chain pressures and limits their growth 
+options in such situations. We measure this consistent late payment 
+behavior using our 𝐿𝑃 𝐶 metric. Firms with high 𝐿𝑃 𝐶 exhibit charac-
+teristics consistent with strong vertical bargaining power: they are less 
+financially constrained, less likely to be in distress, have larger market 
+shares, and are more profitable. In contrast, deviations from consistent 
+late payment patterns—whether paying very early or very late—often 
+
+be informative about the timeliness of trade credit but rather reflect multiple 
+other considerations (e.g., trade credit terms, business growth, ability to use 
+external financing).
+
+2 
+
+P. Lieberman et al.
+
+signal either weak bargaining power and other issues such as supplier 
+appeasement, financial distress, or cash-flow volatility. Empirically, we 
+find a strong and robust positive relation between a firm’s consistently 
+moderately late payment behavior and its subsequent stock returns. A 
+trading strategy that buys stocks in the highest quintile of 𝐿𝑃 𝐶 and 
+shorts stocks in the lowest quintile of 𝐿𝑃 𝐶 earns a monthly excess 
+return of 35 basis points with a significant t-statistic of 2.57.
+
+To trace the macro primitive that explains the 𝐿𝑃 𝐶 premium, we 
+test a range of macro shocks in a generalized method of moments 
+(GMM) setting following prior literature (e.g., Belo et al., 2019; Grigoris 
+et al., 2023). We find that while standard macro factors fail to price 
+𝐿𝑃 𝐶-sorted portfolios, a two-factor model featuring the market and 
+the Global Supply Chain Pressure Index (GSCPI) from Benigno et al. 
+(2022) renders the alpha on a spread 𝐿𝑃 𝐶 portfolio insignificant. High 
+𝐿𝑃 𝐶 firms, which possess greater vertical bargaining power, exhibit 
+lower covariances with changes in the GSCPI compared to low 𝐿𝑃 𝐶
+firms. This finding aligns with our hypothesis that supply chain pres-
+sures create growth opportunities predominantly for firms with lower 
+bargaining power, reducing their risk and expected returns. The GSCPI 
+captures these differential exposures to supply chain shocks, effectively 
+pricing the LPC portfolios by accounting for the variation in expected 
+returns driven by firms’ adaptability to supply chain fluctuations.
+
+The performance of both 𝑍𝑠𝑙𝑜𝑤 and 𝐿𝑃 𝐶 strategies is impressive 
+when benchmarked against the ‘‘zoo’’ of existing anomalies. As prior 
+research notes, most known anomalies have a significantly attenuated 
+performance over the sample period used in our study, 2006–2019, 
+due to high liquidity and trading activity (e.g., Chordia et al., 2014; 
+Chen and Velikov, 2023). Our signals, on the other hand, are notably 
+robust and perform exceptionally well when run through the Novy-
+Marx  and  Velikov  (2023)  protocol  for  evaluating  the  robustness  of 
+new anomalies. Among other findings discussed in Section 5 and the 
+Online Appendices, we note that both 𝑍𝑠𝑙𝑜𝑤 and 𝐿𝑃 𝐶 rank in the top 
+two percent of anomalies based on both gross and net of trading costs 
+Sharpe ratios.
+
+Our  paper  contributes  to  several  important  bodies  of  research, 
+starting with the extensive literature on trade credit. One key strand 
+of this literature explains the existence of trade credit as financing 
+of last resort, with suppliers offering trade credit when financing via 
+bank credit or securities issuance is costly or problematic (e.g., Meltzer, 
+1960; Petersen and Rajan, 1997; Nilsen, 2002; Fisman and Love, 2003; 
+Love et al., 2007; Atanasova, 2007; Molina and Preve, 2012). A second 
+strand of this trade credit literature focuses on suppliers’ informational 
+advantage over other credit providers about their customers’ businesses 
+(e.g., Goto et al., 2015; Ivashina and Iverson, 2018; Hirshleifer et al., 
+2020). A third important strand of this trade credit literature examines 
+the heterogeneity of trade credit terms in customer–supplier interac-
+tions (e.g., Fabbri and Klapper, 2008; Klapper et al., 2012; Murfin and 
+Njoroge, 2015; Barrot, 2016; Wu et al., 2023; Billett et al., 2021).
+
+Our  research  bridges  these  three  strands  of  the  trade  credit  lit-
+erature.  In  one  set  of  results,  we  show  that  a  sudden,  significant 
+delay in a customer firm’s payments to its suppliers predicts an under-
+performance  of  its  future  stock  returns.  Our  results  provide  novel 
+evidence contributing to the first two strands of the trade credit lit-
+erature characterizing trade credit as a financing of last resort and 
+also suggest suppliers’ significant informational advantage regarding 
+their customers. Additionally, we find that customers who consistently 
+pay moderately late earn excess returns, contributing to the literature 
+on trade credit heterogeneity by demonstrating how payment timing 
+reflects bargaining power and impacts systematic supply-chain risk. In 
+doing so, we also fill an existing gap in quantifying trade credit effects 
+on customers as trade credit payment behavior from the customer point 
+of view has been rarely studied because data containing details of trade 
+credit payment transactions are difficult to obtain.
+
+Second, our paper also contributes to a large asset pricing literature 
+on the slow diffusion of information (Hong and Stein, 1999). One part 
+of this literature suggests that equity investors have limited attention 
+
+Journal of Financial Economics 172 (2025) 104108 
+
+and do not immediately incorporate all publicly available information 
+into stock prices (e.g., Ball and Brown, 1968; Hirshleifer and Teoh, 
+2003; Picconi, 2006; Johnston et al., 2012). Further, investors lag in 
+incorporating public information especially when it is harder to process 
+and imposes a greater cognitive burden (e.g., Cohen et al., 2013a,b; Ko-
+rniotis and Kumar, 2013; Fitzgerald et al., 2021). We contribute to this 
+literature with unique evidence that the speed of trade credit payments 
+reflects  company  fundamentals,  but  such  information  is  not  widely 
+available nor immediately priced by investors. Instead, changes in pay-
+ment timeliness are impounded in stock prices consistent with a slow 
+diffusion of information channel so that increases in payment delays 
+predict firm’s stock returns over subsequent months. Our late payment 
+shock signals are positively correlated with the firm’s likelihood of 
+distress, negative momentum in the firm’s recent stock performance, 
+and predict negative abnormal returns around the firm’s future earnings 
+announcements. Our research implicitly sheds light on whether formal 
+business credit information exchanges could be informative to equity 
+investors.
+
+Lastly, we contribute to the recent literature on vertical relations 
+and asset prices. Grigoris et al. (2023) argue that trade credit reduces 
+the departure probability of high-quality customers, whereby reducing 
+trade credit extends firms’ exposures to systematic costs incurred in 
+finding new customers. Ahern (2012)  suggests  that  product market 
+relations determine firms’ bargaining power and affect the division of 
+gains in mergers. Gofman et al. (2020) argue that a firm’s relative 
+position in the production network (i.e., distance from final consumers) 
+has key implications for its risk and returns. In a real options model of 
+strategic bargaining between a customer and a supplier, Bustamante 
+(2021)  shows  that  the  firm  with  higher  vertical  bargaining  power 
+extracts a larger fraction of the joint future value of the supply chain 
+and enhances firms’ values. We add to this literature by showing how 
+firms’ bargaining power in customer–supplier relations summarized by 
+trade credit late payment behavior predicts asset prices, irrespective 
+of firms’ locations in the supply chain. We also document the micro-
+level manifestations and outcomes of firms’ vertical bargaining power 
+through their trade credit behavior.7
+
+The rest of this paper is organized as follows. Section 2 develops our 
+hypotheses. Section 3 describes our data, the construction of variables 
+and descriptive statistics. Section 4 presents our main empirical results. 
+Section 5 discusses additional analyses including robustness checks. 
+Finally, Section 6 concludes.
+
+2. Hypothesis development
+
+Our  study  examines  whether  the  timeliness  of  customers’  trade 
+credit payments can be informative for the cross-section of stock re-
+turns. We hypothesize two distinct channels through which trade credit 
+payment  behavior  relates  to  future  stock  returns:  slow  diffusion  of 
+information and vertical bargaining power of customer firms. While 
+both of these channels reflect payment behavior, they have widely 
+disparate predictions about how the promptness of payments impacts 
+future stock returns.
+
+7 A primary factor that defines supply chain vertical relations is product 
+market competition. We argue that firms’ market power translates into vertical 
+bargaining power, which in turn enables customers to push trade credit terms 
+and consistently pay late, resulting in higher operating leverage and increased 
+firm profitability. Our study is thus also tangentially related to the literature 
+on product market competition and asset prices (e.g., Hou and Robinson, 
+2006; Bustamante and Donangelo, 2017; Loualiche, 2022; Corhay et al., 2020; 
+Babenko et al., 2018) as well as prior studies on operating leverage and firm 
+profitability (e.g., Novy-Marx, 2011; Hackbarth and Johnson, 2015).
+
+3 
+
+P. Lieberman et al.
+
+2.1. Slow diffusion of information channel
+
+One stream of research argues that firms extend financing to their 
+corporate customers because they have an information advantage over 
+financiers when dealing with adverse selection (Petersen and Rajan, 
+1997) or with moral hazard (Burkart and Ellingsen, 2004). Consistent 
+with  suppliers  having  an  informational  advantage  about  their  cus-
+tomers’ businesses, the amount of trade credit that a supplier offers 
+to a buyer is positively associated with future buyer financial perfor-
+mance and solvency (Goto et al., 2015; Hirshleifer et al., 2020). Once 
+trade credit is extended, however, the ability to pay the trade credit 
+and the timeliness thereof should contain critical information about a 
+customer’s future prospects.
+
+Sudden delays in payment are likely to indicate negative cash flow 
+shocks and increased likelihood of distress. To this point, Hill et al. 
+(2010) and Lee (2011) show that firms nearing financial distress tend 
+to be more aggressive in their working capital management, collecting 
+faster from clients and delaying payments to suppliers. Further, Molina 
+and Preve (2012) provide evidence that financially distressed compa-
+nies use more trade credit and take longer to repay their trade payables 
+than when they were not in financial distress, consistent with firms 
+in financial distress accumulating debt with suppliers by delaying or 
+stopping payment.
+
+We thus hypothesize that sharp increases in trade credit payment 
+delay  predict  negative  future  stock  returns.  We  conjecture  that  in-
+vestors are unable to immediately incorporate information about the 
+timeliness of a firm’s payment practices into its stock price. Information 
+about trade credit payment delays is initially only available to the 
+firm’s direct suppliers, while not available to the marginal investor. 
+Imperfect trade credit information is available in financial statements 
+only at the quarterly frequency subject to filing delays. If investors 
+are slow to incorporate this information, we expect that the significant 
+deterioration of how promptly a customer pays its suppliers should lead 
+to a pronounced decrease in its stock price. An investor with access to 
+information about a firm’s payment practices should be able to exploit 
+this information and design profitable trading strategies in the cross-
+section of stock returns, a result we show in Section 4.1. Importantly, a 
+negative shock to a firm’s payment behavior caused by financial distress 
+would only be incorporated into its stock price once investors realize 
+that the firm is in distress. If our conjecture is correct, we expect the 
+information contained in trade credit payment delays to be impounded 
+into stock prices around future earnings announcements, which we 
+show in turn in Section 3.3.3.
+
+Theoretically,  our  hypothesis  regarding  sharp  increases  in  trade 
+credit payment delays predicting negative stock returns can be mo-
+tivated based on Hirshleifer et al. (2011), who develop a model in 
+which investors with limited attention, or alternatively limited infor-
+mation acquisition and information processing ability, neglect relevant 
+earnings-related information. This subsequently results in slow diffu-
+sion of information and (temporary) misvaluation. We conjecture that 
+this mechanism will lead to cross-sectional return predictability, which 
+will not be explained by standard factor models.
+
+To further illustrate our hypothesis, consider Liquid Holdings Group, 
+Inc. (ticker: LIQD). Liquid was a software service and risk management 
+technology  provider  that  catered  to  the  securities  and  hedge  fund 
+industry.  Fig.   1  plots  the  stock  price  (left  axis)  of  Liquid  Holdings 
+along with its PAYDEX score (right axis) between September 2013 and 
+March 2014. As we detail in Section 3, PAYDEX is a score that assesses 
+the timeliness of payments made to a firm’s suppliers (a score of 80 
+indicates prompt, or on-time, payments; a score greater than 80 – early 
+payments; a score less than 80 – late payments).
+
+In late 2013, Liquid experienced a significant negative cash-flow 
+shock due to trouble with its major customer QuantX, which accounted 
+for a substantial portion of Liquid’s revenues. The issue spilled over to 
+Liquid’s ability to pay its suppliers. As a result, Liquid’s PAYDEX score, 
+while being basically constant at 80 until then, suddenly collapsed to 
+
+Journal of Financial Economics 172 (2025) 104108 
+
+66 at the end of November. Liquid’s stock price did not incorporate 
+this information until later in December and January, when information 
+about their trouble percolated. An investor trading on the information 
+contained  in  PAYDEX  could  have  shorted  the  stock  at  the  end  of 
+November, 2013 and earned close to 50% return over the next quarter. 
+Liquid eventually declared bankruptcy in 2015.
+
+2.2. Vertical bargaining power channel
+
+While  late  trade  credit  payment  behavior  can  indicate  financial 
+distress, it could also reflect a customer’s ability to pay its suppliers 
+late, especially if that behavior is observed consistently. This conjecture 
+is consistent with prior research showing that trade credit interactions 
+reflect the borrower’s market power in its downstream product market 
+(e.g., Brennan et al., 1988; Murfin and Njoroge, 2015; Barrot, 2016; 
+Giannetti et al., 2021; Wu et al., 2023).
+
+Firms that consistently pay late can leverage several operational 
+benefits. Late payments serve as a working capital strategy, freeing 
+up cash for various uses such as operational investments or financing 
+of  receivables.  This  practice  helps  customers  lower  financing  costs 
+by  reducing  their  need  for  expensive  short-term  credit  (Fabbri  and 
+Klapper, 2008; Klapper et al., 2012). Payment delays also enhance cus-
+tomers’ negotiating position with suppliers regarding price, quality, and 
+quantity. These benefits primarily affect assets in place by stabilizing 
+current operations and improving short-term cash flows.
+
+The ability to sustain late payments without severe consequences 
+stems from suppliers’ desire to maintain important supply chain re-
+lationships  and  their  reliance  on  customers  for  future  sales.  While 
+suppliers can technically impose late payment penalties, many waive 
+these fees, particularly for important trade partners (Klapper et al., 
+2012; Fabbri and Klapper, 2016; Wu et al., 2023).8 As a result, market-
+dominant customers can often compel suppliers to bear the cost of 
+extended payment terms (Hofmann and Kotzab, 2010; Barrot, 2016; 
+Murfin and Njoroge, 2015).
+
+The  rent  extraction  through  late  payments,  however,  cannot  be 
+infinite and is ultimately balanced against potential deadweight costs 
+from supplier distress, particularly in specialized relationships. Conse-
+quently, more moderate forms of late payment are more likely to persist 
+than severe payment delays. These arguments lead us to hypothesize 
+that firms with high vertical bargaining power are able to optimize a 
+consistent late payment pattern, allowing them to tactically extract cash 
+flows from their suppliers without distressing them.
+
+However, even moderate late payment practices come with signif-
+icant costs, particularly regarding firms’ growth options and exposure 
+to systematic risk. When firms regularly delay payments, they become 
+deeply embedded in existing supplier relationships that are costly to 
+diversify or replace (e.g., Acemoglu and Tahbaz-Salehi, 2025). This en-
+trenchment creates rigidity in their supply chain structure. While such 
+rigidity may stabilize current operations, it fundamentally impairs these 
+firms’ ability to adapt when aggregate supply chain pressures increase. 
+During periods of high supply chain pressure – which we hypothesize 
+represent states of high marginal utility for investors – firms can often 
+capitalize on emerging opportunities like pent-up demand by flexibly 
+adjusting their supplier relationships. However, consistent late-paying 
+firms find themselves constrained by their existing ‘‘sticky’’ supplier 
+relationships.
+
+This reduced flexibility manifests most clearly in the behavior of 
+growth options, akin to ‘‘value’’ stocks in Zhang’s (2005) model of the 
+value premium.9 When aggregate supply chain pressure increases, the 
+
+8 We further confirmed these institutional features with a leading provider 
+of accounts receivable solutions, who acknowledged grace periods for short 
+delays are common for important trading partners.
+
+9 This mirrors (Zhang, 2005)’s notion that ‘‘value’’ firms with more assets 
+in place (and fewer growth options) command higher expected returns due to 
+increased risk from their limited ability to invest in new growth opportunities.
+
+4 
+
+P. Lieberman et al.
+
+Journal of Financial Economics 172 (2025) 104108 
+
+Fig. 1.  Stock price and PAYDEX score for Liquid Holdings Group, Inc.
+This figure plots the daily stock price (left scale) and PAYDEX score (right scale) for Liquid Holdings Group, Inc. (LIQD) between September 2013 and March 2014. LIQD announced 
+earnings on 10/31/2013 and 2/27/2014.
+
+value of growth options rises less for consistent late payers compared 
+to firms that maintain more flexible supplier relationships. Their failure 
+to invest in supply chain health makes them more vulnerable to supply 
+chain fragility during shocks. As a result, late-paying firms serve as 
+poorer hedges against systematic supply chain pressure risk precisely 
+when this risk is most concerning to investors. While the stabilization 
+of assets in place might suggest reduced risk, our empirical evidence 
+shows that the negative impact on growth options dominates, resulting 
+in higher systematic risk exposure and, consequently, higher expected 
+returns for these firms, as we demonstrate in Sections 4.2.1 and 4.2.3.
+We  expect  that  standard  empirical  factor  models  are  unable  to 
+fully account for the difference in average returns between firms with 
+low versus high vertical bargaining power. Thus, we hypothesize that 
+vertical bargaining power introduces a new source of priced risk in the 
+cross-section of stock returns, driven by supply chain shocks and their 
+impact on firms’ growth opportunities. Furthermore, we hypothesize 
+that a supply chain pressure factor can price vertical bargaining-sorted 
+portfolios with a negative price of risk. Firms with high bargaining 
+power, experiencing less benefit from the positive growth option effects 
+of  supply  chain  shocks,  require  higher  expected  returns  to  attract 
+investors.
+
+is ensured through a ‘‘Give to Get’’ arrangement with participating 
+firms. While firms voluntarily join the information-sharing program, 
+they must contractually disclose all trade credit information for all 
+downstream customers to D&B once they choose to join. In return, 
+D&B shares aggregated forms of the data in response to participating 
+firms’ inquiries. D&B is contractually obligated to abstain from pub-
+lishing or sharing trade credit information on any specific relationship 
+between suppliers and customers (e.g., supplier names or information 
+that may lead to their identification).11 This mitigates concerns over 
+relationship-specific information leakage through participation in the 
+program.
+
+D&B  processes  and  records  trade  terms  and  customer  payment 
+information, including late payment information, from suppliers in the 
+program on a daily basis. The data product then aggregates firm-level 
+variables at the monthly frequency. In its final form, the Credit Score 
+Archive  Database  (CSAD)  is  an  aggregated  (at  the  buyer  level)  set 
+of information on how buyers pay their suppliers in the D&B trade 
+program. The database includes trade credit information for more than 
+7,000 US-listed companies between January 2006 and December 2019, 
+with more than 3,000 monthly observations in each month.12
+
+3. Data
+
+3.2. PAYDEX score
+
+3.1. Dun & Bradstreet’s Credit Score Archive Database
+
+Dun & Bradstreet (D&B) collects many different types of information 
+about a company’s business activities including its public filings (liens, 
+lawsuits, judgments, bankruptcy) and financial statements. Arguably, 
+however, the most valuable data that D&B collects is payment history, 
+the vast majority of which is trade payment history (Kallberg and Udell, 
+2003). At the core of D&B’s database is a proprietary trade program 
+composed of over 15,000 suppliers across 60 countries that collect de-
+tailed payment (invoice) information on millions of public and private 
+companies worldwide.10 The quality and the reliability of D&B’s data 
+
+10 The information covers the majority of publicly traded companies in the 
+U.S. – 89% of the company names and 95% of the market capitalization. For 
+the median firm, the credit information variables D&B produces are based on 
+payables comprising roughly 5% of a company’s accounts payable, and D&B 
+states that their data are representative based on geography, industry, and size.
+
+D&B summarizes a company’s payment information in a statistic 
+called  the  PAYDEX  score.  According  to  Kallberg  and  Udell  (2003), 
+PAYDEX is ‘‘the most important piece of information provided by D&B’’. 
+PAYDEX is a unique dollar-weighted indicator representing how timely 
+a firm pays its bills relative to terms, based on payment experiences 
+
+11 D&B does not provide access to information on the supplier firms enrolled 
+in its trade program, precluding us from analyzing and documenting these 
+firms’ characteristics.
+12 The database is updated over the first weekend of every calendar month. 
+When merging CSAD to CRSP, to avoid any look-ahead bias, we specify that, 
+for a given calendar month’s CSAD data, we explore the subsequent calendar 
+month’s total return (calendar month-end close to calendar month-end close). 
+Accordingly, in practice, a user would receive updated CSAD data on the first 
+weekend of calendar Month t to forecast returns for calendar Month t+1 and 
+beyond. This means there is always an approximately 3–4 week lag between 
+the updated CSAD data during the first weekend of calendar Month t and the 
+beginning of the calendar Month t+1 return period.
+
+5 
+
+P. Lieberman et al.
+
+Journal of Financial Economics 172 (2025) 104108 
+
+Table 1
+PAYDEX definition.
+This table reports the thresholds used for classifying firms’ payment prac-
+tices based on their PAYDEX score. PAYDEX is a unique dollar-weighted 
+indicator representing how timely a firm pays its bills according to 
+terms, based on payment experiences reported to Dun & Bradstreet 
+through its trade program. See Section 3.2 for further details.
+  PAYDEX
+  100
+  90
+  80
+  70
+  60
+  50
+  40
+  30
+  20
+  0–19
+  UN
+
+Payment practice classification
+Current payment: Anticipates
+Current payment: Discounts
+Current payment: Prompt
+Slow payment: 15 days beyond terms
+Slow payment: 22 days beyond terms
+Slow payment: 30 days beyond terms
+Slow payment: 60 days beyond terms
+Slow payment: 90 days beyond terms
+Slow payment: 120 days beyond terms
+Slow payment: Over 120 days beyond terms 
+Unavailable
+
+Table 2
+PAYDEX descriptive statistics.
+This table reports descriptive statistics for firms’ PAYDEX scores in our sample. Panel A 
+reports the full-sample mean, standard deviation and five percentiles of the distribution. 
+Panel B reports the same statistics for each year in our sample. The sample period used 
+is 01/2006–12/2019.
+  Variable
+Mean
+
+Percentiles
+
+StDev
+
+72.40
+
+  Panel A: Full Sample
+  PAYDEX
+  Panel B: By year
+  2006
+  2007
+  2008
+  2009
+  2010
+  2011
+  2012
+  2013
+  2014
+  2015
+  2016
+  2017
+  2018
+  2019
+
+72.41
+72.53
+72.51
+72.32
+72.49
+72.68
+72.69
+72.85
+72.71
+72.41
+72.12
+71.98
+71.90
+71.71
+
+5th
+
+25th
+
+50th
+
+75th
+
+7.09
+
+60.00
+
+69.00
+
+74.00
+
+78.00
+
+6.56
+6.60
+6.68
+6.93
+6.99
+6.96
+6.76
+6.66
+6.98
+7.33
+7.57
+7.79
+7.79
+7.92
+
+60.75
+61.00
+60.58
+60.00
+60.16
+60.00
+60.50
+61.00
+60.08
+59.53
+58.83
+57.92
+58.14
+57.55
+
+69.00
+69.08
+69.00
+69.00
+69.42
+70.00
+69.83
+70.00
+69.83
+69.08
+69.00
+68.92
+68.25
+68.00
+
+73.58
+73.75
+74.00
+73.92
+74.00
+74.00
+74.00
+74.08
+74.00
+74.00
+74.00
+73.75
+73.00
+73.09
+
+77.00
+77.00
+77.00
+77.00
+77.42
+78.00
+77.94
+78.00
+78.00
+78.00
+78.00
+78.00
+77.92
+77.64
+
+95th  
+
+80.00 
+
+80.00 
+80.00 
+80.00 
+80.00 
+80.00 
+80.00 
+80.00 
+80.00 
+80.00 
+80.00 
+80.00 
+80.00 
+80.00 
+80.00 
+
+reported to D&B through its trade program.13 D&B requires at least 
+three trade payment experiences from two unique suppliers to calculate 
+a PAYDEX score. For a trade payment experience to be eligible to be 
+used in the PAYDEX score, the reported date of the trade payment 
+experience must be within 24 months (of PAYDEX calculation) and 
+the date of last sale must be within 36 months. PAYDEX is regularly 
+calculated for over eight million U.S. firms, most of which are private. 
+Appendix  A provides an example of PAYDEX score calculation.
+
+Table   1  summarizes  the  range  and  meaning  of  PAYDEX  values. 
+The score ranges from 0 to 100, where a higher number generally 
+represents more timely payment history. A score of 80 indicates that 
+payments have been made on time (i.e., are prompt). Scores greater 
+than 80 indicate that payments have been made early. These early 
+payments usually occur because buyers are acting on discounted offers 
+for early payment from their suppliers. Scores less than 80 indicate that 
+payments have been made late.
+
+13 To calculate a PAYDEX score, payment experiences are separated into 
+payment classes (e.g., ‘‘Anticipates’’, ‘‘Discount’’, ‘‘Prompt’’, ‘‘Slow to 15 days’’, 
+‘‘Slow to 22 days’’, etc.) with associated Index values (e.g., 100, 90, 80, 70, 
+60, etc.) analogous to Table  1. The index values are then weighted by the high 
+credit amount of each trade payment experience and added up.
+
+6 
+
+Table 3
+𝑍paydex descriptive statistics.
+This table reports descriptive statistics for firms’ standardized PAYDEX scores in our 
+sample. See Section 3.3 for details on the construction of the 𝑍paydex score. Panel A 
+reports the full-sample mean, standard deviation and five percentiles of the distribution. 
+Panel B reports the same statistics for each year in our sample. The sample period used 
+is 01/2006–12/2019.
+  Variable
+Mean
+
+Percentiles
+
+StDev
+
+  Panel A: Full Sample
+  𝑍paydex
+−0.11
+  Panel B: By year
+  2006
+0.02
+  2007
+−0.16
+  2008
+−0.17
+  2009
+−0.18
+  2010
+−0.07
+  2011
+−0.10
+  2012
+−0.12
+  2013
+0.04
+  2014
+−0.17
+  2015
+−0.18
+  2016
+−0.19
+  2017
+−0.16
+  2018
+−0.13
+  2019
+−0.19
+
+5th
+
+25th
+
+50th
+
+75th
+
+3.12
+
+−2.71
+
+−0.96
+
+0.00
+
+0.89
+
+2.56
+2.65
+2.83
+2.84
+2.88
+3.15
+2.54
+3.03
+3.00
+3.03
+3.09
+3.19
+3.89
+3.66
+
+−2.67
+−2.58
+−2.78
+−2.72
+−2.60
+−2.64
+−2.70
+−2.65
+−2.74
+−2.78
+−2.79
+−2.73
+−2.76
+−2.86
+
+−0.88
+−0.92
+−0.97
+−0.99
+−0.91
+−0.90
+−0.91
+−0.89
+−0.99
+−1.01
+−1.01
+−0.99
+−0.97
+−1.01
+
+0.14
+0.00
+0.00
+0.00
+0.02
+0.00
+0.00
+0.02
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+
+1.05
+0.88
+0.89
+0.87
+0.94
+0.93
+0.89
+0.96
+0.86
+0.82
+0.85
+0.84
+0.87
+0.87
+
+95th 
+
+2.24 
+
+2.40 
+2.16 
+2.23 
+2.26 
+2.30 
+2.25 
+2.27 
+2.38 
+2.23 
+2.20 
+2.21 
+2.20 
+2.27 
+2.30 
+
+Table  2, Panel A reports descriptive statistics for the distribution of 
+PAYDEX in our month-stock panel across several dimensions. Firms pay 
+late on average. In our sample, 89% of the firm-month observations 
+have PAYDEX scores below 80, meaning late payment. The average 
+PAYDEX score is 72, with the median being slightly higher at 74. More 
+than a quarter of all observations indicate a payment delay of 15 days 
+or more. Table  2, Panel B shows the PAYDEX distribution for each 
+year in our sample. We observe that while the cross-sectional mean 
+of PAYDEX has remained stable over time, its cross-sectional standard 
+deviation has consistently increased (i.e., there is more cross-sectional 
+variation in later periods). For the interested reader, Table OA.A.1, 
+Panel A in Online Appendix A also documents the variation in the 
+distribution of PAYDEX across industries (using the Fama and French’s 
+17 industry classification).
+
+In broad terms, a lower PAYDEX score means that a firm should be 
+considered less credit-worthy because it pays its bills later. This could 
+imply that a firm does not have the cash on hand to pay its suppliers 
+and therefore has to rely on trade credit to make payments — which is a 
+significant risk for prospective business partners or commercial lenders. 
+However, this relation could be complicated due to several factors. On 
+the one hand, small firms can pay later because they do not have the 
+cash on hand to pay their suppliers. On the other hand, the largest 
+publicly traded firms could afford to pay later, not because they do not 
+have cash, but because they have the market power over their suppliers 
+to do so. We proceed with introducing our two primary trading signals 
+that we use to test our hypotheses.
+
+3.3. A measure of late payment shocks (𝑍𝑝𝑎𝑦𝑑𝑒𝑥)
+
+3.3.1. Definition of 𝑍𝑝𝑎𝑦𝑑𝑒𝑥
+
+In our first hypothesis discussed in Section 2.1, we conjecture that 
+significant increases in the delay of a firm’s payment to suppliers should 
+predict substantially lower future stock returns. In other words, we 
+argue that our example of Liquid Holdings Group is not an isolated case, 
+but instead represents a systematic pattern in the cross-section of stock 
+returns. To identify firms with significant ‘‘late payment shocks’’, every 
+month we standardize a firm’s PAYDEX score by subtracting its mean 
+over the previous year and by dividing by its previous year’s standard 
+deviation. Specifically, our payment shock measure is calculated as: 
+
+𝑍𝑝𝑎𝑦𝑑𝑒𝑥,𝑖𝑡 =
+
+𝑃 𝐴𝑌 𝐷𝐸𝑋𝑖𝑡 − 𝜇𝑝𝑎𝑦𝑑𝑒𝑥,𝑖𝑡−1
+𝜎𝑝𝑎𝑦𝑑𝑒𝑥,𝑖𝑡−1
+
+(1)
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P. Lieberman et al.
+
+Journal of Financial Economics 172 (2025) 104108 
+
+Table 4
+𝑍paydex and related variables.
+This table documents results from panel regressions of the form 𝑍paydex,𝑖𝑡 = 𝛼𝑡 + 𝛽′𝐱𝑖𝑡 + 𝜀𝑖𝑡 in Panel A and 𝑥𝑖𝑡 = 𝛼𝑡 + 𝛼𝑖 + 𝛽′𝑍paydex,𝑖𝑡−1 + 𝜀𝑖𝑡 in 
+Panel B. The characteristics 𝐱𝑡,𝑗 include measures of financial constraints (Whited and Wu, 2006), probability of failure (Campbell et al., 2008), 
+momentum (Carhart, 1997), idiosyncratic volatility (Ang et al., 2006), size, and return on equity. All variables are winsorized at the 1% level 
+and standardized by subtracting their mean and dividing by their standard deviation. T-statistics are in brackets. Standard errors are calculated 
+using two-dimensional clustering at the firm and year–month levels. The sample period used is 01/2006–12/2019.
+  Panel A: Regressions of the form 𝑍paydex,𝑖𝑡 = 𝛼𝑡 + 𝛽′𝐱𝑖𝑡 + 𝜀𝑖𝑡
+
+  FC
+
+  Distress
+
+  Past Returns
+
+  IVol
+
+  log(ME)
+
+  ROE
+
+(2)
+
+(3)
+
+(4)
+
+(5)
+
+(6)
+
+(1)
+
+−0.14
+[−3.95]
+
+−0.03
+[−8.59]
+
+0.06
+[6.41]
+
+−1.38
+[−7.75]
+
+Yes
+No
+0.27
+620,146
+
+Yes
+No
+0.27
+619,864
+
+0.01
+[7.01]
+
+Yes
+No
+0.27
+620,352
+
+0.07
+[4.28]
+Yes
+No
+0.26
+513,338
+
+  Year–month Fixed Effects
+  Firm Fixed Effects
+  𝑅2(%)
+  n
+  Panel B: Regressions of the form 𝑋𝑖𝑡 = 𝛼𝑡 + 𝛼𝑖 + 𝛽′𝑍paydex,𝑖𝑡−1 + 𝜀𝑖𝑡
+
+Yes
+No
+0.28
+569,474
+
+Yes
+No
+0.27
+495,580
+
+  𝑍𝑝𝑎𝑦𝑑𝑒𝑥
+
+  Year–month Fixed Effects
+  Firm Fixed Effects
+  𝑅2(%)
+  n
+
+(1)
+Distress
+
+−0.02
+[−8.19]
+Yes
+No
+
+5.66
+564,669
+
+(2)
+IVol
+
+−0.01
+[−6.80]
+Yes
+No
+
+14.84
+598,494
+
+(3)
+Distress
+
+−0.01
+[−5.80]
+Yes
+Yes
+
+61.84
+564,584
+
+(7)
+−0.10  
+[−1.49] 
+−0.03  
+[−4.37] 
+0.04
+[3.77]  
+0.23
+[0.75]  
+−0.01  
+[−1.38] 
+0.01
+[0.68]  
+Yes
+No
+0.32
+454,337
+
+(4)
+IVol
+−0.01  
+[−3.74]  
+Yes
+Yes
+48.88  
+598,443 
+
+where 𝜇𝑝𝑎𝑦𝑑𝑒𝑥,𝑖𝑡 and 𝜎𝑝𝑎𝑦𝑑𝑒𝑥,𝑖𝑡 are calculated using the firm’s PAYDEX 
+score over the prior 12 months (1 year). We require at least three 
+months of data to calculate 𝜇𝑝𝑎𝑦𝑑𝑒𝑥,𝑖𝑡 and 𝜎𝑝𝑎𝑦𝑑𝑒𝑥,𝑖𝑡, and if 𝜎𝑝𝑎𝑦𝑑𝑒𝑥,𝑖𝑡 =
+0, we use the first percentile of the non-zero standard deviations in 
+that month. Large negative values of 𝑍𝑝𝑎𝑦𝑑𝑒𝑥 capture sudden delays in 
+trade credit payment, particularly when a company has had a steady 
+payment record. Conversely, large positive values of 𝑍𝑝𝑎𝑦𝑑𝑒𝑥 capture 
+sudden early trade credit payments relative to its past history, again 
+particularly pronounced when a company has had a steady payment 
+record.14
+
+Table  3 shows descriptive statistics for 𝑍𝑝𝑎𝑦𝑑𝑒𝑥. We observe that 
+payment shocks tend to fluctuate across firms and over time. Panel 
+A reports the full sample results. While the median payment shock 
+is  exactly  zero,  we  see  that  𝑍𝑝𝑎𝑦𝑑𝑒𝑥  has  a  notable  dispersion.  Our 
+hypothesis posits that significant delays in trade credit payment relative 
+to recent history captures cash-flow position deterioration and an in-
+creasing likelihood of distress. This future under-performance should be 
+concentrated in the left tail of 𝑍𝑝𝑎𝑦𝑑𝑒𝑥. To that point, we see that 𝑍𝑝𝑎𝑦𝑑𝑒𝑥
+has an asymmetric, negatively skewed distribution, as evidenced by the 
+negative mean of −0.11.
+
+Panel B shows the 𝑍𝑝𝑎𝑦𝑑𝑒𝑥 distribution for each year in our sample. 
+While the median standardized PAYDEX score is close to zero for most 
+years, the average exhibits significant variation and even turns positive 
+in 2006 and 2013. It varies between −0.19 in 2019 and 0.04 in 2013. 
+For the interested reader, Table OA.A.1, Panel B in Online Appendix 
+A also documents the variation in the distribution of 𝑍𝑝𝑎𝑦𝑑𝑒𝑥 across 
+industries (using the Fama and French’s 17 industry classification).
+
+14 In unreported results, we find that long/short trading strategies separately 
+based on the numerator and denominator of 𝑍𝑝𝑎𝑦𝑑𝑒𝑥 (i.e., 𝑃 𝐴𝑌 𝐷𝐸𝑋 − 𝜇𝑝𝑎𝑦𝑑𝑒𝑥
+and 𝜎𝑝𝑎𝑦𝑑𝑒𝑥) produce returns and alphas that are indistinguishable from zero 
+on their own.
+
+7 
+
+Table 5
+𝐿𝑃 𝐶 descriptive statistics.
+This table reports descriptive statistics for firms’ Late Payment Consistency (LPC) scores 
+in our sample. See Section 3.4 for details on the construction of the 𝐿𝑃 𝐶 score. Panel A 
+reports the full-sample mean, standard deviation and five percentiles of the distribution. 
+Panel B reports the same statistics for each year in our sample. The sample period used 
+is 01/2006–12/2019.
+  Variable
+Mean
+
+Percentiles
+
+StDev
+
+0.61
+
+  Panel A: Full Sample
+  LPC
+  Panel B: By year
+  2006
+  2007
+  2008
+  2009
+  2010
+  2011
+  2012
+  2013
+  2014
+  2015
+  2016
+  2017
+  2018
+  2019
+
+0.60
+0.61
+0.60
+0.61
+0.61
+0.61
+0.62
+0.62
+0.61
+0.61
+0.60
+0.60
+0.59
+0.58
+
+5th
+
+25th
+
+50th
+
+75th
+
+0.33
+
+0.00
+
+0.35
+
+0.67
+
+0.93
+
+0.37
+0.34
+0.33
+0.32
+0.32
+0.32
+0.32
+0.32
+0.33
+0.33
+0.33
+0.33
+0.33
+0.33
+
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+
+0.29
+0.35
+0.34
+0.36
+0.37
+0.37
+0.38
+0.38
+0.36
+0.35
+0.35
+0.34
+0.33
+0.32
+
+0.70
+0.68
+0.68
+0.68
+0.68
+0.68
+0.68
+0.68
+0.68
+0.67
+0.67
+0.67
+0.65
+0.63
+
+0.99
+0.95
+0.92
+0.91
+0.91
+0.92
+0.92
+0.93
+0.93
+0.93
+0.93
+0.92
+0.90
+0.90
+
+95th 
+
+1.00 
+
+1.00 
+1.00 
+1.00 
+1.00 
+1.00 
+1.00 
+1.00 
+1.00 
+1.00 
+1.00 
+1.00 
+1.00 
+1.00 
+1.00 
+
+3.3.2. 𝑍paydex and firm characteristics in the cross-section
+
+This section explores the cross-sectional correlation of 𝑍𝑝𝑎𝑦𝑑𝑒𝑥 with 
+other firm characteristics. If our first conjecture is correct that sudden 
+delays in trade credit payment are informative about the deterioration 
+in a firm’s cash-flow position and an early signal for distress, then 
+𝑍𝑝𝑎𝑦𝑑𝑒𝑥 should be related to firm-level proxies that capture distress risk 
+dimensions. However, we do not expect that firm characteristics can 
+explain 𝑍𝑝𝑎𝑦𝑑𝑒𝑥 well, as 𝑍𝑝𝑎𝑦𝑑𝑒𝑥 should be a hard-to-predict ‘‘shock’’ to 
+the timeliness of trade credit payment. Table  4, Panel A reports results 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P. Lieberman et al.
+
+Journal of Financial Economics 172 (2025) 104108 
+
+Table 6
+𝐿𝑃 𝐶 and related variables.
+This table documents results from panel regressions of the form 𝐿𝑃 𝐶𝑖𝑡 = 𝛼𝑡 +𝛽′𝐱𝑖𝑡 +𝜀𝑖𝑡. The characteristics 𝐱𝑖,𝑡 include measures of financial constraints (Whited 
+and Wu, 2006), probability of failure (Campbell et al., 2008), product market fluidity (Hoberg et al., 2014), market share, size, and gross profitability 
+(Novy-Marx, 2013). All variables are winsorized at the 1% level and standardized by subtracting their mean and dividing by their standard deviation. 
+T-statistics are in brackets. Standard errors are calculated using two-dimensional clustering at the firm and year–month levels. The sample period used is 
+01/2006–12/2019.
+  Regressions of the form 𝐿𝑃 𝐶𝑖𝑡 = 𝛼𝑡 + 𝛽′𝐱𝑖𝑡 + 𝜀𝑖𝑡
+
+  FC
+
+  Distress
+
+  PMF
+
+  Market Share
+
+  log(ME)
+
+  GP/A
+
+(2)
+
+(3)
+
+(4)
+
+(5)
+
+(6)
+
+(1)
+
+−0.09
+[−7.22]
+
+−0.16
+[−16.56]
+
+−0.14
+[−12.99]
+
+(7)
+−0.03  
+[−1.31]  
+−0.11  
+[−8.90]  
+−0.05  
+[−3.41]  
+0.03
+[2.37]  
+−0.03  
+[−1.30]  
+0.05
+[3.45]  
+Yes
+No
+2.31
+429,590 
+
+0.08
+[6.76]
+
+Yes
+No
+0.68
+575,817
+
+0.13
+[11.47]
+
+Yes
+No
+1.82
+631,663
+
+0.09
+[8.36]
+Yes
+No
+1.06
+500,523
+
+  Year–month Fixed Effects
+  Firm Fixed Effects
+  𝑅2(%)
+  n
+
+Yes
+No
+0.94
+500,998
+
+Yes
+No
+2.55
+575,727
+
+Yes
+No
+2.16
+602,644
+
+Table 7
+𝑍paydex sort performance.
+This table reports average excess returns, alphas, and loadings on the Fama and French (2018) six-factor model for five portfolios constructed 
+by sorting on 𝑍paydex. At the end of each month, we sort stocks into five portfolios based on 𝑍paydex using NYSE breaks. For each of the five 
+portfolios, and for a portfolio long stocks with high 𝑍paydex and short stocks with low 𝑍paydex, Panel A reports average value-weighted returns 
+in excess of the risk-free rate and alphas with respect to the CAPM, Fama and French (1993) three-factor model, Fama and French (1993) 
+three-factor model augmented with the Carhart (1997) momentum factor, and the Fama and French (2018) five- and six-factor models. Panel 
+B reports the loadings for the six portfolios on the Fama and French (2018) six-factor model. T-statistics are in brackets. The sample period 
+used is 01/2006–12/2019.
+  Panel A: Excess returns and alphas on 𝑍𝑝𝑎𝑦𝑑𝑒𝑥-sorted portfolios
+
+  𝑟𝑒
+
+  𝛼CAPM
+
+  𝛼FF3
+
+  𝛼FF3+UMD
+
+  𝛼FF5
+
+  𝛼FF6
+
+(L)
+
+0.58
+[1.76]
+−0.16
+[−2.57]
+−0.15
+[−2.34]
+−0.15
+[−2.32]
+−0.15
+[−2.29]
+−0.15
+[−2.27]
+
+(2)
+
+0.84
+[2.49]
+0.08
+[1.10]
+0.07
+[0.94]
+0.07
+[0.96]
+0.06
+[0.73]
+0.06
+[0.75]
+
+(3)
+
+0.84
+[2.57]
+0.10
+[1.57]
+0.10
+[1.45]
+0.09
+[1.42]
+0.08
+[1.22]
+0.08
+[1.20]
+
+(4)
+
+0.72
+[2.13]
+−0.04
+[−0.65]
+−0.03
+[−0.50]
+−0.04
+[−0.52]
+−0.04
+[−0.59]
+−0.04
+[−0.60]
+
+  Panel B: Loadings on Fama and French (2018) 6-factor model of 𝑍𝑝𝑎𝑦𝑑𝑒𝑥-sorted portfolios
+(4)
+(2)
+
+(3)
+
+(L)
+
+  𝛽MKT
+
+  𝛽SMB
+
+  𝛽HML
+
+  𝛽RMW
+
+  𝛽CMA
+
+  𝛽UMD
+
+0.99
+[53.61]
+0.00
+[0.12]
+0.03
+[0.84]
+−0.00
+[−0.05]
+0.03
+[0.47]
+−0.01
+[−0.78]
+
+1.01
+[47.24]
+0.04
+[1.14]
+−0.12
+[−3.10]
+−0.02
+[−0.32]
+0.11
+[1.80]
+−0.02
+[−1.13]
+
+1.01
+[54.47]
+−0.02
+[−0.73]
+0.02
+[0.72]
+0.04
+[0.89]
+−0.02
+[−0.40]
+0.03
+[2.07]
+
+1.03
+[52.78]
+−0.00
+[−0.07]
+0.03
+[0.89]
+0.00
+[0.08]
+0.04
+[0.68]
+0.01
+[0.77]
+
+(H)
+
+0.76
+[2.34]
+0.03
+[0.43]
+0.06
+[0.79]
+0.06
+[0.86]
+0.08
+[1.00]
+0.08
+[1.05]
+
+(H)
+
+0.94
+[45.26]
+0.02
+[0.66]
+0.05
+[1.43]
+−0.04
+[−0.68]
+−0.03
+[−0.46]
+−0.04
+[−2.21]
+
+(H-L)  
+0.18  
+[1.81] 
+0.20  
+[1.98] 
+0.21  
+[2.08] 
+0.21  
+[2.11] 
+0.23  
+[2.20] 
+0.23  
+[2.22]
+
+(H-L)
+
+−0.05
+[−1.82]
+0.02
+[0.40]
+0.03
+[0.49]
+−0.03
+[−0.46]
+−0.05
+[−0.64]
+−0.03
+[−1.09]
+
+from panel regressions of 𝑍𝑝𝑎𝑦𝑑𝑒𝑥 on a number of firm characteristics. 
+Given our focus on variable correlations in the cross section, the speci-
+fications include year–month fixed effects. Specifically, the regressions 
+take the following form: 
+
+𝑍𝑝𝑎𝑦𝑑𝑒𝑥,𝑖𝑡 = 𝛼𝑡 + 𝛽′𝐱𝑖𝑡 + 𝜀𝑖𝑡
+
+(2)
+
+where the independent variables include measures of financial con-
+straints (Whited and Wu, 2006), probability of failure (Campbell et al., 
+2008), momentum (Carhart, 1997), idiosyncratic volatility (Ang et al., 
+
+2006), size, and return on equity (ROE). Standard errors are calculated 
+using two-dimensional clustering at the year–month and firm levels.
+
+From the univariate regressions reported in the first six columns, 
+we  see  that  firms  with  negative  PAYDEX  shocks  (i.e.,  low  𝑍𝑝𝑎𝑦𝑑𝑒𝑥) 
+tend to be more financially constrained, have higher probability of 
+default, performed poorly over the prior year, have higher idiosyncratic 
+volatility, have lower market capitalizations, and have lower ROE, on 
+average. In the multiple regression results reported in column (7), how-
+ever, we can observe that the only two variables that are significantly 
+associated with PAYDEX shocks are the measure of financial distress 
+
+8 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P. Lieberman et al.
+
+Journal of Financial Economics 172 (2025) 104108 
+
+Table 8
+𝑍slow sort performance.
+This table reports average excess returns, alphas, and loadings on the Fama and French (2018) six-factor model for five portfolios constructed 
+by sorting on 𝑍slow. At the end of each month, we sort stocks into five portfolios based on 𝑍slow using NYSE breaks. For each of the five 
+portfolios, and for a portfolio long stocks with high 𝑍slow and short stocks with low 𝑍slow, Panel A reports average value-weighted returns 
+in excess of the risk-free rate and alphas with respect to the CAPM, Fama and French (1993) three-factor model, Fama and French (1993) 
+three-factor model augmented with the Carhart (1997) momentum factor, and the Fama and French (2018) five- and six-factor models. Panel 
+B reports the loadings for the six portfolios on the Fama and French (2018) six-factor model. T-statistics are in brackets. The sample period 
+used is 01/2006–12/2019.
+  Panel A: Excess returns and alphas on 𝑍𝑠𝑙𝑜𝑤-sorted portfolios
+
+  𝑟𝑒
+
+  𝛼CAPM
+
+  𝛼FF3
+
+  𝛼FF3+UMD
+
+  𝛼FF5
+
+  𝛼FF6
+
+(L)
+
+0.87
+[2.71]
+0.15
+[2.10]
+0.19
+[2.87]
+0.19
+[2.86]
+0.19
+[2.69]
+0.19
+[2.68]
+
+(2)
+
+0.86
+[2.58]
+0.11
+[1.71]
+0.11
+[1.73]
+0.11
+[1.75]
+0.09
+[1.33]
+0.09
+[1.35]
+
+(3)
+
+0.81
+[2.45]
+0.07
+[0.92]
+0.06
+[0.80]
+0.07
+[0.84]
+0.05
+[0.63]
+0.05
+[0.65]
+
+(4)
+
+0.73
+[2.20]
+−0.02
+[−0.35]
+−0.03
+[−0.51]
+−0.03
+[−0.54]
+−0.03
+[−0.52]
+−0.03
+[−0.54]
+
+  Panel B: Loadings on Fama and French (2018) 6-factor model of 𝑍𝑠𝑙𝑜𝑤-sorted portfolios
+(4)
+(2)
+
+(3)
+
+(L)
+
+  𝛽MKT
+
+  𝛽SMB
+
+  𝛽HML
+
+  𝛽RMW
+
+  𝛽CMA
+
+  𝛽UMD
+
+0.94
+[49.00]
+0.05
+[1.65]
+0.10
+[2.95]
+−0.01
+[−0.12]
+0.04
+[0.66]
+0.00
+[0.03]
+
+1.01
+[56.59]
+0.01
+[0.41]
+−0.04
+[−1.34]
+0.01
+[0.30]
+0.11
+[2.16]
+−0.02
+[−1.06]
+
+0.99
+[44.43]
+−0.04
+[−1.09]
+−0.01
+[−0.28]
+0.05
+[0.95]
+−0.03
+[−0.51]
+−0.03
+[−1.36]
+
+1.01
+[59.73]
+−0.01
+[−0.21]
+−0.01
+[−0.35]
+0.01
+[0.18]
+−0.01
+[−0.17]
+0.02
+[1.39]
+
+(H)
+
+0.50
+[1.49]
+−0.26
+[−3.85]
+−0.27
+[−3.94]
+−0.26
+[−3.91]
+−0.24
+[−3.46]
+−0.24
+[−3.44]
+
+(H)
+
+1.01
+[52.30]
+0.01
+[0.16]
+−0.04
+[−1.03]
+−0.06
+[−1.22]
+−0.02
+[−0.30]
+−0.01
+[−0.54]
+
+(H-L)
+−0.37  
+[−3.43] 
+−0.41  
+[−3.74] 
+−0.46  
+[−4.34] 
+−0.46  
+[−4.31] 
+−0.43  
+[−3.91] 
+−0.43  
+[−3.89]
+
+(H-L)
+
+0.07
+[2.24]
+−0.05
+[−0.94]
+−0.14
+[−2.53]
+−0.05
+[−0.70]
+−0.05
+[−0.61]
+−0.01
+[−0.36]
+
+from  Campbell  et  al.  (2008)  and  momentum.  Firms  with  negative 
+PAYDEX shocks tend to have higher probability of default and poorer 
+past performance, consistent with the intuition that sudden delays of 
+trade credit payment are more likely at firms that are close to distress 
+and ‘‘on a downward trajectory’’.
+
+In Table  4, Panel B, we provide additional results examining whether 
+𝑍paydex can be narrowly interpreted as an early signal of distress. We 
+report results from panel specifications with two fixed effect regimes: 
+specifications with year–month fixed effects that focus on the cross-
+sectional variation in the variables of interest and specifications with 
+both year–month and firm fixed effects to also zero in on the within-
+firm variation in variables. Specifically, we examine specifications of 
+the following type: 
+
+where the dependent variable is the three-day cumulative abnormal 
+return (relative to the market) around an earnings announcement for 
+stock 𝑖 announcing earnings in month 𝑡, and the independent variable 
+is the normalized PAYDEX score 𝑍paydex,𝑖,𝑡−𝜏 as of year–month 𝑡 − 𝜏. 
+We include month fixed effects and cluster standard errors at the firm 
+and year–month levels. We then plot the estimated 𝛽 coefficients and 
+corresponding  confidence  intervals.  Consistent  with  our  hypothesis, 
+we observe that 𝑍𝑝𝑎𝑦𝑑𝑒𝑥 reliably sorts abnormal returns around future 
+earnings  announcements  in  the  cross  section.  The  effect  is  statisti-
+cally significant over a one-month horizon and marginally statistically 
+significant  for  two-  and  three-month  horizons.  It  decays  and  turns 
+insignificant over longer horizons.
+
+𝑋𝑖𝑡 = 𝛼𝑡 + 𝛼𝑖 + 𝛽′𝑍paydex,𝑖𝑡−1 + 𝜀𝑖𝑡
+
+(3)
+
+3.4. A measure of market power ( LPC)
+
+where the independent variable is the one-month lagged (as of month 
+𝑡 − 1) 𝑍𝑝𝑎𝑦𝑑𝑒𝑥 of a firm, while the dependent variables include our 
+previous measures of probability of default and idiosyncratic volatility. 
+Standard errors are again calculated using two-dimensional clustering 
+at  the  year–month  and  firm  levels.  The  results  across  all  columns 
+suggest that 𝑍𝑝𝑎𝑦𝑑𝑒𝑥 can be indeed interpreted as an early signal of 
+distress. Firms that experience sudden delays in the timeliness to pay 
+their suppliers see their probability of default (as well as idiosyncratic 
+volatility) increase in the subsequent month.
+
+3.3.3. 𝑍paydex and earnings predictability
+
+In Section 2.1, we hypothesized that the information contained in 
+the sudden increase of payment delay can get incorporated into stock 
+prices  during  subsequent  earnings  announcements.  We  directly  test 
+this prediction in this section. Fig.  2 plots slope coefficients and 95% 
+confidence intervals from panel regressions of the form: 
+
+𝐶𝐴𝑅3𝑖,𝑡 = 𝛼𝑡 + 𝛽 × 𝑍paydex,𝑖,𝑡−𝜏 + 𝜖𝑖,𝑡
+
+(4)
+
+9 
+
+3.4.1. Definition of  LPC
+
+In our second hypothesis discussed in Section 2.2, we argue that 
+vertical bargaining power should play a special role in the context of 
+trade credit payment timeliness. On the one hand, bargaining power 
+enables buyers to stretch terms and pay their suppliers consistently late. 
+This tendency, however, should be reflected ex-ante in the payment 
+terms of trade credit rather than late payment relative to agreed upon 
+terms (e.g., Klapper et al., 2012). Additionally, late payment is to be 
+balanced with expected deadweight costs associated with the negative 
+effects of late payment on suppliers (e.g., supplier distress as in Barrot, 
+2016).
+
+We thus a priori expect that powerful customers will have a tendency 
+to  pay  moderately  late  on  a  consistent  basis,  but  they  should  not 
+deviate  much  from  payment  terms.  While  defining  a  ‘‘theoretically 
+correct’’ measure to capture bargaining power in the speed of trade 
+credit  payment  is  admittedly  challenging,  we  proceed  with  a  two-
+pronged approach to confirm our intuition. First, our discussions with 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P. Lieberman et al.
+
+Journal of Financial Economics 172 (2025) 104108 
+
+Table 9
+𝑍current sort performance.
+This table reports average excess returns, alphas, and loadings on the Fama and French (2018) six-factor model for five portfolios constructed 
+by sorting on 𝑍current. At the end of each month, we sort stocks into five portfolios based on 𝑍current using NYSE breaks. For each of the five 
+portfolios, and for a portfolio long stocks with high 𝑍current and short stocks with low 𝑍current, Panel A reports average value-weighted returns 
+in excess of the risk-free rate and alphas with respect to the CAPM, Fama and French (1993) three-factor model, Fama and French (1993) 
+three-factor model augmented with the Carhart (1997) momentum factor, and the Fama and French (2018) five- and six-factor models. Panel 
+B reports the loadings for the six portfolios on the Fama and French (2018) six-factor model. T-statistics are in brackets. The sample period 
+used is 01/2006-12/2019.
+  Panel A: Excess returns and alphas on 𝑍𝑐𝑢𝑟𝑟𝑒𝑛𝑡-sorted portfolios
+
+  𝑟𝑒
+
+  𝛼CAPM
+
+  𝛼FF3
+
+  𝛼FF3+UMD
+
+  𝛼FF5
+
+  𝛼FF6
+
+(L)
+
+0.82
+[2.47]
+0.07
+[1.09]
+0.09
+[1.41]
+0.09
+[1.41]
+0.05
+[0.72]
+0.05
+[0.72]
+
+(2)
+
+0.86
+[2.61]
+0.13
+[1.54]
+0.15
+[1.91]
+0.15
+[1.88]
+0.13
+[1.62]
+0.13
+[1.60]
+
+(3)
+
+0.71
+[2.19]
+−0.02
+[−0.42]
+−0.02
+[−0.42]
+−0.02
+[−0.37]
+−0.01
+[−0.17]
+−0.01
+[−0.14]
+
+(4)
+
+0.67
+[1.99]
+−0.09
+[−1.32]
+−0.12
+[−1.80]
+−0.12
+[−1.76]
+−0.09
+[−1.39]
+−0.09
+[−1.37]
+
+  Panel B: Loadings on Fama and French (2018) 6-factor model of 𝑍𝑐𝑢𝑟𝑟𝑒𝑛𝑡-sorted portfolios
+(4)
+(2)
+
+(3)
+
+(L)
+
+  𝛽MKT
+
+  𝛽SMB
+
+  𝛽HML
+
+  𝛽RMW
+
+  𝛽CMA
+
+  𝛽UMD
+
+1.00
+[53.77]
+0.09
+[3.01]
+−0.01
+[−0.17]
+0.08
+[1.76]
+0.09
+[1.68]
+−0.00
+[−0.26]
+
+1.00
+[43.73]
+−0.03
+[−0.74]
+0.08
+[1.93]
+−0.01
+[−0.09]
+0.13
+[1.90]
+0.02
+[1.23]
+
+0.97
+[58.34]
+−0.01
+[−0.45]
+−0.04
+[−1.27]
+−0.06
+[−1.40]
+0.04
+[0.84]
+−0.03
+[−2.29]
+
+1.02
+[54.88]
+0.02
+[0.68]
+−0.08
+[−2.34]
+−0.01
+[−0.23]
+−0.13
+[−2.33]
+−0.02
+[−1.37]
+
+(H)
+
+0.68
+[2.07]
+−0.06
+[−0.84]
+−0.05
+[−0.74]
+−0.05
+[−0.75]
+−0.05
+[−0.68]
+−0.05
+[−0.69]
+
+(H)
+
+0.98
+[49.27]
+−0.01
+[−0.33]
+0.06
+[1.62]
+0.03
+[0.52]
+−0.06
+[−1.10]
+0.01
+[0.40]
+
+(H-L)
+−0.15  
+[−1.47] 
+−0.13  
+[−1.29] 
+−0.14  
+[−1.42] 
+−0.15  
+[−1.43] 
+−0.10  
+[−0.93] 
+−0.10  
+[−0.94]
+
+(H-L)
+
+−0.02
+[−0.60]
+−0.10
+[−2.17]
+0.06
+[1.23]
+−0.06
+[−0.77]
+−0.16
+[−1.84]
+0.01
+[0.44]
+
+practitioners confirmed that powerful customers tend to moderately 
+stretch payment terms, whereby they often pay trade credit within 
+a week late of agreed upon terms. Second, we empirically verify the 
+behavior of several well-known powerful customers. In Fig.  3, we plot 
+the PAYDEX scores of two firms, Walmart and Target, which have 
+anecdotally yielded substantial market and bargaining power in their 
+supply chains. We see that both firms pay consistently late one to two 
+weeks relative to terms with their PAYDEX scores falling between 70 
+and 77 at all times.
+
+Looking more broadly, in Fig.  4 we plot monthly PAYDEX scores 
+versus market capitalization for all U.S. listed stocks over our entire 
+sample period. The largest caps with the most market and bargaining 
+power are concentrated between 70 and 79. More generally, we see 
+that large and mid caps tend to pay late with PAYDEX ranging from 40 
+to 79, while only micro-caps can be found with PAYDEX scores below 
+40 (severely delinquent) and above 80 (recipients of early payment 
+discounts).15 Based on the above observations and discussions with 
+practitioners, we define a measure of late payment consistency, LPC, 
+that summarizes the behavior of all firms relative to the behavior of 
+the largest and most powerful moderately late payers. LPC equals the 
+proportion of times a company has a PAYDEX in the range [70,79] 
+(i.e., pays up to two weeks late relative to terms) over the last sixty 
+
+15 These observations and the previous paragraph contextualize why mea-
+sures such as the level of trade credit on a firm’s balance sheet may not be 
+indicative of high vertical power. Consistent with this premise, we find in 
+unreported results that firms that have high levels of accounts payable relative 
+to cost of goods sold (AP/COGS), in fact, tend to be smaller, less profitable and 
+have lower market shares. Trading strategies based AP/COGS do not generate 
+significant returns and alphas over our sample period in line with Grigoris 
+et al. (2023).
+
+months.16
+
+𝐿𝑃 𝐶𝑖,𝑡 =
+
+∑59
+
+𝑗=0 1𝑝𝑎𝑦𝑑𝑒𝑥𝑖,𝑡−𝑗 ∈[70,79]
+60
+
+(5)
+
+Table  5 provides descriptive statistics for our 𝐿𝑃 𝐶 measure. Panel 
+A reports the full sample results, while Panel B breaks down results 
+by year. For the interested reader, Table OA.A.1, Panel C in Online 
+Appendix A also documents the variation in the distribution of 𝐿𝑃 𝐶
+across industries (using the Fama and French’s 17 industry classifica-
+tion). The average (median) firm pays its suppliers moderately late 
+61% (67%) of the months over the last five years. These numbers are 
+relatively stable over time, and there appears to be significant cross-
+sectional variation. The average (median) cross-sectional 𝐿𝑃 𝐶 varies 
+between 58% and 62% (63% and 70%). The 25th percentile of 𝐿𝑃 𝐶
+varies between 29% and 38% over the sample period, while the 75th 
+percentile varies between 90% and 99%. Our basic premise is that firms 
+that can consistently pay moderately late possess vertical bargaining 
+power.17
+
+16 Our results are robust to alternative ‘‘look back’’ windows in constructing
+LPC. See Table OA.A.2 in Online Appendix A. Our results are also not specific 
+to the [70,79] PAYDEX range. Table OA.A.3 in Online Appendix A shows 
+results from a trading strategy based on an alternative 𝐿𝑃 𝐶 definition that 
+measures a firm’s deviation from a PAYDEX of 75, the [70,79] range midpoint. 
+Observationally, Fig.  4 shows that the largest caps (with the most market and 
+bargaining power) are concentrated around a PAYDEX of 75.
+17 The  definition  of  LPC  allows  for  a  possible  interpretation  whereby  a 
+long/short trading strategy based on LPC is driven by low LPC firms that 
+potentially have low PAYDEX scores (i.e., very late payers) rather than firms 
+with high LPC (i.e., firms that pay moderately late on a consistent basis). We 
+do not find evidence to support such an interpretation. In unreported results, 
+we estimate conditional double sorts on PAYDEX and LPC. We observe that 
+
+10 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P. Lieberman et al.
+
+Journal of Financial Economics 172 (2025) 104108 
+
+Table 10
+𝐿𝑃 𝐶 sort performance.
+This table reports average excess returns, alphas, and loadings on the Fama and French (2018) six-factor model for five portfolios constructed by 
+sorting on 𝐿𝑃 𝐶. At the end of each month, we sort stocks into five portfolios based on 𝐿𝑃 𝐶 using NYSE breaks. For each of the five portfolios, 
+and for a portfolio long stocks with high 𝐿𝑃 𝐶 and short stocks with low 𝐿𝑃 𝐶, Panel A reports average value-weighted returns in excess of 
+the risk-free rate and alphas with respect to the CAPM, Fama and French (1993) three-factor model, Fama and French (1993) three-factor 
+model augmented with the Carhart (1997) momentum factor, the Fama and French (2018) five- and six-factor models, CAPM augmented with 
+Papanikolaou (2011) ‘‘investment-minus-consumption’’ (IMC) factor, and CAPM augmented with Grigoris et al. (2023) counterparty risk (CR) 
+and industry-adjusted (adjCR) factors. Panel B reports the loadings for the six portfolios on the Fama and French (2018) six-factor model. 
+Panel C reports the loadings for the six portfolios on the CAPM augmented with the IMC factor. Panels D and E report the loadings for the 
+six portfolios on the CAPM augmented with the CR and adjCR factors, respectively. T-statistics are in brackets. The sample period used is 
+01/2006–12/2019.
+  Panel A: Excess returns and alphas on 𝐿𝑃 𝐶-sorted portfolios
+
+  𝑟𝑒
+
+  𝛼CAPM
+
+  𝛼FF3
+
+  𝛼FF3+UMD
+
+  𝛼FF5
+
+  𝛼FF6
+
+  𝛼𝐼𝑀𝐶
+
+  𝛼𝐶𝑅
+
+  𝛼𝑎𝑑𝑗𝐶𝑅
+
+(L)
+
+0.61
+[1.73]
+−0.17
+[−1.90]
+−0.15
+[−1.70]
+−0.15
+[−1.66]
+−0.14
+[−1.46]
+−0.14
+[−1.45]
+−0.13
+[−1.49]
+−0.13
+[−1.39]
+−0.19
+[−1.98]
+
+(2)
+
+0.73
+[2.17]
+−0.03
+[−0.53]
+−0.02
+[−0.30]
+−0.01
+[−0.24]
+0.02
+[0.37]
+0.03
+[0.42]
+−0.03
+[−0.49]
+0.00
+[0.08]
+−0.02
+[−0.28]
+
+(3)
+
+0.71
+[2.09]
+−0.06
+[−0.83]
+−0.03
+[−0.43]
+−0.03
+[−0.39]
+−0.00
+[−0.01]
+0.00
+[0.02]
+−0.07
+[−1.02]
+−0.02
+[−0.30]
+−0.00
+[−0.05]
+
+  Panel B: Loadings on Fama and French (2018) 6-factor model of 𝐿𝑃 𝐶-sorted portfolios
+
+  𝛽MKT
+
+  𝛽SMB
+
+  𝛽HML
+
+  𝛽RMW
+
+  𝛽CMA
+
+  𝛽UMD
+
+(L)
+
+1.00
+[38.96]
+0.10
+[2.47]
+−0.03
+[−0.75]
+−0.06
+[−1.00]
+0.04
+[0.49]
+−0.04
+[−1.67]
+
+(2)
+
+0.99
+[59.59]
+0.02
+[0.83]
+−0.01
+[−0.40]
+−0.12
+[−2.98]
+0.02
+[0.41]
+−0.04
+[−2.58]
+
+(3)
+
+0.98
+[52.45]
+0.05
+[1.75]
+0.02
+[0.66]
+−0.10
+[−2.10]
+0.04
+[0.75]
+−0.03
+[−1.70]
+
+  Panel C: Loadings on 2-factor model (CAPM + IMC factor) of 𝐿𝑃 𝐶-sorted portfolios
+  𝛽MKT
+
+  Panel D: Loadings on 2-factor model (CAPM + CR factor) of 𝐿𝑃 𝐶-sorted portfolios
+  𝛽MKT
+
+  𝛽IMC
+
+  𝛽CR
+
+  𝛽adjCR
+
+1.01
+[41.06]
+0.12
+[2.86]
+
+1.02
+[41.28]
+−0.06
+[−1.92]
+
+1.05
+[48.02]
+0.02
+[0.64]
+
+1.03
+[61.76]
+0.01
+[0.20]
+
+1.01
+[62.11]
+−0.05
+[−2.44]
+
+1.02
+[71.42]
+−0.02
+[−1.28]
+
+1.03
+[55.55]
+−0.04
+[−1.31]
+
+1.00
+[54.60]
+−0.05
+[−2.14]
+
+1.01
+[65.62]
+−0.08
+[−4.29]
+
+  Panel E: Loadings on 2-factor model (CAPM + adjCR factor) of 𝐿𝑃 𝐶-sorted portfolios
+  𝛽MKT
+
+(4)
+
+0.62
+[1.91]
+−0.11
+[−1.44]
+−0.09
+[−1.24]
+−0.09
+[−1.26]
+−0.07
+[−0.95]
+−0.07
+[−0.96]
+−0.15
+[−2.14]
+−0.06
+[−0.84]
+−0.05
+[−0.67]
+
+(4)
+
+0.97
+[48.08]
+−0.09
+[−2.65]
+0.05
+[1.26]
+−0.12
+[−2.43]
+0.14
+[2.33]
+0.01
+[0.52]
+
+1.01
+[52.32]
+−0.14
+[−4.27]
+
+0.95
+[47.45]
+−0.06
+[−2.36]
+
+0.96
+[57.12]
+−0.09
+[−4.34]
+
+(H)
+
+0.95
+[3.02]
+0.24
+[3.58]
+0.21
+[3.22]
+0.21
+[3.19]
+0.14
+[2.25]
+0.14
+[2.24]
+0.27
+[3.93]
+0.17
+[2.60]
+0.19
+[2.86]
+
+(H)
+
+1.00
+[57.96]
+−0.00
+[−0.08]
+−0.02
+[−0.69]
+0.25
+[5.66]
+−0.09
+[−1.78]
+0.03
+[1.73]
+
+0.93
+[50.75]
+0.07
+[2.27]
+
+0.99
+[56.45]
+0.09
+[4.30]
+
+0.96
+[63.19]
+0.09
+[4.50]
+
+(H-L)  
+0.35  
+[2.57] 
+0.42  
+[3.12] 
+0.37  
+[2.81] 
+0.36  
+[2.78] 
+0.28  
+[2.13] 
+0.28  
+[2.11] 
+0.40  
+[2.97] 
+0.30  
+[2.28] 
+0.37  
+[2.76]
+
+(H-L)
+−0.01  
+[−0.18]  
+−0.11  
+[−1.81]  
+0.01
+[0.21]  
+0.31
+[3.44]  
+−0.13  
+[−1.21]  
+0.06
+[2.03]  
+
+−0.08  
+[−2.18]  
+−0.05  
+[−0.79]  
+
+−0.03  
+[−0.92]  
+0.15
+[3.49]  
+
+−0.09  
+[−2.71]  
+0.07
+[1.74]  
+
+3.4.2. LPC and firm characteristics in the cross-section
+
+In  the  previous  section,  we  described  the  construction  of  𝐿𝑃 𝐶
+and argued its relation to companies’ vertical bargaining power. To 
+check this conjecture, we test whether the correlation of LPC with firm 
+
+characteristics associated with market power using panel regressions 
+with year–month fixed effects. The regressions take the following form: 
+
+𝐿𝑃 𝐶𝑖𝑡 = 𝛼𝑡 + 𝛽′𝐱𝑖𝑡 + 𝜀𝑖𝑡
+
+(6)
+
+the LPC strategy only generates significant returns in the sample of stocks with 
+above-median PAYDEX, contrary to the idea that the predictability of returns 
+by LPC is driven by stocks with low PAYDEX (very late payers).
+
+where the independent variables include measures of financial con-
+straints (Whited and Wu, 2006), probability of failure (Campbell et al., 
+2008), product market fluidity (Hoberg et al., 2014), market share, size, 
+and gross profitability (Novy-Marx, 2013).
+
+11 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P. Lieberman et al.
+
+Journal of Financial Economics 172 (2025) 104108 
+
+Fig. 2.  Earnings predictability with 𝑍𝑝𝑎𝑦𝑑𝑒𝑥.
+This figure plots estimated slope coefficients and 95% confidence intervals from panel regressions of the form 𝐶𝐴𝑅3𝑖,𝑡 = 𝛼𝑡 + 𝛽 × 𝑍𝑝𝑎𝑦𝑑𝑒𝑥,𝑖,𝑡−𝜏 + 𝜖𝑖,𝑡. The dependent variable, 𝐶𝐴𝑅3𝑖,𝑡, 
+is the three-day cumulative abnormal return for firm 𝑖 announcing earnings in month 𝑡. The independent variable (𝑍𝑝𝑎𝑦𝑑𝑒𝑥,𝑖,𝑡−𝜏 ) is the lagged normalized PAYDEX score, with 𝜏
+indicating the lag in months. The confidence intervals are calculated using two dimensional clustering at the firm and month levels. The sample period used is 01/2006–12/2019.
+
+Fig. 3.  PAYDEX score: Walmart Stores Inc and Target Corp.
+This figure plots the PAYDEX scores of Walmart Stores Inc and Target Corp. The sample period used is 01/2006–12/2019.
+
+Table  6 presents results. Column (1) shows that firms with high 
+𝐿𝑃 𝐶 tend to be less financially constrained. In column (2), we observe 
+that firms with high 𝐿𝑃 𝐶 tend to have lower default probabilities. 
+Columns (3) and (4) show that firms with high 𝐿𝑃 𝐶 tend to have 
+lower product market fluidity and higher market share. Columns (5) 
+and (6) indicate that low 𝐿𝑃 𝐶 firms tend to be larger in size and 
+more  profitable.  In  column  (7),  we  estimate  a  multiple  regression 
+including all correlates simultaneously — the coefficients of distress, 
+product  market  fluidity,  market  share  and  profitability  retain  their 
+signs and statistical significance. Overall, the results indicate that our 
+
+𝐿𝑃 𝐶 measure is significantly correlated in the expected directions with 
+variables that are theoretically linked to vertical bargaining power in 
+the supply chain.18
+
+18 Figure OA.A.1 in Online Appendix A also shows that high-LPC companies 
+have higher investor payout on average relative to low-LPC companies through 
+time.  This  is  consistent  with  our  interpretation  of  LPC  as  a  measure  of 
+bargaining power as firms with high bargaining power can extract more rents 
+from their supply chains.
+
+12 
+
+P. Lieberman et al.
+
+Journal of Financial Economics 172 (2025) 104108 
+
+Fig. 4.  PAYDEX and market capitalization.
+This figure shows a scatter plot of stocks’ market capitalization against their PAYDEX scores. The sample period used is 01/2006–12/2019.
+
+4. Trading on late payment signals
+
+This section reports our main results from trading strategies based 
+on our previously introduced measures of trade credit payment timeli-
+ness, 𝑍𝑝𝑎𝑦𝑑𝑒𝑥 and 𝐿𝑃 𝐶.
+
+4.1. Late payment shocks and slow diffusion of information
+
+We start with testing our hypothesis in Section 2.1 that late payment 
+shocks (i.e., sudden delays in trade credit payment) capture a firm’s 
+cash-flow position deterioration and increased propensity of distress. 
+If these shocks are not immediately incorporated into a firm’s stock 
+price, one could expect these stocks’ prices to under-perform when 
+information is subsequently revealed to the market (e.g., during subse-
+quent earnings announcements or other significant information events 
+for companies).
+
+Table   7  reports  average  returns,  alphas,  and  Fama  and  French 
+(2018) six-factor-loadings for our baseline strategy seeking to exploit 
+the  ‘‘late  payment  shock’’  hypothesis.  Panel  A  reports  results  for  a 
+long/short trading strategy that takes a long position in the portfolio 
+of stocks with high 𝑍𝑝𝑎𝑦𝑑𝑒𝑥 and a short position in the portfolio of 
+stocks with low 𝑍𝑝𝑎𝑦𝑑𝑒𝑥. The strategy yields an average monthly return 
+of 18 basis points, with a significant t-statistic of 1.81.19 We observe 
+similar patterns in the alphas, which range between 20 (CAPM) and 
+23 (FF6) basis points per month, with t-statistics exceeding 1.98 in all 
+cases. Panel B shows that the long/short 𝑍𝑝𝑎𝑦𝑑𝑒𝑥 strategy does not load 
+significantly on any of the six Fama and French (2018) factors other 
+than the market factor, which has a loading of −0.05 with a t-statistic 
+of −1.82.
+
+While the results from our baseline strategy confirm our hypothesis, 
+an important observation about these results is that the ‘‘late payment 
+shock’’ effect is not symmetric. Specifically, there is no obvious reason
+a priori to expect that firms with significantly positive PAYDEX shocks 
+
+19 Consistent with the interpretation of 𝑍𝑝𝑎𝑦𝑑𝑒𝑥 as a signal based on the slow 
+diffusion of information, the trading strategy has a portfolio turnover of 42%, 
+categorized as ‘‘high-turnover’’ based on the Novy-Marx and Velikov (2016) 
+taxonomy.
+
+(i.e., firms suddenly starting to pay early) will outperform going for-
+ward. Paying suppliers early usually reflects early payment discounts, 
+and it is arguably a sub-optimal working capital management decision 
+in most other instances.
+
+We thus next refine our ‘‘late payment shock’’ baseline trading strat-
+egy to address this asymmetry issue. Using information on the amount 
+of (payable) dollars ‘‘slow’’ and dollars ‘‘current’’ that each company 
+has in a month, we decompose the PAYDEX score into payment classes 
+that capture slow and current payment behavior separately (see Table 
+1). We expect firms that experience sudden increases in slow dollars to 
+underperform (i.e., implying negative cash flow shocks which increase 
+likelihood of distress), while firms that experience sudden decreases in 
+their slow dollars should outperform (i.e., implying positive cash flow 
+shocks which decrease likelihood of distress). By using information in a 
+company’s ‘‘slow’’ dollars only, we eliminate the uninformativeness of 
+firms’ early or prompt payment behavior. Changes in a firm’s current 
+dollar position should not be informative about a company’s return 
+performance.  Specifically, a positive shock in current dollars might 
+be indicative of an expansion in business operations with a sudden 
+near-term increase in expenses, but also, a potential future increase in 
+revenues. Not only is this a different signal, it also lacks the insight that 
+shocks in slow dollars have regarding the changes in cash flow.
+
+Based on this intuition, we calculate two new scores, 𝑍𝑠𝑙𝑜𝑤 and 
+𝑍𝑐𝑢𝑟𝑟𝑒𝑛𝑡, that are similarly defined to 𝑍𝑝𝑎𝑦𝑑𝑒𝑥. 𝑍𝑠𝑙𝑜𝑤 captures shocks 
+(increases/decreases)  in  a  firm’s  balance  of  ‘‘slow’’  dollars  payable 
+to suppliers. 𝑍𝑐𝑢𝑟𝑟𝑒𝑛𝑡 captures shocks (increases/decreases) in a firm’s 
+balance of ‘‘current’’ dollars payable to suppliers. We then execute two 
+trading strategies based on 𝑍𝑠𝑙𝑜𝑤 and 𝑍𝑐𝑢𝑟𝑟𝑒𝑛𝑡 that take long positions 
+in a portfolio of stocks with high 𝑍𝑠𝑙𝑜𝑤 and 𝑍𝑐𝑢𝑟𝑟𝑒𝑛𝑡 scores and short 
+positions in a portfolio of stocks with low 𝑍𝑠𝑙𝑜𝑤 and 𝑍𝑐𝑢𝑟𝑟𝑒𝑛𝑡 scores, 
+respectively. Tables  8 and 9 present the results from these tests. The 
+patterns in the average returns and alphas from these strategies are 
+consistent with our intuition. The 𝑍𝑠𝑙𝑜𝑤 long/short trading strategy 
+yields an average monthly return of 37 basis points, with a statistically 
+significant t-statistic of 3.43. We observe similar patterns in the alphas, 
+which range between 41 (CAPM) and 46 (FF3) basis points per month, 
+with t-statistics in all cases exceeding 3.70. The Sharpe ratio of the 
+strategy improves to 0.93, with similar improvements in the informa-
+tion ratios relative to the various factor models. While the 𝑍𝑠𝑙𝑜𝑤-based 
+strategy produces economically and statistically robust average returns 
+
+13 
+
+P. Lieberman et al.
+
+Journal of Financial Economics 172 (2025) 104108 
+
+Table 11
+Alternative Explanations.
+This table presents Fama-MacBeth regressions of the form: 𝑟𝑖𝑡 = 𝛼 + 𝛽′𝐱𝑖𝑡−1 + 𝜀𝑖𝑡. The characteristics 𝐱𝑖𝑡−1 include late payment consistency (LPC), industry-adjusted late payment 
+consistency (LPC 𝑎𝑑𝑗 ), ‘‘falsified’’ late payment consistency (𝐿𝑃 𝐶0−50 and 𝐿𝑃 𝐶80−100), operating leverage (Operating Leverage) (Novy-Marx, 2011), distance to consumers (Upstreamness) 
+(Antrás and Chor, 2018), cash conversion cycle (CCC) (Wang, 2019), level of accruals (Accruals) (Sloan, 1996). All specifications also include the log of market capitalization 
+(log(ME)), the log of the book-to-market ratio (log(B/M)), gross profitability (GP/A) (Novy-Marx, 2013), asset growth (AG) (Cooper et al., 2008), one-year price momentum (𝑟12,1), 
+and monthly reversals (𝑟1,0), but the coefficients of these variables are not reported for brevity. T-statistics are in brackets. The sample period is 01/2006 to 12/2019.
+(5)
+
+(10)
+
+(2)
+
+(1)
+
+(6)
+
+(7)
+
+(8)
+
+(9)
+
+(3)
+
+(4)
+
+  Const
+
+  LPC
+
+  LPC𝑎𝑑𝑗.
+
+  LPC0−50
+
+  LPC80−100
+
+  Operating Leverage
+
+  Upstreamness
+
+  CCC
+
+  Accruals
+
+  Controls
+  𝑅2(%)
+  𝑛
+
+0.22
+[0.28]
+
+0.03
+[0.04]
+0.39
+[3.14]
+
+0.13
+[0.16]
+0.4
+[3.28]
+
+0.21
+[0.26]
+0.39
+[3.18]
+
+0.11
+[0.14]
+0.36
+[2.96]
+
+0.04
+[0.05]
+0.41
+[3.21]
+
+0.46
+[0.61]
+0.38
+[3.10]
+
+0.27
+[0.35]
+
+0.29
+[2.79]
+
+−0.07
+[−0.96]
+
+−0.09
+[−1.20]
+
+Yes
+2.83
+169
+
+Yes
+2.98
+169
+
+Yes
+3.06
+169
+
+Yes
+3.16
+169
+
+−0.02
+[−3.45]
+
+Yes
+3.1
+169
+
+−0.8
+[−1.37]
+Yes
+3.06
+169
+
+Yes
+2.94
+169
+
+−0.1
+[−1.40]
+−0.07
+[−1.02]
+−0.03
+[−4.97]
+−0.7
+[−1.17]
+Yes
+3.52
+169
+
+0.69
+[0.94]
+
+0.29
+[2.75]
+
+−0.09
+[−1.26]
+−0.08
+[−1.05]
+−0.03
+[−4.93]
+−0.74
+[−1.23]
+Yes
+3.49
+169
+
+(11)  
+0.21  
+[0.26] 
+
+0.25
+[0.32]
+
+−0.85
+[−0.94]
+
+0.08  
+[0.46] 
+
+Yes
+2.96
+169
+
+Yes
+2.94  
+169  
+
+and alphas, the 𝑍𝑐𝑢𝑟𝑟𝑒𝑛𝑡-based strategy does not (consistent with our 
+intuition).20
+
+4.2. Late payment consistency and vertical bargaining power
+
+4.2.1. Late payment consistency and the cross-section of stock returns
+
+We next turn to testing our second hypothesis stated in Section 2.2 
+regarding  vertical  bargaining  power,  late  payment  consistency,  and 
+the cross-section of returns. Table  10 reports average returns, alphas, 
+and loadings from five factor models for five portfolios constructed by 
+sorting on 𝐿𝑃 𝐶.21
+
+In Panel A, we observe that firms with high 𝐿𝑃 𝐶 (i.e., those with 
+high vertical bargaining power) earn higher average returns relative to 
+those with low 𝐿𝑃 𝐶 (low vertical bargaining power). The spread in the 
+average returns between the high and low portfolios is 35 basis points 
+per month, with a statistically significant t-statistic of 2.57 in spite of a 
+relatively short sample of 15 years. Depending on the factor model, the 
+alphas range from 28 basis points per month (FF6) to 42 basis points 
+per month (CAPM), with all of them having t-statistics exceeding two. 
+Panel B shows that none of the factors underlying the Fama and French 
+(2018) six-factor model capture the returns to the long/short portfolio, 
+which is why the alpha decreases only moderately from 0.35 to 0.28. 
+The most significant loading is 0.31 with a t-statistic of 3.44 on the 
+profitability factor.
+
+Panels C, D, and E similarly indicate that LPC is not explained 
+by other potentially related factors such as the Papanikolaou (2011) 
+
+20 The 𝑍𝑠𝑙𝑜𝑤-based strategy has a high portfolio turnover of 38% in line 
+with 𝑍𝑝𝑎𝑦𝑑𝑒𝑥. An alternative approach to deal with the asymmetry of the late 
+payment shock, apart from 𝑍𝑠𝑙𝑜𝑤, is to focus on asymmetric strategies that 
+sell short stocks with low 𝑍𝑝𝑎𝑦𝑑𝑒𝑥 in the cross section. Table OA.A.4 in Online 
+Appendix A reports results for long/short trading strategies that take a long 
+position in the CRSP value-weighted market index, and a short position in a 
+portfolio of stocks based on a 𝑍𝑝𝑎𝑦𝑑𝑒𝑥 sort. For example, the strategy in column 
+(2) shorts all stocks with 𝑍𝑝𝑎𝑦𝑑𝑒𝑥 below the median in the cross-section. As 
+one moves to the right, the threshold decreases with the last column reporting 
+results for a strategy that shorts only the bottom 5% of stocks based on 𝑍𝑝𝑎𝑦𝑑𝑒𝑥.
+21 Consistent with the inherent persistence of LPC, the trading strategy has 
+a portfolio turnover of 4.5% per month, categorized as ‘‘low-turnover’’ based 
+on the Novy-Marx and Velikov (2016) taxonomy.
+
+investment-minus-consumption  (IMC)  factor  and  the  Grigoris  et  al. 
+(2023)  industry-unadjusted  and  industry-adjusted  counterparty  risk 
+(CR and adjCR, respectively) factors. The long/short portfolio has an 
+insignificant IMC beta of −0.05 and a CR (adjCR) beta of 0.15 (0.07) 
+with a t-statistic of 3.49 (1.74), respectively. However, the alphas in 
+all three cases remain significant at 40 basis points per month with 
+a t-statistic of 2.97 after controlling for the market and IMC factors, 
+and at 30 (37) basis points per month with a t-statistic of 2.28 (2.76) 
+after controlling for the market and CR (adjCR) factors, respectively. 
+We conclude that while LPC appears to be correlated with the CR and 
+adjCR factors, it has distinct predictive power for the cross-section of 
+stock returns.
+
+4.2.2. Alternative explanations
+
+Our vertical bargaining power hypothesis posits that vertical bar-
+gaining  power  commands  a  risk  premium,  which  results  in  LPC’s 
+significant predictive power over stock returns. However, there can be 
+alternative explanations, which we explore and account for in this sec-
+tion. Our methodology is Fama-MacBeth regressions — parametric tests 
+of whether cross-sectional variation in LPC predicts future stock returns 
+after accounting for the alternative predictors. All of our specifications 
+control  for  well-known  cross-sectional  predictability  of  other  stock-
+specific variables including variables from the Fama and French (2015) 
+factor model such as the log of market capitalization (log(ME)), the log 
+of the book-to-market ratio (log(B/M)), gross profitability (GP/A), and 
+asset growth (AG). The GP/A variable follows Novy-Marx (2013) and 
+the AG variable follows Cooper et al. (2008). The Fama-MacBeth speci-
+fications also include controls for one-year price momentum (𝑟12,1), and 
+monthly reversals (𝑟1,0) since these variables have been shown to have 
+strong monthly predictability.
+
+Table  11, columns (1) and (2) show the results from our baseline 
+specifications, excluding or including LPC. Consistent with recent stud-
+ies documenting attenuated performance of known anomalies over our 
+sample period (e.g., Chordia et al., 2014; Chen and Velikov, 2023), 
+most of the control variables have coefficients that are indistinguishable 
+from zero. The two exceptions are AG and 𝑟1,0 – both variables signif-
+icantly negatively predict stock returns. Column (2) also specifically 
+shows that, over the same period, LPC significantly positively predicts 
+returns with a coefficient of 0.39 and t-statistic of 3.14.
+
+14 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P. Lieberman et al.
+
+Journal of Financial Economics 172 (2025) 104108 
+
+Table 12
+Pricing 𝐿𝑃 𝐶-sorted portfolios using macro variables.
+The table reports statistics from pricing tests of different macro shocks on the 𝐿𝑃 𝐶-sorted portfolios. We test a stochastic discount factor 
+(SDF) of the form 𝑀𝑡 = 1 − 𝑏𝑀𝐾𝑇 𝑅𝐹 𝑀𝐾𝑇 𝑅𝐹𝑡 − 𝑏𝑀𝐴𝐶𝑅𝑂𝑀𝐴𝐶𝑅𝑂𝑡, where 𝑀𝐾𝑇 𝑅𝐹𝑡 is the market’s excess return and 𝑀𝐴𝐶𝑅𝑂𝑡 represents a 
+proxy for a second aggregate shock. We consider the following shocks: (a) changes in the Global Supply Chain Pressure Index from Benigno 
+et al. (2022) (𝐺𝑆𝐶𝑃 𝐼), (b) intermediary capital (He et al., 2017) (𝐼𝑁𝑇 ), (c) liquidity innovations (Pastor and Stambaugh, 2003) (𝐿𝐼𝑄), (d) 
+real uncertainty (Jurado et al., 2015) (𝑈 𝑁𝐶), (e) innovations to the aggregate receivables-to-sales ratio (Grigoris et al., 2023) (𝑅∕𝑆), and (f) 
+investment-specific technology shocks (Papanikolaou, 2011) (𝐼𝑀𝐶). We use GMM to estimate Equation (8) using 10 𝐿𝑃 𝐶-sorted portfolios as 
+test assets, constructed following the procedure in Section 4.2.3. Panel A reports model-implied pricing errors (𝛼) associated with the GMM 
+procedure, and Panel B reports the covariances between portfolio returns and the macro shocks (𝑀𝐴𝐶𝑅𝑂𝑡). The leftmost column in Panel A, 
+entitled 𝑀𝐾𝑇 𝑅𝐹 , omits 𝑀𝐴𝐶𝑅𝑂𝑡 from the SDF, such that the SDF includes only the market’s excess return. Panel C focuses on GSCPI as the 
+macroeconomic variable of interest. Specifically, panel C reports the market price of risk associated with 𝑀𝐾𝑇 𝑅𝐹𝑡 and 𝐺𝑆𝐶𝑃 𝐼 innovations 
+when the test assets are either (a) the 10 LPC-sorted portfolios or (b) a broader set of test assets that features the five Fama–French industry 
+portfolios, six portfolios sorted on size and book-to-market, six portfolios sorted on size and profitability, and six portfolios sorted on size and 
+investment. The data used is at the monthly frequency. The sample period is 01/2006 to 12/2019.
+  Panel A: Model-implied alphas
+
+INT
+
+−0.15
+−0.02
+0.29
+0.45
+[2.16]
+
+0.24
+0.23
+0.21
+−0.03
+[−1.96]
+
+LIQ
+
+−0.22
+−0.12
+0.25
+0.47
+[2.53]
+
+0.07
+0.06
+0.05
+−0.02
+[−1.70]
+
+UNC
+
+−0.26
+−0.16
+0.20
+0.46
+[2.33]
+
+−0.01
+−0.01
+−0.01
+0.00
+[0.67]
+
+  Low LPC (L)
+  Medium LPC
+  High LPC (H)
+  Spread (H-L)
+
+MKTRF
+
+−0.21
+−0.10
+0.26
+0.47
+[2.38]
+
+  Panel B: Covariances with macro variables
+  Low LPC (L)
+  Medium LPC
+  High LPC (H)
+  Spread (H-L)
+
+  Panel C: Market prices of risk
+
+GSCPI
+
+0.01
+−0.09
+0.25
+0.25
+[1.61]
+
+0.44
+0.31
+0.29
+−0.15
+[−2.23]
+
+  𝑏𝑀𝐾𝑇 𝑅𝐹
+
+  𝑏𝐺𝑆𝐶𝑃 𝐼
+
+  MAE
+
+LPC portfolios
+4.10
+[1.82]
+
+0.17
+
+7.06
+[2.38]
+−1.89
+[−1.63]
+0.09
+
+𝑅∕𝑆
+
+−0.27
+−0.14
+0.22
+0.49
+[2.59]
+
+0.06
+0.05
+0.05
+−0.01
+[−0.68]
+
+IMC  
+−0.26  
+−0.10  
+0.25  
+0.51  
+[2.30] 
+
+0.07  
+0.06  
+0.06  
+−0.01  
+[−1.77]
+
+Broader test assets
+6.12
+[2.83]
+
+0.53
+
+7.13
+[3.20]  
+−1.28  
+[−2.56] 
+0.27
+
+The first alternative explanation we examine relates to Novy-Marx 
+(2011),  who  shows  that  firms  with  higher  operating  leverage  earn 
+significantly higher average returns than firms with lower operating 
+leverage. If financial or non-financial penalties associated with con-
+sistent late payment result in higher operating leverage, then LPC’s 
+return predictability can in fact be driven by operating leverage. To 
+address this possibility, we calculate Novy-Marx (2011)’s measure of 
+operating leverage (Operating Leverage), which we then include in our 
+Fama-MacBeth specifications. Table  11, column (3) shows that oper-
+ating leverage does not significantly predict returns in our sample.
+LPC preserves its predictive ability (coefficient of 0.40 and t-statistic 
+of 3.28) even after controlling for operating leverage.22 We conclude 
+that operating leverage is an unlikely explanation of our results in the 
+previous section.
+
+The second alternative explanation we examine relates to Gofman 
+et al. (2020), who show that firms that are farther away from con-
+sumers in their production network (i.e., upstream firms) have higher 
+risk premiums. Given that companies’ trade credit policies (e.g., extend-
+ing or receiving trade credit) are related to firms’ positions in the pro-
+duction network (Gofman and Wu, 2022; Grigoris et al., 2023), it can 
+be that firms’ ‘‘upstreamness’’ is driving the return predictability of LPC. 
+To address this possibility, we include in our Fama-MacBeth regressions 
+the measure of firms’ industry-level vertical positions (Upstreamness) 
+that captures each industry’s weighted distance from the production 
+of  final  consumption  goods  (Antrás  et  al.,  2012;  Antrás  and  Chor, 
+2018).23 Table  11, column (4) shows that a firm’s upstreamness does 
+
+22 Novy-Marx (2011) defines operating leverage as the ratio of operating 
+expenses (the sum of cost of goods sold and selling, general, and administrative 
+expenses)  and  total  assets.  Our  results  are  robust  to  redefining  Operating 
+Leverage to also include interest expense, which can more fully reflect interest 
+penalties incurred from late payments to suppliers (which are typically treated 
+as financial expenses).
+
+not significantly predict returns over our sample period. LPC preserves 
+its predictive ability (coefficient of 0.39 and t-statistic of 3.18) after 
+controlling for Upstreamness. We conclude that firms’ distance to con-
+sumers is also an unlikely explanation of our results in the previous 
+section.
+
+The  third  alternative  explanation  we  examine  relates  to  Wang 
+(2019), who shows that a firm’s cash conversion cycle (CCC) predicts 
+returns — firms with shorter CCCs earn higher returns. CCC is defined 
+as the number of days that a firm’s cash is tied up within the operation 
+of the business and is often used to measure the effectiveness of a firm’s 
+management and intrinsic need for external financing. To the extent 
+that the consistently late payment of trade credit is associated with 
+a shorter CCC, it can be that CCC is driving the return predictability 
+of LPC. To address this possibility, we construct Wang (2019)’s cash 
+conversion cycle measure (CCC), which we subsequently include in 
+our Fama-MacBeth specifications. Table  11, column (5) shows that in 
+our sample CCC indeed significantly predicts returns. However, LPC
+preserves  its  predictive  ability  (coefficient  of  0.36  and  t-statistic  of 
+2.96) even after controlling for the CCC. We conclude that the cash 
+conversion cycle is also an unlikely explanation of our results in the 
+previous section.
+
+The  fourth  alternative  explanation  we  examine  relates  to  Sloan 
+(1996), who suggests that while investors seem to ‘‘fixate’’ on corporate 
+earnings, they fail to distinguish fully between the different properties 
+of the accrual and cash flow components of earnings. Consequently, the 
+levels of firms’ accruals predict stock returns. To address the possibility 
+that the level of accruals can be driving the return predictability associ-
+ated with LPC, we construct Sloan (1996)’s accruals measure (Accruals), 
+
+23 See also Gofman et al. (2020), Grigoris et al. (2023), Grigoris and Segal 
+(2023, 2024). The measure is based on U.S. Bureau of Economic Analysis 
+input–output tables, and is calculated by Liao et al. (2020). We thank the 
+authors for making their data publicly available.
+
+15 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+P. Lieberman et al.
+
+which we subsequently include in our Fama-MacBeth specifications. 
+Table  11, column (6) shows that accruals levels do not significantly 
+predict returns over our sample period. LPC preserves its predictive 
+ability  (coefficient  of  0.41  and  t-statistic  of  3.21)  after  controlling 
+for  Accruals.  We  conclude  that  firms’  accruals  are  also  an  unlikely 
+explanation of our results in the previous section.
+
+We conclude our examination of alternative explanations by test-
+ing whether LPC’s return predictability can be accounted for by an 
+industry-level explanation such as industry competition or other in-
+dustry characteristics (e.g., Hou and Robinson, 2006; Bustamante and 
+Donangelo,  2017).24  To  address  this  possibility,  we  industry-adjust
+LPC using the Fama and French’s 17 industry classification (LPC 𝑎𝑑𝑗 ). 
+Our results are also robust to alternative industry classifications. Ta-
+ble  11, column (7) shows that LPC’s predictive power persists after 
+the industry adjustment (coefficient of 0.29 and t-statistic of 2.79). 
+Thus, an explanation of our results in the previous section based on 
+industry characteristics also appears unlikely. In Table  11, columns (8) 
+and (9), we finally show specifications accounting for all alternative 
+explanations we considered together. The results indicate that, even 
+when combined, the alternative explanations do not subsume LPC’s 
+predictive power over returns.
+
+While we have documented the predictive power of LPC for stock 
+returns and its robustness, it is also important to provide evidence 
+that this relationship is not merely a statistical artifact. To this end, 
+we  conclude  this  section  with  a  falsification  test,  which  serves  to 
+examine  whether  the  risk  premium  we  have  identified  is  uniquely 
+associated with moderately late payments, as our vertical bargaining 
+power hypothesis suggests, or if it is a feature of general payment 
+timing consistency.
+
+For our falsification test, we define two alternative LPC measures. 
+𝐿𝑃 𝐶0−50 is the percentage of instances where a firm’s PAYDEX score 
+falls within the low region [0, 50] over the last sixty months. 𝐿𝑃 𝐶80−100
+is the percentage of instances where the firm’s PAYDEX score falls 
+within the high region [80, 100]. Then, using Fama-MacBeth regres-
+sions, we examine whether 𝐿𝑃 𝐶0−50 and 𝐿𝑃 𝐶80−100 have explanatory 
+power over returns. 𝐿𝑃 𝐶0−50 has a coefficient in column (10) of −0.85 
+with a t-statistic of −0.94, while 𝐿𝑃 𝐶80−100 has a coefficient in column 
+(11) of 0.08 with a t-statistic of 0.46. Importantly, these results are in 
+stark contrast to those with our LPC measure, which, as shown earlier, 
+has a statistically significant coefficient of 0.39 with a t-statistic of 3.14 
+in column (2). These findings provide support to the idea that there is 
+indeed inherent significance to firms consistently making moderately 
+late payments, as opposed to general payment consistency or extreme 
+payment behaviors.
+
+4.2.3. The macro primitive of late payment consistency
+
+We hypothesize in Section 2.2 that the 𝐿𝑃 𝐶 premium arises because 
+firms with high vertical bargaining power extract rents from the sup-
+ply chain, which limits their flexibility during times of supply chain 
+disruptions. In this section, we examine a range of macro shocks as 
+the source of 𝐿𝑃 𝐶’s predictability in standard GMM asset pricing tests 
+following prior literature (e.g., Belo et al., 2019; Grigoris et al., 2023). 
+Specifically, we test a stochastic discount factor (SDF) of the form: 
+
+𝑀𝑡 = 1 − 𝑏𝑀𝐾𝑇 𝑅𝐹 𝑀𝐾𝑇 𝑅𝐹𝑡 − 𝑏𝑀𝐴𝐶𝑅𝑂𝑀𝐴𝐶𝑅𝑂𝑡
+
+(7)
+
+where 𝑀𝐾𝑇 𝑅𝐹𝑡 is the market’s excess return and 𝑀𝐴𝐶𝑅𝑂𝑡 represents 
+a proxy for a second aggregate shock. We consider the following shocks: 
+(a) changes in the Global Supply Chain Pressure Index from Benigno 
+et al. (2022) (𝐺𝑆𝐶𝑃 𝐼), (b) intermediary capital from He et al. (2017) 
+
+24 Consistent with this idea, Table OA.A.1, Panel C in Online Appendix A 
+indicates variation of LPC across industries. A series of papers demonstrate that 
+a wide range of asset pricing phenomena have important industry components 
+(e.g., Moskowitz and Grinblatt, 1999; Hou, 2007; Hoberg and Phillips, 2010; 
+Donangelo, 2014; Herskovic, 2018; Segal, 2019).
+
+Journal of Financial Economics 172 (2025) 104108 
+
+(𝐼𝑁𝑇 ), (c) liquidity innovations from Pastor and Stambaugh (2003) 
+(𝐿𝐼𝑄),  (d)  real  uncertainty  from  Jurado  et  al.  (2015)  (𝑈 𝑁𝐶),  (e) 
+innovations to the aggregate receivables-to-sales ratio (Grigoris et al., 
+2023), measured by its log first difference (𝑅∕𝑆), and (f) investment-
+specific technology shocks from Papanikolaou (2011) (𝐼𝑀𝐶).
+
+To estimate the risk factor loadings and pricing errors, we use the 
+standard asset pricing moment condition 𝐸[𝑟𝑖𝑡𝑀𝑡] = 0, in which 𝑟𝑖𝑡 is 
+the excess return on asset 𝑖 in year 𝑡. We rewrite the moment condition 
+as: 
+
+𝐸[𝑟𝑖𝑡] = 𝛼𝑖 + 𝑏𝑀𝐾𝑇 𝑅𝐹 × 𝐶𝑜𝑣(𝑀𝐾𝑇 𝑅𝐹𝑡, 𝑟𝑖𝑡) + 𝑏𝑀𝐴𝐶𝑅𝑂 × 𝐶𝑜𝑣(𝑀𝐴𝐶𝑅𝑂𝑡, 𝑟𝑖𝑡)
+(8)
+
+where 𝛼𝑖 indicates the pricing error or abnormal return of asset 𝑖. We 
+also estimate the one-factor CAPM model (where 𝑏𝑀𝐴𝐶𝑅𝑂 = 0) to 
+establish the marginal importance of the macro factors. We use GMM 
+to estimate Eq. (8) using 10 𝐿𝑃 𝐶-sorted portfolios.
+
+We report results for the low (1), medium (5), high (10), and the 
+spread between the high and low 𝐿𝑃 𝐶 portfolios in Table  12. Panel 
+A reports model-implied pricing errors (𝛼) associated with the GMM 
+procedure. Several observations are worth noting. Consistent with the 
+results  in  Table   10,  the  CAPM  alone  cannot  account  for  the  𝐿𝑃 𝐶
+premium. The model featuring the GSCPI shock, however, reduces the 
+alpha  to  25  basis  points  per  month,  an  estimate  that  is  no  longer 
+statistically significantly different from zero at conventional levels. The 
+alphas on the spread portfolio for the rest of the models are roughly 
+double, ranging between 45–51 basis points per month, with t-statistics 
+exceeding two in all cases.
+
+Table  12, Panel B reports covariances of the 𝐿𝑃 𝐶-sorted portfolios 
+with the macro shocks (𝑀𝐴𝐶𝑅𝑂𝑡). It shows that high 𝐿𝑃 𝐶 firms, those 
+with high vertical bargaining power, tend to have lower covariances 
+with changes in the GSCPI. That is, high 𝐿𝑃 𝐶 stocks tend to perform 
+relatively worse when the GSCPI goes up, which are times of supply 
+chain pressures. Panel C of Table  12 shows that GSCPI carries a nega-
+tive price of risk. We estimate 𝑏𝐺𝑆𝐶𝑃 𝐼  using two sets of test assets. For 
+𝐿𝑃 𝐶 portfolios, we find 𝑏𝐺𝑆𝐶𝑃 𝐼  = −1.89 (t-statistic = −1.63), while for 
+broader test assets, 𝑏𝐺𝑆𝐶𝑃 𝐼  = −1.28 (t-statistic = −2.56). Furthermore, 
+the inclusion of GSCPI improves the model fit, as evidenced by the 
+reduction in Mean Absolute Error (MAE) from 0.17 to 0.09 for 𝐿𝑃 𝐶
+portfolios and from 0.53 to 0.27 for broader test assets. Thus, high 
+bargaining power is associated with lower exposure to the GSCPI factor, 
+but due to the factor’s negative price of risk, high LPC stocks are riskier 
+and, consequently, have higher expected returns.
+
+These  results  imply  that  while  supply  chain  pressures  generally 
+represent adverse economic conditions, stocks on average have positive 
+exposures  to  the  GSCPI,  suggesting  that  equity  markets  can  hedge 
+against global supply chain pressures. Arguably, a possible explanation 
+of this result is that rising supply chain pressures increase firms’ growth 
+option values due to, for example, pent-up demand. We further explore 
+this conjecture in Table OA.A.5 of our Online Appendix A, which shows 
+that  intensifying  supply  chain  pressures  are  indeed  associated  with 
+increasing values of firms growth options. However, consistent with our 
+hypothesis in Section 2.2, while we find that supply chain shocks are 
+associated with increasing firm growth option values, high LPC firms 
+do not see their growth options increase in value with rising GSCPI 
+as much as other firms, offering an inferior hedge for investors during 
+periods of intensifying supply chain pressures.
+
+5. Additional tests on return predictability
+
+This section examines the asset pricing implications of our signals 
+and its robustness in predicting returns in the cross-section of equities 
+using the protocol proposed by Novy-Marx and Velikov (2023).25 At a 
+
+25 We thank the authors for offering free implementation of the protocol at 
+http://AssayingAnomalies.com.
+
+16 
+
+P. Lieberman et al.
+
+high level, the protocol evaluates the robustness of return predictability 
+and assesses the contribution of a new signal to the ‘‘zoo’’ of existing 
+anomalies. To this end, the ‘‘protocol’’ starts with evaluating the predic-
+tive power of the new signal using various portfolio sorting techniques. 
+It accounts for exposure to standard factor models, various portfolio 
+construction  methodologies  (equal-  vs.  value-weighting,  quintile  vs. 
+decile sort, name, NYSE, and market capitalization breakpoints), trad-
+ing  costs,  and  performance  across  various  size  universes.  Next,  the 
+‘‘protocol’’ implements a variety of tests that evaluate the relation of the 
+proposed new signal with a set of up to 200 anomaly signals previously 
+documented in the literature. It controls for each of the existing sig-
+nals using spanning tests, Fama-MacBeth regressions, and conditional 
+double sorts. It also ‘‘zooms in’’ on the most closely related signals, 
+and shows results from Fama-MacBeth regressions and spanning tests 
+controlling for them. Finally, the protocol examines what the proposed 
+new signal contributes when we take into account the entire anomaly 
+zoo.
+
+Due  to  the  scope  and  extensiveness  of  the  tests  performed,  we 
+relegate them to online appendices. In this section, we provide a high-
+level summary of the results, but encourage the interested reader to 
+refer to the Online Appendices for details. Online Appendix B provides 
+the results from running the Novy-Marx and Velikov (2023) protocol 
+on the 𝑍𝑠𝑙𝑜𝑤 signal. Given that the 𝑍𝑠𝑙𝑜𝑤 signal is a refinement of 
+the 𝑍𝑝𝑎𝑦𝑑𝑒𝑥, and has a relatively stronger performance, we focus on 
+it here rather than on 𝑍𝑝𝑎𝑦𝑑𝑒𝑥. The results in this Appendix highlight 
+the impressive predictive power of 𝑍𝑠𝑙𝑜𝑤 for the cross-section of stock 
+returns. For the benchmark portfolio construction strategy, its gross 
+(net) annualized Sharpe ratio is 0.93 (0.75). The average returns and 
+alphas reported in Table OA.B.1 range between 37–46 bps/months with 
+t-statistics exceeding 3.46. Even after controlling for trading costs in 
+Panel B of Table OA.B.2, we see average returns routinely above 30 
+bps/month and t-statistics exceeding 3. The only portfolio construction 
+the 𝑍𝑠𝑙𝑜𝑤 strategy performs poorly net-of-costs is when stock returns are 
+equal-weighted within portfolios. In contrast, Table OA.B.3. shows that 
+the 𝑍𝑠𝑙𝑜𝑤 strategy earns 43 basis points (t-statistics 3.33) even among 
+the largest market capitalization stocks.
+
+Figures OA.B.2–4 showcase the impressive performance of 𝑍𝑠𝑙𝑜𝑤
+relative to the anomaly zoo. Based on Sharpe ratios, 𝑍𝑠𝑙𝑜𝑤 ranks in 
+the top two percent of all anomalies. Its performance is also impressive 
+in terms of cumulative returns (top 11%) and alphas (top 25%). Even 
+when controlling for the Fama and French (2018) six factors and the 
+most-closely  related  anomalies  as  identified  by  the  Novy-Marx  and 
+Velikov (2023) protocol (i.e., Asset growth, Change in current operating 
+liabilities, Change in equity to assets, Growth in book equity, Change in 
+order backlog, Long-run reversal), 𝑍𝑠𝑙𝑜𝑤 achieves an alpha of 41 basis 
+points with a highly significant t-statistic of 3.80.
+
+Online Appendix C provides the results from running the Novy-
+Marx and Velikov (2023) protocol on the 𝐿𝑃 𝐶 signal. Tables OA.C.1 
+and OA.C.2 show that 𝐿𝑃 𝐶 retains its strong predictive power in the 
+cross-section of equities under various sorting methodologies. Notably, 
+it also survives controlling for trading costs as a result of its low average 
+turnover, consistent with our interpretation of 𝐿𝑃 𝐶 results as being 
+risk-driven. Depending on the portfolio construction, Panel B of Table 
+OA.C.2 shows that the net average returns of the 𝐿𝑃 𝐶 strategies vary 
+between 25–38 bps/month. Table OA.C.3 further shows that the 𝐿𝑃 𝐶
+trading strategy yields 43 bps/month (t-statistic of 2.81) even among 
+the largest stocks (i.e., those with market cap higher than the 80th 
+NYSE percentile).
+
+The  tests  in  the  protocol  also  show  that  the  𝐿𝑃 𝐶  strategy  per-
+formance compares favorably when benchmarked against 207 signals 
+from the anomaly zoo. Figures OA.C.2–4 show that in terms of both 
+gross and net Sharpe ratio, cumulative returns, and alphas, the 𝐿𝑃 𝐶
+strategy ranks in the top quartile of anomalies. Finally, the protocol 
+identifies the following closely related anomalies: Operating profitabil-
+ity RD adjusted, Operating leverage, Cash-based operating profitability, 
+Return on assets (qtrly), Industry concentration (equity), Net external 
+
+Journal of Financial Economics 172 (2025) 104108 
+
+financing. We find this result reassuring, because all of these anomalies 
+can be linked theoretically or intuitively to vertical bargaining power. 
+While 𝐿𝑃 𝐶’s predictability appears robust to controlling for these in 
+Fama-MacBeth regressions (Table OA.C.4), the spanning tests reported 
+in Table OA.C.5 show that the returns to these related anomalies span 
+the returns to the 𝐿𝑃 𝐶 strategy. The column of Table OA.C.5 shows 
+that the 𝐿𝑃 𝐶 strategy alpha relative to these strategies and the Fama 
+and French (2018) six factors is reduced to 17 basis points (t-statistic 
+of 1.45).
+
+6. Conclusion
+
+While trade credit has rich informational content, it has been largely 
+under-explored in asset pricing. Trade credit payment behavior is im-
+portant for several reasons. The use of trade credit is economically 
+important, prevalent, and payment behavior varies significantly across 
+firms. Understanding the information content of trade credit payment 
+timeliness and how it relates to asset prices is thus important. The 
+topic of supply chain payments is also of interest to policy makers. 
+In fact, late trade credit payments are a global concern (e.g., Council 
+of the European Union, 2011). In this paper, we provide direct tests 
+of the informational content of trade credit by analyzing the speed 
+of customer payment in the context of equity prices. In doing so, we 
+use a proprietary dataset of trade credit offerings between suppliers 
+and buyers from Dun & Bradstreet’s corporate trade credit payment 
+program.
+
+We offer two sets of core results. First, we show that a sudden delay 
+in a firm’s payment to its suppliers predicts the firm’s substantially 
+lower future stock returns. We interpret these shocks to payment time-
+liness as an early indication that a company is struggling to generate 
+cash flow and is facing distress risk. Consistent with a slow diffusion 
+of information channel, it takes time for investors to incorporate in-
+formation contained in payment delays into stock prices. Second, we 
+show that firms that pay bills moderately and consistently late relative 
+to terms earn substantially higher stock returns. We conjecture that this 
+behavior captures customer bargaining power in the supply chain. This 
+consistent late payment behavior, while advantageous in stabilizing 
+operations,  may  limit  the  firm’s  ability  to  adapt  quickly  to  supply 
+chain disruptions, increasing perceived risk and contributing to higher 
+expected returns as compensation for reduced operational flexibility. 
+Overall, we confirm the rich informational content of trade credit and 
+show two direct asset pricing implications. Our results are novel in 
+that they span two disparate channels with very different underlying 
+economic mechanisms.
+
+CRediT authorship contribution statement
+
+Paul Lieberman: Writing – review & editing, Writing – original 
+draft, Methodology, Formal analysis. Atanas Mihov: Writing – review 
+&  editing,  Writing  –  original  draft,  Methodology,  Formal  analysis. 
+Andy Naranjo: Writing – review & editing, Writing – original draft, 
+Methodology, Formal analysis. Mihail Velikov: Writing – review & 
+editing, Writing – original draft, Methodology, Formal analysis.
+
+Declaration of competing interest
+
+The authors declare the following financial interests/personal rela-
+tionships which may be considered as potential competing interests: 
+Paul Lieberman reports a relationship with Taoshi Inc. that includes: 
+employment. Paul Lieberman reports a relationship with Dun & Brad-
+street that includes: employment. Paul Lieberman reports a relationship 
+with SPY Capital Management that includes: consulting or advisory.
+
+17 
+
+P. Lieberman et al.
+
+Journal of Financial Economics 172 (2025) 104108 
+
+High Credit
+$45000
+$55000
+$50000
+$25000
+$25000
+$40000
+$10000
+
+Table A.1
+PAYDEX score calculation.
+  Panel A: Payment records
+  Payment Record
+  Payment record #1
+  Payment record #2
+  Payment record #3
+  Payment record #4
+  Payment record #5
+  Payment record #6
+  Payment record #7
+  Panel B: Payment record weights calculation
+  Payment Class
+  Current payment: Anticipates
+  Current payment: Discounts
+  Current payment: Prompt
+  Slow payment: 15 days beyond terms
+  Slow payment: 22 days beyond terms
+  Slow payment: 30 days beyond terms
+  Slow payment: 60 days beyond terms
+  Slow payment: 90 days beyond terms
+  Slow payment: 120 days beyond terms
+  Slow payment: Over 120 days beyond terms
+  Total
+  Panel C: PAYDEX score calculation
+  Payment Class
+  Anticipates
+  Discounts
+  Prompt
+  15 days beyond terms
+  22 days beyond terms
+  30 days beyond terms
+  60 days beyond terms
+  90 days beyond terms
+  120 days beyond terms
+  Over 120 days beyond terms
+  PAYDEX score
+
+% Total Amount
+0%
+40%
+20%
+0%
+0%
+20%
+20%
+0%
+0%
+0%
+
+High Credit
+$0
+$100000
+$50000
+$0
+$0
+$50000
+$50000
+$0
+$0
+$0
+$250000
+
+Index Weight
+100
+90
+80
+70
+60
+50
+40
+30
+20
+0–19
+
+×
+×
+×
+×
+×
+×
+×
+×
+×
+×
+
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+
+Payment
+
+Discount
+Discount
+Prompt
+25 days slow 
+29 days slow 
+47 days slow 
+55 days slow
+
+% Total Amount 
+0%
+40%
+20%
+0%
+0%
+20%
+20%
+0%
+0%
+0%
+100%
+
+Class Score 
+0
+36
+16
+0
+0
+10
+8
+0
+0
+0
+70
+
+Appendix A
+
+References
+
+This Appendix presents an example illustrating how the PAYDEX 
+score is calculated. In this case, the focal firm has seven qualifying 
+payment records shown in Table  A.1, Panel A (see Section 3.2 for a 
+discussion of qualifying payment records). D&B starts by separating 
+the payment records into payment classes (i.e., ‘‘discount’’, ‘‘prompt’’, 
+‘‘slow 30’’, ‘‘slow 60’’). D&B then sums all the high credits for each 
+payment class and calculates the percentages of total amount. (A ‘‘high 
+credit’’ is the highest amount owed by the focal firm to a supplier over 
+the life of a payment record transaction.) This is illustrated with an 
+example in Table  A.1, Panel B.
+
+D&B then proceeds by multiplying each percentage of total amount 
+for each payment class by the corresponding Index weight for that 
+payment class, which determines a class score. Class scores are then 
+added to calculate an overall PAYDEX score. This process, along with 
+the payment class Index weights, are shown in Table  A.1, Panel C. The 
+PAYDEX score of 70 indicates that the focal business pays its suppliers 
+slow, up to 15 days beyond terms.
+
+Appendix B. Supplementary data
+
+Supplementary material related to this article can be found online 
+
+at https://doi.org/10.1016/j.jfineco.2025.104108.
+
+Data availability
+
+Replication code for Show Me the Receipts: B2B Payment Timeliness a
+nd Expected Returns (Original data) (Mendeley Data)
+
+Acemoglu,  D.,  Tahbaz-Salehi,  A.,  2025.  The  macroeconomics  of  supply  chain 
+
+disruptions. Rev. Econ. Stud. 92 (2), 656–695.
+
+Ahern, K., 2012. Bargaining power and industry dependence in mergers. J. Financ. 
+
+Econ. 103 (3), 297–341.
+
+Ang, A., Hodrick, R., Xing, Y., Zhang, X., 2006. The cross-section of volatility and 
+
+expected returns. J. Financ. 61 (1), 259–299.
+
+Antrás, P., Chor, D., 2018. On the Measurement of Upstreamness and Downstreamness 
+
+in Global Value Chains. Working Paper.
+
+Antrás, P., Chor, D., Fally, T., Hillberry, R., 2012. Measuring the upstreamness of 
+
+production and trade flows. Am. Econ. Rev. 102 (3), 412–416.
+
+Atanasova, C., 2007. Access to institutional finance and the use of trade credit. Financ. 
+
+Babenko,  I.,  Tserlukevich,  Y.,  Boguth,  O.,  2018.  Competition,  No-Arbitrage,  and 
+
+Ball, R., Brown, P., 1968. An empirical evaluation of accounting income numbers. J. 
+
+Manag. 36 (1), 49–67.
+
+Systematic Risk. Working Paper.
+
+Account. Res. 6 (2), 159–178.
+
+J. Financ. 71 (5), 1975–2016.
+
+Barrot, J.-N., 2016. Trade credit and industry dynamics: Evidence from trucking firms. 
+
+Belo, F., Lin, X., Yang, F., 2019. External equity financing shocks, financial flows, and 
+
+asset prices. Rev. Financ. Stud. 32 (4), 3500–3543.
+
+Benigno, G., Giovanni, J., Groen, J., Noble, A., 2022. The GSCPI: A new barometer of 
+
+globaly supply chain pressures. Fed. Reserv. Bank N. Y. Staff. Rep. (1017).
+
+Billett, M., Freeman, K., Gao, J., 2021. Access to Debt and the Provision of Trade 
+
+Brennan, M., Maksimovic, V., Zechner, J., 1988. Vendor financing. J. Financ. 43 (5), 
+
+Burkart, M., Ellingsen, T., 2004. In-kind finance: A theory of trade credit. Am. Econ. 
+
+Credit. Working Paper.
+
+1127–1141.
+
+Rev. 94 (3), 569–590.
+
+Bustamante, M., 2021. Customer-Supplier Interactions and Expected Returns. Working 
+
+Paper.
+
+Bustamante,  M.C.,  Donangelo,  A.,  2017.  Product  market  competition  and  industry 
+
+returns. Rev. Financ. Stud. 30 (12), 4216–4266.
+
+18 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Fitzgerald, T., Balsmeier, B., Fleming, L., Manso, G., 2021. Innovation search strategy 
+
+Meltzer, A., 1960. Mercantile credit, monetary policy, and size of firms. Rev. Econ. 
+
+P. Lieberman et al.
+
+Journal of Financial Economics 172 (2025) 104108 
+
+Campbell, J.Y., Hilscher, J., Szilagyi, J., 2008. In search of distress risk. J. Financ. 63 
+
+Hoberg, G., Phillips, G., Prabhala, N., 2014. Product market threats, payouts, and 
+
+(6), 2899–2939.
+
+Carhart, M.M., 1997. On persistence in mutual fund performance. J. Financ. 52, 57–82.
+Chen, A., Velikov, M., 2023. Zeroing in on the expected return of anomalies. J. Financ. 
+
+Quant. Anal. 135 (2), 968–1004.
+
+Chordia,  T.,  Subrahmanyam,  A.,  Tong,  Q.,  2014.  Have  capital  market  anomalies 
+attenuated in the recent era of high liquidity and trading activity? J. Account. 
+Econ. 58 (1), 41–58.
+
+Cohen, L., Diether, K., Malloy, C., 2013a. Legislating stock prices. J. Financ. Econ. 110 
+
+Cohen, L., Diether, K., Malloy, C., 2013b. Misvaluing Innovation. Rev. Financ. Stud. 26 
+
+(3), 574–595.
+
+(3), 635–666.
+
+financial flexibility. J. Financ. 69 (1), 293–324.
+
+Hofmann, E., Kotzab, H., 2010. A supply chain-oriented approach of working capital 
+
+management. J. Bus. Logist. 31 (2), 305–330.
+
+Hong, H., Stein, J.C., 1999. A unified theory of underreaction, momentum trading, and 
+
+overreaction in asset markets. J. Financ. 54 (6), 2143–2184.
+
+Hou, K., 2007. Industry information diffusion and the lead-lag effect in stock returns. 
+
+Rev. Financ. Stud. 20 (4), 1113–1138.
+
+Hou, K., Robinson, D.T., 2006. Industry concentration and average stock returns. J. 
+
+Financ. 61 (4), 1927–1956.
+
+Ivashina, V., Iverson, B., 2018. Trade Creditors’ Information Advantage. Working Paper.
+Ivashina, V., Iverson, B., Smith, D., 2016. The ownership and trading of debt claims 
+
+Cooper, M.J., Gulen, H., Schill, M.J., 2008. Asset growth and the cross-section of stock 
+
+in Chapter 11 restructurings. J. Financ. Econ. 119 (2), 316–335.
+
+Corhay, A., Kung, H., Schmid, L., 2020. Competition, markups, and predictable returns. 
+
+Econ. 53 (1), 271–289.
+
+returns. J. Financ. 63 (4), 1609–1651.
+
+Rev. Financ. Stud. 33 (12), 5906–5939.
+
+Johnston, R., Leone, A.J., Ramnath, S., Yang, Y., 2012. 14-week quarters. J. Account. 
+
+Jurado, K., Ludvigson, S., Ng, S., 2015. Measuring uncertainty. Am. Econ. Rev. 105, 
+
+Council  of  the  European  Union,  2011.  Directive  on  combating  late  payment  in 
+
+1177–1216.
+
+commercial transactions. Off. J. Eur. Union 48, 1–10.
+
+Kallberg, J.G., Udell, G.F., 2003. The value of private sector business credit information 
+
+Donangelo, A., 2014. Labor mobility: Implications for asset pricing. J. Financ. 69 (3), 
+
+sharing: The US case. J. Bank. Financ. 27 (3), 449–469.
+
+1321–1346.
+
+Working Paper.
+
+66–80.
+
+Fabbri, D., Klapper, L., 2008. Market Power and the Matching of Trade Credit Terms. 
+
+(3), 838–867.
+
+Fabbri, D., Klapper, L., 2016. Bargaining power and trade credit. J. Corp. Financ. 41, 
+
+predictability. J. Financ. 68 (3), 1037–1096.
+
+Fama, E.F., French, K.R., 1993. Common risk factors in the returns on stocks and bonds. 
+
+and timing. Account. Rev. 87 (1), 1–33.
+
+J. Financ. Econ. 33 (1), 3–56.
+
+(1), 1–22.
+
+Fama, E.F., French, K.R., 2015. A five-factor asset pricing model. J. Financ. Econ. 116 
+
+Fama, E.F., French, K.R., 2018. Choosing factors. J. Financ. Econ. 128 (2), 234–252.
+Fisman,  R.,  Love,  I.,  2003.  Trade  credit,  financial  intermediary  development,  and 
+
+industry growth. J. Financ. 58 (1), 353–374.
+
+and predictable returns. Manag. Sci. 67 (2), 1109–1137.
+
+Freeman, K., 2020. The Economics of Trade Credit: Risk and Power. Working Paper.
+Freeman, K., He, J., Xia, H., 2022. (Don’t) Feed the Mouth that Bites: Trade Credit 
+
+Strategies Among Rival Customers Sharing Suppliers. Working Paper.
+
+Giannetti,  M.,  Serrano-Velarde,  N.,  Tarantino,  E.,  2021.  Cheap  trade  credit  and 
+
+competition in downstream markets. J. Political Econ. 129 (6), 1744–1796.
+
+Gofman, M., Segal, G., Wu, Y., 2020. Production networks and stock returns: The role 
+
+of vertical creative destruction. Rev. Financ. Stud. 33 (12), 5856–5905.
+
+Gofman, M., Wu, Y., 2022. Trade credit and profitability in production networks. J. 
+
+Financ. Econ. 143 (1), 593–618.
+
+Goto, S., Xiao, G., Xu, Y., 2015. As told by the supplier: Trade credit and the cross 
+
+section of stock returns. J. Bank. Financ. 60, 296–309.
+
+and asset prices. Rev. Financ. Stud. 36 (2), 814–858.
+
+Grigoris,  F.,  Segal,  G.,  2023.  Investment  under  Up-  and  Downstream  Uncertainty. 
+
+Grigoris, F., Segal, G., 2024. The utilization premium. Manag. Sci. 70, 201–224.
+Hackbarth, D., Johnson, T., 2015. Real options and risk dynamics. Rev. Econ. Stud. 82 
+
+Working Paper.
+
+(2), 1449–1482.
+
+(4), 1785–1818.
+
+A first look. Financ. Manag. 39 (2), 783–805.
+
+Information? Evidence from Firm Performance. Working Paper.
+
+Hirshleifer, D., Lim, S.S., Teoh, S.H., 2011. Limited investor attention and stock market 
+misreactions to accounting information. Rev. Asset Pricing Stud. 1 (1), 35–73.
+Hirshleifer, D., Teoh, S.H., 2003. Limited attention, information disclosure, and financial 
+
+reporting. J. Account. Econ. 36 (1), 337–386.
+
+Hoberg, G., Phillips, G., 2010. Real and financial industry booms and busts. J. Financ. 
+
+65 (1), 45–86.
+
+Klapper, L., Laeven, L., Rajan, R., 2012. Trade credit contracts. Rev. Financ. Stud. 25 
+
+Korniotis,  G.M.,  Kumar,  A.,  2013.  State-level  business  cycles  and  local  return 
+
+Lee, L.F., 2011. Incentives to inflate reported cash from operations using classification 
+
+Liao, S., Kim, I.S., Miyano, S., Zhang, H., 2020. Concordance: Product concordance. R 
+package version 2.0.0 URL https://CRAN.R-project.org/package=concordance.
+Loualiche, E., 2022. Asset pricing with entry and imperfect competition. J. Financ. 
+
+(forthcoming).
+
+Love, I., Preve, L.A., Sarria-Allende, V., 2007. Trade credit and bank credit: Evidence 
+
+from recent financial crises. J. Financ. Econ. 83 (2), 453–469.
+
+Stat. 42 (4), 429–437.
+
+Molina, C.A., Preve, L.A., 2012. An empirical analysis of the effect of financial distress 
+
+on trade credit. Financ. Manag. 41 (1), 187–205.
+
+Moskowitz, T.J., Grinblatt, M., 1999. Do industries explain momentum? J. Financ. 54 
+
+Murfin, J., Njoroge, K., 2015. The implicit costs of trade credit borrowing by large 
+
+firms. Rev. Financ. Stud. 28 (1), 112–145.
+
+Nilsen, J.H., 2002. Trade credit and the bank lending channel. J. Money Credit. Bank. 
+
+(4), 1249–1290.
+
+34 (1), 226–253.
+
+Novy-Marx, R., 2011. Operating leverage. Rev. Financ. 15 (1), 103–134.
+Novy-Marx, R., 2013. The other side of value: The gross profitability premium. J. 
+
+Financ. Econ. 108 (1), 1–28.
+
+Rev. Financ. Stud. 29 (1), 104–147.
+
+Novy-Marx, R., Velikov, M., 2023. Assaying Anomalies. Working Paper.
+Papanikolaou, D., 2011. Investment shocks and asset prices. J. Political Econ. 119 (4), 
+
+Pastor, L., Stambaugh, R., 2003. Liquidity risk and expected stock returns. J. Political 
+
+639–685.
+
+Econ. 111, 642–685.
+
+10 (3), 661–691.
+
+J. Financ. Econ. 134 (1), 110–140.
+
+Sloan, R.G., 1996. Do stock prices fully reflect information in accruals and cash flows 
+
+about future earnings? Account. Rev. 71 (3), 289–315.
+
+Wang, B., 2019. The cash conversion cycle spread. J. Financ. Econ. 133 (2), 472–497.
+Whited, T., Wu, G., 2006. Financial constraints risk. Rev. Financ. Stud. 19 (2), 531–559.
+Wu, J., Lee, H., Birge, J., 2023. The Hidden World of Trade Credit: The Flexibility Role 
+
+of Late Payments. Working Paper.
+
+Zhang, L., 2005. The Value Premium. J. Financ. 60 (1), 67–103.
+
+He, Z., Kelly, B., Manela, A., 2017. Intermediary asset pricing: New evidence from 
+
+Petersen, M., Rajan, R., 1997. Trade credit: Theories and evidence. Rev. Financ. Stud. 
+
+many asset classes. J. Financ. Econ. 126 (1), 1–35.
+
+Herskovic, B., 2018. Networks in production: Asset pricing implications. J. Financ. 73 
+
+Picconi, M., 2006. The perils of pensions: Does pension accounting lead investors and 
+
+Hill, M.D., Kelly, G.W., Highfield, M.J., 2010. Net operating working capital behavior: 
+
+Rajan, R., Zingales, L., 1995. What do we know about capital structure? Some evidence 
+
+analysts astray? Account. Rev. 81 (4), 925–955.
+
+from international data. J. Financ. 50 (5), 1421–1460.
+
+Hirshleifer, D., Li, Y., Lourie, B., Ruchti, T., 2020. Do Trade Creditors Possess Private 
+
+Segal, G., 2019. A tale of two volatilities: Sectoral uncertainty, growth, and asset prices. 
+
+Grigoris, F., Hu, Y., Segal, G., 2023. Counterparty risk: Implications for network linkages 
+
+Novy-Marx, R., Velikov, M., 2016. A taxonomy of anomalies and their trading costs. 
+
+19 
+
+

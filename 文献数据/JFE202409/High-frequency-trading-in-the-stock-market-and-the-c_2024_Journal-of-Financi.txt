@@ -1,0 +1,2998 @@
+Contents lists available at ScienceDirect
+
+Journal of Financial Economics
+
+journal homepage: www.elsevier.com/locate/finec
+
+High-frequency trading in the stock market and the costs of options market
+making✩
+Mahendrarajah Nimalendran a, Khaladdin Rzayev b,c,d,∗, Satchit Sagade e,f
+a University of Florida, United States of America
+b University of Edinburgh, United Kingdom
+c Koç University, Turkey
+d Systemic Risk Centre, London School of Economics, United Kingdom
+e Nasdaq, Europe
+f Leibniz Institute for Financial Research SAFE, Germany
+
+A R T I C L E I N F O
+
+A B S T R A C T
+
+We investigate how high-frequency trading (HFT) in equity markets affects options market liquidity. We find
+that increased aggressive HFT activity in the stock market leads to wider bid–ask spreads in the options
+market through two main channels. First, options market makers’ quotes are exposed to sniping risk from
+HFTs exploiting put–call parity violations. Second, informed trading in the options market further amplifies
+the impact of HFT in equity markets on the liquidity of options by simultaneously increasing the options
+bid–ask spread and intensifying aggressive HFT activity in the underlying market.
+
+Dataset link: Replication Package for ‘‘High-fre
+quency Trading in the Stock Market and the Co
+sts of Option Market Making’’ (Reference data)
+
+JEL classification:
+G14
+G12
+
+Keywords:
+High-frequency trading
+Options liquidity
+Hedging
+Latency arbitrage
+Informed trading
+
+1. Introduction
+
+High-frequency trading (HFT) has significantly altered the func-
+tioning of electronic markets.1 The extensive literature examining the
+implications of HFT mainly focuses on the market quality effects of HFT
+within individual markets as opposed to across assets.2 We attempt to
+
+fill this gap by examining the impact of HFT in the stock market on
+options market liquidity. Our results are relevant given the significant
+growth in the options market volume in recent years. For instance,
+between 1996 and 2022, options market volume in the U.S. grew at
+an annualized compound rate of 15%, outpacing the 10% growth rate
+
+✩
+
+Nikolai Roussanov was the editor for this article. Many thanks for helpful comments to an anonymous referee, as well as Nihad Aliyev, Mattia Bevilacqua,
+Jonathan A. Brogaard, Jon Danielsson, Thierry Foucault, Gbenga Ibikunle, Ognjen Kovacevic, Albert J. Menkveld, Dmitriy Muravyev, Neil Pearson, Jean-Pierre
+Zigrand, Talis J. Putnins and conference and seminar participants in the 2021 FMA Annual Meeting, 2021 SFA Annual Meeting, the 2021 Australasian Finance and
+Banking Conference, 2020 Digging into Data Challenge Conference, Koç University, University of Edinburgh, London School of Economics, Università Cattolica
+del Sacro Cuore (Milan), Ben Gurion University of the Negev, Bar-Ilan University. The analysis, interpretation, and conclusion of this study reflect solely the views
+of the authors and do not necessarily reflect those of NASDAQ. Rzayev gratefully acknowledges the support of the Trans-Atlantic Platform by the Economic and
+Social Research Council (ESRC) [grant number ES/R004021/1]. Sagade gratefully acknowledges financial support from Deutsche Forschungsgemeinschaft (DFG,
+German Research Foundation) – Projektnummer 329107530.
+
+∗ Corresponding author at: University of Edinburgh, United Kingdom.
+
+E-mail addresses: mahen.nimalendran@warrington.ufl.edu (M. Nimalendran), khaladdin.rzayev@ed.ac.uk (K. Rzayev), satchit.sagade@nasdaq.com
+
+(S. Sagade).
+
+1 Throughout this paper, we use the phrase ‘‘high-frequency trading’’ or ‘‘HFT’’ to refer to HFT activity in the stock market unless we explicitly indicate
+
+otherwise. The acronym HFT is used interchangeably to refer to high-frequency traders and high-frequency trading.
+
+2 Hendershott et al. (2011), Brogaard et al. (2015), Van Kervel and Menkveld (2019) and Hagströmer and Nordén (2013) examine the effects on stock market
+liquidity; Kirilenko et al. (2017) and Lee (2015) investigate the impact in the futures market; Chaboud et al. (2014) and Jiang et al. (2014) focus on FX and
+fixed-income securities markets respectively.
+
+https://doi.org/10.1016/j.jfineco.2024.103900
+Received 31 March 2023; Received in revised form 20 June 2024; Accepted 21 June 2024
+
+JournalofFinancialEconomics159(2024)103900Availableonline3July20240304-405X/©2024TheAuthor(s).PublishedbyElsevierB.V.ThisisanopenaccessarticleundertheCCBYlicense(http://creativecommons.org/licenses/by/4.0/).M. Nimalendran et al.
+
+Fig. 1. The evolution of trading volume in the U.S. equity and options market. This figure reports the evolution of trading volume in the U.S. equity and options markets.
+The gray (dark) bar corresponds to the number of shares (contracts) traded in U.S. equity (options) markets. The sample contains all stocks traded between January 1, 1996 and
+December 31, 2022 on the U.S. exchanges. The data is obtained from CRSP and OptionMetrics.
+
+observed for the stock trading volume (see Fig. 1).
+
+We investigate whether HFT in stocks impacts the liquidity of
+options written on those stocks in the U.S. and whether any potential
+impact differs across liquidity-supplying and liquidity-consuming HFT
+strategies. We find that HFT activity in the equity markets is associated
+with a decline in market liquidity – as indicated by an increase in bid–
+ask spreads – in the options markets. A one-standard-deviation increase
+in HFT activity in stock markets is associated with a 3.5% higher
+proportional bid–ask spread in options markets. For a trade of 1000
+contracts, our results imply that trading costs increase from USD 85.91
+to USD 88.92.3 To provide a sense of the economic scale of this effect,
+the volume of stock options trading in the U.S. reached 10.1 billion
+contracts in 2023,4 resulting in an estimated total increment in trading
+costs of approximately USD 30.4 million. This association is exclusively
+driven by aggressive HFT strategies and not by liquidity-supplying HFT
+strategies.
+
+We propose two channels to explain the adverse effects of liquidity-
+demanding HFTs on options market quality. First, our results are con-
+sistent with option market makers’ quotes being exposed to sniping
+risk originating from latency races involving arbitrageurs who seek to
+profit from trading against stale quotes – we call this explanation the
+latency arbitrage channel. Budish et al. (2015), Foucault et al. (2017)
+and Shkilko and Sokolov (2020) find that fast HFTs with access to
+speed-enhancing technology can leverage their relative speed advan-
+tage to respond more quickly to new information and/or temporary
+liquidity shocks and profitably exploit arbitrage opportunities. This
+phenomenon, referred to as ‘‘latency’’ arbitrage opportunities in the
+relevant literature (e.g., Aquilina et al. (2022), imposes adverse selec-
+tion costs on market makers to the extent these arbitrage opportunities
+originate due to arrival of new information.
+
+To test the latency arbitrage channel, we employ cross-sectional
+analysis and compute the frequency of profitably exploitable put–call
+parity violations. Our primary hypothesis posits that if options market
+makers do in fact increase the bid–ask spread in response to cross-
+market latency arbitrage by HFTs, then the resulting increase in options
+
+3 Section 3 provides the calculations for these numbers.
+4 https://www.theocc.com/market-data/market-data-reports/volume-and-
+
+open-interest/volume-by-exchange.
+
+bid–ask spread should be higher for stocks with a higher frequency of
+profitable put–call parity violations. We adopt the approach employed
+by Muravyev et al. (2013) and compare the option-implied stock price
+(derived from the put–call parity relationship) with the actual stock
+price. We find that the impact of liquidity-consuming HFT flow on the
+options bid–ask spread is more pronounced for stocks that exhibit high
+levels of profitable put–call parity violations.
+
+We also explore a second channel for the positive association be-
+tween liquidity-demanding HFT in the stock markets and options bid–
+ask spreads. It is well established that the implicit leverage in options
+markets makes them very attractive to informed traders (e.g., Easley
+et al. (1998) and Augustin and Subrahmanyam (2020)). With informed
+traders in the options market, options market makers widen the bid–ask
+spread to protect against adverse selection (e.g., Easley et al. (1998)).
+Simultaneously, informed trading activities may create temporary devi-
+ations from put–call parity, allowing aggressive HFTs to intensify their
+activities in the stock markets to exploit slower traders. If this is the
+case, informed trading in the options market may amplify the positive
+impact of HFT in equity markets on the options bid–ask spreads. We
+call this explanation the informed trading channel.
+
+To examine the informed trading channel, we use a unique ex-
+ogenous shock to informed trading, as employed in Bondarenko and
+Muravyev (2022): the arrest of Raj Rajaratnam on October 16, 2009.
+We use the put–call ratio measure calculated from CBOE’s open-close
+options data to proxy for informed trading (Pan and Poteshman, 2006).
+Our analysis shows that the informed trading channel does indeed play
+a role in explaining the effects of liquidity-consuming HFTs on the bid–
+ask spread of options. Economically, we find that informed trading in
+the options market intensifies the overall effects of HFT in the stock
+market on the options bid–ask spread by roughly 50%.
+
+While we obtain the above results after controlling for option and
+stock market factors that are commonly known to influence option
+market spreads (e.g., options volume and price, option implied volatil-
+ity, option Greeks, stock liquidity, and realized stock volatility), we
+acknowledge that the relationship between HFT activity and options
+market liquidity is likely to be endogenous. This endogeneity may arise
+because both variables could be jointly influenced by other potentially
+unobservable factors stemming from the cross-market relationship be-
+tween options and stock markets (as in Biais and Foucault (2014)), or
+
+JournalofFinancialEconomics159(2024)1039002M. Nimalendran et al.
+
+because the causal link between the two variables goes in the opposite
+direction (as in Breen et al. (2002)).
+
+To address these endogeneity concerns, we employ the two-stage
+least squares (2SLS) approach where we use the introduction of flash
+orders by NASDAQ as an exogenous shock to HFT activity in the
+stock market. This order type grants market participants the ability to
+expose their unexecuted marketable orders for an additional 500 ms in
+the NASDAQ limit order book before eventually routing them to the
+general marketplace. As only low latency firms are able to monitor
+order books at such high frequencies and react to the presence of flash
+orders (Skjeltorp et al., 2016; Harris and Namvar, 2016), our choice of
+instrument fulfills both criteria for a good instrument: it has a strong
+correlation with HFT activity in the stock market; and it only affects
+option market liquidity through its impact on HFT activity in the stock
+market. The 2SLS estimations confirm the main results. An increase
+in aggressive HFT activity leads to an increase in quoted spreads in
+the options markets. Furthermore, the positive relationship between
+(aggressive) HFT activity and option spreads is stronger for stocks with
+a high number of profitably exploitable put–call parity violations.5
+
+Our primary analysis relies on the NASDAQ HFT data and the
+options transactions data obtained from the Options Price Reporting
+Authority (OPRA), which is limited to one year (2009) and 103 stocks.
+To test the external validity of our results, we complement our pri-
+mary analysis by examining the correlation between HFT activity and
+options liquidity using a larger dataset spanning from 2012 to 2019.
+This analysis, detailed in the Internet Appendix Section C, uses data
+from the Securities and Exchange Commission’s Market Information
+Data Analytics System (MIDAS) database and OptionMetrics. While this
+analysis does not provide the same granularity as our main analysis
+and cannot establish a causal relationship, it consistently shows that
+the increased total HFT activity in equity markets is associated with a
+significant decline in options liquidity. Furthermore, both the latency
+arbitrage and informed trading channels contribute to explaining the
+positive correlation between HFT activity in the equity market and the
+bid–ask spread in the options market.
+
+1.1. Related literature and contribution
+
+Our study contributes to understanding the impact of HFTs on the
+interplay between stock and options market microstructure dynamics.
+We present evidence on the direct effect of various HFT strategies in
+equity markets on the options bid–ask spread, and, to the best of our
+knowledge, our study is the first to address this critical issue.
+
+Studies examining the impact of underlying market liquidity on
+option liquidity mainly focus on how stock liquidity affects the hedging
+costs of option market makers. Cho and Engle (1999), Kaul et al.
+(2004), and Wu et al. (2014) argue that market frictions and imperfec-
+tions prohibit option market makers from building a perfectly-hedged
+delta-neutral portfolio, thus necessitating them to seek compensation
+for the transaction costs and the risks associated with an imperfectly
+hedged position in the options market. Engle and Neri (2010) and Kaul
+et al. (2004) establish that the option delta, gamma, and vega affect the
+hedging capability of option market makers. Boyle and Vorst (1992)
+and Cho and Engle (1999) in turn demonstrate that the bid–ask spread
+in the stock market affects the hedging costs of option market makers.
+In a closely related study, Mishra et al. (2012) explore the impact of
+automation on options markets, using high-frequency OPRA data and
+finding that automation leads to reduced bid–ask spreads and increased
+
+5 While the introduction of flash orders by NASDAQ serves as a useful
+instrument to mitigate endogeneity concerns, fully addressing these concerns
+remains challenging in our context. This is largely due to the intrinsic
+connection between options contracts and their underlying stocks in the
+equity market, a common issue in the literature on stock and options market
+dynamics.
+
+liquidity in options markets. Kapadia and Linn (2020) use the August
+2012 glitch in Knight Capital’s trading platform as an exogenous event
+to demonstrate that liquidity-related uncertainty in equity markets
+adversely affects option bid–ask spreads.
+
+Our paper distinguishes itself from the aforementioned studies by
+focusing on investigating the cross-market arbitrage dynamics between
+the options and equity markets. We demonstrate that, even after con-
+trolling for all variables proposed in previous studies that could influ-
+ence the hedging costs of option market makers, high-frequency cross-
+market latency arbitrage forces between options and equity markets
+significantly impact options market liquidity.
+
+Our study is also related to the literature on informed trading in
+the options market, a topic reviewed by Augustin and Subrahmanyam
+(2020). Easley et al. (1998) develop a model where informed traders
+choose between stock and options markets based on the relative trans-
+action costs in the markets and the ‘‘bang-for-buck’’ afforded by the
+options market due to its inherent leverage. The authors conclude that,
+depending on the relative transaction costs in the two markets, there
+can be a separating equilibrium where informed traders only trade
+in the stock market or a pooling equilibrium where informed traders
+trade in both markets. Empirical research focusing on informed trading
+in these two markets largely validates the theoretical predictions of
+the model. For instance, Cao et al. (2005) find evidence of informed
+trading in options before takeovers. Hu (2014) provides evidence of an
+information channel by demonstrating that the options market-makers’
+initial delta hedging strategy is reflected in stock prices. Pan and
+Poteshman (2006), Ni et al. (2008), Cremers and Weinbaum (2010),
+Ge et al. (2016) and Collin-Dufresne et al. (2021) further document
+the role of options markets in the price discovery process.
+
+In this context, our work aligns closely with Bondarenko and Mu-
+ravyev (2022), who employ a unique exogenous shock – the arrest of
+a trader engaged in insider trading – to investigate informed trading in
+the options market. Their findings suggest that options volume predicts
+future stock returns due to its information content before the arrest but
+not afterwards. Building on this experiment, our results also suggest
+that options market makers widen the bid–ask spread in the presence of
+informed trading before the arrest. Importantly, our study extends this
+line of inquiry by highlighting the potential role of HFTs in transmitting
+information between the options and stock markets.
+
+Finally, our study contributes to the existing literature on HFT,
+focusing on speed differentials across traders, sniping, and latency
+arbitrage. On the one hand, Brogaard et al. (2015) and Ait-Sahalia and
+Sağlam (2024) show that access to speed-enhancing technology allows
+market makers to reprice their quotes and better manage adverse selec-
+tion risk, thereby improving spreads. On the other hand, Budish et al.
+(2015), Foucault et al. (2017), and Shkilko and Sokolov (2020) provide
+evidence of (toxic) latency arbitrage opportunities that emerge due to
+asynchronous adjustments in prices across two (or more) markets upon
+the arrival of new information. According to Aquilina et al. (2022),
+the use of latency arbitrage strategies increases trading costs and leads
+to annual losses of around $5 billion in global equity markets, and
+Baron et al. (2019) find that HFTs obtain significant profits from these
+latency arbitrage opportunities. Menkveld and Zoican (2017) show that
+which of the above two effects dominates depends on a security’s news-
+to-liquidity-trader ratio. In options markets, due to exchange-imposed
+caps on the number of quote updates, and fines on traders with high
+message-to-transaction ratios (Muravyev and Pearson, 2020), market
+makers are particularly vulnerable to sniping risk – an aspect that is
+consistent with our findings.
+
+Roadmap: The remainder of this paper is organized as follows:
+Section 2 describes the data; Section 3 presents the estimation results
+for the main tests and two proposed channels using the OLS setting
+with fixed effects; Section 4 presents the results for the 2SLS IV ap-
+proach; and Section 5 concludes. All additional tests mentioned but not
+included in this paper are available in the Internet Appendix.
+
+JournalofFinancialEconomics159(2024)1039003M. Nimalendran et al.
+
+2. Data and variables
+
+2.1. Data sources
+
+The primary datasets employed in this study are the NASDAQ HFT
+data, comprising transactions for 120 randomly selected NASDAQ and
+NYSE-listed stocks for 2009, and the transaction-level options data ob-
+tained from the Options Price Reporting Authority (OPRA). Individual
+trades in the NASDAQ HFT data have been disaggregated by NASDAQ
+into those initiated by HFTs and non-HFTs.6 The NASDAQ HFT data
+also includes variables such as date, time (in milliseconds), trading
+volume, price, buy–sell indicator, and the liquidity nature of the two
+sides of each trade. The nature of the liquidity has been classified as
+HH, HN, NH, and NN, denoting trades where both liquidity-providers
+and -takers are HFTs, where an HFT demands liquidity from a non-
+HFT, where a non-HFT demands liquidity from an HFT, and where
+two non-HFTs demand and supply liquidity respectively. The total HFT
+volume has been defined as the sum of HH, HN, and NH, in line with
+Brogaard et al. (2014). The total trading volume is about 44,800 million
+shares, of which HFTs account for 31,968 million shares or 71.30%
+of all trades. The total value of HFT-initiated trades amounts to 1381
+billion USD.
+
+We merge the NASDAQ HFT data with the transaction-level op-
+tions data obtained from OPRA. Although the NASDAQ HFT data
+covers transactions for 120 stocks, we are only able to match options
+transactions with the NASDAQ HFT dataset for 103 stocks due to
+inconsistencies in ticker symbols across the two datasets. We employ
+the OPRA data for two purposes: (i) to compute the primary measure
+of trading cost for the options market, specifically the proportional
+quoted bid–ask spread; and (ii) to estimate the violations of put–call
+parity. The initial OPRA dataset comprises 19,143,237 transactions. We
+follow the existing literature and exclude long-term options, i.e., those
+with maturities greater than 180 days. This allows us to focus on the
+most actively traded options contracts (e.g., Brenner et al. (2001) and
+Christoffersen et al. (2017)).
+
+We supplement these two datasets with the open-close options data
+obtained from CBOE, the NBBO quotes from the Trade and Quote
+(TAQ), the five-minute intraday stock price data obtained from Re-
+finitiv Tick History, end-of-day option bid and ask prices, trading
+volumes, Greeks, and implied volatilities7 from OptionMetrics, put–call
+implied volatility spreads from Option Suite by Wharton Research Data
+Services (WRDS), additional HFT measures obtained from the Securities
+and Exchange Commission’s (SEC) Market Information Data Analytics
+System (MIDAS) dataset, daily ask, bid, trading prices, dividend yield
+from the Center for Research in Securities Prices (CRSP) dataset, and
+the daily yield curve from the U.S. Department of Treasury.
+
+2.2. Variable construction
+
+Following the approach of Brogaard et al. (2014), we calculate
+HFTs’ liquidity-demanding trades (𝑆𝐻𝐹 𝑇 𝐷
+𝑖,𝑑 ) and liquidity-supplying
+𝑖,𝑑 ) using data from the NASDAQ HFT dataset. 𝑆𝐻𝐹 𝑇 𝐷
+trades (𝑆𝐻𝐹 𝑇 𝑆
+𝑖,𝑑
+(𝑆𝐻𝐹 𝑇 𝑆
+𝑖,𝑑 ) is computed as the sum of HH and HN (HH and NH) for each
+stock 𝑖 and day 𝑑. To obtain a measure of total HFT trading volume,
+we compute 𝑆𝐻𝐹 𝑇 𝐴𝑙𝑙
+𝑖,𝑑 as the sum of HH, HN, and NH. To ensure
+that our results are not driven by trading volume attributable to non-
+high-frequency traders (non-HFTs), we control for non-HFTs’ liquidity-
+demanding (𝑆𝑁𝐻𝐹 𝑇 𝐷
+𝑖,𝑑 ) trading
+volume in the regression when we use 𝑆𝐻𝐹 𝑇 𝐷
+𝑖,𝑑 as
+our key explanatory variables (Brogaard et al., 2014). 𝑆𝑁𝐻𝐹 𝑇 𝐷
+𝑖,𝑑
+(𝑆𝑁𝐻𝐹 𝑇 𝑆
+
+𝑖,𝑑 ) and liquidity-supplying (𝑆𝑁𝐻𝐹 𝑇 𝑆
+
+𝑖,𝑑 ) is calculated as the sum of NN and NH (NN and HN).
+
+𝑖,𝑑 and 𝑆𝐻𝐹 𝑇 𝑆
+
+6 Brogaard et al. (2014) provide full details of the disaggregation.
+7 Greeks and implied volatilities are computed using a binomial tree with
+
+a constant interest rate.
+
+Our options market trading cost measure is the proportional bid–
+ask spread (𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 ), which is computed using the transaction-level
+OPRA dataset. We compute 𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 as the volume-weighted aver-
+age of the transaction-level proportional bid–ask spread, calculated as
+the difference between the ask and bid prices divided by the midprice
+(i.e., the average of ask and bid prices) for each transaction.
+
+In addition to the aforementioned key variables, our study incor-
+porates several control variables to account for the dynamics of both
+stock and options markets. We include options volume (𝑂𝑣𝑜𝑙𝑢𝑚𝑒𝑖,𝑑 ),
+implied volatility (𝑂𝑖𝑚𝑝𝑙𝑖𝑒𝑑𝑖,𝑑 ), inverse option price (𝑂𝑖𝑛𝑝𝑖,𝑑 ), absolute
+𝑂𝑑𝑒𝑙𝑡𝑎𝑖,𝑑 |
+), option vega (𝑂𝑣𝑒𝑔𝑎𝑖,𝑑 ), and option gamma
+option delta (|
+|
+|
+(𝑂𝑔𝑎𝑚𝑚𝑎𝑖,𝑑 ) as our options market control variables. The 𝑂𝑣𝑜𝑙𝑢𝑚𝑒𝑖,𝑑
+is the natural logarithm of the daily trading volume (contracts) for
+each stock 𝑖 and day 𝑑. We compute the daily 𝑂𝑖𝑚𝑝𝑙𝑖𝑒𝑑𝑖,𝑑 , |
+𝑂𝑑𝑒𝑙𝑡𝑎𝑖,𝑑 |
+,
+|
+|
+𝑂𝑣𝑒𝑔𝑎𝑖,𝑑 , and 𝑂𝑔𝑎𝑚𝑚𝑎𝑖,𝑑 as the volume-weighted averages of all implied
+volatilities, absolute deltas, vegas, and gammas across all strike prices
+and maturities for stock 𝑖 and day 𝑑. We use the absolute value of delta
+as call and put options and have different signs for deltas, i.e., a call
+option delta is positive, while delta is negative for put options.
+
+In order to control for the influence of stock market activity, we
+employ two variables: stock proportional quoted spread (𝑆𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 )
+and realized volatility (𝑆𝑉 𝑜𝑙𝑎𝑡𝑖𝑙𝑖𝑡𝑦𝑖,𝑑 ). 𝑆𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 is computed as the
+difference between the best-ask and bid prices for stock 𝑖 and day 𝑑, di-
+vided by the midprice of the two prices on the same day. 𝑆𝑉 𝑜𝑙𝑎𝑡𝑖𝑙𝑖𝑡𝑦𝑖,𝑑
+is the daily (𝑑) standard deviation of five-minute returns for stock 𝑖.
+Incorporating these control variables allows us to capture the dynamics
+of the options and stock markets and mitigate the potential confounding
+effects of unobserved variables on our main results.
+
+To test the latency arbitrage channel, we compute the option’s
+implied stock price by using the OPRA data, and compare it with the
+contemporaneous stock price. If the discrepancy between the option’s
+implied stock price and the actual stock price allows investors to
+generate a profit, we flag this discrepancy as a profitable arbitrage
+opportunity. Our put–call parity violations variable, 𝑁𝑝𝑣𝑖,𝑑 , is then
+computed as the total number of profitable put–call parity violations for
+each stock 𝑖 and day 𝑑. The computations are comprehensively detailed
+in Section 3.2.1.
+
+To measure informed trading in the options market, we adopt a
+modified version of the put–call ratio metric introduced by Pan and
+Poteshman (2006). Our informed trading measure, denoted as 𝐼𝑛𝑠𝑖,𝑑 ,
+is computed as the absolute value of the difference between the put–
+call ratio and 0.5. The put–call ratio itself is computed as the ratio of
+open-buy put volume to the sum of open-buy put and open-buy call
+volumes. The underlying rationale driving the selection of this metric
+is expounded upon in Section 3.3.1.
+
+Finally, we use the SEC’s MIDAS data to confirm the robustness of
+our results; we refer to this as the ‘‘MIDAS sample’’. We detail the main
+variables employed in this test, the sources from which these variables
+are obtained, and the results of this test in Internet Appendix Section
+C.
+
+Table 1 provides an overview of all the main (Panel A) and supple-
+
+mentary (Panel B) variables and their computation methods.
+
+2.3. Descriptive statistics
+
+Table 2 shows the descriptive statistics for the main sample, which
+comprises the intersection between the NASDAQ HFT and OPRA
+datasets. Panel A includes the main model variables, where the sample
+encompasses 103 stocks and their corresponding listed options. Panel
+B includes supplementary variables. We winsorize all variables at the
+1st and 99th percentile values to mitigate the influence of outliers.
+
+The daily average trading volume of HFTs, as measured by the
+stock-day average of 𝑆𝐻𝐹 𝑇 𝐴𝑙𝑙
+is 1.36 million. This suggests that
+𝑖,𝑑
+HFTs typically serve as counterparties for a substantial number of
+shares traded on a given day. HFTs are also net suppliers of liquid-
+𝑖,𝑑 and 𝑆𝐻𝐹 𝑇 𝑆
+ity, as evidenced by their stock-day average 𝑆𝐻𝐹 𝑇 𝐷
+
+𝑖,𝑑
+
+JournalofFinancialEconomics159(2024)1039004M. Nimalendran et al.
+
+Table 1
+Definitions of variables.
+
+Panel A: Main model variables
+
+Variable
+
+Description
+
+𝑆𝐻𝐹 𝑇 𝐴𝑙𝑙
+
+𝑆𝐻𝐹 𝑇 𝑆
+
+𝑖,𝑑 (000,000s)
+𝑖,𝑑 (000,000s)
+
+𝑆𝐻𝐹 𝑇 𝐷
+
+𝑖,𝑑 (000,000s)
+
+𝑆𝑁𝐻𝐹 𝑇 𝑆
+
+𝑖,𝑑 (000,000s)
+
+𝑆𝑁𝐻𝐹 𝑇 𝐷
+
+𝑖,𝑑 (000,000s)
+
+𝑆𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 (%)
+
+𝑆𝑉 𝑜𝑙𝑎𝑡𝑖𝑙𝑖𝑡𝑦𝑖,𝑑
+
+𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 (%)
+
+𝑂𝑣𝑜𝑙𝑢𝑚𝑒𝑖,𝑑
+
+𝑂𝑖𝑚𝑝𝑙𝑖𝑒𝑑𝑖,𝑑
+
+|
+|
+
+𝑂𝑑𝑒𝑙𝑡𝑎𝑖,𝑑 |
+|
+
+𝑂𝑔𝑎𝑚𝑚𝑎𝑖,𝑑
+𝑂𝑣𝑒𝑔𝑎𝑖,𝑑
+𝑂𝑖𝑛𝑝𝑖,𝑑
+
+𝑁𝑝𝑣𝑖,𝑑
+
+𝐼𝑛𝑠𝑖,𝑑
+
+Measure of total HFT trading volume for firm 𝑖 and day 𝑑 computed as the total number of shares traded by all HFTs.
+
+Measure of liquidity-supplying HFT trading volume for firm 𝑖 and day 𝑑 computed as the total number of shares traded by
+liquidity-supplying HFTs.
+
+Measure of liquidity-demanding HFT trading volume for firm 𝑖 and day 𝑑 computed as the total number of shares traded
+by liquidity-demanding HFTs.
+
+Measure of liquidity-supplying non-HFT trading volume for firm 𝑖 and day 𝑑 computed as the total number of shares
+traded by liquidity-supplying non-HFTs.
+
+Measure of liquidity-demanding non-HFT trading volume for firm 𝑖 and day 𝑑 computed as the total number of shares
+traded by liquidity-demanding non-HFTs.
+
+Relative quoted spread firm 𝑖 in day 𝑑 computed as the difference between the best-ask and bid prices for stock 𝑖 and day
+𝑑, divided by the midpoint of the two prices on the same day.
+
+Volatility measure for firm 𝑖 in day 𝑑 is computed as the daily standard deviation of five-minute returns.
+
+Option market proportional spread for stock 𝑖 and day 𝑑 computed as the volume-weighted average of the proportional
+spread (the difference between the best-ask and bid prices divided by the midpoint of the ask and bid prices).
+
+Option volume for stock 𝑖 and day 𝑑 computed as the natural logarithm of the daily trading volume (contracts).
+
+Option-implied volatility for stock 𝑖 and day 𝑑 computed as the volume-weighted average of the implied volatility
+provided by OptionMetrics.
+
+Absolute option delta for stock 𝑖 and day 𝑑 computed as the volume-weighted average of the absolute value of delta
+provided by OptionMetrics.
+
+Option gamma for stock 𝑖 and day 𝑑 computed as the volume-weighted average of gamma provided by OptionMetrics.
+Option vega for stock 𝑖 and day 𝑑 computed as the volume-weighted average of vega provided by OptionMetrics.
+Inverse option price firm 𝑖 in day 𝑑 computed as the one divided by the option midprice.
+
+The number of profitable put–call parity violations for each stock 𝑖 and day 𝑑. The put–call parity identification method is
+described in Section 3.2.1.
+
+The informed trading measure for each stock 𝑖 and day 𝑑 computed as the absolute difference between the put–call ratio
+and 0.5. The put–call ratio itself is computed by dividing the open-buy put volume by the sum of open-buy put and call
+volumes.
+
+Panel B: Supplementary variables
+
+Quote-to-trade ratio for stock 𝑖 and day 𝑑 computed as the sum of order volume for all order messages divided by the
+sum of trade volume for all trades that are not against hidden orders.
+
+Absolute value of the put–call implied volatility spread for each stock 𝑖 and day 𝑑.
+
+The informed trading measure for each stock 𝑖 and day 𝑑 computed as the standard deviation of the minute-to-minute
+percentage changes in the put–call ratio. The minute-to-minute put–call ratio is calculated by dividing the buy-put volume
+by the sum of buy-put and buy-call volumes for each minute.
+
+𝑄𝑇 𝑖,𝑑
+
+𝐼𝑣𝑠𝑖,𝑑
+
+𝑂𝑖𝑛𝑠𝑖,𝑑
+
+𝑀𝑖𝑛𝑠𝑖,𝑑
+
+Data source
+
+NASDAQ
+
+NASDAQ
+
+NASDAQ
+
+NASDAQ
+
+NASDAQ
+
+CRSP
+
+Refinitiv
+
+OPRA
+
+OptionMetrics
+
+OptionMetrics
+
+OptionMetrics
+
+OptionMetrics
+OptionMetrics
+OPRA
+
+OPRA
+
+CBOE
+
+MIDAS
+
+OptionMetrics
+
+OPRA
+
+The informed trading measure for each stock 𝑖 and day 𝑑 computed as the absolute difference between the put–call ratio
+and 0.5. The put–call ratio itself is computed by dividing total put volume by the sum of total put and call volumes.
+
+OptionMetrics
+
+This table reports the notation, description, and source of variables. The units of the variables are in parentheses following the variable names.
+
+of 0.77 million and 0.93 million shares respectively. The average
+spread between ask and bid prices in stock markets, as measured by
+𝑆𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 , is 0.12%, lower than the average options market bid–ask
+spread (𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 ) by a factor of approximately 177; the average
+𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 is 21.24%.
+
+The mean value of 𝑂𝑣𝑜𝑙𝑢𝑚𝑒𝑖,𝑑 is 6.80, indicating that the average
+number of option contracts traded each firm and day is 897. The
+mean and median values of 𝑂𝑣𝑜𝑙𝑢𝑚𝑒𝑖,𝑑 , 𝑂𝑖𝑚𝑝𝑙𝑖𝑒𝑑𝑖,𝑑 , |
+, and
+|
+𝑂𝑔𝑎𝑚𝑚𝑎𝑖,𝑑 are close to each other. This suggests that these variables
+have a relatively symmetrical data distribution. On the other hand,
+the mean value of 𝑂𝑣𝑒𝑔𝑎𝑖,𝑑 is 4.91, and the median is 3.76, indicating
+that the distribution of 𝑂𝑣𝑒𝑔𝑎𝑖,𝑑 is right-skewed. The variable 𝑁𝑝𝑣𝑖,𝑑
+has a mean of 4.49 and a large standard deviation of 11.83; thus,
+there is significant variation in the number of profitable put–call parity
+violations across firms. For 𝐼𝑛𝑠𝑖,𝑑 , the mean and median values are 0.25
+and 0.24 respectively.
+
+𝑂𝑑𝑒𝑙𝑡𝑎𝑖,𝑑 |
+|
+
+Table IA.1 in the Internet Appendix presents the correlation be-
+tween 𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 and the control variables used in the analysis,
+providing insights into the magnitude and direction of these asso-
+ciations. The associations between the control variables and options
+spreads are statistically significant and generally align with the existing
+literature.
+
+3. Baseline results
+
+3.1. The impact of HFT on option spread
+
+We begin our analysis by testing the impact of total HFT activity on
+the options market bid–ask spread and estimating the following model:
+
+𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 = 𝛼𝑖 + 𝛽𝑑 + 𝛾1𝑆𝐻𝐹 𝑇 𝐴𝑙𝑙
+
+𝑖,𝑑 +
+
+8
+∑
+
+𝑘=1
+
+𝛿𝑘𝐶𝑘,𝑖,𝑑 + 𝜀𝑖,𝑑
+
+(1)
+
+where 𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 is the proportional option bid–ask spread, 𝑆𝐻𝐹 𝑇 𝐴𝑙𝑙
+𝑖,𝑑
+is the measure of HFTs’ total activities, and 𝛼𝑖 and 𝛽𝑑 are stock
+and time (day) fixed effects. The 𝐶𝑘,𝑖,𝑑 is a set of 𝑘 control vari-
+ables, including variables from both the options and underlying mar-
+kets. The options market variables are 𝑂𝑣𝑜𝑙𝑢𝑚𝑒𝑖,𝑑 , 𝑂𝑖𝑚𝑝𝑙𝑖𝑒𝑑𝑖,𝑑 , 𝑂𝑖𝑛𝑝𝑖,𝑑 ,
+, 𝑂𝑔𝑎𝑚𝑚𝑎𝑖,𝑑 , and 𝑂𝑣𝑒𝑔𝑎𝑖,𝑑 , and the stock market variables
+𝑂𝑑𝑒𝑙𝑡𝑎𝑖,𝑑 |
+|
+|
+|
+are 𝑆𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 , and 𝑆𝑉 𝑜𝑙𝑎𝑡𝑖𝑙𝑖𝑡𝑦𝑖,𝑑 . All these variables are defined in
+Table 1.
+
+The estimation results of Eq. (1) are reported in column (i) of Ta-
+ble 3. Standard errors are double clustered by firm and day. To facilitate
+better economic interpretation, we standardize all variables, as sug-
+gested by Foucault and Fresard (2014). We find a positive relationship
+between 𝑆𝐻𝐹 𝑇 𝐴𝑙𝑙
+𝑖,𝑑 and 𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 , with statistical significance at the
+
+JournalofFinancialEconomics159(2024)1039005M. Nimalendran et al.
+
+Table 2
+Summary statistics.
+
+Panel A: Main model variables
+
+Mean
+
+Median
+
+Std. dev.
+
+N
+
+𝑖,𝑑 (000,000s)
+𝑖,𝑑 (000,000s)
+𝑖,𝑑 (000,000s)
+
+𝑖,𝑑 (000,000s)
+𝑖,𝑑 (000,000s)
+
+𝑆𝐻𝐹 𝑇 𝐴𝑙𝑙
+𝑆𝐻𝐹 𝑇 𝑆
+𝑆𝐻𝐹 𝑇 𝐷
+𝑆𝑁𝐻𝐹 𝑇 𝑆
+𝑆𝑁𝐻𝐹 𝑇 𝐷
+𝑆𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 (%)
+𝑆𝑉 𝑜𝑙𝑎𝑡𝑖𝑙𝑖𝑡𝑦𝑖,𝑑
+𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 (%)
+𝑂𝑣𝑜𝑙𝑢𝑚𝑒𝑖,𝑑
+𝑂𝑖𝑚𝑝𝑙𝑖𝑒𝑑𝑖,𝑑
+𝑂𝑑𝑒𝑙𝑡𝑎𝑖,𝑑 |
+|
+|
+|
+𝑂𝑔𝑎𝑚𝑚𝑎𝑖,𝑑
+𝑂𝑣𝑒𝑔𝑎𝑖,𝑑
+𝑂𝑖𝑛𝑝𝑖,𝑑
+𝑁𝑝𝑣𝑖,𝑑
+𝐼𝑛𝑠𝑖,𝑑
+
+1.36
+
+0.93
+
+0.77
+
+0.98
+
+1.13
+
+0.12
+0.003
+21.24
+6.80
+0.54
+0.52
+0.10
+4.91
+1.27
+4.49
+0.25
+
+Panel B: Supplementary variables
+
+𝑄𝑇 𝑖,𝑑
+𝐼𝑣𝑠𝑖,𝑑
+𝑂𝑖𝑛𝑠𝑖,𝑑
+𝑀𝑖𝑛𝑠𝑖,𝑑
+
+42.07
+0.04
+0.22
+0.46
+
+0.20
+
+0.10
+
+0.14
+
+0.27
+
+0.23
+
+0.08
+0.003
+13.09
+6.80
+0.48
+0.52
+0.08
+3.76
+0.91
+0.00
+0.24
+
+33.73
+0.02
+0.01
+0.25
+
+2.81
+
+2.11
+
+1.48
+
+1.67
+
+2.27
+
+0.12
+0.002
+24.77
+3.16
+0.23
+0.13
+0.06
+4.08
+1.22
+11.83
+0.20
+
+29.43
+0.06
+0.94
+0.76
+
+20,639
+
+20,639
+
+20,639
+
+20,639
+
+20,639
+
+20,639
+20,639
+20,639
+20,639
+20,639
+20,639
+20,639
+20,639
+20,639
+8344
+4892
+
+1,862,924
+1,862,924
+18,994
+1,862,924
+
+This table reports the summary statistics (mean, median, and standard deviation) of the
+variables across all firms/stocks. The units of variables are in parentheses following the
+variable names in the first column, and the number of firm-day observations for each
+variable is in the last column. For detailed definitions of variables refer to Table 1.
+
+Table 3
+The impact of HFT activities on option spread – OLS.
+
+𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑
+(i)
+
+0.03***
+(2.66)
+
+𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑
+(ii)
+
+𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑
+(iii)
+
+𝑆𝐻𝐹 𝑇 𝐴𝑙𝑙
+𝑖,𝑑
+
+𝑆𝐻𝐹 𝑇 𝑆
+𝑖,𝑑
+
+𝑆𝐻𝐹 𝑇 𝐷
+𝑖,𝑑
+
+𝐶𝑜𝑛𝑡𝑟𝑜𝑙𝑠
+Stock fixed effect
+Time fixed effect
+N obs.
+𝑅2
+
+Yes
+Yes
+Yes
+20,639
+0.38
+
+0.01
+(0.73)
+
+Yes
+Yes
+Yes
+20,639
+0.38
+
+0.03***
+(3.11)
+
+Yes
+Yes
+Yes
+20,639
+0.38
+
+𝑘=1 𝛿𝑘𝐶𝑘,𝑖,𝑑 + 𝜀𝑖,𝑑
+𝑘=1 𝛿𝑘𝐶𝑘,𝑖,𝑑 + 𝜀𝑖,𝑑
+𝑘=1 𝛿𝑘𝐶𝑘,𝑖,𝑑 + 𝜀𝑖,𝑑
+
+This table reports the results of estimating the impact of HFT in equity markets on the
+options bid–ask spread using the following models:
+𝑖,𝑑 + ∑8
+𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 = 𝛼𝑖 + 𝛽𝑑 + 𝛾1𝑆𝐻𝐹 𝑇 𝐴𝑙𝑙
+𝑖,𝑑 + ∑9
+𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 = 𝛼𝑖 + 𝛽𝑑 + 𝛾1𝑆𝐻𝐹 𝑇 𝑆
+𝑖,𝑑 + ∑9
+𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 = 𝛼𝑖 + 𝛽𝑑 + 𝛾1𝑆𝐻𝐹 𝑇 𝐷
+where 𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 is the proportional option bid–ask spread, 𝑆𝐻𝐹 𝑇 𝐴𝑙𝑙
+𝑖,𝑑 is the measure
+of HFTs’ total activities, 𝑆𝐻𝐹 𝑇 𝑆
+𝑖,𝑑 is the measure of HFTs’ liquidity-supplying activities,
+and 𝑆𝐻𝐹 𝑇 𝐷
+𝑖,𝑑 is the measure of HFTs’ liquidity-demanding activities. 𝐶𝑘,𝑖,𝑑 is a set of
+𝑘 control variables, including variables from both the options and underlying markets.
+The options market variables are 𝑂𝑣𝑜𝑙𝑢𝑚𝑒𝑖,𝑑 , 𝑂𝑖𝑚𝑝𝑙𝑖𝑒𝑑𝑖,𝑑 , 𝑂𝑖𝑛𝑝𝑖,𝑑 , |
+, 𝑂𝑔𝑎𝑚𝑚𝑎𝑖,𝑑 ,
+|
+and 𝑂𝑣𝑒𝑔𝑎𝑖,𝑑 , and the stock market variables are 𝑆𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 , and 𝑆𝑉 𝑜𝑙𝑎𝑡𝑖𝑙𝑖𝑡𝑦𝑖,𝑑 .
+In addition to these variables, we also control for non-HFTs’
+liquidity-demanding
+(𝑆𝑁𝐻𝐹 𝑇 𝐷
+𝑖,𝑑 ) trading activities when we use
+𝑆𝐻𝐹 𝑇 𝐷
+𝑖,𝑑 respectively. All models include both firm and day fixed
+effects (𝛼𝑖 and 𝛽𝑑 respectively). The standard errors used to compute the t-statistics (in
+brackets) are double clustered by firm and day. *, **, and *** denote the significance
+at 10%, 5%, and 1% respectively. For detailed definitions of variables refer to Table 1.
+
+𝑖,𝑑 ) and liquidity-supplying (𝑆𝑁𝐻𝐹 𝑇 𝑆
+
+𝑖,𝑑 and 𝑆𝐻𝐹 𝑇 𝑆
+
+𝑂𝑑𝑒𝑙𝑡𝑎𝑖,𝑑 |
+|
+
+1% level and a t-statistic of 2.66. This suggests that HFT in equity
+markets has a detrimental impact on the liquidity of options markets.
+The magnitude of the impact is also economically important, with a
+one-standard-deviation increase in 𝑆𝐻𝐹 𝑇 𝐴𝑙𝑙
+𝑖,𝑑 corresponding to a 3.5%
+higher 𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 .8 To understand the economic significance of the
+
+8 All the variables are standardized in the regression. Therefore, we calcu-
+late the economic impact by multiplying the estimated coefficient of 𝑆𝐻𝐹 𝑇 𝐴𝑙𝑙
+𝑖,𝑑
+
+3.5% increment in 𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 , consider a trade of 1000 contracts. As
+the average price for a contract is USD 0.79 in our sample, the average
+effective dollar spread is about USD 0.17 (0.2124*0.79). Given that the
+cost of trading is half of the dollar effective spread, the average total
+trading cost for 1000 contracts is USD 85.91 (1000*0.17*0.5). A 3.5%
+increment in 𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 is associated with the trading cost for 1000
+contracts rising to around USD 88.92.9 To provide a sense of the total
+economic scale of this increment, the volume of stock options trading
+in the U.S. reached 10.1 billion contracts in 2023,10 resulting in an
+estimated total increment in trading costs of approximately USD 30.4
+million.
+
+Next, we investigate the underlying mechanism of the positive
+association between total HFT activities and the option bid–ask spread.
+As suppliers of immediacy, market makers are exposed to adverse
+selection, inventory holding, and order-processing costs. Research in
+microstructure has examined these costs while focusing on equity mar-
+kets. Models of asymmetric information, such as Kyle (1985), Glosten
+and Milgrom (1985) and Easley and O’Hara (1987) argue that mar-
+ket makers recover the losses incurred from trading against better-
+informed counterparties by charging a bid–ask spread. Similarly, mod-
+els of inventory-holding costs, such as Stoll (1978) and Ho and Stoll
+(1980) suggest that the bid–ask spread compensates risk-averse market
+makers for losses incurred due to suboptimal inventory positions, even
+in the absence of asymmetric information. Order-processing costs typi-
+cally include variable costs such as trading and clearing fees and fixed
+costs such as exchange membership fees, IT costs, and administrative
+costs.
+
+Battalio and Schultz (2011) posit that option market makers’ expo-
+sure to adverse selection and inventory risks is typically greater. First,
+option market makers’ inventory positions may be highly volatile due
+to implicit leverage in options contracts and uncertainty surrounding
+stock return volatility (Jameson and Wilhelm, 1992). Second, the op-
+tion market makers have limited control over their inventory positions
+due to option market dynamics. For example, traders are more inclined
+to write call options than to purchase them, while they use buy and
+sell orders relatively evenly in equity markets (e.g., Lakonishok et al.
+(2007)). As a result, options market makers hedge their inventories by
+taking an offsetting position in the underlying cash market (e.g., Black
+and Scholes (1973)).
+
+In a discrete-time setting, the hedging costs of option market makers
+entail two components: the cost of setting up and liquidating the
+initial delta-neutral position; and the cost of continuously rebalancing
+the portfolio to maintain a delta-neutral position (e.g., Jameson and
+Wilhelm (1992)). In Black and Scholes (1973) model, it is assumed
+that equity markets are frictionless and without imperfections, allowing
+options market makers to perfectly hedge their exposures. However,
+in a real-world context, they can only partially hedge their positions,
+leading to imperfect hedging. Consequently, Boyle and Vorst (1992)
+and Cho and Engle (1999) demonstrate that equity market frictions
+such as the bid–ask spread force options market makers to require
+compensation for the transaction costs and the risks associated with
+imperfectly hedging their exposure (e.g., Kaul et al. (2004) and Wu
+et al. (2014)). This connection between the equity and options markets
+is commonly referred to as the hedging channel in the literature.
+
+Based on the literature discussed above, the most prominent equity
+market factor influencing the cost of options market makers’ hedging is
+the bid–ask spread in the equity market (e.g., Boyle and Vorst (1992),
+Cho and Engle (1999) and Engle and Neri (2010)). The implication
+
+with the standard deviation of 𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 and divide it by the mean of
+𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 .
+
+9 For comparison, Brogaard et al. (2015) and Shkilko and Sokolov (2020)
+
+report a 2% and 2.6% change in effective spreads due to HFT activity.
+
+10 https://www.theocc.com/market-data/market-data-reports/volume-and-
+
+open-interest/volume-by-exchange.
+
+JournalofFinancialEconomics159(2024)1039006M. Nimalendran et al.
+
+of this for our study is that HFT activity in the stock market likely
+affects option market makers’ hedging costs through its effect on the
+bid–ask spread in the stock market. On the one hand, HFTs that provide
+liquidity in the stock market leverage their speed advantage to miti-
+gate adverse selection and inventory-holding risks, thereby increasing
+liquidity provision (e.g., Hendershott et al. (2011) and Brogaard et al.
+(2015)). On the other hand, liquidity-consuming HFTs may pick off
+slower traders and impose adverse selection costs on liquidity providers
+(e.g., Foucault et al. (2017) and Shkilko and Sokolov (2020)). The
+resulting impact on the bid–ask spread may be either positive or
+negative for the hedging costs of option market makers, depending on
+the underlying strategy pursued by HFT firms.
+
+To test the significance of the hedging channel in explaining our
+findings, we employ a set of models to separately explore the effects of
+HFT strategies that demand or supply liquidity on the bid–ask spread
+of options. The models used for this analysis are as follows:
+
+𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 = 𝛼𝑖 + 𝛽𝑑 + 𝛾1𝑆𝐻𝐹 𝑇 𝑆
+
+𝑖,𝑑 +
+
+𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 = 𝛼𝑖 + 𝛽𝑑 + 𝛾1𝑆𝐻𝐹 𝑇 𝐷
+
+𝑖,𝑑 +
+
+9
+∑
+
+𝑘=1
+9
+∑
+
+𝑘=1
+
+𝛿𝑘𝐶𝑘,𝑖,𝑑 + 𝜀𝑖,𝑑
+
+𝛿𝑘𝐶𝑘,𝑖,𝑑 + 𝜀𝑖,𝑑
+
+(2)
+
+(3)
+
+𝑖,𝑑 and 𝑆𝐻𝐹 𝑇 𝐷
+
+where 𝑆𝐻𝐹 𝑇 𝑆
+𝑖,𝑑 are the measures of liquidity-supplying
+and liquidity-demanding HFTs’ activities respectively. The empirical
+specifications of Eqs. (2) and (3) are akin to that of Eq. (1). The only
+deviation lies in our adoption of the approach followed by Brogaard
+et al. (2014), where we introduce the liquidity supplying (in Eq. (2))
+and demanding (in Eq. (3)) activities of non-HFTs as an additional
+control variable.
+
+The findings are reported in columns (ii) and (iii) of Table 3.
+𝑆𝐻𝐹 𝑇 𝐷
+𝑖,𝑑 exhibits a positive and statistically significant relationship
+with 𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 . To provide a sense of the economic significance of
+this effect, we note that a one-standard-deviation increase in 𝑆𝐻𝐹 𝑇 𝐷
+𝑖,𝑑
+relates to a 3.5% increment in 𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 . Nevertheless, we observe no
+statistically significant correlation between HFTs’ liquidity-supplying
+trading activity (𝑆𝐻𝐹 𝑇 𝑆
+
+𝑖,𝑑 ) and the bid–ask spread of options.
+
+At first glance, the non-significant association between 𝑆𝐻𝐹 𝑇 𝑆
+𝑖,𝑑
+and 𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 is perplexing. However, this finding is not unexpected
+as our empirical specifications control for all plausible determinants of
+the hedging channel. The literature suggests that the most significant
+equity market determinants of the options bid–ask spread are the equity
+bid–ask spread (e.g., Boyle and Vorst (1992)) and the volatility of
+the underlying asset (Engle and Neri, 2010). Both these variables are
+included in Eqs. (2) and (3). Therefore, the lack of a significant relation-
+ship between 𝑆𝐻𝐹 𝑇 𝑆
+𝑖,𝑑 and 𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 is unsurprising. Nonetheless,
+this explanation raises a very important and interesting question about
+why HFTs’ liquidity-demanding activities are still significantly associ-
+ated with the bid–ask spread in options markets. We propose two new
+channels – the latency arbitrage and informed trading channels – in the
+next two sub-sections to answer this question.
+
+advantage to quickly respond to new information and/or temporary
+liquidity shocks and execute trades against stale quotes before slower
+market participants can revise their prices.11 Budish et al. (2015)
+demonstrate that these latency arbitrage opportunities are flaws in
+market design, leading to increased trading costs.
+
+Foucault et al. (2017) show that when cross-market latency ar-
+bitrage opportunities are ‘‘toxic’’,12 liquidity-consuming HFTs’ trad-
+ing adversely affects liquidity in the market that is slower to adjust
+(e.g., Rzayev et al. (2023)). Similarly, Shkilko and Sokolov (2020)
+find that when price changes in futures markets generate arbitrage
+opportunities between futures and equity markets, liquidity-consuming
+HFTs exploit their microwave connections to pick off stale quotes,
+thereby increasing adverse selection risk in equity markets. Baron
+et al. (2019) further demonstrate that liquidity-demanding HFTs ac-
+tively exploit latency arbitrage opportunities and obtain significant
+profits (e.g., Boehmer et al. (2018)). This finding is consistent with
+the evidence provided by Aquilina et al. (2022), who document that
+aggressive HFTs conduct the majority of trading activity in latency
+arbitrage races.
+
+This discussion implies that liquidity-consuming HFTs engaging
+in cross-market latency arbitrage strategies may exploit violations of
+the put–call parity relationship by sniping stale quotes in the options
+market. Options market makers are particularly exposed to such toxic
+arbitrage losses due to the exchange-imposed caps on the number of
+quote updates and fines on traders with higher messages-to-transactions
+ratios (see Muravyev and Pearson (2020)). These restrictions may
+significantly constrain option market makers’ capacity to revise their
+quotes in response to the cross-market trading activity of liquidity-
+consuming HFTs, thereby necessitating a compensatory mechanism. We
+call this channel the latency arbitrage channel.
+
+If this mechanism plays a role, then the relationship between
+liquidity-consuming HFT activities and options bid–ask spread should
+be more prevalent when there are more profitable put–call parity
+violations. We follow a three-step procedure to test this. First, we
+identify the profitable put–call parity violations between equity and
+options markets. Second, for each day, we allocate stocks to the
+𝐻𝑖𝑔ℎ group if the realization of the number of profitable arbitrage
+opportunities for that stock is above the median number of profitable
+arbitrage opportunities across all stocks. In the third step, we estimate
+our baseline regression by interacting the 𝐻𝑖𝑔ℎ variable with our HFT
+measures. Our expectation is that the impact of liquidity-consuming
+HFTs on the options bid–ask spread will be more pronounced in the
+𝐻𝑖𝑔ℎ group.
+
+3.2.1. Identifying profitable (high frequency) put–call parity violations
+
+To identify profitable put–call parity violations, we adopt the
+methodology proposed in Muravyev et al. (2013). This approach in-
+volves comparing the option-implied stock prices with the actual stock
+prices. We first extract second-level stock NBBO quotes from the TAQ
+database and match them to call and put option transaction prices
+obtained from the OPRA at the same second-level time. The implied
+
+3.2. The latency arbitrage channel
+
+The payoffs of a stock and its listed European option contracts are
+correlated through put–call parity. This parity condition dictates that
+a portfolio comprising a short put option and a long call option with
+identical strike prices and maturity dates generates equivalent returns
+to a forward contract with the same maturity and forward price equal to
+the option strike price. Failure to satisfy this parity relationship results
+in a violation of the law of one price, thereby creating an arbitrage
+opportunity between the stock and option markets. Empirical evidence
+from the options market microstructure literature, such as Ofek et al.
+(2004) and Muravyev et al. (2013), confirms the existence of profitable
+arbitrage opportunities that stem from put–call parity violations.
+
+A dominant trading strategy used by HFTs is latency arbitrage
+(cross-market or single-market), where HFTs use their relative speed
+
+11 We use the term ‘‘relative speed’’ in the same sense as Foucault et al.
+(2017)) and Baron et al. (2019). These studies demonstrate that increasing ab-
+solute speed in financial markets does not provide high-frequency arbitrageurs
+with any advantage. For example, if financial markets adopt new technology
+that uniformly increases order submission speed for all participants, including
+slow dealers and fast arbitrageurs, then arbitrageurs do not gain any advantage
+over slower dealers. However, if the speed of fast arbitrageurs increases rela-
+tive to slower traders, then fast arbitrageurs can adversely select slower traders
+due to their higher speed, even if the information is made public to everyone
+simultaneously. Consequently, a relative speed advantage is necessary for
+latency arbitrage to occur.
+
+12 Arbitrage opportunities are deemed ‘‘toxic’’ when they result from asyn-
+chronous adjustments in the price of related assets due to the arrival of new
+information.
+
+JournalofFinancialEconomics159(2024)1039007M. Nimalendran et al.
+
+stock price 𝑆∗ based on the put–call parity equation for dividend-
+paying European options is given by the following equation: 𝑆∗ =
+𝐶+𝑋𝑒−(𝑟−𝑞)𝑇 −𝑃 , where 𝑆∗ is the option implied stock price, 𝐶 (𝑃 ) is the
+call (put) price, 𝑟 is the risk-free annual rate, 𝑞 is the annual dividend
+yield, 𝑇 is the time to maturity in years, and 𝑋 is the strike price. The
+daily yield curve from the US Department of Treasury is used to obtain
+the annualized risk-free rates for various maturities such as 30 days,
+90 days, 180 days, and 1 year. For options that expire between 30 and
+90 days, we use linear interpolation to calculate the respective risk-free
+rates. For options with less than 30 days maturities, we use a 30-day
+risk-free rate. The expiration is calculated based on the time difference
+between the transaction time and the maturity date at 16:15:00 PM EST
+and expressed in years using 365 calendar days. The yearly dividend
+yield is generated by using the difference between 𝑟𝑒𝑡 and 𝑟𝑒𝑡𝑥 variables
+from CRSP. The most recent dividend yield is matched to each option.
+If the implied stock price is within the bid–ask bound of the stock
+price, there is no arbitrage opportunity. However, there are arbitrage
+opportunities when the implied stock price is either above the ask or
+below the bid price of the stock. The arbitrage gap should also be
+large enough to cover transaction costs (the bid–ask spread). The first
+arbitrage case is when the option implied stock price is less than the
+current stock price at the bid. In this case, an investor can build a long
+position in the portfolio of options and the risk-free bond and a short
+position in the stock to make an arbitrage profit. With transaction costs,
+this would mean an investor can long a position by buying a call option
+at the ask, buying the risk-free bond, and selling the put option at the
+bid. When the implied stock price is larger than the current stock price
+at the ask, an investor can short the options portfolio and buy the stock
+to gain arbitrage profit. With transaction costs, investors go short by
+selling a call option at the bid, selling the risk-free bond, and buying a
+put option at the ask.
+
+These long and short positions in 𝑆∗ can be presented using the
+put–call parity relationship: 𝑆∗𝐴𝑠𝑘 = 𝐵𝑢𝑦(𝐶 𝐴𝑠𝑘) + 𝐵𝑢𝑦(𝑋) + 𝑆𝑒𝑙𝑙(𝑃 𝐵𝑖𝑑 ),
+and 𝑆∗𝐵𝑖𝑑 = 𝑆𝑒𝑙𝑙(𝐶 𝐵𝑖𝑑 ) + 𝑆𝑒𝑙𝑙(𝑋) + 𝐵𝑢𝑦(𝑃 𝐴𝑠𝑘). If the underlying stock
+quotes at the same time as the options quotes are 𝑆𝐵𝑖𝑑 and 𝑆𝐴𝑠𝑘, then
+arbitrage opportunities arise if the following price differentials exist in
+the market: 𝑆𝐵𝑖𝑑 > 𝑆∗𝐴𝑠𝑘 or 𝑆∗𝐵𝑖𝑑 > 𝑆𝐴𝑠𝑘. It is important to note that
+we are interested in identifying profitable put–call parity violations. For
+this, we apply the criteria described in Muravyev et al. (2013):
+
+𝑆𝐵𝑖𝑑 − 𝑆∗𝐴𝑠𝑘 ≥ $0.02 and
+
+𝑆∗𝐵𝑖𝑑 − 𝑆𝐴𝑠𝑘 ≥ $0.02 and
+
+𝑆𝐵𝑖𝑑 − 𝑆∗𝐴𝑠𝑘
+𝑆𝐵𝑖𝑑
+
+𝑆∗𝐵𝑖𝑑 − 𝑆𝐴𝑠𝑘
+𝑆𝐴𝑠𝑘
+
+≥ 0.05%
+
+≥ 0.05%
+
+(4)
+
+(5)
+
+We use the violations described in Eqs. (4) and (5) to identify
+arbitrage opportunities in the options and stock markets. Based on this,
+we calculate our key arbitrage variable – the number of profitable put–
+call parity violations (𝑁𝑝𝑣𝑖,𝑑 ) – for each stock and day. The descriptive
+statistics provided in Table 2 show that, on average, our sample has
+4.49 profitable arbitrage put–call parity violations with a standard de-
+viation of 11.83. Moreover, the median value for 𝑁𝑝𝑣𝑖,𝑑 is 0, implying
+that there are many stock-day observations with no profitable put–call
+parity deviations.
+
+3.2.2. Testing the latency arbitrage channel
+
+We test the latency arbitrage channel by conducting a cross-
+sectional analysis. Our hypothesis posits that the impact of HFTs on the
+options bid–ask spread is amplified when there are a greater number of
+profitable arbitrage opportunities. On each day, we allocate stocks to
+the 𝐻𝑖𝑔ℎ group depending on the number of profitable put–call parity
+violations. For each day, the stock is allocated to the 𝐻𝑖𝑔ℎ group if
+its 𝑁𝑝𝑣𝑖,𝑑 value is above the median number of profitable put–call
+parity violations for all stocks. We then re-estimate Eqs. (1) and (3)
+by introducing interactions between their respective HFT proxies and
+the 𝐻𝑖𝑔ℎ group:
+
+Table 4
+Testing the latency arbitrage channel – OLS.
+
+𝑆𝐻𝐹 𝑇 𝐴𝑙𝑙
+𝑖,𝑑
+
+𝑆𝐻𝐹 𝑇 𝐷
+𝑖,𝑑
+
+𝐻𝑖𝑔ℎ𝑖,𝑑
+
+𝑆𝐻𝐹 𝑇 𝐴𝑙𝑙
+
+𝑖,𝑑 𝐻𝑖𝑔ℎ𝑖,𝑑
+
+𝑆𝐻𝐹 𝑇 𝐷
+
+𝑖,𝑑 𝐻𝑖𝑔ℎ𝑖,𝑑
+
+𝐶𝑜𝑛𝑡𝑟𝑜𝑙𝑠
+Stock fixed effect
+Time fixed effect
+N obs.
+𝑅2
+
+𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑
+(i)
+
+−0.06*
+(−1.89)
+
+−0.05***
+(−4.43)
+
+0.06***
+(3.67)
+
+Yes
+Yes
+Yes
+8344
+0.28
+
+𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑
+(ii)
+
+−0.05
+(−1.40)
+
+−0.06***
+(−4.45)
+
+0.07***
+(3.59)
+
+Yes
+Yes
+Yes
+8344
+0.28
+
+∑9
+
+𝑘=1 𝛿𝑘𝐶𝑘,𝑖,𝑑 + 𝜀𝑖,𝑑
+
+𝑖,𝑑 𝐻𝑖𝑔ℎ𝑖,𝑑 + ∑8
+𝑖,𝑑 𝐻𝑖𝑔ℎ𝑖,𝑑
+
+𝑖,𝑑 + 𝛾2𝐻𝑖𝑔ℎ𝑖,𝑑 + 𝛾3𝑆𝐻𝐹 𝑇 𝐴𝑙𝑙
+𝑖,𝑑 + 𝛾2𝐻𝑖𝑔ℎ𝑖,𝑑 + 𝛾3𝑆𝐻𝐹 𝑇 𝐷
+
+This table reports the results of testing the latency arbitrage channel using the following
+models:
+𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 = 𝛼𝑖 + 𝛽𝑑 + 𝛾1𝑆𝐻𝐹 𝑇 𝐴𝑙𝑙
+𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 = 𝛼𝑖 + 𝛽𝑑 + 𝛾1𝑆𝐻𝐹 𝑇 𝐷
+𝑘=1 𝛿𝑘𝐶𝑘,𝑖,𝑑 + 𝜀𝑖,𝑑
+where 𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 is the proportional option bid–ask spread, 𝑆𝐻𝐹 𝑇 𝐴𝑙𝑙
+𝑖,𝑑 is the measure
+of HFTs’ total activities and 𝑆𝐻𝐹 𝑇 𝐷
+𝑖,𝑑 is the measure of HFTs’ liquidity-demanding
+activities. 𝐻𝑖𝑔ℎ𝑖,𝑑 is a dummy variable equal to one in day 𝑑 if its 𝑁𝑝𝑣𝑖,𝑑 (the number
+of put–call parity violations) value is above the median number of profitable put–
+call parity violations for all stocks. 𝐶𝑘,𝑖,𝑑 is a set of 𝑘 control variables, including
+variables from both the options and underlying markets. The options market variables
+, 𝑂𝑔𝑎𝑚𝑚𝑎𝑖,𝑑 , and 𝑂𝑣𝑒𝑔𝑎𝑖,𝑑 , and the stock
+𝑂𝑑𝑒𝑙𝑡𝑎𝑖,𝑑 |
+are 𝑂𝑣𝑜𝑙𝑢𝑚𝑒𝑖,𝑑 , 𝑂𝑖𝑚𝑝𝑙𝑖𝑒𝑑𝑖,𝑑 , 𝑂𝑖𝑛𝑝𝑖,𝑑 , |
+|
+|
+market variables are 𝑆𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 , and 𝑆𝑉 𝑜𝑙𝑎𝑡𝑖𝑙𝑖𝑡𝑦𝑖,𝑑 . In addition to these variables, we
+also control for non-HFTs’ liquidity-demanding activities (𝑆𝑁𝐻𝐹 𝑇 𝐷
+𝑖,𝑑 ) when we use
+𝑆𝐻𝐹 𝑇 𝐷
+𝑖,𝑑 . All models include both firm and day fixed effects (𝛼𝑖 and 𝛽𝑑 respectively).
+The standard errors used to compute the t-statistics (in brackets) are double clustered by
+firm and day. *, **, and *** denote the significance at 10%, 5%, and 1% respectively.
+For detailed definitions of variables refer to Table 1.
+
+𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 = 𝛼𝑖 + 𝛽𝑑 + 𝛾1𝑆𝐻𝐹 𝑇 𝐴𝑙𝑙
+
+𝑖,𝑑 +𝛾2𝐻𝑖𝑔ℎ𝑖,𝑑
+
++𝛾3𝑆𝐻𝐹 𝑇 𝐴𝑙𝑙
+
+𝑖,𝑑 𝐻𝑖𝑔ℎ𝑖,𝑑 +
+
+8
+∑
+
+𝑘=1
+
+𝛿𝑘𝐶𝑘,𝑖,𝑑
+
++𝜀𝑖,𝑑
+
+(6)
+
+𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 = 𝛼𝑖 + 𝛽𝑑 + 𝛾1𝑆𝐻𝐹 𝑇 𝐷
+
+𝑖,𝑑 +𝛾2𝐻𝑖𝑔ℎ𝑖,𝑑
+
++𝛾3𝑆𝐻𝐹 𝑇 𝐷
+
+𝑖,𝑑 𝐻𝑖𝑔ℎ𝑖,𝑑
+
+9
+∑
+
+𝑘=1
+
+𝛿𝑘𝐶𝑘,𝑖,𝑑
+
+(7)
+
++𝜀𝑖,𝑑
+
+where 𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 is the proportional option bid–ask spread, 𝑆𝐻𝐹 𝑇 𝐴𝑙𝑙
+𝑖,𝑑
+is the measure of HFTs’ total activities and 𝑆𝐻𝐹 𝑇 𝐷
+𝑖,𝑑 is the measure
+of HFTs’ liquidity-demanding activities. 𝐻𝑖𝑔ℎ𝑖,𝑑 is a dummy variable
+equal to one when there is a higher number of profitable put–call
+parity violations. 𝐶𝑘,𝑖,𝑑 is a set of 𝑘 control variables, including variables
+from both the options and underlying markets. The options market
+variables are 𝑂𝑣𝑜𝑙𝑢𝑚𝑒𝑖,𝑑 , 𝑂𝑖𝑚𝑝𝑙𝑖𝑒𝑑𝑖,𝑑 , 𝑂𝑖𝑛𝑝𝑖,𝑑 , |
+, 𝑂𝑔𝑎𝑚𝑚𝑎𝑖,𝑑 ,
+|
+and 𝑂𝑣𝑒𝑔𝑎𝑖,𝑑 , and the stock market variables are 𝑆𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 , and
+𝑆𝑉 𝑜𝑙𝑎𝑡𝑖𝑙𝑖𝑡𝑦𝑖,𝑑 . All these variables are defined in Table 1.
+
+𝑂𝑑𝑒𝑙𝑡𝑎𝑖,𝑑 |
+|
+
+The results are presented in Table 4. We find that the positive
+association between HFT and option spread shifts to the interaction
+variable. The coefficients of 𝑆𝐻𝐹 𝑇 𝐴𝑙𝑙
+𝑖,𝑑 are no longer
+positively related to the options bid–ask spread; however, the coef-
+ficients for 𝑆𝐻𝐹 𝑇 𝐴𝑙𝑙
+𝑖,𝑑 𝐻𝑖𝑔ℎ𝑖,𝑑 are positive and
+statistically significant. This result indicates that the proposed latency
+arbitrage channel can indeed explain the association between HFT in
+stock markets and options bid–ask spread. Nevertheless, as elaborated
+
+𝑖,𝑑 𝐻𝑖𝑔ℎ𝑖,𝑑 and 𝑆𝐻𝐹 𝑇 𝐷
+
+𝑖,𝑑 and 𝑆𝐻𝐹 𝑇 𝐷
+
+JournalofFinancialEconomics159(2024)1039008M. Nimalendran et al.
+
+in the next sub-section, the latency arbitrage channel is not the sole
+factor contributing to this relationship.
+
+3.3. The informed trading channel
+
+Our results so far show that HFT in the stock market is associated
+with an increase in the bid–ask spread in the options market. We
+also relate our findings to the latency arbitrage channel, suggesting
+that liquidity-consuming HFTs increase bid–ask spread in the options
+market by exploiting cross-market arbitrage opportunities between eq-
+uity and options markets. We employ put–call parity violations as a
+means of testing the latency arbitrage channel and find corroborating
+evidence. In this section, we explore the second non-mutually exclusive
+channel to explain our findings.13
+
+The existing body of literature underscores the attractiveness of
+options markets to informed traders, primarily due to two key fac-
+tors: the substantial leverage they offer and the absence of shorting
+constraints (e.g., Easley et al. (1998), Ge et al. (2016), Augustin and
+Subrahmanyam (2020) and Bondarenko and Muravyev (2022)). While
+options market makers often widen the bid–ask spread to compensate
+for the risk associated with trading against informed agents (e.g., Easley
+et al. (1998) and Kaul et al. (2004)), informed traders may still choose
+to execute transactions within the options market if the information
+they possess is sufficiently profitable.
+
+The transactions initiated by informed traders themselves could
+arguably lead to temporary deviations from the put–call parity. For
+example, consider a scenario where an informed trader purchases a
+call option due to positive information about a particular stock. In
+response, the market maker may adjust the price of the call option as
+well as the bid–ask spread associated with it. However, if the price of
+the put option (with the same strike price and time to maturity) remains
+unchanged, the implied stock price derived from option prices could be
+higher than the actual stock price observed in the stock market.
+
+This increase in put–call parity violations could potentially serve
+as an arbitrage signal for liquidity-consuming HFTs, enabling them to
+exploit slower traders in the stock market. If this hypothesis holds true,
+it has two implications for the focus of our study. First, it suggests
+that HFTs play a role in transmitting information between the options
+and stock markets. Second, informed trading in the options market
+may heighten the association between liquidity-consuming HFTs in the
+stock market and the bid–ask spread in the options market. We call this
+explanation the informed trading channel.
+
+3.3.1. Testing the informed trading channel
+
+To explore the informed trading channel, we undertake three tests
+as follows. In the first test, our aim is to assess the influence of informed
+trading within the options market on the options bid–ask spread. In the
+second test, the correlation between informed trading activities in the
+options market and HFT in the stock market is investigated. Finally, we
+verify whether the positive effect of liquidity-consuming HFTs in the
+stock markets on the options bid–ask spread remains significant after
+accounting for the presence of the informed trading channel.
+
+Empirically conducting the three aforementioned tests presents a
+challenge, primarily due to the difficulty of observing investors’ in-
+formation sets – a limitation shared with other studies examining the
+impacts of informed trading on market quality. Ideally, the most robust
+approach would involve leveraging an exogenous shock that directly
+influences the trading activities of informed investors to conduct such
+tests. However, such shocks are infrequent and not easily available. For-
+tunately, our sample covering 2009 did witness one such unique shock,
+providing us with an opportunity to explore the informed trading
+channel.
+
+13 Our thanks to an anonymous referee for this suggestion.
+
+Using the put–call ratio measure developed by Pan and Poteshman
+(2006) and Bondarenko and Muravyev (2022) find a strong predictive
+relationship between options trading volume and future stock returns
+before October 2009. However, this predictive power disappears be-
+yond that point. Bondarenko and Muravyev (2022) analyze the reasons
+for this shift, ultimately attributing it to a significant event – the
+arrest of Raj Rajaratnam, an investor charged with insider trading on
+October 16, 2009. Building on their work, we also employ the arrest of
+Raj Rajaratnam as an exogenous shock that disrupts informed trading
+dynamics.14 Our objective is to investigate the effects of informed
+trading in the options market on both the options bid–ask spread and
+the activities of HFTs in the stock market, both before and after this
+event. To do so, we estimate the following regression model:
+
+𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 = 𝛼𝑖 + 𝛾1𝐼𝑛𝑠𝑖,𝑑−1+𝛾2𝐸𝑣𝑒𝑛𝑡𝑖,𝑑
+
++𝛾3𝐼𝑛𝑠𝑖,𝑑−1𝐸𝑣𝑒𝑛𝑡𝑖,𝑑 +
+
+8
+∑
+
+𝑘=1
+
+𝛿𝑘𝐶𝑘,𝑖,𝑑 + 𝜀𝑖,𝑑
+
+𝑆𝐻𝐹 𝑇 𝑖,𝑑 = 𝛼𝑖 + 𝛾1𝐼𝑛𝑠𝑖,𝑑−1+𝛾2𝐸𝑣𝑒𝑛𝑡𝑖,𝑑
+
++𝛾3𝐼𝑛𝑠𝑖,𝑑−1𝐸𝑣𝑒𝑛𝑡𝑖,𝑑 +
+
+8
+∑
+
+𝑘=1
+
+𝛿𝑘𝐶𝑘,𝑖,𝑑 + 𝜀𝑖,𝑑
+
+(8)
+
+(9)
+
+𝑖,𝑑 and 𝑆𝐻𝐹 𝑇 𝐷
+
+where 𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 is the proportional option bid–ask spread, 𝑆𝐻𝐹 𝑇 𝑖,𝑑
+is one of two HFT measures (𝑆𝐻𝐹 𝑇 𝑆
+𝑖,𝑑 ), and 𝐼𝑛𝑠𝑖,𝑑 is
+the measure of informed trading discussed below. 𝐸𝑣𝑒𝑛𝑡𝑖,𝑑 is a dummy
+variable equal to one before October 16, 2009 (Rajaratnam’s arrest). To
+have a clean setting, we exclude five trading days before the event. We
+also include the same control variables as those employed in the main
+analyses. We only include stock fixed effects because 𝐸𝑣𝑒𝑛𝑡𝑖,𝑑 does not
+have a time variation across stocks.
+
+𝐼𝑛𝑠𝑖,𝑑 is calculated using the following equation:
+
+𝐼𝑛𝑠 = |
+
+𝑂𝐵𝑃 𝑉
+(𝑂𝐵𝑃 𝑉 + 𝑂𝐵𝐶𝑉 )
+
+− 0.5|
+
+(10)
+
+where 𝑂𝐵𝑃 𝑉 represents the open-buy put volume, and 𝑂𝐵𝐶𝑉 repre-
+sents the open-buy call volume obtained from CBOE.15 As seen, the first
+part of the right-hand side of this equation is the original put–call ratio,
+defined in Pan and Poteshman (2006).
+
+We slightly modify this original put–call ratio because both an
+increase and a decline in the put–call ratio indicate informed trading
+activity. The original ratio is suitable for the analysis linking informed
+trading in the options market to stock returns, as demonstrated by
+Bondarenko and Muravyev (2022). This is because stock returns tend to
+decrease (increase) in response to negative (positive) news. However,
+regardless of the nature of the news, we anticipate that both the bid–ask
+spread in the options market and HFT in the equity market increase
+with informed trading in the options market. Consequently, for the
+purpose of our study, we employ a modified version of this ratio, 𝐼𝑛𝑠𝑖,𝑑 ,
+which captures the magnitude of informed trading irrespective of the
+direction of the information.
+
+To explain, consider a scenario where the open-buy put volume
+equals the open-buy call volume (indicating no information). In this
+case, the put–call ratio is 0.5, resulting in 𝐼𝑛𝑠𝑖,𝑑 being zero. We set
+the put–call ratio to 0.5 and 𝐼𝑛𝑠𝑖,𝑑 to zero when both open-buy put
+and call volumes are zero. This ensures that cases where both open-
+buy put and call volumes are zero are included in the analysis and
+
+14 Bondarenko and Muravyev (2022) go a step further by distinguishing
+between informed traders who use private information and those who rely on
+public information. Their research shows that the prediction of stock returns
+through option volume is primarily attributed to private information. However,
+we do not make this distinction, as it lies outside the scope of our study.
+
+15 CBOE categorizes the data into ‘‘customer’’ and ‘‘firm’’ groups. In our
+analysis, we employ customers’ trades to calculate the put–call ratio. This
+choice aligns with Pan and Poteshman (2006) and Bondarenko and Muravyev
+(2022), who underscore the heightened predictive capabilities of customer
+trades in forecasting future stock returns.
+
+JournalofFinancialEconomics159(2024)1039009M. Nimalendran et al.
+
+Table 5
+Testing the informed trading channel – main analysis (part I)
+
+𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑
+(i)
+
+−0.01
+(−0.67)
+
+𝐼𝑛𝑠𝑖,𝑑−1
+
+𝐸𝑣𝑒𝑛𝑡𝑖,𝑑
+
+𝐼𝑛𝑠𝑖,𝑑−1𝐸𝑣𝑒𝑛𝑡𝑖,𝑑
+
+𝐶𝑜𝑛𝑡𝑟𝑜𝑙𝑠
+Stock fixed effect
+Time fixed effect
+N obs.
+𝑅2
+
+Yes
+Yes
+Yes
+4892
+0.38
+
+𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑
+(ii)
+
+−0.04**
+(−2.33)
+
+−0.03
+(−1.41)
+
+0.04**
+(2.43)
+
+Yes
+Yes
+No
+4892
+0.39
+
+𝑆𝐻𝐹 𝑇 𝑆
+𝑖,𝑑
+(iii)
+
+−0.01
+(−0.87)
+
+Yes
+Yes
+Yes
+4892
+0.03
+
+𝑆𝐻𝐹 𝑇 𝑆
+𝑖,𝑑
+(iv)
+
+−0.01*
+(−1.72)
+
+−0.01
+(−0.82)
+
+0.01
+(0.84)
+
+Yes
+Yes
+No
+4892
+0.06
+
+𝑆𝐻𝐹 𝑇 𝐷
+𝑖,𝑑
+(v)
+
+0.00
+(0.23)
+
+Yes
+Yes
+Yes
+4892
+0.03
+
+𝑆𝐻𝐹 𝑇 𝐷
+𝑖,𝑑
+(vi)
+
+−0.01
+(−1.30)
+
+−0.05**
+(−2.27)
+
+0.02**
+(1.96)
+
+Yes
+Yes
+No
+4892
+0.08
+
+𝑘=1 𝛿𝑘𝐶𝑘,𝑖,𝑑 + 𝜀𝑖,𝑑
+
+𝑖,𝑑 and 𝑆𝐻𝐹 𝑇 𝐷
+
+This table reports the results of testing the informed trading channel using the following models:
+𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 = 𝛼𝑖 + 𝛾1𝐼𝑛𝑠𝑖,𝑑−1 + 𝛾2𝐸𝑣𝑒𝑛𝑡𝑖,𝑑 + 𝛾3𝐼𝑛𝑠𝑖,𝑑−1𝐸𝑣𝑒𝑛𝑡𝑖,𝑑 + ∑8
+𝑆𝐻𝐹 𝑇 𝑖,𝑑 = 𝛼𝑖 + 𝛾1𝐼𝑛𝑠𝑖,𝑑−1 + 𝛾2𝐸𝑣𝑒𝑛𝑡𝑖,𝑑 + 𝛾3𝐼𝑛𝑠𝑖,𝑑−1𝐸𝑣𝑒𝑛𝑡𝑖,𝑑 + ∑8
+where 𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 is the proportional option bid–ask spread, 𝐼𝑛𝑠𝑖,𝑑 is the measure of informed trading, and 𝑆𝐻𝐹 𝑇 𝑖,𝑑 is one of two HFT measures
+(𝑆𝐻𝐹 𝑇 𝑆
+𝑖,𝑑 ). 𝐸𝑣𝑒𝑛𝑡𝑖,𝑑 is a dummy variable equal to one before October 16, 2009 (Rajaratnam’s arrest) and zero thereafter. The
+sample encompasses a period of two months before and after the event date, with the exclusion of the five trading days preceding the event
+date. 𝐶𝑘,𝑖,𝑑 is a set of 𝑘 control variables, including variables from both the options and underlying markets. The options market variables
+, 𝑂𝑔𝑎𝑚𝑚𝑎𝑖,𝑑 , and 𝑂𝑣𝑒𝑔𝑎𝑖,𝑑 , and the stock market variables are 𝑆𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 , and 𝑆𝑉 𝑜𝑙𝑎𝑡𝑖𝑙𝑖𝑡𝑦𝑖,𝑑 . In
+are 𝑂𝑣𝑜𝑙𝑢𝑚𝑒𝑖,𝑑 , 𝑂𝑖𝑚𝑝𝑙𝑖𝑒𝑑𝑖,𝑑 , 𝑂𝑖𝑛𝑝𝑖,𝑑 , |
+|
+columns (i), (iii), and (v), both firm and day fixed effects (𝛼𝑖 and 𝛽𝑑 respectively) are included, while columns (ii), (iv), and (vi) include only
+firm fixed effects. The standard errors used to compute the t-statistics (in brackets) are double clustered by firm and day. *, **, and *** denote
+the significance at 10%, 5%, and 1% respectively. For detailed definitions of variables refer to Table 1.
+
+𝑘=1 𝛿𝑘𝐶𝑘,𝑖,𝑑 + 𝜀𝑖,𝑑
+
+𝑂𝑑𝑒𝑙𝑡𝑎𝑖,𝑑 |
+|
+
+not omitted. When the open-buy put volume surpasses the open-buy
+call volume (indicating negative information), both the put–call ratio
+and 𝐼𝑛𝑠𝑖,𝑑 increase. Conversely, if the open-buy call volume exceeds
+the open-buy put volume (indicating positive information), the put–call
+ratio diminishes, and 𝐼𝑛𝑠𝑖,𝑑 increases. This implies that any elevation
+in 𝐼𝑛𝑠𝑖,𝑑 indicates an uptick in informed trading.
+
+We use the first lag of 𝐼𝑛𝑠𝑖,𝑑 (𝐼𝑛𝑠𝑖,𝑑−1) in Eqs. (8) and (9) for two
+main reasons. First, the literature on the equity markets suggests that
+informed investors strategically choose to trade when there are more
+liquidity traders, and they use limit orders instead of market orders.
+Collin-Dufresne and Fos (2015) show that this generates a negative con-
+temporaneous association between information trading and standard
+liquidity measures, such as the bid–ask spread. Along this line, Degryse
+et al. (2016) document that for large firms, the liquidity metrics exhibit
+a lagged response to informed trading activities. Second, the open-buy
+data (provided by CBOE) that we use to calculate 𝐼𝑛𝑠𝑖,𝑑 is available at
+the end of the day during our sample period.16 Hence, market makers
+are not able to observe the data in real-time and adjust ask and bid
+prices. Consistent with this, Pan and Poteshman (2006) demonstrate
+that price adjustments to the open-buy volume tend to take more than
+a day.
+
+We present the estimation results of Eqs. (8) and (9) in Table 5.
+The sample period encompasses a two-month window both preceding
+and following the event date of October 16, 2009, due to our data
+availability. In column (i), our findings indicate that 𝐼𝑛𝑠𝑖,𝑑−1 is not
+statistically significantly related to 𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 . However, after incor-
+porating the event dummy, 𝐸𝑣𝑒𝑛𝑡𝑖,𝑑 , in column (ii), the interaction term
+𝐼𝑛𝑠𝑖,𝑑−1𝐸𝑣𝑒𝑛𝑡𝑖,𝑑 is positively and statistically significantly associated
+with 𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 . In economic terms, a one-standard-deviation rise in
+𝐼𝑛𝑠𝑖,𝑑−1 leads to an approximately 5.8% increase in 𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 before
+the arrest of Raj Rajaratnam. Similar results are observed when we
+employ 𝑆𝐻𝐹 𝑇 𝐷
+𝑖,𝑑 as our dependent variable, as indicated in columns
+(v) and (vi). A one-standard-deviation uptick in 𝐼𝑛𝑠𝑖,𝑑−1 corresponds to
+roughly a 2% increase in 𝑆𝐻𝐹 𝑇 𝐷
+𝑖,𝑑 before the arrest of Raj Rajaratnam.
+Nonetheless, such a significant relationship is not evident when we
+employ 𝑆𝐻𝐹 𝑇 𝑆
+
+𝑖,𝑑 as the dependent variable.
+
+These empirical results suggest that our informed trading metric
+predicts higher options bid–ask spreads and greater levels of liquidity-
+consuming HFT activity in the stock market during the period leading
+
+16 CBOE’s intraday open-buy data is available since January 2011.
+
+up to the arrest of Raj Rajaratnam. Intriguingly, this predictive capacity
+dissipates post-arrest. These findings are consistent with Bondarenko
+and Muravyev (2022), who show that option trading volume predicts
+the future stock return before the arrest of Raj Rajaratnam only.
+
+As mentioned above, in our main specification, we use the first
+lag of our informed trading measure. This choice is motivated by the
+literature suggesting a negative association between informed trading
+and liquidity in the contemporaneous relationship. However, we also
+extend the horizon of predictability by regressing the options bid–ask
+spread on informed trading observed at various lags (0, -1-day, -2-
+day, -3-day, -4-day, and -5-day). The slope coefficients and their 95%
+confidence intervals are presented in Fig. 2.
+
+Two points are worth discussing here. First, before the arrest of
+Raj Rajaratnam, the contemporaneous effect of informed trading on
+the bid–ask spread is negative (albeit not statistically significant). This
+finding aligns with Collin-Dufresne and Fos (2015), who demonstrate
+that informed traders strategically choose the timing of their trading
+and opt for limit orders over market orders to hide their informa-
+tion (Kaniel and Liu, 2006). Second, the magnitude of the coefficients
+appears to decay, consistent with Pan and Poteshman (2006). These
+results support our choice to use the first lag of informed trading in the
+main specification.
+
+Our informed trading channel postulates a dual impact of options-
+informed trading on the options and equity markets. First, in response
+to the risk of trading against informed participants, options market
+makers widen the bid–ask spread. Second, informed trading increases
+temporary violations in the put–call parity, a phenomenon detected by
+liquidity-consuming HFTs, prompting an upsurge in their activities in
+the underlying markets. Consequently, we anticipate observing a posi-
+tive correlation between informed trading and both the bid–ask spread
+in options and the trading activities of liquidity-consuming HFTs in
+the underlying markets. The findings presented in Table 5 corroborate
+these predictions, underscoring the relevance of the informed trading
+channel as a second explanation for the positive relationship between
+liquidity-consuming HFT activity in the underlying markets and the
+options bid–ask spread.
+
+Therefore,
+
+in the subsequent analysis, we assess the effects of
+liquidity-consuming HFTs on the bid–ask spread of options, taking
+into account the effects of the informed trading channel. To do this,
+we modify Eq. (8) by including 𝑆𝐻𝐹 𝑇 𝐷
+𝑖,𝑑 and its interaction with
+𝐸𝑣𝑒𝑛𝑡𝑖,𝑑 (𝑆𝐻𝐹 𝑇 𝐷
+𝑖,𝑑 𝐸𝑣𝑒𝑛𝑡𝑖,𝑑 ) as explanatory variables. Our rationale for
+
+JournalofFinancialEconomics159(2024)10390010M. Nimalendran et al.
+
+Fig. 2. The predictability of open-buy option volume signal for options bid–ask spread. This figure reports the coefficient and the 95% confidence intervals of the model
+regressing bid–ask spread on informed trading observed at various lags (0, -1-day, -2-day, -3-day, -4-day, and -5-day) before the arrest of Raj Rajaratnam.
+
+Table 6
+Testing the informed trading channel – main analysis (part II)
+
+𝐼𝑛𝑠𝑖,𝑑−1
+
+𝐸𝑣𝑒𝑛𝑡𝑖,𝑑
+
+𝐼𝑛𝑠𝑖,𝑑−1𝐸𝑣𝑒𝑛𝑡𝑖,𝑑
+
+𝑆𝐻𝐹 𝑇 𝐷
+𝑖,𝑑
+
+𝑆𝐻𝐹 𝑇 𝐷
+
+𝑖,𝑑 𝐸𝑣𝑒𝑛𝑡𝑖,𝑑
+
+𝐶𝑜𝑛𝑡𝑟𝑜𝑙𝑠
+Stock fixed effect
+Time fixed effect
+N obs.
+𝑅2
+
+𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑
+
+−0.04**
+(−2.31)
+
+−0.04
+(−1.55)
+
+0.04**
+(2.40)
+
+0.04***
+(5.52)
+
+0.02**
+(2.03)
+
+Yes
+Yes
+No
+4892
+0.40
+
+𝑖,𝑑 +
+
+𝑘=1 𝛿𝑘𝐶𝑘,𝑖,𝑑 + 𝜀𝑖,𝑑
+
+𝑖,𝑑 𝐸𝑣𝑒𝑛𝑡𝑖,𝑑 + ∑8
+
+= 𝛼𝑖 + 𝛾1𝐼𝑛𝑠𝑖,𝑑−1 + 𝛾2𝐸𝑣𝑒𝑛𝑡𝑖,𝑑 + 𝛾3𝐼𝑛𝑠𝑖,𝑑−1𝐸𝑣𝑒𝑛𝑡𝑖,𝑑 + 𝛾4𝑆𝐻𝐹 𝑇 𝐷
+
+This table reports the results of testing the informed trading channel using the following
+model:
+𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑
+𝛾5𝑆𝐻𝐹 𝑇 𝐷
+where 𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 is the proportional option bid–ask spread, 𝑆𝐻𝐹 𝑇 𝐷
+𝑖,𝑑 is the measure
+of HFTs’ liquidity-demanding activities, and 𝐼𝑛𝑠𝑖,𝑑 is the measure of informed trading.
+𝐸𝑣𝑒𝑛𝑡𝑖,𝑑 is a dummy variable equal to one before October 16, 2009 (Rajaratnam’s arrest)
+and zero thereafter. The sample encompasses a period of two months before and after
+the event date, with the exclusion of the five trading days preceding the event date.
+𝐶𝑘,𝑖,𝑑 is a set of 𝑘 control variables, including variables from both the options and
+underlying markets. The options market variables are 𝑂𝑣𝑜𝑙𝑢𝑚𝑒𝑖,𝑑 , 𝑂𝑖𝑚𝑝𝑙𝑖𝑒𝑑𝑖,𝑑 , 𝑂𝑖𝑛𝑝𝑖,𝑑 ,
+, 𝑂𝑔𝑎𝑚𝑚𝑎𝑖,𝑑 , and 𝑂𝑣𝑒𝑔𝑎𝑖,𝑑 , and the stock market variables are 𝑆𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 ,
+𝑂𝑑𝑒𝑙𝑡𝑎𝑖,𝑑 |
+|
+|
+|
+and 𝑆𝑉 𝑜𝑙𝑎𝑡𝑖𝑙𝑖𝑡𝑦𝑖,𝑑 . The table includes only firm fixed effects. The standard errors used
+to compute the t-statistics (in brackets) are double clustered by firm and day. *, **, and
+*** denote the significance at 10%, 5%, and 1% respectively. For detailed definitions
+of variables refer to Table 1.
+
+this test is that if the informed trading channel accounts for the entire
+relationship between HFT in the equity markets and options bid–
+ask spreads, then the impact of liquidity-consuming HFTs on options
+bid–ask spreads should only be significant before the arrest of Raj
+Rajaratnam. This is because informed trading does not predict HFT
+activities in the underlying markets after that date.
+
+Table 6 presents the results of this analysis, revealing two findings.
+First, the coefficient for 𝑆𝐻𝐹 𝑇 𝐷
+𝑖,𝑑 𝐸𝑣𝑒𝑛𝑡𝑖,𝑑 is statistically significant and
+positive. This implies that, in line with the informed trading channel,
+
+the effects of liquidity-consuming HFT are more pronounced before the
+arrest of Raj Rajaratnam, i.e., when there is more informed trading.
+Second, the coefficient of 𝑆𝐻𝐹 𝑇 𝐷
+𝑖,𝑑 remains significant after accounting
+for total informed trading (𝐼𝑛𝑠𝑖,𝑑−1𝐸𝑣𝑒𝑛𝑡𝑖,𝑑 ) and the impact of informed
+trading through HFTs (𝑆𝐻𝐹 𝑇 𝐷
+𝑖,𝑑 𝐸𝑣𝑒𝑛𝑡𝑖,𝑑 ). This suggests that the in-
+formed trading channel alone does not fully explain the association
+between HFT activity in the stock market and options bid–ask spreads.
+To estimate the economic magnitude of the informed trading chan-
+nel in explaining the impact of HFT in equity markets on the options
+bid–ask spread, we can compare the coefficients of 𝑆𝐻𝐹 𝑇 𝐷
+𝑖,𝑑 and
+𝑆𝐻𝐹 𝑇 𝐷
+𝑖,𝑑 𝐸𝑣𝑒𝑛𝑡𝑖,𝑑 . When we introduce controls for liquidity-consuming
+HFT activities before the arrest of Raj Rajaratnam (𝑆𝐻𝐹 𝑇 𝐷
+𝑖,𝑑 𝐸𝑣𝑒𝑛𝑡𝑖,𝑑 ),
+the size of the coefficient for 𝑆𝐻𝐹 𝑇 𝐷
+𝑖,𝑑 is 0.04, while the coefficient
+for 𝑆𝐻𝐹 𝑇 𝐷
+𝑖,𝑑 𝐸𝑣𝑒𝑛𝑡𝑖,𝑑 is 0.02. Given that our variables are standardized,
+this suggests that informed trading amplifies the relationship between
+liquidity-consuming HFT and options bid–ask spread by roughly 50%
+(0.02/0.04).
+
+Next, we extend the baseline tests of the informed trading channel
+in several directions to strengthen our interpretation. First, we conduct
+a cross-sectional analysis to assess: (i) the empirical relevance of our
+informed trading measure; and (ii) whether the effects of liquidity-
+consuming HFTs on the options bid–ask spread persist in situations
+where informed traders are less active. Our motivation for this ex-
+tension stems from the findings of Bondarenko and Muravyev (2022),
+who establish that informed trading in the options market has better
+predictive power for future stock returns in cases of: (i) out-of-the-
+money (OTM) options; (ii) days marked by firm-specific unexpected
+news17; and (iii) smaller trades. In this test, we calculate our informed
+trading measure, 𝐼𝑛𝑠𝑖,𝑑 , for different classes of option contracts and
+estimate the following model (with all variables as previously defined):
+
+𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 = 𝛼𝑖 + 𝛾1𝐼𝑛𝑠𝑖,𝑑−1+𝛾2𝐸𝑣𝑒𝑛𝑡𝑖,𝑑
+
++𝛾3𝐼𝑛𝑠𝑖,𝑑−1𝐸𝑣𝑒𝑛𝑡𝑖,𝑑 + 𝛾4𝑆𝐻𝐹 𝑇 𝐷
+𝑖,𝑑
+
++
+
+8
+∑
+
+𝑘=1
+
+𝛿𝑘𝐶𝑘,𝑖,𝑑 + 𝜀𝑖,𝑑
+
+(11)
+
+17 This specific analysis is omitted in the updated version of the referenced
+
+paper.
+
+JournalofFinancialEconomics159(2024)10390011M. Nimalendran et al.
+
+Table 7
+Testing the informed trading channel – cross-sectional analysis.
+
+𝐼𝑛𝑠𝑖,𝑑−1
+
+𝐸𝑣𝑒𝑛𝑡𝑖,𝑑
+
+𝐼𝑛𝑠𝑖,𝑑−1𝐸𝑣𝑒𝑛𝑡𝑖,𝑑
+
+𝑆𝐻𝐹 𝑇 𝐷
+𝑖,𝑑
+
+𝐶𝑜𝑛𝑡𝑟𝑜𝑙𝑠
+Stock fixed effect
+Time fixed effect
+N obs.
+𝑅2
+
+𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑
+(i) - OTM
+
+−0.05***
+(−2.63)
+
+−0.04*
+(−1.74)
+
+0.05***
+(3.03)
+
+0.04***
+(3.59)
+
+Yes
+Yes
+No
+4623
+0.40
+
+𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑
+(ii) - ITM
+
+−0.00
+(−0.09)
+
+−0.01
+(−0.27)
+
+0.02
+(0.74)
+
+0.05***
+(3.55)
+
+Yes
+Yes
+No
+4148
+0.34
+
+𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑
+(iii) - News
+
+−0.08***
+(−2.85)
+
+−0.06*
+(−1.82)
+
+0.08**
+(2.53)
+
+0.03**
+(2.15)
+
+Yes
+Yes
+No
+2100
+0.43
+
+𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑
+(iv) - Nonews
+
+𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑
+(v) - Small
+
+𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑
+(vi) - Large
+
+−0.00
+(−0.21)
+
+0.00
+(0.03)
+
+0.01
+(0.43)
+
+0.04**
+(2.14)
+
+Yes
+Yes
+No
+2792
+0.37
+
+−0.04**
+(−2.51)
+
+−0.03
+(−1.25)
+
+0.04**
+(2.35)
+
+0.03***
+(2.89)
+
+Yes
+Yes
+No
+4892
+0.40
+
+−0.01
+(−1.26)
+
+−0.01
+(−0.38)
+
+0.02*
+(1.71)
+
+0.03***
+(3.24)
+
+Yes
+Yes
+No
+4892
+0.40
+
+𝑘=1 𝛿𝑘𝐶𝑘,𝑖,𝑑 + 𝜀𝑖,𝑑
+
+This table reports the results of testing the informed trading channel using the following model:
+𝑖,𝑑 + ∑8
+𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 = 𝛼𝑖 + 𝛾1𝐼𝑛𝑠𝑖,𝑑−1 + 𝛾2𝐸𝑣𝑒𝑛𝑡𝑖,𝑑 + 𝛾3𝐼𝑛𝑠𝑖,𝑑−1𝐸𝑣𝑒𝑛𝑡𝑖,𝑑 + 𝛾4𝑆𝐻𝐹 𝑇 𝐷
+where 𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 is the proportional option bid–ask spread, 𝑆𝐻𝐹 𝑇 𝐷
+𝑖,𝑑 is the measure of HFTs’ liquidity-demanding activities, and 𝐼𝑛𝑠𝑖,𝑑 is the
+measure of informed trading. 𝐸𝑣𝑒𝑛𝑡𝑖,𝑑 is a dummy variable equal to one before October 16, 2009 (Rajaratnam’s arrest) and zero thereafter.
+The sample encompasses a period of two months before and after the event date, with the exclusion of the five trading days preceding the
+event date. 𝐶𝑘,𝑖,𝑑 is a set of 𝑘 control variables, including variables from both the options and underlying markets. The options market variables
+, 𝑂𝑔𝑎𝑚𝑚𝑎𝑖,𝑑 , and 𝑂𝑣𝑒𝑔𝑎𝑖,𝑑 , and the stock market variables are 𝑆𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 , and 𝑆𝑉 𝑜𝑙𝑎𝑡𝑖𝑙𝑖𝑡𝑦𝑖,𝑑 . In
+are 𝑂𝑣𝑜𝑙𝑢𝑚𝑒𝑖,𝑑 , 𝑂𝑖𝑚𝑝𝑙𝑖𝑒𝑑𝑖,𝑑 , 𝑂𝑖𝑛𝑝𝑖,𝑑 , |
+|
+columns 1 and 2, 𝐼𝑛𝑠𝑖,𝑑 is calculated separately for out-of-the-money (OTM) and in-the-money (ITM) options. A put (call) is OTM if the stock
+price is above (below) the strike price. In columns 3 and 4, we conduct the regression analysis for unscheduled news (obtained from RavenPack
+database) and no-news days independently. In columns 5 and 6, 𝐼𝑛𝑠𝑖,𝑑 is calculated separately for small and large trade sizes (based on the 100
+contracts threshold). All models include firm fixed effects only. The standard errors used to compute the t-statistics (in brackets) are double
+clustered by firm and day. *, **, and *** denote the significance at 10%, 5%, and 1% respectively. For detailed definitions of variables refer
+to Table 1.
+
+𝑂𝑑𝑒𝑙𝑡𝑎𝑖,𝑑 |
+|
+
+Columns (i) and (ii) of Table 7 provide the results separately for
+out-of-the-money (OTM) and in-the-money (ITM) options. We classify
+option contracts into OTM and ITM categories based on whether the
+stock price is above or below the strike price. A put option is considered
+OTM if the stock price exceeds the strike price, whereas a call option
+is OTM if the stock price is below the strike price. Two observations
+emerge from our analysis, which are discussed below.
+
+First, our informed trading metric (𝐼𝑛𝑠𝑖,𝑑−1𝐸𝑣𝑒𝑛𝑡𝑖,𝑑 ) exhibits statisti-
+cal significance exclusively for OTM contracts. This finding is consistent
+with expectations, as OTM options offer greater leverage, rendering
+them more appealing to informed investors (Bondarenko and Mu-
+ravyev, 2022). Most importantly, the correlation between liquidity-
+consuming HFT activity and the options bid–ask spread is also statisti-
+cally significant for ITM options, which are not as frequently traded by
+informed investors.
+
+In columns (iii) and (iv) of our analysis, we differentiate between
+days with and without firm-relevant unexpected news events, as identi-
+fied via the RavenPack database. Our rationale is based on the anticipa-
+tion of more pronounced effects of informed traders prior to days with
+unanticipated news. In line with our expectations, the results mirror
+the patterns observed in the moneyness analysis. First, the impact
+of informed trading on the options bid–ask spread is only evident
+prior to days with unexpected news. Second, the association between
+liquidity-consuming HFTs and the options bid–ask spread is statistically
+significant on days unaffected by such news even though such days are
+characterized by lower levels of informed trading.
+
+In the final two columns of Table 7, we provide the results for
+both larger and smaller trades. Following a similar methodology to
+Bondarenko and Muravyev (2022), we categorize trades into these
+groups using a threshold of 100 contracts. Bondarenko and Muravyev
+(2022) establish that small options trades exhibit superior predictive
+power for future returns, in line with the notion that informed traders
+prefer to break down their larger parent orders into smaller child
+trades in the options market. Consistent with this insight, our analysis
+reveals a more pronounced association between informed trading and
+the options bid–ask spread in the case of small trades. Importantly,
+the impact of liquidity-consuming HFTs on the options bid–ask spread
+remains statistically significant for large trades despite the fact that
+informed investors prefer to use small orders.
+
+In summary, the cross-sectional analyses presented in Table 7 yield
+two significant implications. First, our proxy for informed trading
+demonstrates empirical validity, as evidenced by the greater impact of
+the informed trading measure on the bid–ask spread for scenarios that
+are more appealing to informed investors (OTM contracts, days prior to
+unanticipated news, and small trades). Second, the influence of HFTs
+on the options bid–ask spread extends beyond the impact of informed
+trading on the spread. This is evident from the persistent significance
+of the association between HFTs in the stock market and the options
+bid–ask spread, even in cases associated with less trading activity by
+informed investors (ITM contracts, days without unanticipated news,
+and large trades).
+
+We present the results of two more extensions in the Internet
+Appendix. First, we employ close-buy option trades to compute the
+informed trading measure 𝐼𝑛𝑠𝑖,𝑑 , and subsequently re-estimate the
+effects of informed trading on the options bid–ask spread and liquidity-
+consuming HFTs’ activities employing this revised measure. The ratio-
+nale for this extension lies in the distinct motivations underpinning
+these two types of trades. Despite both involving the purchase of
+options, open-buy trades often signify leveraged bets on the underlying
+stock, whereas close-buy trades typically occur as a result of profit-
+taking and other liquidity-related factors (e.g., Pan and Poteshman
+(2006) and Bondarenko and Muravyev (2022)). Consequently, we do
+not expect to detect a significant association between 𝐼𝑛𝑠𝑖,𝑑−1𝐸𝑣𝑒𝑛𝑡𝑖,𝑑
+and 𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 , or 𝑆𝐻𝐹 𝑇 𝐷
+𝑖,𝑑 in this particular test. The results pre-
+sented in Table IA.2 in the Internet Appendix support this expectation.
+We acknowledge that our primary dataset for calculating the put–
+call ratio and the informed trading measure is derived from CBOE’s
+open-close data. This dataset presents three key limitations that are
+relevant to the specific objectives of our study. First, it only has transac-
+tions executed within CBOE, potentially limiting its representativeness.
+Second, this data is only available at a daily frequency, which might
+not adequately capture the high-frequency microstructure dynamics we
+intend to investigate. Third, our data access is constrained to a four-
+month period, encompassing two months before and two months after
+the event date. To address these concerns and account for other poten-
+tial limitations associated with CBOE’s open-close data, we introduce
+a third extension, wherein we employ transaction-level OPRA data to
+explore the informed trading channel.
+
+JournalofFinancialEconomics159(2024)10390012M. Nimalendran et al.
+
+To calculate the put–call ratio with the OPRA data, we initially
+categorize trades into buy and sell directions using the Lee and Ready
+(1991) algorithm. It is essential to note that the OPRA data does not
+provide distinctions between opening and closing positions. Conse-
+quently, we calculate the put–call ratio as the ratio of buy-put volume
+to the sum of buy-put and buy-call volumes. In contrast to the daily
+measurements available from the CBOE data, we shift our focus to
+the high-frequency microstructure environment in this test. For this
+purpose, we introduce a new informed trading measure, 𝑂𝑖𝑛𝑠𝑖,𝑑 . To
+compute this measure, we determine the put–call ratio for each minute
+and calculate the daily standard deviation of minute-to-minute percent-
+age changes in the put–call ratio. This approach is conceptually akin
+to computing the volatility of stock returns, a common technique em-
+ployed to capture information arrival in financial markets. In essence,
+when information flow is more pronounced at the high-frequency level,
+we expect to observe a higher standard deviation in the changes in the
+put–call ratio. Subsequently, we replicate the main tests reported in
+Table 5, using 𝑂𝑖𝑛𝑠𝑖,𝑑 as our new informed trading measure.
+
+The results of this analysis are presented in Table IA.3 in the Internet
+Appendix. In line with the primary findings reported in Table 5, our in-
+formed trading measure positively predicts the options bid–ask spread
+and liquidity-consuming HFT activity before the event date; however,
+the positive prediction diminishes after the event date. Thus, our core
+results, derived from the analysis of CBOE data, align with the newly
+computed informed trading measure based on the OPRA data.
+
+3.3.2. Out-of-sample test
+
+transactions as either
+
+So far, we have based our analysis on the NASDAQ HFT dataset,
+which categorizes
+initiated by liquidity-
+demanding or liquidity-consuming HFTs. However, this dataset is lim-
+ited to only 120 (103 once merged with the OPRA data) randomly
+chosen stocks and a single year (2009). To overcome this constraint, we
+leverage the HFT data obtained from the SEC’s MIDAS, encompassing
+all U.S.-listed common stocks and a broader time period, from 2012
+to 2019. This analysis enables us to perform additional out-of-sample
+assessments to validate our primary findings derived from the NASDAQ
+HFT data. The results from the analysis of the MIDAS data are con-
+sistent with the main findings: there is a positive association between
+HFT activity and options bid–ask spreads, and this association is likely
+entirely driven by the interplay of the latency arbitrage and informed
+trading channels.
+
+The results and further details of this test are reported in Table IA.4
+in the Internet Appendix Section C. However, we want to emphasize
+two limitations in this analysis. First, we do not make any causal in-
+ferences in this test. Our primary aim is to demonstrate the correlation
+between HFT activity in equity markets and the costs of options market
+making, which remains valid during an out-of-sample test spanning a
+longer and more recent time period and including a larger number of
+stocks. Second, the MIDAS data does not directly identify HFT activity
+but instead provides proxies known to correlate with HFT activity.
+
+4. Addressing endogeneity – instrumental variable approach
+
+One concern is that HFT in the stock market and the option bid–
+ask spreads may be influenced by common underlying factors, implying
+that they are jointly endogenous. This concern arises from the fact that
+option contracts are based on underlying assets traded in the stock
+markets, creating a cross-market relationship that can introduce endo-
+geneity. To address this concern, we use the two-stage least squares
+(2SLS) instrumental variable (IV) approach. Given that we employ
+the NASDAQ HFT dataset from 2009, this involves identifying an
+exogenous shock to the volume of HFT on the NASDAQ stock exchange
+during this period as an instrument. Any instrument that we choose
+must be correlated with the HFT variable and not correlated with
+the error term in Eq. (1). Skjeltorp et al. (2016) propose a potential
+instrument satisfying these criteria.
+
+On June 5, 2009, the NASDAQ stock exchange introduced a new
+trading feature known as NASDAQ-Only Flash and Flash Enhanced
+Routable Orders.18 These orders allow market participants to expose
+their orders for an additional 500 ms after an unsuccessful execution
+attempt in the NASDAQ limit order book before reaching the general
+marketplace.19 Notably, the time constraint suggests that only qual-
+ified low-latency traders – HFTs – are expected to use flash orders
+(e.g., Harris and Namvar (2016)). This expectation is also consistent
+with the flash order implementation of Direct Edge – the first company
+to introduce flash orders on January 27, 2006 – who state that such
+orders allow HFTs to see and execute flash orders (e.g., Skjeltorp
+et al. (2016)). Thus, HFTs benefit from flash orders and, consequently,
+the introduction of the flash order functionality orders is expected to
+increase HFTs’ participation.
+
+Building on the discussion of flash orders and their potential effects
+on HFT, we use the introduction of flash orders on the NASDAQ stock
+exchange as an exogenous shock in a 2SLS IV framework to address
+endogeneity. We specify our 2SLS IV model as follows:
+
+𝑆𝐻𝐹 𝑇 𝑖,𝑑 = 𝛼𝑖 + 𝜗1𝐼𝑉 𝑖,𝑑 +
+
+8
+∑
+
+𝑘=1
+
+𝛿𝑘𝐶𝑘,𝑖,𝑑 + 𝜀𝑖,𝑑
+
+𝑂𝑆𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 = 𝛼𝑖 + 𝛾1
+
+̂𝑆𝐻𝐹 𝑇 𝑖,𝑑 +
+
+8
+∑
+
+𝑘=1
+
+𝛿𝑘𝐶𝑘,𝑖,𝑑 + 𝜀𝑖,𝑑
+
+(12)
+
+(13)
+
+̂𝑆𝐻𝐹 𝑇 𝐷
+
+𝑖,𝑑 ) and
+̂𝑆𝐻𝐹 𝑇 𝑆
+
+𝑖,𝑑 , 𝑆𝐻𝐹 𝑇 𝑆
+where 𝑆𝐻𝐹 𝑇 𝑖,𝑑 is one of three HFT measures (𝑆𝐻𝐹 𝑇 𝐴𝑙𝑙
+𝑖,𝑑
+̂𝑆𝐻𝐹 𝑇 𝑖,𝑑 is the fitted values of three HFT measures
+and 𝑆𝐻𝐹 𝑇 𝐷
+̂
+𝑆𝐻𝐹 𝑇 𝐴𝑙𝑙
+𝑖,𝑑 ) that are obtained by regressing the
+𝑖,𝑑 and
+𝑖,𝑑 ,
+(
+respective variables on 𝐼𝑉 𝑖,𝑑 in Eq. (12). Thus, the first- and second-
+stage models are estimated separately for each HFT measure. The
+instrumental variable 𝐼𝑉 𝑖,𝑑 is a dummy variable that takes a value of
+one during the period from June 5, 2009 to August 31, 2009, when
+NASDAQ introduced its flash order system, and zero for the other
+periods in our sample. To control for other factors that may affect the
+options bid–ask spread, we include the same control variables as those
+employed in the OLS specification (Eq. (1)).
+
+Three crucial considerations require further discussion. First, while
+NASDAQ initially introduced flash orders on June 5, 2009, subsequent
+refinements to these orders were implemented on June 8, 2009. Addi-
+tionally, NASDAQ initially intended to introduce flash orders on June
+1, 2009, before rescheduling to June 5, 2009. Hence, to ensure a
+clean research setting, we exclude a 10-day window before and after
+the event date. Second, we restrict our sample to data preceding the
+arrest date of Raj Rajaratnam (October 16, 2009). This step ensures
+that the shock to informed trading does not impact our results. Third,
+in this specification, we only include stock fixed effects because our
+instrument does not have a time variation across stocks.
+
+𝑖,𝑑 , 𝑆𝐻𝐹 𝑇 𝐷
+
+The estimation results of the first stage are reported in Table IA.5
+in the Internet Appendix, where we find that our instrument, 𝐼𝑉 𝑖,𝑑 , is
+statistically significant and positively related to all three HFT measures:
+𝑆𝐻𝐹 𝑇 𝐴𝑙𝑙
+𝑖,𝑑 . Hence, the implementation of flash
+orders on June 5, 2009, led to an increase in the activities of both
+liquidity-demanding and liquidity-supplying HFTs. Furthermore, the
+F-statistics obtained from the first-stage analysis are statistically signif-
+icant at conventional levels of significance, confirming the validity of
+our selected instrument.
+
+𝑖,𝑑 , and 𝑆𝐻𝐹 𝑇 𝑆
+
+The second stage results presented in Table 8 reveal two key find-
+ings with respect to the impact of HFT on options market making. First,
+we find a statistically significant positive relationship between total
+HFT activities and options spreads, indicating that greater HFT par-
+ticipation in equity markets results in higher trading costs for options
+
+18 https://www.nasdaqtrader.com/TraderNews.aspx?id=ETA2009-35.
+19 Skjeltorp et al. (2016) provide the implementation details for these orders,
+
+and some numerical examples.
+
+JournalofFinancialEconomics159(2024)10390013M. Nimalendran et al.
+
+Table 8
+The impact of HFT activities on option spread – 2 SLS IV – second stage.
+
+Table 9
+Testing the latency arbitrage channel – 2 SLS IV – second stage.
+
+𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑
+(i)
+
+0.08**
+(2.03)
+
+𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑
+(ii)
+
+𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑
+(iii)
+
+̂𝑆𝐻𝐹 𝑇 𝐴𝑙𝑙
+
+𝑖,𝑑
+
+̂𝑆𝐻𝐹 𝑇 𝑆
+
+𝑖,𝑑
+
+̂𝑆𝐻𝐹 𝑇 𝐷
+
+𝑖,𝑑
+
+𝐶𝑜𝑛𝑡𝑟𝑜𝑙𝑠
+Stock fixed effect
+Time fixed effect
+N obs.
+𝑅2
+
+Yes
+Yes
+No
+14,432
+0.39
+
+0.01
+(0.54)
+
+Yes
+Yes
+No
+14,432
+0.39
+
+0.08**
+(2.02)
+
+Yes
+Yes
+No
+14,432
+0.39
+
+𝑖,𝑑 , 𝑆𝐻𝐹 𝑇 𝑆
+
+𝑘=1 𝛿𝑘𝐶𝑘,𝑖,𝑑 + 𝜀𝑖,𝑑
+
+𝑘=1 𝛿𝑘𝐶𝑘,𝑖,𝑑 + 𝜀𝑖,𝑑
+
+̂𝑆𝐻𝐹 𝑇 𝑖,𝑑 + ∑8
+
+𝑖,𝑑 and 𝑆𝐻𝐹 𝑇 𝐷
+̂𝑆𝐻𝐹 𝑇 𝑆
+̂𝑆𝐻𝐹 𝑇 𝐴𝑙𝑙
+𝑖,𝑑 ,
+
+This table reports the results of estimating the impact of HFT in equity markets on the
+options bid–ask spread using the following models:
+𝑆𝐻𝐹 𝑇 𝑖,𝑑 = 𝛼𝑖 + 𝜗1𝐼𝑉 𝑖,𝑑 + ∑8
+𝑂𝑆𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 = 𝛼𝑖 + 𝛾1
+where 𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 is the proportional option bid–ask spread and 𝑆𝐻𝐹 𝑇 𝑖,𝑑 is one of
+̂𝑆𝐻𝐹 𝑇 𝑖,𝑑 is the fitted values
+three HFT measures (𝑆𝐻𝐹 𝑇 𝐴𝑙𝑙
+̂𝑆𝐻𝐹 𝑇 𝐷
+of one of three HFT measures (
+𝑖,𝑑 ) that is obtained
+by regressing the respective variables on 𝐼𝑉 𝑖,𝑑 , 𝐼𝑉 𝑖,𝑑 is a dummy equal to one from
+June 5, 2009 to August 31, 2009, and zero for the other periods (from January 1,
+2009 to June 4, 2009, and from September 1, 2009 to October 15, 2009). We exclude
+the 10 days before and after the event date. 𝐶𝑘,𝑖,𝑑 is a set of 𝑘 control variables,
+including variables from both the options and underlying markets. The options market
+variables are 𝑂𝑣𝑜𝑙𝑢𝑚𝑒𝑖,𝑑 , 𝑂𝑖𝑚𝑝𝑙𝑖𝑒𝑑𝑖,𝑑 , 𝑂𝑖𝑛𝑝𝑖,𝑑 , |
+, 𝑂𝑔𝑎𝑚𝑚𝑎𝑖,𝑑 , and 𝑂𝑣𝑒𝑔𝑎𝑖,𝑑 , and
+𝑂𝑑𝑒𝑙𝑡𝑎𝑖,𝑑 |
+|
+|
+the stock market variables are 𝑆𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 , and 𝑆𝑉 𝑜𝑙𝑎𝑡𝑖𝑙𝑖𝑡𝑦𝑖,𝑑 . All models include firm
+fixed effect (𝛼𝑖). The standard errors used to compute the t-statistics (in brackets) are
+double clustered by firm and day. *, **, and *** denote the significance at 10%, 5%,
+and 1% respectively. For detailed definitions of variables refer to Table 1.
+
+𝑖,𝑑 ).
+𝑖,𝑑 and
+
+market makers. Second, this positive effect is sourced from liquidity-
+demanding HFT orders (𝑆𝐻𝐹 𝑇 𝐷
+𝑖,𝑑 ). These results are broadly consistent
+with the OLS setting findings and they support a causal interpretation
+of the impact of HFT activities on options market-making trading costs.
+Table 9 reports the estimation results for the latency arbitrage
+channel by using the 2SLS IV approach. Consistent with the results
+for OLS regressions with fixed effects, we find that the positive and
+statistically significant association between HFTs’ liquidity-demanding
+trading activity and the option proportional spread is concentrated in
+stocks with a higher frequency of profitable put–call parity violations.
+While we employ the 2SLS IV approach to investigate the latency
+arbitrage channel, we cannot use flash orders to address endogeneity
+in the informed trading channel. This is because NASDAQ introduced
+flash orders in June 2009, but our CBOE open-buy data only covers the
+period from August 2009 onwards. It is also worth noting that since we
+use an exogenous shock to the information environment (the arrest of
+Raj Rajaratnam) to test the informed trading channel, endogeneity is
+less of a concern for this particular test.
+
+To sum up, our analysis shows that HFTs’ trading activities in equity
+markets affect the trading costs in the options market, and this effect
+extends beyond the hedging channel documented in previous market
+microstructure literature. The impact of HFTs in the stock market on
+the options bid–ask spread can be attributed to a combination of latency
+arbitrage and informed trading channels. While exogenous shocks to
+HFT activity in the stock market, and to informed trading in the options
+market, provide a valuable means of separately mitigating endogene-
+ity concerns for the two channels, we acknowledge the complexity
+associated with conclusively and fully addressing endogeneity in this
+setting due to the inherent interconnectedness of the stock and options
+markets.
+
+̂𝑆𝐻𝐹 𝑇 𝐴𝑙𝑙
+
+𝑖,𝑑
+
+̂𝑆𝐻𝐹 𝑇 𝐷
+
+𝑖,𝑑
+
+𝐻𝑖𝑔ℎ𝑖,𝑑
+
+̂𝑆𝐻𝐹 𝑇 𝐴𝑙𝑙
+
+𝑖,𝑑 𝐻𝑖𝑔ℎ𝑖,𝑑
+
+̂𝑆𝐻𝐹 𝑇 𝐷
+
+𝑖,𝑑 𝐻𝑖𝑔ℎ𝑖,𝑑
+
+𝐶𝑜𝑛𝑡𝑟𝑜𝑙𝑠
+Stock fixed effect
+Time fixed effect
+N obs.
+𝑅2
+
+𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑
+(i)
+
+−0.32***
+(−4.33)
+
+−0.03**
+(−2.02)
+
+0.04***
+(3.82)
+
+Yes
+Yes
+No
+5899
+0.33
+
+𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑
+(ii)
+
+−0.29***
+(−4.60)
+
+−0.03**
+(−2.12)
+
+0.05***
+(3.69)
+
+Yes
+Yes
+No
+5899
+0.33
+
+𝑖,𝑑 and
+
+This table reports the results of testing the latency arbitrage channel using the following
+model:
+̂𝑆𝐻𝐹 𝑇 𝑖,𝑑 𝐻𝑖𝑔ℎ𝑖,𝑑 + ∑8
+̂𝑆𝐻𝐹 𝑇 𝑖,𝑑 + 𝛾2𝐻𝑖𝑔ℎ𝑖,𝑑 + 𝛾3
+𝑂𝑆𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 = 𝛼𝑖 + 𝛾1
+𝑘=1 𝛿𝑘𝐶𝑘,𝑖,𝑑 + 𝜀𝑖,𝑑
+̂𝑆𝐻𝐹 𝑇 𝑖,𝑑 is the fitted
+where 𝑂𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 is the proportional option bid–ask spread and
+̂𝑆𝐻𝐹 𝑇 𝐷
+̂𝑆𝐻𝐹 𝑇 𝐴𝑙𝑙
+𝑖,𝑑 ) that is obtained by
+values of one of two HFT measures (
+regressing the respective variables on 𝐼𝑉 𝑖,𝑑 , 𝐼𝑉 𝑖,𝑑 is a dummy equal to one from June 5,
+2009 to August 31, 2009, and zero for the other periods (from January 1, 2009 to June
+4, 2009, and from September 1, 2009 to October 15, 2009). We exclude the 10 days
+before and after the event date. 𝐻𝑖𝑔ℎ𝑖,𝑑 is a dummy variable equal to one in day 𝑑 if
+its 𝑁𝑝𝑣𝑖,𝑑 (the number of put–call parity violations) value is above the median number
+of profitable put–call parity violations for all stocks. 𝐶𝑘,𝑖,𝑑 is a set of 𝑘 control variables,
+including variables from both the options and underlying markets. The options market
+variables are 𝑂𝑣𝑜𝑙𝑢𝑚𝑒𝑖,𝑑 , 𝑂𝑖𝑚𝑝𝑙𝑖𝑒𝑑𝑖,𝑑 , 𝑂𝑖𝑛𝑝𝑖,𝑑 , |
+, 𝑂𝑔𝑎𝑚𝑚𝑎𝑖,𝑑 , and 𝑂𝑣𝑒𝑔𝑎𝑖,𝑑 , and
+𝑂𝑑𝑒𝑙𝑡𝑎𝑖,𝑑 |
+|
+|
+the stock market variables are 𝑆𝑃 𝑠𝑝𝑟𝑒𝑎𝑑𝑖,𝑑 , and 𝑆𝑉 𝑜𝑙𝑎𝑡𝑖𝑙𝑖𝑡𝑦𝑖,𝑑 . All models include firm
+fixed effect (𝛼𝑖). The standard errors used to compute the t-statistics (in brackets) are
+double clustered by firm and day. *, **, and *** denote the significance at 10%, 5%,
+and 1% respectively. For detailed definitions of variables refer to Table 1.
+
+HFT activity in the stock market leads to wider bid–ask spreads in
+the options market. These results hold after controlling for known
+drivers of stock and option liquidity. We attribute this relationship to
+two channels: (i) the latency arbitrage channel; and (ii) the informed
+trading channel. In the first channel, aggressive HFTs engaged in cross-
+market latency arbitrage strategies expose option market makers to the
+risk of trading at stale prices. To test this, we measure the frequency of
+profitably exploitable put–call parity violations and find that the impact
+of HFT in equity markets on options bid–ask spreads is higher when
+there are more such violations.
+
+The second channel, the informed trading channel, posits that in-
+formed trading activities in the options market may influence the
+impact of HFT in equity markets on the options bid–ask spread by
+simultaneously affecting both the options spread and the intensity of
+aggressive HFT actions in the underlying market. We find that informed
+trading in the options markets intensifies the positive relationship
+between liquidity-demanding HFT in the stock market and options
+bid–ask spread by roughly 50%.
+
+Our study provides important insights into the role of HFTs in
+explaining the cross-market dynamics between stock and options mar-
+kets. More broadly, our results have significant implications for market
+participants, regulators, and policymakers seeking to understand the
+evolving landscape of financial markets and design effective policies to
+ensure market stability and efficiency. The findings of this study also
+underscore the need for a better understanding of the costs and risks
+associated with HFTs in today’s highly fragmented and complex market
+structures.
+
+5. Conclusion
+
+CRediT authorship contribution statement
+
+We find a negative relationship between aggressive HFT strategies
+in the stock market and options market liquidity: more aggressive
+
+Mahendrarajah Nimalendran: Writing – review & editing, Writing
+– original draft, Software, Resources, Methodology, Formal analysis,
+
+JournalofFinancialEconomics159(2024)10390014M. Nimalendran et al.
+
+Data curation, Conceptualization. Khaladdin Rzayev: Writing – re-
+view & editing, Writing – original draft, Software, Resources, For-
+mal analysis, Data curation, Conceptualization, Methodology. Satchit
+Sagade: Writing – review & editing, Writing – original draft, Soft-
+ware, Methodology, Formal analysis, Data curation, Conceptualization,
+Resources.
+
+Declaration of competing interest
+
+The authors declare that they have no known competing finan-
+cial interests or personal relationships that could have appeared to
+influence the work reported in this paper.
+
+Data availability
+
+Replication Package for ‘‘High-frequency Trading in the Stock Mark
+et and the Costs of Option Market Making’’ (Reference data) (Mendeley
+Data).
+
+Appendix A. Supplementary data
+
+Supplementary material related to this article can be found online
+
+at https://doi.org/10.1016/j.jfineco.2024.103900.
+
+References
+
+Ait-Sahalia, Yacine, Sağlam, Mehmet, 2024. High frequency market making: The role
+
+of speed. J. Econometrics 239, 105421.
+
+Aquilina, Matteo, Budish, Eric, O’neill, Peter, 2022. Quantifying the high-frequency
+
+trading ‘‘arms race’’. Q. J. Econ. 137, 493–564.
+
+Augustin, Patrick, Subrahmanyam, Marti G., 2020. Informed options trading before
+
+corporate events. Annu. Rev. Finan. Econ. 12, 327–355.
+
+Baron, Matthew, Brogaard, Jonathan, Hagströmer, Björn, Kirilenko, Andrei, 2019. Risk
+and return in high-frequency trading. J. Financ. Quant. Anal. 54, 993–1024.
+Battalio, Robert, Schultz, Paul, 2011. Regulatory uncertainty and market liquidity: The
+2008 short sale ban’s impact on equity option markets. J. Finance 66, 2013–2053.
+Biais, Bruno, Foucault, Thierry, 2014. HFT and market quality. Bank. Mark. Invest.
+
+128, 5–19.
+
+Black, Fischer, Scholes, Myron, 1973. The pricing of options and corporate liabilities.
+
+J. Polit. Econ. 81, 637–654.
+
+Boehmer, Ekkehart, Li, Dan, Saar, Gideon, 2018. The competitive landscape of
+
+high-frequency trading firms. Rev. Financ. Stud. 31, 2227–2276.
+
+Bondarenko, Oleg, Muravyev, Dmitriy, 2022. What Information do Informed Traders
+
+Use? Working Paper.
+
+Boyle, Phelim P., Vorst, Ton, 1992. Option replication in discrete time with transaction
+
+costs. J. Finance 47, 271–293.
+
+Breen, William J., Hodrick, Laurie Simon, Korajczyk, Robert A., 2002. Predicting equity
+
+liquidity. Manage. Sci. 48, 470–483.
+
+Brenner, Menachem, Eldor, Rafi, Hauser, Shmuel, 2001. The price of options illiquidity.
+
+J. Finance 56, 789–805.
+
+Brogaard, Jonathan, Hagströmer, Björn, Nordén, Lars, Riordan, Ryan, 2015. Trading
+
+fast and slow: Colocation and liquidity. Rev. Financ. Stud. 28, 3407–3443.
+
+Brogaard, Jonathan, Hendershott, Terrence, Riordan, Ryan, 2014. High-frequency
+
+trading and price discovery. Rev. Financ. Stud. 27, 2267–2306.
+
+Budish, Eric, Cramton, Peter, Shim, John, 2015. The high-frequency trading arms race:
+Frequent batch auctions as a market design response. Q. J. Econ. 130, 1547–1621.
+Cao, Charles, Chen, Zhiwu, Griffin, John M., 2005. Informational content of option
+
+volume prior to takeovers. J. Bus. 78, 1073–1109.
+
+Chaboud, Alain P, Chiquoine, Benjamin, Hjalmarsson, Erik, Vega, Clara, 2014. Rise of
+the machines: Algorithmic trading in the foreign exchange market. J. Finance 69,
+2045–2084.
+
+Cho, Young-Hye, Engle, III, Robert F., 1999. Modeling the Impacts of Market Activity
+on Bid-Ask Spreads in the Option Market. National Bureau of Economic Research.
+Christoffersen, Peter, Goyenko, Ruslan, Jacobs, Kris, Karoui, Mehdi, 2017. Illiquidity
+
+premia in the equity options market. Rev. Financ. Stud. 31, 811–851.
+
+Collin-Dufresne, Pierre, Fos, Vyacheslav, 2015. Do prices reveal
+
+the presence of
+
+informed trading? J. Finance 70, 1555–1582.
+
+Collin-Dufresne, Pierre, Fos, Vyacheslav, Muravyev, Dmitry, 2021. Informed trading and
+option prices: Theory and evidence from activist trading. J. Financ. Quant. Anal.
+56, 1945–1984.
+
+Cremers, Martijn, Weinbaum, David, 2010. Deviations from put-call parity and stock
+
+return predictability. J. Financ. Quant. Anal. 45, 335–367.
+
+Degryse, Hans, De Jong, Frank, Lefebvre, Jérémie, 2016. Legal insider trading and stock
+
+market liquidity. De Econ. 164, 83–104.
+
+Easley, David, O’Hara, Maureen, 1987. Price, trade size, and information in securities
+
+markets. J. Financ. Econ. 19, 69–90.
+
+Easley, David, O’Hara, Maureen, Srinivas, Pulle Subrahmanya, 1998. Option volume and
+stock prices: Evidence on where informed traders trade. J. Finance 53, 431–465.
+Engle, Robert, Neri, Breno, 2010. The impact of hedging costs on the bid and ask
+spread in the options market. Unpublished Working Paper, New York University.
+Foucault, Thierry, Fresard, Laurent, 2014. Learning from peers’ stock prices and
+
+corporate investment. J. Financ. Econ. 111 (3), 554–577.
+
+Foucault, Thierry, Kozhan, Roman, Tham, Wing Wah, 2017. Toxic arbitrage. Rev.
+
+Financ. Stud. 30, 1053–1094.
+
+Ge, Li, Lin, Tse-Chun, Pearson, Neil D., 2016. Why does the option to stock volume
+
+ratio predict stock returns? J. Financ. Econ. 120, 601–622.
+
+Glosten, Lawrence R., Milgrom, Paul R., 1985. Bid, ask and transaction prices in
+a specialist market with heterogeneously informed traders. J. Financ. Econ. 14,
+71–100.
+
+Hagströmer, Björn, Nordén, Lars, 2013. The diversity of high-frequency traders. J.
+
+Financial Mark. 16, 741–770.
+
+Harris, Lawrence, Namvar, Ethan, 2016. The economics of flash orders and trading. J.
+
+Invest. Manag. Fourth Quarter.
+
+Hendershott, Terrence, Jones, Charles M., Menkveld, Albert J., 2011. Does algorithmic
+
+trading improve liquidity? J. Finance 66, 1–33.
+
+Ho, Thomas, Stoll, Hans R., 1980. On dealer markets under competition. J. Finance
+
+35, 259–267.
+
+Hu, Jianfeng, 2014. Does option trading convey stock price information? J. Financ.
+
+Econ. 111, 625–645.
+
+Jameson, Mel, Wilhelm, William, 1992. Market making in the options markets and the
+
+costs of discrete hedge rebalancing. J. Finance 47, 765–779.
+
+Jiang, George J., Lo, Ingrid, Valente, Giorgio, 2014. High-Frequency Trading Around
+Macroeconomic News Announcements: Evidence from the US Treasury Market.
+Bank of Canada Working Paper.
+
+Kaniel, Ron, Liu, Hong, 2006. So what orders do informed traders use? J. Bus. 79,
+
+1867–1913.
+
+Kapadia, Nikunj, Linn, Matthew, 2020. What’s gone wrong with option liquidity:
+Evidence from the knight capital’s trading glitch. Available at SSRN 3517429.
+Kaul, Gautam, Nimalendran, Mahendrarajah, Zhang, Donghang, 2004. Informed trading
+
+and option spreads. Available at SSRN 547462.
+
+Kirilenko, Andrei, Kyle, Albert S, Samadi, Mehrdad, Tuzun, Tugkan, 2017. The flash
+crash: High?frequency trading in an electronic market. J. Finance 72, 967–998.
+
+Kyle, Albert S., 1985. Continuous auctions and insider
+
+trading. Econometrica
+
+1315–1335.
+
+Lakonishok, Josef, Lee, Inmoo, Pearson, Neil D, Poteshman, Allen M, 2007. Option
+
+market activity. Rev. Financ. Stud. 20, 813–857.
+
+Lee, Eun Jung, 2015. High frequency trading in the Korean index futures market. J.
+
+Futures Mark. 35, 31–51.
+
+Lee, Charles M.C., Ready, Mark J., 1991. Inferring trade direction from intraday data.
+
+J. Finance 46, 733–746.
+
+Menkveld, Albert J., Zoican, Marius A., 2017. Need for speed? Exchange latency and
+
+liquidity. Rev. Financ. Stud. 30, 1188–1228.
+
+Mishra, Suchi, Daigler, Robert T., Holowczak, Richard, 2012. The Effect of Algorithmic
+
+Trading on Liquidity in the Options Market. Citeseer.
+
+Muravyev, Dmitriy, Pearson, Neil D., 2020. Options trading costs are lower than you
+
+think. Rev. Financ. Stud. 33, 4973–5014.
+
+Muravyev, Dmitriy, Pearson, Neil D., Broussard, John Paul, 2013.
+discovery in equity options? J. Financ. Econ. 107, 259–283.
+
+Is there price
+
+Ni, Sophie X., Pan, Jun, Poteshman, Allen M., 2008. Volatility information trading in
+
+the option market. J. Finance 63, 1059–1091.
+
+Ofek, Eli, Richardson, Matthew, Whitelaw, Robert F., 2004. Limited arbitrage and short
+sales restrictions: Evidence from the options markets. J. Financ. Econ. 74, 305–342.
+Pan, Jun, Poteshman, Allen M., 2006. The information in option volume for future
+
+stock prices. Rev. Financ. Stud. 19, 871–908.
+
+Rzayev, Khaladdin, Ibikunle, Gbenga, Steffen, Tom, 2023. The market quality im-
+plications of speed in cross-platform trading: Evidence from Frankfurt-London
+microwave. J. Financial Mark. 66, 100853.
+
+Shkilko, Andriy, Sokolov, Konstantin, 2020. Every cloud has a silver lining: Fast trading,
+
+microwave connectivity and trading costs. J. Finance 75, 2899–2927.
+
+Skjeltorp, Johannes A., Sojli, Elvira, Tham, Wing Wah, 2016. Flashes of trading intent
+
+at NASDAQ. J. Financ. Quant. Anal. 51, 165–196.
+
+Stoll, Hans R., 1978. The supply of dealer services in securities markets. J. Finance 33,
+
+1133–1151.
+
+Van Kervel, Vincent, Menkveld, Albert J., 2019. High-frequency trading around large
+
+institutional orders. J. Finance 74, 1091–1137.
+
+Wu, Wei-Shao, Liu, Yu-Jane, Lee, Yi-Tsung, Fok, Robert C.W., 2014. Hedging costs,
+liquidity, and inventory management: The evidence from option market makers. J.
+Financial Mark. 18, 25–48.
+
+JournalofFinancialEconomics159(2024)10390015

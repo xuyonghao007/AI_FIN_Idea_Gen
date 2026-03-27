@@ -1,0 +1,7035 @@
+Journal of Financial Economics 171 (2025) 104076 
+
+Contents lists available at ScienceDirect
+
+Journal of Financial Economics
+
+journal homepage: www.elsevier.com/locate/finec
+
+CRISK: Measuring the climate risk exposure of the financial system(cid:73)
+Hyeyoon Jung a,∗, Robert F. Engle b, Richard Berner b
+a Federal Reserve Bank of New York, 33 Liberty Street, 10045, NY, United States
+b New York University, 44 West Fourth Street, 10012, NY, United States
+
+A R T I C L E   I N F O
+
+A B S T R A C T
+
+We develop a market-based methodology to assess banks’ resilience to climate-related risks and study the 
+climate-related risk exposure of large global banks. We introduce a new measure, CRISK, which is the expected 
+capital shortfall of a bank in a climate stress scenario. To estimate CRISK, we construct climate risk factors 
+and dynamically measure banks’ stock return sensitivity (that is, climate beta) to the climate risk factor. We 
+validate the climate risk factor empirically and the climate beta estimates by using granular data on large US 
+banks’ loan portfolios. The measure is useful in quantifying banks’ climate-related risk exposure through the 
+market risk and the credit risk channels.
+
+Dataset link: CRISK: Measuring the Climate Ris
+k Exposure of the Financial System (Original d
+ata)
+
+JEL classification:
+Q54
+C53
+G20
+
+Keywords:
+Climate risk
+Financial stability
+Systemic risk
+
+1. Introduction
+
+During the past three decades, the number of climate-related poli-
+cies adopted globally has increased significantly (see Fig.  1). The risk 
+to economic activity from changes in policies in response to climate 
+risks, such as carbon taxes and green subsidies, is often referred to 
+as transition risk. Transition risk can adversely affect the real economy 
+through the banking sector. For example, a shock to borrowers’ transi-
+tion risk can impair their ability to repay, which can then lead to an 
+amplified effect on banks’ current and expected future profits, resulting 
+
+in a systemic undercapitalization of banks. It is well known that such 
+undercapitalization  of  the  financial  system  could  hamper  economic 
+growth through a decrease in credit supply.
+
+Despite the widespread adoption of climate policies and the impor-
+tance of understanding their effect on the banking sector, there has 
+been little understanding of the potential impact of climate change on 
+the financial system due to several challenges, as noted by Bolton et al. 
+(2020). In fact, while the literature on the measurement of systemic 
+risk (e.g., Brownlees and Engle, 2017; Acharya et al., 2016; Adrian and 
+
+(cid:73)
+
+Dimitris Papanikolaou was the editor for this article. We thank the editor and two anonymous referees for their insightful comments. We appreciate being 
+recognized as a finalist for the Berkeley Haas Sustainability Research Prize. We gratefully acknowledge financial support from National Science Foundation, United 
+States grant 2218455, Inter-American Development Bank, United States, and Norges Bank, Norway. We also thank Marcin Kacperczyk, Jaehoon Jung, Kris Jacobs, 
+Michael Barnett, Jennifer Dlugosz, Kristian Blickle, Nina Boyarchenko, Lee Seltzer, Linda Goldberg, Joao Santos, Viral Acharya, Felipe Cordova, Andrew Lo, Jose 
+Fillat, Loriana Pelizzon, Harrison Hong, and discussants and participants at the American Economic Association Meeting, European Finance Association Meeting, 
+MIT GCFP Conference, Cornell University ESG Investing Research Conference, University of Oklahoma Energy and Climate Finance Research Conference, NYU VRI 
+Conference, Central Bank Research Association Meeting, European Banking Authority EAIA Seminar, Green Swan Conference, IFABS Oxford Conference, Federal 
+Reserve Bank of New York Seminar, Federal Reserve Stress Testing Research Conference, Central Bank of Chile Workshop, European Central Bank Workshop, 
+European Conferences of the Econometrics Community Conference, Australasian Finance and Banking Conference, Federal Reserve Bank of Richmond Seminar, 
+ESSEC-Amundi Chair Webinar, Federal Reserve Cross-bank Climate Risk Community Seminar, Banque de France Workshop, Federal Reserve Board CREST Seminar, 
+Federal Reserve Bank of New York and Columbia University Conference, European Systemic Risk Board Workshop, Federal Reserve System Climate Meeting, Office 
+of the Comptroller of the Currency Symposium, Banco de Portugal Conference on Financial Intermediation, International Journal of Central Banking Conference, 
+Office of Financial Research Climate Implications for Financial Stability Conference, UN PRI Academic Network Week, and Paris December Meeting for valuable 
+comments. We thank Georgij Alekseev, Janavi Janakiraman, Oliver Hannaoui, Yihao Zhao, Xuran Zeng, and Neil Kapoor for their excellent research assistance. 
+The views expressed in this paper are those of the authors and do not necessarily represent those of the Federal Reserve Bank of New York or the Federal Reserve 
+System. Any errors are the responsibility of the authors. This paper was previously circulated as ‘‘Climate Stress Testing’’.
+
+∗ Corresponding author.
+
+E-mail addresses:  hyeyoon.jung@ny.frb.org (H. Jung), rengle@stern.nyu.edu (R.F. Engle), rberner@stern.nyu.edu (R. Berner).
+
+https://doi.org/10.1016/j.jfineco.2025.104076
+Received 8 March 2023; Received in revised form 7 April 2025; Accepted 12 April 2025
+Available online 27 May 2025 
+0304-405X/© 2025 Elsevier B.V. All rights are reserved, including those for text and data mining, AI training, and similar technologies. 
+
+ 
+ 
+ 
+H. Jung et al.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Fig. 1.  The number of climate-related policies across the world  The climate-related policies include climate-related laws, as well as regulations promoting low carbon 
+transitions.
+Source: Climate Change Laws of the World Data
+
+Brunnermeier, 2016; Allen et al., 2012) has produced useful indices of 
+systemic distress in the context of financial crises, there are no such 
+measures to analyze climate-related risks.
+
+In this paper, we focus on a particular dimension of climate risk, 
+transition risk, and seek to answer the following question: are banks 
+sufficiently capitalized to absorb losses during stressful conditions due 
+to heightened climate transition risk? To answer this question, we take 
+a novel approach to measuring the potential adverse effect of transition 
+risk on banks’ capitalization. Transition risk can arise from changes 
+in policies, technological advancements, and shifts in consumer pref-
+erences. While these components are inherently interconnected and 
+evolve together, our analysis is primarily motivated by policy changes.
+Measuring the climate risk exposure of financial institutions faces 
+several challenges. First, analyses based on past climate events may not 
+effectively capture the changes in the perception of risk. For example, 
+market expectations may change without direct experience of climate 
+change events, and asset prices today can reflect changes in future cli-
+mate risk even though damages or impacts are decades away. Second, 
+both the climate risk itself and how firms, banks, and markets respond 
+to the perceived risk change over time. Third, the lack of reliable data 
+sources to systematically assess climate-related risks poses a significant 
+challenge. Although voluntary climate-related disclosures exist, they 
+often suffer from incompleteness and inconsistencies in quality.1
+
+Our approach addresses the aforementioned challenges. We address 
+the first challenge by constructing climate transition risk factors by 
+forming portfolios designed to decline in value as the transition policy 
+risk rises and then measuring the banks’ stock return sensitivity, called 
+the transition climate policy beta, to the climate policy risk factor. For 
+brevity, we use ‘‘transition climate policy beta’’ and ‘‘climate beta’’ in-
+terchangeably throughout the paper. We address the second challenge 
+by estimating the climate beta dynamically, which allows us to avoid 
+making strong assumptions such as a static balance sheet and time-
+invariant responses of firms and investors to change in the transition 
+risk. Our methodology addresses the third challenge, as it uses only the 
+market data that are consistent in quality, comparable across firms, and 
+less susceptible to the noise and bias inherent in voluntary disclosures. 
+
+1 See  Brainard  (2021),  Financial  Stability  Board  (2021),  and  European 
+
+Systemic Risk Board (2020) among others.
+
+2 
+
+The importance of these elements was also envisioned in Bolton et al. 
+(2020) and Brainard (2021) among others.
+
+We introduce a novel measure, CRISK, defined as the expected cap-
+ital shortfall of a financial firm under a climate stress scenario. CRISK 
+is a function of a given financial firm’s size, leverage, and expected 
+equity loss conditional on a climate stress event, which is calculated 
+using the estimated climate beta. We define a climate stress event as 
+a shock to a given climate risk factor, an equity portfolio designed to 
+decline in value as climate risk rises. To consider a sufficiently severe 
+yet plausible stress scenario, we take the lowest one percentile of the 6-
+month return distribution of a climate risk factor to calibrate the stress 
+level.2, 3 Additionally, we introduce marginal CRISK (mCRISK), which 
+isolates the effect of climate stress from concurrent undercapitalization 
+by subtracting CRISK under zero climate stress from CRISK. CRISK 
+assesses the total capital shortfall under climate stress given leverage, 
+whereas mCRISK measures the additional capital shortfall specifically 
+due to climate stress.
+
+We  apply  our  methodology  to  assess  the  climate  transition  risk 
+exposure of large global banks. While it can also be used to analyze 
+the physical climate risk arising from property damage due to extreme 
+weather events, this paper focuses on its application to the transition 
+risk. We use ‘‘transition CRISK’’ interchangeably with ‘‘CRISK’’ for the 
+rest of the paper.4 The estimated CRISK and mCRISK vary depending 
+on the severity of the scenario and the climate transition risk factors. 
+We summarize our findings using the stranded asset factor developed 
+by Litterman (2021) as the climate transition risk factor, which serves 
+as a proxy for market expectations on future transition risk, as fossil 
+fuel energy firms’ assets are likely to become ‘‘stranded’’ along most 
+transition paths.
+
+We begin by documenting that the climate beta varies over time, 
+underscoring the importance of dynamic estimation. Notably, we find 
+that the climate beta increased significantly across banks starting in 
+2019 and peaked in 2020. We explain the variation in the bank climate 
+
+2 Basel Committee on Banking Supervision (2018) describes as part of stress 
+testing principles that a stress testing framework should consider ‘‘scenarios 
+that are sufficiently severe but plausible’’.
+
+3 Future  work  of  scientific  and  economic  analyses  could  suggest  other 
+
+approaches to calibrate the stress level.
+
+4 For an application to physical risk, see Jung et al. (2023).
+
+H. Jung et al.
+
+beta  using  granular  data  on  large  US  banks’  loan  portfolios,  taken 
+from Federal Reserve Y-14 Q (Y-14) forms. From this data set, we 
+construct a panel of loan portfolio climate betas by taking the loan size-
+weighted average climate beta of the borrowers’ sector stock returns. 
+We find that the constructed loan portfolio climate betas are strongly 
+aligned with the climate betas based only on the market data of bank 
+stock returns and their conditional covariance with climate risk factors. 
+This relationship remains robust when merging the climate beta at 
+the  firm  level  instead  of  the  industry  level  (accounting  for  within-
+industry  heterogeneity),  when  using  the  unlevered  climate  beta  of 
+borrowers (accounting for borrower leverage), when considering the 
+utilized loan amount instead of the committed amount, and it does not 
+vary significantly across specific periods, such as during COVID. This 
+suggests that the composition of the bank loan portfolio is important in 
+explaining the bank climate beta variations.
+
+Next, we highlight key factors driving the increase in the bank cli-
+mate beta. First, we document that industries with the highest climate 
+beta are ‘‘brown’’, and their climate beta increased sharply starting 
+from 2019, coinciding with the timing of an increase in the climate 
+beta of banks. Second, we show that the climate beta predicts a higher 
+risk for brown loans, measured by their probability of default. As a 
+result, shocks to borrowers’ transition risk can affect banks’ current 
+and future profits, increasing their stock return sensitivity to climate 
+risk.  Third,  we  find  that  banks  are  slow  to  adjust  loan  prices  and 
+quantities in response to rising climate beta. This delayed response 
+leaves banks more exposed to climate risk as brown loans become more 
+risky. Finally, attention to climate change likely plays an important 
+role. In 2020, not only did fossil fuel prices collapse, but attention 
+to  climate  change  surged.  Starting  in  2019,  the  number  of  climate 
+regulations increased, and indicators of climate risk uncertainty and 
+firm exposure to climate risk began to trend upward.
+
+These results highlight two channels through which transition risk 
+affects banks’ capitalization: the credit risk and market risk channels. 
+A shock to borrowers’ transition risk raises their probability of default 
+(credit risk channel), particularly due to banks’ slow adjustments in 
+loan  prices  and  quantities  caused  by  frictions  such  as  relationship 
+lending  and  specialization.  Moreover,  borrowers’  increased  climate 
+exposure amplifies the impact on banks’ profits and equity valuations, 
+aligning banks’ stock return sensitivity with their loan portfolio climate 
+beta (market risk channel).
+
+One may be concerned that the climate factor is capturing the effect 
+of the concurrent COVID outbreak rather than the transition risk. To 
+address this concern, we validate the climate factors in event study 
+analysis, where we find that they respond to transition events that 
+materialized (but are not sufficiently severe for stress tests, such as the 
+Paris Agreement or the 2016 Trump election). Furthermore, we find 
+that our results are robust after controlling for the nonenergy-related 
+COVID  effect.  In  addition,  we  document  out-of-COVID-sample  pre-
+dictability of climate betas; banks with higher pre-COVID climate betas 
+had higher mCRISK during the COVID period, further corroborating the 
+validity of our measures.
+
+Having  established  the  validity  of  the  climate  beta,  we  use  cli-
+mate beta  estimates  to  compute  mCRISK and CRISK. To assess  the 
+marginal effect of climate stress on the expected capital shortfalls, we 
+first analyze mCRISK. We find that mCRISK turned positive in 2019 
+and reached $45-90 billion for the top four US banks at the end of 
+2020. The aggregate mCRISK for these banks is approximately $260 
+billion. These correspond roughly to 28% of their equity, indicating the 
+significant potential impact of climate stress from transition policies. To 
+estimate the total expected capital shortfall including the concurrent 
+undercapitalization, we also calculate CRISK. In 2020, the aggregate 
+CRISK of the top four US banks increased by $425 billion. For context, 
+their aggregate systemic risk (SRISK), which represents the expected 
+capital shortfall conditional on market stress, increased by $460 billion 
+during the global financial crisis of 2007–2008.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Furthermore, we extend our analysis to financial institutions beyond 
+banks  and  aggregate  the  results  at  the  economy  level.  To  measure 
+the system-wide climate risk, we compute the aggregate mCRISK and 
+CRISK of 105 financial firms in the US, including banks, broker-dealers, 
+and insurance companies. We find that the aggregate mCRISK exceeded 
+$500 billion in 2020 and remained as high as $400 billion at the end 
+of 2021, indicating that the effect of climate stress from transition 
+policies could potentially be substantial in the future if banks are not 
+sufficiently capitalized. The aggregate CRISK of the US reached nearly 
+$500 billion in 2020 but declined to under $150 billion by the end 
+of 2021. To provide context on the magnitude, the aggregate SRISK of 
+the US peaked at approximately $940 billion during the global financial 
+crisis.
+
+In  addition,  we  analyze  various  transition  scenarios.  Given  that 
+there has been no consensus on what constitutes sufficiently severe 
+yet plausible scenarios in the context of climate risk, we perform a 
+sensitivity  analysis.  For  example,  moving  from  a  stress  level  corre-
+sponding to the 1% quantile to less severe scenarios such as the 5% 
+quantile, 10% quantile, and median, the peak mCRISK of the top four 
+US banks in 2020 falls from $260 billion to $140, $120, and $10 billion, 
+respectively. The results discussed so far are based on the stranded asset 
+factor. We find similar but slightly higher mCRISK in a scenario where 
+a broader set of firms, beyond those included in the stranded asset 
+portfolio, are adversely affected by transition policies (e.g., carbon tax). 
+In contrast, scenarios where brown companies face negative impacts 
+while green companies benefit (e.g., a combination of carbon tax and 
+green subsidy) result in significantly lower mCRISK.
+
+We conduct a battery of exercises to verify the robustness of our 
+estimates  of  bank  climate  betas.  First,  we  find  that  our  results  are 
+robust to including additional bank stock return factors, such as interest 
+rates, housing, and COVID. Second, our results remain similar when 
+we use close alternative climate transition and market factors. Third, 
+we confirm that our results are robust to various details of the estima-
+tion procedure, such as correcting for asynchronous trading, using an 
+annual sample instead of a full sample, or using a common dynamic 
+conditional beta parameter across banks to reduce estimation error.
+
+Contribution to the literature.  This paper contributes to the literature 
+studying the effect of transition risk on banks. Studies have documented 
+that banks respond to transition risk through the credit risk channel 
+by adjusting loan prices and quantities. Kacperczyk and Peydro (2021) 
+find that high-emission firms receive less bank credit from banks that 
+make commitments. Chava (2014) finds that banks charge higher in-
+terest rates to firms with environmental issues. Ivanov et al. (2021) 
+show that banks reduce their transition risk exposure by shortening 
+maturities and limiting access to permanent financing for high-emission 
+firms. Delis et al. (2019) document that banks charge higher rates to 
+fossil fuel firms, and Laeven and Popov (2022) show that banks shift 
+lending to high-emission sectors in countries with laxer policies. While 
+these papers suggest that banks respond to transition risk, it is not clear 
+to what extent banks could manage their risk of undercapitalization 
+in the face of a sudden transition. This paper thus contributes to this 
+literature by estimating systemic climate risk, despite the means banks 
+currently employ to mitigate climate risk. Moreover, we incorporate 
+not only the credit risk channel, but also the market risk channel.
+
+Current  research  on  measuring  systemic  climate  risk  only  offers 
+measures that are backward-looking, static, and based on deterministic 
+transition scenarios, unlike the more developed literature on measuring 
+the systemic risk of financial institutions in the context of financial 
+crises (e.g., Brownlees and Engle, 2017; Allen et al., 2012; Adrian and 
+Brunnermeier, 2016; Acharya et al., 2016). Reinders et al. (2023) use 
+Merton’s contingent claims model to assess the impact of a carbon 
+tax shock on the value of corporate debt and residential mortgages in 
+the Dutch banking sector. Battiston et al. (2017) provide a network-
+based approach and Nguyen et al. (2023) employ a bottom-up approach 
+to climate stress tests. Many regulators also have conducted climate 
+
+3 
+
+H. Jung et al.
+
+stress tests,5 relying on the book values and projections of realized 
+losses of loans using confidential supervisory data. These tests typically 
+assume  that  the  impacts  of  climate  risk  on  firms’  cash  flows  (and 
+therefore the impacts on the banking sector) only appear far in the 
+future (e.g., in 30 years), without incorporating the possibility that 
+banks’  balance  sheets  and  policies  can  change  within  such  a  long 
+horizon. In contrast, our approach incorporates market expectations, 
+and thus yields measures that are forward-looking, time-varying, can 
+be estimated in real time, and requires only publicly available data.
+
+We introduce a novel application of the SRISK framework from
+(Brownlees and Engle, 2017), adapted to assess the resilience of fi-
+nancial institutions to climate risk. While our approach builds on the 
+established framework, we implement key modifications to specifically 
+assess  climate-related  risks.  First,  while  the  SRISK  uses  the  market 
+return as the only risk factor, we employ a variety of climate risk 
+factors to design stress scenarios. We also validate climate transition 
+risk factors by showing that they negatively respond to events that are 
+associated with a movement toward a greener economy. Second, we 
+introduce several new market-based metrics of climate risk exposures 
+of financial institutions. On top of CRISK, we also introduce mCRISK, 
+which isolates the effect of climate stress from market stress. To test 
+for a scenario where market stress and climate stress arrive at the same 
+time, we introduce a compound risk metric, S&CRISK.6 This measure is 
+useful because when market risk and climate risk are correlated, CRISK 
+alone can underestimate risk. Third, we validate our analysis using Y-14 
+data and link climate beta variation to banks’ loan composition.
+
+Outline  of  the  paper.  The  remainder  of  the  paper  is  structured  as 
+follows: Section 2 describes the data. In Section 3, we develop and 
+validate climate transition risk factors. Section 4 estimates bank cli-
+mate betas, and Section 5 validates these estimates and proposes a 
+mechanism. Section 6 analyzes mCRISK, CRISK, and S&CRISK at both 
+the institution and aggregate levels, demonstrating further applications 
+of the framework. Section 7 presents robustness checks, and Section 8 
+concludes.
+
+2. Data
+
+We use various data sets for analyses. For the main analyses, we use 
+market data for estimating climate betas and CRISKs of large global 
+banks in the US, the UK, Canada, Japan, and France for the sample 
+period from 2000 to 2021. We focus on large global banks, as they 
+hold  more  than  80%  of  syndicated  loans  made  to  the  oil  and  gas 
+industry.7 In the systemic climate risk analysis, we analyze the metrics 
+aggregated across large financial firms, including banks, broker-dealers, 
+and insurance companies.8 We use carbon emissions data to construct 
+some of the climate factors and bank-level data on financial variables 
+and loan portfolio composition to validate our measures.
+
+Market data.  Our market-based approach only requires publicly avail-
+able  data.  In  the  construction  of  climate  factors,  we  use  the  daily 
+return on financial stocks, S&P 500 index, and other ETFs, including 
+VanEck Vectors Coal ETF (KOL), Energy Sector SPDR ETF (XLE), and 
+iShares Clean Energy ETF (ICLN) downloaded from Datastream. To 
+form industry portfolios, we use a CRSP-Compustat merged data set.
+
+5 Based on a survey of 53 institutions from 36 jurisdictions conducted by 
+the Financial Stability Board and Network for Greening the Financial System 
+(2022), 54 climate stress tests or scenario analyses were completed or in 
+progress, and 12 exercises were in the planning stage.
+
+6 It is a sum of three components: marginal SRISK, marginal CRISK, and 
+the undercapitalization of the bank under zero climate stress and zero market 
+stress.
+
+7 This  is  based  on  the  syndicated  loan  data  from  LPC  DealScan  and 
+
+Bloomberg League Table.
+
+8 The real-time measures for all major financial firms across the world 
+are published on the V-Lab website (https://vlab.stern.nyu.edu/climate) on a 
+regular basis.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Carbon emissions data.  Some climate risk factors are constructed based 
+on past carbon emissions, calculated as the sum of Scope 1 and Scope 
+2 emissions, downloaded from Bloomberg. The data set includes emis-
+sions reported by firms in disclosure as well as emissions reported to the 
+carbon disclosure project. Scope 1 emissions are direct emissions from 
+sources controlled by or owned by the company. Scope 2 emissions are 
+indirect emissions associated with the purchase of electricity, steam, 
+heat, or cooling. We use both emission levels and emission intensities 
+(total emissions relative to revenue), as both metrics are commonly 
+studied in the literature (e.g., Bolton and Kacperczyk, 2021, 2022). We 
+additionally use carbon emissions data by S&P Global Trucost to test 
+for robustness.
+
+Financial variables and loan portfolio data of US banks.  We use data 
+from FR Y-14Q (Y-14) and FR Y-9C (Y-9C) to validate climate beta 
+measures  by  examining  the  relationship  between  climate  beta  esti-
+mates and bank loan composition, as well as bank characteristics. Y-14 
+provides granular data on banks’ loan holdings, and Y-9C provides 
+consolidated financial statement data of bank holding companies at 
+a quarterly frequency. Data from both forms are maintained by the 
+Federal Reserve.
+
+Specifically,  the  Y-14  data  set  provides  detailed  information  on 
+asset holdings, capital elements, and income components in various 
+categories for selected bank holding companies (BHC) and intermediate 
+holding companies (IHC). These include top-tier BHCs or IHCs with 
+$50 billion or more in total consolidated assets, as well as any other 
+banks  subject  to  the  Federal  Reserve’s  stress  tests.  We  use  its  sub-
+database ‘‘Schedule H.1’’, which provides granular information on all 
+commercial and industrial (C&I) loans over $1 million in size.9 This 
+data set is the closest data to the credit registry in the US, covering 
+more than 75% of all corporate lending in the US. In the sample period 
+between 2012:Q2 and 2021:Q4, we observe more than 5 million loans 
+for 19 listed banks.10
+
+We  primarily  make  use  of  data  on  the  borrower’s  information, 
+including its primarily industry as classified by the North American 
+Industry Classification System (NAICS), and loan-level information in-
+cluding the size of the committed and utilized amount, interest rate 
+spread, and the probability of default. The probability of default vari-
+able is based on each bank’s internal assessment and reported as part 
+of the stress testing requirements of the Dodd-Frank Act.11
+
+Compared to other commonly used loan-level data sets like DealScan 
+or the Shared National Credit (SNC) program, which primarily focus 
+on syndicated loans, the Y-14 encompasses both syndicated and non-
+syndicated loans. This inclusion allows for the examination of loans 
+to small and medium-sized firms. Moreover, unlike DealScan, which 
+only provides data at the time of loan origination and lacks detailed 
+information  on  the  syndicate  participants’  loan  shares,  Y-14  offers 
+comprehensive details on banks’ loan portfolios at any given time.
+
+Other data.  To test the robustness of climate beta measures, we use 
+an index measuring seated diners downloaded from OpenTable and an 
+index measuring air passengers downloaded from the Transportation 
+Security Administration (TSA) to proxy for the effect of COVID on the 
+leisure and hospitality sector.
+
+9 While small loans with less than $1 million in size are not included in 
+
+the Y-14, on average, it covers over 80% of reported banks’ C&I loan book.
+10 The bank-quarter panel is unbalanced.
+11 A  growing  number  of  papers  (e.g.,  Correa  et  al.,  2022;  Howes  and 
+Weitzner,  2018)  have  used  this  variable  from  Y-14.  In  particular,  Howes 
+and Weitzner (2018) shows that the banks’ PD estimates are statistically and 
+economically significant predictors of realized default.
+
+4 
+
+H. Jung et al.
+
+3. Climate transition risk factors and climate stress scenarios
+
+Every stress test begins with designing scenarios. To build market-
+based climate stress scenarios, we build upon studies on forming cli-
+mate hedge portfolios (e.g., Engle et al., 2020; Alekseev et al., 2022; 
+Nard et al., 2024; Litterman, 2021). These studies construct portfolios 
+that are expected to rise in value as climate risk increases. Focusing 
+on policy-driven climate transition risks, we form climate risk factors
+by taking a short position in such climate hedge portfolios or in the 
+factors correlated with them. While our framework is flexible, so that 
+other existing measures can be used, market-based return factors have 
+distinctive benefits in that they are forward-looking and time-varying. 
+Compared to unsigned news-based measures that mainly capture at-
+tention to climate news, our measures can differentiate attention to 
+a tightening transition policy from attention to a loosening transition 
+policy.
+
+3.1. Climate transition risk factors
+
+We construct four climate transition risk factors: a stranded asset 
+factor, an emission factor, a brown minus green factor, and a climate 
+efficient factor mimicking portfolio. Each of these factors can be asso-
+ciated with stylized versions of climate transition scenarios, and all of 
+these factors can be easily computed on a daily basis. We validate the 
+factors by assessing their response to climate transition events.
+
+Stranded asset factor
+
+The first factor we consider is the stranded asset factor. McGlade 
+and Ekins (2015) find that, globally, a third of oil reserves, half of 
+gas  reserves,  and  more  than  80%  of  current  coal  reserves  should 
+remain unused from 2010 to 2050 to meet the target of limiting global 
+warming to 2 degrees Celsius. This implies that fossil fuels would likely 
+become ‘‘stranded assets’’ more quickly as economies move into a less 
+carbon environment. Indeed, van der Ploeg and Rezai (2020) find that 
+the assets in the fossil fuel industries are at risk of losing market value 
+due to the transition risk triggered by changes in renewable technology 
+and climate policies in light of the Paris commitments. In this sense, the 
+return on a stranded asset portfolio is a useful proxy measure reflecting 
+market expectations on future climate transition risk.
+
+The stranded asset portfolio, which was developed by Litterman 
+(2021) and the World Wildlife Fund, whose investment committee he 
+chairs, takes a short position to get a climate hedge.12 The stranded 
+asset factor is composed of a 70% long position in VanEck Vectors 
+Coal ETF (KOL), a 30% long position in Energy Select Sector SPDR 
+ETF (XLE), and a short position in SPDR S&P 500 ETF Trust (SPY). 
+After KOL became unavailable in December 2020, we use the weighted 
+average return of its top five constituent coal companies, with weights 
+that approximate its composition prior to liquidation.13 We use the 
+performance of firms, not the performance of commodities, to reflect 
+the firms’ responses to a commodity shock, such as hedging.
+
+Based on the stranded asset factor, we build a scenario. We consider 
+a scenario where the stranded asset factor declines by 50% over a six-
+month period. This can be considered a sufficiently severe yet plausible 
+scenario suitable for a market-based stress test because a 50% decline 
+in the stranded asset factor corresponds to the left tail (1% quantile) of 
+the past realized return distribution. We note that this scenario may not 
+materialize in the short run. For example, a high carbon tax without 
+
+12 The stranded asset portfolio return acts as a proxy for the World Wildlife 
+Fund stranded assets total return swap.
+13 Before KOL’s inception in 2008, we construct the stranded asset factor as 
+a long position in XLE and a short position in SPY. An alternative approach 
+would be to use coal industry returns to replicate KOL, which we adopt in 
+Appendix  G. The estimated climate betas, and the subsequent analyses, remain 
+consistent across approaches. See Section 7.2 for a more detailed discussion of 
+alternative climate transition risk factors.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+alternative energy can lead to an increase in energy prices. Indeed, 
+not only energy prices, but also fossil fuel stock prices rose in 2022 
+due to a reduction in supply. While it is unlikely that policymakers 
+would implement a disruptive policy like a high carbon tax imminently 
+due to a lack of alternative energy in place, it is likely that regulatory 
+interventions will eventually be implemented to shift into a less carbon-
+intensive economy (e.g., to meet the Paris agreement goal). If such 
+implementations were never to arrive, there would be no transition 
+risk at all to consider, by definition. In fact, a rapidly growing number 
+of climate-related policies have been adopted globally (as presented in 
+Exhibit 1). As such measures become tighter and broader, it is plausible 
+that producers and consumers alike will be incentivized to reduce fossil 
+fuel energy use and shift to lower carbon fuels or renewable energy 
+sources through investment or consumption. When a tighter and/or 
+faster than expected measure is implemented, the value of the stranded 
+asset portfolio can fall sharply over a short horizon in a sufficiently 
+severe ‘‘1% of the time’’ stress event.
+
+For the rest of the factors, we use the same approach to build sce-
+narios. We consider scenarios in which each factor falls substantially, 
+corresponding to a 1% quantile of the return distribution, over six 
+months.
+
+Emission factor
+
+While the stranded asset factor is intuitive, the portfolio weights 
+are not optimized to best reflect transition risks. Moreover, a carbon 
+tax can affect a broader set of firms than just fossil fuel firms. Firms 
+with higher emissions are expected to bear greater financial burdens 
+under a carbon tax regime, exposing them to heightened regulatory 
+risks and potentially affecting their competitiveness and valuations. 
+Motivated by this reasoning, we construct an emission factor using the 
+following steps. We first compute daily industry returns by calculating 
+the value-weighted stock returns of US firms in the CRSP-Compustat 
+database.14 Industries are classified by 4-digit SIC. Then, for each year 
+and industry, we compute the average carbon emissions (sum of Scope 
+1  and  Scope  2  emissions).15  Lastly,  we  compute  weighted  average 
+industry returns where the weight is the carbon emissions. Because the 
+Bloomberg emissions data are available only from 2010, we apply the 
+same emission weights as 2010 for the pre-2010 period.16
+
+Brown minus Green factor
+
+Transition-related policies, such as subsidizing the production and 
+consumption of renewable energy (‘‘green subsidy’’), can affect not 
+only brown firms but also green firms. To consider scenarios where 
+transition policies affect both brown and green firms, we construct a 
+brown minus green (BMG) factor. For example, in a scenario with both 
+a carbon tax and a green subsidy, high-emission firms are expected to 
+be penalized by a carbon tax, while firms advancing the green transition 
+are likely to benefit from green subsidies. The BMG factor is useful for 
+considering such scenarios by capturing the performance gap between 
+brown  and  green  firms.17  We  use  the  emission-based  factor  as  the 
+brown factor, and the iShares Global Clean Energy ETF (ICLN) return 
+as the green factor.
+
+14 We focus on ordinary common shares (share codes 10 and 11) traded on 
+the NYSE, AMEX, and NASDAQ (exchange codes between 1 and 3).
+15 Here, we confine the sample to S&P 500 constituents following Ilhan et al. 
+(2020) to address the time-varying coverage of emissions data.
+16 The results are robust to using emissions data from S&P Trucost.
+17 A carbon tax alone can also drive the performance gap between brown 
+firms and green firms, so the BMG factor is not limited to scenarios combining 
+carbon taxes and green subsidies. It is broadly applicable to transition policies 
+that affect both brown and green firms by capturing the net effect. Future 
+research could explore how factors like the BMG are directly linked to specific 
+transition policy implementations.
+
+5 
+
+H. Jung et al.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Fig. 2.  Climate Factor Responses to Climate Change Events Each panel plots the cumulative coefficient 𝛾 on 𝑠ℎ𝑜𝑐𝑘𝑡 in 𝐶𝐹𝑡 = 𝛼 + ∑5
+𝑛=0 𝛾𝑛 𝑠ℎ𝑜𝑐𝑘𝑡−𝑛 + 𝑀𝐾𝑇𝑡 + 𝜀𝑡 for each climate 
+factor 𝐶𝐹 . 𝑠ℎ𝑜𝑐𝑘𝑡 takes a value of 1 if there was a green event, a value of −1 if there was a brown event, and a value of 0 if there was no transition-related climate event on 
+the day 𝑡. Each climate factor series is standardized by its volatility. The standard errors are Newey–West adjusted and the band shows 95% confidence interval.
+
+Climate efficient factor mimicking portfolio factor
+
+To  consider  climate  stress  besides  stranded  assets,  we  construct 
+a climate-efficient factor mimicking portfolio (CEP) factor by taking a 
+short  position  in  the  CEP  formed  by  Nard  et  al.  (2024).  The  CEP 
+portfolio is a long-only portfolio of publicly available sustainable funds 
+selected based on two criteria: (1) minimum variance and (2) maximum 
+correlation with climate news after controlling for standard financial 
+risks, the price of oil, and the stranded assets portfolio.
+
+In robustness analysis, we consider the oil ETF factor as an alter-
+native to the stranded asset factor and the emission intensity factor 
+(emissions scaled by revenue). They behave similarly to the stranded 
+asset and emission factors, and therefore, we focus on the four main 
+factors. For additional results, refer to Section 7.
+
+3.2. Climate factor responses around climate change events
+
+To test whether the constructed climate risk factors capture climate 
+transition risk, we conduct an event study analysis. We take the list 
+of climate transition risk events from Barnett (2019), which goes until 
+March 2019, and extend it to the end of 2021. This gives us 107 events, 
+including electoral events, Intergovernmental Panel on Climate Change 
+(IPCC) meetings, climate-related policy events, and others.18 The list 
+includes the sign of the shock, where a positive sign is associated with 
+a movement toward a greener economy (‘‘green’’ event), such as the 
+Paris agreement, and a negative sign is associated with a movement 
+away from a greener economy (‘‘brown’’ event), such as the withdrawal 
+from the Paris agreement. The climate factor summary statistics (Table 
+B.1), correlation table (Table  B.2), and the full list of events (Table  C.1) 
+are included in the appendix.
+
+We use the following specification to test the climate transition risk 
+
+factors’ responses to the transition events:
+
+𝐶𝐹𝑡 = 𝛼 +
+
+5
+∑
+
+𝑛=0
+
+𝛾𝑛 𝑠ℎ𝑜𝑐𝑘𝑡−𝑛 + 𝑀𝐾𝑇𝑡 + 𝜀𝑡
+
+where 𝐶𝐹  denotes the climate transition risk factor, either the stranded 
+asset, emission, BMG, or CEP factor. 𝑠ℎ𝑜𝑐𝑘𝑡 takes a value of 1 if there 
+was a green event, a value of −1 if there was a brown event, and a value 
+of 0 if there was no event on the day 𝑡. We use the SPDR S&P 500 ETF 
+for the market return, 𝑀𝐾𝑇 . The expected sign of 𝛾 is negative because 
+a rise in transition risk is associated with a positive 𝑠ℎ𝑜𝑐𝑘 and a lower 
+value of 𝐶𝐹 . The standard errors are Newey–West adjusted for serial 
+correlation. Fig.  2 plots the cumulative coefficient 𝛾 and shows that all 
+proposed climate transition risk factors respond negatively to greener 
+events, as expected. The coefficients 𝛾 are statistically significant for the 
+emission and BMG factors and marginally significant for the stranded 
+asset factor. The insignificant response of the CEP factor may be due to 
+an asymmetric response to green events versus brown events, which 
+we document in Fig.  C.2 for all four factors. If the market tends to 
+respond more to brown events than to green events, the CEP factor is 
+not likely to respond significantly to transition events because the CEP 
+factor is designed to capture green news after taking out the stranded 
+asset factor.
+
+To address a potential concern that geopolitical risk is a confound-
+ing factor, we include the global common volatility, COVOL, of Engle 
+and Campos-Martins (2023) as a control variable. We find that the 
+coefficients 𝛾 remain close (Fig.  C.1). Furthermore, for robustness, we 
+take a two-step approach closer to the standard event study analysis. 
+Specifically, we construct nonoverlapping data around the event dates 
+and first obtain the abnormal return on climate factor, 𝑎𝑟𝑡 = 𝐶𝐹𝑡 −
+̂𝐶𝐹 𝑡, from a market model 𝐶𝐹𝑡 = 𝛼 + 𝑏𝑀𝐾𝑇 𝑀𝐾𝑇𝑡 + 𝜀𝑡 on a 1-year 
+rolling window basis. Then we regress the cumulative abnormal return 
+on 𝑠ℎ𝑜𝑐𝑘: 𝑐𝑎𝑟𝑡−1,𝑡+𝑛 = 𝛼 + 𝛾 𝑠ℎ𝑜𝑐𝑘𝑡 + 𝜀𝑡. Based on this alternative 
+specification, we find consistent results (Appendix  C).19
+
+18 Among these events, 12 occurred during weekends or market holidays and 
+therefore were excluded, as the research design focuses on measuring market 
+responses.
+
+19 With this approach, the number of observations drops even for 1-day 
+abnormal returns, because (1) we estimate the market model based on the 
+rolling-window regression and (2) we include only one observation per 5-day 
+window after the shock, following the standard event study approach.
+
+6 
+
+H. Jung et al.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Fig. 3.  Climate Beta of US Banks The sample banks are the top 10 large US banks by the average total assets in 2019. The sample period is from June 2000 to December 2021.
+
+4. Climate beta estimation
+
+Following the standard factor model approach, we model bank 𝑖’s 
+
+stock return as: 
+
+𝑟𝑖𝑡 = 𝛽𝑀𝑘𝑡
+
+𝑖𝑡 𝑀𝐾𝑇𝑡 + 𝛽𝐶𝑙𝑖𝑚𝑎𝑡𝑒
+
+𝑖𝑡
+
+𝐶𝐹𝑡 + 𝜀𝑖𝑡
+
+(1)
+
+where 𝑟𝑖𝑡 is the stock return of bank 𝑖, 𝑀𝐾𝑇  denotes market return, 
+and 𝐶𝐹  denotes climate risk factor. We include the market factor in 
+the model to control for confounding factors, such as the COVID shock 
+and aggregate demand shock, that influence both the bank stock returns 
+and the climate risk factor. The market beta and the climate beta, in this 
+regression, measure the sensitivity of bank 𝑖’s return to overall market 
+risk and to the climate risk factor, respectively.
+
+The expected sign of the climate beta is positive for banks that 
+hold loans and/or financial assets that are exposed to transition risk 
+because the banks’ loan portfolios would likely deteriorate as transition 
+risk rises (the climate transition risk factor falls). The rise in credit 
+risk, either due to the borrower’s outright inability to repay or the 
+deterioration of the borrower’s ability to repay, would negatively affect 
+the banks’ current and expected future profits and therefore the banks’ 
+stock returns.
+
+We use the DCB model to estimate the time-varying climate betas 
+on a daily basis. The GARCH-DCC model of Engle (2002, 2009, 2016) 
+allows volatility and correlation to vary over time. The details of the 
+estimation steps and the parameter estimates are reported in Appendix 
+D. For stock markets with a closing time different from that of the New 
+York market, we take asynchronous trading into consideration.20
+
+20 Consider the following specification including the lags of the independent 
+variables:
+
+2𝑖𝑡
+
+1𝑖𝑡
+
+𝐶𝐹𝑡−1 + 𝜀𝑖𝑡
+
+𝐶𝐹𝑡 + 𝛽𝐶𝑙𝑖𝑚𝑎𝑡𝑒
+
+1𝑖𝑡 𝑀𝐾𝑇𝑡 + 𝛽𝑀𝑘𝑡
+
+2𝑖𝑡 𝑀𝐾𝑇𝑡−1 + 𝛽𝐶𝑙𝑖𝑚𝑎𝑡𝑒
+
+𝑟𝑖𝑡 = 𝛽𝑀𝑘𝑡
+Assuming that returns are serially independent, we estimate the following two 
+specifications separately and sum the coefficients.
+𝑟𝑖𝑡 = 𝛽𝑀𝑘𝑡
+𝑟𝑖𝑡 = 𝛽𝑀𝑘𝑡
+The  sum,  𝛽𝑀𝑘𝑡
++ 𝛽𝐶𝑙𝑖𝑚𝑎𝑡𝑒
+𝛽𝐶𝑙𝑖𝑚𝑎𝑡𝑒
+2𝑖𝑡
+1𝑖𝑡
+
+1𝑖𝑡 𝑀𝐾𝑇𝑡 + 𝛽𝐶𝑙𝑖𝑚𝑎𝑡𝑒
+2𝑖𝑡 𝑀𝐾𝑇𝑡−1 + 𝛽𝐶𝑙𝑖𝑚𝑎𝑡𝑒
+1𝑖𝑡 + 𝛽𝑀𝑘𝑡
+
+,  is  the  estimate  of  the  market  beta  and  the  sum, 
+
+, is the estimate of the climate beta.
+
+𝐶𝐹𝑡−1 + 𝜀𝑖𝑡
+
+𝐶𝐹𝑡 + 𝜀𝑖𝑡
+
+2𝑖𝑡
+
+1𝑖𝑡
+
+2𝑖𝑡
+
+Fig.  3 presents the 6-month moving average climate betas of the 10 
+largest US banks in the scenario using the stranded asset factor. They 
+show that climate betas vary over time, suggesting that it is important 
+to estimate the betas dynamically. The climate betas of banks started 
+from zero in early 2000, fell slightly below zero during the beginning of 
+the global financial crisis, and spiked during 2019–2020. We find that 
+this pattern was common for banks in other countries as well (Appendix 
+E). The climate betas during 2019–2020 are statistically significant, 
+based on the full sample OLS regression results and the rolling window-
+based OLS regression results.21 In the validation exercise in Section 5, 
+we show that a high climate beta is associated with a bank loan port-
+folio’s high exposure to industries with high climate betas or industries 
+with high carbon emissions, as well as the probability of default of those 
+industries. While those results are based on US banks, it is likely that 
+the climate beta of other countries also increased in 2020 because the 
+loans they made to brown industries became riskier as the demand for 
+fossil fuel energy fell. The proximity of climate betas to zero could be 
+related to nonlinearity. We expect that the values of bank stocks are 
+relatively insensitive to fluctuations in the stock prices of oil and gas 
+firms as long as those firms are sufficiently far from default.
+
+5. Climate beta validation
+
+In this section, we explain the variation in the market-based bank 
+climate beta with banks’ loan portfolio composition by using granu-
+lar loan-level information of large US banks from Y-14. The sample 
+includes 19 listed banks in Y-14 for the sample period from 2012:Q2 
+to 2021:Q4.22 For the main analysis, we use the committed amount 
+(covering both used and unused credit), and for the robustness test, we 
+use the utilized credit amount. We complement these data with bank-
+level financial variables from the consolidated financial statements for 
+bank holding companies (Y-9C). The bank-level variables’ summary 
+statistics and correlation tables are reported in Table  B.3.
+
+This merged data set allows us to investigate several key questions: 
+Do banks with greater exposure to brown loans have a higher climate 
+
+21 See Tables IA.A.1 - IA.A.4 for fixed beta estimation results and Figures 
+IA.A.1 - IA.B.10 for rolling window regression results.
+22 Since  most  banks  begin  reporting  data  after  2012:Q3,  we  exclude 
+observations before that period.
+
+7 
+
+H. Jung et al.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Fig. 4.  Binned Scatter Plot of Bank Climate Beta and Loan Portfolio Climate Beta after controlling for the time fixed effects and the bank fixed effects, based on quarterly 
+data from 2012:Q2 to 2021:Q4 for listed US banks in Y-14. The loan portfolio climate beta of bank 𝑖 at time 𝑡 is defined as: Loan Portfolio Climate Beta𝑖𝑡 = ∑
+ where 
+𝑤𝑗 denotes the fraction of bank 𝑖’s loan made to industry 𝑗 at time 𝑡. The industry 𝑗 is at the 3-digit NAICS code level.
+
+𝑗∈𝐽 𝑤𝑗𝑡 𝛽𝐶𝑙𝑖𝑚𝑎𝑡𝑒
+
+𝑗𝑡
+
+beta? Does a higher climate beta of the borrower lead to a higher prob-
+ability of loan default? How do banks adjust loan prices and quantities 
+in response to an increased borrower climate beta and default risk? In 
+Section 5.2, we examine these questions that help us understand the 
+mechanism driving the variation in the bank climate beta.
+
+5.1. Loan portfolio climate beta
+
+We start by testing whether the market valuation of banks’ exposure 
+to climate transition risk factors, proxied by climate beta, reflects banks’ 
+loan portfolio composition from Y-14.23 To test this, we construct a 
+bank-quarter-level panel of loan portfolio climate beta by computing 
+the weighted average climate beta for each bank: 
+
+Loan Portfolio Climate Beta =
+
+∑
+
+𝑗∈𝐽
+
+𝑤𝑗 𝛽𝐶𝑙𝑖𝑚𝑎𝑡𝑒
+𝑗
+
+,
+
+(2)
+
+𝑗
+
+where the weight, 𝑤𝑗 is the proportion of loans made to the respec-
+tive industry 𝑗. 𝛽𝐶𝑙𝑖𝑚𝑎𝑡𝑒
+ denotes the climate beta of industry 𝑗 and is 
+computed as the value-weighted average climate beta of firms in each 
+3-digit NAICS industry.24 Industry climate betas are computed based on 
+all listed firms in the US. While they are based on the listed firms, we 
+incorporate all firms including nonlisted firms in the Y-14 by applying 
+the same industry climate beta for nonlisted firms in the respective 
+industry. This is a benefit of focusing on the industry-level rather than 
+the firm-level composition of banks’ loan portfolios, as only about 45% 
+of loans (or less in the earlier sample) are made to listed firms. For 
+robustness, we also merge Y-14 with firm-level climate betas to address 
+potential within-industry variation in climate exposure.
+
+Consistent with the hypothesis, Fig.  4 shows that the market-based 
+climate beta and the loan portfolio climate beta are strongly aligned, 
+after controlling for the time fixed effect and the bank fixed effect. We 
+formally test this hypothesis with the following OLS specification:
+
+23 Though  Y-14  data  are  confidential,  publicly  available  sources  like 
+DealScan and annual reports can provide insights into banks’ corporate loan 
+portfolios.
+24 For  some  banks  and  periods,  the  borrowers’  industries  are  classified 
+primarily  based  on  SIC  code  instead  of  NAICS  code.  For  these  cases,  we 
+compute the value-weighted average climate beta of firms in each 3-digit SIC 
+industry. We drop observations (bank-quarter level) if industry classification 
+by SIC or NAICS is not available. See Section IA.D for more details on data 
+cleaning steps.
+
+𝛽𝐶𝑙𝑖𝑚𝑎𝑡𝑒
+𝑖𝑡
+
+= 𝛼+𝑏⋅𝐿𝑜𝑎𝑛 𝑃 𝑜𝑟𝑡𝑓 𝑜𝑙𝑖𝑜 𝐶𝑙𝑖𝑚𝑎𝑡𝑒 𝐵𝑒𝑡𝑎𝑖𝑡+𝐵𝑎𝑛𝑘𝐶𝑜𝑛𝑡𝑟𝑜𝑙𝑠𝑖𝑡+𝛿𝑖+𝛾𝑡+𝜀𝑖𝑡
+
+(3)
+
+𝑖𝑡
+
+While climate betas are estimated daily, loan portfolio climate betas are 
+computed quarterly, as Y-14 data are reported on a quarterly basis. To 
+align frequencies, we aggregate the daily climate beta to a quarterly 
+measure, defining the dependent variable, 𝛽𝐶𝑙𝑖𝑚𝑎𝑡𝑒
+, as bank 𝑖’s time-
+averaged daily climate beta during the last month of quarter 𝑡. Bank 
+control variables include: log assets, leverage, return on assets (ROA), 
+loans/assets,  deposits/assets,  book/market,  loan  loss  reserves/loans, 
+noninterest income/net income, and market beta. Table  1 shows the 
+result. Columns (2)–(4) include bank control variables, and Columns 
+(3) and (4) add bank fixed effects to control for unobservable time-
+invariant bank characteristics. Column (4) adds year fixed effects to 
+control for any potential trends. Standard errors are clustered at the 
+bank level. Consistent with the hypothesis, we find that the coefficient 
+𝑏 for the loan portfolio climate beta is positive and significant in all 
+specifications.
+
+This relationship remains consistently strong (1) when we use the 
+unlevered climate beta of firms to account for the firm’s leverage (Table 
+F.1), (2) when we compute loan shares based on utilized exposure 
+instead of committed exposure (Table  F.2), and (3) when we use the 
+firm-level climate beta instead of industry level (Table  F.3). To confirm 
+that the COVID period or year 2012 with a higher bank climate beta 
+was not particularly different from other years, we regress the bank 
+climate beta on the interaction between the loan portfolio climate beta 
+and those periods. As a result, we find that the coefficients on the 
+interaction terms are not significant (Table  F.4).
+
+One might be concerned that the alignment between the market-
+based climate beta and the loan portfolio climate beta is driven solely 
+by rising climate betas. To address this, we conducted a placebo test 
+to  show  that  the  alignment  does  not  hold  with  arbitrary  portfolio 
+weights, 𝑤𝑗 in Eq.  (2). For example, we shuffled the climate betas 
+so that industries receiving the largest loans had the lowest climate 
+betas, and vice versa, while keeping the beta distribution and industry 
+exposure  unchanged.  The  results  show  that  the  coefficient  on  the 
+placebo portfolio climate beta is not significant when portfolio weights 
+are shuffled (Table IA.E.1), suggesting that portfolio weights are also 
+important and that the alignment is not solely due to the increase in 
+climate transition risk across industries during 2020.
+
+The results in this subsection also imply that the empirical model 
+of Eq.  (3) provides a potential framework for estimating the climate 
+
+8 
+
+H. Jung et al.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Table 1
+Bank climate beta and loan portfolio climate beta Quarterly data from 2012:Q2 to 2021:Q4 for listed US banks in Y-14. 
+Standard errors are clustered by banks.
+
+  Loan Portfolio Climate Beta
+
+(1)
+Climate beta
+1.718∗∗∗
+(5.67)
+
+(2)
+Climate beta
+1.524∗∗∗
+(5.80)
+
+(3)
+Climate beta
+1.400∗∗∗
+(6.37)
+
+(4)
+Climate beta
+1.112∗∗∗
+(3.58)
+
+  Log Assets
+
+  Leverage
+
+  ROA
+
+  Loans/Assets
+
+  Deposits/Assets
+
+  Loan Loss Reserves/Loans
+
+  Non-interest Income/Net Income
+
+  Market Beta
+
+  Book/Market
+
+  N
+  Bank Controls
+  Bank FE
+  Year FE
+  Adj R2
+t statistics in parentheses.
+∗ 𝑝 < 0.10, ∗∗ 𝑝 < 0.05, ∗∗∗ 𝑝 < 0.01.
+
+666
+N
+N
+N
+0.314
+
+0.0109
+(0.67)
+
+3.958∗∗∗
+(3.24)
+
+8.595∗∗∗
+(4.84)
+
+0.115
+(0.94)
+
+0.232∗∗
+(2.37)
+
+−2.155
+(−0.88)
+
+0.00144
+(0.90)
+
+0.139∗∗∗
+(4.62)
+
+0.202∗∗∗
+(4.19)
+
+666
+Y
+N
+N
+0.429
+
+0.389∗∗∗
+(6.25)
+
+1.395
+(1.19)
+
+5.947∗∗∗
+(4.56)
+
+−0.222
+(−0.53)
+
+0.0422
+(0.18)
+
+5.367∗∗∗
+(4.48)
+
+0.00184
+(1.39)
+
+0.113∗∗∗
+(5.90)
+
+0.113∗∗∗
+(4.19)
+
+666
+Y
+Y
+N
+0.592
+
+0.0827
+(1.14)
+
+−0.810
+(−0.75)
+
+2.345∗
+(2.10)
+
+−0.286
+(−1.06)
+
+−0.550∗∗
+(−2.42)
+
+3.068∗
+(1.74)
+
+0.00157
+(1.11)
+
+0.00793
+(0.41)
+
+−0.00816  
+(−0.21)
+
+666
+Y
+Y
+Y
+0.701
+
+beta of nonlisted banks. While it is not possible to estimate the market-
+based climate beta of nonlisted banks, they can be approximated by 
+using balance-sheet information along with granular information on 
+loan composition to the extent that the relationship between the loan 
+beta and the bank beta is consistent across listed banks and nonlisted 
+banks.25
+
+A caveat in interpreting these results is that, while the Y-14 data 
+provide the most granular information on loan holdings available – 
+similar to a credit registry – the data set covers only banks subject 
+to stress tests, which are typically the largest banks in the US Con-
+sequently, the findings should be interpreted within this context, as 
+their applicability to smaller banks is unclear. On the one hand, smaller 
+banks’ loan portfolio composition may be less transparent to public 
+investors, leading to a less strong alignment between the climate beta 
+and  the  loan  composition.  On  the  other  hand,  smaller  banks’  loan 
+portfolio  composition  is  likely  more  concentrated,  which  may  lead 
+to stronger results. While this would be interesting to examine, our 
+analysis is constrained by data availability.
+
+5.2. Mechanism
+
+Although the climate beta was highest in 2020, there was a notable 
+increase in the climate betas prior to 2020. This variation is captured 
+by the regression results presented in the previous section. Table  1 in-
+dicates that economic variables, even without any fixed effects, explain 
+43% of variations in the climate beta. Fig.  5 shows that the predicted 
+values of the regression indeed pick up the rise in the climate beta 
+before 2020, further alleviating concerns that COVID is not the sole 
+
+25 Engle and Jung (2018) applied this approach to nonlisted banks in Latin 
+America in the SRISK framework.
+
+driver  of  climate  betas.  We investigate this  increase  in  the climate 
+beta observed in 2019 and highlight several important potential drivers 
+behind it.
+
+We first document that industries with the highest climate beta are 
+consistent with the industries commonly perceived as being ‘‘brown’’. 
+The  top  five  NAICS  industries,  ranked  by  either  average  full-time 
+climate beta or their 2019 values, include Support Activities for Mining 
+(213),26 Oil and Gas Extraction (211), Mining except Oil and Gas (212), 
+Primary Metal Manufacturing (331), and Petroleum and Coal Products 
+Manufacturing (324) - all associated with high emissions. Fig.  6 shows 
+the time series of the climate beta for these industries. In particular, 
+the climate betas for Oil and Gas Extraction (211) and Mining Support 
+(213) rose sharply in 2019, coinciding with the timing of an increase 
+in the climate beta of banks. This supports the loan portfolio climate 
+beta regression results in the previous section: as ‘‘brown’’ borrowers’ 
+climate betas rise, lending banks’ climate beta increases as well.
+
+Next, we examine whether loan risk increases with the borrower’s 
+climate beta. Using banks’ estimates of loan PD values reported as 
+part of stress testing requirements, we find that loan PD increases with 
+lagged climate beta, as shown in panel (a) of Fig.  7. Regressing the loan 
+PD on decile bin dummies of the lagged climate beta, we find that the 
+coefficient increases as presented in panel (b).27 These results suggest 
+
+26 NAICS  code  213  includes  establishments  performing  exploration  for 
+minerals.
+27 It is worth noting that the PD nonlinearly increases in the climate beta. 
+We estimate the loan portfolio climate beta linearly, which can be considered 
+a linear approximation. We find that this is a reasonable approach, as most 
+of our data are in the region where the relationship is largely linear. The 
+implication  of  the  nonlinearity  is  that  our  result  can  be  interpreted  as  a 
+lower bound; if transition risk pushes the PD of brown loans into the strongly 
+
+9 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+H. Jung et al.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Fig. 5.  Climate Beta Fitted vs. Actual These plots compare the climate beta values of the top 4 large US banks predicted by the loan portfolio beta regression Eq. (3) with the 
+actual climate beta values.
+
+Fig. 6.  Climate Beta of Top 5 NAICS Industries This figure plots the climate beta of five industries with the highest climate beta as of 2019:Q1. They are also the top five 
+industries ranked by the average climate beta for the sample period.
+
+Fig. 7.  Loan Probability of Default vs. Lagged Climate Beta Panel (a) presents a binned scatterplot of loan probability of default (PD) against the lagged climate beta by one 
+quarter, with industry fixed effects controlled. A quadratic fit is superimposed on the scatterplot. Panel (b) presents the coefficients on decile bin dummies, 𝑏𝑛, from regression: 
+𝑃 𝐷𝑖𝑡 = ∑
+
+1{𝑛-th Bin of Lagged Climate Beta} + 𝛼i + 𝜀𝑖𝑡 where 𝑖 denotes industry, 𝑡 denotes quarter, and 𝛼𝑖 denotes industry fixed effects. PD estimates are from Y-14 data.
+
+𝑛 𝑏𝑛
+
+10 
+
+H. Jung et al.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Fig. 8.  Brown Loan Price and Quantity Adjustments Coefficient on the interaction between time dummy and brown dummy. The vertical line at 2019:Q1 indicates the period 
+when climate betas of brown industries started to increase. Interest rate spread and committed loan size are from Y-14 data.
+
+that the climate beta predicts an increase in the riskiness of brown 
+loans, with the effect becoming more pronounced when the climate 
+beta is high. Therefore, a shock to borrowers’ transition risk can impact 
+banks’ current and future profits and, consequently, their stock return 
+sensitivity to climate transition risk.
+
+Having  documented  that  the  bank  climate  beta  moves  with  the 
+brown borrowers’ exposure to climate transition risk (proxied by their 
+climate beta) and the riskiness of the brown loans (measured by their 
+PD), we examine whether and how banks respond to the rise in the risk 
+of brown loans. It is natural to hypothesize that banks raise prices or 
+reduce quantities of loans to react to a rise in the climate beta and PD. 
+To test this, we run the following specification: 
+
+𝑌𝑖𝑏𝑡 =
+
+∑
+
+𝑡
+
+𝜆𝑡𝐵𝑟𝑜𝑤𝑛𝑖 × 𝛾𝑡 + 𝛽1𝐵𝑟𝑜𝑤𝑛𝑖 + 𝛾𝑡 + 𝛼𝑏 + 𝜀𝑖𝑡
+
+(4)
+
+where outcome variable, 𝑌𝑖𝑏𝑡 at the loan 𝑖, bank 𝑏, and quarter 𝑡 level, is 
+interest rate spread or committed exposure. 𝐵𝑟𝑜𝑤𝑛𝑖 takes a value of 1 
+if the borrower’s industry belongs to one of the top 5 NAICS industries 
+by climate beta, and 0 otherwise. 𝛼𝑏 denotes bank fixed effects and 
+𝛾𝑡 denotes time fixed effects. Fig.  8 shows the time series of 𝜆𝑡 for 
+the interest rate spread on the top panel and that for the size of the 
+committed loan on the bottom panel.
+
+Consistent with the hypothesis, we find evidence that banks adjust 
+both the price and the quantity of loans following an adverse shock. 
+However, this adjustment begins only in 2020:Q1, despite the rise in 
+climate betas starting in 2019:Q1 as shown in Fig.  6. There is little 
+variation in both interest rate spread and size of loans between 2019:Q1 
+and 2020:Q1. These findings indicate that banks’ responses to increases 
+in their borrowers’ climate betas are slow, likely due to frictions in the 
+loan market, such as relationship banking and specialization in lending. 
+Although formally testing the effect of these frictions on banks’ loan 
+price and quantity adjustments is beyond the scope of this paper, we use 
+the same specification as Eq. (4) to document suggestive evidence. We 
+
+nonlinear region, the impact of climate transition risk on loan defaults would 
+be even higher than our results.
+
+find that, following an increase in the climate beta of brown borrowers, 
+banks specializing in brown lending made relatively gradual adjust-
+ments to both the interest rate spread and the quantity of brown loans 
+(Figure IA.F.1 and Figure IA.F.2), likely due to the high costs of seeking 
+lending  opportunities  outside  their  specialized  industry.  Because  of 
+these frictions, as brown loans become more risky, adjustments in price 
+and quantity of those loans can be delayed, thereby increasing banks’ 
+exposure to climate transition risk.
+
+In addition to borrowers’ climate betas, attention to climate change 
+is likely also a factor contributing to the rise in banks’ climate betas 
+starting in 2019. Fig.  9 shows that the number of climate regulations 
+increased sharply in 2019, the news-based climate policy uncertainty 
+index (constructed by Gavriilidis, 2021) trended higher around 2019, 
+and the average exposure to climate change (constructed by Sautner 
+et al., 2023) increased during 2019–2021. The correlations of these 
+indices with the coefficients on the time fixed effects from Eq.  (3) 
+are high: 0.89, 0.86, and 0.76, respectively. Although not a causal 
+identification, these factors likely have contributed to an increase in 
+banks’ climate betas starting from 2019. It is also worth noting that 
+even if we extend the climate beta back to 1960, such a significant 
+increase in the climate beta is observed only during 2019–2021 (see 
+Fig.  G.1).
+
+These results collectively shed light on channels – the credit risk 
+channel and the market risk channel – through which transition risk 
+affects banks’ capitalization. A shock to borrowers’ transition risk can 
+adversely  affect  their  ability  to  repay  even  within  a  short  horizon 
+(credit risk channel), as evidenced by the increase in the PD of the 
+brown borrowers as a function of brown borrowers’ climate transi-
+tion risk exposure, which could reasonably occur under a sudden and 
+disorderly transition. Borrowers’ credit risk can affect banks beyond 
+the  maturity  of  loans  because  (1)  banks’  lending  relationships  are 
+typically persistent (e.g., Beck et al., 2018; Liberti and Sturgess, 2018; 
+Nakashima and Takahashi, 2018) and (2) banks tend to ‘‘specialize’’ by 
+concentrating their lending disproportionately in one industry (Blickle 
+et al., 2021), which implies that finding lending opportunities outside 
+the specialized industry would likely be costly. These plausibly explain 
+
+11 
+
+H. Jung et al.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+where 𝑊𝑖𝑡 is the market value of equity and 𝐷𝑖𝑡 is the book value 
+of debt, and 𝑘 is the prudential ratio of equity to assets. The sum of 
+𝐷𝑖𝑡 and 𝑊𝑖𝑡 can be considered the value of quasi assets. {𝑅𝐶𝐹
+<
+𝐶} is associated with a climate stress scenario. Assuming that banks’ 
+liabilities are immune to the stress, 𝐸[𝐷𝑖,𝑡+ℎ|𝑅𝐶𝐹
+< 𝐶] = 𝐷𝑖𝑡, CRISK 
+for each financial institution can be expressed as the following:28
+
+𝑡+1,𝑡+ℎ
+
+𝑡+1,𝑡+ℎ
+
+𝐶𝑅𝐼𝑆𝐾 𝑖𝑡 = 𝑘 ⋅ 𝐷𝑖𝑡 − (1 − 𝑘) ⋅ 𝑊𝑖𝑡 ⋅ (1 − 𝐿𝑅𝑀𝐸𝑆𝑖𝑡)
+
+(5)
+
+where 𝐿𝑅𝑀𝐸𝑆 is the long-run marginal expected shortfall, the ex-
+pected firm equity multiperiod arithmetic return conditional on a sys-
+temic climate change event: 
+𝑡,𝑡+ℎ|𝑅𝐶𝐹
+𝐿𝑅𝑀𝐸𝑆𝑖𝑡 = −𝐸𝑡[𝑅𝑖
+Based on Eqs. (1)–(6), CRISK can be written as:29
+
+𝑡+1,𝑡+ℎ < 𝐶]
+
+(6)
+
+𝐶𝑅𝐼𝑆𝐾𝑖𝑡 = 𝑘 ⋅ 𝐷𝑖𝑡 − (1 − 𝑘) ⋅ 𝑊𝑖𝑡 ⋅ exp
+
+(𝛽𝐶𝑙𝑖𝑚𝑎𝑡𝑒
+𝑖𝑡
+
+)
+log(1 − 𝜃)
+
+(7)
+
+CRISK is higher for banks that are larger, are more leveraged, and have 
+a higher climate beta. We set the prudential capital fraction 𝑘 to 8% 
+(5.5% for European banks to account for accounting differences) and 
+the climate stress level 𝜃 to 50%, as discussed in Section 3.
+
+Marginal CRISK.  We propose a measure, marginal CRISK, to capture 
+the effect of climate stress, in isolation from the realized undercapi-
+talization as well as the effect of market stress. The marginal CRISK, 
+𝑚𝐶𝑅𝐼𝑆𝐾, is defined as the difference between CRISK and non-stressed 
+CRISK, where the non-stressed CRISK is simply the capital shortfall of 
+a bank without any climate stress (𝜃 = 0). From Eq.  (5), 
+
+𝑚𝐶𝑅𝐼𝑆𝐾 = (1 − 𝑘) ⋅ 𝑊 ⋅ 𝐿𝑅𝑀𝐸𝑆
+
+(8)
+
+Put differently, CRISK is the sum of the bank’s undercapitalization and 
+the bank’s marginal CRISK. To focus on the impact of climate stress, 
+we use mCRISK as the primary measure and CRISK as a complemen-
+tary measure to capture the total effects, accounting for concurrent 
+capitalization.
+
+S&CRISK.  We also offer an approach to compute a compound risk, 
+S&CRISK, based on a value of market stress, 𝜃𝑀𝑘𝑡, and that of cli-
+mate stress, 𝜃𝐶𝑙𝑖𝑚𝑎𝑡𝑒.30 Eq. (7) can be extended to compute compound 
+S&CRISK:
+
+𝑆&𝐶𝑅𝐼𝑆𝐾𝑖𝑡 = 𝑘 ⋅ 𝐷𝑖𝑡 − (1 − 𝑘) ⋅ 𝑊𝑖𝑡 ⋅ exp
++ 𝛽𝑀𝑘𝑡
+𝑖𝑡
+
+)
+log(1 − 𝜃𝑀𝑘𝑡)
+
+(𝛽𝐶𝑙𝑖𝑚𝑎𝑡𝑒
+𝑖𝑡
+
+log(1 − 𝜃𝐶𝑙𝑖𝑚𝑎𝑡𝑒)
+
+This measure is useful because when the market risk and transition 
+climate risk are correlated, the CRISK alone can underestimate the risk.
+
+Systemic climate transition risk.  We introduce two measures to under-
+stand a system-wide transition climate risk. First, we use the marginal 
+CRISK measure across all firms to construct a system-wide measure of 
+exposure to transition climate risk, in isolation from the concurrent 
+capitalization:
+
+𝑚𝐶𝑅𝐼𝑆𝐾𝑡 =
+
+𝑁
+∑
+
+𝑚𝐶𝑅𝐼𝑆𝐾𝑖𝑡.
+
+𝑖=1
+
+Second, we use the CRISK measure across all firms to construct 
+a system-wide measure of climate risk. The total amount of systemic 
+climate risk in the financial system is measured as:
+
+𝐶𝑅𝐼𝑆𝐾𝑡 =
+
+𝑁
+∑
+
+(𝐶𝑅𝐼𝑆𝐾𝑖𝑡)+,
+
+𝑖=1
+
+28 This is not a strong assumption given that the liabilities of banks are 
+largely deposits, which are relatively immune to the stress.
+29 See Appendix  H for the derivation.
+30 We note that this metric does not model the tail dependence. While it 
+is certainly possible that a large climate stress would be more damaging in a 
+recession than in a period of strong growth, calibrating the tail dependence 
+requires  an  equilibrium  model,  given  that  there  has  been  no  such  event 
+realized in the past.
+
+Fig. 9.  Climate Indices The top panel is from Climate Change Laws of the World, the 
+middle panel is from Gavriilidis (2021), and the bottom panel is from Sautner et al. 
+(2023). The climate policy uncertainty and the average climate change exposure are 
+standardized to have mean zero and standard deviation of 1.
+
+our findings that banks are slow to adjust the quantity and the price of 
+loans to borrowers with high exposure to climate transition risk.
+
+Even if those loans are small relative to the bank’s entire balance 
+sheet, it should be noted that the banks’ credit risk increases nonlin-
+early in the borrowers’ climate exposure, to the detriment to the bank, 
+a detriment that may persist even beyond maturity. It is therefore not 
+surprising that such loans have an amplified effect on the bank’s current 
+and expected future profits, and thus the bank’s equity valuation. As 
+a  result,  a  bank’s  stock  return  sensitivity  to  climate  transition  risk 
+moves in tandem with its borrowers’ exposure to climate transition 
+risk (market risk channel), as evidenced by the strong alignment of the 
+climate beta and the loan portfolio climate beta.
+
+6. CRISK
+
+With the validity of the climate beta established, we proceed to es-
+timate the bank’s expected capital shortfall measures (CRISK, mCRISK, 
+S&CRISK) and aggregate measures. We first outline the methodology 
+and then apply it to large global banks.
+
+6.1. Methodology
+
+CRISK.  Building upon the SRISK methodology in Acharya et al. (2011),
+Acharya et al. (2012), and Brownlees and Engle (2017), we define 
+CRISK as the expected capital shortfall conditional on a systemic cli-
+mate change event:
+𝐶𝑅𝐼𝑆𝐾𝑖𝑡 = 𝐸𝑡[𝐶𝑆𝑖,𝑡+ℎ|𝑅𝐶𝐹
+where 𝐶𝑆𝑖𝑡 is the capital shortfall of bank 𝑖 on day 𝑡. We define capital 
+shortfall as the capital reserves the bank needs to hold minus the firm’s 
+equity:
+
+𝑡+1,𝑡+ℎ < 𝐶]
+
+𝐶𝑆𝑖𝑡 = 𝑘(𝐷𝑖𝑡 + 𝑊𝑖𝑡) − 𝑊𝑖𝑡
+
+12 
+
+H. Jung et al.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Fig. 10.  Marginal CRISK of US Banks The sample banks are the top 10 large US banks by the average total assets in 2019. Marginal CRISK is difference between the stressed 
+CRISK and non-stressed CRISK. The stressed CRISK is computed as: 𝑘 ⋅ 𝐷 − (1 − 𝑘) ⋅ exp
+⋅ 𝑊  and the non-stressed CRISK is computed as: 𝑘 ⋅ 𝐷 − (1 − 𝑘) ⋅ 𝑊  where 𝑘
+is prudential capital ratio, 𝐷 is debt, and 𝑊  is market equity of each bank. The marginal CRISK values are truncated at zero. The sample period is from June 2000 to December 
+2021.
+
+)
+(𝛽𝐶𝑙𝑖𝑚𝑎𝑡𝑒 log(1 − 𝜃)
+
+where (𝑥)+ denotes 𝑚𝑎𝑥(𝑥, 0). We ignore the contribution of negative 
+CRISK in computing the aggregate CRISK because it is unlikely that 
+the capital surplus can easily be transferred from one institution to 
+another, especially during the distress period. The aggregate CRISK 
+of an economy can be interpreted as the amount of capital injection 
+needed for the financial system in climate stress.
+
+6.2. Application
+
+6.2.1. Marginal CRISK and CRISK
+
+To estimate the marginal effect of climate stress on expected capital 
+shortfall, we first examine banks’ mCRISK. Fig.  10 plots the mCRISK of 
+the top 10 US banks, in the scenario using the stranded asset factor. 
+It shows that mCRISKs opened up before 2020 and reached $45 −90 
+billion  for  the  top  four  US  banks  at  the  end  of  2020.  The  period 
+when mCRISK started to increase is aligned with the increase in the 
+climate beta for brown borrowers, as examined in Section 5.2 (Fig.  6). 
+The aggregate mCRISK of the top four banks is approximately $260 
+billion. This corresponds roughly to 28% of their equity, suggesting 
+that the effect of climate stress in 2020 would have been economically 
+substantial. In other countries, we find that the mCRISKs of some banks 
+increased during 2020, although they are much lower than those of US 
+banks mainly because they are smaller than the US banks (Appendix  I).
+To understand the total expected capital shortfall, including the 
+concurrent undercapitalization, we also estimate the CRISK. Fig.  11 
+presents the estimated CRISKs of the top 10 largest US banks in the 
+scenario using the stranded asset factor. Since CRISK is the expected 
+capital shortfall, a negative CRISK indicates that the bank holds a capital 
+surplus. The CRISK of banks being negative or low until 2019 is mainly 
+driven by the low climate beta until 2019. Additionally, the nonlinear 
+relationship between the borrower climate beta and the loan PD (Fig. 
+7) suggests that a bank may not have a capital shortfall if its climate 
+beta is small and will therefore have a negative CRISK. We observe 
+the substantial increase in CRISK during 2020 across banks in other 
+countries as well (Appendix  J).
+
+Since CRISK is a function of the climate beta, as well as a function 
+of the size and leverage of a bank, the ranking of CRISKs can differ 
+from that of climate beta estimates. For example, in December 2020, 
+
+the  climate  betas  of  the  top  10  US  banks  declined  to  below  0.5; 
+however, the CRISKs of some banks (e.g., the bank anonymized as 
+‘‘C’’) were substantial, as high as $100 billion. To put this magnitude 
+into context, the SRISK, which represents the expected capital shortfall 
+during market stress, of bank ‘‘C’’ was $110 billion in December 2020.
+Focusing on the top four US banks, their aggregate CRISK increased 
+by $425 billion in 2020. For comparison, their aggregate SRISK in-
+creased by $460 billion during the 2007–2008 global financial crisis. 
+This suggests that the increase in banks’ expected capital shortfall in 
+the climate stress scenario – a 1% tail event – can be comparable in 
+magnitude to the increase in their expected capital shortfall during 
+the  global  financial  crisis.31  In  less  severe  scenarios,  the  expected 
+capital shortfall is lower; a sensitivity analysis on CRISK across scenario 
+severity is discussed in Section 6.4.
+
+We see high CRISKs during the global financial crisis and the Eu-
+ropean financial crisis because when banks are undercapitalized, they 
+are vulnerable to both overall market risk and the climate transition 
+risk. In contrast, mCRISKs were close to zero during these periods, 
+differentiating the latest peak in CRISK from the earlier two peaks in 
+Fig.  11.
+
+6.2.2. CRISK decomposition
+
+To better understand what drives the substantial increase in CRISK 
+in 2020, we decompose CRISK into three components based on Eq. (5):
+
+𝑑𝐶𝑅𝐼𝑆𝐾 = 𝑘 ⋅ 𝛥𝐷
+⏟⏟⏟
+𝑑𝐷𝐸𝐵𝑇
+
+−(1 − 𝑘)(1 − 𝐿𝑅𝑀𝐸𝑆) ⋅ 𝛥𝑊
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+𝑑𝐸𝑄𝑈 𝐼𝑇 𝑌
+
++ (1 − 𝑘) ⋅ 𝑊 ⋅ 𝛥𝐿𝑅𝑀𝐸𝑆
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+𝑑𝑅𝐼𝑆𝐾
+
+(9)
+
+The first component, 𝑑𝐷𝐸𝐵𝑇 = 𝑘 ⋅ 𝛥𝐷, is the contribution of the 
+firm’s debt to CRISK. CRISK increases as the firm takes on more debt. 
+The second component, 𝑑𝐸𝑄𝑈 𝐼𝑇 𝑌 = −(1 − 𝑘)(1 − 𝐿𝑅𝑀𝐸𝑆) ⋅ 𝛥𝑊 , is 
+the effect of the firm’s equity on CRISK.32 CRISK increases as the firm’s 
+market capitalization deteriorates. The third component, 𝑑𝑅𝐼𝑆𝐾 =
+
+31 Brownlees and Engle (2017) show that pre-crisis SRISK predicts the capital 
+injections carried out by the Federal Reserve Banks during the crisis.
+
+13 
+
+H. Jung et al.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Fig. 11.  CRISK of US Banks The sample banks are the top 10 large US banks by the average total assets in 2019. The sample period is from June 2000 to December 2021.
+
+Table 2
+CRISK decomposition (US Banks)  CRISK(𝑡) is the bank’s CRISK at the end of 2020, 
+and CRISK(𝑡 − 1) is CRISK at the end of year 2019. dCRISK= CRISK(𝑡)-CRISK(𝑡 − 1)
+is the change in CRISK during 2020. dDEBT is the contribution of the firm’s debt to 
+CRISK. dEQUITY is the contribution of the firm’s equity position on CRISK. dRISK is 
+the contribution of increase in volatility or correlation to CRISK. All amounts are in 
+billions USD. Top 4 banks include F:US, A:US, C:US, and J:US.
+  Bank
+CRISK(t-1) CRISK(t)
+  F:US
+  A:US
+  C:US
+  J:US
+  E:US
+  G:US
+  I:US
+  H:US
+  B:US
+  D:US
+  Top 4
+
+37.63
+24.63
+17.49
+117.30 −0.84
+9.90
+3.65
+4.13
+3.80
+4.11
+3.25
+78.91
+
+−146.58
+−52.35
+13.34
+−47.11
+9.86
+4.09
+−41.33
+−26.66
+−7.42
+−10.48
+.
+
+63.80 
+36.15 
+33.03 
+47.57 
+9.52 
+13.50 
+15.67 
+8.29 
+4.77 
+8.54 
+180.55 
+
+35.65
+35.37
+29.85
+70.56
+−6.72
+−27.91
+16.21
+4.97
+5.94
+0.22
+171.43
+
+−9.49
+43.80
+93.70
+70.18
+22.56
+−6.68
+−5.32
+−9.60
+7.40
+1.53
+.
+
+12.70
+−10.77
+36.01
+17.06
+14.82
+12.00
+430.89
+
+dCRISK dDEBT dEQUITY dRISK
+
+137.08
+96.15
+80.36
+
+(1 − 𝑘) ⋅ 𝑊 ⋅ 𝛥𝐿𝑅𝑀𝐸𝑆, is the contribution of an increase in the climate 
+beta to CRISK.33
+
+Table  2 decomposes the change in CRISK of the top 10 US banks 
+during the year 2020 into three components. For the top 4 banks, the 
+deterioration in equity and the risk (due to the climate beta) each 
+contributed  about  40%  to  the  increase  in  CRISK  during  2020.  On 
+average across the banks, equity deterioration contributed 32% and 
+the risk contributed 47% to the change in CRISK during 2020. We 
+find similar results for the UK banks (Table  K.1). For banks in Canada, 
+France, and Japan, where the increase in CRISK was relatively small, 
+we find that debt deterioration was the primary component and the 
+risk due to the climate beta contributed to approximately a third of the 
+increase in CRISK during 2020 (Appendix  K).
+
+6.2.3. Systemic climate transition risk
+
+We aggregate mCRISK and CRISK across large financial firms, in-
+cluding banks, broker-dealers, and insurance companies. To focus on 
+large  financial  firms,  we  analyze  all  financial  firms  with  a  market 
+capitalization greater than the 25th percentile in each country at the 
+end of 2019. This sample includes 105 firms in the US, 34 firms in the 
+UK, 50 firms in Japan, 24 firms in France, and 18 firms in Canada. The 
+complete list of tickers and company names for each country is reported 
+in Appendix  L.
+
+Fig.  12 reports the aggregate mCRISK by country. This measure 
+takes  out  the  effect  of  concurrent  capitalization,  and  therefore,  we 
+interpret this measure as a system-wide exposure to climate transition 
+risk. The aggregate mCRISK in the US was substantial in 2020, reaching 
+over $500 billion, while it was not as high in other countries. Fig.  13 
+plots the aggregate CRISK, stacked by country. The aggregate CRISK of 
+the sample firms reached almost $2 trillion in November 2020. This 
+amount  can  be  interpreted  as  the  total  amount  of  capital  injection 
+needed in climate stress.
+
+Fig.  14 plots the aggregate mCRISK across the financial industry 
+group. At the peak, the mCRISK of banks was greater than $400 billion, 
+while that of broker-dealers and insurance companies was about $80 
+billion each. Based on this measure, we find that the climate tran-
+sition risk exposure of all financial industry groups increased during 
+2019–2020. Fig.  15 plots the US financial firms’ CRISK aggregated by 
+industry group. The aggregate CRISK of the US reached nearly $500 
+billion in 2020 but declined to under $150 billion at the end of 2021. 
+For context on the magnitude, the aggregate SRISK of the US peaked 
+at approximately $940 billion during the global financial crisis.
+
+During times of stress, CRISK was concentrated in the banking sec-
+tor. We compute the Herfindahl index associated with the CRISK shares 
+to measure the degree of systemic climate transition risk concentration 
+in the system. The CRISK share is defined as:
+
+𝐶𝑅𝐼𝑆𝐾% =
+
+𝐶𝑅𝐼𝑆𝐾𝑖𝑡
+𝐶𝑅𝐼𝑆𝐾𝑡
+
+if 𝐶𝑅𝐼𝑆𝐾𝑖𝑡 > 0.
+
+32 Here, 𝐿𝑅𝑀𝐸𝑆 represents the average value of 𝐿𝑅𝑀𝐸𝑆𝑡 and 𝐿𝑅𝑀𝐸𝑆𝑡+1. 
+In the 𝐿𝑅𝑀𝐸𝑆 calculation, we use the monthly average climate beta to reduce 
+the volatility of climate beta.
+33 Here, 𝑊  represents the average value of 𝑊𝑡 and 𝑊𝑡+1.
+
+We construct the index for each month and find that the index mostly 
+stayed above 0.1 from January 2009 to December 2021 when the aggre-
+gate CRISK was not negligible. This suggests that CRISK is concentrated 
+among a relatively small number of financial firms.
+
+14 
+
+H. Jung et al.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Fig. 12.  Aggregate marginal CRISK across Country The figure plots the marginal CRISK aggregated by country. The sample period is from June 2000 to December 2021.
+
+Fig. 13.  Aggregate CRISK, Stacked by Country  The figure plots the (positive) CRISK aggregated by country. The sample period is from June 2000 to December 2021.
+
+6.3. Out-of-sample predictability
+
+To further corroborate the validity of the climate beta measure, 
+we test the predictability of pre-COVID estimated climate betas on the 
+maximum drawdown and the maximum mCRISK during COVID. If the 
+climate beta captures the exposure to climate transition risk, it should 
+predict the extent to which each financial firm will be impacted by 
+the climate shock when it arrives. We test this hypothesis with cross-
+sectional regressions, focusing on maximum drawdown and maximum 
+mCRISK  (scaled  by  market  cap)  to  isolate  the  effects  of  size  and 
+leverage. Maximum drawdown measures the largest decline in the stock 
+price from peak to peak over a specified period. We use maximum 
+mCRISK to summarize mCRISK during the COVID window into a single 
+statistic representing the most adverse outcome, avoiding reliance on 
+
+arbitrary timing, dilution from recovery, or predicting the exact timing 
+of the worst outcome.34 Maximum drawdown, a widely used measure 
+in finance for assessing risk and performance, provides an independent 
+metric to corroborate the predictability results, ensuring that they do 
+not follow mechanically from our CRISK framework or methodology.
+
+Consistent with the hypothesis, Fig.  16 shows that firms with higher 
+climate beta before COVID experienced greater maximum drawdowns, 
+indicating worse realized outcomes, across 105 US financial firms. The 
+
+34 Other analyses in the paper examine outcomes at specific points in time 
+and do not require collapsing data across a time window. Thus, the use of 
+maximum mCRISK in this section is merely an adaptation of the same measure 
+used throughout the paper, as opposed to being an alternative measure.
+
+15 
+
+H. Jung et al.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Fig. 14.  US Aggregate Marginal CRISK across Financial Industry  The figure plots the marginal CRISK aggregated by financial industry group. The sample period is from June 
+2000 to December 2021.
+
+Fig. 15.  US Aggregate CRISK, Stacked by Financial Industry The figure plots the (positive) CRISK aggregated by country. The sample period is from June 2000 to December 
+2021.
+
+pre-COVID climate betas are estimated as average daily values during 
+2019:Q3, and we define the COVID period as 2019:Q4-2020:Q2, based 
+on the business cycle defined by the National Bureau of Economic 
+Research (NBER). In Table  3, column (1) confirms the predictability of 
+climate beta on maximum drawdowns. Although column (2) shows that 
+the pre-COVID market beta also predicts the maximum drawdowns, 
+the R-squared is significantly lower. In column (3), when both the 
+climate beta and the market beta are included, the market beta becomes 
+insignificant, suggesting that the climate beta has predictive power 
+beyond that of the market beta.
+
+Similarly,  pre-COVID  climate  betas  also  predict  the  maximum
+mCRISK (scaled by market cap) during COVID, as shown in Fig.  17. We 
+scale mCRISK by market cap to isolate the size effect, as the mCRISK is 
+proportional to the market cap. Table  4 corroborates the predictability. 
+Column  (1)  confirms  that  the  pre-COVID  climate  beta  predicts  the 
+maximum mCRISK during COVID. While column (2) shows that the 
+market beta also has predictive power, column (3) indicates that the 
+
+coefficient on the market beta becomes insignificant when both the 
+climate  beta  and  the  market  beta  are  included.  Also,  compared  to 
+column (1), column (3) shows that the market beta has little extra 
+explanatory power over the climate beta.
+
+These results on the out-of-sample predictability of climate betas 
+
+add validity to our measures.
+
+6.4. Further applications
+
+The results discussed so far have been based on the scenario in 
+which the stranded asset factor falls by 50% over 6 months. In this 
+section, we explore a range of additional scenarios.
+
+Severity of scenario.  Given that there has been no consensus in terms 
+of what constitutes sufficiently severe yet plausible scenarios in the 
+context of climate transition risk, we conduct a sensitivity analysis. Fig. 
+18 plots the aggregate mCRISK of the top 4 US banks with respect to 
+
+16 
+
+H. Jung et al.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Fig. 16.  Cross-sectional Predictability of Climate Beta Pre-COVID climate beta is defined as time-averaged daily climate beta during 2019:Q3. Drawdown is defined as the 
+|𝑡𝑟𝑜𝑢𝑔ℎ − 𝑝𝑒𝑎𝑘|∕𝑝𝑒𝑎𝑘, and the COVID period is defined as 2019:Q4 to 2020:Q2 following the NBER business cycle definition.
+
+Fig. 17.  Cross-sectional Predictability of Climate Beta Pre-COVID climate beta is defined as time-averaged daily climate beta during 2019:Q3. Marginal CRISK (mCRISK) is 
+scaled by the market cap. The COVID period is defined as 2019:Q4 to 2020:Q2 following the NBER business cycle definition.
+
+the severity of the scenario. Moving from the stress level corresponding 
+to the 1% quantile to less severe levels corresponding to a 5% quantile 
+and a 10% quantile, the peak mCRISK of the top four US banks in 2020 
+falls from $260 billion to $140 and $120 billion, respectively. If we do 
+not use a tail scenario, where a stress level corresponds to the median 
+of the stranded asset factor, the peak mCRISK of the top four US banks 
+in 2020 is only about $10 billion.
+
+Various transition scenarios.  The same set of measures can be computed 
+using other factors constructed in Section 3, each motivated by stylized 
+versions of transition scenarios. We highlight the key findings here and 
+with detailed results provided in Appendix  M.
+
+In a carbon tax scenario, high-emission firms are expected to face 
+greater adverse effects, making the emission factor relevant. Using this 
+factor, we find that mCRISKs are slightly higher than those based on the 
+baseline stranded asset factor, with the aggregate mCRISK of the top 
+four US banks reaching approximately $270 billion at the end of 2020. 
+
+This increase likely stems from the emission factor’s broader inclusion 
+of high-emission firms beyond the coal sector.
+
+In  a  transition  scenario  where  both  brown  and  green  firms  are 
+affected, such as a combination of a carbon tax and a green subsidy, the 
+BMG factor would be more useful. Using the BMG factor, the mCRISKs 
+of the top four US banks are significantly lower, ranging between $10 
+and $30 billion in 2020. This is consistent with green subsidies partially 
+offsetting the negative effect of a carbon tax on bank stock returns.
+
+For  analyzing  the  effects  of  climate  stress  beyond  the  stranded 
+asset factor, the CEP factor would be more relevant. Based on this 
+factor, mCRISKs are lower by $30 billion, suggesting that the effect of 
+climate stress after controlling for the stranded asset factor is relatively 
+low. The climate beta and mCRISK plots for these three scenarios are 
+presented in Appendix  M.
+
+Compound risk scenarios.  We also apply the compound risk framework. 
+We consider a scenario where the market stress and the climate stress 
+
+17 
+
+H. Jung et al.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Fig. 18.  Sensitivity Analysis The figure plots the aggregate marginal CRISK of the top 4 US banks across different severities of the scenario. The stranded asset factor is used. 
+The scenario with 1% quantile is the most severe and the scenario with 50% quantile (median) is the least severe.
+
+Fig. 19.  Marginal S&CRISK of US Banks The sample banks are the top 10 large US banks by the average total assets in 2019. The sample period is from June 2000 to Dec 
+2021.
+
+are severe at the same time. Specifically, we calibrate the market stress 
+level (𝜃𝑀𝑘𝑡) to 40% and the climate stress level (𝜃𝐶𝑙𝑖𝑚𝑎𝑡𝑒) to 50%. Each 
+level corresponds to the 1% quantile of the 6-month return distribution 
+of the market factor and that of the climate factor, respectively. This 
+is the scenario that was realized during the global financial crisis and, 
+therefore, can be considered a sufficiently severe yet plausible scenario. 
+Figs.  19 and 20 show the S&CRISK and the marginal S&CRISK of the 
+top ten US banks. The aggregate marginal S&CRISK of the top four US 
+banks reached approximately $590 billion at the end of 2021.
+
+7. Robustness tests
+
+We perform several tests to ensure that our results are robust to 
+including additional bank stock return factors, using close alternative 
+climate factors, and taking alternative estimation procedures.
+
+7.1. Robustness on factors
+
+One may be concerned about missing important factors that explain 
+bank stock returns. Since banks manage a portfolio of interest-rate-
+related products, we test whether our results are robust to including 
+interest rate factors. Following (Gandhi and Lustig, 2015), we consider 
+a long-term government bond factor (LTG) and a credit factor (CRD). 
+We use excess return on the long-term US government bond index 
+for  the  long-term  interest  rate  factor  and  the  excess  return  on  the 
+investment-grade corporate bond index for the credit factor. To test 
+how these factors affect the climate beta estimates, we first regress 
+each bank stock return 𝑟𝑖𝑡 on 𝐿𝑇 𝐺𝑡 and 𝐶𝑅𝐷𝑡, and then regress the 
+residual on 𝑀𝐾𝑇𝑡 and 𝐶𝐹𝑡. In Fig.  N.7, we plot the coefficient on 𝐶𝐹𝑡, 
+and it shows that the climate beta estimates based on the baseline 
+specification (1) are robust to including the interest rate factors. We 
+
+18 
+
+H. Jung et al.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Fig. 20.  S&CRISK of US Banks The sample banks are the top 10 large US banks by the average total assets in 2019. The sample period is from June 2000 to Dec 2021.
+
+Table 3
+Cross-sectional predictability of climate beta Pre-COVID beta is defined as time-
+averaged daily beta during 2019:Q3. Drawdown, denoted as DD, is defined as the 
+|𝑡𝑟𝑜𝑢𝑔ℎ − 𝑝𝑒𝑎𝑘|∕𝑝𝑒𝑎𝑘, and the COVID period is defined as 2019:Q4 to 2020:Q2 following 
+the NBER business cycle definition.
+
+(1)
+Max DD (COVID) Max DD (COVID) Max DD (COVID)
+
+(2)
+
+(3)
+
+  Climate Beta (Pre-COVID) 0.180∗∗∗
+
+(6.18)
+
+  Market Beta (Pre-COVID)
+
+  Constant
+
+0.474∗∗∗
+(48.74)
+
+  N
+  Adj R2
+t statistics in parentheses.
+∗ 𝑝 < 0.10, ∗∗ 𝑝 < 0.05, ∗∗∗ 𝑝 < 0.01.
+
+105
+0.264
+
+0.176∗∗∗
+(5.13)
+
+0.00880
+(0.23)
+
+0.465∗∗∗
+(12.07)
+
+105
+0.257
+
+0.111∗∗∗
+(3.05)
+
+0.381∗∗∗
+(9.79)
+
+105
+0.0741
+
+find that the results are also robust to including the housing factor 
+measured by the return on a bond fund specializing in government 
+mortgage-backed securities (Figs.  N.8 and N.9).
+
+One  may  be  concerned  that  the  COVID-related  factor  is  a  con-
+founding factor. For example, the restaurant, travel, and entertainment 
+industries were hit hard during the COVID pandemic, but they may 
+not be the industries most affected by climate change. To address this 
+concern, we construct the COVID industry factor by taking the value-
+weighted return on stocks that belong to the NAICS 3-digit industries 
+most affected by COVID, selected by Fahlenbrach et al. (2021). We 
+exclude five industries that are in the top 20 by emissions in 2020 
+because carbon-intensive sectors are likely to be most affected by cli-
+mate change.35 We first regress bank stock return on a COVID industry 
+factor. Then, we regress the residual from the first step on 𝑀𝐾𝑇  and 
+𝐶𝐹   and  plot  the  coefficient  on  𝐶𝐹   using  a  1-year  rolling  window 
+regression. We find that our results remain similar after including the 
+COVID industry factor (Fig.  N.10). For a limited sample period, we 
+use an index measuring seated diners from OpenTable and an index 
+
+35 The excluded SIC industry codes are 211, 486, 483, 481, and 324.
+
+19 
+
+measuring air passengers from the TSA as non-transition-related COVID 
+proxy variables, and we find that our results are robust.36
+
+We do not include the HML factor of Fama and French (1993), 
+because it is not clear that the HML is exogenous in the context of our 
+model. Pástor et al. (2022) find that value stocks tend to be brown and 
+growth stocks green, and their two-factor model with a market factor 
+and a green factor explains much of the recent underperformance of 
+value stocks. In addition, we find that the HML factor is significant 
+only in the post-GFC period, and this is likely due to changes in the 
+regulatory framework following the GFC. This also suggests that the 
+correlation between bank stock returns and the HML factor is poten-
+tially an endogenous outcome of the GFC. Instead, we include banks’ 
+book-to-market ratio as an independent variable to explain variation in 
+the climate beta. Table  1 displays the results of the analysis. We find 
+that the book-to-market ratio becomes small and insignificant when we 
+control for year fixed effects in column (4).
+
+7.2. Alternative climate transition risk factors
+
+We test for robustness to using close alternative climate transition 
+risk factors. We examine the oil ETF factor as an alternative to the 
+stranded asset factor, since there has been a substantial shift away from 
+coal in the US.37 The results based on stranded assets and oil ETFs 
+are broadly similar. Both factors respond similarly to climate events, 
+although the stranded asset factor shows a slightly stronger response 
+(see Fig.  N.11). The correlation between the two betas computed for 
+the financial sector ETF is 0.83 (see Fig.  N.12).
+
+We also consider emission intensity-based factors to adjust for size 
+by scaling emissions relative to revenue. Instead of weighting industry 
+returns by total emissions, we use emission intensity to construct the 
+
+36 See Figures IA.C.1- IA.C.3.
+37 While coal energy consumption in the US has declined significantly—
+from  more  than  20%  in  2000  to  8%  in  2023  (see  Figure  IA.G.1,  Panel 
+(a))—the reduction in emerging economies such as China is still ongoing (see 
+Panel (b)). In light of this, developing region-specific factors may enhance 
+this analysis; however, it would complicate cross-country comparisons due 
+to differing scenarios. We leave this for future research, as it would require 
+addressing trade policies, industrial structures, and cross-border spillovers from 
+environmental policies, which is beyond the scope of this paper.
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+H. Jung et al.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Table 4
+Cross-sectional predictability of climate beta Pre-COVID beta is defined as time-averaged daily beta during 2019:Q3. 
+Marginal CRISK (mCRISK) is scaled by the market cap. The COVID period is defined as 2019:Q4 to 2020:Q2 following the 
+NBER business cycle definition.
+
+(1)
+Max mCRISK (COVID)
+0.414∗∗∗
+(9.26)
+
+(2)
+Max mCRISK (COVID)
+
+(3)
+Max mCRISK (COVID)
+0.450∗∗∗
+(8.62)
+
+0.235∗∗∗
+(15.76)
+
+105
+0.449
+
+0.184∗∗∗
+(2.84)
+
+0.0962
+(1.38)
+
+105
+0.0636
+
+−0.0772
+(−1.33)
+
+0.311∗∗∗
+(5.29)
+
+105
+0.453
+
+  Climate Beta (Pre-COVID)
+
+  Market Beta (Pre-COVID)
+
+  Constant
+
+  N
+  Adj R2
+t statistics in parentheses
+∗ 𝑝 < 0.10, ∗∗ 𝑝 < 0.05, ∗∗∗ 𝑝 < 0.01.
+
+emission intensity factor. We find that this factor is highly correlated 
+with the emission factor (0.97), primarily due to the strong correlation 
+between emissions and emission intensity at the industry level. Con-
+sequently, the emission intensity factor shows significant responses in 
+the event study (Fig.  N.13). The two betas estimated for the financial 
+sector ETF are also highly correlated (0.95).
+
+Moreover, using the MSCI All Country World Index (ACWI) instead 
+
+of SPY yields similar results, since they are highly correlated.38
+
+7.3. Robustness on estimation procedure
+
+We corroborate that the results are not driven by a certain detail of 
+our estimation procedure. First, we find that the procedure to adjust for 
+the time-zone difference makes a small difference. When asynchronous 
+trading is not corrected, the betas are slightly smaller in absolute value. 
+Second, we test whether our results are sensitive to the choice of the 
+sample window. When betas are dynamically estimated based on an 
+annual sample (by calendar year) instead of the full sample, the results 
+remain consistent. Based on the annual sample, some extreme returns 
+are picked up by time variation in the intercept; for instance, betas are 
+slightly less negative during the early global financial crisis. Third, one 
+might be concerned that the dynamic parameters that govern the speed 
+of  adjustment  of  the  correlations  through  the  dynamic  conditional 
+correlation estimation may be too noisy and introduce errors for some 
+banks. To test this, we took a two-step approach, where each bank’s 
+DCB  parameter  is  estimated  in  the  first  step  and  the  median  DCB 
+parameter is used to estimate the betas in the second step. We find 
+that  this  makes  almost  no  difference.  We  further  confirm  that  our 
+DCB  estimation  results  are  consistent  with  the  rolling-window  OLS 
+estimation results.
+
+8. Conclusion
+
+We  use  a  market-based  methodology  to  assess  the  resilience  of 
+financial institutions to policy-driven climate transition risk. The pro-
+cedure involves three steps. The first step is to measure the climate 
+transition risk factor. The second step is to estimate the time-varying 
+climate betas of financial institutions. The third step computes CRISK, 
+the total capital shortfall of financial institutions under a climate stress 
+scenario, and mCRISK, the additional capital shortfall attributable to 
+climate stress.
+
+We focus on the application of the framework to the transition risk 
+dimension. We empirically validate the climate transition risk factors 
+
+in event study analyses, by documenting that they negatively respond 
+to transition events associated with movement toward a less carbon-
+intensive economy. We validate the climate beta measure by comparing 
+it with banks’ loan portfolio composition, using Y-14 data. We find 
+that  climate  beta  reflects  the  loan  portfolio  composition  of  banks, 
+corroborating the validity of climate beta estimates.
+
+We use the methodology to study the climate transition risks of large 
+global banks. Based on a sufficiently severe yet plausible scenario in 
+which stranded assets sharply fall in value over a short horizon, we 
+document a substantial rise in climate betas and mCRISKs across banks 
+during 2020. Combined with the results from the validation exercise, 
+our findings are consistent with the following mechanism. When fossil 
+fuel  energy  prices  collapsed  to  zero,  which  would  happen  under  a 
+sudden and disorderly transition, ‘‘brown’’ borrowers’ loans became 
+riskier relative to other loans, and banks’ stock returns became more 
+sensitive to the transition risk, thereby affecting banks’ climate risk 
+exposure.
+
+There are several promising directions for future research. While 
+our application of the CRISK framework focuses on transition risk, an 
+interesting extension would be to isolate the contribution of physical 
+risk by constructing a common physical risk factor directly tied to the 
+damages from extreme weather events. However, this lies beyond the 
+scope of this paper, as it would require identifying market expectations 
+of a systemic component of physical risk. Another valuable avenue for 
+future work involves modeling the interaction between market stress 
+and climate stress.
+
+CRediT authorship contribution statement
+
+Hyeyoon  Jung:  Writing  –  review  &  editing,  Writing  –  original 
+draft, Visualization, Validation, Investigation, Formal analysis, Data cu-
+ration. Robert F. Engle: Supervision, Resources, Methodology, Funding 
+acquisition, Conceptualization. Richard Berner: Resources, Funding 
+acquisition, Conceptualization.
+
+Declaration of Generative AI and AI-assisted technologies in the 
+writing process
+
+During the preparation of this work the author(s) used ChatGPT in 
+order to find typos. After using this tool/service, the author(s) reviewed 
+and edited the content as needed and take(s) full responsibility for the 
+content of the publication.
+
+Declaration of competing interest
+
+38 Using a common market factor across countries facilitates cross-country 
+comparisons;  however,  a  country-specific  market  factor  may  not  be  fully 
+incorporated.
+
+The  authors  declare  that  they  have  no  known  competing  finan-
+cial interests or personal relationships that could have appeared to 
+influence the work reported in this paper.
+
+20 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+H. Jung et al.
+
+Appendix A. Variable definitions
+
+See Table  A.1.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Table A.1
+Variable definitions.
+  Variable
+  Log Assets
+  Leverage
+  ROA
+  Loans/Assets
+  Deposits/Assets
+  BTM
+  Loan Loss Reserves/Loans
+  Non-interest Income/Net 
+Income
+  Market Beta
+
+  Climate Beta
+
+  Loan Portfolio Climate Beta
+
+  Loan Portfolio Climate Beta 
+(Unlevered)
+
+  Loan Portfolio Climate Beta 
+(Utilized)
+
+  Loan Portfolio Climate Beta 
+(Firm-level)
+
+Definition
+Log of total assets
+Liabilities/Assets
+Return on assets; Net Income/Assets
+Loans (gross)/Assets
+Deposits/Assets
+Book to market; Book Value of Equity/Market Capitalization  
+Loan Loss Reserves/Loans (gross)
+Non-interest Income/Net Income
+
+Average market beta over the quarter-end months (March, 
+June, September, December)
+Average climate beta over the quarter-end months (March, 
+June, September, December); Climate beta is the bank’s stock 
+return sensitivity to the stranded asset factor.
+Committed-loan-size-weighted industry climate beta; Climate 
+beta for each 3-digit NAICS industry is the value-weighted 
+average climate beta of firms in the industry. The climate 
+beta of each firm is the firm’s stock return sensitivity to the 
+stranded asset factor.
+Committed-loan-size-weighted unlevered industry climate 
+beta; Climate beta for each 3-digit NAICS industry is the 
+value-weighted average unlevered climate beta of firms in 
+the industry. The climate beta of each firm is the firm’s 
+stock return sensitivity to the stranded asset factor.
+Utilized-loan-size-weighted industry climate beta; Climate 
+beta for each 3-digit NAICS industry is the value-weighted 
+average climate beta of firms in the industry. The climate 
+beta of each firm is the firm’s stock return sensitivity to the 
+stranded asset factor.
+Committed-loan-size-weighted firm-level climate beta; The 
+climate beta of each firm is the firm’s stock return sensitivity 
+to the stranded asset factor.
+
+Appendix B. Summary statistics
+
+See Tables  B.1–B.4.
+
+Table B.1
+Factors summary statistics The sample is daily from 2000 to 2021. Stranded, Emission, BMG, CEP each denotes stranded asset factor, emission factor, brown minus green factor, 
+and climate efficient factor mimicking portfolio factor. 
+
+  Stranded
+  Emission
+  BMG
+  CEP
+  SPY
+  COVOL
+
+(1)
+Mean
+
+−0.00
+0.00
+0.00
+−0.00
+0.00
+0.60
+
+St.dev.
+
+0.01
+0.01
+0.01
+0.01
+0.01
+0.30
+
+25th percentile
+−0.01
+−0.01
+−0.01
+−0.01
+−0.00
+0.41
+
+75th percentile
+0.01
+0.01
+0.01
+0.00
+0.01
+0.73
+
+Count 
+5536  
+5536  
+3404  
+5158  
+5536  
+5431  
+
+Table B.2
+Factors correlations The sample is daily from 2000 to 2021. Stranded, Emission, BMG, CEP each denotes stranded asset factor, emission factor, brown minus green factor, and 
+climate efficient factor mimicking portfolio factor. 
+
+  Stranded
+  Emission
+  BMG
+  CEP
+  SPY
+  COVOL
+
+(1)
+Stranded
+
+1.00
+0.31
+−0.21
+−0.28
+0.10
+−0.04
+
+Emission
+
+BMG
+
+CEP
+
+SPY
+
+COVOL 
+
+1.00
+−0.79
+0.02
+
+1.00
+−0.02
+
+1.00
+
+1.00
+−0.09
+−0.77
+0.89
+−0.01
+
+1.00
+0.33
+−0.20
+0.06
+
+21 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+H. Jung et al.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Table B.3
+Bank-level data summary statistics Quarterly data from 2012:Q2 to 2021:Q4 for listed US banks in Y-14. The first nine 
+variables (from Log Assets to Non-interest Income Ratio) are from FR Y-9C. All variables are defined in Table  A.1.
+
+  Log Assets
+  Leverage
+  ROA
+  Book/Market
+  Loans/Assets
+  Deposits/Assets
+  EPS
+  Loan Loss Reserves/Loans
+  Non-interest Income/Net Income
+  Climate Beta
+  Market Beta
+  Loan Portfolio Climate Beta
+
+Mean
+
+19.63
+0.89
+0.01
+1.02
+0.52
+0.68
+0.00
+0.01
+2.19
+0.12
+1.04
+0.11
+
+St.dev.
+
+1.22
+0.02
+0.00
+0.35
+0.20
+0.16
+0.01
+0.01
+4.11
+0.24
+0.23
+0.08
+
+25th percentile
+18.64
+0.88
+0.00
+0.76
+0.36
+0.64
+0.00
+0.01
+1.37
+−0.03
+0.88
+0.05
+
+75th percentile
+20.67
+0.90
+0.01
+1.21
+0.68
+0.78
+0.00
+0.02
+2.59
+0.25
+1.17
+0.14
+
+Count 
+666  
+666  
+666  
+666  
+666  
+666  
+666  
+666  
+666  
+666  
+666  
+666  
+
+Table B.4
+Bank-level data correlations Quarterly data from 2012:Q2 to 2021:Q4 for listed US banks in Y-14. The first eight variables (from Log Assets to Non-interest Income Ratio) are 
+from FR Y-9C. All variables are defined in Table  A.1.
+(1)
+
+(10)
+
+(2)
+
+(3)
+
+(4)
+
+(5)
+
+(6)
+
+(7)
+
+(8)
+
+(9)
+
+(11) 
+
+  (1)
+  (2)
+  (3)
+  (4)
+  (5)
+  (6)
+  (7)
+  (8)
+  (9)
+  (10)
+  (11)
+
+Log Assets
+Leverage
+ROA
+Loans/Assets
+Deposits/Assets
+Book/Market
+Loan Loss Reserves/Loans
+Non-interest Income/Net Income
+Market Beta
+Climate Beta
+Loan Portfolio Climate Beta
+
+1.00
+0.23
+−0.02
+−0.58
+−0.61
+0.16
+0.18
+0.10
+0.18
+0.12
+0.16
+
+1.00
+−0.15
+−0.56
+−0.29
+−0.20
+−0.29
+0.14
+0.12
+0.15
+0.06
+
+1.00
+0.12
+0.10
+−0.36
+−0.01
+−0.10
+−0.15
+−0.08
+−0.12
+
+Appendix C. Event study: Supplementary results
+
+See Figs.  C.1 and C.2 and Tables  C.1–C.11. 
+
+1.00
+0.60
+0.04
+0.28
+−0.21
+−0.20
+−0.10
+0.03
+
+1.00
+−0.25
+0.03
+−0.15
+−0.22
+0.06
+−0.03
+
+1.00
+0.44
+0.12
+0.35
+0.30
+0.40
+
+1.00
+−0.05
+0.11
+0.25
+0.45
+
+1.00
+0.08
+0.14
+0.10
+
+1.00
+0.28
+0.21
+
+1.00
+0.61
+
+1.00 
+
+Fig. C.1.  Climate Factor Responses to Climate Change Events, after Controlling for COVOL Each panel plots the cumulative coefficient 𝛾 on 𝑠ℎ𝑜𝑐𝑘𝑡 in 𝐶𝐹𝑡 = 𝛼+∑5
+𝑛=0 𝛾𝑛 𝑠ℎ𝑜𝑐𝑘𝑡−𝑛 +
+𝑀𝐾𝑇𝑡 + 𝐶𝑂𝑉 𝑂𝐿𝑡 + 𝜀𝑡 for each climate factor 𝐶𝐹 . 𝑠ℎ𝑜𝑐𝑘𝑡 takes a value of 1 if there was a green event, a value of −1 if there was a brown event, and a value of 0 if there was no 
+transition-related climate event on the day 𝑡. 𝐶𝑂𝑉 𝑂𝐿 denotes the global common volatility of Engle and Campos-Martins (2023) and we use it as a proxy for geopolitical risk. 
+Each climate factor series is standardized by its volatility. The standard errors are Newey–West adjusted and the band shows the 95% confidence interval.
+
+22 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+H. Jung et al.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Fig. C.2.  Climate Factor Responses to Climate Change Events Left panels show the factor responses to brown events; right panels show the responses to green events.
+
+23 
+
+H. Jung et al.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Table C.1
+List of Climate Transition Risk Related Events.
+  Date
+  11/7/2000
+  11/25/2000
+  3/28/2001
+  7/27/2001
+  9/29/2001
+  11/10/2001
+  5/13/2002
+  11/1/2002
+  2/6/2003
+  2/27/2003
+  12/12/2003
+  11/2/2004
+  12/17/2004
+  1/1/2005
+  2/16/2005
+  7/8/2005
+  8/8/2005
+  11/9/2005
+  12/9/2005
+  1/1/2006
+  10/30/2006
+  11/17/2006
+  2/16/2007
+  6/7/2007
+  7/31/2007
+  8/3/2007
+  8/31/2007
+  9/24/2007
+  11/17/2007
+  12/17/2007
+  12/19/2007
+  1/1/2008
+  1/30/2008
+  5/22/2008
+  10/7/2008
+  11/4/2008
+  12/12/2008
+  12/22/2008
+  2/17/2009
+  4/22/2009
+
+Event
+George W. Bush Elected POTUS
+COP 6, The Hague, Netherlands
+President George W. Bush withdraws from the Kyoto negotiations
+COP 6, Bonn, Germany
+IPCC Third assessment report
+COP 7, Marrakech, Morocco
+Farm Security and Rural Investment Act
+COP 8, New Delhi, India
+President Bush Unveils the Hydrogen Fuel Initiative
+Plans Announced to Build World’s First Zero Emissions Coal Power Plant
+COP 9, Milan, Italy
+George W. Bush Elected POTUS
+COP 10, Buenos Aires, Argentina
+EU Emissions Trading Scheme is launched, the first such scheme
+Kyoto Protocol comes into force (not including the US or Australia)
+G8 summit discusses climate change, relatively little progress made
+Energy Policy Act
+US House Prevents Drilling for Oil in the Arctic National Wildlife Refuge
+COP 11/CMP 1, Montreal, Canada
+IPCC’s Clean Development Mechanism Opens
+The Stern Review is published
+COP 12/CMP 2, Nairobi, Kenya
+February 2007 Washington Declaration
+33rd G8 summit
+2007 UN General Assembly plenary debate
+September 2007 Washington conference
+2007 Vienna Climate Change Talks and Agreement
+September 2007 United Nations High-Level-Event
+IPCC Fourth assessment report
+COP 13/CMP 3, Bali, Indonesia
+Energy Independence and Security Act
+IPCC’s Joint Implementation Mechanism Starts
+First Commercial Cellulosic Ethanol Plant Goes Into Production
+Food, Conservation, and Energy Act
+National Biofuel Action Plan Unveiled
+Barack Obama Elected POTUS
+COP 14/CMP 4, Poznan, Poland
+Worst Coal Ash Spill in US History in Kingston, Tennessee
+ARRA (2009) Contains Funding for Renewable Energy
+First Framework for Wind Energy Development on the US Outer Continental Shelf 
+Announced
+President Obama Issues Presidential Directive to USDA to Expand Access to Biofuels
+US Announces Funding in Recovery Act for Solar and Geothermal Energy 
+Development
+US House of Representatives passes the American Clean Energy and Security Act 
+(Waxman)
+September 2009 United Nations Secretary General’s Summit on Climate Change
+US Invests $3.4 Billion to Modernize Energy Grid
+COP 15/CMP 5, Copenhagen, Denmark
+BP Oil Rig Explodes & Causes Largest Oil Spill in US History
+COP 16/CMP 6, Cancún, Mexico
+Earthquake off Coast of Japan Damages Six Power Plants at Fukushima
+Solar Power Company Solyndra Declares Bankruptcy
+
+  5/5/2009
+  5/27/2009
+
+  6/26/2009
+
+  9/22/2009
+  10/27/2009
+  12/18/2009
+  4/20/2010
+  12/10/2010
+  3/11/2011
+  9/1/2011
+
+24 
+
+Shock
+
+−1
+
+1
+
+−1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+−1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+−1
+
+Source
+U.S. Presidential Elections
+IPCC
+
+Wikipedia
+
+IPCC
+
+IPCC
+
+IPCC
+
+Wikipedia
+
+IPCC
+
+ProCon.org
+
+ProCon.org
+
+IPCC
+U.S. Presidential Elections
+IPCC
+
+Wikipedia/IPCC
+
+Wikipedia/IPCC
+
+Wikipedia
+
+Wikipedia
+
+ProCon.org
+
+Wikipedia/IPCC
+
+IPCC
+
+Wikipedia
+
+IPCC
+
+IPCC
+
+IPCC
+
+IPCC
+
+IPCC
+
+IPCC
+
+IPCC
+
+IPCC/ProCon.org
+
+IPCC
+
+Wikipedia
+
+IPCC
+
+ProCon.org
+
+Wikipedia
+
+ProCon.org
+U.S. Presidential Elections
+IPCC
+
+ProCon.org
+
+ProCon.org/Wikipedia
+
+ProCon.org
+
+ProCon.org
+
+ProCon.org
+
+Wikipedia
+
+IPCC
+
+ProCon.org
+
+IPCC
+
+ProCon.org
+
+IPCC
+
+ProCon.org
+
+ProCon.org
+
+Type
+election 
+ipcc
+policy  
+ipcc
+
+ipcc
+
+ipcc
+policy  
+ipcc
+policy  
+policy  
+ipcc
+election 
+ipcc
+policy  
+policy  
+misc
+policy  
+policy  
+ipcc
+
+ipcc
+
+misc
+
+ipcc
+
+ipcc
+
+ipcc
+
+ipcc
+
+ipcc
+
+ipcc
+
+ipcc
+
+ipcc
+
+ipcc
+policy  
+ipcc
+
+misc
+policy  
+policy  
+election 
+ipcc
+
+misc
+policy  
+policy  
+
+policy  
+policy  
+
+policy  
+
+ipcc
+policy  
+ipcc
+
+misc
+
+ipcc
+
+misc
+
+misc
+
+(continued on next page)
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+H. Jung et al.
+
+Table C.1 (continued).
+  Date
+  11/22/2011
+  12/9/2011
+  2/9/2012
+  3/27/2012
+
+  4/17/2012
+  11/6/2012
+  12/7/2012
+  1/1/2013
+  6/25/2013
+  9/20/2013
+  9/27/2013
+  11/23/2013
+  2/13/2014
+  3/31/2014
+  4/14/2014
+  5/9/2014
+  6/2/2014
+
+  9/22/2014
+  9/23/2014
+  11/1/2014
+  12/12/2014
+  1/1/2015
+  8/3/2015
+  9/29/2015
+  10/23/2015
+  12/12/2015
+  12/22/2015
+  11/8/2016
+  11/18/2016
+  3/28/2017
+
+  6/1/2017
+  7/31/2017
+
+  11/17/2017
+  12/12/2017
+  12/22/2017
+  5/9/2018
+  10/8/2018
+  12/14/2018
+  3/22/2019
+  12/2/2019
+  3/31/2020
+  4/1/2020
+  4/15/2020
+  9/23/2020
+  11/3/2020
+  12/9/2020
+
+  12/15/2020
+  1/20/2021
+  3/29/2021
+  4/22/2021
+
+Event
+California cap-and-trade passed
+COP 17/CMP 7, Durban, South Africa
+US Nuclear Regulatory Commission (NRC) Approves New Nuclear Power Plants
+EPA Announces First Clean Air Act Standard for Carbon Pollution from New Power 
+Plants
+EPA Issues First Ever Clean Air Rules for Natural Gas Produced by Fracking
+Barack Obama Elected POTUS
+COP 18/CMP 8, Doha, Qatar
+California cap-and-trade effective
+President Obama Releases His Climate Action Plan
+EPA Issues New Proposed Rule to Cut Greenhouse Gas Emissions from Power Plants
+IPCC Releases Fifth Assessment Report
+COP 19/CMP 9, Warsaw, Poland
+Ivanpah, the World’s Largest Concentrated Solar Power Generation Plant, Goes Online
+IPCC Releases 1st Part of Fifth Assessment Report, Working Group 2
+IPCC Releases 3rd Part of Fifth Assessment Report, Working Group 3
+President Obama Announces Solar Power Commitments and Executive Actions
+EPA Proposes First Ever Rules to Reduce Carbon Emissions from Existing Power 
+Plants
+Rockefellers and over 800 Global Investors Announce Fossil Fuel Divestment
+Climate Summit 2014
+IPCC Fifth assessment report
+COP 20/CMP 10, Lima, Peru
+California cap-and-trade effective for fuel suppliers
+President Obama Announces Clean Power Plan
+Carney Speech
+Clean Power Plan Finalized
+COP 21/CMP 11, Paris, France
+Clean Power Plan Becomes Active
+Donald Trump Elected POTUS
+COP 22/CMP 12/CMA 1, Marrakech, Morocco
+President Trump Signs Executive Order to Begin Reversal of President Obama’s Clean 
+Power Plan
+President Donald Trump withdraws the United States from the Paris Agreement
+Two Nuclear Power Reactors in South Carolina Abandoned Before Construction 
+Completed
+COP 23, Bonn, Germany
+One Planet Summit
+Tax Bill Opens Arctic National Wildlife Refuge for Oil Drilling
+Solar Power to Be Required on All New California Homes by 2020
+Special Global Warming 1.5 Degree Celsius Report by IPCC Released
+Katowice Climate Package adopted by Governments at COP 24, Katowice, Poland
+New Mexico Commits to 100% Renewable Energy for Electricity by 2050
+COP 25, Madrid, Spain
+EPA Lowers Fuel Economy Standards
+Big Banks Refuse Funds for Some Fossil Fuel Projects
+Oil and Electricity Demands Drop during COVID-19 Pandemic
+California to Ban New Gas-Powered Cars by 2035
+Biden Election
+New York Says Employee Pension Fund Will Divest from Oil and Gas Companies if 
+Not Aligned with Paris Agreement
+Fed joins NFGS
+Joe Biden signs executive order for the United States to rejoin the Paris Agreement
+Biden Administration Announces Offshore Wind Initiative
+Biden Administration Pledges to Cut Greenhouse Gas Emissions by 50%, to 52%, by 
+2030
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Shock
+
+Source
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+−1
+
+1
+
+−1
+
+−1
+
+−1
+
+1
+
+1
+
+−1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+−1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+Misc
+
+IPCC
+
+ProCon.org
+
+ProCon.org
+
+ProCon.org
+U.S. Presidential Elections
+IPCC
+
+Misc
+
+ProCon.org
+
+ProCon.org
+
+IPCC
+
+IPCC
+
+ProCon.org
+
+IPCC
+
+IPCC
+
+ProCon.org
+
+ProCon.org
+
+ProCon.org
+
+IPCC
+
+IPCC
+
+IPCC
+
+Misc
+
+ProCon.org
+
+Misc
+
+ProCon.org
+
+Wikipedia/IPCC
+
+ProCon.org
+U.S. Presidential Elections
+IPCC
+
+ProCon.org
+
+Wikipedia
+
+ProCon.org
+
+IPCC
+
+IPCC
+
+ProCon.org
+
+ProCon.org
+
+IPCC
+
+IPCC
+
+ProCon.org
+
+IPCC
+
+ProCon.org
+
+ProCon.org
+
+ProCon.org
+
+ProCon.org
+
+Elections
+
+ProCon.org
+
+Misc
+
+Wikipedia
+
+ProCon.org
+
+ProCon.org
+
+Type
+policy  
+ipcc
+policy  
+policy  
+
+policy  
+election 
+ipcc
+policy  
+policy  
+policy  
+ipcc
+
+ipcc
+
+misc
+
+ipcc
+
+ipcc
+policy  
+policy  
+
+misc
+
+ipcc
+
+ipcc
+
+ipcc
+policy  
+policy  
+misc
+policy  
+ipcc
+
+ipcc
+election 
+ipcc
+policy  
+
+policy  
+misc
+
+ipcc
+
+ipcc
+policy  
+policy  
+misc
+policy  
+policy  
+ipcc
+policy  
+misc
+
+misc
+policy  
+election 
+policy  
+
+misc
+policy  
+policy  
+policy  
+
+(continued on next page)
+
+25 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+H. Jung et al.
+
+Table C.1 (continued).
+  Date
+  4/30/2021
+  5/11/2021
+  5/18/2021
+  8/7/2021
+  9/21/2021
+  11/9/2021
+  11/10/2021
+  12/15/2021
+
+Event
+Indian Nuclear Plant to Close
+US Approves First Major American Offshore Wind Project
+International Energy Agency Calls for No New Fossil Fuel Projects
+IPCC Sixth Assessment Report predicting 1.5 in Warming
+China Announces End to Building Coal-Burning Power Plants Abroad
+Major Automakers and Countries Pledge to Phase Out Gas-Powered Cars
+COP 26, Edinburgh, Scotland
+New York City to Ban New Natural Gas Connections
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Shock
+
+Source
+
+−1
+
+1
+
+1
+
+−1
+
+1
+
+1
+
+1
+
+1
+
+ProCon.org
+
+ProCon.org
+
+ProCon.org
+
+Wikipedia
+
+ProCon.org
+
+ProCon.org
+
+Misc
+
+ProCon.org
+
+Type  
+misc  
+policy 
+misc  
+misc  
+policy 
+policy 
+ipcc  
+policy 
+
+Table C.2
+Responses of climate factor (stranded) to transition-related climate events The list of events is from Barnett, extended to 2021. Total of 107 events are included. 𝑠ℎ𝑜𝑐𝑘 takes 
+a value of 1 if the event is associated with a movement toward a greener economy (e.g., Paris Agreement) and it takes value of −1 if the event is associated with a movement 
+away from a greener economy (e.g., withdrawal from the Paris Agreement). The regressions are on a non-overlapping data. Standard errors are Newey–West adjusted. Abnormal 
+return 𝑎𝑟 is based on the market model: 𝑟𝑡 = 𝛼 + 𝛽𝑠𝑝𝑦𝑠𝑝𝑦𝑡 + 𝜀𝑡, estimated on a 1-year rolling window basis: 𝑎𝑟𝑡 = 𝑟𝑡 − ̂𝑟𝑡.
+
+  shock
+
+  Constant
+
+  N
+  Adj R2
+
+(1)
+ar(t−1,t)
+
+−0.00144
+(−1.14)
+
+−0.000108
+(−0.57)
+
+4828
+0.0000705
+
+(2)
+car(t−1,t+1)
+
+−0.00233
+(−1.41)
+
+−0.000196
+(−0.50)
+
+2466
+0.000231
+
+(3)
+car(t−1,t+2)
+
+−0.00380*
+(−1.85)
+
+−0.000370
+(−0.63)
+
+1677
+0.00106
+
+(4)
+car(t−1,t+3)
+
+−0.00174
+(−0.68)
+
+−0.000312
+(−0.40)
+
+1282
+−0.000460
+
+(5)
+car(t−1,t+4)
+
+−0.00113
+(−0.41)
+
+−0.000517
+(−0.53)
+
+1048
+−0.000819
+
+(6)
+car(t−1,t+5)
+−0.000367 
+(−0.12)
+
+−0.000784 
+(−0.68)
+
+892
+−0.00111  
+
+Stranded.
+∗ 𝑝 < 0.1, ∗∗ 𝑝 < 0.05, ∗∗∗ 𝑝 < 0.01
+
+Table C.3
+Responses of climate factor (stranded) to transition-related climate events after controlling for COVOL The list of events is from Barnett, extended to 2021. Total of 107 
+events are included. 𝑠ℎ𝑜𝑐𝑘 takes a value of 1 if the event is associated with a movement toward a greener economy (e.g., Paris Agreement) and it takes a value of −1 if the 
+event is associated with a movement away from a greener economy (e.g., withdrawal from the Paris Agreement). The regressions are on non-overlapping data. Standard errors are 
+Newey–West adjusted. Abnormal return 𝑎𝑟 is based on a two-factor model: 𝑟𝑡 = 𝛼 + 𝛽𝑠𝑝𝑦𝑠𝑝𝑦𝑡 + 𝛽𝑐𝑜𝑣𝑜𝑙𝑐𝑜𝑣𝑜𝑙𝑡 + 𝜀𝑡, estimated on a 1-year rolling window basis; 𝑎𝑟𝑡 = 𝑟𝑡 − ̂𝑟𝑡.
+(3)
+car(t−1,t+2)
+
+(4)
+car(t−1,t+3)
+
+(2)
+car(t−1,t+1)
+
+(5)
+car(t−1,t+4)
+
+(1)
+ar(t−1,t)
+
+  shock
+
+  Constant
+
+  N
+  Adj R2
+
+−0.00139
+(−1.07)
+
+−0.0000997
+(−0.52)
+
+4733
+0.0000536
+
+−0.00230
+(−1.35)
+
+−0.000188
+(−0.48)
+
+2418
+0.000216
+
+−0.00359*
+(−1.76)
+
+−0.000344
+(−0.58)
+
+1644
+0.000903
+
+−0.00123
+(−0.49)
+
+−0.000304
+(−0.39)
+
+1258
+−0.000630
+
+−0.00105
+(−0.37)
+
+−0.000469
+(−0.48)
+
+1028
+−0.000855
+
+Stranded.
+∗ 𝑝 < 0.1, ∗∗ 𝑝 < 0.05, ∗∗∗ 𝑝 < 0.01.
+
+(6)
+car(t−1,t+5)
+−0.000567 
+(−0.18)
+
+−0.000725 
+(−0.64)
+
+875
+−0.00111  
+
+Table C.4
+Responses of climate factor (emission) to transition-related climate events The list of events is from Barnett, extended to 2021. Total of 107 events are included. 𝑠ℎ𝑜𝑐𝑘 takes 
+a value of 1 if the event is associated with a movement toward a greener economy (e.g., Paris Agreement) and it takes a value of −1 if the event is associated with a movement 
+away from a greener economy (e.g., withdrawal from the Paris Agreement). The regressions are on non-overlapping data. Standard errors are Newey–West adjusted. Abnormal 
+return 𝑎𝑟 is based on the market model: 𝑟𝑡 = 𝛼 + 𝛽𝑠𝑝𝑦𝑠𝑝𝑦𝑡 + 𝜀𝑡, estimated on a 1-year rolling window basis: 𝑎𝑟𝑡 = 𝑟𝑡 − ̂𝑟𝑡.
+
+  shock
+
+  Constant
+
+  N
+  Adj R2
+
+(1)
+ar(t−1,t)
+
+−0.00120**
+(−2.45)
+
+0.00000253
+(0.03)
+
+4828
+0.000729
+
+(2)
+car(t−1,t+1)
+
+−0.00262***
+(−3.28)
+
+0.0000215
+(0.13)
+
+2466
+0.00380
+
+Emission.
+∗ 𝑝 < 0.1, ∗∗ 𝑝 < 0.05, ∗∗∗ 𝑝 < 0.01.
+
+(3)
+car(t−1,t+2)
+
+−0.00289***
+(−2.97)
+
+−0.0000465
+(−0.19)
+
+1677
+0.00452
+
+26 
+
+(4)
+car(t−1,t+3)
+
+−0.00302**
+(−2.44)
+
+−0.0000559
+(−0.16)
+
+1282
+0.00429
+
+(5)
+car(t−1,t+4)
+
+−0.00254**
+(−2.00)
+
+−0.000139
+(−0.33)
+
+1048
+0.00258
+
+(6)
+car(t−1,t+5)
+−0.00253* 
+(−1.87)
+
+−0.000288 
+(−0.61)
+
+892
+0.00272
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+H. Jung et al.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Table C.5
+Responses of climate factor (emission) to transition-related climate events after Controlling for COVOL The list of events is from Barnett, extended to 2021. Total of 107 
+events are included. 𝑠ℎ𝑜𝑐𝑘 takes a value of 1 if the event is associated with a movement toward a greener economy (e.g., Paris Agreement) and it takes a value of −1 if the 
+event is associated with a movement away from a greener economy (e.g., withdrawal from the Paris Agreement). The regressions are on non-overlapping data. Standard errors are 
+Newey–West adjusted. Abnormal return 𝑎𝑟 is based on a two-factor model: 𝑟𝑡 = 𝛼 + 𝛽𝑠𝑝𝑦𝑠𝑝𝑦𝑡 + 𝛽𝑐𝑜𝑣𝑜𝑙𝑐𝑜𝑣𝑜𝑙𝑡 + 𝜀𝑡, estimated on a 1-year rolling window basis: 𝑎𝑟𝑡 = 𝑟𝑡 − ̂𝑟𝑡.
+(3)
+car(t−1,t+2)
+
+(2)
+car(t−1,t+1)
+
+(4)
+car(t−1,t+3)
+
+(5)
+car(t−1,t+4)
+
+(1)
+ar(t−1,t)
+
+  shock
+
+  Constant
+
+  N
+  Adj R2
+
+−0.00124**
+(−2.56)
+
+0.0000234
+(0.29)
+
+4733
+0.000822
+
+−0.00258***
+(−3.19)
+
+0.0000564
+(0.34)
+
+2418
+0.00379
+
+−0.00291***
+(−2.97)
+
+0.0000118
+(0.05)
+
+1644
+0.00476
+
+−0.00293**
+(−2.41)
+
+0.0000335
+(0.10)
+
+1258
+0.00420
+
+−0.00238*
+(−1.86)
+
+−0.0000565
+(−0.13)
+
+1028
+0.00219
+
+Emission.
+∗ 𝑝 < 0.1, ∗∗ 𝑝 < 0.05, ∗∗∗ 𝑝 < 0.01.
+
+(6)
+car(t−1,t+5)
+−0.00260* 
+(−1.87)
+
+−0.000177 
+(−0.38)
+
+875
+0.00303
+
+Table C.6
+Responses of climate factor (brown minus green) to transition-related climate events The list of events is from Barnett, extended to 2021. Total of 107 events are included. 
+𝑠ℎ𝑜𝑐𝑘 takes a value of 1 if the event is associated with a movement toward a greener economy (e.g., Paris Agreement) and it takes a value of −1 if the event is associated with 
+a movement away from a greener economy (e.g., withdrawal from the Paris Agreement). The regressions are on non-overlapping data. Standard errors are Newey–West adjusted. 
+Abnormal return 𝑎𝑟 is based on the market model: 𝑟𝑡 = 𝛼 + 𝛽𝑠𝑝𝑦𝑠𝑝𝑦𝑡 + 𝜀𝑡, estimated on a 1-year rolling window basis: 𝑎𝑟𝑡 = 𝑟𝑡 − ̂𝑟𝑡.
+
+  shock
+
+  Constant
+
+  N
+  Adj R2
+
+(1)
+ar(t−1,t)
+
+−0.00385**
+(−2.30)
+
+0.0000988
+(0.43)
+
+2884
+0.00202
+
+(2)
+car(t−1,t+1)
+
+−0.00912***
+(−3.76)
+
+0.000223
+(0.47)
+
+1474
+0.0111
+
+(3)
+car(t−1,t+2)
+
+−0.0148***
+(−4.33)
+
+0.000428
+(0.58)
+
+1004
+0.0284
+
+(4)
+car(t−1,t+3)
+
+−0.0139***
+(−3.78)
+
+0.000318
+(0.32)
+
+766
+0.0232
+
+(5)
+car(t−1,t+4)
+
+−0.0134***
+(−3.07)
+
+0.000575
+(0.48)
+
+630
+0.0215
+
+(6)
+car(t−1,t+5)
+−0.0130*** 
+(−2.62)
+
+0.000714  
+(0.48)
+
+535
+0.0176
+
+BMG.
+∗ 𝑝 < 0.1, ∗∗ 𝑝 < 0.05, ∗∗∗ 𝑝 < 0.01.
+
+Table C.7
+Responses of climate factor (brown minus green) to transition-related climate events after controlling for COVOL The list of events is from Barnett, extended to 2021. 
+Total of 107 events are included. 𝑠ℎ𝑜𝑐𝑘 takes a value of 1 if the event is associated with a movement toward a greener economy (e.g., Paris Agreement) and it takes a value of 
+−1 if the event is associated with a movement away from a greener economy (e.g., withdrawal from the Paris Agreement). The regressions are on non-overlapping data. Standard 
+errors are Newey–West adjusted. Abnormal return 𝑎𝑟 is based on a two-factor model: 𝑟𝑡 = 𝛼 + 𝛽𝑠𝑝𝑦𝑠𝑝𝑦𝑡 + 𝛽𝑐𝑜𝑣𝑜𝑙𝑐𝑜𝑣𝑜𝑙𝑡 + 𝜀𝑡, estimated on a 1-year rolling window basis; 𝑎𝑟𝑡 = 𝑟𝑡 − ̂𝑟𝑡.
+
+  shock
+
+  Constant
+
+  N
+  Adj R2
+
+(1)
+ar(t−1,t)
+
+−0.00396**
+(−2.37)
+
+0.000189
+(0.84)
+
+2884
+0.00218
+
+(2)
+car(t−1,t+1)
+
+−0.00929***
+(−3.84)
+
+0.000408
+(0.86)
+
+1474
+0.0117
+
+(3)
+car(t−1,t+2)
+
+−0.0149***
+(−4.35)
+
+0.000699
+(0.94)
+
+1004
+0.0291
+
+(4)
+car(t−1,t+3)
+
+−0.0141***
+(−3.82)
+
+0.000714
+(0.73)
+
+766
+0.0240
+
+(5)
+car(t−1,t+4)
+
+−0.0136***
+(−3.09)
+
+0.00104
+(0.86)
+
+630
+0.0223
+
+(6)
+car(t−1,t+5)
+−0.0133*** 
+(−2.68)
+
+0.00126
+(0.84)
+
+535
+0.0188
+
+BMG.
+∗ 𝑝 < 0.1, ∗∗ 𝑝 < 0.05, ∗∗∗ 𝑝 < 0.01.
+
+Table C.8
+Responses of climate factor (CEP) to transition-related climate events The list of events is from Barnett, extended to 2021. Total of 107 events are included. 𝑠ℎ𝑜𝑐𝑘 takes a 
+value of 1 if the event is associated with a movement toward a greener economy (e.g., Paris Agreement) and it takes a value of −1 if the event is associated with a movement 
+away from a greener economy (e.g., withdrawal from the Paris Agreement). The regressions are on non-overlapping data. Standard errors are Newey–West adjusted. Abnormal 
+return 𝑎𝑟 is based on the market model: 𝑟𝑡 = 𝛼 + 𝛽𝑠𝑝𝑦𝑠𝑝𝑦𝑡 + 𝜀𝑡, estimated on a 1-year rolling window basis: 𝑎𝑟𝑡 = 𝑟𝑡 − ̂𝑟𝑡.
+
+  shock
+
+  Constant
+
+  N
+  Adj R2
+
+(1)
+ar(t−1,t)
+
+0.000741
+(0.83)
+
+0.0000105
+(0.09)
+
+4480
+−0.0000276
+
+(2)
+car(t−1,t+1)
+
+−0.000101
+(−0.08)
+
+0.000105
+(0.44)
+
+2289
+−0.000434
+
+CEP.
+∗ 𝑝 < 0.1, ∗∗ 𝑝 < 0.05, ∗∗∗ 𝑝 < 0.01.
+
+(3)
+car(t−1,t+2)
+
+−0.000602
+(−0.35)
+
+0.000286
+(0.76)
+
+1557
+−0.000526
+
+27 
+
+(4)
+car(t−1,t+3)
+
+−0.00151
+(−0.81)
+
+0.0000994
+(0.20)
+
+1192
+−0.000145
+
+(5)
+car(t−1,t+4)
+
+−0.00128
+(−0.60)
+
+0.000410
+(0.69)
+
+973
+−0.000519
+
+(6)
+car(t−1,t+5)
+−0.00126  
+(−0.53)
+
+0.000436  
+(0.60)
+
+829
+−0.000763 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+H. Jung et al.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Table C.9
+Responses of climate factor (CEP) to transition-related climate events after Controlling for COVOL The list of events is from Barnett, extended to 2021. Total of 107 events 
+are included. 𝑠ℎ𝑜𝑐𝑘 takes a value of 1 if the event is associated with a movement toward a greener economy (e.g., Paris Agreement) and it takes a value of −1 if the event 
+is associated with a movement away from a greener economy (e.g., withdrawal from the Paris Agreement). The regressions are on non-overlapping data. Standard errors are 
+Newey–West adjusted. Abnormal return 𝑎𝑟 is based on a two-factor model: 𝑟𝑡 = 𝛼 + 𝛽𝑠𝑝𝑦𝑠𝑝𝑦𝑡 + 𝛽𝑐𝑜𝑣𝑜𝑙𝑐𝑜𝑣𝑜𝑙𝑡 + 𝜀𝑡, estimated on a 1-year rolling window basis: 𝑎𝑟𝑡 = 𝑟𝑡 − ̂𝑟𝑡.
+(3)
+car(t−1,t+2)
+
+(2)
+car(t−1,t+1)
+
+(5)
+car(t−1,t+4)
+
+(4)
+car(t−1,t+3)
+
+(1)
+ar(t−1,t)
+
+   shock
+
+  Constant
+
+  N
+  Adj R2
+
+0.000704
+(0.80)
+
+−0.00000564
+(−0.05)
+
+4480
+−0.0000444
+
+−0.000150
+(−0.12)
+
+0.0000719
+(0.30)
+
+2289
+−0.000429
+
+−0.000629
+(−0.37)
+
+0.000227
+(0.61)
+
+1557
+−0.000513
+
+−0.00146
+(−0.80)
+
+0.0000231
+(0.05)
+
+1192
+−0.000172
+
+−0.00116
+(−0.55)
+
+0.000297
+(0.51)
+
+973
+−0.000600
+
+CEP.
+∗ 𝑝 < 0.1, ∗∗ 𝑝 < 0.05, ∗∗∗ 𝑝 < 0.01.
+
+Table C.10
+Responses of emission intensity to transition-related climate events The list of events is from Barnett, extended to 2021. Total of 107 events are included. 𝑠ℎ𝑜𝑐𝑘 takes a value 
+of 1 if the event is associated with a movement toward a greener economy (e.g., Paris Agreement) and it takes a value of −1 if the event is associated with a movement away 
+from a greener economy (e.g., withdrawal from the Paris Agreement). The regressions are on non-overlapping data. Standard errors are Newey–West adjusted. Abnormal return 𝑎𝑟
+is based on the market model: 𝑟𝑡 = 𝛼 + 𝛽𝑠𝑝𝑦𝑠𝑝𝑦𝑡 + 𝜀𝑡, estimated on a 1-year rolling window basis: 𝑎𝑟𝑡 = 𝑟𝑡 − ̂𝑟𝑡.
+(2)
+car(t−1,t+1)
+
+(5)
+car(t−1,t+4)
+
+(3)
+car(t−1,t+2)
+
+(4)
+car(t−1,t+3)
+
+(1)
+ar(t−1,t)
+
+  shock
+
+  Constant
+
+−0.00180**
+(−2.39)
+
+−0.00000350
+(−0.03)
+
+  N
+  Adj R2
+Emission Intensity.
+∗ 𝑝 < 0.1, ∗∗ 𝑝 < 0.05, ∗∗∗ 𝑝 < 0.01.
+
+4828
+0.00117
+
+−0.00351***
+(−3.24)
+
+−0.0000182
+(−0.09)
+
+2466
+0.00444
+
+−0.00306**
+(−2.31)
+
+−0.000146
+(−0.46)
+
+1677
+0.00291
+
+−0.00311*
+(−1.80)
+
+−0.000115
+(−0.26)
+
+1282
+0.00247
+
+−0.00259
+(−1.49)
+
+−0.000204
+(−0.37)
+
+1048
+0.00123
+
+Table C.11
+Responses of emission intensity to transition-related climate events after Controlling for COVOL The list of events is from Barnett, extended to 2021. Total of 107 events 
+are included. 𝑠ℎ𝑜𝑐𝑘 takes a value of 1 if the event is associated with a movement toward a greener economy (e.g., Paris Agreement) and it takes a value of −1 if the event 
+is associated with a movement away from a greener economy (e.g., withdrawal from the Paris Agreement). The regressions are on non-overlapping data. Standard errors are 
+Newey–West adjusted. Abnormal return 𝑎𝑟 is based on a two-factor model: 𝑟𝑡 = 𝛼 + 𝛽𝑠𝑝𝑦𝑠𝑝𝑦𝑡 + 𝛽𝑐𝑜𝑣𝑜𝑙𝑐𝑜𝑣𝑜𝑙𝑡 + 𝜀𝑡, estimated on a 1-year rolling window basis: 𝑎𝑟𝑡 = 𝑟𝑡 − ̂𝑟𝑡.
+(3)
+car(t−1,t+2)
+
+(4)
+car(t−1,t+3)
+
+(5)
+car(t−1,t+4)
+
+(2)
+car(t−1,t+1)
+
+(1)
+ar(t−1,t)
+
+  shock
+
+  Constant
+
+−0.00192**
+(−2.55)
+
+0.0000430
+(0.41)
+
+  N
+  Adj R2
+Emission Intensity.
+∗ 𝑝 < 0.1, ∗∗ 𝑝 < 0.05, ∗∗∗ 𝑝 < 0.01.
+
+4733
+0.00139
+
+−0.00362***
+(−3.29)
+
+0.0000729
+(0.34)
+
+2418
+0.00486
+
+−0.00329**
+(−2.44)
+
+−0.00000229
+(−0.01)
+
+1644
+0.00356
+
+−0.00325*
+(−1.86)
+
+0.0000886
+(0.21)
+
+1258
+0.00287
+
+−0.00275
+(−1.56)
+
+0.0000235
+(0.04)
+
+1028
+0.00154
+
+28 
+
+(6)
+car(t−1,t+5)
+−0.00111  
+(−0.47)
+
+0.000306  
+(0.43)
+
+829
+−0.000857 
+
+(6)
+car(t−1,t+5)
+−0.00228  
+(−1.27)
+
+−0.000419 
+(−0.68)
+
+892
+0.000696  
+
+(6)
+car(t−1,t+5)
+−0.00268  
+(−1.47)
+
+−0.000133 
+(−0.22)
+
+875
+0.00142
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+H. Jung et al.
+
+Appendix D. DCB model estimation
+
+Journal of Financial Economics 171 (2025) 104076 
+
+(D.1)
+
+(D.2)
+
+(D.3)
+
+(D.4)
+
+(D.5)
+
+𝑟𝑖𝑡 = log(1 + 𝑅𝑖𝑡), 𝑟𝑚𝑡 = log(1 + 𝑅𝑚𝑡), 𝑟𝑐𝑡 = log(1 + 𝑅𝑐𝑡)
+Conditional on the information set 
+
+⎤
+⎥
+⎥
+⎥
+⎦
+We use a GJR-GARCH volatility model and DCC correlation model. The GJR-GARCH model for volatility dynamics are: 
+
+𝑡−1, the return triple has a distribution  with zero mean and time-varying covariance:
+𝜌𝑖𝑚𝑡𝜎𝑖𝑡𝜎𝑚𝑡
+𝜎2
+𝑚𝑡
+𝜌𝑚𝑐𝑡𝜎𝑚𝑡𝜎𝑐𝑡
+
+𝜌𝑖𝑐𝑡𝜎𝑖𝑡𝜎𝑐𝑡
+𝜌𝑚𝑐𝑡𝜎𝑚𝑡𝜎𝑐𝑡
+𝜎2
+𝑐𝑡
+
+𝜎2
+𝑖𝑡
+𝜌𝑖𝑚𝑡𝜎𝑖𝑡𝜎𝑚𝑡
+𝜌𝑖𝑐𝑡𝜎𝑖𝑡𝜎𝑐𝑡
+
+𝑡−1 ∼ 
+
+𝟎, 𝐻𝑡 =
+
+⎛
+⎜
+⎜
+⎜
+⎝
+
+⎞
+⎟
+⎟
+⎟
+⎠
+
+⎡
+⎢
+⎢
+⎢
+⎣
+
+⎤
+⎥
+⎥
+⎥
+⎦
+
+|
+|
+|
+|
+|
+
+
+
+𝑟𝑖𝑡
+𝑟𝑚𝑡
+𝑟𝑐𝑡
+
+⎡
+⎢
+⎢
+⎢
+⎣
+
+𝑖𝑡 = 𝜔𝑉 𝑖 + 𝛼𝑉 𝑖𝑟2
+𝜎2
+
+𝑖𝑡−1 + 𝛾𝑉 𝑖𝑟2
+
+𝑖𝑡−1
+
+𝐼 −
+𝑖,𝑡−1 + 𝛽𝑉 𝑖𝜎2
+
+𝑖𝑡−1
+
+,
+
+𝑚𝑡 = 𝜔𝑉 𝑚 + 𝛼𝑉 𝑚𝑟2
+𝜎2
+
+𝑚𝑡−1 + 𝛾𝑉 𝑚𝑟2
+
+𝑚𝑡−1
+
+𝐼 −
+𝑚,𝑡−1 + 𝛽𝑉 𝑚𝜎2
+
+𝑚𝑡−1
+
+,
+
+𝑐𝑡 = 𝜔𝑉 𝑐 + 𝛼𝑉 𝑐 𝑟2
+𝜎2
+where 𝐼 −
+
+𝑐𝑡−1 + 𝛾𝑉 𝑐 𝑟2
+𝑖𝑡 = 1 if 𝑟𝑖𝑡 < 0, 𝐼 −
+
+𝐼 −
+𝑐,𝑡−1 + 𝛽𝑉 𝑐 𝜎2
+𝑚𝑡 = 1 if 𝑟𝑚𝑡 < 0, and 𝐼 −
+
+𝑐𝑡−1
+
+𝑐𝑡−1
+
+𝑐𝑡 = 1 if 𝑟𝑐𝑡 < 0.
+
+The correlation of the volatility-adjusted returns 𝑒𝑖𝑡 = 𝑟𝑖𝑡∕𝜎𝑖𝑡, 𝑒𝑚𝑡 = 𝑟𝑚𝑡∕𝜎𝑚𝑡, and 𝑒𝑐𝑡 = 𝑟𝑐𝑡∕𝜎𝑐𝑡 is:
+
+Cor
+
+𝜖𝑖𝑡
+𝜖𝑚𝑡
+𝜖𝑐𝑡
+
+1
+
+𝜌𝑖𝑚𝑡
+1
+
+⎞
+⎟
+⎟
+⎟
+⎠
+
+= 𝑅𝑡 =
+
+⎛
+⎜
+⎜
+⎜
+⎝
+The DCC model specifies the dynamics of the pseudo-correlation matrix 𝑄𝑖𝑚𝑐𝑡 as: 
+
+= diag(𝑄𝑖𝑚𝑐𝑡)−1∕2 𝑄𝑖𝑚𝑐𝑡 diag(𝑄𝑖𝑚𝑐𝑡)−1∕2
+
+𝜌𝑖𝑚𝑡
+𝜌𝑖𝑐𝑡
+
+⎡
+⎢
+⎢
+⎢
+⎣
+
+⎤
+⎥
+⎥
+⎥
+⎦
+
+𝜌𝑚𝑐𝑡
+
+𝜌𝑖𝑐𝑡
+𝜌𝑚𝑐𝑡
+1
+
+′
+
+𝑄𝑖𝑚𝑐𝑡 = (1 − 𝛼𝐶𝑖 − 𝛽𝐶𝑖)𝑆𝑖 + 𝛼𝐶𝑖
+
+𝑒𝑖𝑡
+⎡
+⎤
+⎢
+⎥
+𝑒𝑚𝑡
+⎢
+⎥
+⎢
+⎥
+𝑒𝑐𝑡
+⎣
+⎦
+where 𝑆𝑖𝑡 is the unconditional correlation matrix of adjusted returns.
+
+𝑒𝑖𝑡
+⎡
+⎢
+𝑒𝑚𝑡
+⎢
+⎢
+𝑒𝑐𝑡
+⎣
+
++ 𝛽𝐶𝑖𝑄𝑖𝑚𝑐𝑡−1
+
+⎤
+⎥
+⎥
+⎥
+⎦
+
+The market beta 𝛽𝑀𝑘𝑡
+[
+
+]
+
+𝑖𝑡
+
+ and the climate beta 𝛽𝐶𝑙𝑖𝑚𝑎𝑡𝑒
+]−1 [
+
+]
+
+𝑖𝑡
+
+[
+
+ are: 
+
+𝛽𝑀𝑘𝑡
+𝑖𝑡
+𝛽𝐶𝑙𝑖𝑚𝑎𝑡𝑒
+𝑖𝑡
+Estimation procedure is as follows:
+
+𝜎2
+𝑚𝑡
+𝜌𝑚𝑐𝑡𝜎𝑚𝑡𝜎𝑐𝑡
+
+𝜌𝑚𝑐𝑡𝜎𝑚𝑡𝜎𝑐𝑡
+𝜎2
+𝑐𝑡
+
+=
+
+𝜌𝑖𝑚𝑡𝜎𝑖𝑡𝜎𝑚𝑡
+𝜌𝑖𝑐𝑡𝜎𝑖𝑡𝜎𝑐𝑡
+
+(1) For each bank 𝑖 = 1 ⋯ 𝑁, estimate GARCH parameters and DCC parameters.
+(2) Take the median DCC parameters, 𝛼 ̄𝐶 = median(𝛼𝐶𝑖) and 𝛽 ̄𝐶 = median(𝛽𝐶𝑖).
+(3) Compute 𝛽𝑀𝑘𝑡
+
+ and 𝛽𝐶𝑙𝑖𝑚𝑎𝑡𝑒
+𝑖𝑡
+
+𝑖𝑡
+
+ based on the median DCC parameters, 𝛼 ̄𝐶 and 𝛽 ̄𝐶 , and the volatility parameters.39
+
+39 The results are robust to using an individual bank’s DCC parameters instead of the median DCC parameters.
+
+29 
+
+H. Jung et al.
+
+Appendix E. Climate betas of non-US banks
+
+See Figs.  E.1–E.4.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Fig. E.1.  Climate Betas of UK Banks The sample banks are the top 5 largest UK banks by average total assets in 2019. The sample period is from June 2000 to December 2021.
+
+Fig. E.2.  Climate Betas of Canadian Banks The sample banks are the top 6 largest Canadian banks by average total assets in 2019. The sample period is from June 2000 to 
+December 2021.
+
+30 
+
+H. Jung et al.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Fig. E.3.  Climate Betas of Japanese Banks The sample banks are the top 3 largest Japanese banks by average total assets in 2019. The sample period is from June 2000 to 
+December 2021.
+
+Fig. E.4.  Climate Betas of French Banks The sample banks are the top 3 largest French banks by average total assets in 2019. The sample period is from June 2000 to December 
+2021.
+
+31 
+
+H. Jung et al.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Appendix F. Loan portfolio climate beta: Robustness results
+
+This section presents robustness results of the loan portfolio climate beta regression in Section 5.
+
+Table F.1
+Bank climate beta and loan climate beta (unlevered beta)
+
+  Loan Portfolio Climate Beta (Unlevered)
+
+(1)
+Climate beta
+2.817∗∗∗
+(3.50)
+
+(2)
+Climate beta
+1.997∗∗∗
+(3.04)
+
+(3)
+Climate beta
+2.347∗∗∗
+(5.10)
+
+(4)
+Climate beta
+1.866∗∗∗
+(3.29)
+
+  Log Assets
+
+  Leverage
+
+  ROA
+
+  Loans/Assets
+
+  Deposits/Assets
+
+  Loan Loss Reserves/Loans
+
+  Non-interest Income/Net Income
+
+  Market Beta
+
+  Book/Market
+
+  N
+  Bank Controls
+  Bank FE
+  Year FE
+  Adj R2
+t statistics in parentheses.
+∗ 𝑝 < 0.10, ∗∗ 𝑝 < 0.05, ∗∗∗ 𝑝 < 0.01.
+Table F.2
+Bank climate beta and loan climate beta (utilized exposure)
+
+666
+N
+N
+N
+0.150
+
+0.0153
+(0.82)
+
+4.468∗∗∗
+(4.71)
+
+8.518∗∗∗
+(4.88)
+
+0.0160
+(0.13)
+
+0.398∗∗
+(2.46)
+
+1.738
+(0.71)
+
+0.00286
+(1.65)
+
+0.155∗∗∗
+(4.56)
+
+0.214∗∗∗
+(4.28)
+
+666
+Y
+N
+N
+0.321
+
+0.457∗∗∗
+(6.05)
+
+2.347∗
+(1.95)
+
+5.419∗∗∗
+(3.55)
+
+−0.577
+(−1.44)
+
+0.382
+(0.97)
+
+7.597∗∗∗
+(5.57)
+
+0.00287∗
+(2.04)
+
+0.104∗∗∗
+(5.90)
+
+0.121∗∗∗
+(5.19)
+
+666
+Y
+Y
+N
+0.561
+
+0.0461
+(0.58)
+
+−0.661
+(−0.61)
+
+1.942
+(1.71)
+
+−0.408
+(−1.59)
+
+−0.546∗
+(−2.05)
+
+3.883∗
+(2.09)
+
+0.00229
+(1.65)
+
+0.00318
+(0.17)
+
+−0.0248
+(−0.67)
+
+666
+Y
+Y
+Y
+0.690
+
+  Loan Portfolio Climate Beta (Utilized)
+
+(1)
+Climate beta
+1.588∗∗∗
+(6.64)
+
+(2)
+Climate beta
+1.361∗∗∗
+(6.14)
+
+(3)
+Climate beta
+1.089∗∗∗
+(5.31)
+
+(4)
+Climate beta
+0.715∗∗∗
+(3.02)
+
+0.00918
+(0.59)
+
+3.640∗∗∗
+(3.05)
+
+8.595∗∗∗
+(4.97)
+
+0.105
+(1.03)
+
+0.279∗∗∗
+(3.48)
+
+−1.746
+(−0.74)
+
+0.00214
+(1.32)
+
+0.151∗∗∗
+(5.33)
+
+0.189∗∗∗
+(4.09)
+
+666
+Y
+N
+N
+0.419
+
+0.387∗∗∗
+(5.98)
+
+1.111
+(0.80)
+
+5.588∗∗∗
+(4.10)
+
+−0.546
+(−1.21)
+
+0.216
+(0.84)
+
+4.940∗∗∗
+(3.81)
+
+0.00235
+(1.73)
+
+0.112∗∗∗
+(5.84)
+
+0.130∗∗∗
+(5.18)
+
+666
+Y
+Y
+N
+0.572
+
+0.0396
+(0.54)
+
+−1.204
+(−1.01)
+
+1.979∗
+(1.89)
+
+−0.470
+(−1.65)
+
+−0.483∗∗
+(−2.20)
+
+2.758
+(1.43)
+
+0.00200
+(1.47)
+
+0.00751
+(0.39)
+−0.00141  
+(−0.04)
+
+666
+Y
+Y
+Y
+0.687
+
+  Log Assets
+
+  Leverage
+
+  ROA
+
+  Loans/Assets
+
+  Deposits/Assets
+
+  Loan Loss Reserves/Loans
+
+  Non-interest Income/Net Income
+
+  Market Beta
+
+  Book/Market
+
+  N
+  Bank Controls
+  Bank FE
+  Year FE
+  Adj R2
+t statistics in parentheses.
+∗ 𝑝 < 0.10, ∗∗ 𝑝 < 0.05, ∗∗∗ 𝑝 < 0.01.
+
+666
+N
+N
+N
+0.313
+
+32 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+H. Jung et al.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Table F.3
+Bank climate beta and loan climate beta (firm level)
+
+  Loan Portfolio Climate Beta
+
+(1)
+Climate beta
+0.752∗∗∗
+(3.97)
+
+(2)
+Climate beta
+0.624∗∗∗
+(4.04)
+
+(3)
+Climate beta
+0.649∗∗∗
+(6.57)
+
+(4)
+Climate beta
+0.528∗∗∗
+(5.83)
+
+  Log Assets
+
+  Leverage
+
+  ROA
+
+  Loans/Assets
+
+  Deposits/Assets
+
+  Loan Loss Reserves/Loans
+
+  Non-interest Income/Net Income
+
+  Market Beta
+
+  Book/Market
+
+  N
+  Bank Controls
+  Bank FE
+  Year FE
+  Adj R2
+t statistics in parentheses.
+∗ 𝑝 < 0.10, ∗∗ 𝑝 < 0.05, ∗∗∗ 𝑝 < 0.01.
+
+664
+N
+N
+N
+0.234
+
+0.0188
+(1.11)
+
+3.964∗∗∗
+(3.94)
+
+8.797∗∗∗
+(4.09)
+
+−0.0704
+(−0.73)
+
+0.357∗∗
+(2.63)
+
+0.975
+(0.44)
+
+0.00308∗
+(1.97)
+
+0.130∗∗∗
+(3.87)
+
+0.198∗∗∗
+(4.49)
+
+664
+Y
+N
+N
+0.385
+
+0.453∗∗∗
+(6.31)
+
+0.648
+(0.45)
+
+5.539∗∗∗
+(3.48)
+
+−0.293
+(−0.66)
+
+0.405∗
+(1.81)
+
+7.247∗∗∗
+(4.98)
+
+0.00315∗
+(2.09)
+
+0.0987∗∗∗
+(5.53)
+
+0.128∗∗∗
+(5.89)
+
+664
+Y
+Y
+N
+0.592
+
+0.0976
+(1.17)
+
+−1.899
+(−1.68)
+
+2.441∗
+(1.88)
+
+−0.307
+(−1.10)
+
+−0.357
+(−1.60)
+
+3.366∗
+(2.00)
+
+0.00252∗  
+(1.85)
+
+0.00324
+(0.17)
+
+−0.00840  
+(−0.24)
+
+664
+Y
+Y
+Y
+0.708
+
+Table F.4
+Testing for 2012 effect and COVID period effect.
+
+  Loan Portfolio Climate Beta
+
+  Year 2012=1
+
+  Year 2012=1 ×Loan Portfolio Climate Beta
+
+  Post 2019:Q4=1
+
+  Post 2019:Q4=1 ×Loan Portfolio Climate Beta
+
+  N
+  Bank Controls
+  Bank FE
+  Year FE
+  Adj R2
+t statistics in parentheses.
+∗ 𝑝 < 0.10, ∗∗ 𝑝 < 0.05, ∗∗∗ 𝑝 < 0.01.
+
+(2)
+Climate beta
+0.827∗∗∗
+(2.98)
+
+0.0606
+(1.13)
+
+0.487
+(1.46)
+
+666
+Y
+Y
+Y
+0.706
+
+(1)
+Climate beta
+1.113∗∗∗
+(3.57)
+
+−0.111
+(−1.40)
+
+0.0468
+(0.07)
+
+666
+Y
+Y
+Y
+0.701
+
+33 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+H. Jung et al.
+
+Appendix G. Extended climate beta time series
+
+Journal of Financial Economics 171 (2025) 104076 
+
+We obtain a long time-series of climate beta of the banking sector by using oil and coal industry returns:
+
+𝑟𝐵𝑎𝑛𝑘𝑖𝑛𝑔𝑆𝑒𝑐𝑡𝑜𝑟
+𝑡
+
+= 𝛽𝑀𝑘𝑡
+
+𝑡 𝑀𝑘𝑡𝑡 + 𝛽𝐶𝐹
+
+𝑡 𝐶𝐹𝑡 + 𝜀𝑡
+
+in a rolling window regression. We find that the climate beta was the highest during 2020.
+
+Fig. G.1.  Climate Beta over a Long Period.
+
+]
+
+− 1 = 0
+
+𝑃 𝑀𝑘𝑡
+𝑡+ℎ
+𝑃 𝑀𝑘𝑡
+𝑡+1
+
+]
+
+Appendix H. CRISK derivation
+
+[
+
+1 − 𝐿𝑅𝑀𝐸𝑆𝑖𝑡 = 𝐸𝑡
+
+1 + 𝑅𝑖
+
+𝑡+1,𝑡+ℎ
+
+𝑃 𝐶𝐹
+𝑡+ℎ
+𝑃 𝐶𝐹
+𝑡+1
+
+|
+|
+|
+|
+|
+|
+
+− 1 = −𝜃,
+
+𝑟𝑖
+𝑡+𝑗
+
+) |
+|
+|
+|
+|
+|
+
+𝑃 𝐶𝐹
+𝑡+ℎ
+𝑃 𝐶𝐹
+𝑡+1
+
+− 1 = −𝜃,
+
+𝑃 𝑀𝑘𝑡
+𝑡+ℎ
+𝑃 𝑀𝑘𝑡
+𝑡+1
+
+− 1 = 0
+
+𝑖,𝑡+𝑗 𝑟𝑀𝑘𝑡
+𝛽𝑀𝑘𝑡
+
+𝑡+𝑗 + 𝛽𝐶𝑙𝑖𝑚𝑎𝑡𝑒
+
+𝑖,𝑡+𝑗
+
+𝑟𝐶𝐹
+𝑡+𝑗 + 𝜀𝑖,𝑡+𝑗
+
+) |
+|
+|
+|
+|
+|
+
+𝑃 𝐶𝐹
+𝑡+ℎ
+𝑃 𝐶𝐹
+𝑡+1
+
+− 1
+
+[
+
+= 𝐸𝑡
+
+exp
+
+[
+
+= 𝐸𝑡
+
+exp
+
+( ℎ
+∑
+
+𝑗=1
+
+( ℎ
+∑
+
+𝑗=1
+
+= −𝜃,
+
+𝑃 𝑀𝑘𝑡
+𝑡+ℎ
+𝑃 𝑀𝑘𝑡
+𝑡+1
+
+[
+
+(
+
+]
+
+− 1 = 0
+
+= 𝐸𝑡
+
+exp
+
+𝛽𝑀𝑘𝑡
+𝑖𝑡
+
+log
+
+)
+
+( 𝑃 𝑀𝑘𝑡
+
+𝑡+1,𝑡+𝑗
+𝑃 𝑀𝑘𝑡
+𝑡+1
+
++ 𝛽𝐶𝐹
+𝑖𝑡
+
+log
+
+( 𝑃 𝐶𝐹
+
+𝑡+1,𝑡+𝑗
+𝑃 𝐶𝐹
+𝑡+1
+
+)) |
+|
+|
+|
+|
+|
+
+𝑃 𝐶𝐹
+𝑡+ℎ
+𝑃 𝐶𝐹
+𝑡+1
+
+− 1
+
+]
+
+− 1 = 0
+
+= −𝜃,
+
+= exp
+
+𝑃 𝑀𝑘𝑡
+𝑡+ℎ
+𝑃 𝑀𝑘𝑡
+𝑡+1
+(𝛽𝐶𝑙𝑖𝑚𝑎𝑡𝑒
+𝑖𝑡
+
+)
+log(1 − 𝜃)
+
+Therefore,
+
+𝐶𝑅𝐼𝑆𝐾𝑖𝑡 = 𝑘𝐷𝑖𝑡 − (1 − 𝑘)𝑊𝑖𝑡 {1 + 𝐸𝑡[𝑅𝑖
+
+𝑡+1,𝑡+ℎ|𝑅𝐶𝐹
+𝑡+1,𝑡+ℎ < 𝐶]}
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+1−𝐿𝑅𝑀𝐸𝑆𝑖𝑡
+
+= 𝑘𝐷𝑖𝑡 − (1 − 𝑘)𝑊𝑖𝑡 exp
+
+(𝛽𝐶𝑙𝑖𝑚𝑎𝑡𝑒
+𝑖𝑡
+
+)
+log(1 − 𝜃)
+
+34 
+
+H. Jung et al.
+
+Appendix I. Marginal CRISKs of non-US banks
+
+See Figs.  I.1–I.4. 
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Fig. I.1.  Marginal CRISKs: UK The sample banks are the top 5 largest UK banks by average total assets in 2019. Marginal CRISK is the difference between the stressed CRISK 
+) 𝑊  and the non-stressed CRISK is computed as: 𝑘𝐷 − (1 − 𝑘)𝑊  where 𝑘 is prudential 
+(𝛽𝐶𝑙𝑖𝑚𝑎𝑡𝑒 log(1 − 𝜃)
+and non-stressed CRISK. The stressed CRISK is computed as: 𝑘𝐷 − (1 − 𝑘) exp
+capital ratio, 𝐷 is debt, and 𝑊  is market equity of each bank. The marginal CRISK values are truncated at zero. The sample period is from June 2000 to December 2021.
+
+Fig. I.2.  Marginal CRISKs: Canada The sample banks are the top 6 largest Canadian banks by average total assets in 2019. The marginal CRISK values are truncated at zero. 
+The sample period is from June 2000 to December 2021.
+
+35 
+
+H. Jung et al.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Fig. I.3.  Marginal CRISKs: Japan The sample banks are the top 3 largest Japanese banks by average total assets in 2019. The marginal CRISK values are truncated at zero. The 
+sample period is from June 2000 to December 2021.
+
+Fig. I.4.  Marginal CRISKs: France The sample banks are the top 3 largest French banks by average total assets in 2019. The marginal CRISK values are truncated at zero. The 
+sample period is from June 2000 to December 2021.
+
+36 
+
+H. Jung et al.
+
+Appendix J. CRISKs of non-US banks
+
+See Figs.  J.5–J.8.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Fig. J.5.  CRISKs of UK Banks The sample banks are the top 5 largest UK banks by average total assets in 2019. The sample period is from June 2000 to December 2021.
+
+Fig. J.6.  CRISKs of Canadian Banks The sample banks are the top 6 largest Canadian banks by average total assets in 2019. The sample period is from June 2000 to December 
+2021.
+
+37 
+
+H. Jung et al.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Fig. J.7.  CRISKs of Japanese Banks The sample banks are the top 3 largest Japanese banks by average total assets in 2019. The sample period is from June 2000 to December 
+2021.
+
+Fig. J.8.  CRISKs of French Banks The sample banks are the top 3 largest French banks by average total assets in 2019. The sample period is from June 2000 to December 2021.
+
+38 
+
+H. Jung et al.
+
+Appendix K. CRISK decomposition of non-US banks
+
+See Tables  K.1–K.4.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Table K.1
+CRISK Decomposition (UK) CRISK(𝑡) is the bank’s CRISK at the end of 2020, and CRISK(𝑡 − 1) is CRISK at the end of year 
+2019. dCRISK= CRISK(𝑡)-CRISK(𝑡 − 1) is the change in CRISK during 2020. dDEBT is the contribution of the firm’s debt to 
+CRISK. dEQUITY is the contribution of the firm’s equity position on CRISK. dRISK is the contribution of an increase in climate 
+beta to CRISK. All amounts are in billions USD.
+  Bank
+  A:LN
+  B:LN
+  C:LN
+  D:LN
+  E:LN
+
+dRISK
+6.00 
+19.64 
+9.82 
+3.23 
+1.58 
+
+13.39
+21.75
+1.88
+3.59
+3.64
+
+79.60
+93.01
+41.24
+39.27
+27.50
+
+3.54
+33.90
+11.90
+5.89
+5.93
+
+22.92
+75.30
+23.60
+12.72
+11.15
+
+56.68
+17.70
+17.64
+26.55
+16.35
+
+CRISK(t-1)
+
+dEQUITY
+
+CRISK(t)
+
+dCRISK
+
+dDEBT
+
+Table K.2
+CRISK decomposition (Canada) CRISK(𝑡) is the bank’s CRISK at the end of 2020, and CRISK(𝑡 − 1) is CRISK at the end of 
+year 2019. dCRISK= CRISK(𝑡)-CRISK(𝑡 − 1) is the change in CRISK during 2020. dDEBT is the contribution of the firm’s debt 
+to CRISK. dEQUITY is the contribution of the firm’s equity position on CRISK. dRISK is the contribution of an increase in 
+climate beta to CRISK. All amounts are in billions USD.
+  Bank
+  A:CN
+  B:CN
+  C:CN
+  D:CN
+  E:CN
+  F:CN
+
+dRISK
+4.92 
+8.41 
+−2.48 
+1.60 
+1.84 
+5.44 
+
+11.34
+5.26
+12.18
+−0.40
+−7.06
+6.42
+
+0.51
+2.57
+−0.63
+−0.26
+−2.38
+−0.06
+
+7.37
+5.60
+7.09
+2.58
+15.62
+16.42
+
+12.80
+16.58
+3.98
+3.92
+15.08
+21.79
+
+24.14
+21.84
+16.15
+3.52
+8.02
+28.22
+
+CRISK(t-1)
+
+dEQUITY
+
+CRISK(t)
+
+dCRISK
+
+dDEBT
+
+Table K.3
+CRISK decomposition (Japan) CRISK(𝑡) is the bank’s CRISK at the end of 2020, and CRISK(𝑡 − 1) is CRISK at the end of 
+year 2019. dCRISK= CRISK(𝑡)-CRISK(𝑡 − 1) is the change in CRISK during 2020. dDEBT is the contribution of the firm’s debt 
+to CRISK. dEQUITY is the contribution of the firm’s equity position on CRISK. dRISK is the contribution of an increase in 
+climate beta to CRISK. All amounts are in billions USD.
+  Bank
+  A:JP
+  B:JP
+  C:JP
+
+dRISK
+6.76 
+7.11 
+6.57 
+
+186.03
+125.99
+125.30
+
+160.28
+101.70
+108.16
+
+9.42
+11.27
+5.19
+
+25.75
+24.29
+17.13
+
+9.57
+5.90
+5.37
+
+CRISK(t-1)
+
+dEQUITY
+
+CRISK(t)
+
+dCRISK
+
+dDEBT
+
+Table K.4
+CRISK decomposition (France) CRISK(𝑡) is the bank’s CRISK at the end of 2020, and CRISK(𝑡 − 1) is CRISK at the end of 
+year 2019. dCRISK= CRISK(𝑡)-CRISK(𝑡 − 1) is the change in CRISK during 2020. dDEBT is the contribution of the firm’s debt 
+to CRISK. dEQUITY is the contribution of the firm’s equity position on CRISK. dRISK is the contribution of an increase in 
+climate beta to CRISK. All amounts are in billions USD.
+  Bank
+CRISK(t)
+  A:FP
+  B:FP
+  C:FP
+
+dRISK
+10.73 
+17.39 
+6.39 
+
+104.17
+126.22
+82.23
+
+33.56
+60.31
+23.91
+
+19.67
+37.71
+10.22
+
+70.62
+65.91
+58.32
+
+3.16
+5.21
+7.30
+
+CRISK(t-1)
+
+dEQUITY
+
+dCRISK
+
+dDEBT
+
+39 
+
+H. Jung et al.
+
+Appendix L. Full list of financial firms
+
+See Tables  L.1–L.5.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Ticker
+
+BNS
+CM
+FNV
+IAG
+IGM
+NA
+POW
+SLF
+X
+
+Company name
+Bank of Nova Scotia
+Canadian Imperial Bank of Commerce 
+Franco-Nevada Corp
+iA Financial Corp Inc
+IGM Financial Inc
+National Bank of Canada
+Power Corp of Canada
+Sun Life Financial Inc
+TMX Group Ltd
+
+Ticker
+
+7167
+7181
+7186
+8253
+8304
+8308
+8316
+8334
+8354
+8359
+8369
+8377
+8382
+8410
+8418
+8439
+8570
+8591
+8601
+8628
+8725
+8766
+8801
+8804
+8905
+
+Ticker
+
+ALTA
+COFA
+CNF
+COVH
+CRSU
+FLY
+GLE
+LI
+MF
+ODET
+RF
+SCR
+
+Company name
+Mebuki Financial Group Inc
+Japan Post Insurance Co Ltd
+Concordia Financial Group Ltd
+Credit Saison Co Ltd
+Aozora Bank Ltd
+Resona Holdings Inc
+Sumitomo Mitsui Financial Group Inc  
+Gunma Bank Ltd
+Fukuoka Financial Group Inc
+Hachijuni Bank Ltd
+Bank of Kyoto Ltd
+Hokuhoku Financial Group Inc
+Chugoku Bank Ltd
+Seven Bank Ltd
+Yamaguchi Financial Group Inc
+Tokyo Century Corp
+AEON Financial Service Co Ltd
+ORIX Corp
+Daiwa Securities Group Inc
+Matsui Securities Co Ltd
+MS&AD Insurance Group Holdings Inc 
+Tokio Marine Holdings Inc
+Mitsui Fudosan Co Ltd
+Tokyo Tatemono Co Ltd
+Aeon Mall Co Ltd
+
+Company name
+Altarea SCA
+Coface SA
+Caisse Regionale de Credit Agricole Mutuel Nord de France 
+Covivio Hotels SACA
+Credit Agricole Sud Rhone Alpes
+Societe Fonciere Lyonnaise SA
+Societe Generale SA
+Klepierre
+Wendel SA
+Compagnie de L’Odet SA
+Eurazeo SA
+SCOR SE
+
+Table L.1
+Canadian financial firms.
+  Ticker
+  BMO
+  CIX
+  FFH
+  GWO
+  IFC
+  MFC
+  ONEX
+  RY
+  TD
+
+Company name
+Bank of Montreal
+CI Financial Corp
+Fairfax Financial Holdings Ltd
+Great-West Lifeco Inc
+Intact Financial Corp
+Manulife Financial Corp
+Onex Corp
+Royal Bank of Canada
+Toronto-Dominion Bank
+
+Table L.2
+Japanese financial firms.
+  Ticker
+  3231
+  7180
+  7182
+  7327
+  8303
+  8306
+  8309
+  8331
+  8341
+  8355
+  8366
+  8370
+  8379
+  8385
+  8411
+  8421
+  8473
+  8572
+  8593
+  8604
+  8630
+  8750
+  8795
+  8802
+  8830
+
+Company name
+Nomura Real Estate Holdings Inc
+Kyushu Financial Group Inc
+Japan Post Bank Co Ltd
+Daishi Hokuetsu Financial Group Inc
+Shinsei Bank Ltd
+Mitsubishi UFJ Financial Group Inc
+Sumitomo Mitsui Trust Holdings Inc
+Chiba Bank Ltd
+77 Bank Ltd
+Shizuoka Bank Ltd
+Shiga Bank Ltd
+Kiyo Bank Ltd
+Hiroshima Bank Ltd
+Iyo Bank Ltd
+Mizuho Financial Group Inc
+Shinkin Central Bank
+SBI Holdings Inc
+Acom Co Ltd
+Mitsubishi HC Capital Inc
+Nomura Holdings Inc
+Sompo Holdings Inc
+Dai-ichi Life Holdings Inc
+T&D Holdings Inc
+Mitsubishi Estate Co Ltd
+Sumitomo Realty & Development Co Ltd
+
+Table L.3
+French financial firms.
+  Ticker
+  ACA
+  BNP
+  CAF
+  COV
+  CRAV
+  CS
+  GFC
+  ICAD
+  MERY
+  NXI
+  PEUG
+  ROTH
+
+Company name
+Credit Agricole SA
+BNP Paribas SA
+Caisse Regionale de Credit Agricole Mutuel de Paris et d’Ile-de-France
+Covivio
+Credit Agricole Atlantique Vendee
+AXA SA
+Gecina SA
+ICADE
+Mercialys SA
+Nexity SA
+Peugeot Invest
+Rothschild & Co
+
+40 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+H. Jung et al.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Table L.4
+United Kingdom financial firms.
+  Ticker
+  ABDN
+  ASHM
+  BLND
+  CAPC
+  DLG
+  GPE
+  HMSO
+  ICP
+  III
+  LAND
+  LLOY
+  NWG
+  PRU
+  SGRO
+  STAN
+  SVS
+  UTG
+
+Company name
+Abrdn Plc
+Ashmore Group PLC
+British Land Co PLC
+Capital & Counties Properties PLC
+Direct Line Insurance Group PLC
+Great Portland Estates PLC
+Hammerson PLC
+Intermediate Capital Group PLC
+3i Group PLC
+Land Securities Group PLC
+Lloyds Banking Group PLC
+Natwest Group PLC
+Prudential PLC
+Segro PLC
+Standard Chartered PLC
+Savills PLC
+UNITE Group PLC
+
+Table L.5
+United States financial firms.
+  Ticker
+  AFG
+  AIG
+  AJG
+  ALL
+  AMP
+  APO
+  AXP
+  BEN
+  BLK
+  BPOP
+  BX
+  CACC
+  CBRE
+  CFG
+  CI
+  CMA
+  CNA
+  DFS
+  ERIE
+  FAF
+  FHN
+  FNF
+  GL
+  HBAN
+  HIG
+  ICE
+  JEF
+  JPM
+  KKR
+  L
+  LPLA
+  MCO
+  MKL
+  MS
+  MTB
+  NTRS
+  ORI
+  PFG
+  PNC
+  PRU
+  RGA
+  SBNY
+  SEIC
+  SNV
+  TFC
+  THG
+  TRV
+  UNM
+  V
+  WAL
+  WFC
+  WTW
+  ZION
+
+Company name
+American Financial Group Inc
+American International Group Inc
+Arthur J Gallagher & Co
+Allstate Corp
+Ameriprise Financial Inc
+Apollo Global Management Inc
+American Express Co
+Franklin Resources Inc
+BlackRock Inc
+Popular Inc
+Blackstone Inc
+Credit Acceptance Corp
+CBRE Group Inc
+Citizens Financial Group Inc
+Cigna Corp
+Comerica Inc
+CNA Financial Corp
+Discover Financial Services
+Erie Indemnity Co
+First American Financial Corp
+First Horizon Corp
+Fidelity National Financial Inc
+Globe Life Inc
+Huntington Bancshares Inc
+Hartford Financial Services Group Inc
+Intercontinental Exchange Inc
+Jefferies Financial Group Inc
+JPMorgan Chase & Co
+KKR & Co Inc
+Loews Corp
+LPL Financial Holdings Inc
+Moody’s Corp
+Markel Corp
+Morgan Stanley
+M&T Bank Corp
+Northern Trust Corp
+Old Republic International Corp
+Principal Financial Group Inc
+PNC Financial Services Group Inc
+Prudential Financial Inc
+Reinsurance Group of America Inc
+Signature Bank/New York NY
+SEI Investments Co
+Synovus Financial Corp
+Truist Financial Corp
+Hanover Insurance Group Inc
+Travelers Cos Inc
+Unum Group
+Visa Inc
+Western Alliance Bancorp
+Wells Fargo & Co
+Willis Towers Watson PLC
+Zions Bancorporation
+
+Ticker
+
+ADM
+BARC
+BYG
+CBG
+DLN
+GRI
+HSBA
+IGG
+JUP
+LGEN
+LSEG
+PHNX
+SDR
+SHB
+STJ
+TCAP
+VMUK
+
+Ticker
+
+AFL
+AIZ
+AL
+ALLY
+AON
+ARCC
+BAC
+BK
+BOKF
+BRO
+C
+CBOE
+CBSH
+CFR
+CINF
+CME
+COF
+EFX
+EWBC
+FCNCA
+FITB
+FRC
+GS
+HHC
+HUM
+IVZ
+JLL
+KEY
+KMPR
+LNC
+MA
+MET
+MMC
+MSCI
+NDAQ
+NYCB
+PB
+PGR
+PRI
+RF
+RJF
+SCHW
+SIVB
+STT
+TFSL
+TROW
+UNH
+USB
+VOYA
+WBS
+WRB
+WU
+
+41 
+
+Company name
+Admiral Group PLC
+Barclays PLC
+Big Yellow Group PLC
+Close Brothers Group PLC
+Derwent London PLC
+Grainger PLC
+HSBC Holdings PLC
+IG Group Holdings PLC
+Jupiter Fund Management PLC
+Legal & General Group PLC
+London Stock Exchange Group PLC 
+Phoenix Group Holdings
+Schroders PLC
+Shaftesbury PLC
+St James’s Place PLC
+TP ICAP Group PLC
+Virgin Money UK PLC
+
+Company name
+Aflac Inc
+Assurant Inc
+Air Lease Corp
+Ally Financial Inc
+Aon PLC
+Ares Capital Corp
+Bank of America Corp
+Bank of New York Mellon Corp
+BOK Financial Corp
+Brown & Brown Inc
+Citigroup Inc
+CBOE Global Markets Inc
+Commerce Bancshares Inc
+Cullen/Frost Bankers Inc
+Cincinnati Financial Corp
+CME Group Inc
+Capital One Financial Corp
+Equifax Inc
+East West Bancorp Inc
+First Citizens BancShares Inc
+Fifth Third Bancorp
+First Republic Bank
+Goldman Sachs Group Inc
+Howard Hughes Corp
+Humana Inc
+Invesco Ltd
+Jones Lang LaSalle Inc
+KeyCorp
+Kemper Corp
+Lincoln National Corp
+MasterCard Inc
+MetLife Inc
+Marsh & McLennan Cos Inc
+MSCI Inc
+Nasdaq Inc
+New York Community Bancorp Inc 
+Prosperity Bancshares Inc
+Progressive Corp
+Primerica Inc
+Regions Financial Corp
+Raymond James Financial Inc
+Charles Schwab Corp
+SVB Financial Group
+State Street Corp
+TFS Financial Corp
+T Rowe Price Group Inc
+UnitedHealth Group Inc
+US Bancorp
+Voya Financial Inc
+Webster Financial Corp
+WR Berkley Corp
+Western Union Co
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+H. Jung et al.
+
+Appendix M. More scenarios
+
+M.1. Emission factor
+
+See Figs.  M.1 and M.2.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Fig. M.1.  Climate Betas based on emission factor. The sample banks are the top 10 largest US banks by average total assets in 2019. The emission-based factor is constructed 
+by weighting emissions across industries and weighting stock returns by market value within each industry. The sample period is from June 2000 to December 2021.
+
+Fig. M.2.  Marginal CRISKs based on emission factor. The sample banks are the top 10 largest US banks by average total assets in 2019. The emission-based factor is constructed 
+by weighting emissions across industries and weighting stock returns by market value within each industry. The sample period is from June 2000 to December 2021.
+
+42 
+
+H. Jung et al.
+
+M.2. Brown minus Green factor
+
+See Figs.  M.3 and M.4.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Fig. M.3.  Climate Betas based on Brown minus Green factor. The sample banks are the top 10 largest US banks by average total assets in 2019. We use the emission-based 
+factor as brown factor and the iShares Global Clean Energy ETF return as green factor. The sample period is from June 2008 to December 2021.
+
+Fig. M.4.  Marginal CRISKs based on Brown minus Green factor. The sample banks are the top 10 largest US banks by average total assets in 2019. We use the emission-based 
+factor as brown factor and the iShares Global Clean Energy ETF return as green factor. The sample period is from June 2008 to December 2021.
+
+43 
+
+H. Jung et al.
+
+M.3. Climate efficient factor mimicking portfolio factor
+
+See Figs.  M.5 and M.6.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Fig. M.5.  Climate Betas based on climate efficient factor mimicking portfolio factor. The sample banks are the top 10 largest US banks by average total assets in 2019. The 
+sample period is from July 2001 to December 2021.
+
+Fig. M.6.  Marginal CRISKs based on climate efficient factor mimicking portfolio factor. The sample banks are the top 10 largest US banks by average total assets in 2019. The 
+sample period is from July 2001 to December 2021.
+
+44 
+
+H. Jung et al.
+
+Appendix N. Robustness tests
+
+See Figs.  N.7–N.13.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Fig. N.7.  Climate Beta after Controlling for LTG and CRD The sample banks are the top 10 largest US banks by average total assets in 2019. First, we regress bank stock 
+return on LTG and CRD. Second, we regress the residual from the first step on MKT and CF and plot the coefficient on CF using 252-day rolling window regression. LTG is log 
+daily return on long-term US government bond index. CRD is log daily return on investment-grade corporate bond index and can be downloaded from Bloomberg. The sample 
+period is from June 2000 to December 2021.
+
+Fig. N.8.  Climate Beta after Controlling for HOUSE The sample banks are the top 10 largest US banks by average total assets in 2019. First, we regress bank stock return on 
+HOUSE. Second, we regress the residual from the first step on MKT and CF and plot the coefficient on CF using 252-day rolling window regression. HOUSE is the log daily return 
+on a bond fund specializing in government mortgage-backed securities (VFIJX). The sample period is from February 2001 to December 2021.
+
+45 
+
+H. Jung et al.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Fig. N.9.  Climate Beta after Controlling for LTG, CRD, and HOUSE The sample banks are the top 10 largest US banks by average total assets in 2019. First, we regress bank 
+stock return on HOUSE, LTG, and CRD. Second, we regress the residual from the first step on MKT and CF and plot the coefficient on CF using 252-day rolling window regression. 
+HOUSE is the log daily return on a bond fund specializing in government mortgage-backed securities (VFIJX). LTG is log daily return on long-term US government bond index 
+and CRD is the log daily return on investment-grade corporate bond index. The sample period is from February 2001 to December 2021.
+
+Fig. N.10.  Climate Beta after Controlling for COVID Industry Factor The sample banks are the top 10 largest US banks by average total assets in 2019. First, we regress bank 
+stock return on a COVID industry factor. The COVID industry factor is a value-weighted return on stocks that belong to the NAICS 3-digit industries most affected by COVID 
+(selected by Fahlenbrach et al., 2021). We exclude five industries that are in the top 20 by emissions in 2020. Second, we regress the residual from the first step on MKT and CF 
+and plot the coefficient on CF using 252-day rolling window regression. The sample period is from January 2001 to December 2021.
+
+46 
+
+H. Jung et al.
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Fig. N.11.  Factor Responses to Climate Events This plot compares the oil ETF (XLE) factor with the coal ETF (KOL) factor.
+
+Fig. N.12.  Climate Beta for Financial Sector: Stranded Asset Factor vs. Oil ETF This plot compares the financial sector ETF’s climate beta using the stranded asset factor 
+versus the oil ETF (XLE) as the climate factor.
+
+Fig. N.13.  Factor Responses to Climate Events Panel (a) compares emission factor and emission intensity factor. Panel (b) compares brown-minus-green factor with its emission 
+intensity counterpart.
+
+Appendix O. Supplementary data
+
+Supplementary material related to this article can be found online at https://doi.org/10.1016/j.jfineco.2025.104076.
+
+Data availability
+
+CRISK: Measuring the Climate Risk Exposure of the Financial System (Original data) (Mendeley Data)
+
+47 
+
+Financ. 
+
+Journal of Financial Economics 171 (2025) 104076 
+
+Engle, Robert F., Giglio, Stefano, Kelly, Bryan, Lee, Heebum, Stroebel, Johannes, 2020. 
+
+Hedging climate change news. Rev. Financ. Stud. 33 (3), 1184–1216.
+
+Engle, Robert F., Jung, Hyeyoon, 2018. Estimating SRISK for Latin America. Working 
+
+Paper.
+
+European Systemic Risk Board, 2020. Positively Green: Measuring Climate Change Risks 
+
+to Financial Stability. Report.
+
+Fahlenbrach, Rüdiger, Rageth, Kevin, Stulz, René M., 2021. How valuable is financial 
+flexibility when revenue stops? Evidence from the COVID-19 crisis. Rev. Financ. 
+Stud..
+
+Fama, Eugene F., French, Kenneth R., 1993. Common risk factors in the returns on 
+
+stocks and bonds. J. Financ. Econ. 33 (1), 3–56.
+
+Financial Stability Board, 2021. The Availability of Data with Which to Monitor and 
+
+Assess Climate-Related Risks to Financial Stability. Report.
+
+Financial Stability Board, Network for Greening the Financial System, 2022. Climate 
+Scenario Analysis by Jurisdictions: Initial Findings and Lessons. Technical Report, 
+Financial Stability Board, Network for Greening the Financial System.
+
+Gandhi, Priyank, Lustig, Hanno, 2015. Size anomalies in U.S. bank stock returns. J. 
+
+Gavriilidis, Konstantinos, 2021. Measuring climate policy uncertainty. Working Paper.
+Howes,  Cooper,  Weitzner,  Gregory,  2018.  Bank  information  production  over  the 
+
+Ilhan, Emirhan, Sautner, Zacharias, Vilkov, Grigory, 2020. Carbon tail risk. Rev. Financ. 
+
+business cycle. Working Paper.
+
+Stud. 34 (3), 1540–1571.
+
+Ivanov, Ivan, Kruttli, Mathias S., Watugala, Sumudu W., 2021. Banking on carbon: 
+
+Corporate lending and cap-and-trade policy. Working Paper.
+
+Jung, Hyeyoon, Engle, Robert F., Ge, Shan, Zeng, Xuran, 2023. Physical Climate Risk 
+Factors and an Application to Measuring Insurers’ Climate Risk Exposure. FRB of 
+New York Staff Report No. 1066.
+
+Kacperczyk, Marcin T., Peydro, Jose-Luis, 2021. Carbon emissions and the bank-lending 
+
+Laeven,  Luc,  Popov,  Alexander,  2022.  Carbon  Taxes  and  the  Geography  of  Fossil 
+
+channel. Working Paper.
+
+Lending. Rochester, NY.
+
+Liberti, José María, Sturgess, Jason, 2018. The anatomy of a credit supply shock: 
+Evidence from an internal credit market. J. Financ. Quant. Anal. 53 (2), 547–579.
+Litterman,  Robert,  2021.  Selling  stranded  assets:  profit,  protection,  and  prosper-
+ity.  https://www.intentionalendowments.org/selling_stranded_assets_profit_protecti
+on_and_prosperity [Accessed: 2021].
+
+McGlade, C., Ekins, P., 2015. The geographical distribution of fossil fuels unused when 
+
+limiting global warming to 2 ◦c. Nat. 517, 187– 190.
+
+Nakashima, Kiyotaka, Takahashi, Koji, 2018. The real effects of bank-driven termination 
+of relationships: Evidence from loan-level matched data. J. Financ. Stab. 39 (C), 
+46–65.
+
+Nard, Gianluca De, Engle, Robert F., Kelly, Bryan, 2024. Factor-mimicking portfolios 
+
+for climate risk. Financ. Anal. J. 80 (3), 37–58.
+
+Nguyen, Quyen, Diaz-Rainey, Ivan, Kuruppuarachchi, Duminda, McCarten, Matthew, 
+Tan, Eric K.M., 2023. Climate transition risk in U.S. loan portfolios: Are all banks 
+the same? Int. Rev. Financ. Anal. 85, 102401.
+
+Pástor, L’uboš, Stambaugh, Robert F., Taylor, Lucian A., 2022. Dissecting green returns. 
+
+J. Financ. Econ. 146 (2), 403–424.
+
+Reinders, Henk Jan, Schoenmaker, Dirk, van Dijk, Mathijs, 2023. A finance approach 
+
+to climate stress testing. J. Int. Money Financ. 131, 102797.
+
+Sautner,  Zacharias,  Van  Lent,  Laurence,  Vilkov,  Grigory,  Zhang,  Ruishen,  2023. 
+
+Firm-level climate change exposure. J. Financ. 78 (3), 1449–1498.
+
+van der Ploeg, Frederick, Rezai, Armon, 2020. Stranded assets in the transition to a 
+
+carbon-free economy. Annu. Rev. Resour. Econ. 12 (1), 281–298.
+
+H. Jung et al.
+
+References
+
+Acharya, Viral V., Brownlees, Christian T., Farazmand, Farhang, Richardson, Matthew, 
+2011. Measuring systemic risk. In: Regulating Wall Street: The Dodd-Frank Act and 
+the New Architecture of Global Finance. (Chapter 4).
+
+Acharya, Viral V., Engle, Robert F., Richardson, Matthew, 2012. Capital shortfall: A new 
+approach to ranking and regulating systemic risks. Am. Econ. Rev. Pap. Proc. 
+Acharya, Viral V., Pedersen, Lasse H., Philippon, Thomas, Richardson, Matthew, 2016. 
+
+Measuring systemic risk. Rev. Financ. Stud. 30 (1), 2–47.
+
+Adrian, Tobias, Brunnermeier, Markus K., 2016. CoVaR. Am. Econ. Rev. 106 (7), 
+
+1705–1741.
+
+Alekseev, Georgij, Giglio, Stefano, Maingi, Quinn, Selgrad, Julia, Stroebel, Johannes, 
+2022. A quantity-based approach to constructing climate risk hedge portfolios. 
+Working Paper.
+
+Allen, Linda, Bali, Turan G., Tang, Yi, 2012. Does systemic risk in the financial sector 
+predict future economic downturns? Rev. Financ. Stud. 25 (10), 3000–3036.
+Barnett, Michael, 2019. A run on oil? The implications of climate policy and stranded 
+
+Basel Committee on Banking Supervision, 2018. Stress Testing Principles. Bank for 
+
+assets risk. Working Paper.
+
+International Settlements.
+
+Battiston,  Stefano,  Mandel,  Antoine,  Monasterolo,  Irene,  Schütze,  Franziska, 
+Visentin,  Gabriele,  2017.  A  climate  stress-test  of  the  financial  system.  Nat. 
+Clim. Chang. 
+
+Beck, Thorsten, Degryse, Hans, De Haas, Ralph, Van Horen, Neeltje, 2018. When arm’s 
+length is too far: Relationship banking over the credit cycle. J. Financ. Econ. 127 
+(1), 174–196.
+
+Blickle,  Kristian  S.,  Parlatore,  Cecilia,  Saunders,  Anthony,  2021.  Specialization  in 
+
+Banking. New York Fed Staff Report 53 (967).
+
+Bolton, Patrick, Despres, Morgan, Pereira da Silva, Luiz Awazu, Samama, Frédéric, 
+Svartzman, Romain, 2020. The Green Swan. Bank for International Settlements.
+Bolton, Patrick, Kacperczyk, Marcin T., 2021. Do investors care about carbon risk? J. 
+
+Bolton, Patrick, Kacperczyk, Marcin T., 2022. Global pricing of carbon-transition risk. 
+
+Financ. Econ. 
+
+J. Financ. 
+
+Brainard, Lael, 2021. Building climate scenario analysis on the foundations of economic 
+research.  10,  Speech  by  Governor  Lael  Brainard  at  the  2021  Federal  Reserve 
+Stress  Testing  Research  Conference,  Federal  Reserve  Bank  of  Boston,  Boston, 
+Massachusetts (via webcast).
+
+Brownlees, Christian T., Engle, Robert F., 2017. SRISK: A conditional capital shortfall 
+
+index for systemic risk measurement. Rev. Financ. Stud. 
+
+Chava, Sudheer, 2014. Environmental externalities and cost of capital. Manag. Sci. 60 
+
+(9), 2223–2247.
+
+Correa, Ricardo, He, Ai, Herpfer, Christoph, Lel, Ugur, 2022. The rising tide lifts some 
+interest rates: Climate change, natural disasters and loan pricing. Working Paper.
+Delis, Manthos D., De Greiff, Kathrin, Ongena, Steven, 2019. Being stranded with fossil 
+fuel reserves? Climate policy risk and the pricing of bank loans. Climate Policy 
+Risk and the Pricing of Bank Loans (September 10, 2019). EBRD Working Paper 
+231.
+
+Engle, Robert F., 2002. Dynamic conditional correlation: A simple class of multivariate 
+generalized autoregressive conditional heteroscedasticity models. J. Bus. Econom. 
+Statist..
+
+Engle,  Robert  F.,  2009.  Anticipating  Correlations:  A  New  Paradigm  for  Risk 
+
+Management. Princeton University Press, Princeton, NJ.
+
+Engle, Robert F., 2016. Dynamic conditional beta. J. Financ. Econ..
+Engle, Robert F., Campos-Martins, Susana, 2023. What are the events that shake our 
+world? Measuring and hedging global COVOL. J. Financ. Econ. 147 (1), 221–242.
+
+48 
+
+

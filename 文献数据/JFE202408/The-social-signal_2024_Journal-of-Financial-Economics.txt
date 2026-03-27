@@ -1,0 +1,3561 @@
+Contents lists available at ScienceDirect
+
+Journal of Financial Economics
+
+journal homepage: www.elsevier.com/locate/finec
+
+The social signal✩
+J. Anthony Cookson a,∗, Runjing Lu b, William Mullins c, Marina Niessner d
+a University of Colorado at Boulder, United States of America
+b University of Alberta, Canada
+c University of California, San Diego, United States of America
+d Indiana University, United States of America
+
+A R T I C L E I N F O
+
+A B S T R A C T
+
+Dataset link: Code and Data from ‘‘The Social S
+ignal’’ (Original data)
+
+JEL classification:
+G14
+G41
+G12
+
+Keywords:
+Social media
+Retail trading
+Social finance
+
+1. Introduction
+
+We examine social media attention and sentiment from three major platforms: Twitter, StockTwits, and Seeking
+Alpha. We find that, even after controlling for firm disclosures and news, attention is highly correlated
+across platforms, but sentiment is not: its first principal component explains little more variation than purely
+idiosyncratic sentiment. Using market events, we attribute differences across platforms to differences in users
+(e.g., professionals versus novices) and differences in platform design (e.g., character limits in posts). We also
+find that sentiment and attention contain different return-relevant information. Sentiment predicts positive
+next-day returns, but attention predicts negative next-day returns. These results highlight the importance of
+considering both social media sentiment and attention, and of distinguishing between different investor social
+media platforms.
+
+Social media has grown exponentially over the past two decades.
+Americans spent 3.6 hours per day on some form of social media in
+2020 (Forbes, 2021) and increasingly view social media as a primary
+source of news (Pew, 2021). Financial markets also reflect this: in-
+vestors frequently post opinions about securities on social media, and
+firms use it to disclose information and interact with investors (Blanke-
+spoor et al., 2014). Despite these trends, investor social media was
+largely seen as a sideshow until recent social media-fueled trading fren-
+zies, most prominently the 2021 GameStop phenomenon. These events
+
+raise questions about the role social platforms play for trading and
+information in financial markets (Pedersen, 2022), and an emerging
+line of research has organized around these important questions.
+
+Prior analyses of investor social media have almost exclusively
+examined data from a single platform, and related papers often draw
+upon evidence from different investor social networks, typically Stock-
+Twits, Seeking Alpha, and Twitter.1 While most of this work considers
+questions that are not specific to the particular investor social platform
+studied, these platforms differ in myriad ways.2 Communication theory
+
+✩
+
+Toni Whited was the editor for this article and provided valuable comments. This draft also benefited from comments by an anonymous referee, Zhi Da,
+Yao Deng, Joey Engelberg, Lukasz Pomorski, Brian Waters, and Isabella Wolfskeil as well as from presentations at University of Colorado at Boulder, University
+of Texas-El Paso, University of Toronto, Washington University of St. Louis, University of Notre Dame, George Washington University, University of Florida,
+University of Miami, Arizona State University, University of Washington, Iowa State University, University of Iowa, National University of Singapore, Singapore
+Management University, Nanyang Technical University, Santa Clara University, the Federal Reserve Board, Kepos Capital, Citigroup Global Insights, University
+of Southern California (Finance), American Economic Association, Future of Financial Information, Columbia News and Finance Conference, NSF Conference on
+Network Science and Economics, Conference in Financial Economics Research by Eagle Labs, Financial Management Association, Michigan State FCU Conference,
+USC Conference on Behavioral and Social Economics, CityU Hong Kong Conference for Fintech, AI and Big Data in Business, Midwest Finance Association,
+UChicago Empirical Finance Conference, ESADE Spring Workshop, and UCI Social Finance Conference.
+
+∗ Corresponding author.
+
+E-mail address:
+
+tony.cookson@colorado.edu (J.A. Cookson).
+
+1 For example, for StockTwits see Giannini et al. (2019), Cookson et al. (2023a, 2024) and Irvine et al. (2021); for Twitter, Gu and Kurov (2020), Chen et al.
+(2023), Cookson et al. (2023b), Bianchi et al. (2023) and Bianchi et al. (2024); for Seeking Alpha, Chen et al. (2014), Dim (2024), Chen and Hwang (2022),
+Farrell et al. (2022) and Kogan et al. (2023).
+
+2 For example, Seeking Alpha articles are long-form and lightly moderated; Twitter posts are limited to 280 characters, but multiple posts can be threaded
+together for longer arguments; while StockTwits posts cannot be threaded, they have had a 1,000 character limit since 2019. These platforms also differ in their
+user bases, recommendation algorithms, how individuals interact through messages and tagging, and many other characteristics. Fig. 1 presents an example post
+for each platform in our study.
+
+https://doi.org/10.1016/j.jfineco.2024.103870
+Received 15 May 2023; Received in revised form 17 May 2024; Accepted 22 May 2024
+
+JournalofFinancialEconomics158(2024)103870Availableonline3June20240304-405X/©2024ElsevierB.V.Allrightsarereserved,includingthosefortextanddatamining,AItraining,andsimilartechnologies.J.A. Cookson et al.
+
+implies that social media platforms may not be interchangeable because
+the characteristics of a communication medium affect both the content
+and impact of messages (e.g., McLuhan, 1975). Because communication
+is a socially emergent phenomenon, differences in user populations,
+incentives to post, and ability to engage may lead each platform to have
+unique informational content.
+
+To examine whether and how these platforms generate differing
+market-relevant information – the social media signal – this paper
+examines a decade of comprehensive firm-day-level data (2012−2021)
+from the three most established investor social networks: StockTwits,
+Twitter, and Seeking Alpha. We first distinguish between two features
+common to all social networks: attention and sentiment. We find that
+over two-thirds of the firm-day attention signal is common across the
+major social platforms: on a given day, people on different platforms
+tend to talk about the same firms. By contrast, the common component
+of sentiment is weak, explaining only slightly more than it would if
+sentiment across the three platforms were idiosyncratic.
+
+In addition, we show that the common components of social sen-
+timent and attention have opposing return predictions: attention gen-
+erally predicts negative next day returns, while sentiment predicts
+positive returns. Exploiting two events – a change in the message
+character limit on StockTwits and the GameStop (GME) short squeeze –
+we find that differences in platform features (the character-limit event)
+and differences across user populations (the GME event) each contribute
+to differences in the market-relevant information generated by investor
+social media.
+
+We now describe our findings in greater detail. We begin by de-
+composing the social signal generated by all three platforms using
+principal component analysis (PCA) separately for attention and senti-
+ment. We find that attention has a powerful common component, with
+the first principal component (PC1) explaining 67% of the variation.
+Conversely, the PC1 of sentiment explains 39% of the variation in
+sentiment, only slightly more than the 33% it would explain if the three
+signals were idiosyncratic. We show that these findings are not driven
+by news, firm disclosures, stock returns, or persistent firm components
+by first regressing attention and sentiment from each platform on these
+variables and firm fixed effects, and then performing a PCA on the
+residualized signals. This conditional PCA analysis yields very similar
+patterns to the unconditional PCA we started with, indicating that the
+common signal in investor social media is distinct from the information
+in traditional media.3
+
+An alternative explanation for the weak cross-platform correlation
+in sentiment is that the signals from each platform are extracted using
+different natural language processing algorithms (NLPs). We provide
+evidence that NLPs cannot explain these differences by comparing
+different user types within StockTwits, thus holding constant both
+platform features and NLP. Consistent with our cross-platform results,
+we find that attention is highly correlated across user types such as
+influencers, professionals, and novices (i.e., the PC1 explains 84% of the
+variation), whereas sentiment signals have a weak correlation across
+user types. Thus, differences in NLPs cannot fully drive our results.
+Moreover, this evidence suggests that, even if NLPs and all platform
+features were identical, we would see cross-platform differences in the
+sentiment signal because of differences in user populations.
+
+The most salient difference across social investor platforms is in
+the size of the firms they cover. StockTwits focuses more on small-
+cap firms, whereas Twitter and Seeking Alpha pay greater attention
+to large-cap firms. When we repeat our conditional PCA separately
+by firm size bins, we find that attention displays more commonality
+than sentiment irrespective of firm size. However,
+large-cap firms
+display stronger commonality in attention and sentiment than small
+cap firms. This size-based heterogeneity for sentiment suggests that
+
+3 The PC1 data on sentiment and attention are available to researchers on
+
+our websites and in the replication materials for this article.
+
+whether a sentiment-related result in the social finance literature gen-
+eralizes across platforms may depend on how important small firms are
+in driving that result.
+
+Next, we explore whether the informativeness of sentiment and at-
+tention signals differs across platforms. To capture informativeness, we
+regress next-day abnormal returns on sentiment and attention signals
+from the three platforms, controlling for news from traditional media,
+firm announcements, lagged returns and volatility, and Google search
+volume (Da et al., 2011). The signal from any given platform is a
+combination of a common component, captured by PC1s of sentiment
+and attention, and a platform-specific idiosyncratic component. We find
+that the common component of sentiment predicts positive next day
+abnormal returns and that the common component of attention pre-
+dicts negative next day returns. Looking at signals from each platform
+separately, we find that informativeness of signals varies substantially
+across platforms.4 Overall, StockTwits’ signal is better aligned with the
+common components than Twitter and Seeking Alpha (especially for
+attention), with respect to next-day returns.5
+
+To shed light on the mechanisms behind the informativeness of
+the social signal, we explore how it relates to same-day returns and
+to returns out to 20 days. We find that more positive sentiment is
+associated with higher same-day and day 𝑡 + 1 returns, with no reversal
+in the subsequent 20 days. By contrast, higher attention is associated
+with higher same-day returns, followed by a partial reversal over the
+next 10 to 20 days. Digging deeper, we show that net retail buying is
+positively related to same-day sentiment and attention, but this positive
+relation only lasts for one to two days. These results help explain our
+findings on the informativeness of social signal for next-day returns: the
+positive predictability of sentiment is likely because it contains return-
+relevant information, while the negative predictability of attention is
+most consistent with a partial and gradual reversal of an over-reaction
+on high-attention days.
+
+We next examine two events which provide insight into whether
+platform-specific features and user groups contribute to the differences
+in the informativeness of sentiment and attention. First, we examine
+changes in the informativeness of the social signal around May 8, 2019,
+when StockTwits increased its character limit per message from 140
+to 1,000 characters. We find that StockTwits sentiment became more
+predictive of next-day stock returns after this change. Moreover, this
+effect is driven by sentiment when messages are longer; the informa-
+tiveness of shorter messages and attention were unchanged. We find
+that professionals’ messages are more informative on average, and that
+after the character limit increase they write longer messages, suggesting
+a possible mechanism. Consistent with the fact that Twitter and Seeking
+Alpha were unaffected by StockTwits’ character limit increase, we
+find no change in the informativeness of signals from these platforms.
+These results indicate that a within-platform change to users’ ability
+to communicate can affect the market-relevant information encoded
+in the social media signal, in line with communication theory. These
+findings also suggest that structural differences across investor social
+media platforms contribute to the differences we find in the signal they
+generate.
+
+Second, we examine how the informativeness of sentiment and
+attention changed around the January 2021 GME phenomenon. In
+2020, the number of U.S. retail brokerage accounts increased rapidly
+and StockTwits saw an influx of new users, both likely a result of COVID
+
+4 When we examine the signals from Reddit WallStreetBets (WSB) starting
+in 2018, we find no link between sentiment and next day returns and a positive
+loading on attention. We also show that the inclusion of WSB signals in the
+conditional PCA does not change our findings.
+
+5 Because these platforms focus on different-sized firms, we examine hetero-
+geneity in informativeness by firm size. The informativeness of sentiment does
+not appear to differ by firm size, either across or within platforms. However,
+StockTwits attention is more informative for small and mid-size firms than it
+is for large firms.
+
+JournalofFinancialEconomics158(2024)1038702J.A. Cookson et al.
+
+Fig. 1. Examples of posts across three social media platforms. Note: This figure presents example posts for StockTwits, Twitter, and Seeking Alpha. For ease of direct comparison,
+all three examples are about Apple stock (AAPL) on the same day (September 28, 2022). Only the summary is presented for the Seeking Alpha post; the full post is much longer.
+
+stay-at-home orders coupled with the introduction of no-fee trading at
+many brokerages. Bradley et al. (2024) shows that Reddit retail trading
+based on WSB ‘‘due diligence’’ reports became less informative in the
+wake of the GME short squeeze. We show that the informativeness of
+sentiment across all platforms deteriorated significantly after the GME
+short squeeze: returns became less sensitive to sentiment. Moreover, the
+drop in informativeness is concentrated among messages by new users,
+as the informativeness of the signal extracted from more established
+users (who joined before 2020) did not change after January 2021.
+These findings emphasize the importance of changing user populations
+
+and new narratives in shaping the information content of the social
+signal.
+
+Related literature. Our paper makes several contributions to the
+literature on retail investors, sentiment, attention, and the informative-
+ness of novel data sources in financial markets. Our core contribution is
+to quantify the information content, similarities and differences across
+the three most-established investor social media platforms over the
+last decade. With the rising significance of social media platforms as
+a forum for communicating investor beliefs, a literature has emerged
+to study their information content. Investors discuss financial ideas on
+myriad online forums, but analyses typically focus on a single platform
+
+JournalofFinancialEconomics158(2024)1038703J.A. Cookson et al.
+
+and employ different data (e.g., Chen et al., 2014; Cookson and Niess-
+ner, 2020; Gu and Kurov, 2020; Irvine et al., 2021).6 Divergent findings
+may stem from examining different parts of the investor social media
+space. In this paper, we show how cross-platform differences matter
+for the informativeness and retail trading implications of sentiment
+and attention. In addition, we illustrate how specific features of social
+media platforms (character limits and differing user-bases) shape the
+informativeness of the social signal.
+
+We also contribute to the social economics literature (Akçay and
+Hirshleifer, 2021; Hirshleifer, 2020; Kuchler and Stroebel, 2021) and
+especially research on the economics of social media (Pedersen, 2022).
+Connections on social media have been shown to shape political dis-
+agreements, amplify anti-minority sentiment, and even influence house
+price expectations (Bailey et al., 2018a; Levy, 2021; Lu and Sheng,
+2022). In this broader literature, some have used connections on a
+single social media platform as a proxy for social connections in gen-
+eral (e.g., Bailey et al., 2018b; Hirshleifer et al., 2023), while other
+research presents evidence that a specific platform has economic im-
+pacts (e.g., Müller and Schwarz, 2022). The market events we examine
+provide some support to both approaches. Our findings around the
+message limit change to StockTwits support the view that social media
+is not interchangeable, as platform-specific features significantly impact
+the information each platform generates. However, the evidence from
+the GME event also illustrates how events on one platform spill over
+onto others, showing strong common effects of a sufficiently large
+change in the social media space.
+
+Our results also contribute to the literature on retail attention and
+sentiment (e.g., Da et al., 2011; Sicherman et al., 2016; Gargano and
+Rossi, 2018). Existing work with investor social media either focuses
+on aspects of investor attention (e.g., Giannini et al., 2018; Cookson
+et al., 2023a; Irvine et al., 2021) or on sentiment and optimism (e.g.,
+Antweiler and Frank, 2004; Renault, 2017; Cookson et al., 2020).
+Outside of social media, research on sentiment (e.g., Tetlock, 2007;
+Garcia, 2013) and attention (e.g., Barber and Odean, 2008; Da et al.,
+2011) has also typically focused on only one of the two. As a result, a
+seemingly conflicting body of evidence has emerged in which sentiment
+is typically informative of future returns, but retail attention appears
+strongly misinformed. The literature has partly resolved this tension by
+showing that different kinds of attention have different return implica-
+tions (Ben-Rephael et al., 2017; Da et al., 2022; Barber et al., 2022). By
+examining sentiment and attention together across multiple platforms,
+we show that there is a striking difference in the informativeness of
+sentiment vs. attention.
+
+We also contribute to the literature on the role of new entrants
+to financial markets and their implications for markets (e.g., Bradley
+et al. (2024)). In early work, Chen et al. (2014) shows that Seeking
+Alpha recommendations are informative. With the advent of new firm-
+day retail trading measures (Boehmer et al., 2021), the literature has
+examined how retail trading relates to social media activity, with a
+primary focus on Seeking Alpha (e.g., Farrell et al., 2022). This research
+has also shown that retail investor activity has important implications
+for market quality, particularly driven by new retail traders on Robin-
+hood (e.g., Eaton et al., 2022). Relative to this literature, our results
+connect social media, retail traders, and market outcomes, and we
+show that new entrants lead to much of the decline in informativeness
+
+6 Recent work on earnings forecasts from Estimize has examined similar
+questions about information transmission and social influence – e.g., Da and
+Huang (2020) and Jame et al. (2016) study aspects of the wisdom of crowds,
+and Da et al. (2021) shows how Estimize analysts extrapolate their beliefs from
+past experience.
+
+of social media signal following the GME phenomenon.7 This find-
+ing highlights how the content of previously informative signals can
+change upon the arrival of new participants, and that this is a general
+phenomenon that is not confined to one social platform.
+
+2. Data and summary statistics
+
+2.1. Social media sentiment and attention data
+
+Our data come from three investor social media platforms: Twitter,
+Seeking Alpha, and StockTwits. We obtain firm-day data on financially-
+oriented Twitter posts (tweets) from Social Market Analytics (SMA),
+a firm that provides sentiment information to professional investors.
+Specifically, we use daily 4:00 pm snapshots of the number of tweets
+and average sentiment over the prior 24-hour period for each firm.
+
+For Seeking Alpha, we obtain article-level sentiment from Raven-
+pack 1.0, keeping all articles with a relevance score above 75, which
+Ravenpack considers to be ‘‘significantly relevant’’. To measure senti-
+ment, we use the Event Sentiment Score (ESS) calculated by Ravenpack,
+which ranges between −1 and 1, with 0 indicating neutral sentiment
+and positive (negative) values indicating positive (negative) sentiment.
+For the investor social platform StockTwits, we obtain compre-
+hensive message-level data. Like Twitter, StockTwits allows users to
+publicly post short messages (henceforth ‘‘tweets’’) with a limited num-
+ber of characters — 140 before May 8, 2019, and 1,000 thereafter.
+Unlike Twitter, StockTwits is primarily focused on financial markets.
+By including a ‘‘cashtag’’, a dollar sign ($) followed by a ticker symbol,
+StockTwits users can specify that their post refers to a specific firm
+or security. We limit our analysis to messages that mention exactly
+one company, so we can accurately assign sentiment to the company.
+We have data on all single-firm tweets from 2010 through 2021: 150
+million tweets from over 800,000 users. Similar to Cookson et al.
+(2023a), we drop users posting over 1,000 tweets in a day, and we
+restrict our sample to the top 1,500 firms by the number of tweets
+posted between 2010 and 2021.
+
+StockTwits allows users to attach a sentiment tag to their tweet indi-
+cating if their tweet reflects ‘‘bullish’’ or ‘‘bearish’’ sentiment. We assign
++1 to self-labeled ‘‘bullish’’ tweets and −1 to self-labeled ‘‘bearish’’
+tweets. We also obtain a sentiment score for each tweet ranging from
+−1 (extremely bearish) to +1 (extremely bullish) which is calculated
+by StockTwits using a proprietary text classification algorithm called
+MarketLex.8
+
+To aggregate sentiment at the firm-day level (𝑆𝑒𝑛𝑡𝑖𝑚𝑒𝑛𝑡𝑖,𝑡) for Stock-
+Twits and Seeking Alpha, we compute average sentiment across all
+tweets (or articles) about a firm 𝑖 from 4:00 pm (close) on date 𝑡 − 1
+to 4:00 pm on date 𝑡. These firm-day sentiment measures are thus
+comparable to the Twitter firm-day sentiment measure provided by
+SMA. Similarly, we compute firm-day message volume (𝑀𝑒𝑠𝑠𝑎𝑔𝑒𝑠𝑖,𝑡)
+for StockTwits and Seeking Alpha by counting the number of messages
+(tweets or articles) about each firm over the same period. We then
+define a firm-day measure of attention, 𝐴𝑡𝑡𝑒𝑛𝑡𝑖𝑜𝑛𝑖,𝑡, for each platform
+
+7 In connecting social media and retail trading, we also relate to the
+literature that studies motivations for retail trade (Liu et al., 2020). Prior
+work shows how peer interactions lead to excessive trading and exacerbate
+behavioral biases (Heimer, 2016), and emphasizes the role of overconfi-
+dence (Barber and Odean, 2001; Daniel and Hirshleifer, 2015), particularly
+about the precision of one’s information (e.g., Daniel et al., 1998).
+
+8 According to StockTwits, this methodology uses lexical and semantic
+rules based on a custom-built lexicon for social finance, constructed from a
+combination of words and phrases from 4 million messages with user-provided
+bullish or bearish tags and manual human supervision.
+
+JournalofFinancialEconomics158(2024)1038704J.A. Cookson et al.
+
+by dividing the firm-day number of messages by the total number of
+messages on that platform in a day9:
+
+Attention𝑖,𝑡 =
+
+𝑀𝑒𝑠𝑠𝑎𝑔𝑒𝑠𝑖,𝑡
+𝑖 𝑀𝑒𝑠𝑠𝑎𝑔𝑒𝑠𝑖,𝑡
+
+∑
+
+(1)
+
+StockTwits users can voluntarily declare their level of experience
+using the options provided when filling out their user profile. Stock-
+Twits also provides information on how many followers each user
+has. Thus, for StockTwits, we can separate sentiment and attention
+into distinct series by user profile or follower base: Professionals,
+Intermediates, Novices, No experience label, and Influencers (>99th
+percentile by number of followers). We also produce a separate series
+for self-classified sentiment (explicit bullish or bearish declarations), as
+opposed to StockTwits’ sentiment measure based on MarketLex.
+
+2.2. Firm news data
+
+In addition to social media sentiment and attention, we also control
+for firm news events. Specifically, we collect information on coverage
+and sentiment of traditional news media from the Wall Street Journal
+and the Dow Jones Newswire. These measures come from Ravenpack
+1.0, which provides information on the number of articles by firm-
+day as well as article-level sentiment. We keep all articles with a
+relevance score above 75 and use the Ravenpack Event Sentiment
+Score, aggregating the article-level sentiment to the firm-day level by
+averaging firm-specific sentiment across articles within a day.
+
+To capture other sources of news, we collect information on 8-K fil-
+ing dates (unscheduled firm-specific news) and earnings announcement
+dates. The 8-K filing dates are collected from the SEC Analytics Suite
+by WRDS, and the earnings announcement dates are from IBES.
+
+2.3. Returns data
+
+We compute daily abnormal returns by subtracting the value-
+weighted market return from the firm’s daily return using CRSP data.
+
+2.4. Sample characteristics
+
+To allow accurate measurement of the social signal, our sample
+focuses on the 1,500 firms with the most single-firm tweets about
+them on StockTwits between 2010 and 2021. Although this reduces the
+number of firms in our sample from more than 9,000 to 1,500, it only
+reduces the number of StockTwits messages by about 20% (from 150
+million to 120 million). We also restrict attention to firm-days for which
+there are at least 10 single-firm tweets on StockTwits. Because Twitter
+and Seeking Alpha data are sparsely populated before 2012, we begin
+our analysis sample in 2012. After merging the social media data with
+Ravenpack for traditional news media information and market data for
+return reactions, we obtain a final sample of roughly 815,000 firm-day
+observations.
+
+Sample summary statistics are reported in Table 1. Panel A presents
+statistics on activity across the three platforms. For the average firm-
+day, the number of messages on StockTwits is a multiple of the number
+on Twitter or Seeking Alpha. Despite this substantial difference in
+message volume, the three platforms cover a similar number of firms
+(i.e., StockTwits mentions cover 1,497 firms in our final sample com-
+pared with just under 1,300 for Twitter, and Seeking Alpha). Thus, even
+if individual messages on StockTwits were to contain less information
+than a Seeking Alpha post, the greater volume of messages on Stock-
+Twits could aggregate into an informative firm-day signal. In Panel B,
+we present the same statistics for subgroups of StockTwits investors.
+This decomposition highlights that there is significant activity within
+each subgroup (the average number of posts ranges from 5.87 to 13.37).
+
+Panel C illustrates how platforms differ in terms of the size of firms
+they pay attention to. The first three columns show the size distribution
+of the top 1,500 most talked-about firms on each platform, split into
+small-cap, mid-cap and large-cap bins. The three firm size bins each
+capture about a third of the most popular firms on Twitter and Seeking
+Alpha, while two-thirds of firms most discussed on StockTwits are
+small-cap. The second three columns present the share of messages
+discussing firms in each size bin. Large firms typically attract the most
+messages: around 60% of messages on Twitter and Seeking Alpha, de-
+spite accounting for a much smaller share of the firm-level coverage. By
+contrast, StockTwits still shows a small-cap focus at the message-level,
+with comparatively little difference between the shares of messages and
+of firms in each bin.
+
+Panel D shows how restricting our sample to firm-days with at least
+10 StockTwits messages affects the observation count in the sample.
+The firm-day sample size falls from nearly 2.8 million to roughly
+822,000 observations. Additional sample filters (e.g., requiring data on
+controls or returns) have a negligible impact on our observation count.
+
+2.5. Platform features and users
+
+Communication theory (e.g., McLuhan, 1975) holds that the char-
+acteristics of a communication medium affect both the content and
+impact of its message. Thus, differences between platforms – in user
+populations, incentives to post, and ability to engage – may lead to
+important differences in the information each platform attracts and
+aggregates. Fig. 1 presents three messages about Apple Stock ($AAPL),
+one from each investor social media platform, in order to illustrate
+cross-platform differences.
+
+The most immediate difference in Fig. 1 is that Seeking Alpha
+content consists of long-form articles (the screenshot displays only
+the title and summary), in contrast to the short posts on StockTwits
+and Twitter. There are many other platform feature differences. For
+example, although StockTwits and Twitter both allow ‘‘cashtags’’, only
+on StockTwits can posts be flagged as bullish or bearish by the poster.
+Moreover, StockTwits is an investment-specific platform, while Twitter
+covers an unrestricted variety of topics. Other differences include the
+recommendation algorithms and the ability to thread tweets. Each of
+these can contribute to important discrepancies across platforms in both
+the social signal (sentiment and attention measures) as well as how the
+social signal relates to market outcomes. We exploit a change in one of
+these dimensions – when StockTwits increased their message character
+limit from 140 to 1,000 characters – to examine how platform features
+impact the information content on the platform.
+
+Another major difference across social media platforms is that they
+attract different users. Seeking Alpha posters are much more selected
+than Twitter or StockTwits users, which are open to anyone who
+signs up for an account. StockTwits has historically attracted users
+aiming to build reputation via their posts: deletion of past posts is
+not possible. Moreover, interest in these platforms has shifted and
+grown markedly over time, as is clear from Appendix Figure A1. To
+explore the importance of user composition, we test whether newer
+StockTwits users provide a less informative signal around a notable
+market event: the GME short squeeze of early 2021. We also use our
+within-StockTwits decomposition of different user types to examine
+how each type contributes to the social signal.
+
+3. Decomposing the social signal
+
+9 Our results are robust to using an alternate firm-day measure of attention:
+the deviation from its median number of messages over the preceding 10 days.
+See Appendix Tables A2 and A7.
+
+This section describes the commonalities and differences in the
+signals drawn from different social media investing platforms and
+across StockTwits investor types. Here, we distinguish between two key
+dimensions of the social signal: sentiment and attention.
+
+JournalofFinancialEconomics158(2024)1038705J.A. Cookson et al.
+
+Table 1
+Summary statistics.
+
+Panel A: Statistics by social media platform
+
+Daily sentiment
+
+# messages (daily)
+
+# of firms
+
+Firm-day observations
+
+StockTwits
+Twitter
+Seeking Alpha
+
+Mean
+
+0.10
+0.02
+0.02
+
+S.D.
+
+0.14
+0.06
+0.12
+
+Min
+
+−0.97
+−0.80
+−1
+
+Max
+
+0.97
+0.94
+1
+
+Panel B: Statistics by user type on StockTwits
+
+Mean
+
+S.D.
+
+Min
+
+Max
+
+Ever mentioned
+
+All
+
+Mentioned
+
+All
+
+132.40
+18.84
+0.46
+
+734.97
+62.69
+1.75
+
+10
+0
+0
+
+138,280
+7,160
+150
+
+1,497
+1,271
+1,283
+
+1,500
+1,500
+1,500
+
+815,980
+522,284
+137,018
+
+815,980
+815,980
+815,980
+
+Daily sentiment
+
+# messages (daily)
+
+Top 1%
+Professional
+Intermediate
+Novice
+No label
+
+Mean
+
+0.07
+0.09
+0.09
+0.07
+0.10
+
+S.D.
+
+0.29
+0.30
+0.29
+0.29
+0.18
+
+Min
+
+−1
+−1
+−1
+−1
+−0.99
+
+Max
+
+1
+1
+1
+1
+0.99
+
+Panel C: Stock characteristics by social media platform
+
+Mean
+
+S.D.
+
+Min
+
+Max
+
+5.97
+7.89
+13.37
+5.87
+105.27
+
+34.04
+28.92
+50.88
+26.18
+658.60
+
+0
+0
+0
+0
+0
+
+4,212
+2,405
+5,439
+3,645
+127,243
+
+Users
+
+#
+
+7,173
+20,073
+45,156
+34,118
+730,164
+
+Firm-day observations
+
+Share
+
+Non-zero
+
+All
+
+0.01
+0.02
+0.05
+0.04
+0.88
+
+512,549
+591,383
+687,993
+514,773
+810,614
+
+815,980
+815,980
+815,980
+815,980
+815,980
+
+Share of firms (%)
+
+StockTwits
+
+Small-cap
+Mid-cap
+Large-cap
+
+68.60
+15.13
+16.27
+
+Twitter
+
+30.07
+36.20
+33.73
+
+Seeking Alpha
+
+StockTwits
+
+Share of messages (%)
+
+30.67
+37.27
+32.07
+
+54.27
+15.41
+30.32
+
+Twitter
+
+16.13
+22.21
+61.66
+
+Panel D: Firm-day observations satisfying sample restriction
+
+Sample restriction
+
+Full sample
+At least 10 StockTwits messages
+Non-missing controls data
+Non-missing controls + returns
+
+# obs.
+
+2,795,852
+821,534
+815,980
+814,646
+
+Seeking Alpha
+
+18.27
+24.65
+57.09
+
+# dropped obs.
+
+–
+1,974,318
+5,554
+1,334
+
+Note: Panel A reports statistics on the firm-day level sentiment and attention by social media platform for all observations with at least 10 StockTwits messages. The sample time
+frame is Jan. 1, 2012 to Dec. 31, 2021 for StockTwits, Twitter, and Seeking Alpha. ‘‘# of firms - Ever mentioned’’ refers to the # of firms ever mentioned on a platform during
+our sample period; ‘‘# of firms - All’’ refers to the # firms included in our analysis sample (with the sentiment of firms not mentioned replaced by zeros). ‘‘Firm-day observations -
+Mentioned’’ refers to the # of firm-day observations with non-zero attention; ‘‘firm-day observations - All’’ refers to the # of firm-day observations in our analysis sample. Panel B
+provides similar statistics by user type on StockTwits. ‘‘Users - # (or Share)’’ refers to the # (or share) of StockTwits users of a certain type; Panel C reports the share of the 1,500
+most talked-about firms on each platform that are in each of three market capitalization bins (first three columns), and the share of messages about firms in each bin (columns
+4–6). ‘‘Small-cap,’’ ‘‘mid-cap,’’ and ‘‘large-cap’’ refer to stocks with market capitalizations below 2 billion, between 2 and 10 billion, and above 10 billion. Panel D shows how
+sample restrictions reduce the # of firm-day observations to arrive at our analysis sample.
+
+Fig. 2. Cross-platform correlation of social signals. Note: This figure reports the bivariate correlations of attention and sentiment signals between StockTwits and other platforms
+or news sources at the firm-day level. Attention is measured as the fraction of messages, reports, or articles about a firm across all firms on a platform in a day. Sentiment is
+measured as the average sentiment of all messages about a firm on a platform in a day.
+
+3.1. Are social signals common across platforms?
+
+We begin by examining how much commonality there is in the
+social signal across StockTwits, Twitter, and Seeking Alpha. Fig. 2
+and Panel A of Table 2 present the correlations of attention and
+sentiment between StockTwits and corresponding measures on Twitter
+and Seeking Alpha at the firm-day level. As a benchmark, we also
+present the correlations of StockTwits with traditional news coverage
+and sentiment from the Dow Jones Newswire (DJNW) and the Wall
+Street Journal (WSJ). The correlation between attention series on social
+platforms is relatively high at 0.621 between StockTwits and Twit-
+ter attention, and 0.434 between StockTwits and Seeking Alpha. By
+
+comparison, the correlations with coverage by traditional news media
+are much weaker: 0.184 for the WSJ and 0.175 for the DJNW. These
+correlations suggest that attention across social investing platforms
+contains a strong common component that is not well explained by
+news media coverage.
+
+In contrast to the attention correlations, we observe much weaker
+correlations in sentiment series across different platforms. The corre-
+lation of StockTwits with Twitter sentiment is only 0.125, whereas
+the correlation with Seeking Alpha sentiment is 0.038. The correlation
+with news sentiment is also low, at 0.010 for the WSJ and 0.069 for
+the DJNW. This suggests that sentiment is more idiosyncratic across
+
+JournalofFinancialEconomics158(2024)1038706J.A. Cookson et al.
+
+Table 2
+How common is sentiment and attention across platforms?
+
+Panel A: Correlations with the StockTwits signal
+
+Twitter
+
+Seeking Alpha
+
+StockTwits attention
+StockTwits sentiment
+
+0.595
+0.125
+
+0.398
+0.038
+
+Panel B: PCA of all platform-level signals
+
+DJNW
+
+0.220
+0.032
+
+WSJ
+
+0.163
+0.010
+
+PC1
+
+PC2
+
+PC3
+
+PC4
+
+PC5
+
+PC6
+
+Attention:
+
+StockTwits
+
+Twitter
+
+Seeking Alpha
+
+Sentiment:
+
+0.548
+
+(0.052)
+0.605
+
+(0.013)
+0.548
+
+(0.017)
+
+StockTwits
+
+−0.031
+
+Twitter
+
+Seeking Alpha
+
+Fraction
+
+(0.014)
+0.082
+
+(0.046)
+0.160
+
+(0.070)
+
+35.6%
+
+(4.284)
+
+−0.130
+
+(0.107)
+−0.033
+
+(0.050)
+−0.007
+
+(0.047)
+
+0.644
+
+(0.011)
+0.647
+
+(0.041)
+0.384
+
+(0.021)
+
+19.3%
+
+(0.124)
+
+−0.188
+
+(0.292)
+−0.098
+
+(0.126)
+0.052
+
+(0.180)
+
+−0.345
+
+(0.337)
+−0.225
+
+(0.282)
+0.885
+
+(0.737)
+
+15.9%
+
+(0.482)
+
+0.047
+
+(0.069)
+−0.009
+
+(0.016)
+0.084
+
+(0.021)
+
+0.682
+
+(0.010)
+−0.720
+
+(0.013)
+0.087
+
+(0.040)
+
+14.5%
+
+(0.085)
+
+0.638
+
+(0.155)
+0.048
+
+(0.142)
+−0.745
+
+(0.212)
+
+0.017
+
+(0.056)
+−0.008
+
+(0.035)
+0.190
+
+(0.221)
+
+9.2%
+
+(2.240)
+
+0.488
+
+(0.076)
+−0.788
+
+(0.025)
+0.368
+
+(0.117)
+
+−0.014
+
+(0.006)
+0.071
+
+(0.024)
+0.008
+
+(0.051)
+
+5.5%
+
+(1.638)
+
+Panel C: PCA of platform-level attention or sentiment signals
+
+Attention signal
+
+Sentiment signal
+
+StockTwits
+
+Twitter
+
+PC1
+
+0.565
+
+(0.027)
+0.614
+
+(0.029)
+Seeking Alpha 0.551
+
+Fraction
+
+(0.022)
+
+67%
+
+(9.336)
+
+PC2
+
+PC3
+
+PC1
+
+PC2
+
+PC3
+
+−0.665
+
+(0.592)
+−0.057
+
+(0.075)
+0.745
+
+(0.620)
+
+18.9%
+
+(6.033)
+
+0.489
+
+0.611
+
+(0.073)
+(0.006)
+−0.787 0.662
+
+(0.020)
+0.376
+
+(0.109)
+
+(0.003)
+0.435
+
+(0.009)
+
+11.1% 38.8%
+
+(3.360)
+
+(0.170)
+
+−0.464
+
+(0.021)
+−0.147
+
+(0.015)
+0.874
+
+(0.009)
+
+32.3%
+
+(0.069)
+
+0.642
+
+(0.010)
+−0.735
+
+(0.002)
+0.217
+
+(0.024)
+
+29%
+
+(0.144)
+
+Note: This table reports the correlations and principal component analyses of social
+signals across platforms. Panel A reports the bivariate correlations of attention and
+sentiment between StockTwits and another platform. Panel B reports the principal
+components of attention and sentiment signals in one analysis, while panel C reports
+the principal components separately for attention (columns 1–3) and for sentiment
+(columns 4–6). Standard errors in parentheses are double clustered by firm and by
+date via a block bootstrap procedure following Thompson (2011).
+
+social investing platforms, and as Fig. 2 highlights, the difference in the
+magnitudes of the correlations for attention and sentiment is striking.
+A priori, there are various plausible hypotheses about how the six
+signals we analyze could be cross-correlated. For example, sentiment
+and attention signals could have a strong correlation with one another
+under the theory that people pay attention to what they feel strongly
+about. Alternatively, people with similar outlooks could cluster within
+platforms, leading to correlation within platform between attention and
+sentiment. It is also not clear that the strongest cross-correlations are
+positive. If disagreement across platforms in sentiment or attention
+were the norm, we would expect to see negative cross-platform corre-
+lations. In the following analysis, our main finding is that the strongest
+cross-correlations are attention across platforms and sentiment across
+platforms, with little within-platform clustering or correlation between
+attention and sentiment signals.
+
+To systematically describe the cross-correlation of the six signals
+(attention and sentiment for each of the three platforms), we employ
+principal components analysis (PCA). PCA provides a convenient way
+to describe the multivariate correlations across attention and sentiment
+signals on the social platforms. The first principal component (PC1)
+from a PCA yields the linear combination of the signals that explain the
+most variation across the six signals. The second principal component
+(PC2) is the linear combination that explains the most of the remaining
+variation, and so on. Thus, if the loadings on the underlying signals
+
+are large within a principal component, these signals are mutually
+correlated. In other words, the loadings identify the clustering of signals
+within the data. Further, a standard output from PCA is the fraction of
+variation explained by each principal component. This is a useful sum-
+mary statistic of how much cross-correlation there is in each principal
+component for the signals that matter most to it.
+
+To gauge the extent to which sampling variability determines our
+ability to draw conclusions about PC loadings and explained varia-
+tion, we compute standard errors for the loadings and the fraction
+of variation explained by each PC by conducting a block bootstrap
+procedure that clusters standard errors by firm and by date. To do this,
+we separately conduct a block bootstrap by firm and by date, drawing
+1000 replications from each. Then, we follow the formula in Thompson
+(2011) to compute the double clustered variance–covariance matrix
+from each single clustered variance–covariance matrix. Throughout our
+analysis, we obtain relatively small standard errors, indicating that
+the statistics we focus on from the PCA are sufficiently precise. For
+table legibility, we suppress the reporting of standard errors on the PC
+loadings in later tables.
+
+Panel B of Table 2 presents the PCA across the six signals we
+consider in this paper (i.e., sentiment and attention across the three
+platforms at the firm-day level). PC1 explains 35.6% of the variation
+across the six signals, which is nearly twice the variation explained in
+PC2. Moreover, PC1 is roughly an equal-weighted average of attention
+signals, with low loadings on sentiment signals. Almost a mirror of PC1,
+PC2 is roughly an equal weighted average of sentiment signals, with
+low loadings on attention signals. This structure implies that sentiment
+and attention have a low correlation, and motivates our subsequent
+approach of using separate PCAs for attention signals and for sentiment
+signals.
+
+Next, we describe the common variation between social media sig-
+nals in PCAs for attention, and separately for sentiment. These PCAs are
+summarized in Panel C of Table 2. Consistent with the view that atten-
+tion is common across investors on various social media platforms, PC1
+of attention explains 70% of the variation across platforms. Further, all
+three attention signals are given similar positive weights in this first
+PC, suggesting a natural interpretation that the common component
+of attention is manifested in all three social media platforms. PC2
+captures differences in attention across Seeking Alpha and StockTwits
+since it places positive weight on Seeking Alpha and negative weight
+on StockTwits (with roughly zero weight on Twitter). However, these
+differences in attention across platforms captured by the second PC only
+explain 18.9% of the variation in attention.
+
+Turning to the sentiment PCA, the first PC only explains 38.8% of
+sentiment variation across platforms. This is a weak common compo-
+nent, because purely idiosyncratic variation in the three series would
+result in a first PC explaining 33.3%. Like the attention PCA, the
+second PC of sentiment mostly captures the difference between Seeking
+Alpha (positive weight, 𝑤 = 0.874) and StockTwits (negative weight,
+𝑤 = −0.464) since the Twitter sentiment series has a much smaller
+weight (𝑤 = −0.147). The fact that the second PC explains 32.3% of the
+variation implies that differences across platforms in sentiment capture
+approximately as much variation across platforms as similarities. These
+results suggest that, for any given firm or day, attention-related results
+from the social finance literature are more likely to generalize than
+results concerning sentiment.
+
+3.2. Conditional PCAs to account for confounding effects of news and firm
+characteristics
+
+The results in the prior PCA are unconditional, and therefore could
+be driven by many omitted variables. For example, news coverage or
+firm announcements could drive attention and sentiment to co-vary
+across platforms. Naturally, we want to control for this. One approach
+would be to regress a signal on the other signals, while controlling for
+news controls and firm fixed effects. However, this does not isolate the
+
+JournalofFinancialEconomics158(2024)1038707J.A. Cookson et al.
+
+Table 3
+How common is the social signal across platforms? Conditional on news and firm fixed effects.
+
+Panel A: PCA of residualized attention signals
+
+Residualize news
+
+Residualize news & firm
+
+Residualize news, firm, & returns
+
+StockTwits
+Twitter
+Seeking Alpha
+
+Fraction
+
+PC1
+
+0.582
+0.616
+0.531
+
+66.4%
+
+(8.768)
+
+PC2
+
+−0.548
+−0.185
+0.815
+
+21%
+
+(5.200)
+
+Panel B: PCA of residualized sentiment signals
+
+Residualize news
+
+StockTwits
+Twitter
+Seeking Alpha
+
+Fraction
+
+PC1
+
+0.639
+0.675
+0.369
+
+38.2%
+
+(0.159)
+
+PC2
+
+−0.376
+−0.144
+0.915
+
+32.7%
+
+(0.054)
+
+PC3
+
+0.601
+−0.766
+0.230
+
+12.7%
+
+(3.666)
+
+PC3
+
+0.671
+−0.724
+0.162
+
+29.2%
+
+(0.142)
+
+PC1
+
+0.608
+0.627
+0.487
+
+63.4%
+
+(7.898)
+
+PC2
+
+−0.421
+−0.266
+0.867
+
+24.1%
+
+(4.449)
+
+PC3
+
+0.674
+−0.732
+0.103
+
+12.5%
+
+(3.536)
+
+PC1
+
+0.606
+0.626
+0.492
+
+63.5%
+
+(8.151)
+
+PC2
+
+−0.427
+−0.266
+0.864
+
+23.9%
+
+(4.513)
+
+Residualize news & firm
+
+Residualize news, firm, & returns
+
+PC1
+
+0.660
+0.676
+0.327
+
+38.2%
+
+(0.134)
+
+PC2
+
+−0.288
+−0.174
+0.942
+
+32.8%
+
+(0.038)
+
+PC3
+
+0.694
+−0.716
+0.080
+
+29.1%
+
+(0.125)
+
+PC1
+
+0.660
+0.676
+0.327
+
+38.1%
+
+(0.134)
+
+PC2
+
+−0.289
+−0.173
+0.942
+
+32.8%
+
+(0.038)
+
+PC3
+
+0.671
+−0.733
+0.106
+
+12.6%
+
+(3.716)
+
+PC3
+
+0.694
+−0.716
+0.081
+
+29.2%
+
+(0.125)
+
+Note: This table repeats the principal component analysis in Table 2 using the residualized social signal. The residualized signal in columns 1–3 refers to the residual from regressing
+a signal on DJNW sentiment (lagged 0 through 7 days), DJNW attention (lagged 0 through 7 days), dummies for earnings announcements (lagged 0 through 7 days), dummies
+for 8-k filings (lagged 0 through 7 days); in columns 4–6, we also residualize out firm fixed effects; in columns 7–9, we further residualize out lagged return volatility (previous
+five trading days) and lagged cumulative abnormal returns (previous five trading days and the 25 days before that). Standard errors in parentheses are double clustered by firm
+and by date via a block bootstrap procedure following Thompson (2011).
+
+correlations across platforms that are of interest to us: for example,
+in a regression of Stocktwits sentiment on Twitter and Seeking Alpha
+sentiment, the coefficient on Twitter sentiment holds constant Seeking
+Alpha sentiment, which is not the variation we are interested in. Thus,
+we adopt a conditional PCA approach. In a conditional PCA, the input
+signals are first regressed on controls and fixed effects to orthogonalize
+the signal with respect to confounding variation. We run regressions of
+the following form for each of the six signals:
+𝑖 + 𝜖𝑃
+𝑖𝑡 ,
+
+𝑖,𝑡 = 𝛤 𝑃 𝑋𝑖,𝑡 + 𝛾 𝑃
+
+𝑆𝑖𝑔𝑛𝑎𝑙𝑃
+
+(2)
+
+where 𝑆𝑖𝑔𝑛𝑎𝑙𝑃
+𝑖,𝑡 is either attention or sentiment on a platform 𝑃 for firm
+𝑖 on day 𝑡; 𝑋𝑖,𝑡 are controls for traditional news for firm 𝑖 on day 𝑡; 𝛾 𝑃
+𝑖
+are firm fixed effects. Then, we extract the residual from each signal
+series and perform the PCA on the 6 residualized signals.
+
+Table 3 Panels A and B first residualize by news only, that is,
+traditional media coverage of firm 𝑖 on date 𝑡 drawn from RavenPack.
+RavenPack provides both the number of articles about firm 𝑖 on date 𝑡,
+as well as the sentiment of those articles. We control for both sentiment
+and number of articles. We also include an indicator variable for
+whether there is an earnings announcement on date 𝑡 for firm 𝑖, as
+well as lags of up to 7 days; we do the same for 8-K disclosures. The
+aim is to flexibly control for news in the residualization step. In the
+next three columns of both panels, we residualize by news and also
+add firm fixed effects to control for any unobserved and time-invariant
+firm characteristics. Finally, in the last three columns of both panels, we
+further residualize by lagged return volatility and cumulative abnormal
+returns.
+
+As Table 3 shows, our controls for news, time-invariant firm char-
+acteristics, and lagged returns do not change the qualitative conclusion
+that attention is highly correlated across social media platforms, while
+sentiment has a more modest correlation. Instead of the first PC of
+attention explaining 67% of the variation across platforms, residualized
+attention explains 63 to 66% of the variation. Sentiment is even more
+insensitive to controlling for news and firm fixed effects. Relative to
+the 38.8% in the unconditional PCA of sentiment, the conditional PCA
+results in a first PC that explains 38.1 to 38.2% of the variation across
+platforms. More than showing robustness to controlling for news and
+other confounding factors, these findings indicate that there is a strong
+cross-correlation in the information shared on social media platforms
+that is largely independent of news.10 That is, the information on social
+
+10 When social media posts are not talking about firm news, what do they
+talk about? There are many potential non-news topics. Typical examples
+
+media is not simply a reflection of traditional news, firm disclosures,
+and recent market conditions.
+
+To ensure that these results are not driven by the way we de-
+fine social media attention in Eq. (1), Appendix Table A2 reproduces
+the analyses in Tables 2 and 3 using an alternate firm-day attention
+measure: the deviation from the median number of messages over
+the preceding 10 days (‘‘abnormal attention’’). The PCA loadings are
+very similar, and fraction of variation explained by each PC shows the
+same pattern, albeit with PC1’s share falling to around 50%. To further
+alleviate this concern, we construct an extensive margin measure of
+attention: whether a stock is mentioned on a platform (‘‘coverage’’).
+Appendix Table A3 shows that the cross-platform correlations for cov-
+erage are lower, at around half the level shown for our main attention
+measure. However, despite this being an extensive margin measure, the
+PCA shows similar results to those for abnormal attention.11
+
+3.3. Heterogeneity by firm size
+
+There are clear differences in coverage across platforms by firm size:
+StockTwits over-represents small stocks relative to Twitter and Seeking
+Alpha. Thus, we explore heterogeneity by firm size by performing a
+separate PCA for firms within different size bins: small (below $2 billion
+in market cap), medium (between $2 billion and $10 billion), and
+large (above $10 billion). For clarity, the heterogeneity analysis reports
+only the first PC; our main interest is in evaluating this component’s
+strength, loadings, and how it varies by firm size.
+
+Table 4 reports the results. We find that large firms have more com-
+monality in both attention and sentiment signals than do medium and
+small firms. Moreover, within each size bucket, the main conclusion of
+the PCA holds: attention is more correlated than is sentiment. However,
+there is meaningful heterogeneity across the size distribution in the
+strength of the first PC. Panels A and B present the unconditional PCA
+results. For attention, the first PC explains 49.5% of variation for small
+firms, but this increases to 72.5% for large firms. Sentiment’s first PC
+
+include how national or international events affect the focal firm, or how news
+about competitors does.
+
+11 In Appendix Table A4 we include Reddit’s WallStreetBets (WSB) sentiment
+and attention as additional signals in the conditional PCA. Our findings
+are unchanged: PC1 of attention explains approximately double the baseline
+variation (51.1% vs. 25%), while PC1 of sentiment remains barely above the
+baseline.
+
+JournalofFinancialEconomics158(2024)1038708J.A. Cookson et al.
+
+Table 4
+How common is the social signal across platforms? Heterogeneity in first principal
+component (PC1) by firm size.
+
+Panel A: PC1 of attention signals by firm size
+
+StockTwits
+Twitter
+Seeking Alpha
+
+Fraction of variation
+
+Small
+
+0.577
+0.653
+0.490
+
+49.5%
+
+(1.225)
+
+Panel B: PC1 of sentiment signals by firm size
+
+StockTwits
+Twitter
+Seeking Alpha
+
+Fraction of variation
+
+Small
+
+0.637
+0.661
+0.397
+
+36.3%
+
+(0.129)
+
+Medium
+
+0.620
+0.652
+0.436
+
+58.9%
+
+(1.009)
+
+Medium
+
+0.659
+0.665
+0.352
+
+40.1%
+
+(0.258)
+
+Large
+
+0.566
+0.615
+0.549
+
+72.5%
+
+(10.168)
+
+Large
+
+0.643
+0.670
+0.372
+
+42.4%
+
+(0.288)
+
+Panel C: PC1 of residualized attention signals by firm size
+
+Residualize news
+
+Residualize news & firm FEs
+
+StockTwits
+Twitter
+Seeking Alpha
+
+Fraction
+of variation
+
+Small
+
+0.634
+0.668
+0.390
+
+46%
+
+(1.167)
+
+Medium
+
+Large
+
+Small
+
+Medium
+
+Large
+
+0.664
+0.675
+0.321
+
+54.4%
+
+(1.047)
+
+0.577
+0.618
+0.534
+
+0.647
+0.672
+0.360
+
+69.4% 45.7%
+
+(9.060)
+
+(1.139)
+
+0.671
+0.681
+0.293
+
+54.4%
+
+(0.798)
+
+0.609
+0.627
+0.485
+
+68.1%
+
+(7.651)
+
+Panel D: PC1 of residualized sentiment signals by firm size
+
+Residualize news
+
+Residualize news & firm FE
+
+StockTwits
+Twitter
+Seeking Alpha
+
+Fraction
+of variation
+
+Small
+
+0.656
+0.674
+0.338
+
+36%
+
+(0.122)
+
+Medium
+
+Large
+
+Small
+
+Medium
+
+Large
+
+0.671
+0.678
+0.299
+
+39.6%
+
+(0.274)
+
+0.656
+0.682
+0.323
+
+0.669
+0.679
+0.300
+
+41.7% 36.2%
+
+(0.274)
+
+(0.110)
+
+0.673
+0.680
+0.291
+
+39.4%
+
+(0.248)
+
+0.659
+0.680
+0.320
+
+41.2%
+
+(0.210)
+
+Note: This table reports heterogeneity in the first principal components from Table 2
+panel C and Table 3 columns 1–6. The sample is split into three groups by firm size:
+‘‘small’’ refers to stocks whose market capitalization is below 2 billion; ‘‘medium’’ those
+between 2 and 10 billion; ‘‘large’’ those above 10 billion. Standard errors in parentheses
+are double clustered by firm and by date via a block bootstrap procedure following
+Thompson (2011).
+
+is stronger for large firms (42.4%) than for small firms (36.3%). Panels
+C and D present the results of the conditional PCA. Similar to our main
+findings, residualizing attenuates the strength of the first PC slightly,
+but it does not change the qualitative conclusion. Notably, differences
+in news and time-invariant firm characteristics do not explain the
+heterogeneity across the size distribution, which remains pronounced
+in the conditional PCA.
+
+3.4. Similarities and differences in the social signal across user types
+
+A potential explanation for the weak correlation of sentiment across
+platforms is that the different natural language processing (NLP) algo-
+rithms used for each platform may produce different measures from
+the same underlying text. We test whether NLPs are a major driver
+of the low correlation in sentiment signals by focusing on messages
+within StockTwits across types of users. The StockTwits data allow us
+to construct attention and sentiment signals separately for different
+investor subgroups. In this section, we disaggregate the StockTwits
+signal to separately consider the sentiment and attention of influencers
+(those in the top 1% by number of followers), professional users,
+intermediate users, novice users, and users who do not indicate an
+experience category (‘‘no label’’).
+
+Panel A of Table 5 presents the correlation of attention for each
+user subset on StockTwits with its complement at the firm-day level;
+for example, we compare the attention of the top 1% of users by
+followers with the remaining 99% in the first column. The correlations
+
+of attention across user groups on StockTwits range from 0.805 (top
+1%) to 0.947 (‘‘no label’’ users). In contrast to the high correlations for
+attention, those for sentiment are weak: correlations range from 0.166
+(no label) to 0.088 (novices). These weak correlations in sentiment
+across user subgroups suggest that differences across user types are an
+important driver of differences in social media sentiment, because this
+analysis holds constant the NLP and platform features.
+
+In Panels B and C, we repeat the conditional PCA using the signals
+from StockTwits subgroups. For brevity, these panels only report the
+first five PCs.12 Consistent with our cross-platform PCA, we see that
+attention contains a strong common component (84.3% of the variation
+captured by PC1) while sentiment’s common component is weaker,
+capturing only 27.6%. The second PCs capture differences in attention
+or sentiment between the more sophisticated investors (top 1% and
+professionals) and the rest. In the attention PCA, PC3 and higher
+explain very little variation. In contrast, these components explain
+a non-trivial share of variation for sentiment. Thus, differences in
+NLPs across platforms cannot fully drive our results. Moreover, this
+within-StockTwits evidence suggests that, even if NLPs and all platform
+features were identical, we would see cross-platform differences in the
+sentiment signal due to differences in user populations.
+
+3.5. Are social signals persistent?
+
+We now examine the persistence of attention and sentiment over
+time by computing the partial autocorrelation function (PACF) for each
+platform’s attention and sentiment signal. In Appendix Figure A2, we
+compute the PACF for each series out to 20 lags (days). Attention
+(dashed lines) tends to have high autocorrelations at lag 1 (around
+0.8) that decay to near zero after lag 5. By contrast, sentiment has
+low autocorrelations at lag 1 (between 0.1 and 0.25) and decays more
+rapidly to zero.
+
+This constitutes another difference between attention and senti-
+ment signals: attention exhibits a much greater and more persistent
+autocorrelation than does sentiment. We account for these underly-
+ing differences when we relate attention and sentiment to returns by
+controlling for 10 lags of each.
+
+4. Informativeness of social media signals
+
+In the second part of this paper we examine how the social signal
+relates to two outcomes typically studied by the literature: returns and
+retail order imbalance.
+
+We first explore the informativeness for future returns of the atten-
+tion and sentiment signals from each social media platform. Note that
+the signals from each platform are a combination of a platform-specific
+or idiosyncratic component, and a common social signal component.
+For example, a coefficient in a regression between an outcome and
+only the Twitter signal captures the relation between the outcome and
+a combination of (i) a common social media component and (ii) a
+Twitter-specific component. In contrast, in a regression with signals
+from all three platforms, coefficients on signals from each platform
+reflect only how each platform-specific component relates to the out-
+come. The contrast between the coefficients from these two regressions
+captures how the common component of a particular platform’s signal
+relates to returns. Moreover, the informativeness of the common and
+idiosyncratic components of each platform’s signal may be aligned
+(i.e., they have the same sign and approximate magnitude) or mis-
+aligned. Importantly, cases of misalignment can generate differences in
+informativeness between the platform-specific signal and the common
+social signal.
+
+12 Appendix Table A1 presents results from the unconditional PCA analysis.
+
+JournalofFinancialEconomics158(2024)1038709J.A. Cookson et al.
+
+Table 5
+How common is the social signal across user types? Evidence from users groups on StockTwits.
+
+Panel A: Correlations within StockTwits
+
+StockTwits attention
+StockTwits sentiment
+
+Top 1%
+
+0.805
+0.095
+
+Panel B: PC1 of residualized attention signals
+
+Top 1%
+Professional
+Intermediate
+Novice
+No label
+
+Fraction of variation
+
+Panel C: PC1 of residualized sentiment signals
+
+Top 1%
+Professional
+Intermediate
+Novice
+No label
+
+Fraction of variation
+
+Professional
+
+Intermediate
+
+0.860
+0.108
+
+PC1
+
+0.415
+0.443
+0.466
+0.445
+0.465
+
+84.3%
+
+(2.607)
+
+PC1
+
+0.572
+0.472
+0.381
+0.281
+0.476
+
+27.6%
+
+(0.079)
+
+0.948
+0.118
+
+PC2
+
+0.800
+0.195
+−0.193
+−0.464
+−0.263
+
+7.2%
+
+(1.131)
+
+PC2
+
+−0.182
+−0.398
+0.028
+0.896
+0.062
+
+19.5%
+
+(0.027)
+
+PC3
+
+0.432
+−0.783
+−0.124
+0.423
+0.081
+
+4.6%
+
+(0.883)
+
+PC3
+
+−0.128
+−0.473
+0.819
+−0.271
+0.126
+
+19%
+
+(0.031)
+
+Novice
+
+0.914
+0.088
+
+PC4
+
+0.003
+0.372
+−0.490
+0.632
+−0.471
+
+2.3%
+
+(0.405)
+
+PC4
+
+0.084
+0.311
+0.389
+0.201
+−0.839
+
+17.9%
+
+(0.043)
+
+No label
+
+0.947
+0.166
+
+PC5
+
+−0.023
+0.121
+−0.700
+−0.094
+0.698
+
+1.5%
+
+(0.278)
+
+PC5
+
+−0.785
+0.547
+0.179
+0.062
+0.222
+
+16%
+
+(0.060)
+
+Note: This table reports the correlations and principal component analyses of social signals across different user types on StockTwits. Panel A
+reports the bivariate correlations of attention and sentiment between StockTwits signals from each user group and their complements. Panels
+B and C use residualized attention and sentiment signals, respectively, i.e., residuals from regressing each signal on DJNW sentiment (lagged 0
+through 7 days), DJNW attention (lagged 0 through 7 days), dummies for earnings announcements (lagged 0 through 7 days), dummies for 8-k
+filings (lagged 0 through 7 days), and firm fixed effects. PCA of non-residualized social signals from StockTwits user subgroups are reported
+in Appendix Table A1. Standard errors in parentheses are double clustered by firm and by date via a block bootstrap procedure following
+Thompson (2011).
+
+4.1. Does the social signal predict future returns?
+
+To examine whether the social signal predicts returns, we estimate
+
+the following specification:
+
+𝐴𝑏𝑛𝑜𝑟𝑚𝑎𝑙𝑅𝑒𝑡𝑢𝑟𝑛𝑠𝑖,𝑡+𝜏 = 𝛽1𝐴𝑡𝑡𝑒𝑛𝑡𝑖𝑜𝑛𝑖,𝑡 +𝛽2𝑆𝑒𝑛𝑡𝑖𝑚𝑒𝑛𝑡𝑖,𝑡 +𝐗𝐢,𝐭 ×𝛤 +𝛼𝑖 +𝛼𝑡 +𝜖𝑖,𝑡
+
+(3)
+
+where the dependent variable Abnormal Returns𝑖,𝑡+𝜏 is in percentage
+points, and 𝜏 = 0, . . . , 20. 𝐴𝑡𝑡𝑒𝑛𝑡𝑖𝑜𝑛𝑖,𝑡 and 𝑆𝑒𝑛𝑡𝑖𝑚𝑒𝑛𝑡𝑖,𝑡 are firm-day
+measures from a particular platform or the principal components con-
+structed in the previous section. In addition, the controls (𝑋𝑖,𝑡) include
+DJNW sentiment and attention, indicators for 8-K filing or earnings
+announcement days, lagged volatility (𝑡 − 1 to 𝑡 − 5), lagged market
+returns (CAR 𝑡 − 1 to 𝑡 − 5 and 𝑡 − 6 to 𝑡 − 30), and firm and date fixed
+effects. We also control for log Google ASVI as an alternative measure
+of retail investor attention.13 We further control for lagged 𝐴𝑡𝑡𝑒𝑛𝑡𝑖𝑜𝑛𝑖,𝜂
+and 𝑆𝑒𝑛𝑡𝑖𝑚𝑒𝑛𝑡𝑖,𝜂 (where 𝜂 = 𝑡 − 1, 𝑡 − 2, . . . , 𝑡 − 10) to account for the
+autocorrelation documented in the preceding section. Table 6 presents
+the results from estimating Eq. (3) for next day (𝑡+1) returns, with each
+column employing a different source of social signal.
+
+The first column of Table 6 examines the informativeness for next-
+day returns of the common component in the social media signal
+captured by the first principal components (PC1s). We find that com-
+mon social media sentiment is positively related to next day returns (a
+standard deviation increase predicts a 6.1 bps higher return), while
+attention is negatively related (−13 bps); note that these estimates of
+attention’s relation to return are conditional on sentiment (and vice
+
+13 Abnormal Google search volume, is calculated following Niessner (2015):
+we take the daily Google SVI data for each ticker and divide by its median SVI
+between days t-56 and t-35. We then take the natural logarithm and replace
+missing values (caused by a missing median) with zero. The SVI data come
+from 200-day downloads with a day of overlap that we concatenate to ensure
+consistency across time.
+
+versa).14 Column 2 includes all six signals, so estimates reflect the
+platform-specific contributions of each platform’s sentiment and atten-
+tion to informativeness. We see that the informativeness of StockTwits’
+idiosyncratic component largely aligns with the common component,
+while those of the other two platforms do not. In particular, Twitter’s
+idiosyncratic sentiment coefficient is near zero, while the attention
+coefficient is positive and large (+11 bps), making it substantially
+different from the negative common attention coefficient.15
+
+Columns 3–5 reproduce this analysis using the signals from one
+platform at a time; these single-platform regressions make use of a
+mix of idiosyncratic and common information. We see that coefficient
+estimates on StockTwits attention and sentiment in column 3 are well-
+aligned with the common component coefficients in column 1, making
+them a good reflection of the overall social signal for next-day returns.
+By contrast, while Twitter and Seeking Alpha’s sentiment coefficients
+are directionally aligned with the common component, their attention
+coefficients are not. Comparing columns 1 and 2, we see Twitter’s
+idiosyncratic and common attention components offset each other,
+leading to a near-zero combined attention effect in column 4. For
+Seeking Alpha attention, we see that the platform-specific coefficient in
+column 5 matches the idiosyncratic one from column 2, which suggests
+that the platform’s attention does not load on the common component.
+
+14 In Appendix Table A5, we include PC2 and PC3 of sentiment and find
+
+that the informativeness of PC1 sentiment is unchanged.
+
+15 We find that a reversal effect helps explain this positive relation between
+day t idiosyncratic Twitter attention and next-day returns. Specifically, we find
+that day t idiosyncratic Twitter attention has a negative relation to both day
+t returns (Appendix Table A9) and to day t retail order imbalance (Appendix
+Table A10), making the positive relation to next day returns a partial reversal
+of the day t effect. A plausible alternative mechanism is that day t idiosyncratic
+Twitter attention predicts more retail buying pressure on day t+1, driving up
+returns. However, we instead find that idiosyncratic Twitter attention on day
+t predicts slightly lower retail buying pressure on day t+1 (Appendix Table
+A11).
+
+JournalofFinancialEconomics158(2024)10387010J.A. Cookson et al.
+
+Table 6
+How do next-day returns relate to social signals?
+
+Dependent var.: AR𝑖,𝑡+1 (%)
+
+Sentiment PC1𝑖,𝑡(𝑧)
+
+Attention PC1𝑖,𝑡(𝑧)
+
+StockTwits sentiment𝑖,𝑡(𝑧)
+
+StockTwits attention𝑖,𝑡(𝑧)
+
+Twitter sentiment𝑖,𝑡(𝑧)
+
+Twitter attention𝑖,𝑡(𝑧)
+
+Seeking Alpha sentiment𝑖,𝑡(𝑧)
+
+Seeking Alpha attention𝑖,𝑡(𝑧)
+
+DJNW sentiment𝑖,𝑡(𝑧)
+
+DJNW attention𝑖,𝑡(𝑧)
+
+8-K report day𝑖,𝑡
+
+EA day𝑖,𝑡
+
+Volatility𝑖,(𝑡−5)→(𝑡−1)
+
+CAR𝑖,(𝑡−5)→(𝑡−1)
+
+CAR𝑖,(𝑡−30)→(𝑡−6)
+
+Log Google ASVI𝑖,𝑡 (z)
+
+Sentiment & Attention𝑖,(𝑡−1),…,(𝑡−10)
+Firm (i) FE
+Date (t) FE
+Outcome mean
+Outcome SD
+Observations
+𝑅2
+
+(1)
+
+0.061***
+(0.009)
+−0.131***
+(0.050)
+
+0.078***
+(0.008)
+0.012
+(0.011)
+0.070
+(0.044)
+−0.547***
+(0.091)
+−0.045
+(0.375)
+−0.007***
+(0.002)
+−0.001*
+(0.001)
+−0.053***
+(0.017)
+
+Y
+Y
+Y
+−0.048
+7.124
+819,210
+0.0320
+
+(2)
+
+(3)
+
+(4)
+
+(5)
+
+0.049***
+(0.008)
+−0.206***
+(0.056)
+0.011
+(0.007)
+0.112***
+(0.031)
+0.079***
+(0.010)
+−0.010
+(0.010)
+0.067***
+(0.008)
+−0.019*
+(0.010)
+0.014
+(0.044)
+−0.539***
+(0.091)
+0.022
+(0.378)
+−0.007***
+(0.002)
+−0.001*
+(0.001)
+−0.054***
+(0.017)
+
+Y
+Y
+Y
+−0.048
+7.124
+819,210
+0.0323
+
+0.053***
+(0.008)
+−0.151***
+(0.051)
+
+0.079***
+(0.008)
+0.008
+(0.010)
+0.061
+(0.043)
+−0.547***
+(0.091)
+−0.009
+(0.377)
+−0.007***
+(0.002)
+−0.001*
+(0.001)
+−0.050***
+(0.017)
+
+Y
+Y
+Y
+−0.048
+7.124
+819,210
+0.0321
+
+0.022***
+(0.007)
+−0.010
+(0.020)
+
+0.082***
+(0.008)
+−0.008
+(0.010)
+0.044
+(0.044)
+−0.538***
+(0.091)
+−0.099
+(0.375)
+−0.008***
+(0.002)
+−0.001*
+(0.001)
+−0.064***
+(0.017)
+
+Y
+Y
+Y
+−0.048
+7.124
+819,210
+0.0318
+
+0.081***
+(0.010)
+−0.015
+(0.010)
+0.071***
+(0.008)
+−0.012
+(0.009)
+0.037
+(0.042)
+−0.566***
+(0.091)
+−0.114
+(0.373)
+−0.008***
+(0.002)
+−0.001*
+(0.001)
+−0.065***
+(0.017)
+
+Y
+Y
+Y
+−0.048
+7.124
+819,210
+0.0319
+
+Note: This table reports how next-day abnormal returns relate to social signals. The outcome is each security’s abnormal return (AR) on day
+t + 1 in percentage points. We control for DJNW standardized sentiment and attention, 8-K report date indicators, earnings announcement
+indicators, lagged return volatility (previous five trading days), lagged cumulative abnormal returns (previous five trading days and the 25 days
+before that), and Log Google ASVI. All regressions include ten lags (t − 1 to t − 10) of sentiment, and ten lags of attention. (z) denotes a
+standardized variable (mean 0, standard deviation 1 using the estimation sample statistics). PC1 is the first principal component of StockTwits
+subsignals (top 1%, self labeled, professional, intermediate, novice, no experience), Twitter, and Seeking Alpha. Standard errors in parentheses
+are double clustered by firm and by date. *** 1%, ** 5%, * 10% significance level.
+
+Examining the control variables in the table is also informative.
+These specifications hold constant the attention and sentiment of tra-
+ditional media via the DJNW attention and sentiment controls. The
+coefficient estimates on these controls provide an alternative bench-
+mark: a one standard deviation increase in DJNW sentiment predicts 8
+bps higher next-day returns, while there is not a significant relationship
+between DJNW attention and returns. Log Google ASVI negatively
+predicts next-day returns and is largely uncorrelated with the social
+signal measures: coefficients are essentially unchanged when log ASVI
+is omitted in untabulated results.
+
+4.1.1. Mechanisms for return predictability
+
+To better understand the mechanisms behind the informativeness
+of attention and sentiment for next-day returns, we estimate a spec-
+ification using the PC1 of attention and sentiment as of day 𝑡 to
+predict cumulative abnormal returns for days 𝑡 + 1, 𝑡 + 2, . . . , 𝑡 + 20.
+Fig. 3 Panel (a) presents the estimated cumulative return coefficient
+on the sentiment PC1; the coefficients for the middle and top terciles
+of attention are in Panel (b). These figures show that the positive
+cumulative return coefficients on sentiment are stable out to day t+20
+and do not decline. Similarly, the coefficients on middle and high
+attention increase in magnitude for several days before flattening out
+
+by around day t+15. To provide context for these estimates, we run the
+same specification for day 𝑡 returns, and find a clear positive relation
+between both sentiment and attention and day 𝑡 returns (see columns
+1–2 of Table 7).16 Putting these findings together, the negative attention
+estimates out to day 𝑡 + 20 reflect a gradual reversal of the positive
+return that occurs on day 𝑡 that is especially pronounced for high-
+attention days. Moreover, this reversal is only partial, adding up to
+about 1.5 percentage points relative to the day 𝑡 estimate of around
+4 percentage points on high-attention days.
+
+The above evidence also rules out some alternative interpretations.
+For example, the sentiment estimates exhibit no reversal, which is
+inconsistent with uninformed short-term buying pressure driving the
+positive day 𝑡 and 𝑡 + 1 returns. Instead, this is consistent with the
+interpretation that social media sentiment contains market-relevant in-
+formation. Turning to attention, one hypothesis about the negative day
+𝑡 + 1 coefficient is that attention on day 𝑡 reflects negative information
+that is not fully captured by sentiment. However, that is inconsistent
+with the positive relation between high attention and day 𝑡 returns. A
+
+16 Appendix Figure A3 presents the estimates for sentiment and attention by
+
+platform for same day return and retail trading imbalance.
+
+JournalofFinancialEconomics158(2024)10387011J.A. Cookson et al.
+
+Fig. 3. Informativeness of social signals for cumulative abnormal returns. Note: This figure plots the estimated coefficients (and 90% confidence intervals) on the first principal
+components (PC1s) of sentiment signal (z) in Panel (a) and on high-level and mid-level attention in Panel (b). High-level (or mid-level) attention equals 1 if the firm-day attention
+PC1 is above the 67th percentile (or between percentiles 33 and 67) within a year, and zero otherwise. The outcome is the cumulative abnormal return as of day t+1, t+2,
+. . . , t+20, starting on day t+1. We estimate separate regressions for each horizon, and sentiment and attention coefficients are estimated in the same regression. (z) denotes a
+standardized variable (mean 0, standard deviation 1 using estimation sample statistics). Everything else follows Table 6 column 1.
+
+natural way to interpret these dynamic results is that high attention
+days correspond to an over-reaction.17
+
+In Table 7 columns 3–6, we present results on how day 𝑡 retail trading
+relates to the PC1s of sentiment and attention. Because retail trading
+reflects the actions of investors, these results illustrate the impact of the
+social signal, in addition to its content. We consider two measures of
+net retail buying: retail trade imbalance as in Boehmer et al. (2021) and
+the Robinhood user ratio as in Barber et al. (2022). For both we find
+that net buying on day 𝑡 is positively related to sentiment and attention.
+Coefficient estimates are especially large and statistically significant
+for attention, consistent with the interpretation that returns overshoot
+on high-attention days due to net buying by retail investors, and then
+gradually reverse. Further, in Appendix Figure A5, we present how day
+𝑡 sentiment and attention relate to retail trading imbalance on days 𝑡,
+
+𝑡 + 1, . . . , 𝑡 + 20. Retail trading is only significantly related to day 𝑡
+sentiment contemporaneously and for one or two days afterwards; the
+coefficient estimates on attention fall rapidly after day 𝑡.18 Thus, the
+dynamic relation between returns and the social signal is unlikely to
+be driven by retail buying or selling pressure that persists beyond day
+𝑡 + 1.19
+
+4.1.2. Heterogeneity by size
+
+In Table 1 Panel C, we show that the platforms focus on different
+parts of the firm size distribution, with StockTwits weighted towards
+small-cap firms, and Seeking Alpha and Twitter focusing on large-
+cap firms. Therefore, we examine whether the informativeness of the
+signal in columns 1–3 of Table 6 varies by firm size. Fig. 4 plots
+the coefficients of sentiment and attention from regressions similar
+to the ones in Table 6, except run separately for small, mid-, and
+
+17 We further examine the role of news as a mediator for our social media
+sentiment and attention estimates in Appendix Figure A4. To do this, we split
+days into ‘‘news days’’ (days the firm is covered by Dow Jones Newswire,
+days with an Earnings Announcement, or days with an 8K filing) and ‘‘no-
+news’’ days (days outside a ±7 day window of any news day). We find that
+sentiment is informative in the presence of news, but not in its absence. By
+contrast, attention’s over-reaction is greatest on no-news days, suggesting that
+the presence of news disciplines return overshooting.
+
+18 In addition, the attention estimates are the wrong sign to explain the
+negative returns from day 𝑡 + 1 through 𝑡 + 20 via a buying pressure channel.
+19 Appendix Table A10 presents how the same-day retail trading results
+differ by platform. Intriguingly, StockTwits sentiment and attention are more
+robustly related to retail trading imbalance than Twitter or Seeking Alpha. Id-
+iosyncratic Twitter attention (conditional on the other signals) even negatively
+relates to retail buying pressure.
+
+JournalofFinancialEconomics158(2024)10387012J.A. Cookson et al.
+
+Table 7
+How do same-day returns and retail trading relate to social signals?
+
+Dependent var.:
+
+Sentiment PC1𝑖,𝑡(𝑧)
+
+Attention PC1𝑖,𝑡(𝑧)
+
+Mid attention𝑖,𝑡
+
+High attention𝑖,𝑡
+
+DJNW sentiment𝑖,𝑡(𝑧)
+
+DJNW attention𝑖,𝑡(𝑧)
+
+Sentiment & Attention𝑖,(𝑡−1),…,(𝑡−10)
+Controls
+Firm (i) FE
+Date (t) FE
+Outcome mean
+Outcome SD
+Observations
+𝑅2
+
+AR𝑖,𝑡 (%)
+
+(1)
+
+1.591***
+(0.036)
+3.630***
+(0.734)
+
+0.425***
+(0.023)
+−0.272***
+(0.046)
+
+Y
+Y
+Y
+Y
+0.358
+9.190
+819,706
+0.0917
+
+RT imbalance𝑖,𝑡 (%)
+
+RH user ratio𝑖,𝑡 (%)
+
+(2)
+
+1.498***
+(0.033)
+
+1.496***
+(0.058)
+4.049***
+(0.155)
+0.380***
+(0.021)
+0.019
+(0.036)
+
+Y
+Y
+Y
+Y
+0.358
+9.190
+819,706
+0.0779
+
+(3)
+
+0.781***
+(0.046)
+1.084***
+(0.214)
+
+0.135***
+(0.025)
+−0.134***
+(0.044)
+
+Y
+Y
+Y
+Y
+−0.327
+23.173
+810,652
+0.0279
+
+(4)
+
+0.655***
+(0.043)
+
+2.000***
+(0.089)
+3.969***
+(0.143)
+0.073***
+(0.024)
+−0.107**
+(0.042)
+
+Y
+Y
+Y
+Y
+−0.327
+23.173
+810,652
+0.0300
+
+(5)
+
+1.373
+(1.025)
+7.033***
+(1.701)
+
+0.031
+(0.073)
+−0.303
+(0.358)
+
+Y
+Y
+Y
+Y
+3.705
+178.715
+171,479
+0.1988
+
+(6)
+
+1.182
+(1.055)
+
+1.897***
+(0.531)
+5.976***
+(1.337)
+−0.029
+(0.074)
+0.303
+(0.260)
+
+Y
+Y
+Y
+Y
+3.705
+178.715
+171,479
+0.1989
+
+Note: This table reports how same-day abnormal returns and retail trading relate to social signals. The outcome in columns 1–2, 3–4, and 5–6
+is abnormal returns (AR) on day t in percentage points, retail trading (RT) imbalance on day t in percentage points, and Robinhood (RH)
+user ratio on day t in percentage points, respectively. RH user ratio on day t is calculated as (user number around 4 pm on t/number around
+4 pm on t − 1) - 1 following Barber et al. (2022). High (or mid) attention equals 1 if the firm-day attention PC1 is above 67 percentile
+(or between 33 and 67 percentile) within a year, and zero otherwise. We control for DJNW standardized sentiment and attention, 8-K report
+date indicators, earnings announcement indicators, lagged return volatility (previous five trading days), lagged cumulative abnormal returns
+(previous five trading days and the 25 days before that), and Log Google ASVI. We additionally control for lagged RT imbalance (previous five
+trading days and the 25 days before that) in columns 3–4 and lagged RH user ratio (previous five trading days and the 25 days before that) in
+columns 5–6. All regressions include ten lags (t − 1 to t − 10) of sentiment, and ten lags of high and mid attention indicators. (z) denotes a
+standardized variable (mean 0, standard deviation 1 using the estimation sample statistics). PC1 is the first principal component of StockTwits
+subsignals (top 1%, self labeled, professional, intermediate, novice, no experience), Twitter, and Seeking Alpha. Standard errors in parentheses
+are double clustered by firm and by date. *** 1%, ** 5%, * 10% significance level.
+
+large-cap firms. In Panel (a) we find that sentiment for all three
+platforms positively predicts next-day abnormal returns, with sentiment
+on Twitter having the least predictive power across all firm size bins.
+The informativeness and the differences between platforms are larger
+for small-cap firms than for large-caps. In Panel (b) we show that,
+consistent with the results in Table 6, attention predicts lower next
+day returns, most evident for StockTwits for small- and mid-cap firms.
+To sum up, the informativeness of sentiment is higher for small-cap
+and mid-cap firms, whereas that of attention is concentrated mostly in
+small-cap and somewhat in mid-cap firms.20
+
+4.1.3. Robustness
+
+One downside to using the PC1 in column 4 of Table 6 is that the
+PCA is conducted over the entire sample period. This means that it
+would be impossible to take advantage of this information on date 𝑡,
+since it uses future data to create the signal. Therefore, in Appendix
+Table A6 we use a 1-year rolling PCA: for each year, we use the PCs
+constructed using the data from the previous calendar year. In column
+1 we examine the PC1s of sentiment and attention, and the results
+are strikingly similar in magnitude and statistical significance to the
+corresponding coefficients in column 4 of Table 6. This implies that
+using data from the future to calculate PCs does not predict next-
+day returns any better than using data from the prior calendar year.
+In column 2, we add the second and the third sentiment PCs. Both
+
+20 Given that the distribution of returns is different for the three size sub-
+groups, we normalize next-day returns within each size bin before estimation
+in Appendix Figure A6. Our conclusions are similar to the analysis in the main
+text. In addition, Appendix Figure A7 repeats the dynamic plot in Fig. 3 in
+small-, mid-, and large-cap firm subsamples. These dynamics are similar to
+the overall results, with larger coefficient estimates for small-cap firms than
+for larger firms.
+
+positively predict next day returns with a smaller coefficient than PC1.
+Overall, the results in Appendix Table A6 suggest that our results in the
+main tables are not driven by a look-ahead bias.
+
+The attention results in Table 6 may be influenced by our definition
+of social media attention in Eq. (1). Therefore, in Appendix Table A7
+we replicate the analysis using an alternate firm-day attention measure:
+the deviation from its median number of messages over the preceding
+10 days. The loading on attention for StockTwits stays negative, albeit
+with slightly lower magnitude and statistical significance. Further, the
+table shows that attention from Seeking Alpha has a negative relation to
+next day’s returns, especially when sentiment is negative. Overall, this
+table further supports the finding that attention is negatively related to
+next day returns.
+
+A natural question in light of the GameStop short squeeze of Jan-
+uary 2021 is how social media attention and sentiment from Reddit’s
+WallStreetBets (WSB) relate to the signals we have examined so far. Our
+focus has been on the three platforms that have the longest time series
+of data, going back to 2012 (StockTwits, Twitter and Seeking Alpha).
+However, to understand the contribution of a new social platform, we
+collected all messages from Reddit WSB from Pushshift.io starting in
+2018, when there is enough data to make this analysis meaningful,
+and using VADER (Hutto and Gilbert, 2014) to classify sentiment.
+We find that Reddit appears to be different from the major platforms
+in its relation to next day returns (see Appendix Table A8). WSB
+attention is positively related to next-day returns, while WSB sentiment
+is unrelated. Although the sample time window is more limited (2018–
+2021), the signals for the other three platforms reflect the same pattern
+we have seen throughout the paper: sentiment is positively related to
+next-day returns, but attention is negatively related. These contrasting
+results between WSB and other platforms may reflect differences in
+platform features or in user populations. We examine these mechanisms
+in the next section focusing on the three main platforms.
+
+JournalofFinancialEconomics158(2024)10387013J.A. Cookson et al.
+
+Fig. 4. How do next-day returns relate to platform-specific social signals by Firm Size? Note: This figure plots the estimated coefficients (and 90% confidence intervals) on sentiment
+and attention signals (z) for StockTwits, Twitter, and Seeking Alpha for small-cap, mid-cap, and large-cap firms, separately. Firm size categories follow those in Table 1. The outcome
+is the abnormal return on day t+1. (z) denotes a standardized variable (mean 0, standard deviation 1 using estimation sample statistics by firm size). Everything else follows
+Table 6 columns 3–5.
+
+4.2. Information from market events
+
+To understand what could be driving the cross-platform differences
+in the informativeness of sentiment and attention, we study two mar-
+ket events that affected platform-specific features or user populations,
+thereby potentially changing the information impounded in the social
+signal. First, we study changes in the informativeness of the social
+signal when StockTwits substantially increased its character limit per
+message. Second, we examine how the informativeness of sentiment
+and attention changed around the January 2021 GME phenomenon.
+
+4.2.1. StockTwits character limit change
+
+On May 8, 2019, StockTwits changed the character limit on its posts
+from 140 characters to 1,000. We explore whether this change affected
+
+the informativeness of the signal from StockTwits, in comparison to the
+plausibly unaffected signals from Twitter and Seeking Alpha. Commu-
+nication theory suggests that changes to a medium’s features may have
+large effects on the information it communicates (McLuhan, 1975). To
+focus on the StockTwits format change, we analyze the period from one
+year before to one year after May 8, 2019.
+
+Fig. 5 Panel (a) plots the distribution of the number of characters
+per message across this event window, and Panel (b) firm-day averages
+of the number of characters per message, which ensures the figure is
+not dominated by messages about the most popular firms. Consistent
+with the character limit increase only affecting the content of longer
+messages, whose authors most likely were writing at the character limit,
+we see that only messages in the top quartile of characters per message
+become longer after the change. Similarly, the impact of the character
+
+JournalofFinancialEconomics158(2024)10387014J.A. Cookson et al.
+
+Fig. 5. Monthly quartiles of number of message length. Note: This figure plots monthly quartiles of number of characters per message (panel a) and monthly quartiles of the
+firm-day level average number of characters per message (panel b). The vertical line denotes May 8, 2019, the date when StockTwits increased its character limit from 140
+characters to 1,000.
+
+limit expansion is also larger at the top of the distribution for the
+firm-day averages (Panel b).
+
+To focus more cleanly on the impact of the StockTwits character
+limit increase, we present a set of platform-specific regressions of the
+form:
+
+𝐴𝑏𝑛𝑜𝑟𝑚𝑎𝑙𝑅𝑒𝑡𝑢𝑟𝑛𝑠𝑖,𝑡+1 = 𝛽1𝐴𝑡𝑡𝑒𝑛𝑡𝑖𝑜𝑛𝑖,𝑡 + 𝛽2𝑆𝑒𝑛𝑡𝑖𝑚𝑒𝑛𝑡𝑖,𝑡
+
++ 𝛽3𝑆𝑒𝑛𝑡𝑖𝑚𝑒𝑛𝑡𝑖,𝑡 × 𝑃 𝑜𝑠𝑡𝑡
+
++ 𝛽4𝐴𝑡𝑡𝑒𝑛𝑡𝑖𝑜𝑛𝑖,𝑡 × 𝑃 𝑜𝑠𝑡𝑡 + 𝐗𝐢,𝐭 × 𝛤 + 𝛼𝑡 + 𝛼𝑖 + 𝜖𝑖,𝑡
+
+(4)
+
+This specification includes controls and fixed effects as in Eq. (3) for
+next-day returns. Relative to Eq. (3), the novel terms are sentiment
+and attention interacted with a 𝑃 𝑜𝑠𝑡𝑡 indicator for the date being after
+May 8, 2019. The coefficients of interest are these interactions with
+𝑃 𝑜𝑠𝑡𝑡, which capture changes in the informativeness of the social signal
+around the character limit increase.
+
+Table 8 reports the results from estimating this specification sep-
+arately for StockTwits, Twitter, and Seeking Alpha. Consistent with
+StockTwits sentiment becoming more informative after the character
+
+limit increase, we find that the coefficient on sentiment for next-day
+returns increases by 7 bps (column 1). This estimate is nearly twice
+the size of the main effect of sentiment (3 bps, row 3 of the table). In
+column 2 we focus on StockTwits signals for stocks with an average
+character length in the top quartile on a day, and find an even stronger
+increase in informativeness of nearly 14 bps. By contrast, we see no
+change for Twitter or Seeking Alpha in columns 3 and 4, indicating
+that the change in informativeness is specific to StockTwits.
+
+A potential mechanism through which posts become more informa-
+tive after the character limit increase is a change in the composition of
+the messages. Specifically, it could be the case that more sophisticated
+investors take advantage of the change to write longer messages, either
+because the salience of the feature change induces some of them
+to modify their influence strategy, or because longer posts are more
+persuasive than shorter ones. This is indeed what we find in Appendix
+Table A12: Professional investors write longer messages before the
+change, and increase their message length by more after it. In Appendix
+Table 13 we find that Professional investors’ sentiment has a stronger
+predictive power for next day’s returns than Novices and Influencers,
+while the attention of each user type predicts next day returns with a
+
+JournalofFinancialEconomics158(2024)10387015J.A. Cookson et al.
+
+Fig. 6. How did the informativeness of the sentiment signal for next-day returns change around the StockTwits character limit increase? Note: This figure provides event study
+estimates (and 90% confidence intervals) of how the StockTwits sentiment signal relates to next day abnormal returns around the StockTwits character limit increase. The treated
+group is stocks whose daily average number of characters per message is in the top quartile; the comparison group is stocks in the bottom quartile. Event time 0 represents the
+three months following May 8, 2019 — the date of the character limit change. The omitted period is quarter −1. The sample consists of firm-day observations with at least 10
+messages on StockTwits between May 8, 2018 and May 8, 2020. Everything else follows Appendix Table A14.
+
+Table 8
+How did the informativeness of social signals change around the StockTwits character
+limit increase?
+
+Dependent var.: AR𝑖,𝑡+1 (%)
+
+(1)
+StockTwits
+
+0.070**
+(0.034)
+0.165*
+(0.088)
+0.031
+(0.024)
+−0.382***
+(0.117)
+
+0.098***
+(0.016)
+0.019
+(0.025)
+
+Y
+Y
+Y
+−0.093
+7.819
+215,319
+0.027
+
+(2)
+StockTwits
+top quartile
+
+(3)
+Twitter
+
+(4)
+Seeking Alpha
+
+0.138**
+(0.055)
+−0.269
+(0.226)
+0.004
+(0.037)
+−0.290
+(0.200)
+
+0.091***
+(0.026)
+−0.008
+(0.053)
+
+Y
+Y
+Y
+0.004
+6.455
+53,659
+0.065
+
+−0.010
+(0.043)
+−0.005
+(0.026)
+0.000
+(0.019)
+−0.032
+(0.025)
+
+0.101***
+(0.016)
+−0.005
+(0.025)
+
+Y
+Y
+Y
+−0.093
+7.819
+215,319
+0.026
+
+−0.007
+(0.034)
+−0.016
+(0.031)
+0.078***
+(0.024)
+−0.016
+(0.022)
+
+0.087***
+(0.016)
+−0.011
+(0.022)
+
+Y
+Y
+Y
+−0.093
+7.819
+215,319
+0.026
+
+Post𝑡 × Sentiment𝑖,𝑡(𝑧)
+
+Post𝑡 × Attention𝑖,𝑡(𝑧)
+
+Sentiment𝑖,𝑡(𝑧)
+
+Attention𝑖,𝑡(𝑧)
+
+DJNW sentiment𝑖,𝑡(𝑧)
+
+DJNW attention𝑖,𝑡(𝑧)
+
+Controls
+Firm (i) FE
+Date (t) FE
+Outcome mean
+Outcome SD
+Observations
+𝑅2
+
+Note: This table compares how social signals from different platforms changed their
+predictive power for next-day returns around the character limit increase on StockTwits.
+The outcome is abnormal returns (AR) on day t + 1 in percentage points. 𝑃 𝑜𝑠𝑡𝑡 is one
+if a day is on or after May 8, 2019. Social signals in columns 1–4 are StockTwits
+signals, StockTwits signals for stocks with top quartile daily average character length
+per message, Twitter signals, and Seeking Alpha signals, respectively. Controls are 8-
+K report date indicators, earnings announcement indicators, lagged return volatility
+(previous five trading days), lagged cumulative abnormal returns (previous five trading
+days and the 25 days before that), and Log Google ASVI. The sample consists of firm-
+day observations with at least 10 messages on StockTwits between May 8,2018 and
+May 7, 2020. (z) denotes a standardized variable (mean 0, standard deviation 1 using
+the estimation sample statistics). Standard errors in parentheses are double clustered
+by firm and by date. *** 1%, ** 5%, * 10% significance level.
+
+negative sign. Taken together, the increased informativeness of senti-
+
+ment from longer messages after the character-limit change seems to
+
+be driven by Professional investors taking disproportionate advantage
+of the new feature.
+
+To more formally estimate the impact of the character limit in-
+crease, we perform analysis akin to a difference-in-differences design
+in which we define ‘‘treated’’ observations as firms with an average
+character length in the top quartile on any given day, and ‘‘control’’
+as those in the bottom quartile. Using this definition, we extend the
+specification in Eq. (4) to one that also contains interactions with the
+𝑇 𝑟𝑒𝑎𝑡𝑒𝑑𝑖 indicator and report estimates in Appendix Table A14. The
+estimate on the triple interaction term 𝑃 𝑜𝑠𝑡𝑡 × 𝑇 𝑟𝑒𝑎𝑡𝑒𝑑𝑖 × 𝑆𝑒𝑛𝑡𝑖𝑚𝑒𝑛𝑡𝑖𝑡(𝑧)
+shows that, after the character limit increase, sentiment becomes more
+informative for next-day returns, especially for stocks most affected by
+the increase. Specifically, a standard deviation increase in sentiment
+predicts an 17.8 bps greater return for stocks most discussed by long vs.
+short messages on StockTwits. By contrast, attention’s informativeness
+falls after the character limit change, although the coefficient on the
+triple interaction is only weakly statistically significant.
+
+Fig. 6 presents quarterly estimates of the triple interaction around
+the character limit increase. This plot indicates that the effect is not
+driven by any obvious trends in informativeness of sentiment over
+time.21
+
+An alternative explanation for the increased informativeness of the
+sentiment signal is that once messages become longer, natural language
+processing (NLP) algorithms are better able to classify sentiment. In
+Appendix Table A15 columns 1 and 2 we focus only on the subset of
+StockTwits messages that have user-labeled sentiment (as described in
+Section 2), and reproduce the analysis in Table 8. Reassuringly, the
+coefficients are similar in sign and magnitude, supporting the view
+that the increased informativeness after the character limit change is
+not driven solely by a better NLP classification of longer messages.
+However, because the standard errors increase due to the reduced
+sample size, the coefficients are not statistically significant.
+
+21 Appendix Figure A8 extends the sample window relative to Fig. 6 and
+plots coefficient estimates on sentiment for stocks most discussed by long
+messages on StockTwits at the semester level. We see no pre-trend in the
+informativeness over this extended period, and the heightened informativeness
+persists until the beginning of the pandemic (first semester of 2020).
+
+JournalofFinancialEconomics158(2024)10387016J.A. Cookson et al.
+
+Table 9
+How did the informativeness of social signals change around the GameStop event?
+
+Dependent var.: AR𝑖,𝑡+1 (%)
+
+Post𝑡 × Sentiment𝑖,𝑡(𝑧)
+
+Post𝑡 × Attention𝑖,𝑡(𝑧)
+
+Sentiment𝑖,𝑡(𝑧)
+
+Attention𝑖,𝑡(𝑧)
+
+Post𝑡 × Sentiment PC2𝑖,𝑡(𝑧)
+
+Post𝑡 × Sentiment PC3𝑖,𝑡(𝑧)
+
+Sentiment PC2𝑖,𝑡(𝑧)
+
+Sentiment PC3𝑖,𝑡(𝑧)
+
+DJNW sentiment𝑖,𝑡(𝑧)
+
+DJNW attention𝑖,𝑡(𝑧)
+
+Controls
+Firm (i) FE
+Date (t) FE
+Outcome mean
+Outcome SD
+Observations
+𝑅2
+
+(1)
+PC signal
+
+−0.125***
+(0.048)
+0.001
+(0.093)
+0.111***
+(0.042)
+−0.071
+(0.056)
+
+0.086***
+(0.016)
+−0.058**
+(0.029)
+
+Y
+Y
+Y
+−0.005
+7.864
+289,092
+0.049
+
+(2)
+PC signal
+
+−0.124***
+(0.048)
+−0.001
+(0.094)
+0.111***
+(0.042)
+−0.070
+(0.057)
+0.028
+(0.033)
+0.014
+(0.030)
+−0.004
+(0.026)
+0.022
+(0.026)
+0.081***
+(0.016)
+−0.060**
+(0.029)
+
+Y
+Y
+Y
+−0.005
+7.864
+289,092
+0.049
+
+(3)
+StockTwits new
+
+(4)
+StockTwits old
+
+−0.103**
+(0.043)
+0.015
+(0.107)
+0.101**
+(0.039)
+−0.065
+(0.065)
+
+0.088***
+(0.017)
+−0.064**
+(0.029)
+
+Y
+Y
+Y
+−0.005
+7.864
+289,092
+0.049
+
+0.002
+(0.034)
+−0.019
+(0.090)
+0.038
+(0.028)
+−0.065
+(0.054)
+
+0.087***
+(0.016)
+−0.060**
+(0.029)
+
+Y
+Y
+Y
+−0.005
+7.864
+289,092
+0.049
+
+Note: This table compares how social signals from different platforms and/or user types changed their predictive power for next-day abnormal
+returns (AR) around the GameStop event on January 28, 2021. The outcome is abnormal returns (AR) on day t + 1 in percentage points. 𝑃 𝑜𝑠𝑡𝑡
+is one for days on or after February 1, 2021. Social signals in columns 1–2 are based on principal components (z) of attention or sentiment
+signals from all StockTwits subgroups, StockTwits self-labeled messages, Twitter, and Seeking Alpha (PC signal); column 3 messages from users
+who joined StockTwits in or after 2020 (StockTwits new); and column 4 messages from users who joined StockTwits before 2020 (StockTwits
+old), respectively. Controls are 8-K report day indicators, earnings announcement day indicators, lagged return volatility (previous five trading
+days), lagged return volatility (previous five trading days), lagged cumulative abnormal returns (previous five trading days and the 25 days
+before that), and Log Google ASVI. The sample consists of firm-day observations with at least 10 messages on StockTwits between February 1,
+2020 and December 31, 2021, excluding January 2021. (z) denotes a standardized variable (mean 0, standard deviation 1 using the estimation
+sample statistics). PC1 is the first principal component of StockTwits subsignals (top 1%, self labeled, professional, intermediate, novice, no
+experience), Twitter, and Seeking Alpha. Standard errors are double clustered by firm and by date. *** 1%, ** 5%, * 10% significance level.
+
+Fig. 7. Mentions of ‘‘Short Squeeze’’ on StockTwits around the GameStop event Old vs. new users. Note: This figure presents evidence on the changing narratives of StockTwits
+users in the months around the GME short squeeze event. Specifically, the figure plots monthly mentions of ‘‘short squeeze’’ from new users (blue diamonds) and old users (black
+triangles) around the event. Old users are those who joined StockTwits before January 2020 and new users are those joined in or after January 2020. Dashed horizontal lines
+denote sub-period averages for each user group.
+
+JournalofFinancialEconomics158(2024)10387017J.A. Cookson et al.
+
+4.2.2. Changes around the GameStop short squeeze
+
+In this section, we analyze a second market event that likely influ-
+enced the informativeness of social media signals: the GameStop Short
+Squeeze event (GME event) in late January 2021, interacted with the
+large influx of new retail investors in US equity markets that occurred
+in 2020. Bradley et al. (2024) studies a class of posts on Reddit’s
+WallStreetBets (WSB) called ‘‘due diligence reports’’ around this event,
+finding that these reports were informative for future returns before
+the event but were much less informative afterwards. We perform a
+similar analysis for signals from StockTwits, Twitter, and Seeking Alpha
+around the GME event using the first PCs of attention and sentiment
+constructed from the three platforms in Section 3.1.
+
+We look at 11 months before and after the GME event since we
+have data until the end of 2021 (only 11 months after January 2021).
+We exclude January 2021 to have a cleaner pre/post comparison.
+The specification follows Eq. (4). Table 9 presents the findings on the
+informativeness of the social signal for next-day returns. We find that
+next-day returns’ sensitivity to sentiment drops substantially following
+the GME event. Specifically, a standard deviation increase in sentiment
+(the first PC) is associated with a 12.5 bps lower return after the GME
+event (column 1), completely offsetting the pre-GME informativeness
+of social media sentiment (11.1 bps). In column 2, we additionally
+include the second and third PCs of sentiment (capturing cross-platform
+differences in sentiment), but the coefficients related to sentiment’s first
+PC are virtually identical.
+
+To better understand the mechanism behind this decline in in-
+formativeness, we use tweet-level data from StockTwits. Most social
+media platforms, including StockTwits, saw an influx of new users
+and increase in posts starting in 2020, likely the result of stay-at-
+home orders together with the introduction of no-fee trading at many
+brokerages in late 2019. We split the sample into tweets by those who
+joined StockTwits prior to January 1, 2020 (established or old users)
+and tweets by users who joined more recently (new users). From each
+subsample of tweets, we construct separate measures of attention and
+sentiment.
+
+New users display a stronger interest in ‘‘short squeeze’’ strategies
+after the GME event. Fig. 7 documents a persistent uptick in mentions
+of short squeezes on StockTwits from an average of roughly 6,200
+mentions per month in the year before the GME event to an average
+of nearly 13,000 afterwards. This spike in posts mentioning ‘‘short
+squeeze’’ is primarily driven by new users with an increase from around
+4,300 to over 17,000 posts per month; in contrast, short squeeze posts
+from established users only see a moderate uptick (from 8,040 to 8,180
+per month).
+
+In Table 9 column 3, consistent with new users’ stronger interest
+in ‘‘short squeeze’’, we find that the informativeness of the new users’
+signal for next-day returns declines by 10.3 bps for a standard deviation
+increase in sentiment after the GME event, again fully offsetting the pre-
+GME effect of sentiment. Importantly, however, the informativeness of
+the established users’ signal does not change (column 4).22
+
+An alternative explanation for the deceased informativeness is that
+new users might be using non-word tokens, like emojis, in a way
+that could reduce the effectiveness of NLP sentiment classification. In
+Appendix Table A15 columns 3 and 4, we repeat the analysis using
+only self-labeled sentiment. Reassuringly, the coefficients are similar in
+magnitude and statistical significance.
+
+Finally, as a complement to the sample split-based evidence, we
+perform analysis akin to a difference-in-differences design in which
+we define ‘‘treated’’ observations as posts by new users, and ‘‘control’’
+as those made by existing (old) users. This analysis contrasts the
+
+informativeness of the social signal for new users vs. established users,
+before vs. after the event. We report the results in Appendix Table A16.
+The estimate on the sentiment triple interaction implies that, after the
+GME event, sentiment becomes less informative for next-day returns
+for new users – relative to old users – although the coefficient is only
+significant at the 10% level.
+
+Overall, these findings from the GME event highlight how the
+arrival of new users can influence the informativeness of the social
+media signal.
+
+5. Conclusion
+
+In this paper, we explore the similarities and differences in the social
+signals generated from StockTwits, Twitter, and Seeking Alpha. Our
+analysis reveals differences across social investing platforms that are
+much more pronounced for sentiment than for attention. We attribute
+these differences to differences in types of investors (e.g., influencers,
+professionals, and novices) and differences across platform features
+(e.g., character limits on posts).
+
+Investor social media has increased steadily in popularity over
+the past two decades, and has grown rapidly in recent years. Online
+investment forums attract hundreds of thousands of daily users who
+intensively discuss individual securities in real time. Given the differ-
+ences across platforms, particularly new entrants that rely on other
+kinds of media (e.g., Discord and TikTok), it is natural to expect the
+informativeness of future social signals and retail trading to evolve as
+well (Pyun, 2021). Will these new technologies enhance or weaken the
+information environment? We expect ample opportunities for future
+work to examine the consequences of these emerging technologies.
+
+CRediT authorship contribution statement
+
+J. Anthony Cookson: Writing – review & editing, Writing
+– original draft, Visualization, Validation, Supervision, Software,
+Resources, Project administration, Methodology, Investigation, Fund-
+ing acquisition, Formal analysis, Data curation, Conceptualization.
+Runjing Lu: Writing – review & editing, Writing – original
+draft, Visualization, Validation, Supervision, Software, Resources,
+Project administration, Methodology, Investigation, Funding acqui-
+sition, Formal analysis, Data curation, Conceptualization. William
+Mullins: Writing – review & editing, Writing – original draft,
+Visualization, Validation, Supervision, Software, Resources, Project
+administration, Methodology,
+Investigation, Funding acquisition,
+Formal analysis, Data curation, Conceptualization. Marina Niessner:
+Writing – review & editing, Writing – original draft, Visualization,
+Validation, Supervision, Software, Resources, Project administration,
+Methodology,
+Investigation, Funding acquisition, Formal analysis,
+Data curation, Conceptualization.
+
+Declaration of competing interest
+
+The authors have no conflicts of interest with respect to this
+
+manuscript.
+
+Data availability
+
+Code and Data from ‘‘The Social Signal’’ (Original data) (Mendeley
+Data)
+.
+
+22 While the coefficient on sentiment in column 4 is not statistically signifi-
+cant, we show in Appendix Figure A9 that it does not represent a meaningful
+departure from prior years’ coefficient estimates, which are positive and
+statistically significant.
+
+Appendix A. Supplementary data
+
+Supplementary material related to this article can be found online
+
+at https://doi.org/10.1016/j.jfineco.2024.103870.
+
+JournalofFinancialEconomics158(2024)10387018J.A. Cookson et al.
+
+References
+
+Akçay, E., Hirshleifer, D., 2021. Social finance as cultural evolution, transmission bias,
+
+and market dynamics. Proc. Natl. Acad. Sci. 118 (26), e2015568118.
+
+Antweiler, W., Frank, M.Z., 2004. Is all that talk just noise? The information content
+
+of internet stock message boards. J. Finance 59 (3), 1259–1294.
+
+Bailey, M., Cao, R., Kuchler, T., Stroebel, J., 2018a. The economic effects of social
+networks: Evidence from the housing market. J. Polit. Econ. 126 (6), 2224–2276.
+Bailey, M., Cao, R., Kuchler, T., Stroebel, J., Wong, A., 2018b. Social connectedness:
+Measurement, determinants, and effects. J. Econ. Perspect. 32 (3), 259–280.
+Barber, B.M., Huang, X., Odean, T., Schwarz, C., 2022. Attention-induced trading and
+
+returns: Evidence from robinhood users. J. Finance 77 (6), 3141–3190.
+
+Barber, B.M., Odean, T., 2001. Boys will be boys: Gender, overconfidence, and common
+
+stock investment. Q. J. Econ. 116 (1), 261–292.
+
+Barber, B.M., Odean, T., 2008. All that glitters: The effect of attention and news on
+the buying behavior of individual and institutional investors. Rev. Financ. Stud. 21
+(2), 785–818.
+
+Ben-Rephael, A., Da, Z.,
+
+It depends on where you search:
+A comparison of institutional and retail attention. Rev. Financ. Stud. 30 (9),
+3009–3047.
+
+Israelsen, R.D., 2017.
+
+Bianchi, F., Gómez-Cram, R., Kind, T., Kung, H., 2023. Threats to central bank
+independence: High-frequency identification with Twitter. J. Monetary Econ. 135,
+37–54.
+
+Bianchi, F., Gómez-Cram, R., Kung, H., 2024. Using social media to identify the effects
+
+of congressional viewpoints on asset prices. Rev. Financ. Stud..
+
+Blankespoor, E., Miller, G.S., White, H.D., 2014. The role of dissemination in market
+liquidity: Evidence from firms’ use of Twitter. Account. Rev. 89 (1), 79–112.
+Boehmer, E., Jones, C.M., Zhang, X., Zhang, X., 2021. Tracking retail investor activity.
+
+J. Finance 76 (5), 2249–2305.
+
+Bradley, D., Hanousek, Jr., J., Jame, R., Xiao, Z., 2024. Place your bets? The value
+investment research on Reddit’s Wallstreetbets. Rev. Financ. Stud. 37 (5),
+
+of
+1409–1459.
+
+Chen, H., De, P., Hu, Y.J., Hwang, B.-H., 2014. Wisdom of crowds: The value of stock
+opinions transmitted through social media. Rev. Financ. Stud. 27 (5), 1367–1403.
+Chen, H., Hwang, B.-H., 2022. Listening in on investors’ thoughts and conversations.
+
+J. Financ. Econ. 145 (2), 426–444.
+
+Chen, H., Hwang, B.-H., Liu, B., Tang, Y., 2023. Tweeting Away Firm Value: How
+
+Investors Evaluate CEOs’ Use of Social Media. Working Paper.
+
+Cookson, J.A., Engelberg, J.E., Mullins, W., 2020. Does partisanship shape investor
+beliefs? Evidence from the COVID-19 pandemic. Rev. Asset Pricing Stud. 10 (4),
+863–893.
+
+Cookson, J.A., Engelberg, J., Mullins, W., 2023a. Echo chambers. Rev. Financ. Stud.
+
+36 (2), 450–500.
+
+Cookson, J.A., Fox, C., Gil-Bazo, J., Imbet, J.F., Schiller, C., 2023b. Social Media as a
+
+Bank Run Catalyst. Working Paper.
+
+Cookson, J.A., Niessner, M., 2020. Why don’t we agree? Evidence from a social network
+
+of investors. J. Finance 75 (1), 173–228.
+
+Cookson, J.A., Niessner, M., Schiller, C., 2024. Can social media inform corporate
+
+decisions? Evidence from merger withdrawals. J. Finance forthcoming.
+
+Da, Z., Engelberg, J., Gao, P., 2011.
+
+In search of attention. J. Finance 66 (5),
+
+1461–1499.
+
+Da, Z., Hua, J., Hung, C.-C., Peng, L., 2022. Market Returns and a Tale of Two Types
+
+of Attention. Working Paper.
+
+Da, Z., Huang, X., 2020. Harnessing the wisdom of crowds. Manage. Sci. 66 (5),
+
+1847–1867.
+
+Da, Z., Huang, X., Jin, L.J., 2021. Extrapolative beliefs in the cross-section: What can
+
+we learn from the crowds? J. Financ. Econ. 140 (1), 175–196.
+
+Daniel, K., Hirshleifer, D., 2015. Overconfident investors, predictable returns, and
+
+excessive trading. J. Econ. Perspect. 29 (4), 61–88.
+
+Daniel, K., Hirshleifer, D., Subrahmanyam, A., 1998. Investor psychology and security
+
+market under-and overreactions. J. Finance 53 (6), 1839–1885.
+
+Dim, C., 2024. Social Media Analysts’ Skills: Insights from Text-implied Beliefs. Working
+
+Paper.
+
+Eaton, G.W., Green, T.C., Roseman, B.S., Wu, Y., 2022. Retail trader sophistication and
+stock market quality: Evidence from brokerage outages. J. Financ. Econ. 146 (2),
+502–528.
+
+Farrell, M., Green, T.C., Jame, R., Markov, S., 2022. The democratization of investment
+research and the informativeness of retail investor trading. J. Financ. Econ. 145
+(2), 616–641.
+
+Forbes, 2021. Americans spent on average more than 1,300 hours on social media last
+year. Forbes https://www.forbes.com/sites/petersuciu/2021/06/24/americans-spen
+t-more-than-1300-hours-on-social-media/?sh=352920522547. (Accessed 29 August
+2022).
+
+Garcia, D., 2013. Sentiment during recessions. J. Finance 68 (3), 1267–1300.
+Gargano, A., Rossi, A.G., 2018. Does it pay to pay attention? Rev. Financ. Stud. 31
+
+(12), 4595–4649.
+
+Giannini, R., Irvine, P., Shu, T., 2018. Nonlocal disadvantage: An examination of social
+
+media sentiment. Rev. Asset Pricing Stud. 8 (2), 293–336.
+
+Giannini, R., Irvine, P., Shu, T., 2019. The convergence and divergence of investors’
+opinions around earnings news: Evidence from a social network. J. Financial Mark.
+42, 94–120.
+
+Gu, C., Kurov, A., 2020. Informational role of social media: Evidence from Twitter
+
+sentiment. J. Bank. Financ. 121, 105969.
+
+Heimer, R.Z., 2016. Peer pressure: Social interaction and the disposition effect. Rev.
+
+Financ. Stud. 29 (11), 3177–3209.
+
+Hirshleifer, D., 2020. Presidential address: Social transmission bias in economics and
+
+finance. J. Finance 75 (4), 1779–1831.
+
+Hirshleifer, D., Peng, L., Wang, Q., 2023. News diffusion in social networks and stock
+
+market reactions. Rev. Financ. Stud. forthcoming.
+
+Hutto, C., Gilbert, E., 2014. Vader: A parsimonious rule-based model for sentiment
+analysis of social media text. In: Proceedings of the International AAAI Conference
+on Web and Social Media. Vol. 8, pp. 216–225.
+
+Irvine, P.J., Shen, S., Shu, T., 2021. Aggregate Attention. Working Paper.
+Jame, R., Johnston, R., Markov, S., Wolfe, M.C., 2016. The value of crowdsourced
+
+earnings forecasts. J. Account. Res. 54 (4), 1077–1110.
+
+Kogan, S., Moskowitz, T.J., Niessner, M., 2023. Social media and financial news
+
+manipulation. Rev. Finance 27 (4), 1229–1268.
+
+Kuchler, T., Stroebel, J., 2021. Social finance. Annu. Rev. Finan. Econ. 13, 37–55.
+Levy, R., 2021. Social media, news consumption, and polarization: Evidence from a
+
+field experiment. Amer. Econ. Rev. 111 (3), 831–870.
+
+Liu, H., Peng, C., Xiong, W.A., Xiong, W., 2020. Resolving the Excessive Trading Puzzle:
+An Integrated Approach Based on Surveys and Transactions. NBER Working Paper.
+Lu, R., Sheng, S.Y., 2022. How racial animus forms and spreads: Evidence from the
+
+coronavirus pandemic. J. Econ. Behav. Organ. 200, 82–98.
+
+McLuhan, M., 1975. Understanding Media: The Extensions of Man. Routledge & Kegan
+
+Paul.
+
+Müller, K., Schwarz, C., 2022. From hashtag to hate crime: Twitter and anti-minority
+
+sentiment. Am. Econ. J.: Appl. Econom.
+
+Niessner, M., 2015. Strategic Disclosure Timing and Insider Trading. Working Paper.
+Pedersen, L.H., 2022. Game on: Social networks and markets. J. Financ. Econ..
+Pew, 2021. News use across social media platforms in 2020. Pew Res. Cent..
+Pyun, C., 2021. Social Media Group Investing. Working Paper.
+Renault, T., 2017. Intraday online investor sentiment and return patterns in the US
+
+stock market. J. Bank. Financ. 84, 25–40.
+
+Sicherman, N., Loewenstein, G., Seppi, D.J., Utkus, S.P., 2016. Financial attention. Rev.
+
+Financ. Stud. 29 (4), 863–897.
+
+Tetlock, P.C., 2007. Giving content to investor sentiment: The role of media in the
+
+stock market. J. Finance 62 (3), 1139–1168.
+
+Thompson, S.B., 2011. Simple formulas for standard errors that cluster by both firm
+
+and time. J. Financ. Econ. 99 (1), 1–10.
+
+JournalofFinancialEconomics158(2024)10387019

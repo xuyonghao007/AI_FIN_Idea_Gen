@@ -1,0 +1,6425 @@
+Contents lists available at ScienceDirect 
+
+Journal of Financial Economics 
+
+journal homepage: www.elsevier.com/locate/jfec 
+
+Tiny trades, big questions: Fractional shares 
+
+Robert P. Bartlett a, Justin McCrary b, Maureen O’Hara c,* 
+a Stanford Law School, United States 
+b Columbia University Law School, National Bureau of Economic Research (NBER), United States 
+c Johnson College of Business, Cornell University, United States   
+
+A R T I C L E  I N F O    
+
+A B S T R A C T    
+
+This  paper  investigates  fractional  share  trading.  We  develop  a  latency-based  method  for  identifying  a  large 
+sample of fractional share trades. We find that high-priced stocks, meme stocks, IPOs, SPACs, and popular retail 
+stocks exhibit considerable numbers of these tiny trades. We surmise that this reflects dollar-based order entry, 
+with many tiny trades being fractional components of larger orders. We show that our fractional trade measure is 
+predictive of future liquidity and volatility, suggesting a new metric to capture the information in retail trades. 
+We identify how data and reporting protocols preclude knowing the extent of fractional share trading, inflate 
+volume data, and provide censured samples of these off-exchange trades.   
+
+Original content: Tiny Trades, Big Questions 
+data set (Reference data)  
+
+JEL classification: 
+G14 
+G21 
+G23 
+G24 
+
+Keywords: 
+Fractional shares 
+Retail trade 
+Robinhood trading 
+FINRA 
+Trade reporting 
+
+1. Introduction 
+
+Retail  trading  in  equities  markets  is  enjoying  a  renaissance.  No 
+longer the “quirky side show” of years past, estimates of retail trading 
+rose  from  20%  of  the  market  in  2010,  to  perhaps  as  high  as  40%  in 
+2021.1 U.S. retail brokerage accounts increased from 59 million in 2019 
+to 95 million in 2021. Fidelity alone had 32.5 million accounts in 2021, 
+
+with Charles Schwab reaching 29.6 million accounts and relatively new 
+entrant Robinhood Markets hitting 23 million accounts and hosting 13 
+million monthly users.2 Causes of this retail resurgence are varied, but 
+the entrance of fintech trading apps such as Robinhood and Cash-App, 
+the introduction of commission-free trading in 2018, and even the dis-
+tribution of stimulus checks are noted as prime factors.3  So, too, is the 
+introduction of fractional share trading in 2019 which allowed investors 
+
+We thank the editor Nikolai Rossanov and an anonymous referee for many helpful comments. We also thank Kevin Crotty, Elisabeth De Fontenay, Lisa Fairfax, Jill 
+Frisch, Itay Goldstein, Frank Partnoy, Krishna Ramaswamy, Christopher Schwarz, Eric Talley, Chaojun Wang, and seminar participants at Arrowstreet Capital, UC 
+Berkeley Law, Columbia Law, MIT, the Microstructure Exchange, the Wharton-Penn Law workshop, the SEC Division of Economic and Risk Analysis, the 2023 annual 
+meeting of the American Law and Economics Association, and the SFS Cavalcade 2023. Research for this paper was made possible in part by the Paul J. Evanson 
+Professorship and the Henry and Lucy Moses Faculty Research Fund at Columbia Law School. 
+
+* Corresponding author. 
+
+E-mail address: mo19@cornell.edu (M. O’Hara).   
+
+1  As we discuss later in the paper, determining the exact size of retail trading is difficult. Jeffries estimated U.S. retail trade in 2021 as 32%, Reuters put it at 30%, 
+
+and the Economist at 40%. See “Just how mighty are active retail traders”, Economist, Aug. 21, 2021.  
+
+2  Data from “Factbox; The U.S. retail trading frenzy in number,” Reuters, Jan. 29, 2021.  
+3  While the boredom of the COVID-19 lockdown may have been a cause of this upswing, it appears to have had sticking power. From 2021 to 2022, Fidelity retail 
+accounts increased to 37 million, and Charles Schwab increased its number of accounts to 34 million. While Robinhood may have been the posterchild for lockdown- 
+induced trading, Robinhood accounts held steady at 23 million accounts and even monthly average users declined only modestly to 11.4 million. See https://invest 
+ors.robinhood.com/news/news-details/2023/Robinhood-Reports-Fourth-Quarter-and-Full-Year-2022-Results/default.aspx, 
+https://content.schwab.com/web/ret 
+ail/public/about-schwab/schwab_annual_report_2022.pdf,  and  https://www.fidelity.com/bin-public/060_www_fidelity_com/documents/about-fidelity/2022-Fide 
+lity-Investments-Annual-Report.pdf. 
+
+https://doi.org/10.1016/j.jfineco.2024.103836 
+Received 18 August 2023; Received in revised form 20 March 2024; Accepted 22 March 2024   
+
+JournalofFinancialEconomics157(2024)103836Availableonline28May20240304-405X/©2024ElsevierB.V.Allrightsreserved.R.P. Bartlett et al.                                                                                                                                                                                                                              
+
+to purchase as little as $1 of high-priced stocks like Berkshire-Hathaway 
+A  and  Tesla.  This  paper  investigates  fractional  share  trading  with  a 
+particular focus on understanding both the scale and impact of this new 
+innovation. 
+
+Fractional shares are not really new—and they were usually viewed 
+as  a  problem.  Traditionally,  fractional  shares  arose  as  part  of  stock 
+dividends that were paid out in shares (or scrips if arising from a stock 
+split),  with  dividend  reinvestment  programs  (DRIPs)  the  modern 
+formulation of this practice.4 An article in the New York Times in 1930 
+decried fractional shares as a “nuisance”  which “clutter up”  accounts, 
+are expensive to service, and difficult to sell.5 The modern incarnation of 
+fractional share trading is very different in both motivation and practice. 
+In  2019,  brokerage  firms  Interactive  Brokers  and  Robinhood  set  up 
+dedicated fractional share trading operations to allow retail customers 
+to invest a specific amount of money in a stock rather than buy a specific 
+number  of  shares.  Other  major  retail  brokers  quickly  followed  suit, 
+paving the way for retail access to even the most expensive shares. This 
+dollar-based  purchasing  also  set  the  stage  for  individual  indexing, 
+whereby retail traders can create personalized indexes largely composed 
+of fractional shares.6 
+
+But like in times past, problems remain and even gauging the scale 
+and scope of this fractional development is challenging. Fractional share 
+trades essentially fall outside of the National Market System (NMS). No 
+exchange will accept an order for a fractional share, which means all 
+trading takes place in off-exchange venues. Fractional share trades are 
+not  included  in  the  Rule  605  execution  quality  reports  required  of 
+market  venues,  so  metrics  such  as  transaction  costs  are  not  easily 
+determined. As we detail below, it is not even clear exactly how many 
+fractional share trades occur due to the disparate clearing and reporting 
+protocols that attach to these tiny transactions. Adding to the confusion, 
+the consolidated tape does not accept trade reports for less than a single 
+share so even the fractional share trades that do report “round up” to one 
+share even if the actual trade is for a vastly lower quantity. Bartlett et al. 
+(2022) show how this FINRA (Financial Industry Regulatory Authority) 
+rule resulted in volume on the tape being drastically over-stated for the 
+Class  A  common  stock  of  Berkshire  Hathaway  (BRK.A),  causing  the 
+relationship between BRK.A and its paired stock BRK.B to break down, 
+and introducing a variety of other negative effects for those securities. 
+In  this  paper,  our  interest  lies  in  addressing  some  “big”  questions 
+inherent in fractional share trading. First, how important are fractional 
+share trades and what determines their daily incidence across stocks? 
+Are they only used to access high-priced stocks or are fractional share 
+trades  ubiquitous  across  the  market?  Second,  do  these  tiny  trades 
+actually matter in any meaningful sense for the market? For instance, 
+are they predictive of value-relevant data such as future liquidity and 
+volatility? Can fractional shares provide a useful metric for capturing 
+retail trading? Third, as fractional share trading continues to grow, what 
+challenges does the current reporting regime pose for market structure 
+researchers? In particular, how well do the FINRA weekly OTC Trans-
+parency data—which, as we show, is a source for weekly data on frac-
+tional share trades—capture fractional share trading? Are there biases in 
+how it is calculated and if so how much do they matter? Does the over- 
+
+4  See “IBM will use scrip in fractional shares,” New York Times, January 29, 
+
+1946.  
+
+5  The article notes that “of all the tedious and thankless tasks brokers perform 
+for their customers, the one which causes them the most grief is disposing of 
+fractional shares, or for that matter, the mere routine of carrying them on their 
+books. It takes as much time, for instance, to keep books on 11/1500 of a share 
+as  on 1,000 shares”  and selling  them is  “much more  difficult…. Most  houses 
+charge  a  nominal  commission  which  does  not  pretend  to  cover  the  trouble 
+involved”. See “Along the Highways of Finance Fractional Shares a Problem”, 
+The New York Times, April 27, 1930.  
+
+6  For a discussion of how such direct indexing works see https://www.fidelit 
+y.com/learning-center/trading-investing/direct-indexing or https://www.schw 
+ab.com/direct-indexing. 
+
+counting  of  volume  in  the  consolidated  tape  arising  from  fractional 
+shares constitute a general problem for the market or is this problem 
+largely confined to a subset of high-priced stocks? 
+
+Fundamental  to  being  able  to  address  any  of  these  questions  is 
+identifying actual fractional share trades in intra-day data. We do so by 
+using the  “digital footprints”  of one-share trades  reported by  the two 
+largest  fractional  share  brokers,  Robinhood  and  Drivewealth  (hence-
+forth  RHDW  trades).  Our  sample  period  runs  from  March  1,  2021 
+through March 31, 2022, and we use our approach and intra-day data to 
+classify trades as fractional share RHDW trades during this time period. 
+We additionally test our classification model using weekly data from the 
+FINRA OTC Transparency platform, which we show can be used to track 
+a  portion  of  the  fractional  share  trades  that  occur  each  week  in  the 
+market.  We  demonstrate  that  during  our  sample  period  our  classifier 
+performs well in predicting fractional share trades reported in the OTC 
+Transparency data. In the Appendix, we illustrate how to test and vali-
+date this approach applied to more recent periods, giving researchers a 
+potential framework for detecting these tiny trades in the intraday trade 
+data. 
+
+Our research provides a number of contributions to the literature. 
+First, we provide some of the first evidence on what is fast becoming an 
+important avenue for retail trade. We find, for example, that during our 
+sample  period  TSLA  fractional  share  executions  by  Robinhood  and 
+Drivewealth  accounted  for  6.7  %  of  all  TSLA  trades,  over  25%  of  all 
+single share trades in the market, and a remarkable 48% of single share 
+trades reported to FINRA. Across the 30 stocks with the most fractional 
+share  trades,  fractional  RHDW  trades  accounted  for  between  16%  to 
+40% of all reported single share trades and between 31% and 50% of all 
+reported single share FINRA trades. Across all stocks in our sample, 1.5% 
+of  trades  are  fractional  RHDW  trades,  with  13.2%  of  all  single-share 
+trades being of  this form. Our work  also demonstrates that fractional 
+shares are not just used to buy tiny pieces of high-priced stocks—of the 
+top 30 stocks with the largest number of RHDW fractional share trades, 
+30%  had  closing  prices  less  than  $50.00  per  share.  This  breadth  is 
+exactly what one would expect in a world where orders are increasingly 
+entered in dollars rather than whole-shares. 
+
+Second, we demonstrate that fractional share trades may be for small 
+amounts, but they can nevertheless contain value-relevant information, 
+such  as  with  respect  to  future  volatility  and  spread  movements. 
+Regression estimates indicate that a 10% increase in RHDW fractional 
+share trades is associated with an 8-basis point increase in the following 
+day’s Averaged Percentage Effective Spread; this elasticity is even larger 
+if we include only the top 100 fractionally traded stocks. Similar pre-
+dictability arises with respect to intra-day volatility and implied vola-
+tilities. We also show that that this predictive power is beyond what is 
+captured in the widely-used retail trading measure from Boehmer et al. 
+(2021)(BJZZ), a result we believe is most likely due to fractional share 
+trades being the fractional component of a larger retail trade. Our results 
+here show that our metric for identifying RHDW fractional share trades 
+(which  we  refer  to  as  the  RHDW-FT  metric)  can  be  a  valuable  and 
+generally more accurate metric for representing retail trade. 
+
+Third, notwithstanding our ability to detect RHDW fractional share 
+trades  during  our  sample  period,  we  establish  that  there  remains  a 
+remarkable  lack  of  clarity  regarding  this  growing  market.  Somewhat 
+surprisingly, the current reporting regime undercounts fractional share 
+trades but overcounts fractional share trading volume. 
+
+With respect to trade counts, due to disparate reporting protocols, 
+there is no way to know the total size of the market. As we discuss, not all 
+brokerage firms report fractional share trades to the tape and, among 
+those that do, our framework is limited to identifying those executed by 
+Robinhood and Drivewealth during our sample period. For other firms, 
+we  illustrate  how  to  use  the  OTC  Transparency  data  to  track  their 
+
+JournalofFinancialEconomics157(2024)1038362R.P. Bartlett et al.                                                                                                                                                                                                                              
+
+fractional share trades on a weekly basis, but these data often under-
+count such trades due to censoring. We document that these data are not 
+actually that transparent. Indeed, we find that for 64% of the stocks in 
+our  sample,  the  OTC  Transparency  data  does  not  provide  data  for 
+Robinhood’s fractional share trades for even a single week during our 
+sample  period  where  our  classifier  estimates  Robinhood  executed  at 
+least 200 fractional share trades for the week. For 90% of stocks in our 
+sample, the OTC Transparency initiative includes data for less than half 
+of these weeks. 
+
+With  respect  to  volume  distortions,  we  show  that  fractional  share 
+trades  that  are  reported  to  the  tape  inflate  reported  trading  volume. 
+Because each fractional share trade must be rounded up to a whole share 
+when reported to the tape, we estimate that overall trading volume was 
+inflated by roughly $200 billion during our sample period due solely to 
+RHDW fractional share trades. The distortions due to the overcounting 
+of  volume  are  worrisome  given  the  link  of  volume  metrics  to  legal 
+contexts such as the rules relating to corporate stock repurchases and 
+whether investors can bring a class action fraud lawsuit. 
+
+Our research is related to several strands of the literature. There is to 
+date only a small literature looking at fractional share trades. Da et al. 
+(2024) provide an interesting event study of the market impacts when 
+four retail brokerage firms first introduce the ability to trade fractional 
+shares in 2019 and 2020. They find that fractional share trading gen-
+erates  price  pressures  and  reversals  for  high  priced  stocks  during 
+attention generating events. Our findings on the scale and incidence of 
+fractional share trading suggest that these effects may now be even more 
+broadly  found  in  the  market.  Bartlett  et  al.  (2022),  in  a  companion 
+paper,  show  how  FINRA  reporting  rules  resulted  in  severely  inflated 
+trading  volumes  for  BRK.A,  and  affected  liquidity  and  pricing  in  the 
+market. Our work goes beyond this example to examine the incidence of 
+fractional  share  trading  more  broadly  and  its  informational  content, 
+while documenting the way that current disclosure rules obfuscate our 
+understanding of this increasingly important form of trading. 
+
+There is a much larger literature on retail trading. Relevant for our 
+paper is recent research on Robinhood trading and its impacts. Welch 
+(2021) finds that Robinhood traders generally tilt towards high-volume, 
+high-priced stocks with results suggesting both good timing and good 
+alpha. Barber et al. (2022a) find that Robinhood traders engage in more 
+attention-induced trading than other retail traders. Moss et al. (2023) 
+find that ESG disclosures are irrelevant to Robinhood traders’ portfolio 
+allocation decisions. Notably, all of these papers rely on data provided 
+by  Robintrack.net,  which  was  decommissioned  in  August  2020.  Our 
+analysis here provides the first look at the extensive use of fractional 
+share trading by Robinhood traders and during a period of time that is 
+unavailable through Robintrack.net. 
+
+A second strand of the literature develops proxies for retail trading. 
+Early  attempts  [see  for  example  Lee  and  Radhakrishna  (2000)]  used 
+small  trade  size  as  a  proxy  for  retail  orders.  The  rise  of  algorithmic 
+trading  and  other  market  trends,  however,  renders  such  an  approach 
+untenable (see O’Hara (2015) or O’Hara and Ye (2014) for discussion). 
+BJZZ propose a metric that uses price improvement measured in small 
+fractions  of  cents  per  share  to  identify  retail  trades  arising  from 
+marketable orders, but recent papers [see Barber et al. (2022b); Shearer 
+(2022);  and  Battalio  et  al.  (2023)]  raise  concerns  as  to  its  accuracy. 
+These authors find Type 1 and Type 2 errors in retail order identification 
+and  order  signing  using  the  BJZZ  metric,  which  they  attribute  to  the 
+metric missing many retail trades due to its exclusion of mid-point trades 
+and trades at the quotes while also faltering by including as retail trades 
+some trades actually executed by institutional traders. As we show here, 
+also missing from this BJZZ metric is any ability to capture fractional 
+share trades. 
+
+Finally,  there  is  a  growing  literature  investigating  whether  retail 
+trade is predictive of future price movements [see, for example, Barber 
+et al. (2009); Kaniel et al. (2008)]. Jones et al. (2022), using the BJZZ 
+metric  to  identify  retail  trading  in  the  pandemic,  conclude  that  such 
+
+trades are predictive of future stock prices. Given recent criticism of the 
+BJZZ metric, the latency-based digital footprint framework we develop 
+here provides an alternative metric to identify a subset of retail trades 
+during our sample period. Indeed, relative to the BJZZ proxy, we illus-
+trate how fractional share trades represent a “distilled” measure of retail 
+order flow that captures what we refer to as “app-based” trading—that 
+is, retail trading that originates largely from mobile-first trading appli-
+cations. Consistent with this claim, we find that fractional share trades 
+have much stronger predictability of future liquidity and volatility than 
+the BJZZ metric, which most likely reflects the fact that fractional share 
+trades are often the fractional component of a larger retail order. These 
+findings suggest fractional share trading as captured by our RHDW-FT 
+metric  can  provide  a  better  proxy  for  identifying  the  type  of  retail 
+order flow likely to be predictive of future movements in liquidity and 
+volatility. 
+
+This  paper  is  organized  as  follows.  The  next  section  examines  the 
+challenges of finding fractional share trades in the consolidated trading 
+data, setting out the current reporting rules and illustrating why many of 
+these trades are captured in FINRA’s weekly OTC Transparency data. We 
+also describe how we exploit existing disclosure rules to classify trades in 
+the NYSE Trade and Quote (TAQ) data as RHDW fractional share trades. 
+Section 3 uses our sample of RHDW fractional share trades to analyze 
+the incidence of these trades in the cross-section of U.S. publicly-traded 
+common stocks. We also examine the correlations between the Robin-
+hood and Drivewealth subsamples, allowing us to show the consistency 
+of fractional share trading across brokers. Section 4 then investigates the 
+feasibility of using the RHDW-FT metric as a proxy for app-based retail 
+trading  as  well  as  the  information  content  of  these  trades,  testing 
+empirically  whether  our  RHDW-FT  metric  is  predictive  of  a  stock’s 
+future  liquidity  and  volatility.  Section  5  addresses  weaknesses  with 
+respect  to  fractional  share  trade  reporting  in  current  market  data, 
+investigating  censuring  in  the  FINRA  OTC  Transparency  data  arising 
+from  FINRA’s  de  minimus  rule  as  well  as  volume  inflation  in  the 
+consolidated  tape  arising  from  the  rounding-up  of  fractional  share 
+trades. Section 6 summarizes our results. The Appendix provides more 
+information regarding the classification rule we use to create our sample 
+of  RHDW  fractional  share  trades,  including  guidance  for  researchers 
+who might seek to apply it beyond our sample period. 
+
+2. How do you find fractional share trades? 
+
+Fractional share trading occurs when a customer places an order that 
+results in a trade confirmation indicating that the customer has acquired 
+or sold a fraction of a whole share. In terms of the information available 
+regarding fractional share trading, U.S. trade reporting rules create an 
+uneven landscape at best. Some fractional share trades get reported to 
+the public, but others do not, and those that do get reported are reported 
+incompletely. There are a variety of reasons for this opacity, including 
+alternative  ways  to  report  (or  not  report)  trades,  rounding  rules  that 
+distort trade size, censored data due to activity-based disclosure stan-
+dards, and non-compliance with FINRA rules. Despite these difficulties, 
+we illustrate below how we identify fractional share trades in the TAQ 
+data for trades that were executed between February 2021 and March 
+2022  by  two  of  the  most  active  brokerage  firms  providing  fractional 
+share executions. 
+
+2.1. Why studying fractional share trades is so difficult 
+
+An immediate problem for identifying fractional share trades is that 
+retail broker-dealers take two different approaches to executing these 
+trades  for  their  customers,  only  one  of  which  triggers  clear  public 
+reporting obligations for the fractional share trade. The first approach, 
+exemplified  by  Apex Clearing, to  the best  of  our knowledge  does  not 
+result in the fractional share trade being directly reported to the public 
+tape. The second approach, exemplified by Robinhood and Drivewealth, 
+
+JournalofFinancialEconomics157(2024)1038363R.P. Bartlett et al.                                                                                                                                                                                                                              
+
+does  result  in  public  reporting  to  the  tape.  We  do  not  here  weigh  in 
+regarding  whether  there  is  an  economic  or  legal  distinction  between 
+these two approaches. We do note, however, that the market currently 
+has  no  specific  information  about  fractional  share  trades.  Our  paper 
+provides  a  framework  for  how  to  identify  a  large  segment  fractional 
+share trades during our sample period, but it will, of course, only capture 
+the reportable trades. 
+
+The  first  approach  to  fractional  share  trading  treats  the  fractional 
+share trade as merely an accounting entry on the books and records of a 
+brokerage firm, and thus not a “trade”  or “transaction.”  For instance, 
+brokerage firms such as SoFi and Betterment clear trades using Apex, 
+which  has facilitated fractional share trading  since  late 2018.7  Under 
+this approach, if SoFi seeks to execute a fractional buy for 3.2 shares of 
+an issuer on behalf of a customer, Apex will execute this transaction by 
+“rounding up”  and purchasing four shares of the stock in the market. 
+Apex then allocates 3.2 shares to SoFi’s account and 0.8 shares to Apex’s 
+“fractional inventory account” that it manages through its proprietary 
+trading  desk.8  As  a  result,  the  trade  appears  in  the  consolidated  tape 
+(and therefore the TAQ data) as a trade for four shares, but to the best of 
+our  knowledge  no  subsequent  transactional  report  is  made  for  the 
+fractional  share  trade  allocation.  Nor  is  there  a  means  to  distinguish 
+between  whole  share  trades  in  the  consolidated  tape  that  include  a 
+fractional share trade component from those that do not.9 
+
+The second approach to fractional share trading involves a broker 
+executing a fractional share trade on a principal basis, much like a retail 
+market maker might internalize a whole share trade. This approach to 
+fractional  share  trading  is  utilized  by  Robinhood,  Fidelity,  Charles 
+Schwab, Interactive Brokers, and likely others, including the back-end 
+brokerage firm Drivewealth.10  Through its customizable suite of APIs, 
+Drivewealth is the brokerage firm behind “micro-investing”  platforms 
+such  Revolut  and  Cash-App  that  allow  their  customers  to  trade  in 
+
+7  See 
+
+https://www.businesswire.com/news/home/20181023005447/en/, 
+
+last accessed February 3, 2023.  
+
+8  Details concerning Apex’s method for executing fractional share trades are 
+provided  in  the  registration  statement  relating  to  its  (aborted)  2021  merger 
+with Northern Star Investment Corp. II. See Northern Star Investment Corp. II, 
+Amendment  No.  2  to  Form  S-4  (filed  May  24,  2021).  As  noted  there,  “Apex 
+Fintech  does  not  execute  fractional  share  orders  against  its  own  inventory. 
+When  executing  customer  orders  for  fractional  shares,  after  validating  the 
+order,  Apex  Fintech  rounds  the  orders  to  the  next  whole  share  and  sends  a 
+market  (or  limit,  depending  on  the  customer  order  received)  order  to  the 
+market.  When  the  order  is  filled,  the  shares  received  are  placed  into  Apex 
+Fintech’s fractional inventory account, whereby Apex Fintech then allocates the 
+fractional shares to the customer’s account and moves the residual, or other-
+wise  unallocated  fractional  share,  to  Apex  Fintech’s  own  inventory  account. 
+Apex Fintech’s inventory account is managed by the Apex Fintech trading desk. 
+Typically, when the whole share quantities exceed internal quantity or notional 
+thresholds, Apex Fintech reduces its positions to ensure Apex Fintech does not 
+carry excessive risk.” 
+
+9 Fractional  share  trades  executed  in  this  fashion  also  do  not  appear  sepa-
+rately in the OTC Transparency data. Whether this non-reporting approach to 
+fractional share trading is congruent with FINRA’s trade reporting requirements 
+seems to be a question for FINRA. But it clearly obscures the total amount of 
+fractional  share  trading  in  the  market.  On  the  other  hand,  we  have  argued 
+elsewhere (Bartlett, McCrary, O’Hara 2022) that FINRA’s “rounding-up”  rule-
+—which results in each fractional share trade being reported as a whole share 
+trade on the consolidated tape and on the OTC Transparency platform—distorts 
+the volume reported to the tape.  
+10  See,  e.g.,  Fidelity,  https://www.fidelity.com/trading/fractional-shares 
+(“When processing fractional and dollar-based orders, Fidelity Brokerage Ser-
+vices (FBS) will act as agent and National Financial Services (NFS) will act in a 
+mixed capacity (as principal for the fractional share components and as agent 
+for  the  whole  share  components)  when  executing  an  order.”);  Drivewealth, 
+https://legal.drivewealth.com/fractional-shares-disclosure  (“When  executing 
+on a Principal Basis, DriveWealth will execute the fractional component of the 
+order against its principal facilitation account.”) 
+
+fractional  shares  and/or  invest  their  “spare  change”  in  fractional 
+shares.11 
+
+Critically,  because  a  firm  using  the  second  approach  executes  a 
+fractional share trade against its own inventory, each fractional share 
+trade must be reported separately to a FINRA trade reporting facility, 
+just as each trade internalized by a retail market maker must be reported 
+to a FINRA trade reporting facility.12 Moreover, these brokers’ customer 
+agreements  additionally  provide  that  a  trade  involving  both  whole 
+shares and fractional share trades (e.g., a trade for 3.2 shares, as in the 
+above example) will be split into a whole share component and a frac-
+tional component, with the whole share component being executed on 
+an agency basis. For this reason, the executing broker will typically be 
+required  to  report  a  separate  transaction  record  for  the  fractional 
+component of the trade, as well as a transaction report for the whole 
+share component. 
+
+Yet,  while  each  fractional  share  trade  executed  using  the  second 
+approach should be reported to the consolidated tape, actually identi-
+fying these fractional share trades faces a new challenge: the “rounding- 
+up  rule.”  Specifically,  as documented in Bartlett  et  al. (2022),  FINRA 
+requires  all  fractional  share  trades  to  be  “rounded  up”  to  the  nearest 
+whole share, even if the fraction in question is genuinely tiny, such as 
+one-millionth. This appears to reflect a preference for the status quo as 
+the  current  consolidated  reporting  system  only  has  the  capacity  to 
+accept  transaction  reports  for  whole  shares.  As  a  result,  a  researcher 
+looking solely at the consolidated tape for evidence of fractional share 
+trades faces an immediate problem: How can she distinguish between 
+those single share trades that represent fractional share trade executions 
+from those that represent whole share executions? 
+
+In contrast to the first approach to fractional share trading, however, 
+this second approach subjects these fractional share trades to additional 
+public disclosures arising from FINRA’s OTC Transparency initiative. In 
+this paper, we exploit these additional disclosures to build two classifi-
+cation  rules  for  identifying  trade  reports  within  the  NYSE  TAQ  data 
+during our sample period that are likely to reflect fractional share trades 
+executed by the two most active brokers using the second approach to 
+fractional share trading—Robinhood and Drivewealth.13 
+
+2.2. The OTC transparency initiative 
+
+In 2016, FINRA launched a program to provide enhanced, publicly- 
+available  information  about  non-exchange  trading  activity.  In  partic-
+ular, because all non-exchange trades are reported to the consolidated 
+tape with the same FINRA “D” venue code, the new OTC Transparency 
+initiative was designed to provide greater insight into trading volume 
+that occurs off exchanges in either an Alternative Trading Systems (ATS) 
+
+11  For instance, Revolut will “round up” credit card transactions to the nearest 
+whole increment, placing the difference between the rounded-up number and 
+the  actual  credit  card  charge  into  a  savings  account  that  can  be  invested  in 
+fractional shares. Formally, platforms  such as Revolut and Cash-App serve as 
+“introducing brokers” and DriveWealth serves as the broker that executes and 
+clears trades.  
+12  The SEC has required since March 2007 that all off-exchange transactions 
+be reported to a formal FINRA-managed Trade Reporting Facility. As described 
+by  O’Hara  and  Ye  (2011),  this  requirement  means  that  off-exchange  trades 
+made through a broker-dealer internalizer or in a dark pool (both of which were 
+historically reported to an exchange and then consolidated with the exchanges’ 
+own  trades  when  reported)  are  now  effectively  segregated  and  reported  as 
+having been executed at a FINRA TRF.  
+13  As  described  below,  the  data  fields  submitted  to  the  OTC  (non-ATS) 
+Transparency  data  include  total  trades  and  total  shares  (after  application  of 
+FINRA’s “rounding up” rule). This allows us to isolate those entities focused on 
+fractional  share  trading,  as  the  ratio  of  the  two  is  for  many  entities  almost 
+exactly one. Inarguably, such entities are focused on fractional share trading. Of 
+those entities, Robinhood and Drivewealth constitute about 80 percent of the 
+reported volume during our sample period. 
+
+JournalofFinancialEconomics157(2024)1038364R.P. Bartlett et al.                                                                                                                                                                                                                              
+
+or  by  a  retail  market  maker.  Under  this  program,  FINRA  uses  the 
+transaction reports that it receives from broker-dealers to assemble and 
+publish on its website weekly summaries of non-exchange trading in U. 
+S.  equities.  Among  other  things,  these  weekly  summaries  include  the 
+total number of trades and shares executed by each FINRA member on a 
+stock-by-stock basis for trades executed on an ATS and for trades that are 
+internalized  by  a market maker.14  Because of FINRA’s  “rounding up” 
+rule, these trades include fractional share executions internalized by a 
+retail brokerage firm. 
+
+There are, however, two potential limitations to using these data to 
+estimate  the  incidence  of  fractional  share  trading  among  brokers 
+adopting the second approach to fractional share trading. (Brokers that 
+adopt the first approach to fractional share trading do not appear at all in 
+the OTC Transparency data for their fractional share trades.) The first 
+relates to the “de minimis” trading threshold that applies to the disclo-
+sures.15  Specifically, weekly trades will not be attributed to a specific 
+FINRA  member  and  will  instead  be  aggregated  and  reported  as 
+completed by “De Minimis Firms” if either (a) the trades were executed 
+by a FINRA member who executed fewer than 200 transactions per day 
+for the reporting week, or (b) the trades were completed by a FINRA 
+member who executed on average fewer than 200 transactions per day 
+in  the  particular  security  during  the  week.  In  other  words,  a  FINRA 
+member must execute 1,000 or more transactions in a security over a 5- 
+day trading week for the firm to be disclosed as trading that security in 
+the OTC Transparency data. 
+
+Second,  because  the  OTC  Transparency  data  are  based  on  trades 
+reported to the tape, a fractional share execution that is not reported to 
+the tape as a whole share trade will not appear in the OTC Transparency 
+data either. This can occur for both legitimate and illegitimate reasons. 
+The  primary  cause  with  respect  to  the  former  are  riskless  principal 
+transactions. Discussions with Robinhood personnel indicate that Rob-
+inhood fills fractional share executions from its existing inventory (i.e., 
+it  does  not  take  a  short  position).  If  a  subsequent  fractional  share 
+execution  would  exhaust  this  inventory,  Robinhood  will  typically 
+execute  the  trade  as  a  riskless-principal  (RP)  transaction,  filling  the 
+order on a principal basis but simultaneously placing an order to buy a 
+whole  share  with  a  market  center.  In  this  situation,  FINRA  trade 
+reporting  rules  provide  that  a  broker  can  leave  the  trade  reporting 
+obligation to the market center that executes the second leg of the trade. 
+(FINRA Rule 6380B(d)(3)(B)). As a result, fractional share executions 
+that happen to exhaust a broker’s inventory will be reported in both the 
+tape and the OTC Transparency data as having been  executed by the 
+market  center.  This  reporting  rule  means  that  the  OTC  Transparency 
+data will underreport fractional share trades that trigger the RP trans-
+action for the broker. Although the incidence of such trades is likely to 
+be  random  across  trades  in  a  particular  stock,  it  may  happen  more 
+frequently with lower priced stocks where the fractional component of a 
+trade is more likely to be closer to 1. In all of our empirical tests below, 
+we therefore include specifications with stock fixed effects.16 
+
+Relatedly, a fractional share execution may not be reported to FINRA 
+due  to  noncompliance  with  the  reporting  rule.  This  issue  has  special 
+significance in the context of fractional share trading because neither 
+Robinhood  nor  Drivewealth  appear  to  have  understood  FINRA’s 
+reporting rules for fractional share executions until well after they began 
+their fractional share trading programs. Indeed, as discussed in Bartlett 
+
+14  See FINRA Regulatory Notice 15-48, Equity Trading Initiatives: OTC Equity 
+Trading  Volume,  available  at  https://www.finra.org/sites/default/files/Re 
+gulatory-Notice-15-48.pdf.  
+15  OTC Transparency (ATS and Non-ATS), Data Website User Guide January 
+16, 2019 Version 4, available at https://www.finra.org/sites/default/files/OTC 
+-transparency-website-user-guide-v5.pdf  
+16  In our primary empirical analyses in Section 4, we additionally test whether 
+our results our robust to restricting our sample to stocks having a VWAP during 
+our sample period of no less than $100. 
+
+et  al.  (2022),  Robinhood  expressly  acknowledged  this  reporting 
+deficiency—as  well  as  its  efforts  to  rectify  it,  upon  being  notified  by 
+FINRA of its obligations—in its 2021 initial public offering. While we are 
+not aware of a similar statement for Drivewealth, we provide evidence 
+below  indicating  that  Drivewealth  also  did  not  make  real  time  trade 
+reports to a FINRA trade reporting facility until October 2021—several 
+months after it apparently commenced fractional share trading. 
+
+This challenge of noncompliance is greatly diminished, however, by 
+the fact that unlike the consolidated tape data, the OTC Transparency 
+data  can  be  back-filled  to  correct  errors,  and  both  Robinhood  and 
+Drivewealth have been in the process of a post facto correction to their 
+OTC Transparency data. Our analysis below indicates that this process 
+has been largely completed by Robinhood as of this writing, whereas the 
+process  for  Drivewealth  remains  on-going.  Therefore,  we  exercise 
+caution when we encounter a stock-week in the OTC Transparency data 
+that lacks an entry for Drivewealth trades, as the absence of trades does 
+not  necessarily  mean  that  Drivewealth  executed  no  fractional  share 
+trades  in  that  security.  We  additionally  show  below  how  our  classifi-
+cation rules can be used to validate whether the OTC Transparency data 
+has been fully updated. 
+
+Notwithstanding these limitations, the OTC Transparency data pro-
+vide novel insight into the growth of fractional share trading in today’s 
+equity market. The FINRA data separate trades made by ATS venues and 
+other off exchange trading venues (or what FINRA designates as “OTC 
+(Non-ATS).”) This latter category includes internalized trades by retail 
+market  makers.  Until  2019,  the  non-ATS  category  was  dominated  by 
+retail  market  makers  such  as  Citadel  Securities  and  Virtu.  Starting  in 
+2019 and 2020, however, the composition of firms listed in these dis-
+closures  began  to  include  retail  brokerage  firms  as  they  commenced 
+fractional share trading programs. For instance, in Fig. 1, we plot the 
+natural  log  of  the  aggregate  weekly  number  of  trades  disclosed  by 
+Citadel Securities LLC and Virtu Americas LLC between January 1, 2019 
+and  March  31,  2022,  as  well  as  the  top  six  retail  brokerage  firms  by 
+trades reported in March 2022. Review of the customer account agree-
+ments for these brokerage firms confirms that each adopted the second 
+approach to fractional share trading discussed previously, whereby the 
+fractional portion of each trade is required to be disclosed to FINIRA as a 
+whole share trade. That each brokerage firm appears in the OTC data 
+shortly after it began offering fractional share trading further indicates 
+that these trades likely reflect fractional share executions. 
+
+The average trade size for trades reported by these retail brokerage 
+firms provides additional evidence that these reported trades primarily 
+reflect  fractional  share  trades.  In  Table  1,  we  present  the  aggregate 
+number of trades and shares reported by each firm shown in Fig. 1 for 
+the same time period. While both Citadel and Virtu had an average trade 
+size across all reported trades of over 300 shares per trade, the average 
+was close to 1.0 for each retail brokerage firm. 
+
+2.3. Identifying RHDW fractional share trades in the TAQ data 
+
+We exploit the large number of fractional share trades executed by 
+Robinhood and Drivewealth between February 2021 and March 2022 to 
+build a classification rule for identifying these trades for each firm in the 
+TAQ data. For brevity, we describe the method by which we build our 
+classification rules in Appendix A and focus here on providing a general 
+overview of these rules, along with an assessment of their accuracy. For 
+researchers  interested  in  adopting  this  framework,  we  also  discuss 
+concerns  connected  with  the  robustness  of  our  approach  beyond  our 
+sample period due to technological changes in the market and how a 
+researcher might validate our approach outside of our sample period to 
+mitigate those concerns. 
+
+In general, each classification rule is based on the fact that the trade 
+reports in the TAQ data for the fractional share trades of Robinhood and 
+Drivewealth  during  our  sample  period  should  have  a  number  of 
+distinctive characteristics. For instance, as we show in Appendix A, these 
+trades should appear as single share executions in one of three FINRA 
+
+JournalofFinancialEconomics157(2024)1038365R.P. Bartlett et al.                                                                                                                                                                                                                              
+
+in  TSLA.  For  instance,  during  2020—a  year  when  presumably  few,  if 
+any, fractional share trades were reported as single share trades—there 
+were approximately 75,000 single share, non-exchange trades in TSLA 
+on  any  given  trading  day.  The  large  number  of  non-fractional,  single 
+share  FINRA  trades  thus  complicates  identifying  those  single  share 
+FINRA trades that are actually fractional share executions. 
+
+As shown in Fig. 2, however, our classification rules perform well 
+even  in  this  trading  environment.  After  Robinhood  began  reporting 
+fractional  share  trades  to  the  tape  in  mid-February  2021,  the  weekly 
+estimate for Robinhood fractional share trades in Panel A of Fig. 2 is 
+roughly 90% of the weekly numbers disclosed in the OTC Transparency 
+data. In Panel B, the estimates for Drivewealth’s fractional share trades 
+commencing  with  October  7,  2021—the  date  Drivewealth  appears  to 
+have begun reporting trades to the tape—are even more closely aligned 
+to  those  disclosed  for  Drivewealth  in  the  OTC  Transparency  data. 
+However,  whereas  the  estimates  for  Robinhood’s  trades  are  slightly 
+below the OTC Transparency figures, the estimates for Drivewealth’s are 
+slightly higher. Specifically, our Drivewealth estimates exceed the dis-
+closures in the OTC Transparency data by an average of 6% each week. 
+In the Appendix, we explain why the classification rule for Robinhood is 
+likely  to  underestimate  slightly  the  actual  number  of  fractional share 
+trades executed by Robinhood, while it is likely to overestimate slightly 
+the number for Drivewealth. 
+
+We additionally examine the cross-sectional performance of our two 
+classifiers for all stock-weeks in the OTC Transparency Data where the 
+reported trades and reported shares traded were the same number for 
+either  Robinhood  or  Drivewealth.  Given  that  Robinhood’s  fractional 
+share trades do not appear in the TAQ data until February 16, 2021, we 
+confine our Robinhood analysis to the week of March 1, 2021 through 
+the  week  of  March  28,  2022.  For  Drivewealth,  we  similarly  use  the 
+weeks from November 1, 2021 through March 28, 2022 to ensure that 
+we  capture TAQ data  during  a  time when  Drivewealth  was  reporting 
+fractional  share  trades  to  the  tape.  With  these  restrictions,  our  data 
+consist of 14,568 stock-weeks for Robinhood and 5,229 stock-weeks for 
+Drivewealth. 
+
+As shown in Fig. 3, both classifiers perform well in estimating the 
+number of trades reported by Robinhood and Drivewealth in the OTC 
+Transparency data. In Panel A of Fig. 3, we present a simple scatter plot 
+of  the  number  of  weekly  trades  reported  for  Robinhood  in  the  OTC 
+Transparency data for each stock-week against the weekly estimate of 
+these trades after applying our Robinhood classifier to the TAQ trade 
+data.  Panel  B  presents  the  same  Fig.  for  Drivewealth.  Overall,  both 
+panels  indicate  a  nearly  one-for-one  correspondence  between  the 
+weekly estimate of trades and disclosed trades for both firms. 
+
+In Table 2, we estimate this relationship directly by regressing the 
+weekly trades disclosed for each stock-week on the weekly estimates for 
+each firm. Column 1 presents the estimates for Robinhood, while Col-
+umn  2  presents  the  estimates  for  Drivewealth.  For  Robinhood,  the 
+regression yields a precisely estimated coefficient of 1.055, consistent 
+with our observation above that our Robinhood classifier slightly un-
+derestimates  the  disclosed  number  of  Robinhood  trades.  For  Driv-
+ewealth, the regression likewise yields a precisely estimated coefficient 
+of 0.930, indicating that, on average, our Drivewealth classifier slightly 
+overestimates the number of disclosed trades for the firm. In both cases, 
+our  two  classification  rules  capture  almost  all  of  the  cross-sectional 
+variation  in  fractional  share  trading  by  Robinhood  and  Drivewealth, 
+as reflected in the very high R-squared of 0.993 and 0.996, respectively. 
+
+3. Who uses fractional shares? RHDW fractional share trades in 
+the cross section 
+
+A natural question to ask is whether fractional share trades matter. If 
+retail traders use fractional share trades primarily to purchase a fraction 
+of  out-of-reach,  high-priced  stocks,  the  incidence  of  fractional  share 
+trades should be confined to only a small portion of U.S. equity secu-
+rities.  On  the  other  hand,  the  emergence  of  fractional  share  trading 
+
+Fig. 1. Weekly Trades Reported to FINRA by Brokerage Firm. 
+This figures plots the natural log of the total number of trades reported on a 
+weekly basis to the FINRA OTC Transparency Data between January 1, 2019 
+and March 31, 2022. The data are identified by brokerage firm. 
+
+Table 1 
+This table reports the total trades and shares disclosed in the OTC Transparency 
+Data between January 2019 and March 31, 2022 for the following eight brokers.  
+
+Reporting Firm 
+
+Citadel Securities LLC 
+Virtu Americas LLC 
+Robinhood Securities, LLC 
+Drivewealth, LLC 
+National Financial 
+Services LLC 
+
+Trades 
+(millions) 
+
+2,266.31 
+1,726.71 
+245.11 
+112.68 
+25.41 
+
+Alpaca Securities LLC 
+Charles Schwab & Co., 
+
+4.21 
+0.88 
+
+Inc. 
+
+Interactive Brokers LLC 
+
+0.15 
+
+Shares 
+(millions) 
+
+759,419.10 
+566,778.40 
+257.05 
+112.68 
+27.72 
+
+4.27 
+1.48 
+
+0.15 
+
+Average Trade 
+Size 
+
+335.09 
+328.24 
+1.05 
+1.00 
+1.09 
+
+1.01 
+1.68 
+
+1.00  
+
+trade  reporting  facilities  (TRFs).  More  importantly,  each  trade  report 
+reflects the time it takes for a broker to report the trade to one of two 
+Securities  Information  Processors,  and  as  we  show  in  Appendix  A, 
+fractional  share  trades  executed  by  both  Robinhood  and  Drivewealth 
+had  distinctively  long  trade  reporting  latencies  during  our  sample 
+period. As such, by examining the tail of the distribution of reporting 
+latencies  for  single  share  FINRA  trades  before  and  after  these  firms 
+commenced reporting trades to the tape, we estimate the latency dis-
+tributions for fractional share trades executed by each firm. 
+
+To assess the accuracy of the classification rules, we turn to the OTC 
+Transparency  data.  In  conventional  predictive  modelling,  classifiers 
+such as the ones we construct would be validated against a test dataset of 
+trades that are known to have the target characteristic of interest (e.g., 
+RH=0/1). We lack access to such a dataset, but the OTC Transparency 
+data provides a useful substitute for those stock-weeks where Robinhood 
+or Drivewealth disclosed trades. In particular, if the OTC Transparency 
+data reveal that either Robinhood or Drivewealth executed only single 
+share trades in a particular security during a trading week, the firm’s 
+weekly trades in that security likely reflect fractional share trade exe-
+cutions. We therefore evaluate the extent to which applying our classi-
+fiers  to  the  TAQ  trade  data  results  in  weekly  trade  estimates  for 
+Robinhood and Drivewealth for a stock that match their disclosures for 
+these stock-weeks in the OTC Transparency data. 
+
+In Fig. 2, we illustrate this approach using trades in Tesla (TSLA). 
+Trades  in  TSLA  were  the  most  common  trades  disclosed  in  the  OTC 
+Transparency data for both brokers, with Robinhood reporting over 14 
+million total trades between January 1, 2020 and the week of March 28, 
+2022 and Drivewealth reporting over 8 million during the same time 
+period. Moreover, non-fractional single share FINRA trades are common 
+
+JournalofFinancialEconomics157(2024)1038366R.P. Bartlett et al.                                                                                                                                                                                                                              
+
+Fig. 2. Fractional Share Trades in TSLA Reported in the OTC Transparency Data for Robinhood (Panel A) and Drivewealth (Panel B) Versus the Fractional 
+Share Trades Estimated by the Robinhood and Drivewealth Classifiers. 
+
+Fig.  3. Fractional  Share  Trades  Reported  in  the  OTC  Transparency  Data  for  Robinhood  (Panel  A)  and  Drivewealth  (Panel  B)  Versus  Fractional  Share 
+Trades Estimated in TAQ with the Robinhood and Drivewealth Classifiers. 
+
+enables retail brokerage firms to offer investors the ability to enter or-
+ders based on the dollar value of the trade rather than the number of 
+shares to be traded. Indeed, the default method for entering trades on 
+both  Robinhood  and  Cash-App  (a  Drivewealth  application)  is  to  use 
+dollars and cents rather than shares, and as noted, many applications 
+that rely on Drivewealth specifically allow users to “round up”  credit 
+card transactions to invest the rounded-up portion in stocks. If investors 
+
+enter orders based on their dollar value, the resulting trade will likely 
+involve a fractional share component, increasing the incidence of frac-
+tional  share  trades  across  stocks  of  all  prices.  More  generally,  these 
+fractional share trades would be indicative of a particular type of retail 
+order  flow—i.e.,  trades  originating  from  a  mobile-first  application 
+entered in dollar values—that may differ from broader measures of retail 
+order flow. 
+
+Table 2 
+This table evaluates the accuracy of the classification rules for identifying fractional share trades executed by Robinhood and Drivewealth. Column 1 presents estimates 
+from a regression of the total number of weekly trades reported for Robinhood in the OTC Transparency data on the total number of fractional share trades estimated to 
+be executed by Robinhood using the TAQ trade data and the Robinhood classification rule. Column 2 presents estimates for the same regression applied to Drivewealth 
+disclosures in the OTC Transparency data and using the Drivewealth classification rule. The sample period for Column 1 reflects the weeks commencing on March 1, 
+2021 through the week of March 28, 2022, and the sample period for Column 2 reflects the weeks commencing on November 1, 2021 through the week of March 28, 
+2022. Robust standard errors are included in brackets.   
+
+(1) 
+Robinhood Disclosed Weekly Trades 
+
+(2)  
+Drivewealth Disclosed Weekly Trades 
+
+Weekly Estimates From TAQ 
+
+Constant 
+
+Observations 
+R-squared 
+
+*** p<0.01. 
+
+1.055*** 
+[0.00899] 
+-152.4*** 
+[45.05] 
+14,568 
+0.993 
+
+0.930***  
+[0.00657] 
+-387.2***  
+[31.31] 
+5,229 
+0.996  
+
+JournalofFinancialEconomics157(2024)1038367R.P. Bartlett et al.                                                                                                                                                                                                                              
+
+To assess the prevalence of RHDW fractional share trading, we focus 
+our analysis on trading in the common stock of all U.S. firms contained 
+in the daily stock file maintained by the Center for Research on Secu-
+rities  Prices  (CRSP).  Because  neither  Robinhood  nor  Drivewealth  re-
+ported fractional share trades to the tape prior to February 15, 2021, our 
+sample consists of all trading days between March 1, 2021 and March 
+31,  2022.  After  filtering  for  securities  having  a  share  code  of  “11” 
+(representing  common  equity  of  a  U.S.  corporate  issuer)  and  after 
+excluding stock-days with no trades, the sample consists of 1,160,627 
+stock-days, comprised of 4,648 stocks issued by 4,601 firms. For each 
+issuer, we also collect bi-monthly short interest data using the CRSP/ 
+COMPUSTAT merged file. Lastly, we merge onto each stock-day the total 
+number of Robinhood and Drivewealth trades observed for the stock- 
+day within the TAQ data based on the classification rules described in 
+Section 2.17 
+
+In  Table  3,  we  present  a  list  of  the  30  securities  with  the  largest 
+number  of  fractional  share  trades  executed  by  Robinhood  and  Driv-
+ewealth. In the table, as well as in our subsequent analyses, we combine 
+trades of both brokers given the strong correlation in trading behavior 
+associated  with  the  two  platforms.  In  particular,  for  trades  between 
+October  7,  2021  and  March  31,  2022  (a  time  period  when  we  can 
+identify fractional share trades for both platforms), both Robinhood’s 
+fractional share trades and Drivewealth’s fractional share trades were 
+highly concentrated in a select group of stocks. Indeed, during this time 
+period the top 9 stocks by number of fractional share trades for Robin-
+hood were identical to the top 9 stocks by number of fractional share 
+trades for Drivewealth, with these 9 stocks constituting 24% of Robin-
+hood’s  fractional  share  trades  and  29%  of  Drivewealth’s.18  Likewise, 
+extending  the  ranking  to  each  firm’s  top  100  stocks  captures  55%  of 
+Robinhood’s fractional share trades and 65% of Drivewealth’s fractional 
+share trades, and trading in these top 100 stocks was also remarkably 
+similar across platforms. For instance, taking the union of Robinhood’s 
+top  100  stocks  and  Drivewealth’s  top  100  stocks  and  regressing  the 
+percent of Robinhood’s total fractional share trading in each stock on the 
+percent  of  Drivewealth’s  total  fractional  share  trading  in  each  stock 
+produces a coefficient of 0.82 (robust s.e.=0.69) and an R2 of 0.92.19As 
+we  discuss  below,  that  traders  using  these  app-based  platforms 
+concentrate their trades in such a small number of stocks distinguishes 
+this form of retail order flow from retail trading proxied by the BJZZ 
+metric which is more diffusely distributed across the universe of stocks. 
+Focusing  on  the  combined  results,  Table  3  reveals  that  across  the 
+entire sample period, TSLA has the largest number of RHDW fractional 
+
+17  Efforts to match stocks-days from CRSP to stock-days in TAQ using the Daily 
+TAQ  CRSP  Link  available  through  CRSP  resulted  in  an  incomplete  match  of 
+stock-days between these data. Often, this was due to the fact that while stock 
+symbols  often  change  due  to  corporate  reorganizations  and  mergers,  the 
+PERMNO associated with a company’s equity securities in CRSP typically re-
+mains the same. Where the link file failed to produce a confirmed match, we 
+matched  PERMNO-DATE  observations  in  CRSP  to  SYM_ROOT-SYM_SUFFIX- 
+DATE  observations  in  TAQ  by  means  of  hand-matching  combinations. 
+Through this method, we match 100% of the 1,160,627 PERMNO-DATES to a 
+SYM_ROOT-SYM_SUFFIX-DATE  observation  in  TAQ.  Specifically,  the  4,648 
+PERMNOs observed in our CRSP data were associated with 4830 SYM_ROOT- 
+SYM_SUFFIX observations in our TAQ data.  
+18  For Robinhood, the top 9  stocks by percent of total Robinhood fractional 
+share trades during this time period were: TSLA (7.6%), AAPL (3.0%), AMZN 
+(2.8%),  MSFT  (2.0%),  AMC  (1.9%),  NVDA  (1.9%),  FB  (1.9%)  and  GOOG.L 
+(1.4%), and LCID (1.3%). For Drivewealth, the top 9 stocks by percent of total 
+Drivewealth fractional share trades during the same period were: TSLA (8.3%), 
+AAPL  (4.6%),  AMZN  (3.6%),  AMC  (3.1%),  FB  (2.3%),  MSFT  (2.1%),  NVDA 
+(2.0%), GOOG.L (1.3%), and LCID (1.3%).  
+19  Across  the  full  sample  of  stock-days  during  this  time  period,  a  simple 
+bivariate  regression  of  the  number  of  Robinhood  fractional  trades  on  the 
+number of Drivewealth fractional share trades yields a coefficient of 1.2 (robust 
+s.e.=0.02) and an R2  of 0.79. 
+
+share  trades.  Column  (4)  indicates  that  during  the  sample  period 
+roughly 6.7% of all trades in Tesla were fractional share executions by 
+Robinhood or Drivewealth, based on our classification rules. Moreover, 
+Columns  (5)  and  (6)  underscore  the  importance  of  fractional  share 
+trading in understanding the large number of single share trades now 
+reported for most issuers. In the case of TSLA, fractional share execu-
+tions  by  Robinhood  and  Drivewealth  accounted  for  over  26%  of  all 
+single  share  trades  in  the  market,  and  a  remarkable  47.8%  of  single 
+share trades reported to FINRA. Nor is this phenomenon limited to Tesla; 
+across all 30 stocks in Table 3, RHDW fractional share trades accounted 
+for between 16% to 40% of all reported single share trades and between 
+31% and 50% of all reported single share FINRA trades. We return to this 
+issue in Section 5 when we discuss the distortions to the consolidated 
+tape caused by the current rules for fractional share trade reporting. 
+
+More generally, the high ranking of TSLA in Table 3 suggests frac-
+tional share trading should be especially common in high-priced stocks 
+that are popular among retail traders. As shown in column (1), Tesla had 
+an average stock price of over $800 during the sample period. Likewise, 
+using data from 2018 through August 2020 provided by Robintrack.net 
+(which tracked the number of Robinhood accounts holding a particular 
+stock),  Welch  (2021)  finds  that  Tesla  was  a  common  stock  held  by 
+Robinhood  investors.  In  addition  to  TSLA,  Table  3  reveals  that  retail 
+traders  also  used  fractional  share  trading  to  access  other  high-priced 
+stocks such as GOOG.L and AMZN, both of which had prices in excess 
+of $2,000 per share. The popularity of fractional share trading in these 
+stocks is consistent with Da et al. (2024), who find that the introduction 
+of fractional share trading eased access to high-priced stocks for retail 
+investors with capital constraints. 
+
+However,  Table  3  also  reveals  that  fractional  share  trading  is  not 
+confined to the most expensive stocks. For instance, the second stock on 
+the list is AMC Entertainment, an especially noteworthy “meme” stock 
+whose stock price ranged between $9 per share and $59 per share during 
+the sample period: in other words, not expensive. Overall, Table 3 in-
+cludes just four stocks (Tesla, Amazon, Netflix, and the class A shares of 
+Alphabet)  with  an  average  stock  price  of  $500  or  more  during  the 
+sample  period.  The  remainder  of  the  list  is  largely  dominated  by 
+“household”  companies  (such  as  Apple,  Disney,  Coca  Cola  Co.,  and 
+Walmart), other “meme” stocks (such as Gamestop), and several recent 
+IPOs (such as Rivian and Coinbase) and former Special Purpose Acqui-
+sition Companies  (SPACs) (such as Virgin Galactic Holdings, Inc. and 
+Lucid Group Inc.) that were reportedly popular among retail traders.20 
+Moreover,  most  of  the  stocks  on  Table  3  had  stock  prices  during  the 
+sample period that were just a fraction of the price of Tesla. For example, 
+nine had an average stock price of less than $50 per share. 
+
+Table  3  also  highlights  the  utility  of  having  a  direct  measure  for 
+fractional  share  trading  rather  than  relying  on  the  number  of  single 
+share,  off-exchange trades. As noted,  the  fraction of  single share,  off- 
+exchange  trades  that  are  coded  as  RHDW  fractional  share  trades 
+ranges  from  31%  (Advanced  Micro  Devices)  to  49.6%  (Robinhood 
+Markets). Likewise, across all issuers in the sample, the correlation of the 
+daily  number  of  RHDW  fractional  share  trades  and  whole  share,  off- 
+exchange trades ranges from as low as 0.005 for a stock like Genera-
+tions Bancorp of New York (where few whole share, off-exchange trades 
+are RHDW fractional share trades) to as high as 0.996 for the Class A 
+shares  of  Berkshire  Hathaway  (where  over  90%  of  whole  share,  off- 
+exchange trades are RHDW fractional share trades). 
+
+Perhaps most important, while single share, off exchange trades will 
+always be a superset of RHDW fractional share trades, the extent of the 
+difference can exhibit time-varying properties for individual stocks. As 
+
+20 See,  e.g,  Isabelle  Lee,  “SPACs  are  booming  ’at  the  expense  of  retail  in-
+vestors’, and regulators should take these 5 steps to fix the market, think tanks 
+say”, Business Insider, March 7, 2021, available at https://markets.businessinsi 
+der.com/news/stocks/spac-boom-sec-retail-investors-blank-check-companies 
+-regulation-2021-3-1030157257. 
+
+JournalofFinancialEconomics157(2024)1038368R.P. Bartlett et al.                                                                                                                                                                                                                              
+
+Table 3 
+This table provides summary statistics of the incidence of trades classified as RHDW fractional shares for the thirty stocks having the most estimated RHDW fractional 
+share trades in the sample. Sample period is March 1, 2021 through March 31, 2022. Average Trade Price is the mean of the daily closing price. Average Daily Dollar 
+Volume of Trades is the mean daily dollar value of trades in the stock. Estimated Total of RHDW Fractional Share Trades is the total number of trades that are classified 
+as RHDW fractional share trades. % of All Trades that Are RHDW Fractional is the percentage of all trades in the stock that are classified as RHDW fractional share 
+trades. % of All 1-Share Trades that Are RHDW Fractional and % of All 1-Share Finra Trades that are RHDW Fractional show how the estimated number of RHDW 
+fractional share trades compares to the total number of all single share trades and the total number of all single share trades executed in a non-exchange venue, 
+respectively.    
+
+Symbol 
+
+Company 
+
+(1) 
+Average 
+Trade Price 
+
+(2) 
+Average Daily Dollar 
+Volume of Trades 
+
+(3) 
+Estimated Total of 
+RHDW Fractional 
+Share Trades 
+
+(4) 
+% of All Trades 
+that Are RHDW 
+Fractional 
+
+(5) 
+% of All 1-Share 
+Trades that Are 
+RHDW Fractional 
+
+(6) 
+% of All 1-Share Finra 
+Trades that Are 
+RHDW Fractional 
+
+TSLA 
+AMC 
+
+AAPL 
+AMZN 
+GME 
+MSFT 
+NVDA 
+FB 
+DIS 
+GOOG. 
+L 
+COIN 
+NFLX 
+F 
+LCID 
+AMD 
+
+PYPL 
+MRNA 
+RBLX 
+PFE 
+SQ 
+HOOD 
+
+PLTR 
+
+SNAP 
+RIVN 
+
+PLUG 
+SPCE 
+
+TESLA INC 
+A M C ENTERTAINMENT 
+HOLDINGS INC 
+APPLE INC 
+AMAZON COM INC 
+GAMESTOP CORP NEW 
+MICROSOFT CORP 
+NVIDIA CORP 
+META PLATFORMS INC 
+DISNEY WALT CO 
+ALPHABET INC 
+
+COINBASE GLOBAL INC 
+NETFLIX INC 
+FORD MOTOR CO DEL 
+LUCID GROUP INC 
+ADVANCED MICRO 
+DEVICES INC 
+PAYPAL HOLDINGS INC 
+MODERNA INC 
+ROBLOX CORP 
+PFIZER INC 
+BLOCK INC 
+ROBINHOOD MARKETS 
+INC 
+PALANTIR 
+TECHNOLOGIES INC 
+SNAP INC 
+RIVIAN AUTOMOTIVE 
+INC 
+PLUG POWER INC 
+VIRGIN GALACTIC 
+HOLDINGS INC 
+GENERAL ELECTRIC CO 
+WALMART INC 
+COCA COLA CO 
+A T & T INC 
+
+GE 
+WMT 
+KO 
+T 
+Total for top 30:   
+Total for all other stocks:   
+Total:    
+
+$810.34 
+$28.64 
+
+$21,581,670,856 
+$2,821,125,357 
+
+13,264,642 
+8,918,867 
+
+$148.29 
+$3,302.32 
+$171.11 
+$287.72 
+$383.45 
+$312.83 
+$168.28 
+$2,613.09 
+
+$247.98 
+$529.14 
+$15.77 
+$30.72 
+$106.75 
+
+$226.56 
+$243.33 
+$79.51 
+$45.23 
+$208.87 
+$28.34 
+
+$13,256,687,565 
+$11330,798,966 
+$1,206,605,773 
+$8,123,896,821 
+$8,987,993,532 
+$6,685,390,250 
+$1,736,073,977 
+$4,085,268,091 
+
+$1,475,070,044 
+$2,342,057,797 
+$1,376,251,033 
+$1,651,483,019 
+$7,054,108,294 
+
+$2,366,783,535 
+$3,287,727,482 
+$1,228,872,541 
+$1,533,329,905 
+$2,143,315,317 
+$514,864,839 
+
+6,369,118 
+5,479,697 
+3,798,715 
+3,360,176 
+2,877,344 
+2,766,069 
+2,167,639 
+2,042,176 
+
+1,993,402 
+1,914,795 
+1,864,729 
+1,504,676 
+1,357,620 
+
+1,325,034 
+1,287,985 
+1,287,839 
+1,169,449 
+1,132,934 
+1,099,894 
+
+$21.06 
+
+$1,072,445,606 
+
+1,098,672 
+
+$56.40 
+$80.82 
+
+$29.56 
+$22.27 
+
+$66.09 
+$141.27 
+$56.19 
+$27.05 
+
+$1,250,242,881 
+$1,971,504,115 
+
+$763,692,279 
+$572,564,241 
+
+$8,083,343,72 
+$1,161,726,783 
+$9,111,160,71 
+$1,221,178,586 
+
+1,071,059 
+1,067,488 
+
+978,515 
+976,517 
+
+935,982 
+915,973 
+910,795 
+888,539 
+7,582,634,0 
+1,189,202,02 
+1,947,465,42 
+
+6.7% 
+5.4% 
+
+3.4% 
+10.5% 
+8.0% 
+3.3% 
+2.4% 
+3.2% 
+5.3% 
+7.6% 
+
+6.5% 
+5.8% 
+3.3% 
+3.0% 
+1.1% 
+
+2.5% 
+2.6% 
+3.2% 
+2.4% 
+2.7% 
+4.9% 
+
+1.7% 
+
+2.5% 
+4.3% 
+
+2.1% 
+2.5% 
+
+2.7% 
+3.7% 
+3.3% 
+2.1% 
+4.0% 
+1.1% 
+1.5% 
+
+26.4% 
+39.7% 
+
+27.0% 
+26.2% 
+29.1% 
+22.6% 
+16.2% 
+21.9% 
+26.9% 
+18.1% 
+
+27.1% 
+25.2% 
+34.9% 
+29.4% 
+16.1% 
+
+17.6% 
+19.9% 
+24.2% 
+28.4% 
+19.6% 
+39.0% 
+
+23.6% 
+
+29.7% 
+28.1% 
+
+26.9% 
+27.7% 
+
+28.3% 
+27.0% 
+26.7% 
+22.6% 
+25.8% 
+10.1% 
+13.2% 
+
+47.8% 
+48.7% 
+
+41.5% 
+46.0% 
+41.1% 
+41.3% 
+35.6% 
+41.4% 
+43.2% 
+41.4% 
+
+43.1% 
+49.1% 
+44.3% 
+48.7% 
+31.0% 
+
+35.0% 
+38.8% 
+41.9% 
+42.0% 
+35.9% 
+49.6% 
+
+35.9% 
+
+49.3% 
+45.4% 
+
+46.3% 
+43.1% 
+
+45.4% 
+44.4% 
+42.3% 
+33.7% 
+43.4% 
+30.8% 
+34.7%  
+
+an  example,  Fig.  4  plots  the  daily  percentage  of  off-exchange,  single 
+share trades that are classified as RHDW fractional share trades for the 
+common  stock  of  the  SPAC  Digital  World  Acquisition  Corp.  (DWAC) 
+from September 30, 2021 (the first day the shares traded) through the 
+end of the sample period. On October 21, 2021, DWAC announced its 
+intention  to  merge  with  Trump  Media  &  Technology  Group  Corp.,  a 
+company controlled by former president Donald Trump that planned to 
+launch the social network TRUTH Social. The announcement resulted in 
+a five-fold increase in DWAC’s stock price and a surge in trading activity. 
+As  shown  in  the  figure,  the  increase  in  overall  trading  resulted  in  a 
+sustained and significant decline in the extent to which single share, off- 
+exchange trades reflected RHDW fractional share trades.21 
+
+Lastly, Table 3 also indicates that fractional share trades are far from 
+uniformly distributed across stocks. As shown in the last three rows of 
+
+21  Within the OTC Transparency data, Robinhood and Drivewealth were the 
+only  two  retail  brokerage  firms  listed  as  active  in  DWAC  during  this  time 
+period,  which  rules  out  the  possibility  that  another  broker’s  fractional  share 
+trades accounts for this decline. 
+
+Fig.  4. Percent  of  Single  Share  FINRA  Trades  in  DWAC  that  Are  RHDW 
+Fractional, September 1, 2021 – March 31, 2022. 
+
+JournalofFinancialEconomics157(2024)1038369R.P. Bartlett et al.                                                                                                                                                                                                                              
+
+Table 4 
+This table summarizes the distribution of RHDW fractional share trades and the distribution of retail trades (calculated using the BJZZ metric) across sample stocks. For 
+each stock in the sample, the total number of RHDW fractional share trades was estimated between March 1, 2021 and March 31, 2022 using the RH and DW 
+classification rules, and stocks were ranked from highest to lowest by the total RHDW fractional shares for each stock. A similar ranking was conducted based on the 
+total retail trades observed for each stock during this time period using the BJZZ metric. Top 50 refers to the 50 stocks that had the highest total number of trades for 
+each ranking. Each subsequent row expands the sample by including additional stocks according to their position in the ranking. Percent of All RHDW Fractional Share 
+Trades is the total number of RHDW fractional share trades represented by stocks in the group relative to all observed RHDW fractional share trades for the sample. 
+Percent of All Retail Trades is the total number of retail trades (measured using the BJZZ metric) represented by sample stocks in the group relative to all observed retail 
+trades proxied by the BJZZ metric for sample stocks.   
+
+Group of Stocks 
+
+Top 50 
+Top 100 
+Top 200 
+Top 500 
+Top 1000 
+Top 2000 
+Top 3000 
+
+(1) 
+Percent of All RHDW Fractional Share Trades 
+
+(2) 
+Percent of All BJZZ Retail Trades 
+
+46.16% 
+56.91% 
+67.19% 
+79.02% 
+86.95% 
+94.31% 
+98.15% 
+
+32.42% 
+43.39% 
+55.12% 
+70.89% 
+83.42% 
+94.33% 
+98.49% 
+
+(3) 
+Difference 
+
+13.74% 
+13.52% 
+12.07% 
+8.14% 
+3.53% 
+-0.02% 
+-0.34%  
+
+the table, RHDW fractional share trades in these thirty stocks accounted 
+for 75.8 million of the roughly 195 million RHDW fractional share trades 
+(39%) estimated to have been executed based on our classification rules. 
+In Table 4, we expand this analysis to stocks beyond the “top 30” based 
+on the ranking of stocks by the total number of RHDW fractional share 
+trades.  Column  (1)  shows  that  including  the  top  100  stocks  captures 
+nearly  60%  of  all  estimated  RHDW  fractional  share  trades,  while 
+expanding the list of stocks to the top 500 captures nearly 80% of all 
+such trades. Even though our sample includes over 4,600 stocks, Table 4 
+indicates that focusing on just slightly less than half of the sample stocks 
+would  nevertheless  capture  almost  95%  of  all  estimated  RHDW  frac-
+tional  share  trades.  For  comparison,  we  also  calculate  the  number  of 
+total  retail  trades  observed  for  each  stock  in  the  sample  during  the 
+sample period based on the BJZZ metric and similarly rank stocks from 
+highest to lowest by number of estimated retail trades. While the dis-
+tribution of retail trades based on this metric is also skewed toward the 
+top-ranked  stocks,  RHDW  fractional  share  trades  are  even  more 
+concentrated among just a fraction of all stocks within the CRSP dataset. 
+For instance, as shown in columns (2) and (3), where the “top 50” stocks 
+in  the  RHDW  ranking  comprise  roughly  46%  of  all  observed  RHDW 
+fractional  share  trades,  the  top  50  stocks  in  the  retail  trade  ranking 
+comprise  only  32.42%  of  observed  retail  trades  based  on  the  BJZZ 
+metric. Likewise, for the top 100, the figures are 56.91% versus 43.39%, 
+and for the top 200, they are 67.19% versus 55.12%. 
+
+What might induce investors to concentrate fractional share trades 
+within such a subset of U.S. equity securities? Somewhat surprisingly, 
+column (4) of Table 3 indicates that a high stock price appears to be only 
+a partial explanation. While over 10% of all trades in Amazon (average 
+stock  price=$3,302.32)  are  fractional  share  executions,  over  8%  of 
+trades in Gamestop were also fractional share executions despite having 
+an average stock price that was roughly 1/20th that of Amazon. 
+
+In Fig. 5, we plot the average percent of daily trades in a security that 
+are  RHDW  fractional  share  executions  within  the  sample  against  a 
+stock’s average daily price. Due to skewness in both measures, we plot 
+the relationship using the natural log of both measures. The figure has a 
+number of distinctive features. First, the outlier in the top right quadrant 
+represents the Class A common stock of Berkshire Hathaway (BRK.A), 
+which had an average price of approximately $435,000 per share during 
+our sample period. As shown in Bartlett et al. (2022), fractional share 
+trades by Robinhood or Drivewealth represent roughly 80%-90% of all 
+trades  in  BRK.A,  underscoring  the  critical  role  that  fractional  share 
+trades  now  play  in  the  average  daily  volume  of  the  market’s  most 
+expensive publicly-traded stock. However, the figure also reveals that 
+the relationship between the incidence of fractional share trading and 
+stock price is hardly straight-forward. Excluding BRK.A, the slope co-
+efficient  on  a  regression  line  through  these  data  is  -0.02  (robust  std. 
+error=0.009).  Indeed,  the  distinct,  vertical  cluster  of  firms  with  an 
+
+average  closing  price  of  roughly  $10/share  (natural  log=$2.30)  in-
+dicates  that  stock  price  may  often  be  orthogonal  to  fractional  share 
+trading. This vertical cluster of stocks largely reflects the large number 
+of SPACs launched during 2020 and 2021(for a discussion, see Klausner 
+et al., 2021.) SPACs raise capital in an IPO and thereafter search for an 
+acquisition target. Notably, these issuers are typically structured to trade 
+at $10/share after their IPO until they acquire a firm, and they structure 
+any subsequent acquisition to be completed at a stock price that values 
+the SPAC’s securities at $10/share. While many of these stocks had very 
+little fractional share trades, others ranked among the stocks with the 
+highest  percentage  of  RHDW  fractional  share  trades  in  our  sample. 
+Likewise, our sample also coincided with a large number of conventional 
+IPOs  that  were  priced  at  less  than  $20/share,  but  their  trading  was 
+associated  with  a  high  frequency  of  RHDW  fractional  share  trades. 
+Overall,  among  the  87  stocks  where  RHDW  fractional  share  trades 
+constituted  more  than  5%  of  all  trades,  nearly  half  (N=42)  had  an 
+average closing price of less than $20/share. 
+
+Aside  from  BRK.A,  the  absence  of  any  clear,  positive  relationship 
+between  stock  price  and  RHDW  fractional  share  trades  in  Fig.  5  is 
+consistent with RHDW fractional share trades arising from Robinhood 
+and  Drivewealth  investors  commonly  entering  trades  for  an  overall 
+dollar value (e.g., invest $1,000 total across these 3 stocks). To explore 
+which types of stocks are likely to be of interest to this class of retail 
+investors, we use our sample to estimate the following model:    
+
+Fig. 5. RHDW Fractional Share Trading and Stock Price, March 1, 2021 – 
+March 31, 2022. 
+
+JournalofFinancialEconomics157(2024)10383610R.P. Bartlett et al.                                                                                                                                                                                                                              
+
+RHDWit = αit + BJZZit + priceit + mktcapit + newit + ageit + volatilityit + turnoverit + short interestit + tapeit + SPACit + Mentionsit + εit
+
+(1)   
+
+Our outcome variable RHDWit  is measured as the natural log of one 
+plus the number of RHDW fractional share trades in stock i observed on 
+day  t.22  Our  interest  is  in  why  retail  traders  at  Robinhood  and  Driv-
+ewealth  use  fractional  share  trades  above  and  beyond  the  fact  that  a 
+particular  stock  might  be  popular  among  retail  investors  using  the 
+conventional  BJZZ  proxy  for  retail  trading.  We  therefore  include  the 
+covariate BJZZit, which is an estimate of retail trades in stock i on day t 
+that are executed by retail market makers using the BJZZ metric. This 
+proxy  for  retail  trades  is  based  on  non-exchange  trades  having  sub- 
+penny  price  improvement,  exclusive  of  midpoint  executions.23  As  we 
+show below, fractional share trades executed by Robinhood are over-
+whelmingly  at  the  midpoint,  and  those  executed  by  Drivewealth  are 
+overwhelmingly executed with no price improvement. The BJZZ metric, 
+therefore, does not include the vast majority of the fractional share ex-
+ecutions in our sample. 
+
+By controlling for BJZZ, the model establishes the following (sharp) 
+null hypothesis for the remaining covariates: If RHDW fractional share 
+trades were randomly distributed across trades flagged as retail using 
+the  BJZZ  metric,  none  of  the  other  covariates  should  be  statistically 
+associated with RHDW fractional share trades. These covariates are (for 
+each stock i on day t) the natural log of the closing price (priceit), the 
+natural log of market capitalization (mktcapit), an indicator for whether 
+the stock has been traded for less than 180 calendar days (newit), the 
+natural log of the number of days the stock has traded (ageit), the natural 
+log of return volatility over the prior 30 days (volatilityit), the natural log 
+of  the  volume  of  shares  traded  relative  to  total  shares  outstanding 
+(turnoverit), the natural log of the most recent bi-monthly short-interest 
+ratio (short interestit), and an indicator for stock exchange listing (tapeit). 
+Additionally,  given  the  prominence  of  SPACs  and  “meme”  stocks  in 
+Table 3, Eq. (1) also includes an indicator for whether stock i represents 
+the common stock issued in a SPAC (SPACit) as well as the number of 
+total mentions (Mentionsit) of stock i on day t on the “subreddit” forum r/ 
+wallstreetbets, a popular retail discussion forum commonly associated 
+with meme stock trading.24 
+
+22 We use this transformation of the dependent variable because for approxi-
+mately 5% of stock-day observations, the daily number RHDW fractional share 
+trades is zero. While this transformation ensures that our estimates are based on 
+the full sample of stocks, we are also aware of the need to exercise caution when 
+interpreting the coefficient estimates in Table 5 as percentage effects based on 
+Chen and Roth (2023). In our setting, defining RHDWit  as either the natural log 
+of RHDW fractional share trades or as one plus this number makes no mean-
+ingful  difference  to  our  results.  With  one  exception,  all  coefficient  estimates 
+remain qualitatively and quantitively the same. The sole exception is that the 
+coefficient  for  New  in  column  4  (which  is  indistinguishable  from  zero  in 
+Table  5)  increases  to  a  statistically  significant  0.07  when  we  condition  on  a 
+stock-day having at least one RHDW fractional share trade.  
+23  The BJZZ metric was originally based on data from 2010 and is widely used 
+in  the  literature.  More  recent  research,  discussed  in  Section  4,  argues  that 
+changes  in  the  market  have  rendered  this  metric  less  accurate  in  classifying 
+retail trades.  
+24  See, e.g., Callum Keown, “Founder of WallStreetBets, Which Ignited Meme 
+Stock Frenzy, Is Suing Reddit,” Barron’s, Feb. 16, 2023. Data for a stock’s daily 
+mentions on r/wallstreetbets was obtained through Quiver Quantitative. Data 
+for SPAC securities is from SPAC INSIDER, https://spacinsider.com/, which is 
+the  same  source  for  SPAC  securities  used  in  Klausner,  Ohlrogge  and  Ruan 
+(2022).  Securities  were  flagged  as  a  SPAC  from  the  date  of  the  SPAC’s  IPO 
+through  the  date  of  its  “de-SPAC”  transaction,  if  any.  As  noted  in  Klausner, 
+Ohlrogge  and  Ruan  (2022),  a  SPAC  must  typically  liquidate  after  two  years 
+from  its  IPO  if  it  fails  to  complete  a  de-SPAC  transaction  within  that  time 
+period; therefore, SPACs completing an IPO prior to 2019 were disregarded. 
+
+Estimates  from  this  model  are  presented  in  Table  5.  Column  (1) 
+provides estimates for the baseline model, while column (2) estimates 
+the  same  model  with  date  fixed  effects.  For  both  models,  the  log-log 
+specification  permits  coefficient  estimates  to  be  interpreted  as  the 
+elasticity of RHDW fractional share trades with respect to the variable in 
+question.  Not  surprisingly,  the  tightly  estimated  coefficients  for  BJZZ 
+indicate that RHDW fractional share trades have a positive relation with 
+retail order flow based on the BJZZ proxy; in particular, a 10% increase 
+in the BJZZ proxy for retail order flow is associated with a 5.5% increase 
+in RHDW fractional share trades. After controlling for BJZZ trades, the 
+model reveals that a 10%  increase in stock price  is associated  with a 
+roughly 1.3% increase in RHDW fractional share trades. Both of these 
+results are consistent with fractional share trades being used by retail 
+traders to access higher-priced stocks. 
+
+At the same time, however, Table 5 highlights ways in which RHDW 
+trades may also represent a form of order flow that is distinct from that 
+captured  by  the  BJZZ  proxy.  For  instance,  the  model  indicates  that 
+fractional share trades are especially common among larger capitaliza-
+tion companies, as well as newly public companies. Indeed, even among 
+companies  that  have  traded  for  more  than  six  months,  the  model  in-
+dicates a negative relationship between fractional share trades and the 
+length of time a company has publicly traded. Consistent with Welch 
+(2021),  RHDW  fractional  share  trades  are  also  increasing  in  return 
+volatility and trading turnover. Additionally, columns (1) and (2) indi-
+cate  that  RHDW  fractional  share  trades  are  more  common  among 
+Nasdaq-listed firms, as well as among stocks with higher levels of short 
+interest,  suggesting  skepticism  among  short  sellers  about  the  stock’s 
+value.  Lastly,  RHDW  fractional  share  trades  are  also  more  common 
+among SPACs and the number of mentions a stock receives on r/wall-
+streetbets.  In  particular,  columns  (1)  and  (2)  indicate  that  a  10%  in-
+crease in the number of daily mentions of a stock on r/wallstreetbets is 
+associated with a 3.8% increase in the number of daily RHDW fractional 
+share trades. 
+
+In column (3), we add stock fixed effects to examine how the daily 
+changes in the level of RHDW fractional share trades within a stock were 
+associated with changes in the model’s time-varying covariates. These 
+within-stock  estimates  are  largely  consistent  with  the  between-stock 
+estimates  for  retail  order  flow  using  the  BJZZ  proxy,  price,  market 
+capitalization,  volatility,  turnover,  and  daily  mentions  on  r/wall-
+streetbets. However, the coefficient signs are the opposite for a stock’s 
+age and short-interest, though the negative coefficient for short-interest 
+is not distinguishable from zero. 
+
+Finally, given the predictive power of the covariates in Table 5 in 
+addition to the BJZZ proxy, we additionally estimate two versions of Eq. 
+(1) in which we drop BJZZit  as a parameter and use as our dependent 
+variable  either  RHDWit  (in  column  4)  or  BJZZit  (in  column  5). 
+Comparing the coefficient estimates across these two specifications of 
+Eq. (1) confirms that retail trading as measured using RHDW fractional 
+share  trades  differs  in  important  respects  from  retail  trades  proxied 
+using  the  BJZZ  metric.  In  particular,  where  the  BJZZ  metric  suggests 
+retail trading has a negative association with younger firms and Nasdaq- 
+listed stocks, RHDW fractional share trading has the opposite association 
+in both cases. Likewise, while the direction of the associations for price, 
+market  capitalization,  volatility,  turnover,  short  interest,  SPACs,  and 
+mentions  on  r/wallstreetbets  are  the  same,  RHDW  fractional  share 
+trading has roughly 400% the positive effect size for short interest and 
+155%  the  positive  effect  size  for  mentions  on  r/wallstreetbets.  In 
+contrast, RHDW fractional share trading has just one-third the negative 
+effect size for daily stock price, three-quarters the positive effect size for 
+market capitalization, 60% of the positive effect size for turnover, and 
+
+JournalofFinancialEconomics157(2024)10383611R.P. Bartlett et al.                                                                                                                                                                                                                              
+
+Table 5 
+This table reports regression results for a model of daily RHDW fractional share trading and daily retail trading based on the BJZZ metric as a function of stock 
+characteristics. The sample consists of the common stocks of all U.S. firms contained in CRSP, and the sample period is March 1, 2021 through March 31, 2022. All 
+variables are measured for stock i on day t. The outcome in columns 1 through 4 is the natural log of one plus the daily number of RHDW fractional share trades. The 
+outcome in column 5 is Ln(BJZZ), the natural log of the estimated number of daily retail trades based on the BJZZ metric. Ln(price) is the natural log of the daily closing 
+price. Ln(mktcap) is the natural log of market capitalization. New is an indicator for whether the stock has traded for fewer than 180 calendar days. Ln(age) is the 
+natural log of the number of days the stock has traded. Ln(volatility) is the natural log of the stock’s return volatility over the past thirty trading days. Ln(turnover) is the 
+natural log of the volume of shares traded relative to the number of outstanding shares. Ln(short interest) is the natural log of the most recent bi-monthly short-interest 
+ratio. SPAC is an indicator for whether stock i represents the common stock issued in a SPAC. Ln(mentions) is the number of total mentions of stock i on day t on the 
+“subreddit” forum r/wallstreetbets. In columns (1), (2), (4), and (5) indicators are also included for stock exchange listing. Robust standard errors are included in 
+brackets.   
+
+Ln(BJZZ) 
+
+Ln(price) 
+
+Ln(mktcap) 
+
+New 
+
+Ln(age) 
+
+Ln(volatility) 
+
+Ln(turnover) 
+
+Ln(short interest) 
+
+Ex=NYSE MKT 
+
+Ex=Nasdaq 
+
+SPAC 
+
+Ln(Mentions) 
+
+Constant 
+
+Date Fixed Effects: 
+Stock Fixed Effects: 
+Observations 
+R-squared 
+Number of stocks   
+
+*** p<0.01. 
+
+(1) 
+Ln(RHDW) 
+
+0.554*** 
+[0.00126] 
+0.128*** 
+[0.00137] 
+0.157*** 
+[0.00133] 
+0.0430*** 
+[0.00440] 
+-0.0545*** 
+[0.000713] 
+0.130*** 
+[0.00123] 
+0.0366*** 
+[0.00144] 
+0.0531*** 
+[0.000860] 
+-0.0554*** 
+[0.00584] 
+0.113*** 
+[0.00196] 
+0.0685*** 
+[0.00670] 
+0.378*** 
+[0.00166] 
+-2.018*** 
+[0.0193] 
+N 
+N 
+1,111,807 
+0.731 
+
+(2) 
+Ln(RHDW) 
+
+0.538*** 
+[0.00127] 
+0.133*** 
+[0.00135] 
+0.165*** 
+[0.00133] 
+0.0960***  
+[0.00425]  
+-0.0467*** 
+[0.000694] 
+0.140*** 
+[0.00125] 
+0.0712*** 
+[0.00146] 
+0.0483*** 
+[0.000856] 
+-0.0433***  
+[0.00586]  
+0.115***  
+[0.00188]  
+0.0284***  
+[0.00657]  
+0.385*** 
+[0.00161] 
+-2.121*** 
+[0.0191] 
+Y 
+N 
+1,111,807 
+0.746 
+
+(3) 
+Ln(RHDW) 
+
+0.434***    
+[0.00448]   
+0.161*** 
+[0.0321] 
+0.349*** 
+[0.0292] 
+
+0.243*** 
+[0.0136] 
+0.0855*** 
+[0.00353] 
+0.144*** 
+[0.00593] 
+-0.00701 
+[0.00552] 
+
+0.144*** 
+[0.00675] 
+-8.047*** 
+[0.530] 
+Y 
+Y 
+1,111,807 
+0.243 
+4,545    
+
+(4) 
+Ln(RHDW) 
+
+(5)  
+Ln(BJZZ) 
+
+-0.225*** 
+[0.00130] 
+0.630*** 
+[0.000884] 
+0.00716 
+[0.00474] 
+-0.00930*** 
+[0.000774] 
+0.349*** 
+[0.00127] 
+0.443*** 
+[0.00133] 
+0.0645*** 
+[0.000925] 
+0.120*** 
+[0.00607] 
+0.0990*** 
+[0.00217] 
+-0.142*** 
+[0.00675] 
+0.599*** 
+[0.00208] 
+-6.933*** 
+[0.0177] 
+N 
+N 
+1,144,752 
+0.685 
+
+-0.676***  
+-0.000954 
+0.874***  
+-0.000673 
+-0.00203  
+-0.00481 
+0.0724***  
+-0.000686 
+0.353***  
+-0.00123 
+0.767***  
+-0.00121 
+0.0168***  
+-0.000924 
+0.304***  
+-0.00488 
+-0.00853***  
+-0.00165 
+-0.372***  
+-0.0103 
+0.384***  
+-0.00171 
+-9.236***  
+-0.0138 
+N 
+N 
+1,111,807 
+0.825 
+
+40% of the negative effect size for SPACs. 
+
+4.1. RHDW fractional share trades as a proxy for app-based retail trades 
+
+Overall,  the  estimates  from  Table  5  suggest  that  investors  who 
+choose to execute fractional shares on the Robinhood and Drivewealth 
+applications generally trade stocks that are both popular among retail 
+traders in general but also have particular attributes. Specifically, their 
+trading  selection  skews toward those stocks with higher  market capi-
+talizations and recent trading volumes, as well as those that are newer, 
+more  volatile  and  likely  to  be  a  meme  stock.  To  the  extent  RHDW 
+fractional share trades represent the fractional component of a dollar- 
+based  order  placed  at Robinhood  or  Drivewealth, they may  therefore 
+reflect a proxy for a distinct form of order flow associated with such app- 
+based retail platforms—a topic to which we turn in the next section. 
+
+4. Do RHDW fractional share trades contain information? 
+
+In this section, we explore the question of whether RHDW fractional 
+share trades, despite their tiny size, nevertheless contain unique, value- 
+relevant information. 
+
+The findings in Table 5 are broadly consistent with the findings of Da 
+et al. (2024) that fractional share trading affected both the extensive and 
+intensive margin of retail trading. That is, fractional share trading fa-
+cilitates access to more expensive stocks for capital constrained retail 
+traders, and using dollar-based orders also facilitated purchasing more 
+of any given stock.25 More generally, by facilitating dollar-based trading 
+regardless of stock price, RHDW fractional share trades may provide a 
+more  accurate proxy  for  retail  order  flow  originating  from  app-based 
+retail platforms than the BJZZ metric, which represents the prevailing 
+measure of retail order flow. 
+
+There are several reasons why one might care about finding a proxy 
+for  this  subset  of  retail  order  flow.  First,  using  data  from  Robintrack 
+prior to its de-commissioning in August 2020, several studies find that 
+Robinhood investors possess distinct characteristics and that Robinhood 
+
+25 Da et al (2022) also make the important point that tiny trades when coor-
+dinated could cause price pressure and facilitate trading frenzies. This suggests 
+that the RHDW-FT metric may be particularly useful in investigations of retail 
+trading frenzies such as occurred with GameStop in January 2021. For a dis-
+cussion of the GameStop episode see “The rise and fall of the GameStop frenzy,” 
+Wall Street Journal, Feb. 11,2021. 
+
+JournalofFinancialEconomics157(2024)10383612R.P. Bartlett et al.                                                                                                                                                                                                                              
+
+trading is associated with future market conditions. For instance, Welch 
+(2021)  finds  that  Robinhood  investors  aggressively  purchased  stocks 
+during  the  initial  pandemic  downturn  and  after  the  ensuing  episodic 
+market upswings, consistent with uninformed trading. Similarly, Barber 
+et al. (2022a) find that, relative to other retail traders, Robinhood in-
+vestors  engaged  in  more  attention-induced  trading  and  that  intense 
+trading  by  Robinhood  investors  is  associated  with  negative  future 
+returns. Eaton et al. (2022) likewise find that decreases in Robinhood 
+investor  trading  due  to  platform  outages  are  associated  with  higher 
+market  liquidity,  suggesting  that  Robinhood  investor  trading  harms 
+liquidity.  While  these  studies  focused  on  Robinhood  investors,  it  is 
+plausible that investors using other app-based trading platforms (e.g., 
+those  powered  by  Drivewealth)  may  share  similar  characteristics  to 
+Robinhood investors. 
+
+Second,  from  an  empirical  perspective,  the  prevailing  measure  of 
+retail  order  flow—the  BJZZ  metric—is  likely  to  capture  this  form  of 
+uniformed  order  flow  with  considerable  noise.  For  instance,  because 
+BJZZ  relies  on  sub-penny  price  improvement  for  identifying  retail 
+trades, Barber et al. (2022b) find that BJZZ has high levels of Type II 
+error, especially for retail trades in stocks with wider quoted spreads, 
+which  may  be  especially  popular  with  app-based  traders  (e.g.,  meme 
+stocks  and  newly  public  stocks).  Moreover,  to  the  extent  researchers 
+seek to track retail trading among users of app-based platforms, the BJZZ 
+metric is also likely to lead to high levels of Type I error for at least two 
+reasons. First, BJZZ seeks to identify internalized retail trades, regard-
+less  of  the  broker.  Consequently,  the  measure  captures  trades  from 
+conventional retail brokers as well as newer app-based platforms. Sec-
+ond,  as  noted  by  Shearer  (2022),  the  BJZZ  metric  also  captures 
+non-retail, institutional trades executed through single dealer platforms 
+(SDPs), which (like retail market makers) internalize trades for institu-
+tional  clients  and  frequently  provide  sub-penny  price  improvement. 
+Similar findings are reported by Battalio et al (2023) who use data on 
+wholesaler institutional trades to show mistaken inclusions in the BJZZ 
+metric. 
+
+A cursory examination of trades in AAPL during the sample period 
+underscores the possibility that a large share of trades classified as retail 
+by BJZZ might reflect either the orders of wealthier retail traders using 
+conventional brokers or institutional orders. During our sample period, 
+there were approximately 22 million trades in AAPL executed on non- 
+exchange  venues.  Of  these  trades,  the  BJZZ  algorithm  classified  12.3 
+million  as  buy-initiated  retail  trades  and  9.7  million  as  sell-initiated 
+retail  trades.  Among  the  12.3  million  trades  that  the  BJZZ  algorithm 
+classified  as  buy-initiated  retail  trades,  over  1.5%  had  sale  condition 
+flags that were consistent with institutional orders (most notably, flags 
+indicating  a  trade  was  derivatively  priced  or  constituted  a  qualified 
+contingent  trade).  More  importantly,  the  sizes  for  these  retail  trades 
+were remarkably large. The median trade value for the retail buy trades 
+was nearly $3,200, while 25% had a value in excess of $14,800. Over six 
+thousand had values in excess of $1 million. Similar results appear for 
+the  9.7  million  retail  sell  trades.  Given  Congressional  testimony  in 
+February  2021  that  the  median  account  value  for  Robinhood’s  cus-
+tomers  was  approximately  $240,  these  large  trade  values  underscore 
+how the BJZZ metric is likely to capture a far broader swath of traders 
+than simply app-based retail investors. 
+
+This discussion helps explain the incomplete predictive power of the 
+BJZZ metric in Table 5. Indeed, within the sample as a whole, a bivariate 
+regression of the natural log of the number of RHDW fractional share 
+trades in stock i observed on day t on the natural log of retail trades in 
+stock i on day t using the BJZZ metric produces a coefficient of 0.77 and 
+
+an  R-squared  of  only  0.64.26  Overall,  these  results  suggest  that  the 
+RHDW  metric  should  provide  a  more  accurate  proxy  for  the  type  of 
+dollar-based order flow characterizing app-based retail trading than the 
+BJZZ metric. 
+
+Before  proceeding,  however,  we  make  two  caveats  regarding  our 
+analysis. The first is with respect to causation. The question we address 
+is  whether  RHDW  fractional  share  trading  provides  information  with 
+respect to future market conditions, regardless of why this might be the 
+case.  As  such,  while  much  of  the  literature  on  retail  trading  seeks  to 
+estimate the causal effect of retail trading on prices and liquidity, we 
+expressly refrain from making any such claims here. For instance, we 
+take no position on whether fractional share trading causes a stock to 
+become  more  (or  less)  volatile  or  whether  traders  who  use  fractional 
+share executions are simply drawn to stocks that are likely to become 
+more (or less) volatile. 
+
+The second caveat is with respect to an important limitation of the 
+RHDW fractional share trade data for purposes of examining its infor-
+mational content. Specifically, examination of the trade price relative to 
+the TAQ NBBO at the time of a RHDW fractional share trade cautions 
+against making inferences from the order imbalance between trades that 
+the  TAQ NBBO  indicates might have originated  from marketable buy 
+orders relative to marketable sell orders. For instance, in Table 6, we 
+present  a  number of  trade  execution  statistics  for  our  sample  of  frac-
+tional share trades, presented separately for Robinhood and Drivewealth 
+by time of day. To ensure comparability between Robinhood and Driv-
+ewealth  trades,  the  sample  period  is  restricted  to  November  1,  2021 
+through  March  31,  2022  when  both  firms  were  reporting  fractional 
+share trades to the tape. 
+
+Turning first to Robinhood, across the roughly 51.5 million trades 
+classified  as  Robinhood  fractional  share  executions  during  this  time 
+period, approximately 20% occur within the first thirty minutes of the 
+trading  day,  while  75%  occur  between  10:00  am  and  the  end  of  the 
+regular trading session. However, the rates of buys, sells, and midpoint 
+executions (based on the TAQ NBBO prevailing at the time of the trade) 
+across these two time periods appear to be quite different. For instance, 
+while 74% of trades occur at the midpoint between 10:00 am the close of 
+the regular session, the figure is just 55% for trades between 9:30 am and 
+10:00 am. Moreover, over 90% of trades occurring outside the regular 
+trading session, when liquidity is scarce, are executed at the midpoint. 
+Visual  examination  of  the  data  indicates  that  Robinhood’s  standard 
+practice is to price fractional share executions at the midpoint and that 
+the basis for these differentials is simply due to differences in the TAQ 
+NBBO and the NBBO utilized by Robinhood for pricing. For example, 
+examination of trades identified as “buy” or “sell” orders between 9:30 
+am and 10:00 am are priced in decimals ending in either two decimals or 
+a  half-penny,  consistent  with  midpoint  pricing.27  In  light  of  this  evi-
+dence, we therefore assume Robinhood seeks to execute all trades at the 
+midpoint  and  do  not  formally  assign  trade  direction  to  Robinhood 
+trades. 
+
+In contrast, assigning trade direction to Drivewealth fractional share 
+trades using the TAQ NBBO does not suffer from these concerns, but it 
+suggests  caution  for  other  reasons.  As  with  Robinhood,  Drivewealth 
+
+26  These results are only modestly improved if we include stock fixed effects; 
+doing so yields a regression coefficient of 0.57 and an R-squared of 78%. Nor do 
+they improve if we focus on subsamples based on price, volume or market cap. 
+For instance, sub-setting by the top 50% of stocks for any of these three metrics 
+yields  R-squared  statistics  of  62%  to  66%.  Because  there  are  generally  fewer 
+fractional trades for lower priced, lower volume, and lower market cap stocks, 
+sub-setting on the lowest half of stocks by these metrics yields R-squared sta-
+tistics of 59% (bottom half of stocks by price), 34% (bottom half of stocks by 
+daily volume), and 49% (bottom half of stocks by daily market capitalization). 
+27 Likewise, these “morning open”  trades are also frequently printed in clus-
+ters  that  have  prices  reflecting  recent  but  stale  midpoint  prices,  which  may 
+reflect challenges that Robinhood faces in processing the large volume of orders 
+it receives prior to the market opening. 
+
+JournalofFinancialEconomics157(2024)10383613R.P. Bartlett et al.                                                                                                                                                                                                                              
+
+Table 6 
+This table summarizes several trade execution measures for fractional share executions by Robinhood and Drivewealth in sample stocks between November 1, 2021 
+through March 31, 2022. Trade direction was based on the trade’s price relative to the midpoint of the NBBO based on the NBBO published by the SIPs at the time of the 
+trade using the participant timestamp for the trade. Trades were classified as Buy At NBO or Sell At NBB based on whether the price of the trade was equal to the NBO or 
+NBB published by the SIPs at the time of the trade (also based on the participant timestamp for the trade.). Trades were excluded from the table if the NBBO was locked 
+or crossed at the time of the trade.   
+
+Robinhood Fractoinal Share Trades  
+
+Fractional Share Trades 
+
+Buy 
+
+9:30 AM to 10:00 AM 
+10:00 AM through Close of Regular Session 
+Early Morning Session 
+After Market Session 
+
+10,384,602 
+38,738,589 
+772,855 
+1,638,200 
+
+18.78% 
+13.64% 
+2.04% 
+3.22% 
+
+Drivewealth Fractoinal Share Trades  
+
+Fractional Share Trades 
+
+Buy 
+
+9:30 AM to 10:00 AM 
+10:00 AM through Close of Regular Session 
+Early Morning Session 
+After Market Session 
+
+13,140,556 
+21,312,864 
+74,751 
+634 
+
+63.59% 
+63.39% 
+48.08% 
+17.19% 
+
+Sell 
+
+26.40% 
+12.46% 
+6.04% 
+3.31% 
+
+Sell 
+
+35.32% 
+35.82% 
+25.14% 
+81.86% 
+
+Midpoint 
+
+Buy At NBO 
+
+Sell At NBB 
+
+54.70% 
+73.83% 
+91.83% 
+93.32% 
+
+3.02% 
+6.63% 
+0.23% 
+0.19% 
+
+3.99% 
+5.85% 
+2.46% 
+0.22%  
+
+Midpoint 
+
+Buy At NBO 
+
+Sell At NBB 
+
+1.07% 
+0.75% 
+2.37% 
+0.63% 
+
+39.26% 
+46.63% 
+26.46% 
+11.51% 
+
+19.75% 
+27.10% 
+13.89% 
+19.72%  
+
+executes a substantial portion of its fractional share trades (38%) during 
+the first thirty minutes of the regular trading session, but in contrast to 
+Robinhood,  it  prices  very  few  trades  at  the  NBBO  midpoint.  On  the 
+contrary, most trades appear to be executed at precisely the NBBO with 
+no price improvement. Between 9:30 a.m. and 10:00 a.m., nearly 60% of 
+DW  fractional  share  trades  are  priced  in  this  fashion—a  number  that 
+increases to over 73% between 10:00 am and the close of the regular 
+session.  Yet,  while  assigning  trade  direction  for  Drivewealth  trades 
+based on the TAQ NBBO appears to rest on a sounder footing, Table 6 
+also indicates a clear bias in favor of buy orders.28 We are unaware of the 
+precise  reason  for  this  bias,  but  it  is  consistent  with  the  “round  up” 
+feature offered through Drivewealth.29  For instance, Cash-App utilizes 
+Drivewealth to execute fractional share trades, and it also offers a Cash- 
+App debit card that allows users to “round up” purchases to buy fractions 
+of a share.30 (For example, after buying a coffee for $2.75, the Cash-App 
+user might allocate $0.25 to a purchase of a pre-specified security.) To 
+the extent a user elects to deploy this feature, the user would execute 
+multiple sub-dollar buy transactions as they utilize the debit card, thus 
+inflating  the  number  of  buy  transactions  relative  to  sell  transactions 
+within  the  Drivewealth  trade  data.  Regardless  of  whether  this  is  the 
+precise  reason  for  the  bias,  the  stark  disparity  between  buy  and  sell 
+orders within the Drivewealth data suggests the need for caution. 
+
+In light of these concerns, we do not assign trade direction to any 
+RHDW  fractional  share  trades  and  focus  instead  on  their  overall  fre-
+quency within the data. 
+
+4.2. Estimation 
+
+Our empirical tests examine whether RHDW fractional share trading 
+is predictive of a stock’s future liquidity and volatility. In this regard, our 
+framework is similar to the one adopted in Jones et al. (2022). Using the 
+BJZZ  measure  of  retail  trading,  these  researchers  find  that  between 
+January 2020 and March 2022, higher daily retail trading in a stock is 
+associated with higher next-day effective spreads and volatility. These 
+findings stand in contrast to prior research showing that retail trading 
+enhances liquidity and lowers volatility (see, e.g., Barrot et al. (2016) 
+and Foucault et al. (2011)). Jones et al. suggest the reason may stem 
+from  the  evolution  of  retail  trading  following  the  emergence  of 
+commission-free trading platforms, the rise of social media as informa-
+the  entry  of 
+tion  gathering  and  distribution  channels,  and 
+
+28  This  is  true  for  all  periods  of  time  other  than  the  0.002%  of  trades  that 
+occurred after the regular trading session.  
+29  https://www.drivewealth.com/solutions/round-up/  
+30  https://cash.app/help/us/en-us/10131-cash-card-round-ups 
+
+“Robinhood-type”  investors.  Yet  this  interpretation  of  their  results  is 
+complicated by virtue of the limitations of the BJZZ metric discussed 
+previously. 
+
+If  the  association  between  retail  trading  and  future  liquidity  and 
+volatility is driven by “Robinhood-type” investors, we hypothesize that 
+this  association  should  be  stronger  when  we  estimate  the  association 
+using RHDW fractional share data relative to when it is estimated using 
+the BJZZ metric. The intuition driving this hypothesis is that a RHDW 
+fractional share trade likely reflects the fractional component of a dollar- 
+based order placed at Robinhood or Drivewealth. Using the same sample 
+of stock-days described in Section 3, we test this hypothesis by means of 
+a  series  of  “horserace”  regressions  based  on  the  following  baseline 
+regression specification: 
+
+Yi,t = α0 + β1BJZZi,t(cid:0) 1 + β2Fractionali,t(cid:0) 1 + β′Xi,t(cid:0) 1 + δi + γt + εi,t
+
+(2) 
+
+The  outcome  of  interest,  Yi,t,  represents  one  of  three  different 
+liquidity and volatility measures for stock i on day t. For liquidity, we use 
+the Simple Averaged Percentage Effective Spread provided in the WRDS 
+Intraday Indicators.31 For volatility, we examine two measures. The first 
+volatility measure is a stock’s trade-based intraday volatility which is 
+also  provided  in  the  WRDS  Intraday  Indicators.32  The  second  is  the 
+weighted-average implied volatility across all call options on stock i on 
+day  t  based  on  the  historical  option  pricing  data  provided  in  Option-
+Metrics.33 The covariates of interest are BJZZi,t(cid:0) 1, which represents the 
+natural log of the total number of retail trades in stock i on day t-1 based 
+on the BJZZ metric, and Fractionali,t(cid:0) 1, which represents the natural log 
+of one plus the total number of RHDW fractional share trades on the 
+same stock-day. Following Jones et al. (2022), the regression also in-
+cludes (for each stock i on day t-1) a vector of control variables, X, that 
+the  prior  literature  suggests  can  affect  liquidity  and  volatility.  These 
+include three measures of prior stock returns (prior day returns, prior 
+week returns, and prior month returns), the prior month’s return vola-
+tility, as well as the natural log of the following measures: the dollar 
+volume  of  trades,  the  total  number  of  trades,  market  capitalization, 
+turnover (measured as the previous month’s trading volume scaled by 
+
+∑
+n
+k=1
+
+2Dk(Pk(cid:0) Mk)
+Mk 
+
+31  This  measure  is  calculated  using  the  daily  TAQ  data  across  all  trades  for 
+each stock i on day t as:  1
+where N is the number of observed 
+N*
+trades, Dk  is 1 if the trade is signed as a buy order and -1 if signed as a sell order 
+based  on  Lee  and  Ready  (1991),  Pk  is  the  trade  price,  and  Mk  is  the  NBBO 
+midpoint at the time of the trade.  
+32  This  measure  is  calculated  using  the  daily  TAQ  trade  data  as  the  return 
+volatility across all observed trades for stock i on day t.  
+33  The  weighted  average  was  calculated  using  the  daily  trading  volume  for 
+each option contract on stock i on day t. 
+
+JournalofFinancialEconomics157(2024)10383614R.P. Bartlett et al.                                                                                                                                                                                                                              
+
+Table 7 
+This table reports horserace regressions comparing the extent to which the liquidity and volatility for stock i on day t+1 can be predicted from (a) the total number of 
+retail trades in stock i on day t estimated using the BJZZ metric, and (b) the total number of RHDW fractional share trades in stock i on day t. In Panel A, the outcome 
+variable is the natural log of average percent effective spread for stock i on day t+1. In Panel B, the outcome variable is the natural log of the intraday volatility of trades 
+for stock i on day t+1. In Panel C, the outcome variable is the natural log of the implied volatility for call options on stock i on day t+1. The sample period is March 1, 
+2021 through March 31, 2022. The variables of interest are: BJZZ, which is the natural log of the total number of retail trades for stock i on day t estimated using the 
+BJZZ metric; Fractional, which is the natural log of one plus the total number of RHDW fractional trades for stock i on day t; and the interaction of these variables with 
+Top 100, an indicator for whether stock i ranks as among the 100 stocks with the most RHDW fractional share trades between March 1, 2021 and March 31, 2022. All 
+regressions include day and stock fixed effects as well as the following time varying controls measured at day t-1: Volume (the natural log of the dollar volume of 
+trades), Trades (the natural log of the total number of trades), Prior Day Return (previous day’s return), Prior Week Return (previous week’s return), Prior Month 
+Return (previous month’s return), Mktcap (the natural log of the stock’s aggregate equity value), Turnover (the natural log of the previous month’s trading volume 
+scaled by its outstanding shares), Prior Month Volatility (the previous month’s daily return volatility), and BTM (the matural log of the book-to-market ratio). We 
+additionally include the lagged dependent variable in all regressions. The standard errors (in parentheses) are double clustered at day and stock level.  
+
+Panel A: Effective Spreads      
+
+BJZZ 
+
+Fractional  
+
+BJZZ X Top100    
+
+Fractional X Top100    
+
+Volume 
+
+Trades 
+
+Prior Day Return 
+
+Prior Week Return 
+
+Prior Month Return 
+
+Mktcap 
+
+Turnover 
+
+Prior Month Volatility 
+
+BTM 
+
+Lagged DV 
+
+Constant 
+
+Observations 
+R-squared 
+
+Panel B: Intraday Volatility      
+
+BJZZ 
+
+Fractional  
+
+BJZZ X Top100    
+
+Fractional X Top100    
+
+Volume 
+
+Trades 
+
+Prior Day Return 
+
+Prior Week Return 
+
+Prior Month Return 
+
+Mktcap 
+
+Turnover 
+
+Prior Month Volatility 
+
+BTM 
+
+(1) 
+
+-0.000547  
+(0.00151)  
+
+-0.0321*** 
+(0.00299) 
+0.0109** 
+(0.00480) 
+0.168*** 
+(0.0174) 
+0.0161*** 
+(0.00503) 
+-0.0574*** 
+(0.00861) 
+-0.0935*** 
+(0.00926) 
+-0.0679*** 
+(0.00201) 
+0.535*** 
+(0.0349) 
+-0.0341*** 
+(0.00836) 
+0.558*** 
+(0.00628) 
+-1.033*** 
+(0.129) 
+979,532 
+0.951 
+
+(1) 
+
+0.00672*  
+(0.00354)  
+
+-0.0692*** 
+(0.00783) 
+0.0361*** 
+(0.0130) 
+0.305*** 
+(0.0423) 
+0.0514*** 
+(0.0124) 
+-0.121*** 
+(0.0209) 
+-0.210*** 
+(0.0228) 
+-0.170*** 
+(0.00483) 
+1.258*** 
+(0.0875) 
+-0.0989*** 
+(0.0211) 
+
+(2) 
+
+0.00780*** 
+(0.000911) 
+
+-0.0304*** 
+(0.00297) 
+0.00398 
+(0.00498) 
+0.170*** 
+(0.0173) 
+0.0153*** 
+(0.00500) 
+-0.0571*** 
+(0.00857) 
+-0.0955*** 
+(0.00931) 
+-0.0691*** 
+(0.00202) 
+0.515*** 
+(0.0339) 
+-0.0334*** 
+(0.00838) 
+0.558*** 
+(0.00630) 
+-0.987*** 
+(0.130) 
+979,532 
+0.951 
+
+(2) 
+
+0.0146*** 
+(0.00239) 
+
+-0.0643*** 
+(0.00785) 
+0.0276** 
+(0.0138) 
+0.310*** 
+(0.0423) 
+0.0501*** 
+(0.0123) 
+-0.121*** 
+(0.0208) 
+-0.214*** 
+(0.0229) 
+-0.172*** 
+(0.00481) 
+1.235*** 
+(0.0864) 
+-0.0976*** 
+(0.0211) 
+
+(3) 
+
+-0.00254* 
+(0.00151) 
+0.00804*** 
+(0.000913) 
+
+-0.0297*** 
+(0.00306) 
+0.00531 
+(0.00497) 
+0.171*** 
+(0.0173) 
+0.0153*** 
+(0.00501) 
+-0.0572*** 
+(0.00857) 
+-0.0958*** 
+(0.00930) 
+-0.0690*** 
+(0.00201) 
+0.518*** 
+(0.0342) 
+-0.0333*** 
+(0.00838) 
+0.558*** 
+(0.00628) 
+-0.985*** 
+(0.130) 
+979,532 
+0.951 
+
+(3) 
+
+0.00340 
+(0.00350) 
+0.0143*** 
+(0.00237) 
+
+-0.0652*** 
+(0.00806) 
+0.0258* 
+(0.0136) 
+0.310*** 
+(0.0423) 
+0.0500*** 
+(0.0123) 
+-0.121*** 
+(0.0208) 
+-0.214*** 
+(0.0229) 
+-0.172*** 
+(0.00481) 
+1.231*** 
+(0.0864) 
+-0.0976*** 
+(0.0211) 
+
+(4) 
+
+-0.00264*  
+(0.00151) 
+0.00766***   
+(0.000903) 
+-0.0414***     
+(0.0137) 
+0.0771***     
+(0.0145) 
+-0.0297***  
+(0.00307) 
+0.00506  
+(0.00500) 
+0.172***  
+(0.0173) 
+0.0154***  
+(0.00498) 
+-0.0571***  
+(0.00856) 
+-0.0967***  
+(0.00931) 
+-0.0692***  
+(0.00201) 
+0.517***  
+(0.0340) 
+-0.0337***  
+(0.00840) 
+0.557***  
+(0.00629) 
+-0.979***  
+(0.130) 
+979,532 
+0.951 
+
+(4) 
+
+0.00332  
+(0.00350) 
+0.0128***   
+(0.00232) 
+-0.193***     
+(0.0421) 
+0.330***     
+(0.0487) 
+-0.0653***  
+(0.00810) 
+0.0246*  
+(0.0137) 
+0.317***  
+(0.0421) 
+0.0507***  
+(0.0122) 
+-0.121***  
+(0.0208) 
+-0.217***  
+(0.0230) 
+-0.173***  
+(0.00482) 
+1.227***  
+(0.0857) 
+-0.0991***  
+(0.0213) 
+
+(continued on next page) 
+
+JournalofFinancialEconomics157(2024)10383615R.P. Bartlett et al.                                                                                                                                                                                                                              
+
+Table 7 (continued ) 
+
+Lagged DV 
+
+Constant 
+
+Observations 
+R-squared 
+
+Panel C: Implied Volatility      
+
+BJZZ 
+
+Fractional  
+
+BJZZ X Top100    
+
+Fractional X Top100    
+
+Volume 
+
+Trades 
+
+Prior Day Return 
+
+Prior Week Return 
+
+Prior Month Return 
+
+Mktcap 
+
+Turnover 
+
+Prior Month Volatility 
+
+BTM 
+
+Lagged DV 
+
+Constant 
+
+Observations 
+R-squared 
+
+*** p<0.01. 
+** p<0.05. 
+* p<0.1. 
+
+0.470*** 
+(0.00707) 
+-3.681*** 
+(0.310) 
+979,043 
+0.934 
+
+(1) 
+
+0.0195***  
+(0.00157)  
+
+-0.0377*** 
+(0.00399) 
+0.0516*** 
+(0.00511) 
+0.0325** 
+(0.0129) 
+-0.0201*** 
+(0.00424) 
+-0.0125* 
+(0.00648) 
+0.00206 
+(0.00914) 
+0.0154*** 
+(0.00251) 
+0.408*** 
+(0.0341) 
+0.0128 
+(0.00834) 
+0.459*** 
+(0.0132) 
+-0.129 
+(0.120) 
+633,613 
+0.883 
+
+0.469*** 
+(0.00718) 
+-3.601*** 
+(0.311) 
+979,043 
+0.934 
+
+(2) 
+
+0.00433*** 
+(0.000891) 
+
+-0.0325*** 
+(0.00399) 
+0.0606*** 
+(0.00557) 
+0.0324** 
+(0.0131) 
+-0.0204*** 
+(0.00425) 
+-0.0129** 
+(0.00647) 
+-0.00133 
+(0.00921) 
+0.0159*** 
+(0.00247) 
+0.429*** 
+(0.0353) 
+0.0134 
+(0.00838) 
+0.461*** 
+(0.0132) 
+-0.119 
+(0.121) 
+633,613 
+0.883 
+
+0.469*** 
+(0.00713) 
+-3.603*** 
+(0.311) 
+979,043 
+0.934 
+
+(3) 
+
+0.0187*** 
+(0.00155) 
+0.00218** 
+(0.000869) 
+
+-0.0371*** 
+(0.00408) 
+0.0501*** 
+(0.00536) 
+0.0333** 
+(0.0129) 
+-0.0203*** 
+(0.00423) 
+-0.0125* 
+(0.00648) 
+0.00157 
+(0.00917) 
+0.0150*** 
+(0.00248) 
+0.403*** 
+(0.0342) 
+0.0130 
+(0.00836) 
+0.459*** 
+(0.0132) 
+-0.117 
+(0.121) 
+633,613 
+0.883 
+
+0.467***  
+(0.00721) 
+-3.583***  
+(0.312) 
+979,043 
+0.934 
+
+(4) 
+
+0.0183***  
+(0.00155) 
+0.00177**   
+(0.000866) 
+0.00730     
+(0.00822) 
+0.0319***     
+(0.00841) 
+-0.0368***  
+(0.00411) 
+0.0489***  
+(0.00543) 
+0.0334***  
+(0.0128) 
+-0.0206***  
+(0.00420) 
+-0.0128**  
+(0.00644) 
+0.000215  
+(0.00921) 
+0.0148***  
+(0.00249) 
+0.400***  
+(0.0339) 
+0.0124  
+(0.00839) 
+0.458***  
+(0.0132) 
+-0.100  
+(0.121) 
+633,613 
+0.883  
+
+outstanding shares), and the book-to-market ratio. All regressions are 
+run  with  stock  (δi)  and  time  (γt)  fixed  effects,  and  we  additionally 
+include the lagged dependent variable in all regressions to control for 
+time  series  persistence  in  our  outcome  measure.  Standard  errors  are 
+double-clustered by date and stock. 
+
+As described in Section 3, our primary sample consists of all stock- 
+days  from  March  1,  2021  through  March  31,  2022.  For  all  three 
+outcome measures, our sample represents the universe of common eq-
+uity issued by U.S. issuers within the CRSP data to the extent matches 
+can  be  found  in  COMPUSTAT  and,  for  models  of  implied  volatility, 
+OptionMetrics.  Yet  Section  3  also  highlighted  that  RHDW  fractional 
+share trades are highly concentrated in select stocks, with nearly 60% of 
+all RHDW fractional share trades occurring in just 100 stocks. To the 
+extent RHDW fractional share trading is predictive of future liquidity 
+and  volatility,  the  effect  should  be  especially  pronounced  among  the 
+subset of stocks with high levels of fractional share trading. We therefore 
+supplement our analysis by estimating the following, modified version 
+of Eq. (2) to examine this possibility: 
+
+Yi,t = α0 + β1BJZZi,t(cid:0) 1 + β2Fractionali,t(cid:0) 1 + β3Top100i,t(cid:0) 1* BJZZi,t(cid:0) 1
++ β4Top100i,t(cid:0) 1* Fractionali,t(cid:0) 1 + β′Xi,t(cid:0) 1 + δi + γt + εi,t
+
+(3) 
+
+Top100i,t(cid:0) 1  represents an indicator for whether stock i ranks among 
+the top 100 stocks in terms of total RHDW fractional share trades be-
+tween March 1, 2021 and March 31, 2022. By interacting this term with 
+BJZZi,t(cid:0) 1 and Fractionali,t(cid:0) 1, the coefficients β3 and β4 estimate the degree 
+
+to which the association between these two measures differs for stocks 
+with especially high levels of fractional share trading. 
+
+Regression  results  are  presented  in  Table  7,  with  each  panel  pre-
+senting the results for each of three outcome measures For each panel, 
+we first estimate Eq. (2) separately for BJZZi,t(cid:0) 1 and Fractionali,t(cid:0) 1 before 
+including them together in the model. For instance, column (1) of Panel 
+A estimates the association between effective spreads and daily retail 
+trading volume (proxied by BJZZ) without including Fractionali,t(cid:0) 1  as a 
+covariate, while column (2) does the opposite. In contrast with Jones 
+et al., the coefficient for Fractional is negative in column (1), suggesting 
+next-day effective spreads are decreasing in today’s daily retail trading, 
+but the result is not statistically significant during our sample period. In 
+contrast, the positive coefficient for Fractional in column (2) of Panel A is 
+over fourteen times as large in magnitude and has a t-ratio of roughly 
+8.5. The magnitude of the coefficient for Fractional increases modestly in 
+column  (3)  when  we  include  both  measures  as  covariates,  while  the 
+negative coefficient for BJZZ increases sizably in magnitude and has t- 
+ratio of -1.68. As these covariates and all outcome measures are in logs, 
+the  regression  estimates  indicate  that  a  10%  increase  in  RHDW  frac-
+tional share trades is associated  with an 8 basis point increase in the 
+following day’s Averaged Percentage Effective Spread. Note, however, 
+that  to  the  extent  there  is  variation  in  daily  RHDW  fractional  share 
+trades,  it  is  quite  often  far  in  excess  of  a  10%  change.  For  instance, 
+within  the  sample,  the  average  daily  change  in  the  total  number  of 
+RHDW fractional share trades has a mean of 114% and a median of 43%. 
+Over one-quarter of daily changes are in excess of 80%. 
+
+JournalofFinancialEconomics157(2024)10383616R.P. Bartlett et al.                                                                                                                                                                                                                              
+
+Column (4) of Panel A presents the modified model with interaction 
+effects. The coefficient for Fractional is just slightly less than the esti-
+mates in columns (2) and (3), but the interaction of Top100 and Frac-
+tional yields a coefficient estimate of 0.0771, which is roughly 10 times 
+as large as the estimate for Fractional alone. In contrast, the interaction 
+of  Top100  and  BJZZ  is  -0.0414  with  a  t-ratio  of  3.03  in  magnitude. 
+Overall,  for  stocks  with  large  levels  of  fractional  share  trading,  these 
+estimates  suggest  that,  as  in  Barrot  et  al.  (2016)  and  Foucault  et  al. 
+(2011), conventional retail trades proxied by BJZZ are associated with 
+higher future liquidity, while “Robinhood-type”  trades (as proxied by 
+RHDW fractional share trades) are predictive of lower future liquidity. 
+In Panel B and Panel C, we conduct the same analysis for predictors 
+of  intraday  trade  volatility.  In  contrast  to  our  estimates  for  effective 
+spreads, the coefficient estimate of 0.00672 for BJZZ in column (1) of 
+Panel  B  is  now  both  positive  and  sufficiently  precise  to  distinguish it 
+from zero. As with effective spreads, however, the elasticity of 0.0146 
+for Fractional in column (2) of Panel B is over twice as large and more 
+precisely  estimated.  Additionally,  while  the  coefficient  estimate  for 
+Fractional remains largely the same in column (3), the estimate for BJZZ 
+in column (3) declines by more than 50% and is no longer distinguish-
+able from zero. In column (4) of Panel B, the interaction effects are again 
+especially noteworthy. While the main effects for BJZZ and Fractional 
+remain similar to the estimates in column (3), the interaction term of 
+Top100 with Fractional yields a tightly estimated elasticity of 0.33 while 
+its interaction with BJZZ yields a similarly precise estimate of -0.193. 
+
+Columns (1) through (4) of Panel C provide the same set of estimates 
+for implied volatility. Here, the results continue to indicate that the level 
+of  daily  RHDW  fractional  share  trading  is  predictive  of  the  following 
+day’s  volatility.  However,  coefficient  estimates  indicate  that  the  esti-
+mated elasticity for BJZZ is slightly larger than that for Fractional across 
+columns  (1)  through  (3)  of  Panel  C.  Nevertheless,  as  with  effective 
+spreads and intraday volatility, the interaction effects in column (4) of 
+Panel  C  continue  to  reveal  the  especially  strong  association  between 
+RHDW  fractional  share  trades  and  volatility  among  stocks  with  high 
+levels of fractional share trading. In particular, the interaction of Top100 
+and Fractional yields an estimated elasticity of 0.0319 with a t-ratio of 
+3.79, whereas its interaction with BJZZ yields an estimate of 0.0073 with 
+a t-ratio of just 0.89. 
+
+Finally, in unreported results, we also find that the results in Table 7 
+persist across a range of alternative specifications. For instance, both the 
+coefficient estimates and standard errors for Fractional, Fractional X Top 
+100, and BJZZ X Top 100 in column 4 of Panel A and and Panel B remain 
+largely the same if Eq. (3) is modified to predict effective spreads and 
+volatility two and even three days in the future (i.e., by changing the lag 
+in  Eq.  (3)  to  t-2  or  t-3  for  all  covariates).  Likewise,  making  the  same 
+modifications to the specification used for predicting implied volatility 
+in  column  4  of  Panel  C  leaves  the  coefficient  estimates  and  standard 
+errors largely unchanged for Fractional X Top 100, and BJZZ X Top 100, 
+though the coefficient estimates for Fractional (while positive) becomes 
+statistically  insignificant  for  predicting  implied  volatility  beyond  one 
+day. Additionally, as Table 3 reveals, many of the most popular RHDW 
+stocks are those with high stock prices, high levels of liquidity, and high 
+market  capitalizations,  and  we  find  that  the  results  in  Table  7  with 
+respect  to  RHDW-FT  and  BJZZ  are  each  enhanced  with  respect  to 
+magnitude and precision when we focus on sample stocks that are in the 
+
+Fig. 6. Weekly Robinhood Fractional Share Trades in Clorox. 
+This figure illustrates the Robinhood fractional share trades in Clorox (CLX) as 
+reported to the FINRA OTC Transparency Data (blue bars) and as estimated by 
+the fractional share classification algorithm (red dots). 
+
+top 50% of stock price, trading volume, or market capitalization.34 
+
+5. Some not so tiny problems with existing data on fractional 
+share trades 
+
+As  the  foregoing  sections  show,  trading  data  for  RHDW  fractional 
+share trades provides information on a distinct form of retail order flow 
+that is relevant for predicting liquidity and volatility, but it also suffers 
+from a number of limitations. As noted in Section 2, perhaps the largest 
+limitation is that it reflects only a portion of fractional share trades that 
+occur in the market, given that retail fractional share trades executed by 
+Apex are not presently observable in the consolidated tape or in the OTC 
+Transparency data. Additionally, Table 1 indicates that, among brokers 
+that  report  fractional  share  trades  to  the  tape,  Robinhood  and  Driv-
+ewealth were by far the most active during our sample period; however, 
+Fig.  1  underscores  that  other  brokerage  firms  are  quickly  gaining 
+ground. Equally important, Robinhood or Drivewealth could alter their 
+trade execution practices such that the classification rules used in this 
+study no longer track their fractional share trades. 
+
+The  existing  reporting  regime  also  raises  a  more  general  question 
+about the accuracy of stock trading volume data for all U.S. equity se-
+curities due to the “rounding up” rule, as highlighted in Bartlett et al. 
+(2022) using trades in BRK.A. In addition to potentially misleading in-
+vestors, inflated trading volume can directly affect firms and investors 
+due  to  the  importance  of  trade  volume  data  across  a  number  of  U.S. 
+securities regulations. For instance, rules relating to the quantity of stock 
+that may  be repurchased by  a  company or  sold  by corporate insiders 
+both hinge on the reported trading volume in a firm’s securities, as does 
+
+34  In unreported regressions, we obtain very similar results as in Table 7 when 
+we  restrict  the  sample  to  stocks  having  a  mean  daily  VWAP  of  no  less  than 
+$100. The primary difference is that the coefficient estimates for Fractional in 
+columns 3 and 4 of Panel C are no longer distinguishable from zero, although 
+they remain positive. Importantly, coefficient estimates for all interactions in 
+Table 7 retain approximately the same magnitudes and statistical significance 
+as in Table 7. These results suggest that the results in Table 7 are not biased by 
+the possibility that fractional share executions of lower priced stocks may lead 
+to  more  riskless-principal  transactions  for  these  stocks  (and  thus  causing  our 
+classifier to undercount the number of fractional share trades for lower priced 
+stocks). 
+
+JournalofFinancialEconomics157(2024)10383617R.P. Bartlett et al.                                                                                                                                                                                                                              
+
+Fig. 7. Percent of Robinhood Fractional Trades Captured by OTC Transparency Data. Panel A presents a histogram showing for each sample stock the per-
+centage of weeks with over 200 estimated RH fractional share trades that are documented in the weekly OTC Transparency data. Panel B presents a histogram 
+showing for each sample stock the percent of Robinhood trades disclosed in the OTC Transparency data during the sample period relative to the total number of 
+Robinhood fractional shares trades for the stock for weeks where our classifer finds at least 200 RH fractional share trades. Sample period reflects weeks commencing 
+Monday, March 1, 2021 through the week of Monday, March 28, 2022. 
+
+the ability of a firm to qualify as a foreign private issuer.35  Reported 
+trading  volume  is  also  among  the  “Cammer  factors”  that  determine 
+whether investors can bring a class action securities fraud lawsuit under 
+Rule 10b-5.36 In this section, we explore both of these deficiencies of the 
+current trade reporting regime for fractional share trades. 
+
+5.1. Can the OTC transparency data provide a substitute source of data 
+on fractional share trades? 
+
+In Section 2, we evaluated our classification rules for RHDW frac-
+tional share trades by comparing our estimated weekly tallies of such 
+trades with those disclosed by Robinhood and Drivewealth in the OTC 
+Transparency data. In this regard, one might view these latter data as a 
+possible source of obtaining weekly, aggregate data for fractional share 
+trades executed by those retail brokers that report fractional share trades 
+to a FINRA trade reporting facility. However, as discussed in Section 2, 
+FINRA’s disclosure of weekly trades by brokerage firm is subject to a “de 
+minimis”  trading  threshold: Weekly trades will not be attributed to a 
+specific FINRA member and will instead be aggregated and reported as 
+completed by “De Minimis Firms” if either (a) the trades were executed 
+by a FINRA member who executed fewer than 200 transactions per day 
+for the reporting week, or (b) the trades were completed by a FINRA 
+member who executed on average fewer than 200 transactions per day 
+in the particular security during the week. For a 5-day trading week, this 
+requirement  effectively  means  a  broker  must  execute  1,000  or  more 
+fractional  share  trades  in  a  security  for  its  weekly  trades  to  appear 
+individually in the OTC Transparency data. 
+
+We examine the extent to which this de minimis rule excludes frac-
+tional share trades from a broker’s OTC Transparency data. In partic-
+ular, for each stock in our sample, we compare our weekly estimate for 
+fractional  share  trades  in  Robinhood  with  the  weekly  disclosures  for 
+
+Robinhood that appear in the OTC Transparency data between March 1, 
+2021 and  March 31, 2022. As an example, we present the results for 
+fractional share trades in The Clorox Company (CLX) during our sample 
+period. In Fig. 6, we plot the weekly estimate of fractional share trades in 
+CLX executed at Robinhood using our classification criteria (red dots) 
+against the weekly trades in CLX disclosed for Robinhood in the OTC 
+Transparency  data  (blue  bars).  Of  the  57  weeks  that  comprised  our 
+sample period, the OTC Transparency data for Robinhood is missing for 
+33 of these weeks. Moreover, as shown in the figure, the reason for these 
+missing  weeks  was  the  fact  that  the  total  number  of  fractional  share 
+trades executed by Robinhood during these weeks was just slightly less 
+than 1000 trades per week. With regard to the total number of trades, 
+the  OTC  Transparency  data  reported  a  total  of  32,091  whereas  our 
+classifier estimates there were 63,837. In other words, the OTC Trans-
+parency data captured 42% of the weeks where our classifier indicated 
+that  there  were  RH  fractional  share  trades  and  50%  of  the  total  esti-
+mated RH fractional share trades. 
+
+We conduct a similar exercise for all stocks in our sample to evaluate 
+the comprehensiveness of the OTC Transparency data with respect to 
+both  the  total  weeks  observed  and  total  fractional  share  trades  for  a 
+stock. Specifically, for each sample stock we calculate the ratio of (a) the 
+total number of weeks (based on the OTC reporting week) where the 
+OTC Transparency data discloses Robinhood as having executed trades 
+in the stock to (b) the number of these weeks where our classifier detects 
+at least 200 RH fractional share trades in the security.37  Likewise, for 
+each of these weeks where our classifier detects at least 200 RH frac-
+tional share trades in the security, we additionally calculate the ratio of 
+(a) the total number of trades disclosed in the OTC Transparency data for 
+Robinhood  during  our  sample  period  to  (b)  the  total  number  of  RH 
+fractional share trades estimated for the stock based on our classifier. 
+Importantly, for purposes of both calculations we include in the OTC 
+
+35  See, e.g., 17 CFR § 230.144 (providing safe harbor for certain control person 
+resale  transactions  so  long  as  all  trades  within  the  past  three  months  do  not 
+exceed the average weekly reported volume of trading for the issuer); 17 CFR §
+240.12h-6  (allowing  a  foreign  private  issuer  to  terminate  its  Exchange  Act 
+registration if the U.S. average daily trading volume of the subject class of se-
+curities has been no greater than 5 percent of the average daily trading volume 
+of that class of securities on a worldwide basis for a recent 12-month period).  
+36  https://corpgov.law.harvard.edu/2012/08/23/do-courts-count-cammer-fa 
+ctors/ 
+
+37  We  impose  a  minimum  of  200  fractional  share  trades  to  account  for  the 
+possibility that our Robinhood classifier incorrectly classifies a trade as an RH 
+fractional share trade. For instance, after applying the RH classifier to trades in 
+sample  stocks  during  January  2021  (one  month  prior  to  when  Robinhood 
+commenced disclosing fractional share trades), the mean number of estimated 
+RH  fractional  share  trades  for  sample  stock-days  is  21.  Assuming  a  5-day 
+trading week, this estimate indicates that for an average stock our RH classi-
+fier might overstate RH fractional share trades by approximately 100 trades per 
+week. We require at least 200 estimated trades to err on the side of caution. 
+
+JournalofFinancialEconomics157(2024)103836180%20%40%60%80%Percent of Distribution0.2.4.6.81Percent of Weeks with >200 RH Fractional ShareTrades Observed in OTC Data0%20%40%60%80%Percent of Distribution0.2.4.6.81Percent ofTrades Reported in FINRA Relative to Estimated RH Fractional ShareTradesR.P. Bartlett et al.                                                                                                                                                                                                                              
+
+Table 8 
+This table shows estimates of the total dollar value of inflated trading volume between March 1, 2021 and March 31, 2022 for sample stocks due to RHDW fractional 
+share trades and the rounding-up rule. Listed are the top twenty stocks within the sample by dollar value of inflated volume. The 10% Scenario assumes that the dollar 
+value of each fractional share trade is equal to the lesser of $240 and 10% of the reported trade price. The 90% Scenario assumes that the dollar value of each fractional 
+share trade is equal to the lesser of $240 and 90% of the reported trade price.  
+
+Symbol 
+
+Company 
+
+Average Closing 
+Price 
+
+Reported Dollar 
+Volume ($billions) 
+
+Dollar Inflation (10% 
+Scenario) ($ billions) 
+
+Dollar Inflation (90% 
+Scenario). ($ billions) 
+
+Percent Inflation 
+(10% Scenario) 
+
+Percent Inflation 
+(90% Scenario) 
+
+BRK.A 
+
+AMZN 
+TSLA 
+GOOG. 
+L 
+GOOG 
+NFLX 
+NVDA 
+MSFT 
+AAPL 
+FB 
+GME 
+COIN 
+CMG 
+
+DIS 
+MRNA 
+MELI 
+AMC 
+
+BKNG 
+PYPL 
+COST 
+
+BERKSHIRE HATHAWAY 
+INC DEL 
+AMAZON COM INC 
+TESLA INC 
+ALPHABET INC 
+
+ALPHABET INC 
+NETFLIX INC 
+NVIDIA CORP 
+MICROSOFT CORP 
+APPLE INC 
+META PLATFORMS INC 
+GAMESTOP CORP NEW 
+COINBASE GLOBAL INC 
+CHIPOTLE MEXICAN 
+GRILL INC 
+DISNEY WALT CO 
+MODERNA INC 
+MERCADOLIBRE INC 
+A M C ENTERTAINMENT 
+HOLDINGS INC 
+BOOKING HOLDINGS INC 
+PAYPAL HOLDINGS INC 
+COSTCO WHOLESALE 
+CORP NEW 
+
+$4,35,190.40 
+
+$212 
+
+$173.04 
+
+$173.04 
+
+81.64% 
+
+81.64% 
+
+$3,302.32 
+$810.34 
+$2,613.09 
+
+$2,636.22 
+$529.14 
+$383.45 
+$287.72 
+$148.29 
+$312.83 
+$171.11 
+$247.98 
+$1,613.16 
+
+$168.28 
+$243.33 
+$1,430.84 
+$28.64 
+
+$2,320.96 
+$226.56 
+$452.60 
+
+$3,127 
+$5,957 
+$1,128 
+
+$930 
+$646 
+$2,481 
+$2,242 
+$3,659 
+$1,845 
+$333 
+$361 
+$121 
+
+$479 
+$907 
+$200 
+$779 
+
+$235 
+$653 
+$282 
+
+Total: 
+
+$26,577 
+
+$16.68 
+$10.31 
+$5.00 
+
+$1.95 
+$0.90 
+$0.90 
+$0.89 
+$0.87 
+$0.73 
+$0.65 
+$0.51 
+$0.42 
+
+$0.33 
+$0.33 
+$0.30 
+$0.28 
+
+$0.24 
+$0.24 
+$0.23 
+
+$215 
+
+$16.68 
+$8.27 
+$5.00 
+
+$1.95 
+$0.54 
+$0.34 
+$0.20 
+$0.10 
+$0.19 
+$0.08 
+$0.12 
+$0.40 
+
+$0.04 
+$0.09 
+$0.27 
+$0.03 
+
+$0.24 
+$0.03 
+$0.13 
+
+$208    
+
+0.53% 
+0.17% 
+0.44% 
+
+0.21% 
+0.14% 
+0.04% 
+0.04% 
+0.02% 
+0.04% 
+0.20% 
+0.14% 
+0.35% 
+
+0.07% 
+0.04% 
+0.15% 
+0.04% 
+
+0.10% 
+0.04% 
+0.08% 
+
+0.53% 
+0.14% 
+0.44% 
+
+0.21% 
+0.08% 
+0.01% 
+0.01% 
+0.00% 
+0.01% 
+0.02% 
+0.03% 
+0.33% 
+
+0.01% 
+0.01% 
+0.14% 
+0.00% 
+
+0.10% 
+0.00% 
+0.04%   
+
+Fig. 8. Distribution of Percent Inflation – 10% Scenario vs. 90% Scenario. This figure presents the distributions of the natural log of the average daily percent 
+inflation for sample stock-days due to the rounding-up rule. Estimates for the 10% Scenario are presented in red; estimates for the 90% Scenario are presented in blue. 
+
+Transparency data all weekly disclosed trades for Robinhood regardless 
+of the number of shares traded that week. Because some of these trades 
+may reflect whole share trades, our calculation of fractional share trades 
+disclosed in the OTC Transparency data are likely to be overstated. In all 
+cases we focus on trades occurring from the week of Monday, March 1, 
+2021 through the week of Monday, March 28, 2022. 
+
+We present histograms for both measures in Fig. 7. Panel A provides 
+the results for weeks observed. Across the 3897 stocks where our clas-
+sifier finds at least one week with at least 200 RH fractional share trades, 
+the  OTC  Transparency  data  does  not  provide  data  for  Robinhood’s 
+fractional share trades for even a single week for 2485 (64%) of these 
+
+stocks. For 90% of these 3897 stocks, the OTC Transparency data in-
+cludes  data  for  less  than  half  of  these  weeks.  Moreover,  across  these 
+3897 stocks, the OTC Transparency data provides full weekly coverage 
+for just 162 (4%). Similar results appear in Panel B, which focuses on the 
+percent  of  total  fractional  share  trades  captured  by  the  OTC  Trans-
+parency data across stock-weeks where our classifier detects at least 200 
+
+JournalofFinancialEconomics157(2024)10383619051015Percent of Distribution-20-15-10-5010% Scenario90% ScenarioR.P. Bartlett et al.                                                                                                                                                                                                                              
+
+Table 9 
+This table summarizes the frequency of stock-days based on their percent inflation and their stock price under the 10% Scenario and the 90% Scenario. Data are limited 
+to stock-days where the percent inflation for either the 10% Scenario or the 90% Scenario is greater than 1%. Percent Inflation Range is the percent inflation for a stock- 
+day based on either the 10% Scenario or the 90% Scenario. Each range includes stocks with inflation greater than the lower bound and less than or equal to the upper 
+bound. Price Quintiles are defined as 1: closing price<=$6.73; 2:$6.730<closing price<=$13.57; 3: $13.57<closing price<=$29.75; 4:$29.75<closing price<=$68.52; 
+5: closing price>$68.52. Columns (1) through (5) present frequencies for the 10% Scenario while Columns (6) through (10) present frequencies for the 90% Scenario. 
+The number in parentheses represents the average daily number of trades for the stock-days assigned to the Inflation-Range X Price Quintile bin.   
+
+(1) 
+10% Scenario 
+
+(2) 
+
+Price Quintile 
+
+(3) 
+
+(4) 
+
+(5) 
+
+(7) 
+
+(6) 
+90% Scenario  
+
+Price Quintile 
+
+(8) 
+
+(9) 
+
+(10)  
+
+Percent Inflation Range 
+
+1 
+
+2 
+
+3 
+
+4 
+
+5 
+
+1 
+
+2 
+
+3 
+
+4 
+
+5 
+
+1% - 5% 
+5% - 10% 
+10% - 15%  
+15% - 20% 
+20% - 25%  
+25% - 30%  
+30% 35%  
+35% - 40%  
+40% - 45%  
+45% - 50%  
+50% - 55%  
+55% - 60%  
+60% - 65%  
+65% - 70%  
+70% - 75%  
+75% - 80%  
+80% - 85%  
+85% - 90%  
+Total 
+
+45 (235.76) 
+2 (133.5) 
+
+1 (6) 
+
+48 
+
+1109 (54.45) 
+268 (47.75) 
+159 (57.77) 
+116 (21.39) 
+85 (39.56) 
+52 (16.58) 
+60 (55.92) 
+21 (202.52) 
+79 (3.05) 
+49 (49.53) 
+5 (169.8) 
+20 (4) 
+16 (4.94) 
+7 (340.86)  
+3 (1140.33) 
+1 (1359)  
+4 (442.5)  
+234 (40.46) 
+2288 
+
+958 (87.37) 
+157 (24.83) 
+60 (14.07) 
+28 (9.5) 
+17 (5.71) 
+10 (10) 
+6 (3.33) 
+8 (5.13) 
+6 (2.67) 
+9 (7) 
+3 (12.67) 
+2 (4.5) 
+2 (3) 
+
+2 (8) 
+
+16 (1.44) 
+1284 
+
+809 (190.4) 
+157 (32.37) 
+59 (15.37) 
+51 (22.65) 
+32 (20.84) 
+18 (9.17) 
+23 (9.83) 
+14 (14.79) 
+14 (7.14) 
+9 (5.78) 
+5 (7) 
+4 (4.25) 
+3 (5.33) 
+5 (16.2) 
+1 (17) 
+3 (15.33) 
+3 (19) 
+20 (1.95) 
+1230 
+
+880 (2825.52) 
+312 (169.84)  
+116 (76.66)    
+76 (18.87)    
+63 (10.11)     
+48 (12.04)     
+39 (11.05)    
+28 (10.54)     
+44 (10.8)    
+21 (9.05)     
+30 (11.87)     
+19 (9.58)     
+22 (10.18)  
+12 (10.08)    
+9 (7.22)     
+3 (7.67)     
+2 (10)    
+28 (2.57)      
+1752 
+
+1 (6) 
+
+602 (43.49) 
+338 (64.54) 
+
+152 (10.6) 
+34 (4.56) 
+
+1 (25)   
+
+222 (16.86) 
+51 (6.53) 
+2 (21) 
+1 (12) 
+
+3 (14.33) 
+
+1 (12) 
+
+1 (17) 
+
+1 (10)  
+
+633 (3650.12) 
+254 (194.58) 
+70 (110.39) 
+28 (28.75) 
+32 (10.84) 
+24 (12.25) 
+22 (10.77) 
+16 (13.81) 
+12 (13.58) 
+7 (12.57) 
+7 (7.86) 
+3 (7) 
+3 (6.33) 
+6 (4.33) 
+1 (5) 
+1 (5) 
+
+1 
+
+941 
+
+186 
+
+282 
+
+1119  
+
+RH  fractional  share  trades  in  the  security.38  Among  the  1412  sample 
+stocks  where  the  OTC  Transparency  data  discloses  at  least  one  week 
+with Robinhood fractional share trades, the total number of trades re-
+ported in the OTC Transparency data for each stock during the sample 
+period is often far less than the total number of trades estimated using 
+our RH classifier. Indeed, for just 334 stocks does this number represent 
+at least 95% of the total RH fractional share trades estimated using the 
+classifier. 
+
+In summary, because of the de minimis rule, the OTC Transparency 
+data can be used to infer fractional share trade volume for only those 
+stocks with very high levels of fractional share trading. And as discussed, 
+this conclusion applies only to brokers such as Robinhood who report 
+fractional share trades to the tape. For brokers such as Apex that do not 
+fill fractional share trades on a principal basis, the OTC Transparency 
+data  lacks  any  information  at  all  concerning  the  incidence  of  their 
+fractional share executions. 
+
+5.2. How much is trading volume inflated by fractional share reporting 
+protocols? 
+
+As  noted  previously,  Bartlett  et  al.  (2022)  illustrate  how  the 
+“rounding up” rule for fractional share trades has resulted in phantom 
+trading volume for BRK.A that now represents roughly 90% or more of 
+its daily trading volume. Yet, they also note that “given its unusually 
+high stock price, BRK.A is in many ways simply an exaggerated example 
+of  how  FINRA’s  rule  along  with  the  rise  in  fractional  share  trading 
+creates phantom, non-existent trading volume across all stocks.” In this 
+section we examine the extent to which all securities within our sample 
+experienced  inflated  trading  volume  due  to  RHDW  fractional  share 
+trades and the rounding-up rule. 
+
+The extent to which the rounding-up rule results in inflated trading 
+
+38  Where our RH classifier estimated fewer total trades than were disclosed in 
+the OTC Transparency data, we set the percent reported to 1.0 to highlight the 
+extent to which the OTC Transparency data appears to provide 100% coverage 
+of Robinhood fractional share trades. 
+
+volume  naturally  depends  on  the  actual  trade  value  of  each  RHDW 
+fractional share trade that is rounded up to a whole share. Because we 
+cannot  observe  trade  values,  we  estimate  a  range  of  inflation  by 
+assuming that each fractional share trade’s true dollar value falls under 
+one of two scenarios. Both scenarios rely on Congressional testimony in 
+February  2021  that  the  median  account  value  for  Robinhood’s  cus-
+tomers is approximately $240. Under the first scenario, we assume that 
+the  dollar  value  of  each  RHDW  fractional  share  trade  is  equal  to  the 
+lesser of $240 and 10% of the reported trade price. Under the second 
+scenario, we assume that its value is equal to the lesser of $240 and 90% 
+of the reported trade price. For example, a RHDW fractional share trade 
+that  is  reported  as  a  whole  share  trade  worth  $100  would  have  an 
+assumed dollar value of $10 under the “10% Scenario” and $90 under 
+the “90% Scenario.” This trade would appear in the trade data as a whole 
+share trade; therefore, based on the stock’s closing price, our two esti-
+mates  of  “dollar  inflation”  for  this  trade  would  be  $90  and  $10, 
+respectively.  Likewise,  our  estimates  of  “percent  inflation”  would  be 
+90% (i.e., $90/$100) and 10% (i.e., $10/$100), respectively. 
+
+Our sample of trades between March 1, 2021 and March 31, 2022 
+consists of 13.19 billion trades, of which we classify nearly 195 million 
+(1.48%)  as  fractional  share  trades  executed  by  Robinhood  or  Driv-
+ewealth. Under the 10% Scenario, these fractional share trades would 
+produce $225.3 billion of dollar inflation due to the rounding-up rule 
+over the sample period. Under the 90% Scenario, this estimate would be 
+$210.5 billion. The total reported trading volume for all trades in the 
+sample is $99.5 trillion based on intra-day TAQ data; therefore, these 
+estimates indicate that the total reported dollar volume of trades during 
+our  sample  period  is  inflated  by  21  to  23  basis  points  due  to  the 
+rounding-up rule and RHDW fractional share trades. 
+
+These aggregate figures, however, mask considerable heterogeneity 
+in inflation among stocks. In Table 8, we rank the top twenty stocks by 
+both measures of dollar inflation. Consistent with Bartlett et al. (2022), 
+the  rounding-up  rule  was  especially  consequential  for  BRK.A,  whose 
+dollar volume of trading was inflated by a total of $173 billion under 
+either inflation estimate during the sample period. By itself, this figure 
+accounts for roughly 80% of the total dollar inflation estimate for the 
+sample as a whole. Not surprisingly, the remaining twenty stocks were 
+
+JournalofFinancialEconomics157(2024)10383620R.P. Bartlett et al.                                                                                                                                                                                                                              
+
+also among the market’s most expensive stocks and accounted for esti-
+mated  dollar  inflation  of  approximately  $42  billion  under  the  10% 
+Scenario and $35 billion under the 90% Scenario. Combined with BRK. 
+A, these amounts represented over 95% of the aggregate dollar inflation 
+in the sample. 
+
+Additionally,  Table  8  indicates  that  large  dollar  values  of  inflated 
+trading volume are most likely to occur with higher-priced stocks, but it 
+also  suggests  that  the  distortion  for  any  given  stock  will  also  be  a 
+function of its overall liquidity. For example, the rounding-up rule ap-
+pears  to  have  produced  billions  of  dollars  of  inflated  trading  volume 
+during our sample period for Amazon, Tesla, and Alphabet, but these 
+stocks are also among the most heavily traded securities such that their 
+overall dollar volume of trades during the sample was inflated by less 
+than  1%.  In  contrast,  trades  in  BRK.A  typically  averaged  just  a  few 
+hundred per day prior to our sample period. As a result, when Robin-
+hood commenced reporting fractional share trades to the tape—which 
+during  our  sample  period  were  approximately  1,400  per  day—the 
+rounding-up rule meant that roughly 81% of the dollar volume of trades 
+for BRK.A was inflated each day due to RHDW fractional share trades. 
+Within  our  sample,  we  observe  many  stocks  with  sparse  trading, 
+raising  the  possibility  that  a  small  number  of  RHDW  fractional  share 
+trades  on  any  given  day  might  distort  the  reported  daily  volume  for 
+these  stocks,  even  if  the  aggregate  dollar  value  of  the  distortion  is 
+modest.  In  Fig.  8,  we  present  histograms  for  the  natural  log  of  the 
+average daily percent inflation across all stock-days in the sample using 
+both the 10% Scenario and the 90% Scenario. The natural log of 1% is 
+-4.6; therefore, Fig. 8 indicates that the rounding-up rule is unlikely to 
+distort  the  trading  volume  for  the  vast  majority  of  stock-days.  None-
+theless, the figure also reveals a nontrivial number of stock-days in the 
+right tail of the two distributions, particularly in the distribution for the 
+10% Scenario. 
+
+In Table 9, we examine more closely the stock-days appearing in the 
+tail of these distributions, excluding for this purpose BRK.A. For each 
+stock-day having more than 1% inflation under either metric, we assign 
+it to a five-percent inflation band, from the lowest band of 1% to 5% 
+through the highest band of 85% to 90%. Percent inflation estimates for 
+securities with low stock prices will be more sensitive to assumptions 
+regarding the true value of the trade; therefore, we additionally classify 
+a  stock-day  by  the  quintile  of  its  average  closing  price  (based  on  the 
+average  closing  prices  across  all  stock-days  in  the  full  sample).  Each 
+stock-day in the tail of the distributions for Fig. 8 is thus assigned to a 
+Percent Inflation Range X Price Quintile bin. 
+
+Columns (1) through (5) of Table 9 present the frequency of stock- 
+days for each bin for the 10% Scenario. For each bin, we also present 
+in parentheses the average number of all daily trades for the stock-days 
+assigned to the bin. Focusing first on column (1), 45 stock-days assigned 
+to  the  first  quintile  (stock  price<=$6.73)  had  a  percent  inflation  of 
+between 1% and 5%, but only 3 stock-days in this quintile had percent 
+inflation that was higher than 5%, and none had percent inflation that 
+exceeded 20%. In contrast, column (2) reveals that 2,288 stock-days had 
+a percent inflation that exceeded 1%, with 1,179 stock-days having a 
+percent inflation of greater than 5%. Remarkably, even though stock- 
+days  in  the  second  quintile  had  an  average  closing  price  that  ranged 
+from  just  $6.73  to  $13.57,  nearly  300  of  these  stock-days  had  price 
+inflation of more than 50% under the 10% Scenario, and 234 had price 
+inflation of 85% to 90%—a rate of inflation that exceeded even that of 
+BRK.A. 
+
+As with BRK.A, this result stems from the very low level of trading for 
+these  stock-days.  As  shown  in  column  (2),  the  234  stock-days  with 
+percent inflation of greater than 85% had an average of just 40.46 trades 
+for the day. Moreover, examination of the stock-days in column (2) re-
+veals that many of the firms represented pre-acquisition SPACs that were 
+structured to trade at roughly $10/share but also had very modest (and 
+occasionally  zero)  trades  per  day  as  they  searched  for  an  acquisition 
+target. As a result, a sudden increase in retail interest in one of these 
+securities (perhaps due to speculation that the SPAC had found a merger 
+
+partner) could result in sizeable distortions of the stock’s daily trading 
+volume to the extent retail investors executed fractional shares trades 
+using Robinhood or Drivewealth. While we cannot rule out the possi-
+bility  that  some  of  these  RHDW  trades  are  false  positives  under  our 
+classification rules, column (2) nevertheless highlights the potential for 
+the rounding-up rule to create significant distortions in reported trading 
+volumes for an illiquid security regardless of its stock price. 
+
+Columns (3) and (4) summarize percent inflation rates for quintile 3 
+stock-days  (closing  price  between  $13.57  and  $29.75)  and  quintile  4 
+stock-days  (closing  price  between  $29.75  and  $68.52).  In  both cases, 
+there are roughly 1,200 stock-days having percent inflation of more than 
+1%, though the number of stock-days having extreme inflation is more 
+modest than in column (2). As with column (2), however, the stock-days 
+that do have percent inflation of more than 5% are associated with very 
+few daily trades. 
+
+In column (5), we present percent inflation for quintile 5 stock-days 
+(closing  price  greater  than  $68.52).  As  exemplified  by  BRK.A,  more 
+expensive  stocks  should  be  at  a  higher  risk  of  inflation  due  to  the 
+rounding-up rule, and under the 10% Scenario, column (5) reveals that 
+880  stock-days  had  percent  inflation  of  1%  to  5%  despite  having  an 
+average of  roughly 2,800 trades per  day.  However, as  with the  other 
+columns, more extreme rates of percent inflation are limited to stock- 
+days having far fewer daily trades. 
+
+Columns  (6)  through  (10)  present  percent  inflation  results  for  the 
+90% Scenario. As expected, the overall level of inflation is less than in 
+the 10% Scenario, though percent inflation in the range of 1% to 5% 
+remains present across all price quintiles. More extreme rates of percent 
+inflation are primarily confined to quintile 5 stock-days. As in the 10% 
+Scenario,  these  extreme  rates  of  inflation  occur  on  stock-days  having 
+very few daily trades, illustrating again the risk that the rounding-up 
+rule  can  create  severe  distortions  in  reported  trading  volume  for 
+illiquid securities. 
+
+6. Conclusions 
+
+Retail  trading  is  changing  and  fractional  shares  are  playing  a 
+growing role in this evolution. No longer the “nuisance” of times past, 
+fractional shares are part of a new way of trading in which customers 
+specify orders in dollars not shares, fintech apps sweep up spare change 
+to  invest  in  tiny  amounts,  and  high  share  prices  are  no  longer  an 
+impediment to retail stock ownership. Despite the growing importance 
+of fractional share trades, our paper makes clear the challenges in un-
+derstanding this new development—fractional share trades are largely 
+opaque,  with  disparate  reporting  rules,  exclusion  from  exchange 
+trading, and “rounding-up”  and “de minimis”  rules all contributing to 
+the difficulty in measuring or even observing these trades. 
+
+This paper developed a methodology for identifying fractional share 
+trades  in  the  consolidated  market  data  that  were  executed  between 
+March 1, 2021 and March 31, 2022 by two of the largest providers of 
+fractional  share  trading.  Our  approach  uses  a  latency-based  digital 
+footprint  to  estimate  their  fractional  share  trades,  which  provides  a 
+unique window into the trading of the largest fractional share broker- 
+dealers  for  retail  investors.  Our  results  show  a  surprising  breadth  to 
+fractional share trading: high-priced stocks, meme stocks, IPOs, SPACs, 
+and popular retail stocks now exhibit considerable numbers of these tiny 
+trades.  We  also  demonstrate,  however,  that  RHDW  fractional  share 
+trading is not evenly distributed across stocks, with many smaller, non- 
+retail stocks less likely to feature such trading. 
+
+Nonetheless, we show that these tiny trades matter. Fractional share 
+trades executed by Robinhood and Drivewealth are predictive of future 
+liquidity  and  volatility,  suggesting  an  information  content  to  these 
+trades notwithstanding their small size. Equally intriguing, our results 
+show that the RHDW-FT metric better captures this market information 
+than the BJZZ metric, heretofore the standard proxy for retail trading. 
+While the precise reason why the RHDW-FT metric contains this infor-
+mation is beyond the scope of this paper, the fact that it is consistent 
+
+JournalofFinancialEconomics157(2024)10383621R.P. Bartlett et al.                                                                                                                                                                                                                              
+
+with  the  findings  of  Eaton  et  al.  (2022)  that  Robinhood  trading  may 
+harm liquidity suggests the possibility of a causal path, perhaps owing to 
+app-based retail traders being influenced by social media based infor-
+mation  cascades  (Hirshleifer  and  Teoh,  2003).  That  fractional  share 
+trades appear to possess information only underscores the importance of 
+investigating further the evolving world of retail trading. 
+
+We  look  forward  to  examining  the  growth  and  dispersion  of  frac-
+tional share trading in future research. But to do so there needs to be 
+greater transparency  in  the data,  a better  understanding of  how frac-
+tional shares fit into trading strategies, and hopefully major changes to 
+incorporate  fractional  share  trades  into  the  current  national  market 
+system of equity trading. Certainly, these tiny trades raise big issues for 
+researchers and regulators alike. 
+
+Data availability 
+
+Tiny  Trades,  Big  Questions  data  set  (Reference  data)  (Mendeley 
+
+Data). 
+
+Appendix A 
+
+CRediT authorship contribution statement 
+
+Robert P. Bartlett: Writing –  review &  editing, Writing –  original 
+draft, Methodology, Investigation, Funding acquisition, Formal analysis, 
+Conceptualization. Justin McCrary: Writing – review & editing, Writing 
+–  original  draft,  Methodology,  Investigation,  Funding  acquisition, 
+Formal analysis, Conceptualization. Maureen O’Hara: Writing – review 
+& editing, Writing – original draft, Methodology, Investigation, Formal 
+analysis, Conceptualization. 
+
+Declaration of competing interest 
+
+Disclosure Statement – Robert Bartlett 
+I have nothing to disclose 
+Disclosure Statement – Justin McCrary 
+I have nothing to disclose 
+Disclosure Statement – Maureen O’Hara 
+I have nothing to disclose  
+
+Classification Rules for Identifying Robinhood and Drivewealth Fractional Share Trades Between March 1, 2021 and March 31, 2022 
+We develop our classification rules for identifying Robinhood and Drivewealth fractional share trades in three steps. First, we strategically place 
+fractional share trades in select issuers using the Robinhood and Drivewealth trading platforms, and we examine the resulting trade reports in the TAQ 
+data to identify traces of a unique “signature” for Robinhood and Drivewealth fractional share trades. Second, with evidence of these “signatures,” we 
+then compare trading data for the period of time before Robinhood and Driveweath began reporting fractional share trades to the tape with trading 
+data after such trading commenced to derive our exact classification rules. Finally, we use the OTC Transparency data to test the accuracy of each rule 
+during our sample period.  
+
+(1)  Identifying Traces of the Robinhood and Drivewealth Signatures 
+
+We ground our classification rule in the simple observation that the trade reports for the fractional share trades of Robinhood and Driv-
+ewealth that appear in the TAQ data should have a number of distinctive characteristics. For one, because these trades are effectively inter-
+nalized trades, they should be reported to one of three FINRA trade reporting facilities (TRFs). For another, due to the “rounding-up” rule, these 
+trades should be for a single share. Lastly, there are reasons to believe that these trades will be characterized by unique trade reporting la-
+tencies, as we explain here. 
+
+Trade reports for U.S. equity securities listed on a national stock exchange are required to be disseminated in real time to two securities 
+information processors (SIPs) for public distribution. Additionally, since 2016 the trade reports redistributed by the SIPs (and recorded in the 
+TAQ data) have included two timestamps: a participant timestamp (reflecting the time, generally in microseconds, that a trade or quote update 
+occurred at the market center) and the “SIP” timestamp (reflecting the time, generally in microseconds, that a trade or quote was processed by 
+the relevant SIP). 
+
+These two timestamps provide a means to estimate the time it takes for a trade report to travel from the executing broker to either the SIP 
+located within NYSE’s trading facility (for Tape A and Tape B securities) or the SIP located within Nasdaq’s facility (for Tape C securities). 
+Moreover, as shown in Bartlett and McCrary (2019), the transmission latencies across trading venues reveal distinct venue-specific latencies on 
+account of the different geographical locations of each venue and the relevant SIP. For instance, a trade report relating to an execution in a Tape 
+A security in Nasdaq’s matching engine in Carteret, New Jersey will take longer to arrive at the NYSE’s SIP in Mahwah, New Jersey, than a trade 
+report relating to an execution in a Tape A security on the NYSE. Thus, to the extent a broker algorithmically executes fractional share trades at 
+the same datacenter, it should, in principle, be possible to observe the broker’s distinctive trade reporting latency. The large number of trades 
+executed by Robinhood and Drivewealth should additionally increase the likelihood of identifying any such distinctive trade reporting latencies 
+among all trades within the TAQ data. 
+
+We began our search for evidence of distinct reporting latencies for Robinhood and Drivewealth by placing several trades for either $10.00 or 
+$1.00 in a number of different securities using each firm’s trading platform.39 To facilitate locating each trade report in the TAQ data, most of 
+our trades focused on purchasing fractional shares of BRK.A, which typically has fewer than 1,000 trades per day due to its unusually high stock 
+price. However, we also placed fractional share trades in a variety of other stocks and ETFs (including AMZN, TSLA, and SIRI) to check for 
+consistency in the two firm’s reporting latencies across different securities. 
+
+In Table A1, we illustrate how five of these trades ultimately appeared in the TAQ data. The first two trades were placed with Robinhood and 
+represented orders to buy $10 and $1 of BRK.A. As shown in columns (5) and (6), the trade confirmation for these orders indicated that they 
+were filled at a per share price of $474,668.445 and $472,203.99, respectively. The trade confirmation also indicated that the first trade 
+represented a fractional share purchase of 0.000021 of a share of BRK.A, while the second trade represented 0.000002 of BRK.A. Next, the TAQ 
+trade file was examined to locate each trade based on its per share trade price and the minute at which it was filled according to our trading 
+account history. As shown in columns (7) through (10), in each case a one share trade was located in the TAQ data that had the appropriate 
+
+39  Drivewealth does not itself offer a brokerage platform to retail investors; instead, its brokerage platform is designed to provide securities trading functionality for 
+other firms. We therefore use Cash App to execute trades through the Drivewealth platform. 
+
+JournalofFinancialEconomics157(2024)10383622R.P. Bartlett et al.                                                                                                                                                                                                                              
+
+price and venue, and had no unexpected special trade conditions.40 Moreover, no other trades having these characteristics appears in the TAQ 
+trade data during the minute of our trades. We therefore conclude that these two trades in TAQ reflect the buy orders we placed at Robinhood. 
+Columns (12) and (13) reflect the participant timestamp and SIP timestamp for these trades, which allows us to calculate the latency for each 
+trade in Column (14). As shown there, the trades appear to reveal traces of distinct reporting latencies. Specifically, each trade report took 
+roughly 210-250 milliseconds to travel from the execution venue to the relevant SIP. 
+
+Rows 3 and 4 provide similar examples for two trades placed with Cash App, which utilizes Drivewealth for executing trades. As shown in 
+columns (3) and (4), each trade represented a buy order for $1.00 of each of NVR, Inc. and BRK.A. (NVR, Inc. is similar to BRK.A insofar that 
+relatively few trades occur per day due to its roughly $4,000 stock price, facilitating our ability to locate the trades in the TAQ data). As with the 
+first two trades, we locate these trades in the TAQ data after searching for single share, FINRA trades that were executed at the correct minute 
+and price, and we confirm that no other trades having these characteristics appear during that minute. As shown in Column (14), each trade 
+likewise appears to have a distinctive reporting latency of roughly 25 milliseconds. 
+
+Using 2016 trading data, Bartlett and McCrary (2019) report that over 80% of FINRA-reported trades have a reporting latency of less than 20 
+milliseconds. Thus, the unusually large reporting latencies for these four trades provides an additional reason to believe that the fractional share 
+trades executed by Robinhood and Drivewealth should be distinguishable from other trades on the basis of their reporting latencies. Moreover, 
+as shown in column (11), examination of the trade reports for our sample of trades also revealed that Robinhood and Drivewealth appeared to 
+differ in their choice of FINRA trade execution facility: Whereas the Drivewealth trades were reported to the FINRA trade reporting facility 
+operated by NYSE, Robinhood’s trades were each reported to the facility operated by Nasdaq. 
+
+Lastly, in rows 5A and 5B we present the results for a $10 buy order placed with Robinhood for Sirius XM Holdings Inc. (SIRI). At the time of 
+the trade, the stock price for SIRI was less than $10 per share, allowing us to examine how dollar-based trades might yield a fractional share 
+execution. As shown in the table, Robinhood split the trade into a fractional component of 0.557109 share as well as a whole share component. 
+After locating the fractional component in the TAQ data, we calculated its reporting latency to be 227 milliseconds, similar to the first two 
+Robinhood trades. In contrast, the whole share trade had a reporting latency of just 1.9 milliseconds and was sent to the NYSE TRF, rather than 
+the Nasdaq TRF as had occurred with the fractional share trades executed by Robinhood. We therefore conclude that, consistent with Rob-
+inhood’s trade disclosures, the whole share component of this trade was routed to a retail market maker for execution.  
+
+(2)  Estimating the Distribution of Reporting Latencies. 
+
+While  the  foregoing  evidence  is  suggestive  that  fractional  share  trades  executed  by  Robinhood  and  Drivewealth  possess  distinctive, 
+observable characteristics, the small, non-random sample of our trades naturally raises the question of whether these reporting latencies appear 
+in other trades. Nor does this small sample of trades permit estimating the full distribution of reporting latencies that should be expected of 
+Robinhood’s and Drivewealth’s fractional share trades. 
+
+To address both issues, we compare the reporting latency for all single share, non-exchange trades reported in TAQ during the final calendar 
+quarter of 2020 with the same type of trades reported in TAQ during the final calendar quarter of 2021. In particular, trades during the last 
+quarter of 2020 were made in a period prior to the time that Drivewealth commenced fractional share trades. Likewise, as discussed previously, 
+Robinhood has disclosed in its securities filings that it did not commence reporting fractional share trades to FINRA until early 2021. Thus, 
+comparing the distribution of reporting latencies for all trades during these two time periods—particularly in the region of 25 milliseconds and 
+200 milliseconds—can provide insight into whether the latencies observed for our executed fractional share trades became more prevalent after 
+Robinhood and Drivewealth began reporting fractional share trades to the tape. The fact that the reporting latencies for our trades were so large 
+also points to a testable prediction: Trades with these observed latencies should be very rare in the 2020 Q4 sample but very common in the 
+2021 Q4 sample. 
+
+In Fig. A1, we compare the distribution of reporting latencies for all single share, non-exchange trades reported for both time periods. Panel A 
+presents trades reported to the Nasdaq TRF (Panel A), and Panel B presents trades reported to the NYSE TRF. Based on our individual stock 
+trades, we surmised that the Nasdaq TRF receives trade reports from Robinhood; therefore, in Panel A, our interest is in the change in the 
+frequency of trades with latencies of approximately 200 milliseconds between 2020 Q4 and 2021 Q4. In contrast, our preliminary analysis 
+indicated that the NYSE TRF receives Drivewealth’s trades; therefore, in Panel B, we focus on the distribution of latencies in the vicinity of 25 
+milliseconds. 
+
+As shown in Fig. A1, Panel A is quite consistent with our prediction, and the sharp increase in single share, non-exchange trades in this area of 
+the latency distribution during 2021 Q4 suggests a Robinhood latency “signature” of approximately 135 to 300 milliseconds. The results in 
+Panel B are likewise consistent with the prediction, insofar as there is a sharp increase in trades with latencies between 20 milliseconds and 40 
+milliseconds during 2021 Q4, and (in contrast to Panel A) there also appears a general elevation of trades with latencies beyond 40 milli-
+seconds. However, Panel B also reveals a sizeable number of trades with latencies between 25 milliseconds and 30 milliseconds during the 2020 
+Q4 period, suggesting that some trades reported to the NYSE TRF with latencies bearing the Drivewealth latency “signature” may reflect trade 
+executions by other firms. 
+
+We conclude from this analysis that fractional share trades executed by Robinhood and Drivewealth should be discernable based on their 
+reporting latencies; however, Panel A indicates that we may slightly undercount the presence of Robinhood’s trades, while Panel B suggests we 
+may slightly overcount Drivewealth’s trades. 
+
+Finally, examination of the full distribution of these data also reveals extensive positive skew in the 2021 Q4 distribution relative to the 2020 
+Q4, with the more recent data having a large number of trades with unusually large latencies. To illustrate, we define a trade report for a single 
+
+40  For instance, fractional share trades executed by retail investors will not sweep through the order book, nor will they be part of an integrated trading strategy (e. 
+g., a VWAP trade). As such, aside from an indicator for an odd lot trade, fractional share trade reports should generally lack any other trade condition indicators. 
+Other than for BRK.A, the only trade condition we would expect to see would therefore be “I”, indicating an odd lot trade. The size of a round lot for BRK.A is 1 share; 
+therefore, there are no odd lot trades for this security. 
+
+JournalofFinancialEconomics157(2024)10383623R.P. Bartlett et al.                                                                                                                                                                                                                              
+
+share FINRA trade as “delayed” if it has a reporting latency of more than 1 second, and we plot the daily total of these delayed reports for our 
+two periods in Fig. A2. As shown in the figure, the incidence of such delayed trade reports spikes during the 2021 Q4 period for trade reports 
+made to both the NYSE TRF and the Nasdaq TRF. Visual examination of the trade data indicate that the vast majority of these delayed trade 
+reports are for trades executed at the commencement of the trading day. These delayed trade reports also have all of the other indicators of 
+Robinhood or Drivewealth fractional share trades—in particular, with respect to size, trade condition and, in the case of Robinhood, with 
+respect to midpoint pricing (as discussed in Section 5 of the main paper). We therefore explore below whether the accuracy of our classification 
+rules can be improved by including these delayed trades as fractional share executions by Robinhood and Drivewealth. 
+
+We use these results to define separate classification rules for Drivewealth and Robinhood fractional share trade executions. For trades in the 
+TAQ data, we classify a single share, non-exchange trade as a Drivewealth fractional share trade if the trade: (a) was reported to the NYSE TRF 
+facility and (b) had a reporting latency of more than 20 milliseconds. In contrast, we classify a single share, non-exchange trade as a Robinhood 
+fractional share trade if the trade (a) was reported to the Nasdaq TRF facility, and (b) had a reporting latency of between 135 and 300 mil-
+liseconds. For either Robinhood or Drivewealth trades, we also require that the trade condition be for an ordinary, non-ISO execution. In 
+addition  to  these  latency  criteria,  we  also  examine  whether  our  classification  accuracy  for  Robinhood  can  be  enhanced  by  assigning  all 
+“delayed” trades executed at the opening of the trading day and reported to the Nasdaq TRF to be Robinhood fractional share trades.41  
+
+(3)  Evaluating the Classification Rules 
+
+In conventional predictive modelling, classifiers such as the ones we constructed would be validated against a test dataset of trades that are 
+known to have the target characteristic of interest (e.g., RH=0/1). Because we lack access to such a dataset, we turn instead to the OTC 
+Transparency data to evaluate the accuracy of our classification rules. In particular, if the OTC Transparency data reveal that either Robinhood 
+or Drivewealth executed only single share trades in a particular security during a trading week, the firm’s weekly trades in that security likely 
+reflect fractional share trade executions. We therefore evaluate the extent to which applying our classifiers to the TAQ trade data results in 
+weekly trade estimates for Robinhood and Drivewealth for all such stock-weeks that match their disclosures for these stock-weeks in the OTC 
+Transparency data. 
+
+To obtain our dataset of fractional share trade executions, we collect all stock-week disclosures in the OTC Transparency data for Robinhood 
+and Drivewealth where the number of reported shares traded for each firm for a stock-week is no greater than 100.1% the number of reported 
+shares for the firm during that stock-week. Because neither Robinhood nor Drivewealth reported fractional share trades to FINRA prior to 2021, 
+we focus on trades occurring from the week of Monday, January 4, 2021 to the week of Monday, March 28, 2022. These filters result in a dataset 
+of 16,781 stock-weeks across 902 securities for Robinhood, and 17,593 stock-weeks across 1,039 securities for Drivewealth.42 
+
+In Fig. A3, we use trades in BRK.A to illustrate the comparison we make given that BRK.A’s unusually high stock price make it a popular stock 
+for fractional share trading among users of Robinhood and Drivewealth. Indeed, during our sample period, these two firms are the only retail 
+brokerage firms specifically listed as trading shares in BRK.A in the OTC Transparency data. Moreover, each firm consistently reports weekly 
+trades and weekly shares traded in BRK.A that are the same number, indicating that these weekly trades represent fractional share executions. 
+Nor should this fact be surprising given BRK.A’s high stock price. In Panel A, we compare the weekly trades reported for Robinhood in the OTC 
+Transparency data (represented by solid bars) with the weekly estimates for Robinhood’s trades based on the trades in the TAQ data using the 
+Robinhood classification rule described previously. Note that the rule we use for Panel A requires all trades to have a reporting latency of 135 to 
+300 milliseconds to be classified as a Robinhood trade; therefore, it does not classify any “delayed” trades as Robinhood trades. 
+
+Overall, Panel A indicates that this classification rule comes close to estimating the exact number of weekly trades in BRK.A reported for 
+Robinhood in the OTC Transparency data, but only after the week of February 16, 2021. For instance, after March 1, the estimated number of 
+Robinhood trades in Panel A is roughly 86% of the number reported for Robinhood in the OTC Transparency data. As suspected, however, the 
+estimated number of Robinhood trades does appear to miss several trades each day, likely due to the fact that many trades executed at 9:30 a.m. 
+have characteristics of Robinhood’s fractional share trades (i.e., they are single share, non-exchange midpoint trades reported the Nasdaq TRF) 
+but have very large reporting latencies, so they are not captured by this classification rule. In Panel B, we therefore present the results using the 
+same classification rule for Robinhood, but we allow a Robinhood trade to have either (a) a reporting latency of between 135 and 300 mil-
+liseconds, or (b) a reporting latency of greater than 135 milliseconds if it was executed between 8:55:00 and 09:30:10. As shown in Panel B, this 
+modified rule results in a notable improvement in estimating the number of reported fractional share trades for Robinhood. Using this rule, the 
+estimated number of Robinhood trades in Panel B is roughly 95% of the number reported in the OTC Transparency data from the week of March 
+1, 2021 through the week of March 28, 2022. In addition, the fact that both versions of our Robinhood classification rule shows a sudden 
+increase in Robinhood trades over the two-week period beginning on February 16, 2021 also indicates that Robinhood commenced reporting its 
+fractional share trades to the tape at around this time. 
+
+In Panel C, we present a similar comparison using the classification rule for Drivewealth. As with Panels A and B, the figure highlights a 
+sudden increase in estimated Drivewealth trades beginning well into 2021, in the week of October 4, 2021. After this date, our classification 
+rule for Drivewealth trades performs even better than the classifier for Robinhood trades. Across the twenty-five weeks between October 11, 
+2021 and March 28, 2022, the estimated number of weekly Drivewealth trades in BRK.A based on our classifier is identical to the number of 
+trades reported for Drivewealth in the OTC Transparency data for twelve of these weeks. Moreover, on those weeks when the two numbers 
+differed, the difference is typically less than 10 trades. 
+
+Based on this analysis, we adopt a classification rule for Robinhood fractional share trades that includes “delayed” trades at the open. In main 
+text, we provide a discussion of the performance of the Robinhood and Drviewealth classifiers using all stock-weeks in the OTC Transparency 
+Data. 
+
+41  We do not explore this consideration for Drivewealth trades because we classify all single share, non-exchange trades as Drivewealth fractional share trades if the 
+reporting latency for a trade is greater than 20 milliseconds and the trade otherwise meets our classification criteria for Drivewealth fractional share trades.  
+42  Because Drivewealth continues to backfill its OTC disclosures, we expect these report numbers to change as it completes this process. 
+
+JournalofFinancialEconomics157(2024)10383624R.P. Bartlett et al.                                                                                                                                                                                                                              
+
+(4)  Utilizing this approach beyond March 2022 
+
+For researchers interested in examining RHDW fractional share trading beyond March 31, 2022, one concern with adopting this approach to 
+estimate fractional share trading is that technological changes over time might change the accuracy of these two classification rules. In this 
+regard, because each firm’s “signature” might change over time, it is important to update and validate each firm’s signature using the OTC 
+Transparency data. Indeed, in related work examining fractional share trading in BRK.A, we find that the accuracy of our DW classification rule 
+deteriorates after October 6, 2022 based on Drivewealth’s OTC Transparency disclosures. In light of this discovery, we therefore updated the 
+DW signature after October 6, 2022 by placing several additional fractional share trades in BRK.A through Cash App (an introducing broker for 
+Drivewealth)  and examined  their trade reports  in  the TAQ data. This  process  revealed that on October  6,  2022 Drivewealth  appeared to 
+transition to reporting its fractional share trades to the Nasdaq TRF (rather than to the NYSE TRF as it did through March 31, 2022), but its 
+reporting latencies otherwise appeared the same as before. Using this new information to update the classification rule for fractional share 
+trades executed by Drivewealth after October 6, 2022, we were able again to predict accurately the weekly OTC Transparency disclosures for 
+Drivewealth. This example illustrates how our framework can be extended to more recent trading periods, though it is incumbent on re-
+searchers to validate and, if applicable, seek to update the classification rules, to ensure that estimated fractional share trades for RHDW 
+continue to track their OTC Transparency disclosures.
+
+Fig. A1Reporting Latencies for Trades Reported to the Nasdaq TRF (Panel A) and the NYSE TRF (Panel B). 
+This figure illustrates the tail distribution of reporting latencies for all single share, non-exchange trades reported in TAQ for trades reported to the Nasdaq TRF (Panel 
+A) and the NYSE TRF (Panel B) during the fourth quarter of 2020 compared to the fourth quarter of 2021. 
+
+Fig. A2Incidence of Extended Reporting Delays by Day, 2020 Q4 vs. 2021 Q4. 
+This figure illustrates the the daily number of single share FINRA trades having “delayed” transaction reports for trades reported to the Nasdaq TRF (blue dots) and 
+the NYSE TRF (red dots) during the fourth quarter of 2020 compared to the fourth quarter of 2021. We define a trade report for a single share FINRA trade as 
+“delayed” if it has a reporting latency of more than 1 second.  
+
+JournalofFinancialEconomics157(2024)10383625R.P. Bartlett et al.                                                                                                                                                                                                                              
+
+Fig. A3Fractional Trades in BRK.A Reported in the OTC Transparency Data for Robinhood (Panels A & B) and Drivewealth (Panel C) vs. Fractional Trades Estimated 
+in TAQ with Classification Rules.   
+
+JournalofFinancialEconomics157(2024)10383626R.P. Bartlett et al.                                                                                                                                                                                                                              
+
+References 
+
+Barber, B., Huang, X., Jorion, P., Odean, T., Schwarz, C., 2022b. A (sub)penny for your 
+
+thoughts: Tracking retail activity in TAQ. J. Finance forthcoming.  
+
+Barber, B., Huang, X., Odean, T., Schwarz, C., 2022a. Attention induced trading and 
+
+returns: Evidence from robinhood users. J. Finance 77, 3141–3190. 
+
+Barber, B., Odean, T., Zhu, N., 2009. Do retail trades move markets? Rev. Financ. Stud. 
+
+22, 151–186. 
+
+Barrot, J-N., Kaniel, R., Sraer, D., 2016. Are retail trades compensated for providing 
+
+liquidity? J. financ. econ. 120, 146–168. 
+
+Bartlett, R., McCrary, J., 2019. How rigged are stock markets? Evidence from 
+
+microsecond timestamps. J. Financ. Markets 45, 37–60. 
+
+Bartlett, R., McCrary, J., O’Hara, M., 2022. A fractional solution to a stock market 
+
+mystery, Available at SSRN: https://ssrn.com/abstract=4167890 or 10.2139/ssr 
+n.4167890. 
+
+Battalio, R., Jennings, R., Saglam, M., Wu, J., 2023, Identifying market maker trades as 
+“retail’ from TAQ: No shortage of false negatives and false positives, SSRN: htt 
+ps://ssrn.com/abstract=4579159. 
+
+Boehmer, E., Jones, C.M., Zhang, X., Zhang, X., 2021. Tracking retail investor activity. 
+
+J. Finance 76, 2249–2305. 
+
+Chen, Jiafeng, Roth, J., 2023. Logs with zeros? Some problems and solutions. Quarterly 
+
+J. Econ. forthcoming.  
+
+Eaton, G., Green, T., Roseman, B., Wu, Y., 2022. Retail option trading and the implied 
+
+volatility surface, Available at SSRN: https://ssrn.com/abstract=4104788. 
+Da, Z., Fang, V.W., Wenwei, L., 2024. Fractional share trading. Rev. Financ. Stud. 
+
+Forthcoming.  
+
+Foucault, T., Sraer, D., Thesmer, D., 2011. Individual investors and volatility. J. Finance 
+
+66, 1369–1405. 
+
+Hirshleifer, D., Teoh, S.H., 2003. Herd behaviour and cascading in capital markets: a 
+
+review and synthesis. Eur. Financ. Manag. 9, 25–66. 
+
+Jones, C., Zhang, X., Zhang, X., 2022. Retail investors in the pandemic, Available at 
+
+SSRN: https://ssrn.com/abstract=4151106. 
+
+Kaniel, R., Saar, G., Titman, S., 2008. Individual investor sentiment and stock returns. 
+
+J. Finance 63, 273–310. 
+
+Klausner, M., Ohlrogge, M., Ruan, E., 2021. A sober look at SPACs. Yale J. Regul. 39, 
+
+1
+
+1
+
+1
+
+1
+
+1
+
+1
+
+228–303. 
+
+Lee, C., Radhakrishna, B., 2000. Inferring investor behavior: evidence from TORQ data. 
+
+J. Financ. Markets 3, 83–111. 
+
+Moss, A., Naughton, J., Wang, C., 2023. The irrelevance of environmental, social, and 
+
+governance disclosure to retail investors. Manag. Sci. forthcoming.  
+
+O’Hara, M., Yao, C., Ye, M., 2014. What’s Not There: Odd Lots and Market Data. 
+
+J. Finance 65, 2199–2236. 
+
+O’Hara, M., 2015. High frequency market microstructure. J. Financ. Econ. 116, 257–270. 
+Shearer, M., 2022. Modeling Trading Strategies in Financial Markets with Data, 
+
+Simulation, and Deep Reinforcement Learning. University of Michigan. Dissertation.  
+
+Welch, I., 2021. The wisdom of the robinhood crowd. J. Finance 77, 1489–1527. 
+
+I
+
+I
+
+@
+
+@
+
+I
+
+D
+
+D
+
+D
+
+D
+
+D
+
+D
+
+.
+
+5
+4
+4
+8
+6
+6
+4
+7
+4
+$
+
+,
+
+.
+
+0
+9
+9
+3
+0
+2
+2
+7
+4
+$
+
+,
+
+.
+
+0
+3
+7
+7
+8
+9
+4
+$
+
+,
+
+.
+
+0
+8
+6
+4
+0
+8
+9
+8
+4
+$
+
+,
+
+5
+6
+3
+6
+$
+
+.
+
+5
+6
+3
+6
+$
+
+.
+
+1
+2
+0
+0
+0
+0
+0
+
+.
+
+2
+0
+0
+0
+0
+0
+0
+
+.
+
+0
+0
+2
+0
+0
+0
+0
+
+.
+
+2
+0
+0
+0
+0
+0
+0
+
+.
+
+9
+0
+1
+7
+5
+5
+0
+
+.
+
+0
+0
+0
+0
+0
+0
+1
+
+.
+
+.
+
+A
+K
+R
+B
+
+.
+
+A
+K
+R
+B
+
+R
+V
+N
+
+.
+
+A
+K
+R
+B
+
+I
+R
+I
+S
+
+I
+R
+I
+S
+
+.
+
+0
+0
+0
+1
+$
+
+0
+0
+1
+$
+
+.
+
+0
+0
+1
+$
+
+.
+
+0
+0
+1
+$
+
+.
+
+.
+
+0
+0
+0
+1
+$
+
+)
+4
+1
+(
+
+)
+3
+1
+(
+
+)
+2
+1
+(
+
+)
+1
+1
+(
+
+)
+0
+1
+(
+
+)
+9
+(
+
+)
+8
+(
+
+)
+7
+(
+
+)
+6
+(
+
+)
+5
+(
+
+)
+4
+(
+
+)
+3
+(
+
+)
+2
+(
+
+)
+1
+(
+
+.
+)
+4
+(
+
+h
+g
+u
+o
+r
+h
+t
+
+)
+1
+(
+
+s
+n
+m
+u
+l
+o
+c
+
+n
+i
+
+d
+e
+t
+s
+i
+l
+
+e
+r
+a
+
+d
+e
+d
+a
+r
+t
+
+k
+c
+o
+t
+s
+
+d
+n
+a
+
+,
+e
+u
+l
+a
+v
+
+e
+d
+a
+r
+t
+
+,
+
+d
+e
+s
+u
+
+r
+e
+k
+o
+r
+b
+
+,
+e
+t
+a
+d
+
+e
+h
+T
+
+.
+s
+e
+d
+a
+r
+t
+
+h
+t
+l
+a
+e
+w
+e
+v
+i
+r
+D
+d
+n
+a
+
+d
+o
+o
+h
+n
+i
+b
+o
+R
+f
+o
+
+s
+c
+i
+t
+s
+i
+r
+e
+t
+c
+a
+r
+a
+h
+c
+
+e
+d
+a
+r
+t
+
+e
+h
+t
+
+e
+n
+i
+m
+a
+x
+e
+
+o
+t
+
+d
+e
+s
+u
+
+s
+e
+d
+a
+r
+t
+
+e
+v
+fi
+r
+o
+f
+
+s
+e
+l
+p
+m
+a
+x
+e
+
+s
+e
+d
+i
+v
+o
+r
+p
+
+e
+l
+b
+a
+t
+
+s
+i
+h
+T
+
+n
+i
+e
+d
+a
+r
+t
+e
+h
+t
+g
+n
+i
+t
+a
+c
+o
+l
+n
+o
+p
+u
+d
+e
+n
+i
+a
+t
+b
+o
+a
+t
+a
+d
+e
+d
+i
+v
+o
+r
+p
+)
+4
+1
+(
+h
+g
+u
+o
+r
+h
+t
+
+)
+7
+(
+
+s
+n
+m
+u
+l
+o
+C
+
+.
+e
+d
+a
+r
+t
+h
+c
+a
+e
+r
+o
+f
+n
+o
+i
+t
+a
+m
+r
+fi
+n
+o
+c
+e
+d
+a
+r
+t
+e
+h
+t
+n
+o
+d
+e
+s
+a
+b
+e
+d
+a
+r
+t
+e
+h
+t
+
+f
+o
+e
+c
+i
+r
+p
+e
+r
+a
+h
+s
+
+r
+e
+p
+e
+h
+t
+d
+n
+a
+d
+e
+s
+a
+h
+c
+r
+u
+p
+e
+r
+a
+h
+s
+a
+f
+o
+n
+o
+i
+t
+c
+a
+r
+f
+e
+h
+t
+
+t
+r
+o
+p
+e
+r
+
+)
+6
+(
+d
+n
+a
+)
+5
+(
+
+s
+n
+m
+u
+l
+o
+C
+
+.
+
+K
+R
+B
+n
+a
+h
+t
+
+r
+e
+h
+t
+o
+s
+k
+c
+o
+t
+s
+
+l
+l
+a
+r
+o
+f
+
+s
+e
+r
+a
+h
+s
+0
+0
+1
+n
+a
+h
+t
+
+r
+e
+w
+e
+f
+
+r
+o
+f
+e
+d
+a
+r
+t
+a
+s
+i
+h
+c
+i
+h
+w
+
+,
+e
+d
+a
+r
+t
+
+t
+o
+l
+d
+d
+o
+n
+a
+s
+e
+t
+a
+c
+i
+d
+n
+i
+
+”
+I
+“
+(
+e
+d
+a
+r
+t
+e
+h
+t
+
+r
+o
+f
+d
+e
+t
+r
+o
+p
+e
+r
+
+)
+y
+n
+a
+f
+i
+(
+n
+o
+i
+t
+i
+d
+n
+o
+c
+e
+d
+a
+r
+t
+e
+h
+t
+
+s
+i
+
+D
+N
+O
+C
+S
+_
+R
+T
+
+.
+e
+d
+a
+r
+t
+e
+h
+t
+g
+n
+i
+t
+r
+o
+p
+e
+r
+e
+u
+n
+e
+v
+e
+h
+t
+
+s
+i
+
+X
+E
+.
+e
+l
+fi
+e
+d
+a
+r
+t
+
+Q
+A
+T
+e
+h
+t
+
+.
+t
+n
+e
+s
+
+s
+a
+w
+
+t
+r
+o
+p
+e
+r
+e
+d
+a
+r
+t
+e
+h
+t
+h
+c
+i
+h
+w
+o
+t
+y
+t
+i
+l
+i
+c
+a
+f
+g
+n
+i
+t
+r
+o
+p
+e
+r
+e
+d
+a
+r
+t
+e
+h
+t
+
+s
+i
+F
+R
+R
+T
+
+_
+
+.
+a
+t
+a
+d
+e
+d
+a
+r
+t
+
+Q
+A
+T
+e
+h
+t
+n
+i
+d
+e
+t
+r
+o
+p
+e
+r
+
+s
+a
+h
+c
+a
+e
+,
+e
+d
+a
+r
+t
+e
+h
+t
+
+f
+o
+e
+c
+i
+r
+p
+e
+h
+t
+
+s
+i
+
+I
+
+Q
+A
+T
+_
+E
+C
+R
+P
+d
+n
+a
+,
+e
+d
+a
+r
+t
+e
+h
+t
+
+f
+o
+e
+z
+i
+s
+e
+h
+t
+
+s
+i
+E
+Z
+I
+S
+.
+)
+e
+r
+a
+h
+s
+1
+o
+t
+
+l
+a
+u
+q
+e
+t
+o
+l
+d
+n
+u
+o
+r
+a
+s
+a
+h
+h
+c
+i
+h
+w
+
+,
+
+A
+
+.
+
+M
+_
+E
+M
+I
+T
+
+d
+n
+a
+
+E
+M
+I
+T
+_
+T
+R
+A
+P
+
+e
+h
+t
+
+n
+e
+e
+w
+t
+e
+b
+
+s
+d
+n
+o
+c
+e
+s
+i
+l
+l
+i
+
+m
+
+f
+o
+
+r
+e
+b
+m
+u
+n
+
+e
+h
+t
+
+s
+i
+
+y
+c
+n
+e
+t
+a
+L
+
+d
+n
+a
+
+,
+y
+l
+e
+v
+i
+t
+c
+e
+p
+s
+e
+r
+
+,
+p
+m
+a
+t
+s
+e
+m
+
+i
+t
+
+P
+I
+S
+
+e
+h
+t
+
+d
+n
+a
+
+p
+m
+a
+t
+s
+e
+m
+
+i
+t
+
+t
+n
+a
+p
+i
+c
+i
+t
+r
+a
+p
+
+e
+h
+t
+
+e
+r
+a
+M
+_
+E
+M
+I
+T
+
+d
+n
+a
+
+E
+M
+I
+T
+_
+T
+R
+A
+P
+
+1
+A
+e
+l
+b
+a
+T
+
+Q
+A
+T
+_
+E
+C
+I
+R
+P
+
+E
+Z
+I
+S
+
+D
+N
+O
+C
+S
+_
+R
+T
+
+X
+E
+
+e
+c
+i
+r
+P
+
+d
+e
+a
+h
+c
+r
+u
+P
+
+n
+o
+i
+t
+c
+a
+r
+F
+
+l
+o
+b
+m
+y
+S
+
+e
+u
+l
+a
+V
+e
+d
+a
+r
+T
+
+:
+e
+l
+i
+F
+
+e
+d
+a
+r
+T
+Q
+A
+T
+m
+o
+r
+F
+
+:
+
+n
+o
+i
+t
+a
+m
+r
+fi
+n
+o
+C
+e
+d
+a
+r
+T
+m
+o
+r
+F
+
+y
+c
+n
+e
+t
+a
+L
+
+.
+
+7
+9
+1
+5
+2
+
+.
+
+9
+4
+0
+1
+2
+
+7
+0
+6
+2
+
+.
+
+9
+2
+3
+2
+
+.
+
+.
+
+2
+3
+7
+2
+2
+
+7
+9
+1
+
+.
+
+0
+8
+4
+8
+4
+7
+7
+1
+4
+4
+1
+2
+1
+3
+1
+
+:
+
+:
+
+.
+
+0
+0
+0
+7
+7
+7
+5
+6
+1
+4
+1
+2
+1
+3
+1
+
+:
+
+:
+
+.
+
+M
+_
+E
+M
+I
+T
+
+E
+M
+I
+T
+_
+T
+R
+A
+P
+
+6
+1
+6
+3
+2
+6
+2
+3
+7
+0
+5
+1
+1
+0
+1
+
+:
+
+:
+
+.
+
+0
+0
+0
+5
+3
+1
+2
+2
+5
+0
+5
+1
+1
+0
+1
+
+:
+
+:
+
+.
+
+0
+4
+8
+7
+6
+0
+8
+4
+2
+8
+1
+6
+0
+3
+1
+
+:
+
+:
+
+.
+
+0
+0
+0
+0
+0
+0
+2
+2
+2
+8
+1
+6
+0
+3
+1
+
+:
+
+:
+
+.
+
+8
+4
+4
+8
+8
+2
+5
+6
+7
+7
+0
+0
+4
+2
+1
+
+:
+
+:
+
+.
+
+0
+0
+0
+0
+0
+0
+2
+4
+7
+7
+0
+0
+4
+2
+1
+
+:
+
+:
+
+.
+
+0
+3
+4
+1
+0
+5
+1
+4
+9
+8
+3
+9
+4
+3
+1
+
+:
+
+:
+
+.
+
+0
+0
+0
+7
+7
+1
+4
+1
+7
+8
+3
+9
+4
+3
+1
+
+:
+
+:
+
+.
+
+7
+8
+6
+6
+0
+4
+8
+1
+8
+8
+3
+9
+4
+3
+1
+
+:
+
+:
+
+.
+
+4
+2
+4
+1
+4
+4
+6
+1
+8
+8
+3
+9
+4
+3
+1
+
+:
+
+:
+
+.
+
+q
+a
+d
+s
+a
+N
+
+q
+a
+d
+s
+a
+N
+
+F
+R
+_
+R
+T
+
+E
+S
+Y
+N
+
+E
+S
+Y
+N
+
+q
+a
+d
+s
+a
+N
+
+E
+S
+Y
+N
+
+.
+
+5
+4
+4
+8
+6
+6
+4
+7
+4
+$
+
+,
+
+.
+
+0
+9
+9
+3
+0
+2
+2
+7
+4
+$
+
+,
+
+.
+
+0
+3
+7
+7
+8
+9
+4
+$
+
+,
+
+.
+
+0
+8
+6
+4
+0
+8
+9
+8
+4
+$
+
+,
+
+5
+6
+3
+6
+$
+
+.
+
+5
+6
+3
+6
+$
+
+.
+
+d
+o
+o
+h
+n
+i
+b
+o
+R
+
+d
+o
+o
+h
+n
+i
+b
+o
+R
+
+r
+e
+k
+o
+r
+B
+
+d
+o
+o
+h
+n
+i
+b
+o
+R
+
+d
+o
+o
+h
+n
+i
+b
+o
+R
+
+p
+p
+A
+h
+s
+a
+C
+
+p
+p
+A
+h
+s
+a
+C
+
+3
+0
+2
+0
+2
+2
+0
+2
+
+4
+0
+2
+0
+2
+2
+0
+2
+
+3
+0
+3
+0
+2
+2
+0
+2
+
+3
+0
+3
+0
+2
+2
+0
+2
+
+7
+0
+3
+0
+2
+2
+0
+2
+
+7
+0
+3
+0
+2
+2
+0
+2
+
+1
+
+2
+
+3
+
+4
+
+A
+5
+
+B
+5
+
+E
+T
+A
+D
+
+#
+e
+d
+a
+r
+T
+
+JournalofFinancialEconomics157(2024)10383627 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+

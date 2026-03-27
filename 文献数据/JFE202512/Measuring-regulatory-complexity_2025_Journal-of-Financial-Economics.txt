@@ -1,0 +1,3082 @@
+Journal of Financial Economics 174 (2025) 104186 
+
+Contents lists available at ScienceDirect
+
+Journal of Financial Economics
+
+journal homepage: www.elsevier.com/locate/finec
+
+Measuring regulatory complexity(cid:73)
+Jean-Edouard Colliard a,∗, Co-Pierre Georg b
+a HEC Paris, 1 rue de la Libération, 78351, Jouy-en-Josas, France
+b Frankfurt School of Finance and Management, Adickesallee 32-34, Frankfurt am Main, 60322, Germany
+
+A R T I C L E   I N F O
+
+A B S T R A C T
+
+Dataset link: Replication repository for Measuri
+ng Regulatory Complexity (Original data)
+
+Keywords:
+Regulatory complexity
+Financial regulation
+Basel accords
+
+1. Introduction
+
+We propose a framework to study regulatory complexity, based on concepts from computer science. We 
+distinguish different dimensions of complexity, classify existing measures, develop new ones, compute them 
+on three examples — Basel I, the Dodd–Frank Act, and the European Banking Authority’s reporting rules — 
+and test them using experiments and a survey on compliance costs. We highlight two measures that capture 
+complexity beyond the length of a regulation. We propose a quantitative approach to the policy trade-off 
+between regulatory complexity and precision.
+
+The regulatory overhaul that followed the global financial crisis has 
+triggered a hefty debate about the complexity of financial regulation. 
+Haldane and Madouros (2012), for instance, argue that bank capital 
+regulation has become so complex as to be counterproductive and likely 
+to favor regulatory arbitrage. The Basel Committee on Banking Super-
+vision acknowledges that there is a trade-off between the simplicity and 
+the precision of regulation (Basel Committee on Banking Supervision, 
+2013). In the United States, similar concerns have led to the exemption 
+of smaller banks from several provisions of the 2010 Dodd–Frank Act.1
+Although there is a widespread concern that financial regulation 
+has become too complex, ‘‘regulatory complexity’’ remains an elusive 
+concept. Debates about the complexity of different rules and contracts 
+have arisen in other contexts, such as structured financial products 
+(Célérier and Vallée, 2017), securitizations (Ghent et al., 2017), loan 
+
+contracts  (Ganglmair  and  Wardlaw,  2017),  compensation  contracts 
+(Bennett et al., 2019), or corporate taxes (Zwick, 2021). A growing 
+number of papers propose measures and theories of the complexity of 
+rules, but they focus on different dimensions of complexity, and a uni-
+fying framework is lacking. We propose such a framework and develop 
+a toolkit including measures of complexity, validation experiments, and 
+normative analyses. We use these ingredients to approach the trade-off 
+studied by the Basel Committee on Banking Supervision (2013) in a 
+quantitative manner.2
+
+Our working hypothesis is to see a regulation as an algorithm: It 
+is a sequence of instructions that is applied to an economic entity and 
+returns a regulatory action. Previous research has used this analogy and 
+focused on adapting some measures of algorithmic complexity to the 
+study of law (see, e.g., Li et al. (2015)). We go further and use this 
+approach to distinguish between different dimensions of complexity 
+and derive five measures of regulatory complexity in a unified model 
+
+(cid:73)
+
+Philipp Schnabl was the editor for this article. We thank the editor and an anonymous referee for helpful comments and suggestions. We are also grateful to 
+Tobias Berg, Bruno Biais, Claire Célérier, Dana Foarta, Stephen Karolyi, Igor Kozhanov, Iman van Lelyveld, Christoph Merkle, Vitaly Meursault, Sébastien Pouget, 
+Sébastien Saurin, Shikhar Singla, Michael Troege, as well as to participants to the 2024 AFA, 2024 PSB Workshop on Banking and Finance, 2023 WFA, 2023 
+Chapman University’s Finance Conference, 2022 SFS Cavalcade, 2022 ESEM, Paris Webinar on Financial Technology and Crypto, 2019 BCBS-CEPR Workshop on 
+‘‘Impact of regulation in a changing world: innovations and new risks’’, 2019 NY Fed Fintech Conference, 2016 ‘‘Journée de la Chaire ACPR’’, seminar audiences 
+at ACPR, AMSE, AMF, Bank of England, HEC Paris, De Nederlandsche Bank, EBA, ECB, IESEG, OCC, University of Bonn, University of Exeter, and University of 
+Luxembourg, and the Webinar ‘‘Metrics of Regulation’’. We thank Olena Bogdan, Pietro Fadda, Ali Limon, Jane Douat, and Sabine Schaller for excellent research 
+assistance. This work was supported by the French National Research Agency (F-STAR ANR-17-CE26-0007-01, ANR EFAR AAP Tremplin-ERC (7) 2019), the 
+Investissements d’Avenir Labex (ANR-11-IDEX-0003/Labex Ecodec/ANR-11-LABX-0047), the Chair ACPR-HEC-TSE ‘‘Regulation and Systemic Risk’’, the Natixis 
+Chair ‘‘Business Analytics for Future Banking’’, and the Europlace Institute of Finance. Part of this research was conducted while Colliard was visiting INSEAD, 
+the hospitality of which is greatly appreciated.
+
+∗ Corresponding author.
+
+E-mail addresses:  colliard@hec.fr (J.-E. Colliard), co.georg@fs.de (C.-P. Georg).
+URLs:  https://sites.google.com/site/jecolliardengl (J.-E. Colliard), https://cogeorg.github.io/ (C.-P. Georg).
+
+1 See Gai et al. (2019) for a comprehensive discussion of the policy issues at stake and Calomiris (2018) for the case of the United States.
+2 To encourage further work within the same framework, we make the toolkit we developed available online on zenodo: https://zenodo.org/records/16601188. 
+
+A reproducibility certificate is also available at https://www.cascad.tech/certification/172-measuring-regulatory-complexity/.
+
+https://doi.org/10.1016/j.jfineco.2025.104186
+Received 10 March 2023; Received in revised form 2 October 2025; Accepted 8 October 2025
+Available online 16 October 2025 
+0304-405X/© 2025 Elsevier B.V. All rights are reserved, including those for text and data mining, AI training, and similar technologies. 
+
+ 
+ 
+ 
+J.-E. Colliard and C.-P. Georg
+
+of regulation. We compute these measures on two large-scale regu-
+latory texts, the US 2010 Dodd–Frank Act (DFA) and the EU 2021 
+‘‘Implementing  Technical  Standards’’  (ITS)  for  the  Capital  Require-
+ments  Regulation.  We  test  their  validity  using  both  an  experiment 
+and a survey of banks conducted by the European Banking Authority 
+(EBA). We find support in particular for two measures, 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 and 
+𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙, which we detail below. Finally, we outline how to include 
+such measures in a normative model of the trade-off between regulatory 
+precision and complexity.
+
+We first use our framework to formally define measures of reg-
+ulatory complexity and distinguish between different dimensions. In 
+particular, we make a distinction between: (i) ‘‘intrinsic complexity’’—a 
+regulation is complex because it aims at imposing many different rules 
+on the regulated, independently of the language used; (ii) ‘‘psycho-
+logical  complexity’’—a  regulation  is  complex  because  it  is  difficult 
+for a reader to understand; and (iii) ‘‘computational complexity’’—a 
+regulation is complex because it is resource intensive to implement. We 
+relate these dimensions to empirically observable quantities, namely 
+the occurrence of mistakes in the regulatory process and the effort nec-
+essary to understand and apply the regulation. We call these quantities 
+‘‘outcome-based’’ measures of regulatory complexity.
+
+The literature has studied several outcome-based measures of com-
+plexity, but, by definition, they measure the consequences of regulatory 
+complexity, not its causes. To identify what is causing complexity and 
+provide guidance to regulatory authorities, we also need ‘‘text-based’’ 
+measures based on regulatory documents. Most existing measures are 
+based on linguistics and only cover psychological complexity. To also 
+derive measures of intrinsic complexity, we use the approach developed 
+by Halstead (1977) to measure algorithmic complexity. As we detail 
+in Section 2, this approach represents an algorithm as a sequence of 
+‘‘operators’’ (e.g., + , −, logical connectors) and ‘‘operands’’ (variables, 
+parameters),  and  the  measures  of  complexity  aim  at  capturing  the 
+number of operations, inputs, and outputs. In the context of regulation, 
+these measures can capture the number of different rules in a regulatory 
+text, whether these rules are repetitive or different, whether they apply 
+to different economic entities or to the same ones, etc. We show that 
+within this model we can encompass two already existing measures of 
+regulatory complexity and go on to introduce three new ones.
+
+As a proof of concept, we first consider the design of risk weights 
+in the Basel I Accords, which is close to following an actual algorithm. 
+We write a computer code corresponding to the instructions of Basel 
+I and measure the algorithmic complexity of this code directly. We 
+then analyze the text of the regulation, classify words according to 
+whether they correspond to operands or operators in the algorithm, and 
+compute the same measures. This exercise shows that the concepts of 
+‘‘operands’’ and ‘‘operators’’ apply to a regulatory text. Moreover, we 
+find that the measures supposed to capture intrinsic complexity, which 
+should in principle not depend on the language used, are indeed close 
+in both versions.
+
+The next step is to compute our measures at scale. We first apply 
+our textual approach to the DFA, which has been the focus of much of 
+the debate on regulatory complexity and earlier literature (e.g., Li et al. 
+(2015)). We compute the different measures for each title of the DFA 
+and document new facts about the distribution of complexity measures 
+across titles. We then perform a similar analysis with the ITS.
+
+Text-based measures of regulatory complexity are only valid and 
+useful if they are related to outcomes. To test our measures, we follow 
+two  complementary  approaches.  The  first  one  is  again  inspired  by 
+the field of computer science, which uses experiments to test whether 
+measures of algorithmic complexity predict the mistakes programmers 
+make or the time they need to code a program.3 We give participants to 
+an experiment different regulatory instructions consisting of (randomly 
+
+3 See, e.g., Canfora et al. (2005) or Zhang and Baddoo (2007).
+
+Journal of Financial Economics 174 (2025) 104186 
+
+generated) Basel-I type rules and the balance sheet of a hypotheti-
+cal bank. They have to compute the bank’s risk-weighted assets. We 
+analyze how different measures of complexity explain whether a partic-
+ipant returns a wrong value and the time taken to give a correct answer. 
+We find that only two of the five measures in our framework have 
+explanatory power beyond the length of the regulation, suggesting that 
+our experimental design is a powerful touchstone to test the validity of 
+new measures. The first measure is 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦, which captures the number 
+of regulatory operators (words that indicate a new rule or constraint) in 
+the text and is related to the existing RegData measure (Al-Ubaydli and 
+McLaughlin, 2017). The second measure is 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙, which captures 
+the number of unique operands and hence the diversity of economic 
+concepts. While 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 explains both the mistakes and the time taken 
+to answer, 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙 explains only the latter. These two measures are 
+those meant to capture intrinsic complexity, which validates the idea 
+that this is indeed a dimension not captured by length alone.
+
+Our second test is based on a survey conducted by the EBA, which 
+asked EU banks to indicate which ITS templates are a source of high 
+compliance costs, a major concern and outcome variable in the litera-
+ture on regulatory complexity.4 We compute our complexity measures 
+for each template and test which measures are significantly correlated 
+with high costs. Remarkably, the results are qualitatively similar to 
+those obtained for mistakes in the experimental setting, despite the 
+two settings being very different. In particular, we find that 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦
+is the only measure that can explain compliance costs beyond length, 
+which is in line with the experimental results, as the respondents to the 
+survey list the difficulty of understanding the rules as the main driver 
+of compliance costs. Moreover, the effect of 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 is mainly driven by 
+large and medium banks, whereas small banks react instead to 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙. 
+This is new evidence that firms may face different types of complexity 
+costs depending on their size.
+
+We complement these results with the analysis of a related survey 
+by the EBA, which asked EU regulators which ITS templates are more 
+important to them. We find that 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙 is strongly positively related 
+to ‘‘importance’’, controlling for 𝑙𝑒𝑛𝑔𝑡ℎ. This supports the hypothesis 
+that regulators draft intrinsically more complex regulations on topics 
+they deem more important and that 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙 can capture this effect. 
+On the contrary, 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 is negatively correlated with importance. This 
+suggests  that  revising  the  ITS  templates  by  reducing  𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦  could 
+decrease costs for banks without negatively affecting the regulators.
+
+We systematically compare the performance of 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙 and 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦
+with the performance of 𝑙𝑒𝑛𝑔𝑡ℎ at explaining the 4 dependent variables 
+considered in the paper. For each variable, we first run a regression 
+on 𝑙𝑒𝑛𝑔𝑡ℎ only, which always returns a significant coefficient. If we 
+add another measure of complexity, the specification associated with 
+the highest 𝑅2 (the ‘‘favorite specification’’) includes either 𝑙𝑒𝑛𝑔𝑡ℎ and 
+𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙 or 𝑙𝑒𝑛𝑔𝑡ℎ and 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦. The favorite specification shows a mod-
+erate improvement in the 𝑅2. However, in this favorite specification 
+(not in others), 𝑙𝑒𝑛𝑔𝑡ℎ is not significant at the 10% level and contributes 
+much less to the 𝑅2 than the alternative measure (from none at all to at 
+most 5 times less). We conclude that 𝑙𝑒𝑛𝑔𝑡ℎ is a useful general proxy for 
+complexity, as it correlates with all dependent variables, but is unlikely 
+to be its main driver.
+
+These  results  mean  that  a  policymaker  aiming  at  simplifying  a 
+regulatory text should consider measures of intrinsic complexity, not 
+only the length of the text. To further demonstrate the usefulness of 
+our approach, we propose a research program that would eventually 
+lead to a quantitative model of the trade-off between the precision and 
+complexity of regulation mentioned in Basel Committee on Banking 
+
+4 As we detail in Section 4.2, the EBA estimates the compliance costs with 
+these rules for banks at 19.6 bn EUR. For comparison, Hogan and Burns (2019) 
+estimate the compliance costs related to the Dodd–Frank Act at 60 bn USD. 
+Trebbi et al. (2023) estimate total compliance costs in the US at 239 bn USD 
+for 2014.
+
+2 
+
+J.-E. Colliard and C.-P. Georg
+
+Supervision (2013). As a proof of concept, we build a simple model 
+of capital regulation relying on risk buckets, as in Basel I. We use our 
+measures and experimental estimates to compute the complexity cost 
+of regulation and the optimal number of risk buckets.
+
+Making further progress on this research program will require better 
+connecting different text-based measures to outcomes at the firm level. 
+In line with our belief that open science can accelerate this progress, we 
+make all the material used in this paper available online. This includes 
+the DFA dictionary with 5627 operands and 608 operators related to 
+financial regulation, plus the EBA dictionary with an additional 982 
+operands and 234 operators. Researchers can use both to study other 
+texts or as a training sample to identify other operands and operators 
+using machine learning. We also share our data and code so that other 
+researchers can test alternative text-based measures under the exact 
+same conditions.
+
+We review the literature on measures of regulatory complexity in 
+Section 2.3, where we show how the different measures fit into our 
+framework.5 Our contribution to that literature is not only to propose 
+new measures of intrinsic complexity (of which there are few), but 
+also to use our framework to organize this literature and highlight the 
+complementarities between different measures that capture different di-
+mensions of complexity. Similarly, we review the theoretical literature 
+on the causes and consequences of regulatory complexity in Section 2.2 
+and clarify the dimensions of regulatory complexity that each article is 
+studying. Our measures of regulatory complexity make it possible to 
+test these theories.6
+
+As mentioned above, a number of papers have studied the complex-
+ity of financial products and contracts more generally. Our framework 
+also applies to these applications, to the extent that they consider rules 
+describing how to perform a certain operation.7 There is more broadly 
+a theoretical literature on complexity in product markets (see, in par-
+ticular, Gabaix and Laibson (2006), Carlin (2009) and Ellison (2016) 
+for a survey). The economic mechanisms studied in this literature are 
+not  easy  to  transpose  to  the  complexity  of  regulation.  In  addition, 
+Arora et al. (2009) argue that computational complexity creates a new 
+form of asymmetric information when one agent is able to solve a 
+computational problem and the other is not. Carlin et al. (2013) find 
+support for this idea in a trading experiment, with adverse selection 
+being larger for more complex assets.
+
+In addition to finance applications, the experimental approach we 
+use in Section 4.1 is related to the literature that tries to measure the 
+complexity of solving mathematical problems for humans. In particular, 
+Murawski and Bossaerts (2016) and Franco et al. (2021) ask experimen-
+tal participants to solve different versions of the knapsack problem. Our 
+experimental approach is conceptually similar, but the Halstead model 
+we  use  is  a  more  flexible  representation  of  an  algorithm,  allowing 
+us to apply our approach to entire regulatory texts and not only to 
+well-identified mathematical problems and algorithms.
+
+Finally, a literature on behavioral economics dating back to Ru-
+binstein (1986) models the strategies of economic agents as automata 
+
+5 We do not include measures of algorithmic complexity more generally, 
+and refer the interested reader to Zuse (1990), and Yu and Zhou (2010) for a 
+more recent survey.
+
+6 Some empirical papers study the increase in the stringency or quantity of 
+regulations. For example, Kalmenovitz (2023) shows that an increased regu-
+latory intensity leads to a significant reduction in firm-level investment and 
+hiring. Gutiérrez and Philippon (2019) argue that the increase in regulation 
+can account for the decline in the elasticity of entry with respect to Tobin’s Q 
+since the late 1990s.
+
+7 For example, we have applied our framework to study the complexity 
+of the OECD’s blueprints on the tax challenges arising from digitalization 
+(Colliard et al., 2021). In contrast, our approach does not in principle apply 
+to the complexity of objects that are not rules, for instance firm disclosures, 
+where complexity is probably better captured by stylistic or linguistic measures 
+(e.g., Loughran and McDonald (2014)).
+
+3 
+
+Journal of Financial Economics 174 (2025) 104186 
+
+and measures the cognitive costs of a strategy using the complexity 
+of  an  automaton.  Recent  experimental  work  by  Oprea  (2020)  and 
+Kendall and Oprea (2024) validates this approach. We do not represent 
+regulation as an automaton, as this would be costly to do on a large-
+scale text, and believe that the Halstead representation is an easier 
+alternative for empirical studies.
+
+2. Defining regulatory complexity
+
+We first propose a model of the regulatory process that formally 
+defines different dimensions of complexity, connects them to existing 
+research, and makes the analogy between regulations and algorithms 
+explicit. Then, we apply this comparison to introduce complexity mea-
+sures  from  computer  science  and  review  how  existing  measures  fit 
+within our framework.
+
+2.1. Framework
+
+We start by defining the economic environment. The economy is in 
+an observable state ̃𝑥 ∈ 𝑋, where for convenience 𝑋 is a finite set.8 We 
+denote 𝜈(𝑥) = Pr( ̃𝑥 = 𝑥). In every state 𝑥 ∈ 𝑋, a regulator can choose a 
+regulatory instrument 𝑦 in a finite set 𝑌 . An economic outcome ̃𝑧 ∈ 𝑍
+is obtained, where the probability distribution of ̃𝑧 depends on the state 
+and the regulatory instrument, and is denoted 𝜇(𝑧, 𝑥, 𝑦) = Pr( ̃𝑧 = 𝑧|𝑥, 𝑦). 
+The regulator has preferences over economic outcomes, represented by 
+a utility function 𝑈 .
+
+We define regulation as a function 𝜑 from the set of economic states 
+𝑋 to the set of regulatory instruments 𝑌 . We denote by 𝛷 = 𝑌 𝑋
+the set of such functions. In the example of bank capital regulation, 
+𝑥  is  the  state  of  the  balance  sheet  of  a  bank,  and  𝑦  is  the  level 
+of capital requirements. A ‘‘capital regulation’’ is then a set of rules 
+that determines the level of capital requirements that applies for any 
+possible balance sheet.
+
+In a standard economic model, the mapping 𝜑 would be sufficient to 
+describe the regulatory process, and 𝜑 derived as the optimal solution 
+to the following maximization problem: 
+
+[
+
+∑
+
+∑
+
+𝜈(𝑥)
+
+]
+
+𝜇( ̃𝑧, 𝑥, 𝜑(𝑥))𝑈 ( ̃𝑧)
+
+.
+
+(1)
+
+̃𝑧∈𝑍
+
+𝑥∈𝑋
+We enrich this standard approach by considering that the process of 
+writing down the rules and then implementing them is costly and error-
+prone. We distinguish the regulation 𝜑, a function, from the regulatory 
+text 𝐹  that describes it. Formally, 𝐹  is a list of elements (words) in a 
+finite vocabulary : 𝐹 ∈ ̄, with  ̄ = ⋃+∞
+𝑛=1
+
+The first step in the regulatory process is drafting : the regulator 
+drafts a regulatory text 𝐹  to describe the regulation 𝜑. To account for 
+mistakes in the draft, we assume that the text  ̃𝐹  is random, with 𝜇𝐷
+representing the probability distribution over possible drafts. This dis-
+tribution depends on the regulation 𝜑, the regulator’s type 𝜃 (e.g., skill), 
+and the drafting effort 𝑒 (e.g., hours of work). Formally: 
+∀𝐹 ∈ ̄, Pr( ̃𝐹 = 𝐹 ) = 𝜇𝐷(𝐹 , 𝜑, 𝜃, 𝑒).
+
+ 𝑛.
+
+(2)
+
+max
+𝜑(.)
+
+The second step of the regulatory process is interpretation: an economic 
+agent must interpret the regulatory text 𝐹  to comply with the reg-
+ulation. The interpretation  ̃𝑓 ∈ 𝛷, maps states of the economy to 
+regulatory tools. The correct interpretation, denoted 𝐼(𝐹 ) ∈ 𝛷, is the 
+function actually defined by the text.9 However, interpretations can be 
+incorrect. As in the drafting step, we assume that  ̃𝑓 is random, with 
+
+8 This assumption is made to sidestep issues of measurability and plays no 
+
+relevant economic role.
+
+9 Depending on the distribution 𝜇𝐷, it could be that 𝐹  does not describe 
+a proper function, so that 𝐼(𝐹 ) ∉ 𝛷. We abstract from this possibility: as our 
+definitions of complexity in Section 2.2 rely on correctly describing 𝜑, it does 
+not matter whether 𝐹  describes a proper function.
+
+J.-E. Colliard and C.-P. Georg
+
+Journal of Financial Economics 174 (2025) 104186 
+
+𝜇𝐼  representing the probability distribution over 𝛷. This distribution 
+depends on the regulatory text 𝐹 , the interpreter’s type 𝜃, and effort 𝑒: 
+
+∀𝑓 ∈ 𝛷, Pr( ̃𝑓 = 𝑓 ) = 𝜇𝐼 (𝑓 , 𝐹 , 𝜃, 𝑒).
+
+(3)
+
+Definition 2.   For two regulatory texts (𝐹 , 𝐹 ′) ∈ ̄ 2, the associated 
+interpretations  ̃𝑓 and  ̃𝑓 ′, and an interpreter with given (𝜃, 𝑒), we say 
+that 𝐹 ′ has a higher psychological complexity than 𝐹  if Pr( ̃𝑓 ′ = 𝐼( ̃𝐹 ′)) <
+Pr( ̃𝑓 = 𝐼( ̃𝐹 )).
+
+The final step in the regulatory process is compliance: a regulated agent 
+implements the regulation 𝑓 in the current state (e.g., the characteris-
+tics of the firm) to compute 𝑓 (𝑥). Errors are again possible: the regula-
+tory instrument  ̃𝑦 follows a probability distribution 𝜇𝑆 over 𝑌 , which 
+depends on the interpretation 𝑓 and the supervisor’s type 𝜃 and effort 𝑒: 
+
+∀(𝑥, 𝑦) ∈ 𝑋 × 𝑌 , Pr( ̃𝑦 = 𝑦) = 𝜇𝐷(𝑦, 𝑥, 𝑓 , 𝜃, 𝑒).
+
+(4)
+
+Returning to the example of bank capital regulation, we begin with 
+a regulation 𝜑, such as the Basel I capital regulation. This regulation 
+is detailed in a regulatory text 𝐹  (e.g., Basel Committee on Banking 
+Supervision (1988)). If the text 𝐹  is drafted accurately, then its correct 
+interpretation 𝐼(𝐹 ) should align with the intended regulation 𝜑, so that 
+𝐼(𝐹 ) = 𝜑. A compliance officer must read and interpret this text. If 
+her interpretation 𝑓 is correct, then 𝑓 = 𝐼(𝐹 ) = 𝜑. Then, she applies 
+the regulation to the characteristics 𝑥 of the bank and computes the 
+regulatory instrument 𝑦. If the computation is correct, then 𝑦 = 𝑓 (𝑥) =
+𝐼(𝐹 )(𝑥) = 𝜑(𝑥), so that the actual regulatory instrument is exactly as 
+the regulator intended.
+
+To underline the parallel between regulations and algorithms, con-
+sider the problem of sorting a vector. The input is a real vector 𝑥
+and the output 𝑧 includes the sorted vector and other metrics such as 
+computation time. The programmer has preferences over these metrics. 
+The programmer may also give different weights 𝜈(𝑥) to various inputs, 
+such as ‘‘worst-case’’, ‘‘average’’, and ‘‘best-case’’ scenarios. The first 
+step  in  solving  this  problem  is  to  choose  an  algorithm  𝜑,  such  as 
+‘‘InsertionSort’’ or ‘‘QuickSort’’, each offering a distinct method. The 
+second  step  is  to  code  an  actual  program  𝐹   that  implements  this 
+algorithm. For a given input 𝑥, a computer then interprets the code into 
+𝐼(𝐹 ), executes the computations, and outputs the sorted vector 𝜑(𝑥), 
+along with other performance metrics in 𝑧.
+
+In summary, we conceptualize regulation as an ‘‘algorithm’’ that 
+uses economic variables as inputs, applies rules to these inputs, and 
+produces a regulatory action as output. The regulatory text functions 
+like a program describing this algorithm, and applying the regulation 
+to a regulated entity is akin to executing the program.
+
+2.2. Dimensions of regulatory complexity
+
+We define three dimensions of complexity based on the costs and 
+
+errors made at each stage in the regulatory process.
+
+Drafting: We call intrinsic complexity properties of the regulation 
+𝜑 that make the regulator less likely to draft a text with an accurate 
+interpretation of 𝜑. 
+
+Definition 1.   For two regulations (𝜑, 𝜑′) ∈ 𝛷2, associated regulatory 
+texts  ̃𝐹  and  ̃𝐹 ′, and a regulator with given (𝜃, 𝑒), we say that 𝜑′ has a 
+higher intrinsic complexity than 𝜑 if Pr(𝐼( ̃𝐹 ′) = 𝜑′) < Pr(𝐼( ̃𝐹 ) = 𝜑).
+
+In our approach, intrinsic complexity is relative to the individual or 
+institution drafting the regulation. We see this as a desirable property. 
+For example, consider two systemic risk regulations: (i) a systemic risk 
+tax on banks, proportional to the negative externality they impose, as 
+measured, e.g., by SRISK (Brownlees and Engle, 2016); (ii) the FSB’s ap-
+proach, which aggregates multiple criteria into a synthetic index, ranks 
+banks, and imposes a capital add-on based on a bank’s rank. Financial 
+economists may find regulation (i) easier to draft, while regulators with 
+a background in accounting or law might find regulation (ii) simpler.
+
+Interpretation:  We  call  psychological  complexity  properties  of  the 
+regulatory text 𝐹  that make interpretation difficult, in the sense that 
+̃𝑓 is more likely to be incorrect.
+
+Compliance: We call computational complexity properties of the reg-
+
+ulatory text 𝐹  that make arriving at the correct result more difficult.
+
+Definition 3.   For two regulatory texts (𝐹 , 𝐹 ′) ∈ ̄ 2, a given state 
+𝑥 ∈ 𝑋, the associated regulatory instruments ̃𝑦 and ̃𝑦′, and a supervisor 
+with given (𝜃, 𝑒), we say that 𝐹 ′ has a higher computational complexity
+than 𝐹  if Pr( ̃𝑦′ = 𝐼( ̃𝐹 ′)(𝑥)) < Pr( ̃𝑦 = 𝐼( ̃𝐹 )(𝑥)).
+
+Note that computational complexity depends on the state of the 
+world 𝑥 (e.g., bank characteristics). Imagine for instance a regulation 
+that exempts small banks from most rules. It could be the case that the 
+regulatory text is complex, that applying it to large banks is costly, but 
+that applying it to small banks is simple.
+
+We can again draw a comparison with algorithmic complexity.10 
+To solve a given problem, some algorithms are intrinsically simpler 
+to  program  without  errors.  For  example,  ‘‘InsertionSort’’  likely  has 
+lower intrinsic complexity than ‘‘QuickSort’’. There are also many ways 
+to code a given algorithm (e.g., using different languages, loops, or 
+modularity), and some choices make the program easier to understand, 
+reducing  its  psychological  complexity.  Finally,  algorithms  differ  in 
+computational  complexity,  often  measured  by  the  time  required  to 
+execute the program.
+
+Fig.  1 summarizes our model of the regulatory process and which 
+mistakes  can  occur.  Observe  that  mistakes  are  cumulative.  A  com-
+plex problem may lead to an incorrect draft, which in turn may be 
+wrongly interpreted, leading to mistakes at the compliance stage. It 
+is important to develop empirical measures that can separate these 
+different dimensions, as they have different theoretical properties and 
+implications.
+
+Indeed, a growing number of recent theory papers study the causes 
+and the consequences of regulatory complexity. Hakenes and Schnabel 
+(2012) develop a model of ‘‘capture by sophistication’’ in which some 
+regulators cannot understand complex arguments and ‘‘rubber-stamp’’ 
+claims from the industry so as not to reveal their lack of sophistication. 
+In Asriyan et al. (2023), a policymaker proposes a regulation to, e.g., a 
+parliament. Making the regulation more complex makes the regulation 
+more complicated to study, so that members of parliament will rely 
+more on their prior regarding the regulator’s competence and less on 
+their own understanding. In both papers, the focus is on psychological 
+complexity.
+
+Oehmke and Zawadowski (2019) develop a model in which regu-
+latory complexity is in itself desirable (e.g., it allows for more risk-
+sensitivity), but regulators neglect that a more complex regulation con-
+sumes the limited attention of agents, and crowds out other activities. 
+In our framework, this would be a trade-off between intrinsic com-
+plexity and psychological complexity. Foarta and Morelli (2022) model 
+the dynamics of regulatory complexity. In their model, more complex 
+regulations  imply  both  higher  implementation  costs  (computational 
+complexity) and more noisy information (psychological complexity).
+
+Note that we focus on measuring the complexity of existing regu-
+lations, not on understanding why a complex regulation was chosen 
+in the first place. In reality, complexity is the result of a choice by 
+the regulator, who may for instance make regulation more detailed 
+and complex for dimensions that are more important. Similarly, we 
+treat all mistakes by regulated entities equally but in reality some may 
+be more consequential than others, and regulated agents will allocate 
+
+10 We  take  the  terms  ‘‘intrinsic  complexity’’,  ‘‘psychological  complexity’’ 
+(e.g., Zuse (1990)), and ‘‘computational complexity’’ from that literature and 
+give them a similar meaning. To our knowledge, a formal framework giving a 
+definition of these three terms does not exist in that literature.
+
+4 
+
+J.-E. Colliard and C.-P. Georg
+
+Journal of Financial Economics 174 (2025) 104186 
+
+Fig. 1. Regulatory process with complexity.
+This figure summarizes the model of the regulatory process described in Section 2. It shows how intrinsic, psychological, and computational complexity affect 
+the likelihood of implementing the desired regulation. If the regulation is drafted incorrectly, then 𝐼(𝐹 ) ≠ 𝜑. If a correct regulation is interpreted incorrectly, 
+then 𝑓 ≠ 𝐼(𝐹 ). Lastly, if a mistake is made at the compliance stage then 𝑦 ≠ 𝑓 (𝑥).
+
+more attention to those. Gabaix and Graeber (2024) propose a general 
+model of economic decision-making with complexity to formalize this 
+type of trade-off. We go in this direction in Section 5.1 in the context of 
+a model of banking regulation, where we can model the environment 
+faced by the regulator when solving (1). In our empirical analyses we 
+do not observe the underlying problem the regulator was trying to 
+solve, and hence we just take the existing regulatory text 𝐹  and the 
+underlying regulation 𝜑 as given. Section 4.2 gives some evidence on 
+how measures of complexity correlate with the importance of a rule for 
+the regulator.11
+
+2.3. Measures of regulatory complexity
+
+There are two ways to measure regulatory complexity: the text-
+based  approach  and  the  outcome-based  approach.  These  methods  are 
+complementary: the text-based approach measures properties of regula-
+tory texts that cause complexity, whereas the outcome-based approach 
+measures costs that are consequences of this complexity.
+
+A comprehensive research program on the measurement of regu-
+latory complexity must include text-based measures, but these should 
+correlate with the consequences measured by the outcome-based ap-
+proach. In what follows, we define several text-based measures based 
+on modeling regulation as an algorithm. We then test whether they 
+correlate with outcome-based measures in Section 4.
+
+Measures  derived  in  the  halstead  framework.  We  derive  several  text-
+based measures of regulatory complexity by modeling a regulation like 
+an algorithm, adapting (Halstead, 1977). We consider a regulatory text 
+𝐹  as a sequence of words 𝐹 = {𝑤1, 𝑤2...𝑤𝑁 }, which we can classify 
+into ‘‘operands’’, ‘‘operators’’, and ‘‘others’’. Using Halstead’s definition, 
+
+11 Some papers discuss the complexity of the problem (1) faced by the 
+regulator in the context of banking regulation. For instance, Gai et al. (2011) 
+and Haldane and Madouros (2012) discuss the difficulties of regulation in 
+complex economic systems, which relates to the probability distribution 𝜇. 
+The complexity of the banking industry (𝑋 in our model) is also studied for 
+instance by Cetorelli et al. (2014).
+
+operands in a program are ‘‘variables or constants’’ and operators are 
+‘‘symbols or combinations of symbols that affect the value or ordering 
+of an operand’’. Consider, for instance, the following ‘‘pseudo-code’’ to 
+compute the vector norm of an n-dimensional vector 𝑥 = (𝑥1, 𝑥2...𝑥𝑛): 
+
+y = sqrt(x_1^2+x_2^2...+x_n^2)
+
+(5)
+
+Here,  the  operators  are  =, 𝑠𝑞𝑟𝑡, +,
+̂,  and  the  operands  𝑦, 𝑥𝑖, 2.  We 
+extract from 𝐹  a sequence of 𝑁𝑂𝑅 operators and a sequence of 𝑁𝑂𝐷
+operands, the remaining words having no algorithmic value (e.g., func-
+tion words). The sets {𝑜1, 𝑜2...𝑜𝜂𝑂𝑅
+} are the sets of all 
+operators and operands that appear in 𝐹 , where 𝜂𝑂𝑅 is the total number 
+of unique operators, and 𝜂𝑂𝐷 the total number of unique operands. In 
+the example above, we have 𝜂𝑂𝑅 = 4, 𝑁𝑂𝑅 = 2𝑛 + 1, 𝜂𝑂𝐷 = 𝑛 + 2, 
+𝑁𝑂𝐷 = 2𝑛 + 2.
+
+} and {𝜔1, 𝜔2...𝜔𝜂𝑂𝐷
+
+To better take into account some differences between regulatory 
+texts and computer programs, we propose a slightly finer partition than 
+Halstead’s. Already in Halstead’s work, the assignment operator (the 
+= sign in (5)) plays a different role from other operators. Similarly, a 
+regulation will necessarily contain words that indicate a rule, an obli-
+gation, a permission, etc. We call such words ‘‘regulatory operators’’. 
+We also define ‘‘logical operators’’ that represent logical operations 
+such  as  ‘‘if’’,  ‘‘when’’,  etc.,  and  ‘‘mathematical  operators’’  that  rep-
+resent operations like addition, product, subtraction, and so on. We 
+denote 𝑁𝑅, 𝜂𝑅, 𝑁𝐿, 𝜂𝐿, 𝑁𝑀 , 𝜂𝑀  the number of total/unique regulatory 
+operators, total/unique logical operators, total/unique mathematical 
+operators, respectively. We have 𝑁𝑅 + 𝑁𝐿 + 𝑁𝑀 = 𝑁𝑂𝑅 and 𝜂𝑅 + 𝜂𝐿 +
+𝜂𝑀 = 𝜂𝑂𝑅.
+
+We can encompass three already existing measures of complexity in 
+
+this framework:
+
+- Length: The total number of words 𝑙𝑒𝑛𝑔𝑡ℎ = 𝑁 in a regulation, as 
+
+used for instance in Haldane and Madouros (2012).
+
+- Cyclomatic complexity: The total number of conditional statements 
+in a code (McCabe, 1976), which can be computed as 𝑐𝑦𝑐𝑙𝑜𝑚𝑎𝑡𝑖𝑐 = 𝑁𝐿, 
+the total number of logical operators (as in, e.g., Li et al. (2015)).
+
+- Quantity of regulations: The total number of regulatory operators 
+𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 = 𝑁𝑅. This is similar to the RegData measure of Al-Ubaydli 
+and McLaughlin (2017), who count the number of words indicating a 
+
+5 
+
+J.-E. Colliard and C.-P. Georg
+
+binding constraint in the US Code of Federal Regulations.12 We propose 
+to interpret 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 as a measure of intrinsic complexity. In principle, 
+one could replace two rules by a single rule and the logical operator 
+‘‘and’’, so that 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 depends on the way a text is written. However, 
+we think it is difficult in practice to significantly reduce or increase the 
+number of rules in a text while keeping the intrinsic content the same.
+Next, we derive three measures inspired by Halstead (1977) and 
+
+which are new to the literature on regulatory complexity:
+
+- Potential volume: Halstead (1977) proposes to consider the short-
+est possible program that can solve a given problem, in the best possible 
+programming language. Defining this program is easy. In the example 
+of computing the vector norm, it is: 
+
+y = vecnorm(x_1,x_2...x_n),
+
+(6)
+
+where vecnorm is a function returning the vector norm, which has 
+to exist in the ‘‘best programming language’’ to solve this problem. 
+This is the shortest possible program because any program to compute 
+the norm of a vector would need to specify the input, the output, an 
+assignment rule, and an operation.
+
+More generally, for any problem, the shortest program would still 
+contain a minimum number of operands 𝜂∗
+𝑂𝐷 that represent the number 
+of inputs and outputs of the program. All the operations transforming 
+the inputs into outputs would already be part of the language as a 
+single built-in function. The number of operators is then 𝜂∗
+𝑂𝑅 = 2. If 
+one assumes that the list of inputs and outputs never includes some 
+unnecessary ones, then we also have 𝜂∗
+𝑂𝐷 = 𝜂𝑂𝐷. Halstead (1977) calls 
+the length of this minimal program ‘‘potential volume’’. We denote it 
+𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙 = 2+𝜂𝑂𝐷. It does not depend on the way the program is written 
+and can thus capture intrinsic complexity.13
+
+- Level: It is natural to normalize 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙 by the length, a measure 
+(Halstead, 1977) calls ‘‘level’’, which gives 𝑙𝑒𝑣𝑒𝑙 = 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙∕𝑙𝑒𝑛𝑔𝑡ℎ. 
+The level measures whether a program is close to the shortest one 
+possible. This measure has an intuitive interpretation in the context 
+of regulatory complexity. If 𝑙𝑒𝑣𝑒𝑙 is high (close to 1) this means that 
+the  regulation  has  a  very  specific  vocabulary,  probably  opaque  to 
+outsiders. Conversely, a low value means that the regulation starts from 
+elementary concepts and operations. The impact of level is ambiguous: 
+a high-level regulation may be easier to process for experts, but more 
+difficult for others.
+
+-  Operator  diversity:  By  symmetry  with  𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙  we  propose  to 
+also  consider  the  number  of  unique  operators  𝑑𝑖𝑣𝑒𝑟𝑠𝑖𝑡𝑦 = 𝜂𝑂𝑅,  as 
+a  measure  of  psychological  complexity.  Intuitively,  there  might  be 
+increasing returns to scale in always processing the same operations, 
+whereas a regulation that describes many distinct operations could be 
+more difficult to understand.
+
+In  the  next  sections,  we  will  often  compare  regulatory  texts  of 
+very  different  sizes.  To  better  apprehend  the  heterogeneity  across 
+these texts, we will sometimes report our measures scaled by length: 
+𝑐𝑦𝑐𝑙𝑜𝑚𝑎𝑡𝑖𝑐 = 𝑐𝑦𝑐𝑙𝑜𝑚𝑎𝑡𝑖𝑐∕𝑙𝑒𝑛𝑔𝑡ℎ,  𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 = 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦∕𝑙𝑒𝑛𝑔𝑡ℎ,  and
+𝑑𝑖𝑣𝑒𝑟𝑠𝑖𝑡𝑦∕𝑙𝑒𝑛𝑔𝑡ℎ.  We  keep  the  notation  𝑙𝑒𝑣𝑒𝑙  for
+𝑑𝑖𝑣𝑒𝑟𝑠𝑖𝑡𝑦
+𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙∕𝑙𝑒𝑛𝑔𝑡ℎ.
+
+=
+
+Review of other measures.  For completeness, we briefly review other 
+measures that have been used in the literature but do not directly fit 
+within our framework.
+
+A number of other text-based measures have been used that do not 
+rely on the algorithmic value of words in a text. Kalmenovitz et al. 
+
+12 See also McLaughlin et al. (2021) for a recent study using this measure. 
+A related example is Herring (2018), who measures complexity through the 
+number of different capital ratios Global Systemically Important Banks need 
+to comply with.
+13 In Halstead (1977) the notion of ‘‘volume’’ is more involved than mere 
+length, due to an attempt at having a formula that would be valid in any 
+computer language. As this seems artificial in the context of regulation, we 
+simplify this aspect of Halstead’s analysis.
+
+Journal of Financial Economics 174 (2025) 104186 
+
+(2025) propose a measure of regulatory fragmentation, RegFragmen-
+tation,  which  relies  on  the  number  of  different  regulatory  agencies 
+mentioned in the Federal Register on a given topic. This measure is 
+best interpreted as a measure of computational complexity, the idea 
+being that the overlap between different authorities makes compliance 
+more costly.
+
+Amadxarif et al. (2019) use measures from the linguistics literature, 
+in particular average word length, the Maas’ index of lexical diversity
+(Maas, 1972), and the Flesch–Kincaid readability metric (Kincaid et al., 
+1975).  Katz  and  Bommarito  (2014)  and  Li  et  al.  (2015)  also  use
+Shannon’s entropy. All these measures do not rely on a partition of 
+words  between  operands  and  operators.  They  aim  at  capturing  the 
+complexity of the style used by an author, which is part of psychological 
+complexity.
+
+Boulet et al. (2011), Katz and Bommarito (2014), Li et al. (2015) 
+and Amadxarif et al. (2019) propose to analyze the network formed by 
+different legal texts or regulations that reference each other. Network 
+measures such as the in-degree, out-degree, or different network central-
+ities can then be interpreted as measures of psychological complexity. 
+These network-based measures of complexity are quite different from 
+our approach because they are based on references between different 
+legal texts in a corpus.
+
+Finally, there is a growing literature that proposes outcome-based 
+measures of regulatory complexity. For instance, Trebbi et al. (2023) 
+build a Regulation Index based on the proportion of regulation-related 
+employees in different sectors. Kalmenovitz (2023) proposes four RegIn
+indices of regulatory intensity, based on the number of forms required 
+by Federal regulatory agencies in the US, the number of completed 
+forms  they  receive,  and  the  associated  time  costs  and  dollar  costs. 
+Calomiris et al. (2020) propose to measure the cost of regulation to US 
+firms by NetReg, a measure based on the mention of regulatory topics in 
+transcripts of earnings calls. Singla (2023) uses estimates of regulatory 
+costs provided by US regulatory agencies themselves at the industry 
+level.
+
+Table  1 summarizes the different measures surveyed in this section. 
+The table also serves to illustrate how different measures can be classi-
+fied according to the dimension of complexity they capture, following 
+Section 2.2.
+
+3. Building the measures
+
+The Halstead measures we propose to use were initially designed for 
+algorithms, in which the classification of elements into operands and 
+operators is unambiguous. In this section, we show that it is possible 
+to meaningfully adapt these measures to regulatory texts. We start with 
+the example of the computation of capital requirements under the 1988 
+Basel  Accords.  This  is  a  natural  starting  point  as  this  regulation  is 
+very close to describing an algorithm. We then extend our approach 
+to  two  important  and  complementary  texts,  namely  the  US  Dodd–
+Frank Act and the 2021 version of the European Banking Authority’s 
+‘‘Implementing Technical Standards on Supervisory Reporting’’.
+
+3.1. Basel I as an algorithm
+
+The Basel I Accords are a 30-page long text specifying how to com-
+pute a bank’s capital ratio. We focus here on Annex 2, ‘‘Risk weights 
+by category of on-balance-sheet asset’’. This Annex maps different asset 
+classes to risk buckets, and different capital instruments to weights. 
+The regulation then compares the risk-weighted sum of assets to the 
+weighted sum of capital, and the ratio has to be higher than 8%.
+
+Annex 2 is easily described as an algorithm. Our idea is to first apply 
+the Halstead measures described above literally, by writing a ‘‘pseudo-
+code’’ that implements the Basel I computation of risk-weighted assets. 
+We then compute the Halstead measures on the original text instead, 
+by classifying the words into operands and operators, and verify that 
+we can classify a large fraction of words. Finally, we compare the two 
+
+6 
+
+J.-E. Colliard and C.-P. Georg
+
+Journal of Financial Economics 174 (2025) 104186 
+
+Source
+
+Formula
+
+Short description
+
+Complexity dimension 
+
+𝑁
+𝑁𝐿
+𝑁𝑅
+2 + 𝜂𝑂𝐷
+𝜂𝑂𝑅
+2+𝜂𝑂𝐷
+𝑁
+
+Table 1
+Summary of measures of regulatory complexity.
+  Name
+  Text-based measures
+  Length
+  Cyclomatic complexity
+  Quantity of regulations
+  Potential volume
+  Operator diversity
+  Level
+  RegFragmentation
+  Average word length
+  Lexical diversity
+  Readability metric
+  Shannon’s entropy
+  PageRank
+  Network centralities
+  Outcome-based measures
+  Regulation index
+  RegIn
+  NetReg
+  Regulatory costs
+This table summarizes the different measures reviewed in Section 2.3 and organizes them according to whether they are text-based or outcome-based, and the dimension of 
+complexity they capture.
+
+Number of words
+Number of logical operators
+Number of regulatory operators
+2+ Number of unique operands
+Number of unique operators
+Potential volume normalized by length
+Fragmentation of regulation across multiple agencies
+Average number of characters of words used
+Adjusted proportion of unique words
+Metric based on the length of sentences and words
+Dispersion of the distribution of words used
+Centrality of a rule in a corpus of cross-citing rules
+Centrality of a rule in a corpus of cross-citing rules
+
+e.g., Haldane and Madouros (2012)
+Li et al. (2015)
+Al-Ubaydli and McLaughlin (2017)
+This paper and Halstead (1977)
+This paper
+This paper and Halstead (1977)
+Kalmenovitz et al. (2025)
+e.g., Amadxarif et al. (2019)
+Maas (1972)
+Kincaid et al. (1975)
+e.g., Katz and Bommarito (2014)
+Amadxarif et al. (2019)
+Boulet et al. (2011)
+
+Share of labor costs related to regulation
+Compliance costs, in hours of labor
+Mentions of more minus less regulation in earnings calls
+Costs estimated by regulatory agencies
+
+Trebbi et al. (2023)
+Kalmenovitz (2023)
+Calomiris et al. (2020)
+Singla (2023)
+
+Psychological
+Psychological
+Intrinsic
+Intrinsic
+Psychological
+Psychological
+
+Computational
+Computational
+Computational
+Computational
+
+Psychological
+Psychological
+Psychological
+Psychological
+
+Psychological
+Psychological
+
+Computational
+
+–
+–
+–
+–
+
+–
+–
+–
+–
+
+–
+–
+
+–
+
+approaches and verify that measures of intrinsic complexity (which 
+should not depend on the language used, code or plain English) are 
+indeed similar under the two approaches.
+
+We give the full pseudo-code of the Basel I risk weights in Online 
+Appendix OA.1. To give an example, Basel I specifies a risk weight of 
+20% for ‘‘Claims on banks incorporated in the OECD’’. In our code this 
+is translated into:
+
+operators (e.g., ‘‘by’’, ‘‘on’’, ‘‘the’’), hence we do not take them into 
+account. In the Online Appendix OA.2 we report the most frequent 
+words in each category, as well as the measures we compute for each 
+item of Basel I.
+
+We can now compare the measures derived under the two versions 
+of the regulation, the algorithm and the actual text. Going back to the 
+example above, its text version is:
+
+IF (ASSET_CLASS == "claims" AND ISSUER == "bank" AND
+ISSUER_COUNTRY == "oecd") THEN:
+    risk_weight = 0.2;
+
+are 
+
+The 
+
+asset 
+
+operands 
+
+the  different 
+
+characteristics
+(e.g., ASSET_CLASS, ISSUER_COUNTRY), their values (e.g., oecd), 
+and risk-weights (e.g., risk_weight, 0.2). The logical operators are
+IF, AND, THEN, and we distinguish between the mathematical operator
+== and the regulatory operator =. We thus obtain 𝜂𝑂𝐷 = 𝑁𝑂𝐷 = 8, 
+𝜂𝑅 = 𝑁𝑅 = 1, 𝜂𝐿 = 3, 𝑁𝐿 = 4, 𝜂𝑀 = 1, 𝑁𝑀 = 3. We can then apply the 
+formulas derived in Section 2.3 and compute the complexity measures. 
+We conduct the same exercise for the 19 items covered by Basel I, and 
+report all the measures in Online Appendix OA.2.
+
+We then repeat the analysis, relying this time on the actual text of 
+Basel I’s Appendix 2. A drawback of this text is that some words are 
+left implicit. In particular, the mapping between different asset classes 
+and their respective risk weights is only indicated by the layout of the 
+page. To circumvent this issue, we wrote a more explicit text in which 
+each item ends with ‘‘shall have an x% risk weight’’. This is the only 
+modification we made.14
+
+We then classify as ‘‘operands’’ the words or word combinations that 
+have the same function as operands in the program. These are economic 
+entities (e.g., ‘‘bank’’ or ‘‘OECD’’), characteristics (e.g., ‘‘maturity’’ or 
+‘‘counterparty’’), and values (e.g., ‘‘one year’’). We classify as regulatory 
+operators words that indicate an obligation or regulatory requirement, 
+which here is ‘‘shall have’’. Logical operators are words that correspond 
+to  logical  operations,  such  as  ‘‘and’’  or  ‘‘excluding’’.  Mathematical 
+operators are for instance ‘‘up to’’ and ‘‘above’’.
+
+Using this approach, we classify 80 unique words or expressions 
+out  of  the  95  used  in  the  text.  The  remaining  words  are  used  for 
+grammatical  reasons  and  do  not  really  correspond  to  operands  or 
+
+14 We report this modified text in Online Appendix OA.1.
+
+7 
+
+Claims on banks incorporated in the OECD shall have a 20% risk 
+
+weight.
+
+There are 𝜂𝑂𝐷 = 6 unique operands (‘‘claims’’, ‘‘banks’’, ‘‘incor-
+porated’’,  ‘‘OECD’’,  ‘‘20%’’,  and  ‘‘risk  weight’’)  and  𝜂𝑅 = 1  unique 
+regulatory operator (‘‘shall have’’). The algorithmic version and the text 
+version have the same 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦: one rule in each case. Their measures 
+of 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙 are close but not exactly the same. The text version has 
+no equivalent for the operands ‘‘ASSET_CLASS’’ and ‘‘ISSUER’’: these 
+operands  have  to  be  explicit  in  the  algorithm,  but  are  implicit  in 
+the text. Similarly, the measures 𝑐𝑦𝑐𝑙𝑜𝑚𝑎𝑡𝑖𝑐 and 𝑑𝑖𝑣𝑒𝑟𝑠𝑖𝑡𝑦 are different 
+because the algorithmic version uses logical operators that are implicit 
+in the text.
+
+These observations generalize to the other 18 items of Basel I. We 
+compute the correlations between the text-based measures and their 
+algorithm-based counterparts and report the results in Table  2.15 The 
+correlation is perfect for 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦, high for 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙 (0.82), and medium 
+(between 0.40 and 0.68) for 𝑙𝑒𝑛𝑔𝑡ℎ, 𝑐𝑦𝑐𝑙𝑜𝑚𝑎𝑡𝑖𝑐, 𝑑𝑖𝑣𝑒𝑟𝑠𝑖𝑡𝑦, and 𝑙𝑒𝑣𝑒𝑙.
+
+These results correspond well to the theoretical properties of the 
+different measures. On the one hand, 𝑙𝑒𝑛𝑔𝑡ℎ, 𝑐𝑦𝑐𝑙𝑜𝑚𝑎𝑡𝑖𝑐, 𝑑𝑖𝑣𝑒𝑟𝑠𝑖𝑡𝑦, and 
+𝑙𝑒𝑣𝑒𝑙 are measures of psychological complexity and should depend on 
+the way a regulation is written. The algorithm is more explicit than 
+the text and thus has a different psychological complexity, which is 
+what  our  measures  capture.  In  particular,  𝑙𝑒𝑣𝑒𝑙  is  indeed  lower  in 
+the algorithmic version. On the other hand, 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 and 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙 are 
+measures of intrinsic complexity and should in theory not depend on 
+the way the regulation is written. This is correct exactly for 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦, 
+and correct up to a few words left implicit in the text for 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙.
+
+We conclude from this exercise that most words in a regulatory 
+text can be classified into operands and operators, so that it is possible 
+
+15 Since 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 is constant in both the algorithm version and the text 
+version we adopt the convention that the correlation coefficients are equal 
+to 1.
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+J.-E. Colliard and C.-P. Georg
+
+Table 2
+Correlation of the complexity measures between the algorithmic and the text 
+versions of Basel I items.
+
+Pearson
+
+Spearman 
+0.83
+0.64
+1.00
+0.8
+0.48
+0.51
+
+0.68
+0.41
+1.00
+0.82
+0.4
+0.45
+
+  𝑙𝑒𝑛𝑔𝑡ℎ
+  𝑐𝑦𝑐𝑙𝑜𝑚𝑎𝑡𝑖𝑐
+  𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦
+  𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙
+  𝑑𝑖𝑣𝑒𝑟𝑠𝑖𝑡𝑦
+  𝑙𝑒𝑣𝑒𝑙
+For each complexity measure, this table reports the correlation between the values 
+obtained when computing the measures on the 19 items of Basel I in the algorithmic 
+version, against the same 19 items in the text version. We compute both Pearson and 
+Spearman (rank) correlation coefficients.
+Reminder of the different measures: 𝑙𝑒𝑛𝑔𝑡ℎ is the total number of words, 𝑐𝑦𝑐𝑙𝑜𝑚𝑎𝑡𝑖𝑐
+is the total number of logical operators, 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 is the total number of regulatory 
+operators, 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙 is the number of unique operands, 𝑑𝑖𝑣𝑒𝑟𝑠𝑖𝑡𝑦 is the number of unique 
+operators, and 𝑙𝑒𝑣𝑒𝑙 is the ratio 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙∕𝑙𝑒𝑛𝑔𝑡ℎ.
+
+to compute the Halstead measures on a text. Moreover, 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 and 
+𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙, which are meant to capture intrinsic complexity, seem to 
+indeed be relatively insensitive to how the regulation is written. Both 
+observations  support  using  the  text-based  approach  for  a  full-scale 
+regulatory text in the next sections.
+
+3.2. Building a dictionary: The Dodd–Frank Act
+
+We now compute our complexity measures for the 2010 Dodd–
+Frank Act (DFA). There are two reasons for this choice. First, the DFA 
+is a long text (848 pages) that touches upon a wide range of issues 
+in finance. A dictionary of operands and operators based on the DFA 
+thus covers many financial regulation topics. Second, as the DFA is 
+one of the key regulations introduced after the financial crisis, it has 
+triggered a lot of debate, in particular regarding the costs associated 
+with its complexity (e.g., Alvero et al. (2022) and Hogan and Burns 
+(2019)). As a result, several papers have computed different measures 
+on the text of the DFA (in particular, Li et al. (2015) and McLaughlin 
+et al. (2021)), and analyzing the same text makes it possible to compare 
+different approaches.
+
+The scale and scope of the DFA creates four new challenges com-
+
+pared to the limited example of Basel I:
+
+First, a lot of operands in the DFA are ‘‘n-grams’’, expressions made 
+of n distinct words. For instance, ‘‘Consumer Financial Protection Bu-
+reau’’ should be considered as one expression, not four distinct words. 
+To take this into account, we made a list of all n-grams in the DFA (for 
+details see the Online Appendix OA.3). We classified each n-gram into 
+a category, and then removed it from further counts. That is, we made 
+sure that ‘‘Consumer Financial Protection Bureau’’ is counted only once, 
+as an operand.
+
+Second,  some  words  may  appear  several  times  with  ‘‘variants’’, 
+e.g., singular and plural of the same noun, or different forms of the 
+same verb, for instance ‘‘disapprove’’, ‘‘disapproved’’, and ‘‘disapprov-
+ing’’.  When  such  a  case  arises,  we  manually  record  that  these  are 
+variants of a unique ‘‘root’’ word, and when computing the number of 
+unique words in a given category we only count the root word. We 
+choose to not consider synonyms as variants, as the use of different 
+words could be intentional (and, in any case, will be more complex for 
+the reader than if a single word were used). Similarly, we do not count 
+initials and abbreviations as variants, as the reader will have to keep 
+track of what the initials stand for.
+
+Third, some words in the text can be used sometimes as an operand 
+and sometimes as an operator. The most prominent example is the word 
+‘‘is’’. In principle, ‘‘is’’ could be a regulatory operator (e.g., ‘‘the risk-
+weight is 20%’’). However, it could have a merely grammatical function 
+to indicate the passive voice (e.g., ‘‘each report is submitted’’). We 
+
+8 
+
+Journal of Financial Economics 174 (2025) 104186 
+
+classify such ambiguous words in the category ‘‘other’’, and hence do 
+not count them in our different measures.16
+
+Fourth, the DFA uses a lot of external references. As an example, 
+Section 201 (5) reads ‘‘The term ‘‘company’’ has the same meaning 
+as  in  section  2(b)  of  the  Bank  Holding  Company  Act  of  1956  (12 
+U.S.C. 1841(b)) [...]’’ A possible approach would be to include the text 
+referenced in the example as being implicitly part of the DFA. However, 
+with  such  an  approach  we  would  quickly  run  into  the  ‘‘dictionary 
+paradox’’  (every  reference  refers  to  other  texts).  Instead,  and  more 
+consistent  with  the  Halstead  approach,  we  consider  that  if  a  legal 
+reference is mentioned it is part of the ‘‘vocabulary’’ one has to master 
+in order to read the Act, similar to a program calling a pre-programmed 
+function. The role of legal references is ambiguous, they are sometimes 
+used as operators and sometimes as operands. Thus, we include them 
+in the ‘‘other’’ category.
+
+These difficulties required us to classify the words manually. To this 
+end, we developed a ‘‘dashboard’’ which displays the text of the Dodd–
+Frank Act in a browser and allows us to highlight every n-gram we 
+identify manually and categorize it as an economic operand, regulatory 
+operator, etc. Once we manually identify an n-gram, the dashboard will 
+find it in the entire DFA and classify it accordingly. We provide more 
+details on the dashboard in the Online Appendix OA.3. By classifying 
+words in the 16 Titles of the DFA plus its introduction, we obtain 
+a  dictionary  containing:  608  operators  (276  logical  operators,  221 
+regulatory operators, 111 mathematical operators), 5627 operands, as 
+well as 2077 ‘‘other’’ words (1719 legal references, 189 function words, 
+and 169 ambiguous words).17 Table  3 shows the top 10 words in each 
+category as well as the number of occurrences. We then compute our 
+measures for the different titles of the DFA. Fig.  2 shows a histogram of 
+the distribution of the different measures across titles, and Table OA.7 
+in the Online Appendix reports the measures for each title.
+
+3.3. Expanded dictionary: The Implementing Technical Standards
+
+To validate our measures, in Section 4.2 we correlate them with 
+the responses given by banks to a survey conducted by the European 
+Banking Authority on the complexity of its ‘‘Implementing Technical 
+Standards’’ (ITS). The ITS collect instructions on how all EU banks 
+need to report information to their supervision authority in order to 
+be compliant with the EU implementation of Basel III. Simply put, it is 
+the most important text on banking supervision in the EU.18
+
+The  ITS  are  organized  in  87  different  templates  identified  by  a 
+letter and a number.19 ‘‘C03’’ is, for instance, the template for reporting 
+capital ratios. Each template consists of a set of tables with empty 
+cells indicating the information that banks have to report, and then 
+additional explanations in an appendix. We group each template and 
+its appendix together. Some of the templates are made of different 
+subtemplates, such as C32.01, C32.02, C32.03, and C32.04. Finally, the 
+
+16 There is necessarily some judgment involved in this decision. One could 
+consider other possibilities, such as estimating the fraction of occurrences in 
+which ‘‘is’’ is a regulatory operator, an operand, etc., but we believe these 
+estimates would not necessarily carry over to other regulatory texts, thus 
+running against the objective of building a reusable dictionary.
+17 We  check  in  particular  that  our  list  of  regulatory  operators,  used  to 
+compute  𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦,  includes  the  words  used  in  Al-Ubaydli  and  McLaughlin 
+(2017) and Calomiris et al. (2020), and that our list of logical operators 
+includes the words used in Li et al. (2015) to compute cyclomatic complexity.
+18 More precisely, we consider the ITS as collected in the ‘‘Commission 
+Implementing Regulation (EU) 2021/451’’ of 17 December 2020, published 
+in the Official Journal of the European Union on 19 March 2021. This text, 
+which is 1955 pages long, is a finalized version of the ITS for the application 
+of Regulation (EU) No 575/2013, better known as the ‘‘Capital Requirements 
+Regulation’’ or CRR.
+19 Templates start either with ‘‘C’’ for ‘‘Common Reporting’’, focused on 
+capital, or ‘‘F’’ for ‘‘Financial Reporting’’, focused on financial variables.
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+J.-E. Colliard and C.-P. Georg
+
+Journal of Financial Economics 174 (2025) 104186 
+
+Table 3
+Top 10 words per category in the DFA.
+  Operands
+
+Operators
+
+Regulatory
+
+Logical
+
+Mathematical
+
+267 
+  commission
+165 
+  1
+154 
+  2
+125 
+  person
+101 
+  financial
+86  
+  bureau
+85  
+  corporation
+83  
+  information
+70  
+  3
+  securities
+69  
+This table reports the 10 most frequent operands, regulatory operators, logical operators, and mathematical operators found in the entire text 
+of the DFA, together with the number of occurrences.
+
+adding
+more
+amount of
+additional
+total
+minimum
+the end of the
+more than
+exceed
+over
+
+shall
+amended
+required
+regulations
+regulation
+established
+determination
+establish
+compliance
+require
+
+and
+or
+any
+such
+as
+other
+not
+after
+including
+each
+
+3596
+651
+605
+436
+308
+282
+281
+247
+242
+223
+
+9730
+8959
+4007
+2849
+2633
+1547
+1128
+907
+761
+697
+
+1487
+1479
+1222
+931
+877
+788
+772
+734
+704
+672
+
+Fig. 2. Histogram of complexity measures for the DFA and the ITS.
+This figure shows histograms of the values of our complexity measures for each of the 16 Titles of the DFA (red) and the 51 templates or groups of templates of 
+the ITS (blue).
+Reminder of the different measures: 𝑙𝑒𝑛𝑔𝑡ℎ is the total number of words, 𝑐𝑦𝑐𝑙𝑜𝑚𝑎𝑡𝑖𝑐 is the total number of logical operators divided by 𝑙𝑒𝑛𝑔𝑡ℎ, 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 is the total 
+number of regulatory operators divided by 𝑙𝑒𝑛𝑔𝑡ℎ, 𝑑𝑖𝑣𝑒𝑟𝑠𝑖𝑡𝑦 is the number of unique operators divided by 𝑙𝑒𝑛𝑔𝑡ℎ, and 𝑙𝑒𝑣𝑒𝑙 is the number of unique operands 
+divided by 𝑙𝑒𝑛𝑔𝑡ℎ.  (For interpretation of the references to color in this figure legend, the reader is referred to the web version of this article.)
+
+9 
+
+ 
+J.-E. Colliard and C.-P. Georg
+
+survey that we use in Section 4.2 regroups some of these templates by 
+topic. For example, ‘‘C12, C13, C14 - Credit risk: securitisations’’. In 
+order to use the information from the survey, we compute our measures 
+of  complexity  at  the  level  of  each  template  or  group  of  templates 
+covered in the survey. This gives us a cross section of 51 templates 
+or groups of templates.20
+
+As in Annex 2 of the Basel I Accords studied in Section 3.1, the main 
+regulatory operators in the ITS are implicit: each empty cell is, in fact, 
+an indication that banks should report a certain number. Hence, we first 
+count the number of empty cells in each template and classify them as 
+regulatory operators.21 Then, we identify all the n-grams and words in 
+the text. When they are not already present in the DFA dictionary, we 
+classify them as operands and operators as before and add them to the 
+dictionary. Of the 3083 operands and operators we identify in the ITS, 
+1867 or 61% were already in the DFA.
+
+Using this updated dictionary, we compute our measures on the ITS 
+as we did for the DFA. Fig.  2 shows the histograms of the distributions 
+of the different measures in the 51 templates, and Table OA.8 in the 
+Online Appendix shows the measures for each template. We observe 
+significant heterogeneity for all measures, with a significant right tail. 
+In addition, the distribution of 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 is heavily shifted to the right 
+in the ITS relative to the DFA, which is due to the ITS being reporting 
+templates with a large amount of numbers to report and few explana-
+tions per reporting obligation. In contrast, 𝑙𝑒𝑣𝑒𝑙 is shifted to the left, 
+indicating that the ITS is more detailed and repetitive than the DFA.22
+
+4. Testing the measures
+
+We can now test which of our text-based measures correlate with 
+costs of complexity. The first test relies on experiments based on ran-
+domly generated regulations. The second test uses a survey conducted 
+by the EBA on the compliance costs associated with the ITS templates. 
+These two approaches are complementary. The experiments have the 
+advantage  of  using  artificial  regulations  that  vary  in  complexity  in 
+an exogenous way. The advantage of the survey is that it relies on 
+professional bankers working on compliance. At the end of this section 
+we  discuss  how  both  approaches  validate  two  of  our  measures  in 
+particular, and what they tell us about how banks perceive complexity.
+
+4.1. Experimental validation
+
+The idea of using experiments to validate complexity measures orig-
+inates in computer science. In that field, complexity measures are tested 
+by asking different programmers to write the same code. One then 
+checks whether the mistakes they make or the time they take to perform 
+the task are correlated with a measure of algorithmic complexity. We 
+apply this idea in the context of banking regulation.
+
+20 We exclude a few templates that are mentioned in the survey but do not 
+appear in the version of the ITS we use. These are: C12 to C14, C30 and C31, 
+C41 to C43, C60 and C61, F90 to F93.
+21 We do not count empty cells filled in gray or in black, as these colors 
+indicate they do not have to be filled. We also do not count a small number 
+of cells in columns marked ‘‘References’’ (accounting or legal) or ‘‘Breakdown 
+in table’’ because we think these do not have to be filled either.
+22 There are 42,814 empty cells in total in our sample, which may seem 
+a  very  high  number.  An  important  function  of  the  ITS  is  to  ensure  that 
+different national authorities will enforce homogeneous standards across the 
+EU, which requires a level of detail which may not be necessary in the US. 
+A more skeptical view would also be that lobbying by different countries in 
+favor of their ‘‘national champions’’ leads to more exceptions and special rules 
+(Haselmann et al., 2022), which then translates into more detailed reporting.
+
+Journal of Financial Economics 174 (2025) 104186 
+
+Table 4
+Summary statistics on complexity measures in the randomly generated regu-
+lations.
+
+𝑙𝑒𝑛𝑔𝑡ℎ
+
+𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦
+
+𝑑𝑖𝑣𝑒𝑟𝑠𝑖𝑡𝑦
+
+𝑐𝑦𝑐𝑙𝑜𝑚𝑎𝑡𝑖𝑐
+
+32
+12
+10
+21
+31
+41
+57
+
+0.16
+0.03
+0.10
+0.14
+0.16
+0.18
+0.21
+
+0.15
+0.06
+0.03
+0.10
+0.16
+0.19
+0.26
+
+𝑙𝑒𝑣𝑒𝑙 
+0.55 
+  Mean
+0.09 
+  Standard deviation
+0.39 
+  Minimum
+0.48 
+  P25
+0.55 
+  P50
+0.62 
+  P75
+  Maximum
+0.70 
+We compute our complexity measures for each of the 38 randomly generated reg-
+ulations  we  use  in  our  experiments.  This  table  reports  summary  statistics  on  the 
+distribution of each measure across these 38 regulations: mean, standard deviation, 
+minimum, first, second, and third quartile, and maximum.
+Reminder of the different measures: 𝑙𝑒𝑛𝑔𝑡ℎ is the total number of words, 𝑐𝑦𝑐𝑙𝑜𝑚𝑎𝑡𝑖𝑐 is 
+the total number of logical operators divided by 𝑙𝑒𝑛𝑔𝑡ℎ, 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 is the total number 
+of regulatory operators divided by 𝑙𝑒𝑛𝑔𝑡ℎ, 𝑑𝑖𝑣𝑒𝑟𝑠𝑖𝑡𝑦 is the number of unique operators 
+divided by 𝑙𝑒𝑛𝑔𝑡ℎ, and 𝑙𝑒𝑣𝑒𝑙 is the number of unique operands divided by 𝑙𝑒𝑛𝑔𝑡ℎ.
+
+0.15
+0.05
+0.08
+0.12
+0.14
+0.17
+0.30
+
+Design.  An  ideal  experiment  requires  a  sample  of  regulations  and 
+rules with cross-sectional variation in complexity. Ideally, this varia-
+tion should be exogenous, not correlated with unobservable variables 
+or contaminated by the priors of the experimenter. The solution we 
+propose is to generate a sample of random regulatory texts: we start 
+with the Basel I rules studied in Section 3.1, and generate random 
+variations on these rules. We obtain a number of artificial ‘‘Basel-I like’’ 
+instructions to compute risk-weighted assets, where the instructions 
+vary in complexity.
+
+For instance, in our algorithmic version of Basel I (Online Appendix 
+OA.1), the regulatory text ‘‘Cash items in process of collection shall have a 
+20% risk weight’’ translates into a conditional statement of the type IF-
+X-AND-Y-THEN with two conditions X: ASSET_CLASS == "cash"
+and CASH_COLLECTION == "in progress". A random variation 
+could for instance consist in changing the value of ASSET_CLASS to
+"loans", and add new attributes such as ISSUER, DENOMINATION, 
+and so on. Each randomly generated regulation consists of these build-
+ing blocks, which are connected using a random number of AND and
+OR statements, at most 6 (the largest number of conditions in any
+IF-THEN clause in Annex 2).
+
+As a last step, we manually check that the instructions make sense, 
+i.e., they are complete and do not contain contradictory rules, and 
+we make some minor manual changes to avoid ambiguities, grammar 
+mistakes, etc.23 At the end of this process, we obtain 38 regulations. 
+As shown in Table  4, there is significant variation in all the complexity 
+measures across the different regulations.24
+
+In order to find participants able to read the regulations and com-
+pute regulatory quantities, we asked the students of the MSc in Interna-
+tional Finance of HEC Paris, class of 2020–2021, to volunteer for taking 
+part in the experiment. Given the sanitary situation in early 2021, 
+our experiment was conducted online.25 After a registration page, an 
+introductory page, and a test round to ensure that he/she understands 
+the exercise, the participant starts the experiment. The main page is 
+reproduced in Fig.  3. The computer screen is split vertically in two. 
+On the right-hand side, a series of instructions correspond to a random 
+
+23 Figure OA.2 in the Online Appendix shows the possible attributes for each 
+asset class and the values these attributes can take, and Appendix  A shows an 
+example of such a randomly generated regulation. In addition, the replication 
+files of this paper, available at https://zenodo.org/records/16601188, give: (i) 
+the program used to generate the random regulations; (ii) the raw regulations 
+generated by the program; (iii) the final regulations we used in the experiment.
+24 All  measures  are  computed  based  on  the  actual  texts  seen  by  the 
+participants to the experiment, not on the underlying code.
+25 The interested reader can try the experiment anonymously at https://
+regulatorycomplexity.org/ with the login ‘‘test_account’’ and password ‘‘test’’.
+
+10 
+
+ 
+J.-E. Colliard and C.-P. Georg
+
+Journal of Financial Economics 174 (2025) 104186 
+
+Fig. 3. Online experiment—Test round.
+This figure is a screenshot of the main page of the website we use for the experiments. It corresponds to the test round, which is common to all participants. 
+Every subsequent round uses the same layout, with a different regulation on the right-hand side.
+
+selection of one of our 38 artificially generated regulations. On the left-
+hand side, there is a simplified bank balance sheet with details about 
+the different assets of a bank. The participant has to compute the risk-
+weighted assets of the bank following the instructions. We record the 
+answer given by the participant (and hence whether it is correct), as 
+well as the time taken to answer. The participant is then given a second 
+randomly selected regulation, and continues until he or she has given 
+9 answers (correct or not). We detail in the Online Appendix OA.5 how 
+we selected and incentivized the students, and reproduce all the pages 
+of the website.
+
+Mistakes.  The answers form a balanced panel with 118 participants, 
+indexed by 𝑖, answering 9 rounds each, indexed by 𝑡, for a total of 
+1062 participant-round observations. The 𝑡th round for each participant 
+corresponds to regulation 𝑅𝑖,𝑡 ∈ {1...38}, which is randomly drawn 
+from our 38 randomly generated regulations. For a given participant 
+the 9 regulations are independently drawn without replacement. The 
+draws  are  also  independent  across  students.  We  denote  𝑚𝑖𝑠𝑡𝑎𝑘𝑒𝑖,𝑡  a 
+dummy variable equal to 1 if the participant 𝑖’s answer to question 
+𝑡 is incorrect. Following Definition  3, 𝑚𝑖𝑠𝑡𝑎𝑘𝑒𝑖,𝑡 is an outcome-based 
+measure of computational complexity for participant 𝑖 and regulation 
+𝑅𝑖,𝑡. There is substantial variation across regulations. Denoting 𝑚𝑖𝑠𝑡𝑎𝑘𝑒𝑗
+the proportion of wrong answers for regulation 𝑗 ∈ {1, … , 38}, across all 
+regulations the average of 𝑚𝑖𝑠𝑡𝑎𝑘𝑒𝑗 is 31.39%, the standard deviation 
+is 16.78%, two regulations have the minimum of 0, the first quartile 
+is 17.86%, median 35.32%, third quartile 41.38%, and the maximum 
+62.50%.
+
+Denoting 𝜇(𝑅𝑖,𝑡) a text-based complexity measure for regulation 𝑅𝑖,𝑡, 
+in order to test whether 𝜇 is a useful measure we study its power to 
+explain the variation in 𝑚𝑖𝑠𝑡𝑎𝑘𝑒. First, we estimate the probit model 
+(7) below, at the participant-round level, using both participant and 
+round fixed effects. 𝛷(.) denotes the cdf of the standardized normal 
+distribution.26
+
+Pr(𝑚𝑖𝑠𝑡𝑎𝑘𝑒𝑖,𝑡 = 1) = 𝛷(𝛼 + 𝛽𝜇(𝑅𝑖,𝑡) + 𝛾𝑖 + 𝛿𝑡).
+
+(7)
+
+To  test  the  text-based  measures,  we  run  the  probit  regression  (7) 
+on 𝑙𝑒𝑛𝑔𝑡ℎ, and then on 𝑐𝑦𝑐𝑙𝑜𝑚𝑎𝑡𝑖𝑐, 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦, 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙, 𝑑𝑖𝑣𝑒𝑟𝑠𝑖𝑡𝑦, and 
+𝑙𝑒𝑣𝑒𝑙 separately, using 𝑙𝑒𝑛𝑔𝑡ℎ as a control variable. Since 𝑙𝑒𝑛𝑔𝑡ℎ is a 
+natural measure of complexity, another measure is useful only if it can 
+explain outcomes beyond 𝑙𝑒𝑛𝑔𝑡ℎ. Hence, we expect a good measure of 
+complexity to be significantly positively associated with 𝑚𝑖𝑠𝑡𝑎𝑘𝑒 even 
+after controlling for 𝑙𝑒𝑛𝑔𝑡ℎ.
+
+We observe that 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 is the only measure that has a signifi-
+cant positive correlation with 𝑚𝑖𝑠𝑡𝑎𝑘𝑒 once controlling for 𝑙𝑒𝑛𝑔𝑡ℎ.27 In 
+
+particular, controlling for 𝑙𝑒𝑛𝑔𝑡ℎ, 𝑐𝑦𝑐𝑙𝑜𝑚𝑎𝑡𝑖𝑐 and 𝑑𝑖𝑣𝑒𝑟𝑠𝑖𝑡𝑦 are signifi-
+cantly negatively correlated with mistakes. Both capture the presence 
+of conditions and logical statements in the different regulations. Many 
+of these conditions actually simplify the computations: the more con-
+ditions an asset has to satisfy to have a certain risk weight, the more 
+likely it is that the conditions are not met and that the participant does 
+not have to perform the computation. We believe this is actually an 
+interesting result that also applies in real world situations. A typical 
+example in the real world would be exemptions for banks under a 
+certain  asset  size.  While  such  exemptions  make  understanding  the 
+entire regulation harder, they also clearly reduce the implementation 
+costs for the exempted banks.
+
+The measure 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 stands out in Table  5. Not only is it signifi-
+cantly positively correlated with 𝑚𝑖𝑠𝑡𝑎𝑘𝑒 when controlling for 𝑙𝑒𝑛𝑔𝑡ℎ, 
+but actually 𝑙𝑒𝑛𝑔𝑡ℎ loses any statistical significance. Note that while 
+𝑐𝑦𝑐𝑙𝑜𝑚𝑎𝑡𝑖𝑐 and 𝑑𝑖𝑣𝑒𝑟𝑠𝑖𝑡𝑦 are measures of psychological complexity like 
+𝑙𝑒𝑛𝑔𝑡ℎ, 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 and 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙 are measures of intrinsic complexity. We 
+expected these measures to potentially capture a dimension not already 
+reflected in 𝑙𝑒𝑛𝑔𝑡ℎ, and we indeed find this is the case for 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦.
+
+Time taken.  For each participant 𝑖 and round 𝑡, we record the time 
+taken  to  answer,  denoted  𝑡𝑖𝑚𝑒𝑖,𝑡.  We  interpret  𝑡𝑖𝑚𝑒  as  the  effort  in 
+Definition   3.  Two  issues  complicate  the  measurement:  (i)  A  partic-
+ipant may take an abnormally short time to answer because he or 
+she misunderstood the regulation, or simply gave up, so that wrong 
+answers given after a short time may not reflect a low complexity; 
+(ii) A few correct answers were given after a long time (the maximum 
+being 958 s, or about 16 min). These participants likely got distracted 
+while completing the online experiment, in which case the actual effort 
+exerted may be vastly overestimated.
+
+To address these issues, we restrict the sample to answers that are 
+the least likely to be affected. Starting with 1062 observations, we keep 
+only those 728 that correspond to correct answers, which solves (i). We 
+then delete observations for which 𝑡𝑖𝑚𝑒𝑖,𝑡 is above the 99th percentile of 
+the initial distribution, which is 579 s (6 observations), alleviating (ii). 
+There is still significant variation in 𝑡𝑖𝑚𝑒𝑖,𝑡 in this restricted sample: the 
+average is 132 s, the standard deviation 98, minimum 6, first quartile 
+
+26 The round fixed effect captures that participants may become better at this 
+exercise after the first few rounds. The presence of this effect is in principle not 
+an issue since regulations are randomized, and indeed not including this fixed 
+effect does not alter our results (see Table OA.12 in the Online Appendix).
+27 Table OA.14 in the Online Appendix shows that all measures except level 
+are significantly and positively correlated with 𝑚𝑖𝑠𝑡𝑎𝑘𝑒 if one does not control 
+for 𝑙𝑒𝑛𝑔𝑡ℎ.
+
+11 
+
+J.-E. Colliard and C.-P. Georg
+
+Journal of Financial Economics 174 (2025) 104186 
+
+Table 5
+Correlation of mistakes with measures of complexity, beyond 𝑙𝑒𝑛𝑔𝑡ℎ.
+
+  𝑙𝑒𝑛𝑔𝑡ℎ
+
+  𝑐𝑦𝑐𝑙𝑜𝑚𝑎𝑡𝑖𝑐
+
+  𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦
+
+  𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙
+
+  𝑑𝑖𝑣𝑒𝑟𝑠𝑖𝑡𝑦
+
+  𝑙𝑒𝑣𝑒𝑙
+
+(1)
+
+0.037***
+(8.67)
+
+(2)
+
+0.055***
+(6.14)
+−0.068**
+(−2.25)
+
+(3)
+
+−0.005
+(−0.64)
+
+0.554***
+(6.27)
+
+(4)
+
+0.030***
+(2.85)
+
+(5)
+
+0.065***
+(8.41)
+
+(6)
+0.031*** 
+(5.55)
+
+0.017
+(0.73)
+
+−0.438***
+(−4.49)
+
+0.248
+
+0.277
+
+0.244
+
+0.260
+
+−1.275  
+(−1.60)  
+0.246
+
+  Pseudo-𝑅2
+We estimate the probit regression (7):
+
+0.243
+
+Pr(𝑚𝑖𝑠𝑡𝑎𝑘𝑒𝑖,𝑡 = 1) = 𝛷(𝛼 + 𝛽𝜇(𝑅𝑖,𝑡) + 𝛾𝑖 + 𝛿𝑡),
+
+where 𝑚𝑖𝑠𝑡𝑎𝑘𝑒𝑖,𝑡 is a dummy variable equal to 1 if participant 𝑖 gave an incorrect answer in round 𝑡, 𝜇(𝑅𝑖,𝑡) is a characteristic or vector of 
+characteristics of the regulation given to participant 𝑖 in round 𝑡, 𝛾𝑖 and 𝛿𝑡 are participant- and round-fixed effects, and 𝛷 is the standardized 
+Gaussian cdf. The table reports the coefficient(s) 𝛽 when including different measures as regressors, 𝑡-statistics (in brackets) computed with 
+robust standard errors, and Mc Fadden’s Pseudo-𝑅2. ∗, ∗∗, and ∗∗∗ denote statistical significance at the 10%, 5%, and 1% levels, respectively.
+Reminder of the different measures: 𝑙𝑒𝑛𝑔𝑡ℎ is the total number of words, 𝑐𝑦𝑐𝑙𝑜𝑚𝑎𝑡𝑖𝑐 is the total number of logical operators, 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 is 
+the total number of regulatory operators, 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙 is the number of unique operands, 𝑑𝑖𝑣𝑒𝑟𝑠𝑖𝑡𝑦 is the number of unique operators, and 
+𝑙𝑒𝑣𝑒𝑙 = 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙∕𝑙𝑒𝑛𝑔𝑡ℎ.
+
+Table 6
+Correlation of time taken with measures of complexity, beyond 𝑙𝑒𝑛𝑔𝑡ℎ.
+
+(1)
+
+3.388***
+(14.63)
+
+(2)
+
+5.371***
+(9.93)
+−8.084***
+(−3.84)
+
+(3)
+
+2.234***
+(3.88)
+
+13.072**
+(2.30)
+
+  𝑙𝑒𝑛𝑔𝑡ℎ
+
+  𝑐𝑦𝑐𝑙𝑜𝑚𝑎𝑡𝑖𝑐
+
+  𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦
+
+  𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙
+
+  𝑑𝑖𝑣𝑒𝑟𝑠𝑖𝑡𝑦
+
+  𝑙𝑒𝑣𝑒𝑙
+
+(4)
+
+0.556
+(0.81)
+
+(5)
+
+2.946***
+(6.09)
+
+(6)
+
+4.183***
+(11.92)
+
+6.807***
+(4.41)
+
+6.899
+(1.14)
+
+165.462*** 
+(3.29)
+
+  Adjusted-𝑅2
+We estimate the OLS regression (8):
+
+0.445
+
+𝑡𝑖𝑚𝑒𝑖,𝑡 = 𝛼 + 𝛽𝜇(𝑅𝑖,𝑡) + 𝛾𝑖 + 𝛿𝑡 + 𝜖𝑖,𝑡,
+
+0.461
+
+0.450
+
+0.465
+
+0.445
+
+0.455
+
+where 𝑡𝑖𝑚𝑒𝑖,𝑡 is the time in seconds that participant 𝑖 took to answer in round 𝑡, 𝜇(𝑅𝑖,𝑡) is a characteristic or vector of characteristics of the 
+regulation given to participant 𝑖 in round 𝑡, 𝛾𝑖 and 𝛿𝑡 are participant- and round-fixed effects, and 𝜖𝑖,𝑡 is an error term. The table reports the 
+coefficient(s) 𝛽 when including different measures as regressors, 𝑡-statistics (in brackets) computed with robust standard errors, and adjusted 
+𝑅2. The sample is restricted to correct answers with 𝑡𝑖𝑚𝑒 below the 99th percentile. ∗, ∗∗, and ∗∗∗ denote statistical significance at the 10%, 
+5%, and 1% levels, respectively.
+Reminder of the different measures: 𝑙𝑒𝑛𝑔𝑡ℎ is the total number of words, 𝑐𝑦𝑐𝑙𝑜𝑚𝑎𝑡𝑖𝑐 is the total number of logical operators, 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 is 
+the total number of regulatory operators, 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙 is the number of unique operands, 𝑑𝑖𝑣𝑒𝑟𝑠𝑖𝑡𝑦 is the number of unique operators, and 
+𝑙𝑒𝑣𝑒𝑙 = 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙∕𝑙𝑒𝑛𝑔𝑡ℎ.
+
+59, median 107, third quartile 180, and maximum 561 s. We then run 
+an OLS regression of 𝑡𝑖𝑚𝑒𝑖,𝑡 on different measures of complexity, with 
+participant and round fixed effects: 
+
+𝑡𝑖𝑚𝑒𝑖,𝑡 = 𝛼 + 𝛽𝜇(𝑅𝑖,𝑡) + 𝛾𝑖 + 𝛿𝑡 + 𝜖𝑖,𝑡.
+
+(8)
+
+Table  6 shows that, when controlling for 𝑙𝑒𝑛𝑔𝑡ℎ, both 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 and 
+𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙 are significantly and positively correlated with 𝑡𝑖𝑚𝑒. These 
+are the two measures of intrinsic complexity, which were expected to 
+potentially capture a different dimension from 𝑙𝑒𝑛𝑔𝑡ℎ.28
+
+4.2. Empirical validation
+
+Banker survey.  To also test our measures in a real-world application, 
+we use a survey conducted by the EBA on the cost of complying with 
+the ITS (European Banking Authority, 2021). The EBA asked all banks 
+in the European Economic Area (EEA) to complete a questionnaire on 
+their reporting costs and the complexity of the reporting templates (the 
+survey explicitly mentions complexity). They received responses from a 
+total of 251 credit institutions, among which 39 are ‘‘large institutions’’, 
+49 ‘‘medium institutions’’, and 163 ‘‘small and non-complex institutions 
+(SNCI)’’.29
+
+28 For robustness, Online Appendix OA.6 shows the results obtained when 
+aggregating answers at the regulation level. Online Appendix OA.8 shows the 
+results obtained with several other filtering choices. We obtain qualitatively 
+similar results, with the exception that the impact of 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 becomes not 
+significant at the 10% level in some specifications.
+
+29 Based on the answers, the study estimates the total ongoing reporting 
+costs associated with the EBA templates at 13.6 bn EUR, to which one should 
+add 6 bn EUR of implementation costs. Moreover, according to the study, these 
+
+12 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+J.-E. Colliard and C.-P. Georg
+
+We are mainly interested in the answers to Question 7, which reads:
+‘‘Please indicate, based on your experience, how costly the overall compli-
+ance with the reporting obligations of the ITS on Supervisory Reporting and 
+the GLs on reporting on exposures subject to COVID-19 measures is’’. Annex 
+5 of European Banking Authority (2021) reports, for each template or 
+group of templates described in Section 3.3, the percentage of banks 
+in each group (large, small, SNCI) that ‘‘classify the template or group 
+of templates as associated with high or medium-high reporting cost’’. 
+This gives us an outcome-based measure of complexity, in each group 
+of banks.
+
+We closely follow the approach of Section 4.1. An important dif-
+ference  is  that  the  answers  are  aggregated  at  the  group  level,  so 
+our  dependent  variable  𝑐𝑜𝑠𝑡𝑖,𝑗  is  the  percentage  of  banks  in  group 
+𝑖 ∈ {𝑙𝑎𝑟𝑔𝑒, 𝑚𝑒𝑑𝑖𝑢𝑚, 𝑠𝑚𝑎𝑙𝑙} that report a high or medium-high cost for 
+template 𝑗. We estimate the following model using OLS: 
+
+𝑐𝑜𝑠𝑡𝑖,𝑗 = 𝛼 + 𝛽𝜇(𝑅𝑗 ) + 𝛾2𝑚𝑒𝑑𝑖𝑢𝑚𝑖 + 𝛾3𝑠𝑚𝑎𝑙𝑙𝑖 + 𝜖𝑖,𝑗 ,
+
+(9)
+
+where 𝜇(𝑅𝑗 ) is a measure (or vector of measures) of regulatory com-
+plexity for template 𝑗, and 𝑚𝑒𝑑𝑖𝑢𝑚𝑖 and 𝑠𝑚𝑎𝑙𝑙𝑖 are group-fixed effects 
+(equal to 1 if group 𝑖 = 𝑚𝑒𝑑𝑖𝑢𝑚 or 𝑖 = 𝑠𝑚𝑎𝑙𝑙, respectively). Thus, large 
+banks serve as the baseline. Table  7 shows the results of the regressions 
+following the specification (9), with the same regressors as in Table  5. 
+In Table  7 we see that 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 is significantly positively correlated with 
+𝑐𝑜𝑠𝑡 after controlling for 𝑙𝑒𝑛𝑔𝑡ℎ, at the 1% level. 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙 is significant 
+only at the 10% level. Interestingly, 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 was also the only variable 
+to be significant in both Tables  5 and 6, so again the results in the 
+experiment and in the empirical application are remarkably consis-
+tent.30 We also check that the result on 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 is not only driven by 
+empty cells, 𝑛_𝑐𝑒𝑙𝑙𝑠. To do this, we estimate (9) using as regressors 
+(𝑙𝑒𝑛𝑔𝑡ℎ − 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦), (𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 − 𝑛_𝑐𝑒𝑙𝑙𝑠), and 𝑛_𝑐𝑒𝑙𝑙𝑠. We find that both 
+(𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 − 𝑛_𝑐𝑒𝑙𝑙𝑠) and 𝑛_𝑐𝑒𝑙𝑙𝑠 are significant at the 1% level, and the 
+coefficient on (𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦−𝑛_𝑐𝑒𝑙𝑙𝑠) is 5 times larger than the coefficient on 
+𝑛_𝑐𝑒𝑙𝑙𝑠. Note that (𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 − 𝑛_𝑐𝑒𝑙𝑙𝑠) is not significant at the 10% level 
+if we control for 𝑙𝑒𝑛𝑔𝑡ℎ but not for 𝑛_𝑐𝑒𝑙𝑙𝑠.
+
+Additional analysis.  In addition to testing the validity of our measures, 
+we can use this empirical setup and previous experiments to better 
+understand how agents perceive complexity and test some hypotheses.
+An important question is whether the economic costs of regulatory 
+complexity stem from the difficulty of understanding the regulation or 
+from the resources necessary to process it and perform the required 
+computations. One question in the EBA survey suggests that for banks, 
+especially small and medium ones, the cost of understanding regulation 
+dominates.31 The difficulty of understanding a regulation should be cor-
+related with the occurrence of mistakes in Section 4.1 which, as we saw, 
+is captured by 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦. Consequently, regulatory costs for banks are 
+also mainly captured by 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 in Table  7. All these observations are 
+consistent with the difficulty of understanding regulation as the main 
+driver of regulatory costs for banks, and this difficulty is empirically 
+captured by 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦.
+
+Journal of Financial Economics 174 (2025) 104186 
+
+A widespread view in banking is that smaller banks suffer dispropor-
+tionately more from regulatory complexity, whereas larger ones may 
+even benefit from it (e.g., through capture). In the EBA survey, medium 
+and small banks are actually slightly less likely to report that a template 
+has a high or medium cost.32 This is probably due to medium and 
+smaller banks being exempted from a number of reporting obligations, 
+and is consistent with the evidence in Trebbi et al. (2023) (see also 
+our  discussion  of  exemptions  and  𝑐𝑦𝑐𝑙𝑜𝑚𝑎𝑡𝑖𝑐  in  Section  4.1).  If  we 
+extend the regressions of Table  7 to include complexity measure ×
+group interaction terms, we observe that the effect of 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 comes 
+from large and medium banks, not from the SNCI (see Table OA.26 
+in the Online Appendix). In contrast, SNCI are sensitive to 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙
+(significance at the 1% level), whereas large and medium banks are 
+not. This shows that large and small banks are not sensitive to the same 
+forms of complexity. In this instance, a likely explanation is that the 
+SNCI are exempted from many reporting obligations, presumably those 
+associated with templates with a high 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦. Conversely, 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙
+can be interpreted as a fixed cost which should indeed matter more 
+for smaller institutions.
+
+Regulator survey.  European Banking Authority (2021) contains an ad-
+ditional survey with rare information on how regulators perceive the 
+different  templates.  All  authorities  in  the  EEA  were  asked  to  what 
+extent  they  consider  different  templates  or  groups  of  templates  as 
+important.  Unfortunately,  European  Banking  Authority  (2021)  only 
+reports the results for the 34 templates identified as the most important 
+and the 23 least important, with results not reported for an unknown 
+number of intermediary templates. Of these 57 templates, we focus on 
+the 43 that also appear in the bank questionnaire used in Section 4.2, 
+and for which we computed the complexity measures. Despite these 
+limitations, we think that this data can provide at least some suggestive 
+evidence. We compute the measure 𝑖𝑚𝑝𝑜𝑟𝑡𝑎𝑛𝑐𝑒𝑗 that reflects the average 
+answer given by the 29 regulatory authorities surveyed.33 For the 43 
+templates  for  which  we  have  complexity  measures,  we  can  regress 
+𝑖𝑚𝑝𝑜𝑟𝑡𝑎𝑛𝑐𝑒𝑗 on these measures.
+
+The results are reported in Table  8. 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙 stands out in this table 
+as the best measure to explain the variation in 𝑖𝑚𝑝𝑜𝑟𝑡𝑎𝑛𝑐𝑒, suggesting 
+that regulators ask for information about more variables when a topic 
+is more important. 𝑑𝑖𝑣𝑒𝑟𝑠𝑖𝑡𝑦 shows up significantly, but it is extremely 
+correlated (>90%) with 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙 in this particular sample. 𝑐𝑦𝑐𝑙𝑜𝑚𝑎𝑡𝑖𝑐
+also shows up significantly (at the 10% level only), suggesting that 
+regulators may introduce more detailed sets of conditions for more 
+important  topics.  Finally,  𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦  is  surprisingly  (although  weakly) 
+negatively correlated with 𝑖𝑚𝑝𝑜𝑟𝑡𝑎𝑛𝑐𝑒, but this result is driven by an 
+outlier. Once it is removed, we obtain a non-significant coefficient for 
+𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦.34
+
+These observations support the idea (in line with Gabaix and Grae-
+ber (2024)) that more complex regulations are more complex for a 
+reason, namely that they touch on issues that regulators deem more 
+important. However, there seems to be also scope to make regulation 
+
+numbers can be compared to 389.8 bn EUR of total operational costs for EEA 
+banks, so approximately 5%.
+30 We report results from alternative specifications in the Online Appendix 
+OA.9. In particular, a fractional probit regression. In fact, in principle, (9) is 
+misspecified because the predicted value of 𝑐𝑜𝑠𝑡 could be below 0 or above 
+1.  Indeed,  for  one  template,  we  obtain  a  predicted  value  of  1.01  in  two 
+regressions. 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 becomes even more significant with the fractional probit 
+specification, whereas 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙 becomes less significant (the 𝑝-value increases 
+from 0.081 to 0.126).
+31 The EBA survey asks the respondents to name the main driver of compli-
+ance costs. Medium and small banks rank first (out of 37) the ‘‘Complexity of 
+the underlying regulatory requirements’’, which the EBA questionnaire details 
+as ‘‘The challenge to understand the concepts formulated in the underlying 
+EU legislation, to understand how to apply them to the business transactions 
+and to understand how to perform, for example, necessary calculations [...]’’. 
+Large banks rank this driver third.
+
+32 The average of 𝑐𝑜𝑠𝑡 is 0.57 for large banks, 0.51 for medium banks, and 
+0.50 for SNCI.
+33 We give a value of 3 to the answer ‘‘highly important’’, 2 to ‘‘important’’, 
+1 to ‘‘less important’’, and 0 to ‘‘not important’’, and then take the average. 
+The results are very robust to alternative specifications, such as focusing on the 
+answer ‘‘highly important’’ only, or simply comparing the 34 ‘‘most important’’ 
+templates to the 23 ‘‘least important ones’’, see the Online Appendix OA.10.
+34 The outlier is template C70, in which banks have to report the roll-over of 
+funding for each day of a one-month window, so that the same templates are 
+repeated 31 times, generating a very large value for 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦. Interestingly, 
+C70 is ranked n. 10 by large banks and n. 5 by medium banks in terms of 
+costs, showing that this repetition is costly to banks, despite being of little 
+interest to regulators. The result on 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙 is robust to removing C70 and 
+more generally to removing up to the 7 (out of 43) templates with the largest 
+values of 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙. The result on 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 in Table  7 is robust to removing C70 
+and up to the 50% templates with the largest values of 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦.
+
+13 
+
+J.-E. Colliard and C.-P. Georg
+
+Journal of Financial Economics 174 (2025) 104186 
+
+Table 7
+Correlation of the fraction of banks reporting a high cost with measures of complexity, beyond 𝑙𝑒𝑛𝑔𝑡ℎ.
+
+(1)
+
+0.00001***
+(6.64)
+
+(2)
+
+0.00002***
+(2.93)
+−0.00009
+(−1.28)
+
+(3)
+
+−0.00000
+(−0.00)
+
+0.00006***
+(3.83)
+
+  𝑙𝑒𝑛𝑔𝑡ℎ
+
+  𝑐𝑦𝑐𝑙𝑜𝑚𝑎𝑡𝑖𝑐
+
+  𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦
+
+  𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙
+
+  𝑑𝑖𝑣𝑒𝑟𝑠𝑖𝑡𝑦
+
+  𝑙𝑒𝑣𝑒𝑙
+
+(4)
+
+0.00001***
+(5.48)
+
+(5)
+
+0.00001***
+(5.13)
+
+(6)
+0.00001*** 
+(5.58)
+
+0.00026*
+(1.76)
+
+0.00015
+(0.38)
+
+−0.52748*  
+(−1.78)
+
+  Adjusted-𝑅2
+We estimate the OLS regression (9):
+
+0.170
+
+0.172
+
+0.210
+
+0.179
+
+0.166
+
+0.178
+
+𝑐𝑜𝑠𝑡𝑖,𝑗 = 𝛼 + 𝛽𝜇(𝑅𝑗 ) + 𝛾2𝑚𝑒𝑑𝑖𝑢𝑚𝑖 + 𝛾3𝑠𝑚𝑎𝑙𝑙𝑖 + 𝜖𝑖,𝑗 ,
+where 𝑐𝑜𝑠𝑡𝑖,𝑗 is the fraction of banks in group 𝑖 ∈ {𝑙𝑎𝑟𝑔𝑒, 𝑚𝑒𝑑𝑖𝑢𝑚, 𝑠𝑚𝑎𝑙𝑙} that report a high or medium-high cost for template 𝑗, 𝜇(𝑅𝑗 ) is a 
+characteristic or vector of characteristics of template 𝑗, 𝑚𝑒𝑑𝑖𝑢𝑚𝑖 and 𝑠𝑚𝑎𝑙𝑙𝑖 are dummy variables equal to 1 if 𝑖 = 𝑚𝑒𝑑𝑖𝑢𝑚 or 𝑠𝑚𝑎𝑙𝑙, respectively, 
+and 𝜖𝑖,𝑗 is an error term. The table reports the coefficient(s) 𝛽 when including different measures as regressors, 𝑡-statistics (in brackets) computed 
+with robust standard errors, and adjusted 𝑅2. ∗, ∗∗, and ∗∗∗ denote statistical significance at the 10%, 5%, and 1% levels, respectively.
+Reminder of the different measures: 𝑙𝑒𝑛𝑔𝑡ℎ is the total number of words, 𝑐𝑦𝑐𝑙𝑜𝑚𝑎𝑡𝑖𝑐 is the total number of logical operators, 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 is 
+the total number of regulatory operators, 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙 is the number of unique operands, 𝑑𝑖𝑣𝑒𝑟𝑠𝑖𝑡𝑦 is the number of unique operators, and 
+𝑙𝑒𝑣𝑒𝑙 = 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙∕𝑙𝑒𝑛𝑔𝑡ℎ.
+
+Table 8
+Correlation of the importance given to templates by regulators with measures of complexity, beyond 𝑙𝑒𝑛𝑔𝑡ℎ.
+
+  𝑙𝑒𝑛𝑔𝑡ℎ
+
+  𝑐𝑦𝑐𝑙𝑜𝑚𝑎𝑡𝑖𝑐
+
+  𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦
+
+  𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙
+
+  𝑑𝑖𝑣𝑒𝑟𝑠𝑖𝑡𝑦
+
+  𝑙𝑒𝑣𝑒𝑙
+
+(1)
+
+0.00005**
+(2.48)
+
+(2)
+
+−0.00006
+(−1.18)
+0.00125**
+(2.54)
+
+(3)
+
+0.00011***
+(3.09)
+
+−0.00026*
+(−2.00)
+
+(4)
+
+0.00002
+(1.37)
+
+(5)
+
+0.00002
+(1.28)
+
+(6)
+0.00005** 
+(2.10)
+
+0.00327***
+(3.79)
+
+0.00744***
+(3.23)
+
+0.141
+
+0.111
+
+0.195
+
+0.176
+
+−0.58279  
+(−0.39)
+
+0.071
+
+  Adjusted-𝑅2
+We estimate the OLS regression:
+
+0.090
+
+𝑖𝑚𝑝𝑜𝑟𝑡𝑎𝑛𝑐𝑒𝑗 = 𝛼 + 𝛽𝜇(𝑅𝑗 ) + 𝜖𝑗 ,
+
+where 𝑖𝑚𝑝𝑜𝑟𝑡𝑎𝑛𝑐𝑒𝑗 is the average importance given by the surveyed regulatory authorities to template 𝑗, where 3 corresponds to the answer 
+‘‘highly important’’, 2 to ‘‘important’’, 1 to ‘‘less important’’, and 0 to ‘‘not important’’. 𝜇(𝑅𝑗 ) is a characteristic or vector of characteristics 
+of template 𝑗 and 𝜖𝑗 is an error term. The table reports the coefficient(s) 𝛽 when including different measures as regressors, 𝑡-statistics (in 
+brackets) computed with robust standard errors, and adjusted 𝑅2. ∗, ∗∗, and ∗∗∗ denote statistical significance at the 10%, 5%, and 1% levels, 
+respectively.
+Reminder of the different measures: 𝑙𝑒𝑛𝑔𝑡ℎ is the total number of words, 𝑐𝑦𝑐𝑙𝑜𝑚𝑎𝑡𝑖𝑐 is the total number of logical operators, 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 is 
+the total number of regulatory operators, 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙 is the number of unique operands, 𝑑𝑖𝑣𝑒𝑟𝑠𝑖𝑡𝑦 is the number of unique operators, and 
+𝑙𝑒𝑣𝑒𝑙 = 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙∕𝑙𝑒𝑛𝑔𝑡ℎ.
+
+more efficient by reducing 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦, which is the main driver of 𝑐𝑜𝑠𝑡
+for banks, without being a significant driver of 𝑖𝑚𝑝𝑜𝑟𝑡𝑎𝑛𝑐𝑒.  In fact, 
+European Banking Authority (2021) actually recommends reducing the 
+number of values to report on a number of less important templates, to 
+lower the cost to banks.
+
+4.3. Discussion
+
+The first conclusion we draw from Sections 4.1 and 4.2 is a vali-
+dation of two of our five text-based measures of complexity, namely 
+𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙 and 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦. In fact, both can explain the variation in 𝑡𝑖𝑚𝑒 in 
+the experiments, beyond the variable 𝑙𝑒𝑛𝑔𝑡ℎ. In addition, 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 can 
+explain the variation in 𝑚𝑖𝑠𝑡𝑎𝑘𝑒𝑠 and 𝑐𝑜𝑠𝑡, while 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙 can explain 
+variation in 𝑖𝑚𝑝𝑜𝑟𝑡𝑎𝑛𝑐𝑒 and (to a lesser extent) 𝑐𝑜𝑠𝑡. We think that the 
+fact that the same two measures are picked up in four independent 
+exercises and two independent datasets strongly supports the validity of 
+
+these measures.35 In these different exercises, 𝑙𝑒𝑛𝑔𝑡ℎ is already a very 
+good proxy of complexity, and most measures do not have any extra 
+explanatory power. This means that the type of regression we conduct is 
+actually a powerful touchstone for testing novel measures of regulatory 
+complexity, and it is unlikely that it will be a coincidence if the same 
+two measures pass several independent tests on independent datasets.
+Moreover, our results are consistent with the theoretical properties 
+of  these  measures:  Indeed,  𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙  and  𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦  were  expected  to 
+capture  intrinsic  complexity,  whereas  the  other  measures  were  ex-
+pected to capture the same dimension as 𝑙𝑒𝑛𝑔𝑡ℎ, namely psychological 
+complexity. As discussed in Section 4.2, it is consistent to find that 
+
+35 Importantly, we conducted the analysis in Section 4.2 after the experi-
+ments, as evidenced by an earlier version of the paper that only contains the 
+latter. In this sense, the results of 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 and 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙 in Section 4.2 are an 
+external validation of the results of Section 4.1.
+
+14 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+J.-E. Colliard and C.-P. Georg
+
+Journal of Financial Economics 174 (2025) 104186 
+
+Table 9
+Synthesis—Explanatory power of 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 and 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙 against 𝑙𝑒𝑛𝑔𝑡ℎ, for all dependent variables.
+  Panel A - length and quantity
+
+  Table/Column
+  Variable
+  Standardized coeff.
+  p-value
+  Contribution to 𝑅2
+  Panel B - length and potential
+
+mistake
+
+OA.18/(3)
+
+length
+
+−0.03
+0.53
+−2%
+
+mistake
+
+quantity
+
+0.28
+0.00
+17%
+
+time
+
+6/(3)
+
+length
+
+0.29
+0.00
+24%
+
+time
+
+quantity
+
+0.17
+0.02
+14%
+
+cost
+
+7/(3)
+
+length
+
+−0.00
+1.00
+−0%
+
+cost
+
+quantity
+
+0.45
+0.00
+89%
+
+importance
+
+8/(3)
+
+length
+
+0.71
+0.00
+154%
+
+importance
+
+quantity  
+−0.43
+0.05
+−54%  
+
+8/(4)
+
+6/(4)
+
+7/(4)
+
+length
+
+length
+
+length
+
+potential
+
+potential
+
+OA.18/(4)
+
+0.05
+0.47
+3%
+
+0.16
+0.03
+8%
+
+0.07
+0.42
+6%
+
+  Table/Column
+  Variable
+  Standardized coeff.
+0.40
+  p-value
+0.00
+  Contribution to 𝑅2
+33%
+This table systematically compares the explanatory power of 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 and 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙 to 𝑙𝑒𝑛𝑔𝑡ℎ, for the four dependent variables 𝑚𝑖𝑠𝑡𝑎𝑘𝑒, 𝑡𝑖𝑚𝑒, 𝑐𝑜𝑠𝑡, and 𝑖𝑚𝑝𝑜𝑟𝑡𝑎𝑛𝑐𝑒. In each panel, 
+each column corresponds to the regression of a dependent variable on 𝑙𝑒𝑛𝑔𝑡ℎ and 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 (Panel A) or 𝑙𝑒𝑛𝑔𝑡ℎ and 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙 (Panel B). The line ‘‘Table/Column’’ indicates the Table 
+and Column with the results and details of the corresponding regression (e.g., detail of the fixed effects used). The characters are in bold if this regression is the one with the 
+highest adjusted 𝑅2 in the corresponding Table.
+For each regression and variable, we report the standardized regression coefficient, the p-value of the Student test that the coefficient is zero, and the percentage of the 𝑅2
+attributed to the variable. For instance, Column 3 of Panel A considers the regression specification (3) of Table  7. In that regression, a one standard deviation increase in 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦
+is associated with a 0.45 standard deviation increase in 𝑐𝑜𝑠𝑡. The null hypothesis that the coefficient on quantity is zero can be rejected at the 0.00 level, and 89% of the 𝑅2 of 
+the regression can be attributed to 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦.
+Reminder of the dependent variables: 𝑚𝑖𝑠𝑡𝑎𝑘𝑒 is a dummy variable equal to 1 if a participant in the experiment gave a wrong answer on a given regulation, 𝑡𝑖𝑚𝑒 is the time that 
+the participant needed, 𝑐𝑜𝑠𝑡 is the fraction of banks that report a high or medium-high cost for ITS templates, 𝑖𝑚𝑝𝑜𝑟𝑡𝑎𝑛𝑐𝑒 is the average importance given to ITS templates by 
+regulatory authorities. See the corresponding tables for more detailed definitions.
+Reminder of the different measures: 𝑙𝑒𝑛𝑔𝑡ℎ is the total number of words, 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 is the total number of regulatory operators, and 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙 is the number of unique operands.
+
+potential 
+0.42
+0.00
+85%
+
+0.11
+0.18
+15%
+
+0.32
+0.00
+65%
+
+0.14
+0.08
+23%
+
+potential
+
+length
+
+𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 is correlated both with 𝑚𝑖𝑠𝑡𝑎𝑘𝑒𝑠 in the experiments and with 
+𝑐𝑜𝑠𝑡 in the survey, since the respondents to the survey declare 𝑐𝑜𝑠𝑡 to 
+be primarily driven by the difficulty in understanding the regulation.
+
+Having established that 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙 and 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 capture a different 
+dimension of complexity, the second question is whether this different 
+dimension is quantitatively meaningful. The answer depends on what 
+we are using the measures for.
+
+If one only needs an empirical proxy for regulatory complexity, all 
+dimensions combined, then 𝑙𝑒𝑛𝑔𝑡ℎ on its own seems to be a very good 
+proxy. This is because 𝑙𝑒𝑛𝑔𝑡ℎ is correlated with many other measures 
+and provides a good ‘‘catch-all’’ measure. As a result, adding 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙 or 
+𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 to 𝑙𝑒𝑛𝑔𝑡ℎ in the regressions of Tables  5 to 7 leads to relatively 
+small improvements in the adjusted-𝑅2, although it doubles in Table  8.
+Another important use of complexity measures is normative: helping 
+policymakers draft less costly regulations. A good proxy for regulatory 
+complexity is then insufficient, as one needs to identify the drivers of 
+regulatory complexity. Should a regulator with the aim of reducing 
+complexity target 𝑙𝑒𝑛𝑔𝑡ℎ, 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙, or 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦? To answer this question 
+systematically, we revisit the regression results of Tables  5 to 8. For 
+each dependent variable 𝑦 ∈ {𝑚𝑖𝑠𝑡𝑎𝑘𝑒, 𝑡𝑖𝑚𝑒, 𝑐𝑜𝑠𝑡, 𝑖𝑚𝑝𝑜𝑟𝑡𝑎𝑛𝑐𝑒}, we con-
+sider the regression of 𝑦 over 𝑙𝑒𝑛𝑔𝑡ℎ and 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 or 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙. Denoting 
+̂𝛽𝜇 the estimated regression coefficient on complexity measure 𝜇 ∈
+{𝑙𝑒𝑛𝑔𝑡ℎ, 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦, 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙}, 𝜎𝑦 and 𝜎𝜇 the sample standard deviations 
+of 𝑦 and 𝜇, we calculate the standardized coefficient  ̂𝛽𝜇 ×
+. We then 
+compute the 𝑝-value of the Student test of the null hypothesis 𝛽𝜇 = 0. 
+Finally, we use a variance decomposition to measure the contribution 
+of 𝑙𝑒𝑛𝑔𝑡ℎ and the other measure to the 𝑅2 of the regression.36
+
+𝜎𝜇
+𝜎𝑦
+
+36 Recall that 𝑅2 = 𝐸𝑆𝑆∕𝑇 𝑆𝑆, where 𝐸𝑆𝑆 is the explained sum of squares 
+and  𝑇 𝑆𝑆  the  total  sum  of  squares.  If  there  are  𝑁  observations  and  𝑃
+regressors,  ̂𝛽𝑝 is the estimated coefficient on regressor 𝑝 and 𝜎𝑝,𝑦 the sample 
+covariance between this regressor and 𝑦, then we have 𝐸𝑆𝑆 = ∑𝑃
+𝑝=1 𝐸𝑆𝑆𝑝, 
+with 𝐸𝑆𝑆𝑝 = (𝑁 − 1) ̂𝛽𝑝𝜎𝑝,𝑦. We measure the contribution of regressor 𝑝 to the 
+𝑅2 by  1
+. Hue et al. (2025) provide a proof, a generalization 
+beyond OLS regressions, and explain why this decomposition is useful when 
+explanatory variables are correlated. For example, as already observed, if one 
+regresses 𝑐𝑜𝑠𝑡 on 𝑙𝑒𝑛𝑔𝑡ℎ, and then adds 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦, the 𝑅2 does not increase 
+
+̂𝛽𝑝𝜎𝑝,𝑦
+𝜎2
+𝑦
+
+= 1
+𝑅2
+
+𝐸𝑆𝑆𝑝
+𝑇 𝑆𝑆
+
+𝑅2
+
+Table  9 summarizes the results. For each dependent variable 𝑦, we 
+focus on the specification with the highest adjusted 𝑅2, in bold in the 
+table.37 We find that, in this favorite specification (but not in others), 
+𝑙𝑒𝑛𝑔𝑡ℎ is never significant once controlling for 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 or 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙, in 
+line with the idea that 𝑙𝑒𝑛𝑔𝑡ℎ may be a proxy for complexity rather 
+than its actual cause. The most striking result is the one on 𝑐𝑜𝑠𝑡: a 
+one-standard deviation increase in 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 leads to a 0.45-standard de-
+viation increase in 𝑐𝑜𝑠𝑡, with a 𝑝-value of 0.00, and 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 contributes 
+to 89% of the 𝑅2 of the regression explaining 𝑐𝑜𝑠𝑡. In contrast, the 
+effect of 𝑙𝑒𝑛𝑔𝑡ℎ is 0.00, with a 𝑝-value of 1.00, and a contribution to 
+the 𝑅2 of 0%. These results mean that a policymaker who would try to 
+simplify regulation by targeting 𝑙𝑒𝑛𝑔𝑡ℎ but keeping the content constant 
+(in particular 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 and 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙) would presumably completely miss 
+its objective.
+
+5. Applying the measures
+
+Section 5.1 discusses how to use our measures in the context of a 
+normative model of regulation, which policymakers could eventually 
+use  to  quantify  the  trade-off  between  the  complexity  of  regulation 
+and  other  objectives.  We  identify  that  better  linking  text-based  to 
+outcome-based  measures  of  complexity  is  a  major  gap  in  this  re-
+search program. Section 5.2 then outlines how different streams of the 
+empirical literature can fill this gap.
+
+much, because 𝑙𝑒𝑛𝑔𝑡ℎ and 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 are correlated. However, the regression 
+on both 𝑙𝑒𝑛𝑔𝑡ℎ and 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 reveals that 𝑙𝑒𝑛𝑔𝑡ℎ has no explanatory power 
+once controlling for 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦. The decomposition we use captures this fact 
+and correctly attributes a very small contribution of 𝑙𝑒𝑛𝑔𝑡ℎ to the 𝑅2 of this 
+regression.
+37 Table  5 uses a probit model which is difficult to compare with the OLS 
+models in Tables  6 to 8. For better comparison, we run a simple OLS model 
+(a linear probability model) in Table OA.18, which gives very similar results 
+to the probit. An additional complication is that the regressions in Tables 
+OA.18 and 6 include participant and round fixed effects, and Table  7 bank 
+size fixed effects, which mechanically decreases the contribution of complexity 
+measures to the 𝑅2. This is not an issue, as we are only interested in the 
+relative contributions of 𝑙𝑒𝑛𝑔𝑡ℎ and 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 or 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙.
+
+15 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+J.-E. Colliard and C.-P. Georg
+
+5.1. Towards ‘‘balancing risk-sensitivity and simplicity’’
+
+A natural ambition for a research program on regulatory complexity 
+is  to  contribute  to  improving  the  production  of  regulation.  In  this 
+section, we show how text-based measures, outcome-based measures, 
+and  economic  modeling  can  be  combined  to  formally  estimate  the 
+regulator’s trade-off between precision and complexity.
+
+As seen in Section 2.1, a typical normative economic model assumes 
+that the regulator has a utility function 𝑈 over economic outcomes 𝑧, 
+where the distribution 𝜇 of these outcomes depends on the state of the 
+economy 𝑥 and the regulatory instrument 𝑦. The regulator’s program 
+is  then  given  by  (1).  To  take  into  account  the  costs  of  regulatory 
+complexity, one needs to subtract the total effort 𝑒 (e.g., hours of work) 
+spent drafting, understanding, and then implementing the regulation 
+in each state of the world, which we denote 𝑒∗(𝜑, 𝑥). We denote 𝑤 the 
+cost per unit of effort. We also need to account for the possibility of 
+mistakes: in state 𝑥, the regulatory instrument will not necessarily be 
+𝜑(𝑥), but instead will have a certain distribution denoted  ̂𝜇(𝑦, 𝜑, 𝑥) due 
+to the possibility of mistakes. This gives us the following program for 
+the regulator: 
+[
+
+(
+
+)
+
+]
+
+∑
+
+𝜈(𝑥)
+
+∑
+
+̂𝜇( ̃𝑦, 𝜑, 𝑥)
+
+∑
+
+𝜇( ̃𝑧, 𝑥, ̃𝑦)𝑈 ( ̃𝑧)
+
+− 𝑤𝑒∗(𝜑, 𝑥)
+
+.
+
+(10)
+
+̃𝑦∈𝑌
+
+̃𝑧∈𝑍
+
+𝑥∈𝑋
+Relative to the benchmark solution without complexity in (1), the 
+solution  to  (10)  will  involve  simplifying  the  regulation  𝜑  in  order 
+to  reduce  compliance  and  supervision  costs  and  the  occurrence  of 
+mistakes.
+
+max
+𝜑(.)
+
+Is it possible to approach this trade-off quantitatively? To illustrate 
+this question, we consider the intense policy debate on the complexity 
+of capital requirements, which led the Basel Committee to publish a 
+discussion paper on the trade-offs between ‘‘risk sensitivity, simplicity 
+and comparability’’ (Basel Committee on Banking Supervision, 2013). 
+The right trade-off remains elusive, in particular due to the lack of a 
+normative framework to think about regulatory complexity. We sketch 
+how our framework could eventually serve this normative purpose.
+
+We first need an economic model mapping the characteristics 𝑥 of 
+a bank and a level of capital requirements 𝑦 to a distribution over 
+outcomes 𝑧. This model should also define a welfare criterion, which 
+can be assumed to be the utility function 𝑈 of the regulator. In Online 
+Appendix OA.11, we derive a simple model of capital regulation for 
+illustration, but in a real policy application one should use a quanti-
+tative model of the economy rich enough to accommodate different 
+regulations.38
+
+We then need a model of the regulatory text 𝐹 . In the model of 
+Online Appendix OA.11, we assume a bank invests in assets from a 
+certain asset class 𝑥 ∈ {1...𝑁}, and capital regulation specifies a level 𝑦
+of capital requirements as follows:
+if 𝑥 < ̄𝑥1 then 𝑦 ≡ 𝐸∗
+1
+else if 𝑥 < ̄𝑥2 then 𝑦 ≡ 𝐸∗
+2 ...
+else if 𝑥 < ̄𝑥𝐼−1 then 𝑦 ≡ 𝐸∗
+else 𝑦 ≡ 𝐸∗
+𝐼
+where ̄𝑥𝑖 are thresholds, 𝐸∗
+risk buckets, all chosen by the regulator.
+
+𝑖  capital levels, and 𝐼 the number of different 
+
+𝐼−1
+
+Finally, we need to map the different regulatory texts 𝐹  into com-
+plexity costs (either effort or mistakes). This is where text-based and 
+outcome-based measures should be used together. Outcome-based mea-
+sures  can  quantify  the  costs,  ideally  in  dollar  terms,  of  regulations 
+that have actually been implemented. If, moreover, these costs can be 
+related to text-based measures, e.g., 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 and 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙, then one 
+can also estimate the costs of counterfactual regulations and thus solve 
+
+38 This is precisely where the literature on bank capital requirements is 
+heading. See, for instance, Begenau and Landvoigt (2021), or the BIS’ ‘‘Fi-
+nancial Regulation Assessment: Meta Exercise’’ (https://www.bis.org/frame/) 
+for a meta-analysis of the quantitative impact of capital requirements.
+
+16 
+
+Journal of Financial Economics 174 (2025) 104186 
+
+(10). As an example, in Online Appendix OA.11 we compute 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦
+and 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙 as a function of 𝐼 in the regulatory text above. We then 
+use the experimental results from Tables OA.14 and OA.17 to estimate 
+how  efforts  and  mistakes  depend  on  𝐼.  We  can  then  solve  for  the 
+number of risk-buckets 𝐼 that strikes the optimal trade-off between 
+‘‘risk-sensitivity’’ and ‘‘simplicity’’.39
+
+The method we outline here is only a proof of concept, but to our 
+knowledge this is the first proposal offering policymakers a quantitative 
+approach to the trade-off between regulatory complexity and other 
+policy objectives. The actual implementation of this approach for policy 
+would require additional work, in particular a more thorough study of 
+how the properties of a regulation captured by text-based measures, 
+translate into actual costs, captured by outcome-based measures.
+
+5.2. Tools for further research
+
+To help the scientific community make progress on the measure-
+ment of regulatory complexity, we make as much material as possible 
+available online, in particular the dictionaries we created, as well as 
+the codes of the tools we used to help us build these dictionaries, 
+so that they can be further enriched. To show that our dictionary is 
+sufficiently rich to be reused on other financial regulation texts, in 
+Online Appendix OA.3 we compute that if we analyzed each title of the 
+DFA based on a dictionary built only from the other titles, we would 
+find 88% of operands and 96% of regulatory operators on average. The 
+second number is particularly encouraging, as Section 4 showed that 
+the most reliable measure is 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦, which depends only on regulatory 
+operators.
+
+As shown in the previous subsection, for a normative use of com-
+plexity measures one needs to study how text-based measures of regula-
+tory complexity explain outcome-based measures. This requires to have 
+a sample of regulatory texts that are sufficiently similar to each other, 
+yet differ in complexity, and can also be associated to different outcome 
+variables. This is challenging because all firms in a given industry are 
+typically subject to the same regulations. A solution is then to ask firms 
+which of the regulations they face are more complex, as the EBA did. 
+A similar approach is followed in Amadxarif et al. (2019), who use the 
+Q&A section of the EBA website to measure which regulations are more 
+difficult to understand. Several papers also use comments on different 
+regulations (e.g., Gissler et al. (2016) and Haselmann et al. (2022), or 
+Adams and Mosk (2023)), which it would be interesting to correlate 
+with text-based measures.
+
+Several outcome-based measures of complexity proposed in the lit-
+erature vary in the cross-section of firms (e.g., Trebbi et al. (2023) and 
+Singla (2023)), which allows to study their impact on firm performance 
+and other variables of interest at the firm level. This is by definition 
+harder to do for text-based measures, still for the reason that firms 
+in a given industry share the same regulations. In some cases, there 
+are regulatory texts at the firm level, such as the supervision letters 
+studied in Goldsmith-Pinkham et al. (2016). Unfortunately, such texts 
+are typically confidential. A possibility for future research would be to 
+measure the exposure of a given firm to different regulatory texts, in the 
+spirit of Kalmenovitz et al. (2025). In the case of banking regulation, 
+this would require for instance matching detailed information on a 
+bank’s  assets  and  liabilities  to  the  texts  determining  the  regulatory 
+treatments  of  these  items.  This  is  again  likely  to  require  detailed 
+supervisory information.
+
+Note  that  these  different  approaches  always  rely  on  comparing 
+different regulatory texts, so that necessarily part of the variation in 
+
+39 In our simple framework all asset classes are symmetric, so that only 
+the total number of intervals matters. Following the logic of Gabaix (2025), 
+a  more  complete  model  of  ‘‘behavioral  mechanism  design’’  would  specify 
+different levels of risk or importance for different asset classes, and the optimal 
+regulation  would  presumably  be  more  complex  for  more  important  asset 
+classes.
+
+J.-E. Colliard and C.-P. Georg
+
+complexity will be due to intrinsic complexity. A possibility to have a 
+sample of texts with variation in complexity but intrinsic complexity 
+constant is to use different versions and revisions of the same regula-
+tion. An example of this approach in a different context is Georg and 
+Partida (2023), who compare the initial proposal of the European Digi-
+tal Operational Resilience Act to the final regulation two years later. 
+Interestingly, they find a significant increase in 𝑙𝑒𝑛𝑔𝑡ℎ and 𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦
+between the two versions, but a decrease in 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙, which suggests 
+that there can be significant time-series variation in the complexity 
+measures of a given regulation.
+
+6. Conclusion
+
+We propose a comprehensive framework, inspired by the computer 
+science literature, to analyze regulatory complexity. Our framework 
+allows us to distinguish different dimensions of regulatory complexity, 
+derive measures that can be applied to large scale regulatory texts, and 
+conduct validation tests that can be applied to any text-based measure. 
+We find in particular that two measures capturing intrinsic complexity, 
+𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑦 and 𝑝𝑜𝑡𝑒𝑛𝑡𝑖𝑎𝑙, have explanatory power beyond the mere length 
+of a text.
+
+The present work is only a first step in applying this approach to 
+financial regulation. We show that text-based measures of complexity 
+like the ones we propose can help strike a better trade-off between the 
+costs and benefits of additional complexity. However, fully realizing 
+the potential of this approach will require additional empirical work 
+to quantify the impact of different properties of a regulatory text on 
+compliance costs borne by regulated actors, and other costs borne by 
+society (e.g., risks of regulatory capture).
+
+We make available a battery of tools to help the scientific commu-
+nity pursue this research program. Our dictionary allows researchers to 
+compute complexity measures for other financial regulation texts. The 
+experiments we conducted and the EBA survey we use allow interested 
+researchers to test any text-based measure and compare it to the ones 
+we consider in this study. We hope these tools will help the scientific 
+community to build a richer database of regulations and complexity 
+
+Journal of Financial Economics 174 (2025) 104186 
+
+measures, with a view to testing some of the theories of regulatory 
+complexity proposed in the literature, and to helping regulators draft 
+more efficient rules.
+
+CRediT authorship contribution statement
+
+Jean-Edouard  Colliard:  Writing  –  review  &  editing,  Writing  – 
+original  draft,  Visualization,  Validation,  Supervision,  Software,  Re-
+sources, Project administration, Methodology, Investigation, Funding 
+acquisition,  Formal  analysis,  Data  curation,  Conceptualization.  Co-
+Pierre Georg: Writing – review & editing, Writing – original draft, 
+Visualization, Validation, Supervision, Software, Resources, Project ad-
+ministration, Methodology, Investigation, Funding acquisition, Formal 
+analysis, Data curation, Conceptualization.
+
+Declaration of competing interest
+
+The authors declare the following financial interests/personal rela-
+tionships which may be considered as potential competing interests: 
+Jean-Edouard Colliard reports financial support was provided by the 
+French National Research Agency. Jean-Edouard Colliard reports finan-
+cial support was provided by Chair ACPR Risk Foundation Regulation 
+and Systemic Risk. Jean-Edouard Colliard reports financial support was 
+provided  by  HEC  Paris  —  Natixis  —  Polytechnique  Chair  Business 
+Analytics for Future Banking. Jean-Edouard Colliard reports financial 
+support  was  provided  by  Europlace  Institute  of  Finance.  Co-Pierre 
+Georg reports financial support was provided by University of Cape 
+Town. Co-Pierre Georg reports financial support was provided by the 
+South African Reserve Bank. While working on this paper, Co-Pierre 
+Georg held a part-time position (25%) as Economist at the Research 
+Center of Deutsche Bundesbank. In addition, over the past three years, 
+Co-Pierre Georg has received funding for other research projects from 
+the Ripple University Blockchain Research Initiative as well as from the 
+Algorand Center of Excellence Initiative by the Algorand Foundation. 
+He has also been a consultant at the Financial Stability Department of 
+the South African Reserve Bank and at the Algorand Inc and Algorand 
+Foundation. None of this work pertains to the content of the paper.
+
+Fig. A.4. Randomly generated regulation.
+We report here one of the random regulations generated by our algorithm. We first report the raw output and then the ‘‘translated’’ text that students saw in the 
+experiment.
+
+17 
+
+J.-E. Colliard and C.-P. Georg
+
+Journal of Financial Economics 174 (2025) 104186 
+
+Adams, R., Mosk, T., 2023. Dear Congress Member: Letters to Congress and the Shaping 
+
+Hole Economic Policy Symposium, pp. 109–159.
+
+Gabaix, X., Graeber, T., 2024. The Complexity of Economic Decisions. Working Paper.
+Gabaix, X., Laibson, D., 2006. Shrouded attributes, consumer myopia, and information 
+
+suppression in competitive markets. Q. J. Econ. 121 (2), 505–540.
+
+Gai, P., Haldane, A., Kapadia, S., 2011. Complexity, concentration and contagion. J. 
+
+Monet. Econ. 58 (4).
+
+Gai, P., Kemp, M., Sanchez Serrano, A., Schnabel, I., 2019. Regulatory Complexity and 
+the Quest for Robust Regulation. Report of the Advisory Scientific Committee 8, 
+European Systemic Risk Board.
+
+Ganglmair, B., Wardlaw, M., 2017. Complexity, Standardization, and the Design of Loan 
+
+Georg, C.-P., Partida, A., 2023. How complex is the Digital Operational Resilience 
+
+Ghent, A.C., Torous, W.N., Valkanov, R.I., 2017. Complexity in structured finance. Rev. 
+
+Agreements. Working Paper.
+
+Act? Working Paper.
+
+Econ. Stud. 86 (2), 694–722.
+
+Gissler, S., Oldfather, J., Ruffino, D., 2016. Lending on hold: Regulatory uncertainty 
+
+and bank lending standards. J. Monet. Econ. 81, 89–101.
+
+Goldsmith-Pinkham, P., Hirtle, B., Lucca, D.O., 2016. Parsing the Content of Bank 
+
+Supervision. Working Paper.
+
+Gutiérrez, G., Philippon, T., 2019. The Failure of Free Entry. Working Paper.
+Hakenes, H., Schnabel, I., 2012. Regulatory Capture By Sophistication. Working Paper.
+Haldane, A., Madouros, V., 2012. The Dog and the Frisbee. Working Paper, Jackson 
+
+Halstead, M.H., 1977. Elements of Software Science. Elsevier.
+Haselmann, R., Sarkar, A., Singla, S., Vig, V., 2022. The Political Economy of Financial 
+
+Regulation. Working Paper.
+
+Herring, R.J., 2018. The evolving complexity of capital regulation. J. Financ. Serv. Res. 
+
+Hogan, T.L., Burns, S., 2019. Has Dodd–Frank affected bank expenses? J. Regul. Econ. 
+
+53 (2), 183–205.
+
+55 (2), 214–236.
+
+Hue, S., Hurlin, C., Perignon, C., Saurin, S., 2025. Measuring the Driving Forces of 
+
+Predictive Performance: Application to Credit Scoring. Working Paper.
+
+Kalmenovitz, J., 2023. Regulatory intensity and firm-specific exposure. Rev. Financ. 
+
+Stud. 36 (8), 3311–3347.
+
+(2), 1081–1126.
+
+code. Artif. Intell. Law 22.
+
+Econ. 15, 175–211.
+
+Kalmenovitz, J., Lowry, M., Volkova, E., 2025. Regulatory fragmentation. J. Financ. 80 
+
+Katz, D., Bommarito, M., 2014. Measuring the complexity of the law: the United States 
+
+Kendall, C., Oprea, R., 2024. On the complexity of forming mental models. Quant. 
+
+Kincaid,  J.P.,  Fishburne,  R.P.J.,  Rogers,  R.L.,  Chissom,  B.S.,  1975.  Derivation  Of 
+New Readability Formulas (Automated Readability Index, Fog Count And Flesch 
+Reading Ease Formula) For Navy Enlisted Personnel. Working Paper 56, Institute 
+for Simulation and Training.
+
+Li, W., Azar, P., Larochelle, D., Hill, P., Lo, A.W., 2015. Law is code: A software 
+engineering approach to analyzing the united states code. J. Bus. Technol. Law 10 
+(2).
+
+Loughran, T., McDonald, B., 2014. Measuring readability in financial disclosures. J. 
+
+Financ. 69 (4), 1643–1671.
+
+eines textes. Z. Lit. Linguist. 2 (8).
+
+McCabe, T.J., 1976. A complexity measure. IEEE Trans. Softw. Eng. SE-2 (4), 308–320.
+McLaughlin, P.A., Sherouse, O., Febrizio, M., King, M.S., 2021. Is Dodd–Frank the 
+
+biggest law ever? J. Financ. Regul. 7 (1), 149–174.
+
+Murawski, C., Bossaerts, P., 2016. How humans solve complex problems: The case of 
+
+Oehmke, M., Zawadowski, A., 2019. The Tragedy of Complexity. Working Paper.
+Oprea, R., 2020. What makes a rule complex? Am. Econ. Rev. 110 (12), 3913–3951.
+Rubinstein, A., 1986. Finite automata play the repeated prisoner’s dilemma. J. Econom. 
+
+Singla, S., 2023. Regulatory Costs and Market Power. Working Paper.
+Trebbi, F., Zhang, M.B., Simkovic, M., 2023. The Cost of Regulatory Compliance in the 
+
+United States. Working Paper.
+
+Yu, S., Zhou, S., 2010. A survey on metric of software complexity. In: 2010 2nd 
+IEEE International Conference on Information Management and Engineering. pp. 
+352–356.
+
+Zhang, M., Baddoo, N., 2007. Performance comparison of software complexity met-
+rics  in  an  open  source  project.  In:  European  Conference  on  Software  Process 
+Improvement. pp. 160–174.
+
+Zuse, H., 1990. Software Complexity: Measures and Methods, first ed. de Gruyter, New 
+
+Zwick, E., 2021. The costs of corporate tax complexity. Am. Econ. J.: Econ. Policy 13 
+
+York, NY, United States.
+
+(2), 467–500.
+
+Appendix A. Example of a randomly generated regulation
+
+See Fig.  A.4.
+
+Appendix B. Supplementary data
+
+Supplementary material related to this article can be found online 
+
+at https://doi.org/10.1016/j.jfineco.2025.104186.
+
+Data availability
+
+Replication repository for Measuring Regulatory Complexity (Original
+data) (Zenodo)
+
+References
+
+of (Financial) Legislation. Working Paper.
+
+Al-Ubaydli, O., McLaughlin, P.A., 2017. RegData: A numerical database on industry-
+specific  regulations  for  all  United  States  industries  and  federal  regulations, 
+1997–2012. Regul. Gov. 11, 109–123.
+
+Alvero, A., Ando, S., Xiao, K., 2022. Watch what they do, not what they say: Estimating 
+regulatory costs from revealed preferences. Rev. Financ. Stud. 36 (6), 2224–2273.
+Amadxarif, Z., Brookes, J., Garbarino, N., Patel, R., Walczak, E., 2019. The Language 
+
+of Rules: Textual Complexity in Banking Reforms. Working Paper.
+
+Arora, S., Barak, B., Brunnermeier, M., Ge, R., 2009. Computational Complexity and 
+
+Information Asymmetry in Financial Products. Working Paper.
+
+Asriyan, V., Foarta, D., Vanasco, V., 2023. The good, the bad, and the complex: Product 
+design with imperfect information. Am. Econ. J.: Microeconomics 15 (2), 187–226.
+Basel Committee on Banking Supervision, 1988. International Convergence of Capital 
+
+Measurement and Capital Standards. Working Paper.
+
+Basel Committee on Banking Supervision, 2013. The Regulatory Framework: Balancing 
+
+Risk Sensitivity, Simplicity and Comparability. Working Paper.
+
+Begenau, J., Landvoigt, T., 2021. Financial regulation in a quantitative model of the 
+
+modern banking system. Rev. Econ. Stud. 89 (4), 1748–1784.
+
+Bennett,  B.,  Garvey,  G.,  Milbourn,  T.,  Wang,  Z.,  2019.  The  Role  of  Stock  Price 
+
+Informativeness in Compensation Complexity. Working Paper.
+
+Boulet, R., Mazzega, P., Bourcier, D., 2011. A network approach to the french system 
+
+of legal codes-part I: analysis of a dense network. Artif. Intell. Law 19.
+
+Brownlees, C., Engle, R.F., 2016. SRISK: A conditional capital shortfall measure of 
+
+systemic risk. Rev. Financ. Stud. 30 (1), 48–79.
+
+Calomiris,  C.W.,  2018.  Has  financial  regulation  been  a  flop?  (or  how  to  reform 
+
+Dodd–Frank). J. Appl. Corp. Financ. 29 (4), 8–24.
+
+Text-Based Approach. Working Paper.
+
+Canfora, G., Garcia, F., Piattini, M., Ruiz, F., Visaggio, C., 2005. A family of experiments 
+to validate metrics for software process models. J. Syst. Softw. 77 (2), 113–129.
+Carlin, B.I., 2009. Strategic price complexity in retail financial markets. J. Financ. Econ. 
+
+Paper.
+
+Colliard,  J.-E.,  Eden,  L.,  Georg,  C.-P.,  2021.  Tax  complexity  and  transfer  pricing 
+
+blueprints, guidelines, and manuals. Tax Manag. Int. J. 50 (2).
+
+Ellison,  S.F.,  2016.  Price  search  and  obfuscation:  an  overview  of  the  theory  and 
+empirics.  In:  Basker,  E.  (Ed.),  Handbook  on  the  Economics  of  Retailing  and 
+Distribution. Edward Elgar Publishing.
+
+European Banking Authority, 2021. Study of the Cost of Compliance with Supervisory 
+
+Reporting Requirements. Working Paper.
+
+Foarta, D., Morelli, M., 2022. The Common Determinants of Legislative and Regulatory 
+
+Complexity. Working Paper.
+
+Franco, J.P., Yadav, N., Bossaerts, P., Murawski, C., 2021. Generic properties of a 
+computational task predict human effort and performance. J. Math. Psych. 104, 
+102592.
+
+Gabaix, X., 2025. A Theory of Complexity Aversion. Working Paper.
+
+18 
+
+Calomiris, C.W., Mamaysky, H., Yang, R., 2020. Measuring the Cost of Regulation: A 
+
+Maas, H.-D., 1972. Über den zusammenhang zwischen wortschatzumfang und länge 
+
+91 (3), 278–287.
+
+1937–1960.
+
+Carlin, B.I., Kogan, S., Lowery, R., 2013. Trading complex assets. J. Financ. 68 (5), 
+
+the knapsack problem. Sci. Rep. 6.
+
+Célérier, C., Vallée, B., 2017. Catering to investors through security design: Headline 
+
+rate and complexity. Q. J. Econ. 132 (3), 1469–1508.
+
+Cetorelli, N., McAndrews, J.J., Traina, J., 2014. Evolution in Bank Complexity. Working 
+
+Theory 39 (1), 83–96.
+
+

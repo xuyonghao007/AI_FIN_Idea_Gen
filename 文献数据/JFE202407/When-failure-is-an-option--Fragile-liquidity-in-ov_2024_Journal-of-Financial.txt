@@ -1,0 +1,6786 @@
+Contents lists available at ScienceDirect
+
+Journal of Financial Economics
+
+journal homepage: www.elsevier.com/locate/finec
+
+When failure is an option: Fragile liquidity in over-the-counter markets✩
+Terrence Hendershott a,∗, Dan Li b, Dmitry Livdan a,e, Norman Schürhoff c,d,e
+a Walter A. Haas School of Business, University of California, Berkeley, Berkeley, CA 94720, United States of America
+b Board of Governors of the Federal Reserve System, Washington, DC, United States of America
+c Faculty of Business and Economics, University of Lausanne, CH-1015, Lausanne, Switzerland
+d Swiss Finance Institute, CH-8006, Zürich, Switzerland
+e CEPR, London EC1V 0DX, UK
+
+A R T I C L E I N F O
+
+A B S T R A C T
+
+Markets can give false impressions of liquidity and stability if failed attempts to trade are ignored. For
+collateralized loan obligations, we quantify this bias by estimating the total cost of immediacy (TCI) which
+incorporates failure rates and failure costs. TCI is substantially higher than the observed cost, 0.3–3.8% versus
+0.04–0.12% across credit-quality tranches because trade failures are frequent, failure costs are large, and failure
+costs and rates are correlated. TCI is almost double the realized gains from trade for low-rated tranches.
+Overall, auction-based over-the-counter markets become illiquid and fragile, especially during stressful periods
+for low-rated assets.
+
+Dataset link: TCI Data (Original data)
+
+JEL classification:
+G12
+G14
+G24
+
+Keywords:
+Liquidity
+Fragility
+Cost of immediacy
+Securities auctions
+Over-the-counter markets
+Structured products
+Collateralized loan obligations
+
+1. Introduction
+
+The fundamental role of markets is to facilitate the exchange of
+goods, assets, and services in a frictionless and low-cost manner. If
+agents cannot trade or choose not to trade when costs are high rela-
+tive to their outside options, then trading volume diminishes, welfare
+declines, and the cost of immediacy rises. Assessing the quality of
+market functioning is an empirical issue with a long tradition in both
+economics and finance starting with Demsetz (1968). In most markets,
+however, an unresolved problem is that only outcomes of completed
+trades are observed. The lack of data about failed trades biases observed
+market quality upward and trading cost downward as observed mea-
+sures fail to account for the opportunity costs of not trading (Perold,
+1988). This bias can give a false impression of liquidity and stability,
+
+especially in less transparent markets. These issues are particularly per-
+tinent in financial markets where the 2007–2009 financial crisis and the
+2020 pandemic have highlighted the importance of understanding and
+monitoring the fragility of liquidity. However, they apply to markets
+with search-and-match frictions like marriage markets, labor markets,
+housing markets, and international trade (Chade et al., 2017). Trade
+outcomes in these markets are strongly affected by the interaction
+between trading costs and participants’ unobserved outside options.
+
+We document frequent trade failures in the market for collateralized
+loan obligations (CLOs). CLOs are a primary source of funding for
+low-credit-quality corporate borrowers and have grown rapidly over
+the past decade. CLOs consist of repackaged portfolios of loans issued
+by low-rated, highly leveraged firms. CLOs have become popular due
+
+✩
+
+Nick Roussanov was the editor for this article. We thank Hank Bessembinder, Eric Budish, Thierry Foucault, Joel Hasbrouck, Burton Hollifield, Stacey
+Jacobsen, Pete Kyle, Albert Menkveld, Michael Schwert, Bart Yueshen, Haoxiang Zhu and participants at HEC Montreal, Southern Methodist University, University
+of Michigan, University of Rochester, 2020 INSEAD Finance Symposium, 2020 NBER Big Data Meeting, 2020 Microstructure Exchange, 2021 Search and Matching
+in Macro and Finance Virtual Seminar Series, and 2021 Western Finance Association meeting. An earlier draft of the paper was titled ‘‘True Cost of Immediacy’’.
+Hendershott gratefully acknowledges support from the Norwegian Finance Initiative, Norway. Schürhoff gratefully acknowledges research support from the
+Swiss Finance Institute, Switzerland and the Swiss National Science Foundation, Switzerland under SNF project #100018_192584, ‘‘Sustainable Financial Market
+Infrastructure: Towards Optimal Design and Regulation’’. The views of this paper do not represent the views of the Federal Reserve Board.
+
+∗ Corresponding author.
+
+E-mail addresses: hender@haas.berkeley.edu (T. Hendershott), dan.li@frb.gov (D. Li), livdan@haas.berkeley.edu (D. Livdan), norman.schuerhoff@unil.ch
+
+(N. Schürhoff).
+
+https://doi.org/10.1016/j.jfineco.2024.103859
+Received 14 February 2023; Received in revised form 26 April 2024; Accepted 29 April 2024
+
+JournalofFinancialEconomics157(2024)103859Availableonline21May20240304-405X/©2024TheAuthor(s).PublishedbyElsevierB.V.ThisisanopenaccessarticleundertheCCBYlicense(http://creativecommons.org/licenses/by/4.0/).T. Hendershott et al.
+
+to the reach for yield by asset managers in a low-interest-rate envi-
+ronment (Becker and Ivashina, 2015). CLOs hold roughly 60% of all
+leveraged loans outstanding and are important sources of funding for
+small and mid-sized businesses. Like many other structured products,
+CLOs trade in an OTC market that performed poorly during the 2007–
+2008 financial crisis (Dick-Nielsen et al., 2012; Friewald et al., 2012).
+We document that trade failures in CLOs occur more than 10% of the
+time and occur more often in lower-rated CLOs and stressful market
+conditions when failure rates exceed 50%. These frequent trade failures
+should raise concern among regulators and investors.
+
+Centralized markets like stock exchanges have continuous, visible,
+and firm quotes, informing investors of the terms of trade in advance,
+thus limiting failed attempts to trade. Structured products and other fi-
+nancial securities trade in over-the-counter (OTC) markets, where there
+are typically no firm quotes and trade is infrequent,1 and, therefore,
+trade failures are an option. To assess the liquidity and fragility of
+the CLO market, we estimate the opportunity cost of trade failure and
+incorporate it into the total cost of immediacy (TCI). We measure TCI
+by combining the direct intermediation cost, captured by the bid–ask
+spread, with the opportunity cost of trade failure. The cost of failing to
+trade is the expected difference between the price at which a buyer can
+purchase the asset minus the seller’s expected payoff from continuing
+to hold the asset.
+
+Auction and trade data from 2012–2020 allow us to infer the cost
+of failed attempts to trade and incorporate it into the cost of immedi-
+acy. Bids-wanted-in-competition (BWIC) is an auction-like email-based
+mechanism which existing holders predominantly use to sell their
+CLOs.2 In a BWIC, an institutional seller contacts several securities
+dealers to solicit bids. Dealers decide whether to take the CLO into
+their inventory or search for buyers before responding. The investors
+then decide whether to sell to the dealer with the highest bid. While
+a large theoretical literature studies bilateral trading in OTC markets
+(Weill, 2020), little is known about auction-based trading in OTC finan-
+cial markets. We study successful and failed BWICs using third-party
+collected auction data and trade reporting data.
+
+Our estimates for TCI reveal substantial market fragility. The total
+costs of immediacy are significantly higher than the observed bid–
+ask spreads not only because trade failures are frequent but because
+failure costs are large and correlated with failure rates. Across our
+2012–2020 sample period, the observed cost is 0.04/0.10/0.12% for
+senior/mezzanine/junior tranches while TCI is 0.31/1.32/3.79%. In the
+2020 pandemic and other stressful periods when failure rates exceed
+50% and failure costs exceed 10% for junior tranches, the observed cost
+of trading increases from 0.10% to 0.25% while TCI increases tenfold
+from about 1% to 10%. For high-rated tranches, TCI is low relative to
+sellers’ gains from trade, which we define as the difference between the
+seller’s reserve price and the highest bid. For low-rated tranches, TCI is
+almost double the gains from trade. When we estimate TCI for sellers
+with different reserve prices, TCI is more than 50% higher for sellers
+with low reserve prices than for sellers with the median reserve price.
+These findings suggest that sellers cannot trade when they have the
+greatest need to trade because there is insufficient liquidity even for the
+sellers with the lowest reserve prices, exacerbating market illiquidity
+and fragility.
+
+The total costs of immediacy incorporate the observable cost of
+immediacy, often defined as the cost to an investor of simultaneously
+buying and selling an asset. In addition, if investors choose not to trade
+when those prices are not good, estimates of the cost of immediacy
+derived from successful transactions are downward biased. To capture
+
+1 See Duffie et al. (2005), Lagos and Rocheteau (2007, 2009), Atkeson et al.
+
+(2015), Malamud and Rostek (2017), Hugonnier et al. (2020), and others.
+
+2 Around 40% of customer-sell-to-dealer trades in the sample of US CLOs
+can be mapped to a BWIC auction in our data, which suggests that at least 40%
+of investors sells are through auctions, instead of direct bilateral negotiations
+with a dealer. The dealer-sell-to-customer leg is typically done through search.
+Offers-wanted-in-competition (OWICs) are rare, likely reflecting the difficulty
+in pricing such securities for investors relative to dealers.
+
+the investors’ opportunity costs when failing to trade, TCI must incor-
+porate the value of continuing to hold the asset when a BWIC fails. We
+only observe the highest accepted bids, but not bids when auctions fail
+to trade. Using successful bids to estimate the sellers’ reserve prices,
+which are measures of their outside options, TCI can be written as
+the expected bid–ask spread on observed trades plus the probability
+of BWIC failure times the cost of trade failure; where the cost of trade
+failure is the expected highest bid conditional on a trade minus the
+reserve price. The reserve price is the only component of TCI that is
+not directly observable in the data.
+
+We estimate the reserve price using the theoretical link between
+the seller’s unobserved outside option and observed quantiles of the
+distribution of accepted bids. Endogenous trade failures lead to a selec-
+tion bias in observed accepted bids thus complicating the choice of the
+correct quantile for estimating sellers’ reserve prices. We show that the
+selection bias must be accounted for by rotating the best bids’ quantiles
+by an endogenous degree that depends on the amount of selection. We
+determine the endogenous rotation to recover sellers’ reserve prices via
+the copula of errors in the outcome equation for best bids and errors
+in the selection equation. We call this the optimal quantile rotation. We
+provide the optimal rotation in closed form and show that it can be
+expressed as a function of the selection score and copula only.
+
+Because TCI is sellers’ loss relative to the frictionless sale price,
+our approach also provides measures of gains from trade. The realized
+seller’s gains from trade are the difference between the frictionless sale
+price and the seller’s reserve price minus TCI, which equals the differ-
+ence between the expected best bid and the reserve price multiplied
+by the probability of trade. Over our sample period, for high-rated
+tranches, TCI is low relative to sellers’ gains from trade (1.40/2.43%
+for senior/mezzanine tranches). For low-rated tranches, TCI is almost
+double the gains from trade (2.05% for junior tranches). In addition,
+TCI for sellers with a low reserve price (5.58%) is more than 50%
+higher than for sellers with a median reserve price (3.64%).
+
+TCI is the bid–ask spread plus the failure rate times the failure cost.
+In the cross-section, for high-rated tranches, TCI moderately exceeds
+bid–ask spreads, but for low-rated tranches TCI substantially exceeds
+bid–ask spreads. In the time series, because failure costs and failure
+rates co-move with both increasing in stressful periods, this amplifi-
+cation causes TCI to spike significantly more than bid–ask spreads in
+stress periods (0.20/0.88/2.73% for senior/mezz/junior when dealer
+CDS spreads are low vs. 0.47/2.02/4.98% when dealer CDS spreads
+are high). TCI spiking so dramatically emphasizes how the selection
+bias in observed costs can cause them to dramatically underestimate
+illiquidity in crises when trade failures diminish realized gains from
+trade. These results demonstrate substantial heterogeneity in market
+functioning across investors, assets, and time.
+
+To illustrate how TCI increases with the risk of the asset and spikes
+in market stress and how trade failures diminish gains from trade, Fig. 1
+plots weekly average realized bid–ask spreads (dashed red lines) and
+TCI (solid blue lines) for different CLO credit tranches during the 2020
+pandemic. The patterns are representative of other stress periods. Panel
+A shows that realized bid–ask spreads for senior tranche (AAA-rated)
+CLOs were only a few basis points (bps) at the start of 2020. Beginning
+in February 2020 spreads rose to about 10 bps. As the pandemic hit in
+March 2020, spreads widened to 20 bps. The realized bid–ask spreads
+for mezzanine tranches follow a similar pattern: spreads were about
+5 bps at the beginning of the year, rose to 15 bps in February, and
+were 40 bps by the end of March 2020.3 Interestingly, realized bid–ask
+spreads for below-investment-grade junior tranches rose more modestly
+in March. Panel A compares our TCI measure directly to realized bid–
+ask spreads. The magnitude of the increases in TCI dwarfs that of
+
+3 Kargar et al. (2020) and O’Hara and Zhou (2020) study liquidity for
+corporate bonds through this time period. They find that bid–ask spreads
+widen to three to four times their pre-pandemic level, with the increase
+occurring in trades where the dealers act as principals.
+
+JournalofFinancialEconomics157(2024)1038592T. Hendershott et al.
+
+Fig. 1. TCI and BWIC fail rates during 2020 pandemic
+The figure documents TCI (solid blue lines) compared to bid-ask spreads (dashed red lines) in the CLO market (Panel A) and weekly BWIC fail rates (Panel B) during the onset
+of the 2020 pandemic between January 2020 and March 2020, split by tranche into the senior tranche rated AAA, mezzanine tranche rated AA–BBB, and junior tranche rated
+BB–equity. The lightly shaded area indicates early stages of the pandemic between 3rd week of February and 2nd week of March (before the first US shelter-in-place orders),
+while the darker shaded area indicates later stages of the pandemic between 2nd and 4th weeks of March, i.e., after first US shelter-in-place orders have been implemented. (For
+interpretation of the references to color in this figure legend, the reader is referred to the web version of this article.)
+
+the spread. For the senior tranches, TCI exhibits similar dynamics as
+the spread until late February, but then TCI spikes to over 1%. For
+mezzanine tranches, TCI is above the spread at the start then increases
+to 4% by April. For the junior tranches, TCI starts around 2%–3%, then
+increases to over 10%. Overall, TCI suggests more substantial market
+deterioration with the onset of the pandemic. We show later in the
+paper that the dramatic increase in TCI is due to an increase in the
+BWIC failure rate as depicted in Panel B as well as an increase in the
+failure cost. Panel B shows that failure rates for senior (mezzanine)
+CLOs increased from less than 10% (20%) to over 20% (30%) during
+the onset of the 2020 pandemic, while the failure rate for junior rose
+from 30% in early 2020 and exceeded 60% by late March 2020.
+
+Literature overview. Measuring the opportunity costs of not trading
+has been recognized as important in many markets (Perold (1988)).
+In equity markets, because institutional trading data from Plexus and
+Ancerno only have realized trading volume, limited progress has been
+made in measuring how the opportunity costs bias execution costs for
+institutions.4 Our estimation of reserve prices from failed trades is most
+
+4 Harris and Hasbrouck (1996) examine the opportunity costs for individual
+orders by comparing the performance of limit versus market orders on the New
+York Stock Exchange. Limit orders impose opportunity costs due to delay and
+failure to execute. Harris and Hasbrouck (1996) impute the cost of a failed
+limit order execution as being the cost if that limit order is converted to
+a market order. The Harris–Hasbrouck approach shows how a market price
+estimate could be used to estimate reserve prices. Bessembinder et al. (2009)
+
+valuable in OTC markets where quotes and prices are not continu-
+ously observable. A number of approaches have been used to calculate
+transaction costs in OTC markets.5 TCI extends these approaches by
+incorporating the costs of not trading.6
+
+extend Harris and Hasbrouck (1996) to examine opportunity costs for hidden
+limit orders. However, with the advent of high-frequency trading, limit orders
+are more likely to be replaced by repriced limit orders than converted into
+market orders. Hence, the imputed-fills approach is difficult to apply in recent
+periods.
+
+5 The simplest approach is to compare roughly contemporaneous buy and
+sell prices of the same security to impute a spread. Hong and Warga (2000)
+follow this approach by subtracting the average sale price from the average
+buy price each day when there is both a buy and a sell. While imputed costs are
+easy to calculate, infrequent trading limits the amount of usable data. To allow
+buy and sell trades to occur on different days, Harris and Piwowar (2006)
+and Bessembinder et al. (2006) calculate trading costs using regressions of the
+change in price between transactions on the change in the trade sign. Similar to
+our approach to measuring effective bid–ask spreads, Green et al. (2007) and Li
+and Schürhoff (2019) identify matching buys and sells to calculate round-trip
+trading costs.
+
+6 Bessembinder et al. (2018) find evidence consistent with a decrease
+in customers’ ability to trade and an increase in the opportunity costs of
+failed trades. However, the paper does not directly measure either of these.
+Dick-Nielsen et al. (2012) and Friewald et al. (2012) show that corporate
+bond liquidity decreased during the 2007–2009 financial crisis. Our results
+show that bid–ask spreads underestimate the cost of immediacy during crises
+
+JournalofFinancialEconomics157(2024)1038593T. Hendershott et al.
+
+We estimate the bias in transaction costs due to the opportunity cost
+of non-trading by modeling the selection in which trades occur. Another
+approach to estimating the cost of immediacy is to identify investors
+always needing to complete a trade regardless of how attractive a price
+they receive. This eliminates the selection problem as the failure rate is
+zero and the observed expected best bid conditional on trade equals the
+unconditional best bid. Ellul et al. (2011) study insurance companies’
+forced bond selling due to downgrades and regulatory constraints. Dick-
+Nielsen and Rossi (2019) use index exclusions to measure the cost of
+uninformed index trackers demanding immediacy. Indexers likely have
+the lowest reserve prices because of the cost of a tracking error, so
+they always trade. The approach using specific events enables unbiased
+measurement of the costs for certain investors. However, this approach
+cannot measure the opportunity costs for investors who choose not to
+trade because, by construction, the cost of immediacy is measured only
+for investors who always trade. Our approach can measure the TCI for
+investors with any reserve price, rather than for only investors with the
+lowest reserve price, and it shows that TCI varies dramatically across
+investors, assets, and time.
+
+Auctions have been studied in many contexts, including financial
+markets (for example Hortaçsu et al., 2018). The empirical literature
+typically focuses on revenue to the seller/issuer and bidders’ strate-
+gies and surplus. Because TCI is a fair-value benchmark minus seller
+revenue, we also analyze seller revenues. We further analyze when
+trade fails to occur to estimate sellers’ reserve prices.7 These results
+enable the calculation of overall seller gains from trade as well as the
+heterogeneity of TCI and gains across sellers with different reserve
+prices. Because sellers’ reserve prices are not observed, our approach
+must account for unobserved heterogeneity and selection.8
+
+Selection-adjusted quantiles have been used to estimate uncondi-
+tional outcomes in a variety of settings.9 For example, Arellano and
+
+thus suggesting that illiquidity may have been even worse than previously
+measured.
+
+7 Hendershott and Madhavan (2015) study corporate bond trading via
+traditional OTC search and request for quote (RFQ) auctions, which are similar
+to BWICs. Corporate-bond RFQs fail often and costs are higher for trades that
+occur after a failed auction. However, the paper does not estimate the costs for
+attempted, yet failed trades. The cost of failed auctions is higher in CLOs than
+corporate bonds for several reasons: Corporate-bond RFQs are shorter lived (5–
+10mins) than BWICs; corporate bonds trade more frequently; the number of
+corporate-bond dealers is higher; and a larger share of customer sells for CLOs
+are done through BWICs than via RFQs in corporate bonds. Riggs et al. (2020)
+study RFQs and bilateral trades in the index credit default swaps market. The
+vast majority of index CDS inquiries resulted in trades, so the cost of failure
+is less relevant in their setting. Allen and Wittwer (2023) examine trading
+using data on OTC and RFQ trading in Canadian government bonds without
+examining failures.
+
+8 Haile and Kitamura (2019) show that accounting for unobserved hetero-
+geneity that affects bidders’ valuations is important, especially in first-price
+auctions. To address this issue, the control function approach conditions on
+observables, such as variation in the number of bidders (Campo et al., 2003)
+or seller’s reserve price if it is known (Roberts, 2014), to implicitly condition
+on the unobservables. Krasnokutskaya (2011) develops a multiple measure-
+ment approach showing how independent noisy measurements, e.g., data
+on multiple bids in the independent private value model, can be used to
+back out a latent variable. Cassola et al. (2013) study multi-unit ECB repo
+auctions, and Hortaçsu et al. (2018) study multi-unit Treasury auctions where
+they address unobserved heterogeneity through a resampling method that
+separately uses bids from each auction instead of pooling bidding data across
+auctions. However, accounting for observed heterogeneity in their setting
+requires slicing bidders into groups which lowers the number of observations
+available for resampling. In our setting, we pool data across auctions in
+a quantile regression setting and develop a moment-based approach using
+dealers’ private inventory information as an instrumental variable to capture
+unobserved heterogeneity that affects sellers’ reserves.
+
+9 Koenker and Bassett (1978) pioneered the quantile regression approach.
+Chernozhukov and Hansen (2005) develop an instrumental variables approach
+
+Bonhomme (2017) determine a selection-adjusted rotation to recover
+a fixed, exogenous quantile of the unconditional wage distribution to
+adjust for endogenous unemployment. We move beyond the estimation
+conditional distribution of the outcome variable to estimate the unob-
+served unconditional distribution of the outside option. In our setting,
+we prove that the distribution of best bids can be used to recover the
+sellers’ reserve prices. Our optimal quantile rotation is endogenously
+determined, observation specific, can be derived in closed form and can
+be applied in other markets where reserve prices, reservation values, or
+outside options are unobserved.
+
+2. Background: CLOs and how they trade
+
+2.1. What are CLOs?
+
+CLO securities are asset-backed securities (ABS) where the underly-
+ing collateral is a pool of syndicated loans issued by indebted low-rated
+corporations. The issuers of CLO securities are special purpose vehicles
+or trusts that own the pool of collateral and finance the holding by
+issuing debt and equity claims that are of different seniority to the cash
+flow from the collateral. The collateral for CLOs is mostly leveraged
+loans that Standard & Poor’s defines as senior secured bank loans
+rated BB+ or lower (i.e., below investment grade) or yielding at least
+125 basis points above a benchmark interest rate (typically LIBOR or
+EURIBOR) and secured by a first or second lien.10
+
+CLOs are complicated structures that consist of many debt tranches
+and a sliver of equity. The tranches are ranked highest to lowest in
+order of credit quality and cash flow priority and, thus, lowest to
+highest in order of riskiness. Although leveraged loans themselves are
+mostly rated below investment grade, a large fraction of CLO tranches
+are rated investment grade, benefiting from diversification and subor-
+dination of cash flows. CLOs aim to capture the excess spread between
+the portfolio of leveraged bank loans (assets) and the classes of CLO
+debt (liabilities), with the equity investors receiving any excess cash
+flows after the debt investors are paid in full. The popularity of CLOs
+has grown tremendously since the financial crisis, both in the US and
+in Europe.
+
+Fig. 2 shows the amount of US CLO securities outstanding over
+the sample period 2012–2020, split by tranche into the senior tranche
+rated AAA, mezzanine tranche rated AA–BBB, and junior tranche rated
+BB–equity.11 The market more than doubled since 2012. This trend
+partly reflects the growth of the leveraged loan market as issuers
+took advantage of investors’ reaching-for-yield demand under a gener-
+ally low-interest rate environment. The amount of US leveraged loans
+outstanding was just over one trillion dollars as of late 2019. CLOs
+currently hold about two-thirds of the leveraged loan universe, and they
+are expected to bear the brunt of losses in leveraged loans when the
+business cycle turns. The three grey shaded areas in Fig. 2 correspond
+to periods of credit market stress: the 2012 European debt crisis, the
+2015–16 energy sector-related credit stress, and the 2020 COVID-19
+pandemic.
+
+Ownership of CLOs varies by tranche. The least risky, most se-
+nior tranches are mainly owned by insurance companies (which favor
+income-producing investments) as well as banks (which need high-
+quality capital to meet regulatory requirements), particularly foreign
+
+to quantile regression. Machado and Silva (2019), among others, show how
+quantiles can be estimated via moment restrictions. Gimenes and Guerre
+(2021) apply quantile regression in an auction setting.
+
+10 Several characteristics make leveraged loans particularly suitable for
+securitizations: They pay interest on a consistent monthly or quarterly basis;
+they have a reasonably active secondary market; they have a high recovery
+rate in the event of default historically; and they originate from a large,
+diversified group of issuers.
+
+11 The growth in the AAA tranche in 2012–2014 reflects a substantial
+
+amount of AA rated tranches being upgraded to AAA.
+
+JournalofFinancialEconomics157(2024)1038594T. Hendershott et al.
+
+Fig. 2. CLO amount outstanding by credit risk
+The figure plots quarterly CLO amount outstanding in $ billions over the sample period 2012–2020, split by tranche into the senior tranche rated AAA, mezzanine tranche rated
+AA–BBB, and junior tranche rated BB–equity. Grey areas indicate stress periods in the credit market: the 2012 European debt crisis, the 2015–16 credit stress, and the 2020
+COVID-19 pandemic.
+
+banks.12 The equity tranche is the riskiest, offers potential upside and
+a degree of control, and appeals to a wider universe of investors.
+According to the BIS, banks hold more than 50% senior CLOs and
+none of the equity, which are held primarily by hedge funds, structured
+credit funds, and other asset managers, including CLO managers.13
+
+2.2. How do CLOs trade?
+
+Much like corporate bonds, municipal bonds, and other debt in-
+struments, CLO securities are traded over the counter with dealers
+intermediating trade. Existing CLO investors sell their holdings through
+an auction where many dealers can simultaneously bid on the secu-
+rity. Such auctions are called bids-wanted-in-competition, or BWICs.
+Investors choose a dealer to run the BWIC. The dealer sends out
+the BWIC to a list of other dealers to solicit bids before the bidding
+deadline.14 Typically, the organizing dealer decides which other dealers
+are contacted and collects bids by email. The dealer communicates with
+the seller about whether the seller accepts the highest bid or lets the
+BWIC fail. The email mechanism is more flexible than fully automated
+trading, so the exact process is not fully standardized.
+
+BWIC auctions operate as first-price sealed bid auctions, in that the
+winning dealer pays her bid. After the auction is completed, only the
+seller and the winner know the transaction price. The only information
+disseminated back to the market and to losing dealers is the second
+highest bid in the auction known as the ‘‘cover’’. In the case of not
+enough bids or bids below the seller’s reserve price, the auction is
+disclosed as ‘‘DNT (Did Not Trade)’’. Because the seller is unable to exit
+his/her position in the security, we classify such an outcome as ‘‘auction
+failure’’. Sellers’ reserve prices are private and are not announced
+during or after the auction. As intermediaries, dealers mainly bid in
+auctions with the intention of resale. Dealers’ profits are the difference
+
+12 The Volcker Rule prevents banking entities from holding ownership
+interests in ‘‘covered funds’’. Many CLOs, especially those issued prior to
+the publication of the final rule, have features that make them fall into
+the category of ‘‘covered funds’’. As a result, banking entities would not be
+permitted to hold an ‘‘ownership interest’’ in those CLOs. An exemption to the
+rule applies to CLOs that hold only loans. CLOs issued since 2014 (CLO 3.0)
+typically hold only loans and can be held by banks.
+
+13 See https://www.bis.org/publ/qtrpdf/r_qt1909w.htm. Cordell
+
+et al.
+(2023) examine CLO and manager performance. The majority of outstanding
+CLOs are actively managed. Managers of these CLOs play an important role
+in selecting loans for the portfolio, actively monitoring the quality of the
+collateral and trading in and out of loans.
+
+14 In our sample, there are roughly 20 dealers who regularly win BWICs.
+See Atkeson et al. (2015) for a theoretical analysis of dealer entry and exit in
+OTC markets.
+
+between the resale price and their winning bid net of search cost and
+inventory holding cost.
+
+CLOs are traded in a unique hybrid fashion where the dealer-buy
+leg is conducted through auction and the dealer-sell leg is conducted
+through bilateral search. Shorting is rare in this market, likely due
+to the idiosyncratic nature of CLOs. Therefore, dealer intermediation
+almost always starts with a dealer buy followed by a dealer sell, rather
+than the opposite. Many other types of structured products such as
+auto-ABS, credit card ABS, and CMBS/RMBS are traded in a similar
+hybrid fashion. Our analysis is likely applicable to those securities as
+well.
+
+3. Data
+
+Our main data sources combine BWIC auction data from Creditflux
+
+with regulatory transaction data from FINRA.
+
+3.1. Auction data
+
+Our BWIC auction data are from Creditflux, a commercial provider
+of granular data on CLOs and other structured products. For each
+auction, we have information about the CUSIP, the cover (second
+highest bid), and a flag that indicates if the auction failed. We limit our
+sample to the period from 2012 to March 2020, when TRACE reporting
+for structured products was available and when the number of auctions
+was large enough for our estimation. The sample includes the volatile
+period at the onset of the COVID-19 pandemic. We adopt a couple
+of filters for the sample, including requiring the CLO securities to be
+‘‘US CLOs’’ denominated in USD. We keep only CUSIPs that appear in
+the TRACE master file. The majority of BWICs correspond to CUSIPs
+that are in the TRACE master file. The Appendix reports statistics on
+the cleaning filters that we have applied to the CLO BWIC data. After
+cleaning, we are left with a sample of 33,408 BWICs.
+
+Additional information about the CLOs such as the amount out-
+standing and dates of issuance are from Bloomberg. Leveraged loan
+market spreads from JP Markets capture the CLO market condition.
+Information about the CLO dealer CDS spread is from Markit. Dealer
+CDS spread captures CLO dealers’ funding conditions. There are about
+20 active dealers in the CLO market. We use the average CDS spread
+of all primary dealers to proxy for the funding costs of dealers in the
+CLO market.
+
+3.2. Trade data
+
+We supplement the auction data with post-trade reporting data to
+infer the best bids (final transaction prices) in BWIC auctions as well as
+dealers’ resale prices. The SEC started requiring dealers of structured
+
+JournalofFinancialEconomics157(2024)1038595T. Hendershott et al.
+
+products, including CLOs, to report trades in May 2011. Reported
+trades are not disseminated to the public. We match FINRA supervisory
+TRACE to the auction data to infer winning bids in auctions. To the
+extent that some residual clients sell directly to their relationship
+dealers, instead of conducting auctions, we observe those prices as well.
+There are roughly 290K observations from TRACE for securities
+labeled as CDO/CLOs. Roughly 190K of these trades are for CUSIPs in
+the auction data. Roughly 40% of TRACE customer-to-dealer trades of
+CLOs can be matched to our auction data on a CUSIP-date basis. About
+85% of our successful BWICs can be uniquely matched to a TRACE
+transaction that is customer-buy-from-dealer of the same CLO security
+on the same day. The Appendix reports statistics on the number of
+transactions that can be merged between TRACE and Creditflux.
+
+CLOs trade very infrequently. A typical CLO in our sample only
+trades 11 times (roughly 4 dealer buys, 6 dealer sells, 1 interdealer)
+over the entire span of our sample. The trading frequency also varies by
+the seniority of the tranches, with a typical (median) AAA-rated tranche
+trading 15 times in the sample and a typical equity tranche trading 9
+times.
+
+Another notable observation is that relative to the municipal bond
+and corporate bond markets, inter-dealer trades are not as prevalent in
+the CLO market. Roughly speaking, there is only 1/3 of an interdealer
+trade for every dealer-buy trade. The comparable number is 1.7 for
+the municipal bond market in 2018, 1.8 for investment-grade corpo-
+rate bonds, and 1.4 for high-yield corporate bonds in 2019. This is
+perhaps not surprising given the competitive nature of the customer-to-
+dealer leg of the transaction. In the empirical OTC market literature, a
+common way to measure transaction costs or liquidity of infrequently
+traded fixed-income securities is through effective bid–ask spread, or
+realized return for dealers, which calculates the difference between
+dealer buy prices and dealer sell prices. The effective bid–ask spread
+can be viewed as a measure of compensation for dealers’ intermediation
+services.
+
+Following Li and Schürhoff (2019), which builds on Green et al.
+(2007), we form dealer roundtrips by matching trades of the same
+CLO security that are dealer-buy-from-customer to the dealer-sell-to-
+customer trade by the same dealer. Roughly 46K roundtrips can be
+found for the sample of CLO securities in our auction data. Over 95% of
+these roundtrips have only one dealer between the selling customer and
+the buying customer (CDC roundtrips, as in Li and Schürhoff, 2019).
+Roughly 17K of these CDC roundtrips can be uniquely matched to a
+successful auction in our BWIC data, where the first leg of the roundtrip
+happens on the same day of the auction. These roundtrips correspond to
+about 60% of all successful auctions. Approximately half of the matched
+roundtrips occur on the same day, about 11% have an inventory time
+of one day; 16% of the roundtrips have an inventory time between one
+day and seven days; the rest of the roundtrips have an inventory time
+of up to 300 days. For effective bid–ask spread, we restrict the sample
+to roundtrips no more than 1 day apart, to limit the effect of mark-to-
+market price changes in the price difference between the buy leg and
+sell leg.
+
+Table 1 provides summary statistics of key variables in our sample.
+We split the BWICs into auctions of senior, mezzanine, and junior CLO
+tranches. All of the Senior tranche CLOs are rated AAA by definition.
+Mezzanine tranche CLOs are roughly evenly split among AA, A, and
+BBB rated. Junior tranche CLOs are all below investment grade. The
+majority of the junior tranche CLOs are rated BB and only 16% of the
+junior tranche auctions are for the equity CLO tranche, underscoring
+how unlikely it is for an equity CLO tranche to trade in the secondary
+market. Depending on when the CLO was issued, each CLO is classified
+into vintage 1.0, 2.0, or 3.0. CLO 1.0s were issued before the 2007
+financial crisis. CLO 2.0s were issued between 2008 and 2013, and
+are considered to have a robust structure compared to securities from
+earlier vintage. CLO 3.0s were issued after 2014, with most of them
+allowing only loans (no bonds) in the collateral pool, so as to be
+
+‘‘Volcker’’ compliant. CLO 3.0s account for over half of our auctions
+across different tranches.
+
+Because CLOs are held by institutional investors, they trade in large
+blocks. The median size of a trade (auction) in our sample is around
+$3 million. The median CLO security in our sample has a par outstand-
+ing value of $222/$24/$17 million for the senior/mezzanine/junior
+tranche.
+
+Effective bid–ask spreads are small in our sample. Median bid–
+ask spreads are 2 bps/5 bps/9 bps of the CLO face value for the
+senior/mezzanine/junior tranche. These are a little smaller than the
+round-trip costs of corporate bonds with comparable ratings. This may
+be due to the fact that trade sizes for CLOs are larger than the average
+size of an institutional trade for a comparable corporate bond and
+the bid–ask spread tends to decline with trade size for fixed-income
+securities.
+
+Table 1 also provides the average fraction of failed BWICs. On
+average, only 7% of the senior tranche CLO BWICs fail and 16% of
+BWICs in the mezzanine tranche, while the junior tranche BWICs fail
+30% of the time.
+
+3.3. CLO trading volume and bid–ask spreads
+
+Fig. 3 reports the CLO trading volume (Panel A), CLO realized bid–
+ask spread (Panel B), and market and dealers’ funding conditions (Panel
+C) over the 2012–2020 sample period. Results reported in Panels A and
+B are split by tranche. Grey areas indicate periods of market stress:
+the 2012 European debt crisis, the 2015–16 credit stress, and the 2020
+COVID-19 pandemic. All data are quarterly.
+
+Panel A of Fig. 3 shows CLO trading volume. CLO trading volume is
+consistent with the amount of CLO securities outstanding from Fig. 2.
+Senior and junior amounts outstanding are comparable to each other
+in 2012 when the mezzanine tranche was approximately twice the size
+of the senior tranche. Consequently, senior and junior CLO tranches
+had lower trading volume in 2012 than the mezzanine tranche. Trading
+volume seems to be a leading indicator for credit stress events for all
+CLO tranches. Trading volume tends to fall ahead of credit stresses and
+recovers by the end of a stress period.
+
+Panel B of Fig. 3 plots the realized bid–ask spread. As discussed
+in Section 3, we measure bid–ask spreads on successful BWICs as a
+difference between the best bid submitted by dealers in the BWIC
+and the ask price that the CLO buyer pays to the winning dealer, as
+a percent of the par value of the trade. We restrict the sample to
+roundtrips where the dealer sell-leg and dealer buy-leg are no longer
+than one day apart. When the legs are further apart market movements
+start to contaminate the measurement of bid–ask spreads. Realized bid–
+ask spreads are low and equal to 5 bps/10 bps/12 bps of the CLO face
+value for senior/mezzanine/junior tranches. Spreads tend to fluctuate
+with market-wide credit risk.
+
+Panel C of Fig. 3 shows the leveraged loan spread (left plot) and
+dealer CDS spread (right plot). The leveraged loan spread fluctuates
+between 3% to 5.3% during most of the sample period, and rises to
+almost 7% in March 2020, during the COVID-19 pandemic. Dealer CDS
+spreads follow the same time trend as the leveraged loan spread. The
+average dealer CDS spread was over 2% during the European crisis in
+2012 and is mostly below 1% after 2013.
+
+Appendix B provides a more formal analysis of bid–ask spreads in
+CLOs. We examine the determinants of effective bid–ask spreads using
+multivariate regressions. Table A.1 reports the parameter estimates.
+All results are split by CLO tranche. Overall, effective bid–ask spreads
+do not vary much within a quarter for CLOs with the same vintage
+and credit rating. When bid–ask spreads do vary within a quarter, the
+variation is mainly due to major economy-wide credit events affecting
+the riskiness of leveraged loans held by the CLOs. The next section
+investigates BWIC failures.
+
+JournalofFinancialEconomics157(2024)1038596T. Hendershott et al.
+
+Table 1
+Summary statistics.
+The table reports summary statistics for BWICs in all CLOs over the sample period 2012–2020 for different sample splits. Panel A reports results for the senior tranche rated AAA,
+Panel B for the mezzanine tranche rated AA–BBB, and Panel C for the junior tranche rated BB–equity.
+
+Variable
+
+Mean
+
+S.D.
+
+5%
+
+25%
+
+50%
+
+75%
+
+95%
+
+Panel A: Senior tranche (AAA, I = 9000 BWICs)
+
+CLO vintage: 1.0/2.0/3.0
+CLO rating: AAA
+
+BWIC fail rate
+
+Par value of trade ($M)
+CLO issue size ($M)
+Bid–ask spread (%)
+
+15%/11%/74%
+100%
+
+7%
+
+2.77
+228.24
+0.04
+
+Panel B: Mezzanine tranche (AA–BBB, I = 12,955 BWICs)
+
+CLO vintage: 1.0/2.0/3.0
+CLO rating: AA/A/BBB
+
+BWIC fail rate
+
+Par value of trade ($M)
+CLO issue size ($M)
+Bid–ask spread (%)
+
+24%/16%/60%
+27%/31%/42%
+
+16%
+
+2.48
+33.94
+0.10
+
+Panel C: Junior tranche (BB–equity, I = 11,453 BWICs)
+
+CLO vintage: 1.0/2.0/3.0
+CLO rating: BB/B/Equity
+
+BWIC fail rate
+
+Par value of trade ($M)
+CLO issue size ($M)
+Bid–ask spread (%)
+
+4. Trade failures
+
+12%/29%/58%
+70%/14%/16%
+
+30%
+
+2.72
+22.53
+0.12
+
+4.16
+2.45
+0.08
+
+2.69
+1.74
+0.29
+
+2.32
+1.91
+0.19
+
+0.25
+30.00
+0.00
+
+0.49
+15.95
+0.00
+
+0.60
+8.40
+0.01
+
+This section explores why failure rates on BWICs are large and how
+they behave prior to and during periods of market stress. The choice
+of explanatory variables, 𝑋, that we use in our analysis is important as
+they explain variation in CLO failure rates by observable characteristics
+and market conditions. Therefore, 𝑋 includes the par value of trade
+(log of par), the CLO issue (log of the amount outstanding, vintage,
+and rating), the JPM leveraged loan spread, and dealer CDS spread to
+capture trade, market, and dealer conditions, respectively. Dealer CLO
+inventory is an additional characteristic included in 𝑋. Data on the
+dealer inventories are from the New York Fed Primary Dealer Statistics.
+The data is on the aggregate net position of all primary dealers in
+‘‘Other Asset-Backed Securities’’ as these include dealers’ CLO holdings,
+but exclude credit card, student loan, and automobile loan-backed ABS
+securities. Finally, we add credit rating splits for mezzanine and junior
+tranches.
+
+The number of successful and the number of failed trades are natural
+liquidity measures. While the number of successful trades, or trading
+volume, has been extensively used in the literature, our paper is the
+first to perform a comprehensive study of failed trades. Trading volume
+alone may be a downward biased measure of illiquidity as it does not
+capture the lost trade value due to failure to strike a deal.
+
+Panel A of Fig. 4 documents quarterly BWIC activity (solid line) and
+trading volume (dashed line) in the CLO market. Panel B of Fig. 4 plots
+the quarterly failure rate in percent, where the solid line is actual and
+the dashed line is predicted using probit regression (1). Each plot covers
+the 2012–2020 sample period, and both panels are split by tranche.
+Panel A shows that the number of BWICs increases over time across
+all tranches, consistent with the growth of the market. The number of
+BWICs and trades tends to decline during credit stress events and the
+BWIC failure rate tends to increase during stress periods. The average
+failure rate is different across tranches. It ranges from 0% to 15% for
+the senior tranche, 5%–30% for the mezzanine tranche, and 8%–60%
+for the junior tranche.
+
+It is notable that the number of BWICs and failure rate seem to be
+leading indicators of market stress. This is particularly notable during
+the 2015–2016 stress episode when the number of BWICs dropped
+substantially early in the stress period and the failure rate rose sharply.
+
+1.00
+225.72
+0.01
+
+2.80
+302.50
+0.02
+
+8.00
+363.05
+0.05
+
+27.25
+492.75
+0.13
+
+1.25
+24.50
+0.02
+
+1.70
+17.00
+0.02
+
+2.75
+32.00
+0.05
+
+3.00
+23.00
+0.09
+
+5.00
+46.40
+0.12
+
+5.00
+31.75
+0.13
+
+11.00
+78.00
+0.31
+
+9.80
+56.50
+0.38
+
+This is possibly due to CLO sellers being slow to adjust their reserve
+prices in response to sharply declining demand. Sellers catch up with
+the declining demand by either reducing their reserve prices or/and
+reducing the supply by not even attempting to trade.
+
+Table 2 compares BWIC fail rate using sample splits based on dif-
+ferent explanatory variables. The Low/Medium/High columns indicate
+values of the varied characteristic in its bottom/middle/top tercile.
+Panels A/B/C report results for the senior/mezzanine/junior tranche,
+respectively.
+
+For the senior tranche, larger trades fail more often with fail rates
+equal to 3%/7%/12% for Low/Medium/High trade sizes. The relation
+between BWIC fail rate and CLO issue size is weak—BWICs of smaller
+CLOs fail a bit more at 9%, while medium and large CLOs both fail
+about 7% of the time. CLO 3.0 BWICs fail slightly less than CLO 1.0
+and 2.0 BWICs, i.e., 7% compared to 10%. The BWIC fail rate increases
+with the dealer CDS spread, 5%/8%/9% for Low/Medium/High CDS
+spreads. This suggests that dealers may bid higher when the cost of
+funding is lower. BWIC fail rates also increase with the dealer CLO
+inventory position, 5%/5%/11% for Low/Medium/High, as dealers are
+more reluctant to buy when inventories are larger.
+
+For the mezzanine tranche, BWIC fail rates vary a lot with trade,
+market, and dealer conditions. Similar to the senior tranche, BWICs
+with a larger par amount fail more often. Fail rates increase with
+the riskiness of the tranches, with rates equal to 12%/16%/20% for
+AA/A/BBB ratings. BWICs of CLOs with a larger issue size fail less
+often. This is potentially due to the fact that larger issues may have
+a wider investor base, making it easier to find buyers. BWIC fail rates
+are higher when the leveraged loan spread is higher, when dealers’
+funding costs are higher, and when dealers’ inventories are larger. The
+qualitative nature of all these relations remains the same for the junior
+tranche as Panel C demonstrates. In summary, unlike the effective bid–
+ask spread, BWIC fail rates vary significantly with trade, market, and
+dealer conditions.
+
+How costly a failed BWIC is for the seller depends on whether the
+asset can be subsequently sold at a good price and whether the risk of
+failure can be hedged. Table 3 reports how often failed auctions are
+followed by another BWIC trade (Panel A) or an OTC trade (Panel B)
+over different time horizons: on the same day, within one day, and
+within 10 days of the failed auction. The probability of BWIC being
+
+JournalofFinancialEconomics157(2024)1038597T. Hendershott et al.
+
+Fig. 3. CLO trading volume and bid–ask spreads
+The figure documents quarterly trading volume (Panel A) and bid–ask spreads (Panel B) in the CLO market over the sample period 2012–2020, split by tranche into the senior
+tranche rated AAA, mezzanine tranche rated AA–BBB, and junior tranche rated BB–equity. Grey areas indicate periods of market stress: the 2012 European debt crisis, the 2015–16
+credit stress, and the 2020 COVID-19 pandemic. The figure also documents market and funding conditions in the CLO market (Panel C) over the sample period 2012–2020. The
+left plot shows the evolution of the JPM leverage loan spread index and the right plot shows the evolution of the average CDS spread on all primary dealers active in the CLO
+market.
+
+followed by BWIC is less than 0.1% on the same day and it is no
+greater than 1.2% over the next day for all CLO tranches. It increases
+with window size but even over 10 days does not exceed 3.9% on
+average. Across tranches, AAA has the highest chance of rerunning a
+BWIC, and Equity has the lowest. When we match on trade size, the
+repeat BWIC probability drops to less than 1%. Panel B shows that
+BWICs are more likely to be followed by an OTC trade than another
+BWIC.15 Panel B of Fig. 4 shows failure rates spiking in times of stress.
+
+Table 2 shows that leveraged loan spreads and dealer CDS spreads
+are important determinants of BWIC fail rates. These suggest hedging
+possibilities in instruments correlated with these spreads. Finally, the
+reservation values we later estimate should incorporate such possible
+hedging as well as hedging of the risk of the underlying CLO.
+
+We next examine the determinants of BWIC failure by estimating
+the following Probit regression (𝛷 is the normal distribution function):
+
+15 Hendershott and Madhavan (2015) find similar results following failed
+corporate bond auctions. They attribute the low likelihood of trade after a
+
+failed auction to dealers being unlikely to increase their bids after a failed
+auction.
+
+JournalofFinancialEconomics157(2024)1038598T. Hendershott et al.
+
+Fig. 4. BWIC activity and failure rates
+The figure documents quarterly BWIC activity (Panel A) and BWIC failure rates (Panel B) in the CLO market over the sample period 2012–2020, split by tranche into the senior
+tranche rated AAA (left), mezzanine tranche rated AA–BBB (middle), and junior tranche rated BB–equity (right). In Panel B, the solid line is actual, and the dashed line is predicted.
+Grey areas indicate periods of market stress: 2012 (European debt), 2015–16, and 2020 (COVID-19 pandemic).
+
+Table 2
+BWIC fail rate: Splits by dealer inventory, trade size, CLO type, and market state.
+The table reports BWIC fail rates for different sample splits. Panel A reports results for the senior tranche rated AAA, Panel B for the mezzanine tranche rated AA–BBB, and Panel
+C for the junior tranche rated BB–equity. Low/Medium/High columns indicate values of the varied characteristics while other characteristics are held fixed at their medium value.
+
+Split variable
+
+BWIC fail rate split by
+
+Panel A: Senior tranche (AAA, I = 9000 BWICs)
+
+Par size of trade
+
+CLO vintage (1.0/2.0/3.0)
+CLO issue size
+
+JPM LL spread
+Dealer CDS spread
+Dealer CLO inventory
+
+Panel B: Mezzanine tranche (AA–BBB, I = 12,955 BWICs)
+
+Par size of trade
+
+CLO vintage (1.0/2.0/3.0)
+CLO rating (AA, A, BBB)
+CLO issue size
+
+JPM LL spread
+Dealer CDS spread
+Dealer CLO inventory
+
+Panel C: Junior tranche (BB–equity, I = 11,453 BWICs)
+
+Par size of trade
+
+CLO vintage (1.0/2.0/3.0)
+CLO rating (BB, B, Equity)
+CLO issue size
+
+JPM LL spread
+Dealer CDS spread
+Dealer CLO inventory
+
+Low
+
+0.03
+
+0.10
+0.09
+
+0.07
+0.05
+0.05
+
+0.12
+
+0.19
+0.12
+0.19
+
+0.13
+0.12
+0.13
+
+0.26
+
+0.25
+0.27
+0.30
+
+0.27
+0.27
+0.25
+
+Medium
+
+0.07
+
+0.09
+0.07
+
+0.07
+0.08
+0.05
+
+0.17
+
+0.18
+0.16
+0.16
+
+0.17
+0.17
+0.15
+
+0.32
+
+0.32
+0.36
+0.28
+
+0.29
+0.31
+0.34
+
+High
+
+0.12
+
+0.06
+0.06
+
+0.08
+0.10
+0.11
+
+0.20
+
+0.15
+0.20
+0.14
+
+0.19
+0.20
+0.21
+
+0.35
+
+0.31
+0.39
+0.33
+
+0.35
+0.33
+0.32
+
+JournalofFinancialEconomics157(2024)1038599T. Hendershott et al.
+
+Table 3
+Probability of repeat BWICs.
+The table reports the probability of a failed BWIC to be followed by another BWIC (Panel A) or OTC trade (Panel B) on the same day, within a day, or within 10 days of the
+auction.
+
+Panel A: BWIC followed by BWIC
+
+Seniority
+
+Same day
+
+[𝑡, 𝑡 + 1]
+
+[𝑡, 𝑡 + 10]
+
+Same day
+
+[𝑡, 𝑡 + 1]
+
+[𝑡, 𝑡 + 10]
+
+BWIC followed by BWIC; any size
+
+BWIC followed by BWIC; matched size
+
+All
+
+AAA
+AA
+A
+BBB
+BB
+B
+EQUITY
+
+0.000
+
+0.000
+0.000
+0.000
+0.000
+0.000
+0.000
+0.000
+
+Panel B: BWIC followed by OTC trade
+
+0.005
+
+0.012
+0.002
+0.008
+0.005
+0.005
+0.000
+0.001
+
+0.039
+
+0.090
+0.025
+0.035
+0.039
+0.044
+0.012
+0.009
+
+0.000
+
+0.000
+0.000
+0.000
+0.000
+0.000
+0.000
+0.000
+
+0.001
+
+0.000
+0.000
+0.002
+0.000
+0.001
+0.000
+0.000
+
+0.008
+
+0.012
+0.005
+0.009
+0.014
+0.009
+0.000
+0.001
+
+Seniority
+
+Same day
+
+[𝑡, 𝑡 + 1]
+
+[𝑡, 𝑡 + 10]
+
+Same day
+
+[𝑡, 𝑡 + 1]
+
+[𝑡, 𝑡 + 10]
+
+BWIC followed by OTC; any size
+
+BWIC followed by OTC; matched size
+
+All
+
+AAA
+AA
+A
+BBB
+BB
+B
+EQUITY
+
+0.052
+
+0.042
+0.032
+0.044
+0.063
+0.062
+0.040
+0.043
+
+0.080
+
+0.073
+0.073
+0.087
+0.083
+0.091
+0.062
+0.061
+
+0.149
+
+0.215
+0.144
+0.129
+0.149
+0.163
+0.104
+0.102
+
+0.030
+
+0.032
+0.022
+0.038
+0.034
+0.033
+0.025
+0.016
+
+0.043
+
+0.036
+0.054
+0.049
+0.046
+0.045
+0.040
+0.030
+
+0.072
+
+0.067
+0.100
+0.064
+0.086
+0.077
+0.066
+0.038
+
+Pr(BWIC failure𝑖𝑡) = 𝛷(𝛼𝑡 + 𝛽′𝑋𝑖𝑡 + 𝜂𝑖𝑡).
+
+(1)
+
+where 𝛼𝑡 are quarter fixed effects. Table 4 reports parameter estimates
+for the determinants of BWIC failure, split by tranche. The baseline
+specification (Column 1) includes the trade and CLO characteristics
+only. We add credit rating dummies to the baseline specification of
+the mezzanine and junior tranches. Across specifications 2 to 5, we
+vary the set of explanatory variables by including market and dealer
+characteristics, and quarter fixed effects 𝛼𝑡, incrementally.
+
+Panel A of Table 4 presents results for the senior tranche. The
+baseline specification (Column 1) is consistent with our univariate
+findings from sample splits (Table 2) that the fail rates increase with
+trade size and dealer CLO inventory position, and decrease with CLO
+issue size. Adding the leveraged loan spread (Column 2) slightly im-
+proves the pseudo-R2 from 4.9% in the baseline specification to 5.5%.
+In addition, the coefficient on the leveraged loan spread is positive
+and statistically significant. The dealer CDS spread (Column 3) adds
+little in terms of the explanatory power to the baseline specification,
+although the coefficient on the dealer CDS spread is positive and
+both statistically and economically significant. Depending on whether
+quarter fixed effects are included (Columns 4 and 5), only one of the
+leveraged loan spreads and dealer CDS spreads stays significant and
+positive. Panel B of Table 4 shows results for the mezzanine tranche.
+The results are similar to those for the senior tranche. The main
+difference is that the regression coefficients on both the leveraged loan
+spread and dealer CDS spread are positive and statistically significant
+at 1% level (Column 4). However, once the quarter fixed effects are
+included (Column 5), only the dealer CDS spread remains positive and
+statistically significant at 1% level. Another noteworthy result is that
+fail rates increase monotonically with the credit rating. In fact, BWICs
+of A/BBB-rated CLOs are 14%/32% more likely to fail than BWICs of
+AA-rated CLOs (Column 5).
+
+Panel C of Table 4 reports results for the junior tranche. Results
+are qualitatively similar to the ones reported for more senior tranches.
+Notably, the vintage effect is the most prominent in the junior and
+mezzanine tranches, with BWICs of CLO 2.0s/3.0s more likely to fail
+than BWICs of CLO 1.0s. This is likely because newer vintages have
+smaller senior tranches and relatively larger subordinated tranches to
+share potential credit loss.
+
+These multivariate results confirm that there exists significant vari-
+ability in BWIC failure rates with trade, market, and dealer conditions.
+In addition, the low pseudo–R2s indicate that the variables used do not
+explain much of the variability observed in failure rates. This suggests
+that the total costs of immediacy that incorporate the expected losses
+from the failure to trade vary significantly across time, CLO types, trade
+characteristics, and other unobserved characteristics. The value lost to
+both the seller and the buyer due to the inability to trade is not directly
+observed in the data. Therefore, it is estimated from the data in the next
+section, taking into account that failure rates and failure costs comove
+with observables and unobservables.
+
+5. Total cost of immediacy — definition and measurement
+
+In this section, we define the total cost of immediacy (TCI) that
+accounts for both successful and failed trades and discuss its empirical
+implementation in the CLO market.
+
+5.1. Definition
+
+In a BWIC an owner wanting to sell an asset solicits bids {𝐵𝑛}𝑁
+𝑛=1
+from 𝑁 dealers. The owner has a reserve price of 𝑅. While we treat
+𝑅 as a constant here, later, when we perform the estimation, we will
+use 𝑅 as a source of heterogeneity across CLOs and their sellers. For
+instance, 𝑅 may depend on the type of CLO and market conditions.
+More patient/impatient CLO sellers and sellers with higher/lower rep-
+utation are likely to set a higher/lower 𝑅, and more so during normal
+times than crisis periods when CLO investors may be forced sellers. Let
+𝐵 ≡ 𝐵1∶𝑁 = max{𝐵𝑛|𝑛 ∈ {1, … , 𝑁}} be the best bid.16 The trade takes
+place only if the best bid, 𝐵, is at least the seller’s reserve price, 𝑅:
+
+Owner/Seller’s participation constraint: Trade = 1 ⇔ 𝐵 ≥ 𝑅.
+
+(2)
+
+Let the probability that a trade fails to materialize be
+
+Pr(Fail) = Pr(𝐵 < 𝑅) = 1 − Pr(Trade).
+
+16 For instance, the CLO secondary market is organized as a sealed-bid first-
+price auction and, therefore, 𝐵 ≡ 𝐵1∶𝑁 = max{𝐵𝑛|𝑛 ∈ {1, … , 𝑁}}, where 𝐵𝑛 is
+the bid price for the CLO by dealer 𝑛 out of 𝑛 = 1, … , 𝑁 dealers participating
+in the BWIC (𝑁 varies across BWICs).
+
+JournalofFinancialEconomics157(2024)10385910T. Hendershott et al.
+
+Table 4
+BWIC fail rate.
+The table reports the determinants of BWIC failure. Estimates are obtained from Probit regressions. Panel A reports results for the senior tranche rated AAA, Panel B for the
+mezzanine tranche rated AA–BBB, and Panel C for the junior tranche rated BB–equity. Standard errors are robust to heteroskedasticity.
+
+Probability of BWIC failure
+
+(1)
+
+(2)
+
+(3)
+
+(4)
+
+(5)
+
+Panel A: Senior tranche (AAA, I = 9000 BWICs)
+
+log(Par value of trade)
+
+CLO 2.0 vintage
+CLO 3.0 vintage
+log(CLO issue size)
+CLO issue size missing
+
+Dealer CLO inventory
+
+JPM LL spread
+Dealer CDS spread
+
+Quarter FE
+Pseudo-R2
+
+0.20 ∗∗∗
+
+0.10
+0.15 ∗∗
+−0.07 ∗∗∗
+−0.04
+
+0.37 ∗∗∗
+
+No
+0.056
+
+Panel B: Mezzanine tranche (AA–BBB, I = 12,955 BWICs)
+
+log(Par value of trade)
+
+CLO 2.0 vintage
+CLO 3.0 vintage
+log(CLO issue size)
+CLO issue size missing
+
+A rating
+BBB rating
+
+Dealer CLO inventory
+
+JPM LL spread
+Dealer CDS spread
+
+Quarter FE
+Pseudo-R2
+
+0.12 ∗∗∗
+
+0.02
+0.05
+
+−0.08 ∗∗∗
+
+0.09
+
+0.15 ∗∗∗
+0.31 ∗∗∗
+
+0.31 ∗∗∗
+
+No
+0.025
+
+Panel C: Junior tranche (BB–equity, I = 11,453 BWICs)
+
+log(Par value of trade)
+
+CLO 2.0 vintage
+CLO 3.0 vintage
+log(CLO issue size)
+CLO issue size missing
+
+B rating
+Equity rating
+
+Dealer CLO inventory
+
+JPM LL spread
+Dealer CDS spread
+
+Quarter FE
+Pseudo-R2
+
+* Significance at the 10% level.
+** Significance at the 5% level.
+*** Significance at the 1% level.
+
+0.14 ∗∗∗
+
+0.18 ∗∗∗
+0.33 ∗∗∗
+
+−0.06 ∗∗
+
+0.22 ∗∗∗
+
+0.22 ∗∗∗
+0.30 ∗∗∗
+
+0.33 ∗∗∗
+
+No
+0.024
+
+0.20 ∗∗∗
+
+0.11
+0.10
+
+−0.07 ∗∗∗
+−0.05
+
+0.37 ∗∗∗
+
+0.09 ∗∗∗
+
+No
+0.061
+
+0.12 ∗∗∗
+
+0.05
+0.03
+
+−0.09 ∗∗∗
+
+0.09
+
+0.15 ∗∗∗
+0.31 ∗∗∗
+
+0.33 ∗∗∗
+
+0.11 ∗∗∗
+
+No
+0.032
+
+0.15 ∗∗∗
+
+0.20 ∗∗∗
+0.30 ∗∗∗
+
+−0.07 ∗∗
+
+0.20 ∗∗∗
+
+0.25 ∗∗∗
+0.33 ∗∗∗
+
+0.32 ∗∗∗
+
+0.16 ∗∗∗
+
+No
+0.033
+
+0.20 ∗∗∗
+
+0.13 ∗
+0.21 ∗∗∗
+−0.07 ∗∗∗
+−0.03
+
+0.36 ∗∗∗
+
+0.20 ∗∗
+
+No
+0.057
+
+0.12 ∗∗∗
+
+0.08 ∗
+0.15 ∗∗∗
+−0.08 ∗∗∗
+0.13 ∗∗
+
+0.14 ∗∗∗
+0.31 ∗∗∗
+
+0.29 ∗∗∗
+
+0.34 ∗∗∗
+
+No
+0.028
+
+0.14 ∗∗∗
+
+0.21 ∗∗∗
+0.39 ∗∗∗
+
+−0.06 ∗∗
+
+0.24 ∗∗∗
+
+0.23 ∗∗∗
+0.32 ∗∗∗
+
+0.33 ∗∗∗
+
+0.24 ∗∗∗
+
+No
+0.026
+
+0.21 ∗∗∗
+
+0.10
+0.10
+
+−0.07 ∗∗∗
+−0.05
+
+0.37 ∗∗∗
+
+0.09 ∗∗∗
+
+−0.07
+
+No
+0.061
+
+0.12 ∗∗∗
+
+0.06
+0.07
+
+−0.09 ∗∗∗
+0.11 ∗
+
+0.14 ∗∗∗
+0.31 ∗∗∗
+
+0.31 ∗∗∗
+
+0.10 ∗∗∗
+0.13 ∗∗
+
+No
+0.032
+
+0.15 ∗∗∗
+
+0.18 ∗∗∗
+0.27 ∗∗∗
+
+−0.07 ∗∗
+
+0.19 ∗∗∗
+
+0.25 ∗∗∗
+0.34 ∗∗∗
+
+0.33 ∗∗∗
+
+0.18 ∗∗∗
+
+−0.17 ∗∗
+
+No
+0.035
+
+0.21 ∗∗∗
+
+0.10
+0.10
+
+−0.08 ∗∗∗
+−0.02
+
+0.43 ∗∗
+
+−0.11 ∗
+
+1.02 ∗∗
+
+Yes
+0.103
+
+0.12 ∗∗∗
+
+0.05
+0.17 ∗∗∗
+−0.08 ∗∗∗
+0.15 ∗∗
+
+0.13 ∗∗∗
+0.31 ∗∗∗
+
+0.08
+
+−0.08 ∗
+
+0.84 ∗∗∗
+
+Yes
+0.052
+
+0.15 ∗∗∗
+
+0.13 ∗∗∗
+0.21 ∗∗∗
+
+−0.07 ∗∗
+
+0.18 ∗∗∗
+
+0.28 ∗∗∗
+0.36 ∗∗∗
+
+−0.21 ∗
+
+−0.03
+
+0.85 ∗∗∗
+
+Yes
+0.057
+
+The owner of the asset gets the expected sale price if the trade succeeds,
+E[𝐵|Trade], and she gets the reserve price, 𝑅, if the trade fails and she
+keeps the asset. Therefore, the seller/owner’s expected total payoff, 𝛱,
+is equal to17
+
+between what the asset’s owner should be getting if 𝑃 would be
+available to her, and what she expects to get, that is, 𝛱, TCI ≡ E[𝑃 −𝛱].
+Combining this relation with (3) leads to the following definition of the
+TCI.
+
+E[𝛱] = (1 − Pr(Fail)) ∗ E[𝐵|Trade]
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+Trade
+
++ Pr(Fail) ∗ 𝑅
+⏟⏞⏞⏞⏞⏟⏞⏞⏞⏞⏟
+Outside option
+
+.
+
+Let 𝑃 be a benchmark price to measure the quality of the transaction.
+𝑃 can be, for instance, a fair value of the asset in a perfectly competitive
+auction, where 𝑁 → ∞. Alternatively, 𝑃 can be the price the winning
+dealer, but not the owner, can immediately resell the asset for. We
+define the total cost of immediacy or TCI as the expected difference
+
+17 If the owner strategically sets her reserve price above her outside option
+to increase bids, then she raises her revenues when she trades, but her outside
+option must be valued below 𝑅. This results in (3) overestimating the seller’s
+payoff. This in turn results in a lower measured TCI. Hence, our TCI measure
+is biased downwards by using the reserve price to value the seller’s outside
+option when the trade fails.
+
+(3)
+
+Definition 1. The total cost of immediacy, TCI, is equal to
+
+TCI ≡ E[𝑃 − 𝛱] = E[𝑃 ] − E[𝐵|Trade]
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+Effective spread
+
++ Pr(Fail)
+⏟⏟⏟
+Fail rate
+
+∗ (E[𝐵|Trade] − 𝑅)
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+Cost of trade failure
+
+. (4)
+
+Eq. (4) highlights three key components of the TCI. The first com-
+ponent is the spread between the benchmark and transaction prices
+conditional on trade occurring. In markets without firm quotes, it can
+be calculated from successful transactions where a dealer buys the
+asset at the bid price 𝐵 and sells it at the ask price 𝐴, and it is often
+referred to as the effective bid–ask spread or round-trip markup. The
+bid–ask spread is widely used as the observed cost of immediacy in
+both academia and industry. However, using only the bid–ask spread
+to measure the cost of immediacy ignores that trades fail. The failure
+to trade is especially costly when the seller’s need to sell is very high,
+which is often when the value of the seller’s outside option is close
+
+JournalofFinancialEconomics157(2024)10385911T. Hendershott et al.
+
+to zero. For instance, CLO investors are long-term investors and tend
+to sell their holdings when hit by a liquidity shock such as hitting
+capital constraints, portfolio rebalancing, and the need for cash. A seller
+unable to sell the CLO defaults to keeping it and, therefore, may suffer
+large losses due to CLO devaluation, legal fees, regulatory penalties,
+and credit rating downgrade. These losses have to be incorporated into
+the cost of immediacy. Therefore, expression (4) is more comprehensive
+than the bid–ask spread alone because it incorporates expected payoffs
+from all options available to the seller.
+
+The expected opportunity costs of trade failure are captured by the
+product of two TCI components, the trade fail rate and the cost of
+trade failure. It follows from Eq. (4) that failure costs are equal to the
+expected best bid from a successful BWIC, net of the seller’s reserve
+price:
+
+Failure Cost = E[𝐵 − 𝑅|𝐵 ≥ 𝑅].
+
+(5)
+
+TCI is equal to the effective spread when the fail rate is zero. In
+the case of the CLO secondary market, Pr(Fail) is the probability of a
+BWIC failure and, therefore, it is directly observable in the data.18 Fig. 4
+shows that the fail rate is rarely zero even for the senior CLO tranche
+which has a mean(median) fail rate equal to 8%(6%). This implies that
+even for the ‘‘safest’’ CLOs the TCI should be greater, and, much of
+the time significantly greater, than the bid–ask spread. Expected gains
+from trade conditional on trading, E[𝐵|𝐵 ≥ 𝑅] − 𝑅, which we refer
+to as failure cost, is the third component of the TCI. It declines with
+𝑅 and increases in the expected sale price. Intuitively, the costliest
+failures are the ones where the seller has a poor outside option and
+is expected to sell the CLO for a high price. The cost of failure is not
+directly observable in the data and, therefore, needs to be estimated.
+In the next subsection, we discuss how to measure the TCI in the data.
+While Table 3 shows the seller is unlikely to sell the CLO after a
+BWIC fails, it may occur in some cases. Our measure of failure costs
+in Eq. (5) assumes that the value of continuing to hold the asset is the
+reserve price. If attempting to resell the asset is better for the seller then
+true failure costs differ from Eq. (5). To examine whether our approach
+under or over-estimates failure costs relative to a dynamic setting with
+many attempts to sell we can recursively write the seller’s expected
+payoff from all attempts to sell incorporating per-period holding costs
+ℎ for continuing to hold the CLO:
+
+E[𝛱] = (1 − Pr(Fail)) ∗ E[𝐵|Trade]
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+Trade
+
++ Pr(Fail) ∗ (E[𝛱] − ℎ)
+.
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+Continuation value
+
+(6)
+
+The reserve price must be at least as large as E[𝛱] − ℎ, otherwise the
+seller would be accepting bids below the continuation value and, hence,
+be better off with a higher reserve price. This implies that our failure
+costs are lower than the failure costs in a dynamic setting. Therefore,
+using the reserve price in Eq. (4) underestimates the dynamic TCI
+because using the reserve price correctly measures failure probability
+and underestimates failure costs.
+
+5.2. Estimating seller’s reserve price
+
+To estimate the TCI in Eq. (4), we need to know the effective
+spreads, BWIC failure rates, and BWIC failure costs. The first two TCI
+components are either directly observable in the data or have readily
+available proxies. However, BWIC failure costs are not directly observ-
+able and thus have to be estimated. The main challenge is to impute
+sellers’ reserves 𝑅𝑖. Consistent with a standard theory of reserve-price
+
+18 Note that we are unable to measure the frequency and costs for when
+
+investors want to sell because the market is sufficiently illiquid.
+
+auctions, a reserve price can be viewed as a minimum bid the CLO seller
+accepts in a BWIC19:
+
+𝑅𝑖 =
+
+inf
+𝑖 ,…,𝐵𝑁
+𝑖 )
+
+(𝐵1
+
+𝑖 ,𝐵2
+
+{𝐵1∶𝑁
+𝑖
+
+|Trade𝑖},
+
+(7)
+
+𝑖 , … , 𝐵𝑁
+𝑖
+
+where the infimum is taken over all possible realizations of 𝑁 bids
+𝐵1
+𝑖 , 𝐵2
+leading to a trade.20 As Eq. (7) illustrates, 𝑅𝑖 equals the
+lower support of the distribution of best bids given that the auction was
+successful and, hence, it is the 0-quantile of the best-bid distribution
+conditional on trade.
+
+We next outline our identification strategy for sellers’ reserve prices.
+While the individual 𝑅𝑖’s are not directly observable, we can use
+identity (7) to learn about the determinants of reserve prices from the
+accepted best bids across BWICs as follows. We assume the dealers’
+best bids 𝐵 and the sellers’ reserve prices 𝑅 vary across BWICs with
+observable and unobservable determinants which allows us to pool
+BWICs across sellers (here we drop the individual CLO sub-index 𝑖 for
+the sake of clarity). We adopt a flexible specification for best bids and
+reserve prices by making no parametric assumptions other than the
+regularity conditions introduced below:
+
+𝐵 = 𝜇𝐵(𝑋) + 𝜎𝐵𝜀𝐵,
+𝑅 = 𝜇𝑅(𝑍) + 𝜎𝑅𝜀𝑅,
+
+(8)
+
+where 𝜇𝑗 (⋅), 𝑗 ∈ {𝐵, 𝑅}, are unspecified functions to be estimated in the
+data and 𝑋 = 𝑍 ∪ 𝑊 . The dealers’ bids 𝐵 are determined by public
+information, captured by observable determinants 𝑍, dealers’ private
+information, captured by observable determinants 𝑊 , and an unob-
+servable random component 𝜎𝐵𝜀𝐵 ∈ D
+𝐵 drawn from some distribution
+𝐺𝐵 with density 𝑔𝐵. We assume that reserve prices are determined
+by public information 𝑍 and an unobservable random component
+𝜎𝑅𝜀𝑅 ∈ D
+𝑅 drawn from some distribution 𝐺𝑅 with density 𝑔𝑅. Such
+differences in sellers’ reserve prices can be due to liquidity needs, risk
+capacity, hedging needs, and non-trading motives for running a BWIC,
+e.g., information gathering.21
+
+The distributions 𝐺𝐵 and 𝐺𝑅 have variances (𝜎𝐵, 𝜎𝑅) and a corre-
+lation coefficient 𝜔 ∈ (−1, 1). The special case 𝜔 = 0 represents a
+private-value setting. Let 𝐻(⋅) be the distribution of the standardized
+and (⋅) be the copula of (𝜀𝐵, 𝜂). The score
+error 𝜂 ≡
+(𝑋) is the standardized difference between expected best bid and
+reserve price:
+
+𝜎𝑅𝜀𝑅−𝜎𝐵 𝜀𝐵
+𝑅+𝜎2
+𝜎2
+
+𝐵 −2𝜔𝜎𝑅𝜎𝐵
+
+√
+
+(𝑋) =
+
+√
+
+𝜇𝐵(𝑋) − 𝜇𝑅(𝑍)
+𝑅 + 𝜎2
+𝜎2
+
+𝐵 − 2𝜔𝜎𝑅𝜎𝐵
+
+.
+
+Then the BWIC success probability in terms of (𝑋) is equal to
+
+Pr(Trade) = Pr(𝑅 ≤ 𝐵) = Pr(𝜂 ≤ (𝑋)) = 𝐻((𝑋)).
+
+(9)
+
+(10)
+
+The low pseudo–R2s in Table 4 suggest that the explanatory variables
+𝑋 do not explain all the variability observed in success/failure rates.
+Therefore, it is important to account in the copula (⋅) for the correla-
+tion in the errors 𝜀𝐵 and 𝜂. Two parameters are of special interest in
+
+19 Our CLO data supports the view that when auctions fail, the seller is
+unable to trade. Table 3 shows that the probability of a failed auction being
+followed by an OTC trade either on the same day or within a day of the auction
+is low.
+
+20 The seller’s outside option is likely to be at or below her reserve price for
+two reasons. First, if the BWIC fails, bidders have no incentive to bid above
+the reserve price in any subsequent auction. Second, sellers have no incentive
+to set the reserve price below their outside option. Both of these cause our
+estimated TCI to be downward biased.
+
+21 The capacity for running BWICs to chase information in dealer’s bids
+may be limited because the seller is not anonymous to the dealer running
+the auction.
+
+JournalofFinancialEconomics157(2024)10385912T. Hendershott et al.
+
+the results that follow22:
+𝜌 ≡ 𝐶𝑜𝑟𝑟(𝜀𝐵, 𝜂) =
+𝜔𝜎𝑅
+1
+𝛾
+𝐵 −2𝜔𝜎𝑅𝜎𝐵
+
+≡ 𝜌 −
+
+𝑅+𝜎2
+𝜎2
+
+√
+
+√
+
+,
+
+𝜔𝜎𝑅−𝜎𝐵
+𝑅+𝜎2
+𝜎2
+
+𝐵 −2𝜔𝜎𝑅𝜎𝐵
+= −
+√
+
+𝜎𝐵
+𝑅+𝜎2
+𝜎2
+𝐵 −2𝜔𝜎𝑅𝜎𝐵
+
+.
+
+(11)
+
+We expect 𝜌 < 0 so long as auctions fail predominantly because of
+variation in bidders’ valuations or when 𝜔 is small or negative. In
+turn, when auctions fail predominantly because of variation in sellers’
+reserve prices and 𝜔 > 0, 𝜌 can become positive. The definitions of the
+parameters nest three special cases: The case 𝜌 = 0 corresponds to no
+selection in which auctions fail or succeed. The case 𝜌 = −1 corresponds
+to no unobserved heterogeneity across auctions due to variation in
+reserve prices. The case 𝜌 = 1
+captures the pure private-value auction
+𝛾
+setting.
+
+Estimating 𝑅 as a fixed quantile of the best-bid distribution intro-
+duces a selection bias. The participation constraint (2) and our model
+of best bids and reserve prices (8) yield that Pr(𝐵 < 𝑅|𝑋, Trade) = 0
+equivalent to the following extra restriction
+
+E[1(𝐵 < 𝜇𝑅(𝑍) + 𝜎𝑅𝜀𝑅)|𝑋, Trade] = 0.
+When 𝜎𝑅 = 0 in (12), we immediately have that the determinants of
+reserve prices can be recovered from the lowest accepted bids, or the
+0-quantile of the observed best bid distribution because
+
+(12)
+
+E[1(𝐵 < 𝜇𝑅(𝑍))|𝑋, Trade] = 0 if 𝜎𝑅 = 0.
+≠ 0 the seller’s participation constraint, 𝑅 ≤ 𝐵,
+However, when 𝜎𝑅
+biases the 0-quantile because accepted and, hence, observed best bids
+are greater than the unobserved best bids when BWICs fail.23
+
+(13)
+
+5.3. Optimal quantile rotation approach to capture seller’s reserve
+
+The selection bias introduced when replacing (12) by (13) can
+be corrected by rotating the quantile at which the reserve price is
+recovered away from zero. To determine the optimal rotation 𝜏∗, we
+now develop a novel optimal quantile rotation (OQR) approach. The
+observed distribution of best bids in BWICs contains information about
+the sellers’ reserve prices. In the absence of selection bias, the lowest
+accepted bid, that is, the 0-quantile of the best-bid distribution, recov-
+ers the reserve prices. However, winning bids are subject to sample
+selection due to sellers’ participation constraint (2).
+
+The optimal quantile rotation 𝜏∗ ∈ (0, 1) can be found by shifting the
+percentile level as a function of the amount of selection by optimally
+rotating away from the 0-quantile according to
+
+(14)
+
+E[𝜏∗ − 1(𝐵 < 𝜇𝑅(𝑍))|𝑋, Trade] = 0,
+thus immediately yielding 𝜏∗ ≡ Pr(𝐵 − 𝜇𝑅(𝑍) < 0|𝑋, Trade) = Pr(𝜀𝑅 <
+− 1
+𝜎𝑅
+
+(𝐵 − 𝑅)|𝑋, Trade).
+Following the discussion in the prior section, we can model the
+sample selection via the bivariate cumulative distribution function,
+or copula, of the errors in the winning bids (i.e., observed outcome)
+and the participation constraint (i.e., selection equation). Specifically,
+the selection-correcting quantile rotation 𝜏∗ can be expressed via the
+copula of 𝜀𝐵, the errors in the outcome Eq. (8) for best bids, and
+𝜎𝑅𝜀𝑅 − 𝜎𝐵𝜀𝐵, the errors in the selection Eq. (2): 𝑅 − 𝐵 ≤ 0. The
+selection-adjusted quantile rotation to recover the expected reserve
+price from the observed best bids is given by the following result proved
+in Appendix C.
+
+22 Two limiting cases are of interest. In the limit when 𝜔 = 0, we have 𝛾 = 1
+𝜌
+( 𝜎𝑅
+)2 − 1 and 𝜌 = 0. Simple algebra yields
+𝜎𝐵
+√
+𝛾 2 + 1 − 2𝜌𝛾.
+
+useful relations 𝜆𝜔 = 1 − 𝜌𝛾 and 𝜆 =
+
+≡ 1∕𝜆, we have 𝛾 = −
+
+When 𝜔 = 𝜎𝐵
+𝜎𝑅
+
+√
+
+.
+
+23 Arellano and Bonhomme (2016) and Maasoumi and Wang (2019) provide
+side-by-side comparisons of existing approaches to correct for selection bias in
+quantile regressions. Our setting differs from theirs because we determine 𝜏∗
+endogenously.
+
+Proposition 1. The quantile of the best bid distribution adjusted for
+selection at 𝜀𝑅 = 0 is observation specific and equal to 𝐻(𝛾(𝑋)) with
+score (𝑋) defined in (9) and parameter 𝛾 given by (11).
+
+Proposition 1 can be used to consistently estimate 𝜇𝑅 as a function
+of the observables, as summarized by the following Lemma proved in
+Appendix C.
+
+Lemma 1. The optimal rotation to recover expected reserve prices 𝜇𝑅 from
+the observed distribution of best bids depends only on the score (𝑋) and
+parameters (𝛾, 𝜌), and it is given by the copula
+
+𝜏∗ =
+
+(𝐻(𝛾(𝑋)), 𝐻((𝑋)); 𝜌)
+𝐻((𝑋))
+
+.
+
+(15)
+
+Expression (15) shows that the quantile rotation to adjust for selec-
+tion and recover the reserve price is observation-specific. We can for
+some 𝜋 ∈ (0, 1) make the approximation
+
+𝜏∗ ≈
+
+(𝜋 Pr(Trade), Pr(Trade); 𝜌)
+Pr(Trade)
+
+.
+
+This means the selection adjustment to the 0-quantile in this case
+≥ 0.24 This
+is known up to the coefficient 𝜌 that depends on 𝜎𝑅
+approximation illustrates that the quantile of the best bid distribution
+adjusted for selection in order to identify 𝜇𝑅(𝑍) varies observation by
+observation and is equal to 𝐻(𝛾) ≈ 𝜋 Pr (Trade).25
+
+Fig. 5 provides a visual illustration of the selection-corrected quan-
+tile of the best bids distribution, 𝜏∗, containing sellers’ reserve prices.
+In Fig. 5, the average reserve, 𝜇𝑅, and the average best bid, 𝜇𝐵, in (8)
+are normalized to zero, 𝜇𝑅 = 𝜇𝐵 = 0. We draw the best bid prices
+for 1,000 BWICs from the standard Normal distribution, 𝐵 ∼ 𝐺𝐵 =
+ (0, 1) and use them in all three subplots. We draw respective reserve
+prices independently from 𝐵, 𝜔 = 0, either from the standard Normal
+distribution, 𝑅 ∼ 𝐺𝑅 =  (0, 1), in the left subplot, or from 𝑅 ∼ 𝐺𝑅 =
+ (0, 0.25), in the middle subplot, or from 𝑅 ∼ 𝐺𝑅 =  (0, 0.01), in
+the right subplot. In all subplots, the 45-degree dashed line, 𝐵 = 𝑅,
+separates accepted, 𝐵 ≥ 𝑅, and rejected, 𝐵 < 𝑅, best bids. Failed
+bids are shown with red rhombuses. Accepted bids shown with green
+triangles have 𝜀𝑅 < 0, and accepted bids shown with blue circles have
+≥ 0. 𝜏∗ is the mass of green triangular accepted bids relative to the
+𝜀𝑅
+total mass of accepted bids. The optimal rotation in the left subplot
+of Fig. 5, Pr(𝜀𝑅 < −(𝐵 − 𝑅)|Trade), is equal to 0.25 or 25%-quantile.
+The middle and right subplots of Fig. 5 illustrate how the size of the
+selection bias in observed bids is related to 𝜎𝑅. The volatility 𝜎𝑅 is equal
+to 0.5 in the middle subplot, and it is equal to 0.1 in the right subplot.
+When there is less variation in reserve prices, there is less selection bias
+in the observed bids. Hence, the optimal rotation in the middle subplot
+of Fig. 5, Pr(𝜀𝑅 < −2(𝐵 − 𝑅)|Trade), is equal to 0.15 or 15%-quantile,
+and it is equal to Pr(𝜀𝑅 < −10(𝐵 − 𝑅)|Trade) = 0.01 or 1%-quantile in
+the right subplot.
+
+Appendix D provides simulation evidence on the optimal quantile
+rotation to measure TCI. Table A.2 in Panel A (Panel B) provides
+simulation evidence when the unobserved variation from (𝜀𝐵, 𝜀𝑅) is
+small (large) compared to the observed variation in best bids and
+reserve prices.
+
+24 When 𝜎𝑅 = 0, 𝜌 = −1 and 𝜏 ∗ = (− Pr(Trade), Pr(Trade); −1)∕ Pr(Trade) = 0.
+25 Arellano and Bonhomme (2017) determine a selection-adjusted rotation
+to recover quantiles of the unconditional wage distribution. They fix a quantile
+𝜏 ∈ (0, 1) and show that the rotation 𝜏 †(𝜏) = (𝜏, Pr(Trade); 𝜌)∕ Pr(Trade) adjusts
+for selection at the fixed, exogenous quantile 𝜏. Two recent applications of
+Arellano and Bonhomme’s (2017) quantile-copula approach are by Maasoumi
+and Wang (2019) to assess how selective participation of individuals in the
+labor market affects the gender wage gap, and by Bollinger et al. (2019) to
+account for the effects of the endogenous decision to respond to the admin-
+istrative earnings survey on the income inequality estimates. The Arellano
+and Bonhomme (2017) rotation holds for any fixed 𝜏 and, hence, 𝜏†(𝜏) is
+observation independent and therefore does not allow for recovering reserve
+prices in our setting.
+
+JournalofFinancialEconomics157(2024)10385913T. Hendershott et al.
+
+Fig. 5. Selection bias in quantiles of accepted bids
+The figure illustrates the selection bias in observed accepted bids for different values of 𝜎𝑅. The average reserve price, 𝜇𝑅, and the bid price, 𝜇𝐵 , are both set to zero, 𝜇𝑅 = 𝜇𝐵 = 0,
+and are shown by the vertical and horizontal dashed lines, respectively. The standard Normal distribution is used to draw best bid prices, 𝐵 ∼ 𝐺𝐵 =  (0, 1), in both subplots for
+1,000 BWICs. The standard Normal distribution is used to draw 1,000 reserve prices 𝑅 ∼ 𝐺𝑅 from (i) the standard Normal distribution, 𝐺𝑅 =  (0, 1), in the left subplot, (ii) from
+𝐺𝑅 =  (0, 0.25) in the middle subplot, and (iii) from 𝐺𝑅 =  (0, 0.01) in the right subplot. 𝐵 and 𝑅 are drawn independently in all subplots. The 45-degree dashed line, 𝐵 = 𝑅,
+separates accepted, 𝐵 ≥ 𝑅, and rejected, 𝐵 < 𝑅, best bids. Green triangular accepted bids have 𝐵 < 𝜇𝑅 (𝜀𝐵 < 0), and blue circular accepted bids have 𝐵 ≥ 𝜇𝑅 (𝜀𝐵
+≥ 0). The mass
+of green triangular accepted bids relative to the total mass of accepted bids is 𝜏∗ which corrects for selection bias.
+
+Next, we discuss the empirical implementation of the estimation
+
+procedure.
+
+5.4. Empirical implementation of OQR
+
+We estimate the OQR 𝜏∗ given by (15) for the CLO data in two
+stages. In the first stage, we obtain from (10) the conditional moment
+condition for the success of a BWIC depending on 𝑋:
+
+E[1(Trade) − 𝐻((𝑋))|𝑋] = 0.
+
+(16)
+
+Condition (16) provides a set of unconditional moment conditions to
+estimate the determinants of the score (𝑋), requiring information
+on both failed and successful BWICs. Under the linearity assumption,
+(𝑋) = 𝛼 + 𝛽′
+ 𝑋, with observables 𝑋 = (𝑍, 𝑊 ). Standard arguments
+guarantee identification of (𝛼 , 𝛽 ). We estimate (𝛼 , 𝛽 ) by the Probit
+model (i.e., 𝐻 = 𝛷 is the Normal cdf).26 The first-stage predictions
+̂(𝑋), given in the linear case by ̂(𝑋) = ̂𝛼 + ̂𝛽
+𝑋, and the predicted
+probability of BWIC success, 𝐻( ̂(𝑋)), are used in the second stage.
+
+′
+
+In the second stage, condition (15) provides conditional moments
+
+for identifying the OQR 𝜏∗:
+
+E[𝜏∗ − Pr(𝐵 ≤ 𝜇𝑅(𝑍)|𝑍, Trade)|𝑋, Trade] = 0,
+
+(17)
+
+which can be estimated using GMM. Under the linearity assumption,
+𝜇𝑅(𝑍) = 𝛼𝑅 + 𝛽′
+
+𝑅𝑍, the second-stage GMM condition takes the form
+
+[
+
+E
+
+(𝐻(𝛾 ̂(𝑋)), 𝐻( ̂(𝑋)); 𝜌)
+𝐻( ̂(𝑋))
+
+− 1(𝐵 ≤ 𝛼𝑅 + 𝛽′
+
+|
+|
+𝑅𝑍)
+|
+|
+|
+
+]
+
+𝑋, Trade
+
+= 0.
+
+(18)
+
+It is a function of (𝛾, 𝜌, 𝛼𝑅, 𝛽𝑅). The parametric assumptions required to
+implement copula (15) in (18) can be substantial. However, the statis-
+tical literature offers a number of convenient specifications, including
+the Gaussian, Frank, or Gumbel copulas, which provide a fair amount
+of flexibility. Alternatively, we can estimate (15) in (18) using flexible
+semi-parametric specifications. The first term in (18) is then known
+up to the deep parameters 𝛾 and 𝜌. Identification requires a shock
+affecting dealers’ bids (demand) and through them the auction success
+probability, 𝐻((𝑋)), without affecting sellers’ reserve prices (supply).
+All model parameters combined are (𝛼 , 𝛽 , 𝛼𝑅, 𝛽𝑅, 𝛾, 𝜌) ∈ R2|𝑍|+|𝑊 |+4,
+
+26 Under the linearity assumption, E[𝐵 − 𝑅|𝑍, 𝑊 ] = (𝛼𝐵 − 𝛼𝑅) + (𝛽𝐵 − 𝛽𝑅)′𝑍 +
+𝐵𝑊 and, hence, (𝑋) = 𝛼 + 𝛽′
+𝛿′
+, 𝛽 =
+
+ 𝑊 with 𝛼 =
+
+ 𝑍 + 𝛿′
+
+𝛼𝐵 −𝛼𝑅
+
+√
+
+𝑅+𝜎2
+𝜎2
+
+𝐵 −2𝜔𝜎𝑅𝜎𝐵
+
+𝛽𝐵 −𝛽𝑅
+
+𝑅+𝜎2
+𝜎2
+
+√
+the conditional moment condition is E[1(Trade)−𝛷(𝛼 +𝛽′
+
+𝐵 −2𝜔𝜎𝑅𝜎𝐵
+
+√
+
+𝛿𝐵
+𝑅+𝜎2
+𝜎2
+𝐵 −2𝜔𝜎𝑅𝜎𝐵
+
+, 𝛿 =
+
+. From (10) and (16), for the Probit model
+
+ 𝑍+𝛿′
+
+ 𝑊 )|𝑍, 𝑊 ] = 0.
+
+≥ 0 is the number of reserve price determinants 𝑍 and
+where |𝑍|
+|𝑊 | > 0 is the number of determinants 𝑊 = 𝑋∖𝑍 affecting bids only.
+To illustrate identification, Appendix E describes in detail our GMM
+estimation procedure and use of aggregate dealer CLO inventories for
+the instrument, 𝑊 , that is dealers’ private information. We explain
+our choice of moments, demonstrate how condition (18) yields by
+conditioning down a set of moment conditions (E.3) that identify the
+parameters (𝛼 , 𝛽 ) and (𝛼𝑅, 𝛽𝑅, 𝛾, 𝜌) in two stages, provide intuition and
+formal analysis for why the moment conditions identify the parameters,
+discuss our inventory instrument, and consider three approaches to
+parametrize copula (⋅) in (18). Based on these approaches, we employ
+six different model specifications for 𝜏∗. Tables A.3–A.7 summarize the
+distribution of rotations 𝜏∗ across BWICs, the GMM estimates of the
+sellers’ reserve prices, and specification tests.
+
+The next section uses the 𝜇𝑅(𝑍) estimates (𝛼𝑅, 𝛽𝑅) obtained based
+
+on 𝜏∗ to calculate TCI.
+
+6. TCI and the costs of trade failure
+
+The estimates for the optimal quantile rotation 𝜏∗ from Table A.3
+allow us to back out the sellers’ expected reserves, calculate TCI across
+BWICs and time and quantify the cost of trade failure.
+
+6.1. Mapping TCI to the data
+
+The total cost of immediacy is given by (4) which comprises the
+expected spread, the probability of trade failure, and the cost of trade
+failure. The first term is the effective bid–ask spread in successful
+BWICs constructed and discussed in Section 3. The last two quantities
+map into the probability of BWIC failure and the cost of BWIC failure
+in our CLO data, respectively. The probability of failure is observed in
+the data. The two estimated components of TCI are the effective spread
+and the failure costs. The spread depends on the benchmark price and
+failure costs depend on the reserve price.
+
+For the benchmark price, 𝑃 , we use the ask price. This choice avoids
+modeling CLO fair value which is challenging given the infrequent
+nature of CLO trading. Using the ask price as the benchmark price
+incorporates dealer trading revenues on reselling the CLO to a buyer
+into TCI for the seller. Assuming the dealer does not resell the CLO at a
+loss, the effective spread overestimates the cost to the buyer. For senior
+tranches, failure rates are lower so the spread is more important for TCI.
+Failure rates for junior tranches are higher, making the effective spread
+less important for TCI.
+
+JournalofFinancialEconomics157(2024)10385914T. Hendershott et al.
+
+We map all three quantities making up TCI onto a cross-section of
+both successful and failed BWICs as functions of observable character-
+istics 𝑋 = (𝑍, 𝑊 ). To extract TCI from the data conditional on these
+observables, denoted ̂TCI(𝑋), note that it is the sum of the expected
+bid–ask spread and the expected BWIC failure rate scaled by expected
+failure costs:
+
+̂TCI(𝑋) = ̂Bid–ask spread(𝑋) + ̂BWIC fail rate(𝑋) ∗ ̂Failure cost(𝑋),
+
+(19)
+
+where we condition on 𝑋 and take expectation over all realizations of
+𝑅 as discussed in Appendix B. TCI averaged over BWICs is equal to
+
+̂TCI ≡ E
++ E
+= E
++ E
+
+𝑋 [ ̂Bid–ask spread(𝑋)]
+
+𝑋 [̂TCI(𝑋)] = E
+𝑋 [ ̂BWIC fail rate(𝑋) ∗ ̂Failure cost(𝑋)]
+𝑋 [ ̂Bid–ask spread(𝑋)]
+𝑋 [ ̂BWIC fail rate(𝑋)] ∗ E
++̂𝐶𝑜𝑣𝑋 ( ̂BWIC fail rate(𝑋), ̂Fail cost(𝑋)),
+
+𝑋 [ ̂Failure cost(𝑋)]
+
+(20)
+
+where the expectation is taken over the values of 𝑋 in all BWICs
+and ̂𝐶𝑜𝑣𝑋 (⋅, ⋅) is the empirical covariance that arises because BWIC
+fail rates and failure costs are correlated across BWICs through 𝑋.
+Eq. (20) essentially calculates the average TCI over realizations of the
+observables 𝑋.
+
+We construct the TCI for each BWIC 𝑖 = 1, … , 𝐼 and then aver-
+age over them according to expression (20). In this expression, the
+relationship between bid–ask spreads and the explanatory variables,
+𝑋𝑖 = (𝑍𝑖, 𝑊𝑖), can be estimated by OLS according to
+
+Bid–ask spread𝑖 = 𝛼 + 𝛽′𝑋𝑖 + 𝜖𝑖,
+
+(21)
+
+fixed effects,
+
+where the coefficients
+so that
+include quarter
+̂Bid–ask spread(𝑋𝑖) = ̂𝛼 + ̂𝛽′𝑋𝑖.27 The bid–ask spread specification is es-
+timated on successful BWICs as discussed in Appendix B and Table A.1
+in the Appendix reports parameter estimates. The relationship between
+BWIC fail rate(𝑋𝑖) = 1 − Pr(Trade𝑖|𝑋𝑖) and the explanatory variables 𝑋𝑖
+is estimated in Section 4 using probit regression (1). Table 4 reports
+parameter estimates for the determinants of BWIC failure rates. The
+expected best bids conditional on trade can be estimated by OLS
+according to
+
+𝐵𝑖|𝑋𝑖, Trade𝑖 = 𝛼𝐵 + 𝛽′
+
+𝐵𝑍𝑖 + 𝛿′
+
+𝐵𝑊𝑖 + 𝜖𝐵,𝑖.
+
+(22)
+
+Taken together, the cost of BWIC failure conditional on 𝑋𝑖 is mea-
+
+sured by
+
+̂Failure cost𝑖 = (𝛼𝐵 − 𝛼𝑅) + (𝛽𝐵 − 𝛽𝑅)′𝑍𝑖 + 𝛿′
+
+𝐵𝑊𝑖, 𝑖 = 1, … , 𝐼,
+
+(23)
+
+with the coefficients (𝛼𝐵, 𝛽𝐵, 𝛿𝐵) from OLS estimates of (22) and (𝛼𝑅, 𝛽𝑅)
+from the GMM estimates reported in Tables A.4–A.6.
+
+6.2. TCI across CLOs and over time
+
+We first document ̂TCI and the variation in ̂TCI(𝑋) across BWICs.
+
+Average TCI and dispersion of TCI across BWICs. Table 5 reports esti-
+mates of ̂TCI using the OQR approach across BWICs for the senior,
+mezzanine, and junior tranches in our base specification, the general
+Gaussian copula (E.4) (column (1) in Tables A.4–A.6). For each CLO
+tranche and each specification model, we report the mean and the
+standard deviation, followed by the 5%, 25%, 50%, 75%, and 95%
+quantiles. Standard errors reported in parenthesis are bootstrapped.
+TCI for the senior tranche ranges between 9 bps at the 5%-quantile
+and 78 bps at the 95%-quantile, with the mean and standard deviation
+equal to 31 bps and 23 bps, respectively. For the mezzanine tranche,
+
+27 We do not include CLO fixed effects 𝛼𝑖 because individual CUSIPs do not
+
+trade often enough.
+
+these values increase to 1.32% and 0.87%. For the junior tranche, the
+average TCI equals 3.79% with a standard deviation of 2.94%.
+
+Fig. 6 graphs the quarterly average total cost of immediacy in the
+CLO market constructed using specification (1) for the seller’s reserve
+prices. In all subplots, the solid/dashed line depicts the mean/median
+value across BWICs and the dotted line depicts the bid–ask spreads
+in the CLO market. Both TCI and the bid–ask spread are shown as
+a percentage of the face value. The shaded area indicates the 5% to
+95% range across BWICs. Results are split by tranche into the senior
+tranche rated AAA (left), mezzanine tranche rated AA–BBB (middle),
+and junior tranche rated BB–equity (right). The sample period is 2012–
+2020 and the vertical grey areas indicate periods of market stress: the
+2012 European debt crisis, the 2015–16 credit stress, and the 2020
+COVID-19 pandemic. TCI spikes in all of these stress periods.
+
+TCI is the largest for the junior tranche, ranging between 1% and
+more than 10% and dwarfing bid–ask spread, which is around a few
+bps.28 The mezzanine tranche has the second highest TCI ranging
+between 50 bps and 4% with the bid–ask spread in the range of 0 to
+31 bps. The senior tranche has the lowest TCI among the three tranches
+ranging between 10 bps and 1%. TCI for the senior tranche is still much
+larger than the bid–ask spread ranging between 0 bps and 13 bps. TCI
+and bid–ask are only comparable during 2017Q4-2018Q1 for the senior
+tranche. Overall, Fig. 6 confirms that the total costs of immediacy are
+much larger than traditional liquidity measures such as the effective
+bid–ask spread.
+
+Table A.8 reports the complete set of estimates for ̂TCI using the
+OQR approach across BWICs for the senior (Panel A), mezzanine (Panel
+B), and junior (Panel C) tranches using all specification models (1)–(6)
+as in Tables A.4–A.6. For each CLO tranche and for each specifica-
+tion model we report the mean and the standard deviation, followed
+by the 5%, 25%, 50%, 75%, and 95% quantiles. In the best fitting
+model specifications, (1) and (5), TCI for the senior tranche ranges
+between 9 bps/8 bps at the 5%-quantile and 78 bps/62 bps at the 95%-
+quantile, with the mean and standard deviation equal to 31 bps/23 bps
+and 26 bps/19 bps, respectively. For the mezzanine tranche, these
+values increase to 1.32%/1.38% and 0.87%/0.95% in the best-fitting
+model specifications, (1) and (5). For the junior tranche, the average
+TCI is equal to 3.79%/3.53% with the standard deviation equal to
+2.94%/2.72% in the best fitting model specifications, (1) and (5).
+Estimates for TCI are similar across all model specifications, ranging
+from 24 bps to 37 bps for the senior tranche, 1% to 2.8% for the
+mezzanine tranche, and 1.25% to 9.75% for the junior tranche, with
+the model specification (6) generally yielding the largest and least
+conservative estimates.
+
+TCI represents a liquidity risk and Fig. 6 shows substantial time
+series variation in TCI. Failure rates show a similar pattern in Fig. 4
+Panel B by spiking in times of stress. Panel B in Table 5 (as well as Panel
+B in Table 8) report a variance decomposition of TCI and confirm that
+TCI varies systematically over time. Leveraged loan spreads and dealer
+CDS spreads in Table 4 are significant determinants of BWIC fail rates.
+These results suggest hedging possibilities in instruments correlated
+with these spreads. Reservation values should incorporate such possible
+hedging as well as hedging of the risk of the underlying CLO.
+
+28 While the trading of CLOs has not been studied before, OTC markets
+in many important asset classes have been studied: foreign exchange, spot
+commodities, derivatives, and corporate and municipal bonds. For fixed-
+income securities Bessembinder et al. (2020) provide an extensive survey of
+the literature. Our bid–ask spread estimates for CLOs (5–10 bps) are somewhat
+smaller than institutional trading costs in other OTC markets. However,
+it is important to note that CLO BWICs last from a day to several days,
+complicating direct comparisons as the time dimension of immediacy likely
+differs. Moreover, the average trade size for CLO BWICs is around $5 million,
+larger than a typical institutional corporate bond trade.
+
+JournalofFinancialEconomics157(2024)10385915T. Hendershott et al.
+
+Table 5
+TCI using OQR.
+The table reports in Panel A the estimates of TCI, ̂TCI, across BWICs for senior tranches, mezzanine tranches, and junior tranches. The model uses the specification (1) in
+Tables A.4–A.6 which assumes that the optimal quantile rotation to back out seller’s reserve price from best bids is given by a Gaussian copula, 𝜏∗ = 𝛷(𝛾, ; 𝜌)∕𝛷(). Standard
+errors reported in parenthesis are bootstrapped. The table reports in Panel B the decomposition of variation in TCI across BWICs for senior tranches, mezzanine tranches, and
+junior tranches.
+
+Senior tranche
+(AAA, I = 8683 BWICs)
+
+Mezzanine tranche
+(AA–BBB, I = 12,341 BWICs)
+
+Junior tranche
+(BB–equity, I = 10,794 BWICs)
+
+Panel A: Distribution in ̂TCI (% of par) across BWICs
+̂TCI mean
+
+̂TCI S.D.
+
+Dispersion of ̂TCI across BWICs:
+
+5%
+
+25%
+
+50%
+
+75%
+
+95%
+
+0.31
+(0.04)
+0.24
+(0.04)
+
+0.10
+(0.02)
+0.16
+(0.02)
+0.24
+(0.03)
+0.36
+(0.05)
+0.78
+(0.13)
+
+Panel B: Variance decomposition (% of variation)
+
+Issuer
+Time
+
+0.09
+0.84
+
+1.32
+(0.10)
+0.87
+(0.09)
+
+0.42
+(0.05)
+0.75
+(0.07)
+1.10
+(0.10)
+1.61
+(0.12)
+3.00
+(0.27)
+
+0.07
+0.82
+
+3.79
+(0.68)
+2.94
+(0.53)
+
+1.02
+(0.22)
+1.82
+(0.35)
+2.78
+(0.51)
+4.57
+(0.81)
+10.40
+(1.90)
+
+0.04
+0.54
+
+Fig. 6. Total cost of immediacy
+The figure documents the quarterly total cost of immediacy in the CLO market using the parametric specification (1) for estimating the seller’s reserve price. The solid line depicts
+mean ̂TCI over time. The dashed line corresponds to median ̂TCI. The shaded area indicates the 5% to 95% range of ̂TCI. The dotted line indicates the bid–ask spreads in the CLO
+market. The sample period is 2012–2020 with grey areas indicating periods of market stress: the 2012 European debt crisis, the 2015–16 credit stress, and the 2020 COVID-19
+pandemic. Results are split by tranche into the senior tranche rated AAA (left), mezzanine tranche rated AA–BBB (middle), and junior tranche rated BB–equity (right). Fig. A.2 in
+the Internet Appendix documents the corresponding figure using the semiparametric specification (5) for estimating the seller’s reserve price.
+
+TCI determinants. Table 6 explores how TCI and its components vary
+with the trade, CLO, and market conditions – the explanatory variables
+𝑋 – using sample splits. Low/Medium/High columns indicate values of
+characteristics in its bottom/middle/top tercile. Panels A/B/C report
+results for the senior/mezzanine/junior tranche. Note that conditional
+on every characteristic in 𝑋, TCI increases with the riskiness of the
+tranches.
+
+The results across tranches are generally consistent. Larger trades
+have higher TCI. This is because larger trades are harder to execute and
+they have a higher cost of failure. Older CLO vintages (CLO 1.0s and
+2.0s) are more expensive to trade than the newer vintage (CLO 3.0)
+as the bid–ask spread, failure rate, and failure costs are all lower for
+CLO 3.0. TCI is smaller for CLOs with a larger issue size. CLO rating
+is the strongest cross-sectional determinant of TCI. In particular, the
+equity tranche has TCI as high as 9%. TCI is increasing with the size
+of dealers’ inventories, that is, TCI is higher/lower when inventories
+are larger/smaller. TCI varies over time with leveraged loan market
+conditions and with dealer funding conditions. Higher spreads of the
+leveraged loans underlying CLOs lead to higher TCI. TCI increases also
+when dealer funding costs proxied for by the dealer CDS spread go up.
+
+6.3. The cost of failing to trade
+
+The opportunity cost of BWIC failure is defined in Eq. (5) with
+its empirical analog in expression (23). Failure costs are, in turn, the
+difference between the seller’s reserve par discount and the expected
+dealer par discount. We can decompose the average TCI in terms of
+average expected failure cost, ̂Failure cost, according to (20).
+
+Table 7 reports the components of TCI using expression (20). The
+decomposition shows that the bulk of ̂TCI stems from a high chance of
+BWIC failure and large failure costs. Failure rates are 7% on average
+for a senior tranche, 16% for a mezzanine tranche, and 30% for a
+junior tranche. Failure costs as a fraction of par are 3.85% on average
+for a senior tranche, 7.00% for a mezzanine tranche, and 11.38% for
+a junior tranche. These failure costs are economically large as they
+are substantially larger than the leveraged loan spread in Fig. 3. By
+contrast, bid–ask spreads and empirical covariance contribute a small
+share to TCI. Bid–ask spread (failure rate–failure cost covariance) as a
+fraction of par is 0.04% (−0.02%) on average for senior, 0.10% (0.07%)
+for mezzanine, and 0.12% (0.23%) for junior tranches. The spread
+component is low for all tranches.
+
+JournalofFinancialEconomics157(2024)10385916T. Hendershott et al.
+
+Table 6
+TCI: Splits by trade size, CLO type, and market state.
+The table reports TCI and its components for different sample splits. Panel A reports results for the senior tranche, Panel B for the mezzanine tranche, and Panel C for the junior
+tranche. The total costs of immediacy in a split are computed as the sample average over all BWICs falling in the respective tercile. The opportunity cost of BWIC failure is defined
+in Eq. (24).
+
+Sample split
+
+̂TCI (% of par)
+
+Panel A: Senior tranche (AAA, I = 8683 BWICs)
+
+Par size of trade
+
+CLO vintage (1.0/2.0/3.0)
+log(CLO issue size)
+
+JPM LL spread
+Dealer CDS spread
+Dealer CLO inventory
+
+Panel B: Mezzanine tranche (AA–BBB, I = 12,341 BWICs)
+
+Par size of trade
+
+CLO vintage (1.0/2.0/3.0)
+CLO rating (AA, A, BBB)
+log(CLO issue size)
+
+JPM LL spread
+Dealer CDS spread
+Dealer CLO inventory
+
+Panel C: Junior tranche (BB–equity, I = 10,794 BWICs)
+
+Par size of trade
+
+CLO vintage (1.0/2.0/3.0)
+CLO rating (AA, A, BBB)
+log(CLO issue size)
+
+JPM LL spread
+Dealer CDS spread
+Dealer CLO inventory
+
+Low
+
+0.19
+
+0.59
+0.40
+
+0.20
+0.20
+0.19
+
+1.08
+
+1.87
+0.82
+1.58
+
+0.91
+0.88
+1.00
+
+3.10
+
+4.97
+2.64
+2.99
+
+3.00
+2.73
+2.89
+
+Medium
+
+0.31
+
+0.31
+0.27
+
+0.32
+0.26
+0.30
+
+1.37
+
+1.58
+1.22
+1.30
+
+1.30
+1.09
+1.19
+
+3.51
+
+4.37
+3.45
+2.87
+
+3.79
+3.72
+3.93
+
+High
+
+0.42
+
+0.25
+0.24
+
+0.41
+0.47
+0.43
+
+1.52
+
+1.02
+1.71
+1.05
+
+1.76
+2.02
+1.78
+
+4.89
+
+3.25
+8.89
+5.70
+
+4.59
+4.98
+4.59
+
+Table 7
+Decomposition of average TCI.
+The table reports the total cost of immediacy TCI and its components estimated from the data using specification (1). TCI is decomposed as the sample average
+over all BWICs 𝑖 = 1, … , 𝐼 in the tranche using expression (20). The table reports sample averages across all BWICs during the sample period from January
+2012 to March 2020, split by CLO tranche. Standard deviations are reported in parenthesis below the mean. The table reports in Panel B the decomposition of
+variation in TCI across BWICs for senior tranches, mezzanine tranches, and junior tranches.
+
+TCI (% of par)
+
+Bid–ask spread (% of par)
+Fail rate
+Failure cost (% of par)
+
+Best dealer bid (% discount of par)
+Seller’s reserve (% discount of par)
+
+𝐶𝑜𝑣(Fail rate, Failure cost)
+
+Senior
+
+0.31
+
+0.04
+0.07
+3.85
+−0.66
+−4.52
+−0.02
+
+Mezzanine
+
+1.32
+
+0.10
+0.16
+7.00
+−3.24
+−10.25
+0.07
+
+Junior
+
+3.79
+
+0.12
+0.30
+11.38
+−11.87
+−23.25
+0.23
+
+The size of the spread, which is the dealer’s round-trip trading rev-
+enues, is informative regarding how our TCI estimates depend on our
+choice of benchmark price. For example, if we assume that the dealer’s
+trading revenues are equally split between the dealer’s purchase and
+subsequent resale, then the spread would be half as large. If the dealer
+gains on the initial customer sale are double the round-trip revenues,
+then the dealer loss on resale would be equal to the spread. In these
+two cases, the over and underestimation of the spread due to our choice
+of benchmark prices have an economically small impact on TCI in all
+tranches.
+
+Given the importance of failure costs, Fig. 7 plots average failure
+costs and their components over time at a quarterly frequency. Panel
+A of the figure documents sellers’ reserve prices constructed using
+the parametric specification (1) (solid and dashed line) and dealers’
+expected best bids (dotted line). Both sellers’ reserve prices and dealers’
+expected best bids are expressed as a percentage of the face value. Panel
+B of the figure shows the BWIC failure cost (solid and dashed line)
+expressed in terms of par value in the CLO market at a quarterly fre-
+quency. In both panels, the solid/dashed line depicts the mean/median
+value across BWICs. The shaded area indicates the 5% to 95% range
+across BWICs.
+
+Both sellers’ reserve prices and dealers’ expected bids tend to decline
+(rise when measured in par discounts) during credit stress periods
+and increase during regular (expansion) times.29 The junior tranche
+shows the largest price swings, both in dealer bids and reserve prices,
+while the senior tranche shows the smallest price swings. Reserve
+prices fall by approximately 3%/10%/15% of the CLO face value
+between 2015Q3 and 2016Q1 for the senior/mezzanine/junior tranche.
+Expected bids declined by approximately 1%/5%/10% during the same
+time period for the senior/mezzanine/junior tranche. Both transaction
+and reserve prices recovered sharply after 2016Q1 and reached their
+highest values in 2017Q3. During this time the senior tranche was
+traded at approximately 0.5% above its face value, while the sellers’
+reserve price was equal to the face value. A noteworthy observation
+from Panel A is that sellers’ reserve prices can be as low as 90% of
+the CLO face value for the senior CLO tranche. The reserve prices fall
+
+29 The reserve prices for the senior tranche are much lower and more volatile
+pre-2016Q1 than they are post-2016Q1, except for the COVID-19 pandemic
+period. This is largely due to the market being dominated by CLO 1.0s and
+2.0s pre-2016Q1 and by CLO 3.0s post-2016Q1.
+
+JournalofFinancialEconomics157(2024)10385917T. Hendershott et al.
+
+Fig. 7. Dealers’ expected bids and sellers’ reserves and BWIC failure cost
+Panel A of the figure documents sellers’ reserves constructed using the parametric specification (1) (solid and dashed line) and dealers’ expected best bids (dotted line) expressed
+in terms of par value in the CLO market at a quarterly frequency. Panel B of the figure shows the BWIC failure cost (solid and dashed line) expressed in terms of par value in the
+CLO market at a quarterly frequency. In both panels, the solid/dashed line depicts the mean/median value across BWICs at a quarterly frequency. The shaded area indicates the
+5% to 95% range across BWICs. The sample period is 2012–2020 with grey areas indicating periods of market stress: the 2012 European debt crisis, the 2015–16 credit stress, and
+the 2020 COVID-19 pandemic. In both panels, results are split by tranche into the senior tranche rated AAA (left), mezzanine tranche rated AA–BBB (middle), and junior tranche
+rated BB–equity (right). Fig. A.2 in the Internet Appendix documents the corresponding figures using the semiparametric specification (5) for estimating the seller’s reserve price.
+
+as low as 85% and 65% of the CLO face value for the mezzanine and
+junior tranches, respectively.
+
+Most of the features from the plots in Panel A translate to BWIC
+failure costs depicted in Panel B of Fig. 7, which is the difference
+between the expected best dealer bids and seller reserve prices. Fail-
+ure costs are, on average, larger and more volatile during 2012Q1
+to 2016Q1 than they are during later sample periods. Failure costs
+are the largest during credit stress times, while they are the lowest
+during regular times for all tranches. For instance, the costs increased
+by approximately 1%/8%/10% between 2015Q3 and 2016Q1 for the
+senior/mezzanine/junior tranche. The junior tranche has the highest
+failure costs, which fluctuate between 5% and 40% most of the time.
+The senior tranche has the lowest failure costs and stays below 5% most
+of the time. Thus far we have discussed our empirical TCI measure. In
+the next section, we further discuss what TCI represents economically
+by calculating TCI for sellers with different reserve prices.
+
+constrained quantile rotation (CQR).30 We can then estimate the seller’s
+reserve price 𝜇𝑅(𝑍) using a non-parametric quantile regression on
+realized best-bids 𝑏𝑖 at a fixed quantile 𝜏⋆. While the choice of an ideal
+quantile 𝜏⋆ requires some heuristics, our estimation using OQR offers
+some guidance on the range of such quantiles.
+
+The procedure to determine TCI now involves the following steps:
+We again construct the TCI for each BWIC 𝑖 = 1, … , 𝐼 and then average
+over them according to expression (20). The only difference is that the
+determinants of sellers’ reserve prices, (𝛼𝜏⋆ , 𝛽𝜏⋆ ), are estimated by a
+standard quantile regression. The 𝜏⋆-quantile of the best bids regressed
+on 𝑍𝑖 yields: 𝜇𝑅(𝑍𝑖) = 𝛼𝜏⋆ + 𝛽′
+
+𝜏⋆ 𝑍𝑖.31
+
+From now on the procedure evolves as before. The relationship
+between bid–ask spreads and the explanatory variables, 𝑋𝑖 = (𝑍𝑖, 𝑊𝑖),
+is estimated by OLS according to (21). The relationship between
+BWIC fail rate(𝑋𝑖) = 1 − Pr(Trade𝑖|𝑋𝑖) and 𝑋𝑖 is estimated in Section 4
+using probit regression (1). The expected best-bids conditional on char-
+acteristics 𝑋𝑖 and trade success are estimated using linear regression
+
+6.4. A simplified approach for applied research: Constrained quantile rota-
+tions
+
+The OQR approach allows for the optimal quantile rotation to be
+observation-dependent. However, the approach can be computationally
+demanding. As a simpler alternative to the OQR approach, we can
+assume that the rotation is the same across auctions, which we term
+
+30 In a setting where there exists no unobserved variation in reserve prices
+
+across BWICs, 𝜎𝑅 = 0, the approximation is correct and 𝜏∗ = 0.
+
+31 In general, the 𝜏%-quantile of a random variable 𝐵 with distribution 𝐺𝐵(𝑏)
+𝐵 (𝜏) = inf{𝑏 ∶ 𝐺𝐵(𝑏) ≥ 𝜏}. We then postulate that the 𝜏th
+is given by 𝑞𝐵(𝜏) = 𝐺−1
+conditional quantile function can be parametrized as 𝑞𝐵|𝑍 (𝜏) = 𝛼𝜏 + 𝛽′
+𝜏 𝑍. For
+the conditional distribution function of best-bids, 𝐺𝐵(𝑏|𝑍), 𝛼𝜏 and 𝛽𝜏 can be
+estimated from the pooled sample by solving (𝛼𝜏 , 𝛽𝜏 ) = arg min𝛼,𝛽
+𝑖=1 𝜉𝜏 (𝑏𝑖 −
+𝛼 − 𝛽′𝑍𝑖), where 𝜉𝜏 (⋅) is the tilted absolute value function at quantile 𝜏.
+
+∑𝐼
+
+JournalofFinancialEconomics157(2024)10385918T. Hendershott et al.
+
+Table 8
+TCI using CQR.
+The table reports in Panel A the estimates of TCI, ̂TCI, across BWICs for senior tranches, mezzanine tranches, and junior tranches. The model uses the constrained quantile rotations
+to determine BWIC failure costs. The rotations used are 𝜏⋆ = 0.5% for senior, 3% for mezzanine and 12% for junior tranches. The models use the same specifications as in
+Tables A.4–A.6. Standard errors reported in parenthesis are bootstrapped. The table reports in Panel B the decomposition of variation in TCI across BWICs for senior tranches,
+mezzanine tranches, and junior tranches.
+
+Senior tranche
+(AAA, I = 8683 BWICs)
+
+Mezzanine tranche
+(AA–BBB, I = 12,341 BWICs)
+
+Junior tranche
+(BB–equity, I = 10,794 BWICs)
+
+Panel A: Distribution of ̂TCI (% of par) across BWICs
+̂TCI mean
+
+̂TCI S.D.
+
+Dispersion of ̂TCI across BWICs:
+
+5%
+
+25%
+
+50%
+
+75%
+
+95%
+
+0.29
+(0.02)
+0.36
+(0.04)
+
+0.04
+(0.00)
+0.07
+(0.01)
+0.14
+(0.01)
+0.35
+(0.03)
+1.09
+(0.11)
+
+Panel B: Variance decomposition (% of variation)
+
+Issuer
+Time
+
+0.06
+0.81
+
+(22). However, in this simplified approach the cost of BWIC failure
+conditional on 𝑋𝑖 is measured by the difference between the expected
+best bid and (approximate) reserve price:
+
+̂Failure cost(𝑋𝑖) = (𝛼𝐵 − 𝛼𝜏⋆ ) + (𝛽𝐵 − 𝛽𝜏⋆ )′𝑍𝑖 + 𝛿′
+
+𝐵𝑊𝑖, 𝑖 = 1, … , 𝐼,
+
+(24)
+
+instead of relations (23) used in OQR.
+
+Table 8 reports estimates for TCI based on this CQR approach. We
+choose 𝜏⋆ = 0.5% for the senior tranche, 3% for the mezzanine tranche,
+and 12% for the junior tranche, and the motivation for these choices
+is in the next section. Larger values of 𝜏⋆ lead to lower and thus
+more conservative TCI estimates for any given tranche. Standard errors
+reported in parenthesis are bootstrapped.
+
+Table 8 shows that the total cost of immediacy is substantially
+higher than the observed cost for successful BWICs because trade
+failures are frequent and failure costs are sizeable. TCI is the smallest
+for the senior tranche and largest for the junior tranche. At the mean
+across BWICs, TCI is 29 bps/1.25%/3.35% for senior/mezzanine/junior
+tranche. Compared to bid–ask spreads (see Table 1 and Fig. 3), costs
+arising from trade failures make up the majority of the total cost of
+immediacy. The standard deviation and dispersion of TCI across BWICs
+is large, suggesting that TCI ranges between 4 bps/19 bps/62 bps and
+1.09%/3.32%/10.05% for senior/mezzanine/junior tranche, each at
+5% and, respectively, 95% of the distribution across BWICs.
+
+The CQR approach is straightforward to implement, but the rotation
+needed to correct for selection, 𝜏⋆, is assumed to be known. Estimating
+CQR for various 𝜏⋆ can help researchers explore the sensitivity of their
+estimates to the degree of selection bias. Because 𝜏⋆ is higher for lower-
+rated CLOs, this sensitivity analysis may be more important for riskier
+assets.
+
+7. TCI across sellers and realized gains from trade
+
+The estimates for the model primitives allow us to conduct a coun-
+terfactual analysis. In the following, we compute the average TCI across
+all sellers and TCI for specific sellers and compare TCI to sellers’
+realized gains from trade (SGT). This allows us to study whether the
+cost of immediacy varies with how desperate or patient is the seller
+and whether dealers provide the same level of liquidity irrespective of
+the seller’s type.
+
+The TCI averaged over BWICs in expression (20) is intuitive but not
+necessarily representative of all sellers. Consider a seller with reserve
+
+1.25
+(0.11)
+1.09
+(0.18)
+
+0.19
+(0.02)
+0.42
+(0.03)
+0.89
+(0.07)
+1.72
+(0.17)
+3.32
+(0.52)
+
+0.06
+0.89
+
+3.35
+(0.17)
+3.01
+(0.28)
+
+0.62
+(0.08)
+1.38
+(0.08)
+2.25
+(0.11)
+4.04
+(0.29)
+10.05
+(0.83)
+
+0.03
+0.52
+
+𝑟, where D
+
+price 𝑅(𝑟) ≡ 𝜇𝑅 +𝜎𝑅𝑟, 𝑟 ∈ D
+𝑟 is a set of all reserve prices. The
+proof of Lemma 1 shows that 𝑅(𝑟) can be estimated from the optimal
+quantile of best bids, 𝜏∗(𝑟), equal to
+(𝐺𝐵(𝛾 + 𝜆𝑟), 𝐻())
+𝐻()
+
+𝜏∗(𝑟) =
+
+(25)
+
+.
+
+The following result, proved in the Appendix, maps the seller’s type
+(that is, her reserve price 𝑅(𝑟)) into her individual TCI.
+
+Proposition 2. Estimated TCI for a seller with a reserve price 𝑅(𝑟) is equal
+to
+
+TCI(𝑟) = E[𝑃 − 𝐵|Trade, 𝑅(𝑟)]
+
+(
+
++ (𝑟)
+
+𝑏𝑔𝐵(
+
+∫D𝑏
+
+𝑏 − 𝜇𝐵
+𝜎𝐵
+
+)
+
+11(𝐺𝐵(
+
+𝑏 − 𝜇𝐵
+𝜎𝐵
+
+), 𝐺𝑅(𝑟))
+
+𝑑𝑏
+𝜎𝐵
+
+)
+
+− 𝑅(𝑟)
+
+,
+
+(26)
+
+where (𝑟) is the BWIC failure hazard rate given by (C.5) and D
+of all bid prices.
+
+𝑏 is the set
+
+From (26), TCI for the average/median seller, TCI(0), is equal to
+
+TCI(0) = E[𝑃 − 𝐵|Trade, 𝜇𝑅]
+
+1
+, 𝐻())
+
+− 1
+
+
+
+1( 1
+2
+
+⎞
+⎟
+⎟
+⎠
+
+⎛
+⎜
+⎜
+⎝
+
++
+
+(
+
+𝑏𝑔𝐵(
+
+∫D𝑏
+
+𝑏 − 𝜇𝐵
+𝜎𝐵
+
+)
+
+11(𝐺𝐵(
+
+𝑏 − 𝜇𝐵
+𝜎𝐵
+
+), 𝐺𝑅(0))
+
+𝑑𝑏
+𝜎𝐵
+
+)
+
+− 𝜇𝑅
+
+.
+
+(27)
+
+The average TCI across all sellers is equal to
+
+E
+
+𝑅[TCI] = E
+
+𝑅[E[𝑃 − 𝐵|Trade, 𝑅]]
+(
+
+(𝑟)
+
++ ∫D
+
+𝑟
+
+∫D
+
+𝑏𝑔𝐵 (
+
+𝑑𝐺𝑅(𝑟)
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+𝑅 [Pr(Fail|𝑅)⋅(E[𝐵|Trade,𝑅]−𝑅)]
+
+), 𝐺𝑅(𝑟))
+
+11(𝐺𝐵 (
+
+− 𝑅(𝑟)
+
+E
+
+𝑏
+
+𝑏 − 𝜇𝐵
+𝜎𝐵
+
+)
+
+𝑏 − 𝜇𝐵
+𝜎𝐵
+
+𝑑𝑏
+𝜎𝐵
+
+)
+
+= ̂TCI + E
+
+𝑅[E[𝐵|Trade, 𝑅]] − E
+
+𝑅[𝐵|Trade] − 𝐶𝑜𝑣𝑅(Pr(Fail|𝑅), 𝑅).
+
+(28)
+
+𝑅[TCI] because E
+
+Expression (28) illustrates that E
+
+𝑅[TCI] is generally different from
+TCI(0), and, while intuitive and easy to compute, ̂TCI in (20) does not
+coincide with E
+𝑅[𝐵|Trade] and
+𝐶𝑜𝑣𝑅(Pr(Fail|𝑅), 𝑅) ≥ 0. We can, however, compute upper and lower
+bounds on the average TCI across all sellers irrespective of any paramet-
+ric assumptions. By the Cauchy–Schwarz inequality, 𝐶𝑜𝑣𝑅(Pr(Fail|𝑅),
+𝑅) is bounded by the standard deviation of the fail rate with respect to
+variation in 𝑅, SD𝑅(Pr(Fail|𝑅))⋅𝜎𝑅 thus leading to the following Lemma.
+
+𝑅[E[𝐵|Trade, 𝑅]] ≥ E
+
+JournalofFinancialEconomics157(2024)10385919T. Hendershott et al.
+
+Table 9
+Average TCI and variation across sellers.
+The table documents ̂TCI given by (20), TCI for the median seller given by (27), TCI(0), average TCI given by (28), E
+𝑅[TCI], and the upper and lower bounds on average TCI,
+TCI/TCI, when using the estimated parameters from model (1) with a Gaussian copula and calibrating the remaining parameters to the specification 𝑃 = 𝜎𝐵 (𝛼 + 𝛽), 𝐵𝑖 = 𝜎𝐵 (𝛼 + 𝜀𝐵,𝑖),
+𝑅𝑖 = 𝜎𝑅𝜀𝑅,𝑖, 𝑖 = 1, … , 𝐼.
+
+Panel A: Parameter estimate/calibration
+
+𝜌
+1/𝛾
+
+𝜆
+𝜔
+𝜎𝐵
+
+𝜎𝑅
+𝛼
+𝛽
+
+Senior
+
+−0.82
+−0.69
+
+0.85
+−0.22
+0.65
+
+0.56
+2.10
+0.44
+
+Panel B: TCI for different sellers (% of par)
+
+TCI
+TCI
+̂TCI
+E
+
+𝑅[TCI]
+
+TCI(𝑟) for specific sellers:
+
+Low-reserve seller, TCI(−2)
+TCI(−1)
+Median seller, TCI(0)
+TCI(1)
+High-reserve seller, TCI(2)
+
+Panel C: Gains from trade for different sellers (% of par)
+
+E
+
+𝑅[SGT]
+
+SGT(𝑟) for specific sellers:
+
+Low-reserve seller, SGT(−2)
+SGT(−1)
+Median seller, SGT(0)
+SGT(1)
+High-reserve seller, SGT(2)
+
+Lemma 2. The average TCI across all sellers is bounded by
+
+TCI ≥ E
+
+𝑅[TCI] ≥ TCI,
+
+where the upper and lower bounds are given by
+
+𝑅[E[𝐵|Trade, 𝑅]] − E
+
+TCI = ̂TCI + E
+TCI = ̂TCI − SD𝑅(Pr(Fail|𝑅)) ⋅ 𝜎𝑅,
+with ̂TCI defined in (20).
+
+𝑅[𝐵|Trade],
+
+Mezzanine
+
+−0.83
+−0.76
+
+0.74
+−0.12
+1.72
+
+1.27
+1.30
+0.76
+
+Senior
+
+0.32
+0.24
+0.31
+0.25
+
+0.01
+0.13
+0.28
+0.38
+0.32
+
+Senior
+
+1.40
+
+2.76
+2.06
+1.37
+0.72
+0.25
+
+(29)
+
+(30)
+
+Having calculated expressions for TCI of different sellers and upper
+and lower bounds, we use calibration of the remaining parameters to
+compare the average TCI, ̂TCI, given by (20), to the average TCI across
+all sellers, E
+𝑅[TCI], given by (28), and the upper and lower bounds
+TCI/TCI given by (30). We also compute TCI for the median seller given
+by (27), and we use (26) to calculate TCI for sellers with reserve prices
+1 and 2 standard deviations above and below the mean. We use model
+1 with a Gaussian copula 𝜏∗ = 𝛷(𝛾, ; 𝜌)∕𝛷() to calculate TCI(𝑟) and
+E
+𝑅[TCI]. Table A.7 provides estimates of 𝜌 and 𝛾. 𝜆 and 𝜔 are given
+𝛾 2 + 1 − 2𝜌𝛾 and 𝜔 = (1 − 𝜌𝛾)∕𝜆, respectively.
+by expressions 𝜆 =
+Using the estimated correlation and ratio of the variance of the bids and
+reserve prices, 𝜎𝐵 is matched so that the empirical variance in the noise
+of the observed bid–ask spread after controlling for observables 𝑋𝑖
+matches the model-implied variance in the noise of the bid–ask spread
+conditional on trade, 𝑃 − 𝐵𝑖|Trade𝑖. 𝜎𝑅 is determined by 𝜎𝑅 = 𝜆𝜎𝐵. 𝛼 is
+calibrated to match the BWIC fail rate from Table 1, and 𝛽 is calibrated
+to the estimated TCI from Column 1 of Table A.8.
+
+√
+
+Panel A of Table 9 reports the parameters from the calibration
+for the senior, mezzanine, and junior tranches. The estimates for 𝜌
+and 𝛾 from Table A.7 translate into estimates for the non-normalized
+correlation between the bids and reserve prices, 𝜔. The estimated 𝜔
+is negative for the senior and mezzanine tranches. This could arise
+
+Junior
+
+−0.82
+−0.99
+
+0.60
+0.29
+2.83
+
+1.70
+0.53
+1.47
+
+Mezzanine
+
+1.38
+1.09
+1.32
+1.11
+
+0.87
+1.11
+1.25
+1.16
+0.63
+
+Mezzanine
+
+2.43
+
+5.14
+3.71
+2.31
+1.12
+0.38
+
+Source
+
+GMM estimate from Table A.7
+GMM estimate from Table A.7
+
+√
+
+𝛾 2 + 1 − 2𝜌𝛾
+
+from 𝜆 =
+from 𝜔 = (1 − 𝜌𝛾)∕𝜆
+matched to residual variance
+in observed bid–ask spreads
+from 𝜎𝑅 = 𝜆𝜎𝐵
+matched to fail rate
+matched to ̂TCI
+
+Junior
+
+4.00
+3.60
+3.79
+3.61
+
+5.58
+4.66
+3.64
+2.55
+1.31
+
+Junior
+
+2.05
+
+3.45
+2.68
+1.97
+1.42
+0.92
+
+if bidding in the auction is costly, possibly due to dealers’ efforts in
+locating the buyer prior to the auction. In this case, dealers’ bids and
+expected surplus when winning must account for incurring these costs.
+If dealers are aware of which sellers are more likely to have higher
+reserve prices, then dealers will bid less aggressively in auctions run
+by those sellers, causing 𝜔 < 0. In the lower-rated tranches, there is
+more scope for bidders and dealers to have common information about
+the value of the CLO that is not observable to the econometrician. This
+naturally makes the correlation between bids and reserve prices more
+positive. Thus, for the junior tranche 𝜔 > 0.
+
+The various TCI measures in Panel B show that for all tranches
+the following ordering holds TCI > ̂TCI > TCI(0) > E
+𝑅[TCI] > TCI,
+indicating the estimated total costs of immediacy, ̂TCI, is an upper
+bound on the TCI of the median seller, TCI(0), which, in turn, is an
+upper bound on the TCI across all sellers, E
+𝑅[TCI], under the Gaussian
+copula.
+
+TCI across sellers. Using the calibrated parameters from Panel A of
+Table 9, Panel B reports the variation in the total cost of immediacy
+across sellers by computing TCI(𝑟) for different values of 𝑟. Panel B
+reports TCI(𝑟) for sellers with 𝑟 = −2, −1, 0, 1, 2. Sellers with 𝑟 = −2
+correspond to the most impatient sellers who must sell and will accept
+almost any bid. Their TCI will in the limit approach their bid–ask
+spread. At the other end of the spectrum, sellers with 𝑟 = 2 correspond
+to the most patient sellers who only accept high prices. Sellers who
+run BWICs intending to gain information about valuations without
+transacting also fall into the category of sellers with the highest 𝑟.
+
+Panel B shows that for the mezzanine and senior tranches TCI(𝑟)
+is hump-shaped in sellers’ reserve prices due to 𝜔 < 0. TCI for sellers
+with low reserve prices are equal to 0.87% and 0.01%, respectively,
+and thus substantially lower than for the median seller, with 1.25%
+
+JournalofFinancialEconomics157(2024)10385920T. Hendershott et al.
+
+and 0.28%. For low reserve prices, the probability of failure is close
+to zero. As reserve prices rise, the probability of failure remains low,
+but the cost of failure can actually increase due to 𝜔 < 0. Hence, TCI
+increases for low reserve prices in the senior and mezzanine tranches.
+Once reserve prices are high enough TCI begins to fall due to the
+declining cost of failure. For the junior tranche, TCI for sellers with low
+reserve prices, TCI(−2), is 5.58%, which is 50% greater than TCI for the
+median seller, TCI(0), which is 3.64%. TCI is monotonically declining
+in reserve prices, consistent with the intuition from Eqs. (3)–(4). As
+reserve prices increase the cost of failure goes to zero.
+
+Seller’s gains from trade. The cost of immediacy is sellers’ loss relative
+to the frictionless sale price. The realized gains from trade for the seller
+(SGT) are the difference between the frictionless sale price and the
+seller’s reserve price minus TCI, which equals the difference between
+the expected best bid and the reserve price multiplied by the probability
+of trade32:
+
+SGT(𝑟) = Pr(Trade|𝑅(𝑟)) ⋅ (E[𝐵|Trade, 𝑅(𝑟)] − 𝑅(𝑟)).
+
+(31)
+
+Similar to TCI in Panel B, Panel C of Table 9 reports the average seller
+gains from trade as well as for sellers with a median reserve price
+and reserve prices 1 and 2 standard deviations above and below the
+median. For all tranches, as expected, TCI declines with reserve price.
+This is because both the expected gains from trade and the probability
+of trade decline with the reserve price. Gains from trade are higher
+for the mezzanine tranche than for the senior tranche. Gains from
+trade are higher for mezzanine than junior because TCI is so high for
+the junior tranche. For senior and mezzanine the average gains from
+trade are much higher than TCI suggesting that sellers capture much
+of their surplus. However, for the junior tranche, TCI is greater than
+SGT, implying the market is illiquid and the frictions consume more
+than half of the surplus.
+
+8. Conclusion
+
+The role of markets is to facilitate trade. Centralized markets like
+stock exchanges have continuous, visible, and firm quotes that inform
+investors of the terms of trade in advance and limit failed attempts to
+trade. Structured products and other financial securities trade in over-
+the-counter (OTC) markets without such quotes, making trade failures
+a more likely option. We measure the total cost of immediacy (TCI)
+in OTC markets by combining the direct intermediation cost, captured
+by the bid–ask spread, with the opportunity cost of trade failure. TCI
+is the expected bid–ask spread on observed trades plus the probability
+of trade failure times the cost of trade failure, which is the expected
+highest bid conditional on a trade minus the seller’s reserve price. We
+construct a methodology to estimate the seller’s reserve price using
+quantiles of the distribution of best bids adjusted for the selection
+bias in successful trades due to higher bids being more likely to be
+accepted.
+
+Using data from 2012–2020 on bids-wanted-in-competition (BWIC)
+auctions for collateralized loan obligations (CLO), we document that
+trade failures are frequent; they occur more than 10% of the time, and
+occur more often in lower-rated CLOs and stressful market conditions
+when failure rates exceed 50%. Our estimates for TCI reveal significant
+illiquidity and fragility in auction-based OTC markets. TCI is substan-
+tially higher than the effective bid–ask spread from successful BWICs
+because trade failures are frequent, failure costs are large, and failure
+rates and costs are correlated.
+
+In the 2020 pandemic and other stressful periods when failure costs
+exceed 10% for junior tranches, TCI increases tenfold from about 1% to
+10%. For high-rated tranches, TCI is low relative to sellers’ gains from
+trade, while for low-rated tranches TCI is almost double the gains from
+trade. When we estimate TCI for sellers with different reserve prices,
+TCI is more than 50% higher for sellers with low reserve prices than
+sellers with the median reserve price. Hence, when the need to trade
+is the most urgent and the cost of continuing to hold the asset is the
+highest, even sellers with the lowest reserve prices fail to trade because
+the OTC market provides insufficient liquidity, exacerbating fragility.
+Our TCI results suggest that traditional trading cost measures under-
+estimate true costs when failure rates are high and trading frequency
+is low. In corporate bonds failure rates in auctions/RFQs are close to
+30% (Hendershott and Madhavan, 2015). Therefore, TCI may also be
+important in this setting. Auctions in more liquid OTC markets such as
+index CDS (Riggs et al., 2020) and Canadian government bonds (Allen
+and Wittwer, 2023) are much less likely to fail, suggesting that TCI is
+less relevant in those contexts. TCI in centralized markets may be easier
+to measure as subsequent prices can proxy for the value of holding the
+asset. Overall, TCI is likely most important in more risky and illiquid
+assets and in times of market stress.
+
+Our approach can be extended to non-financial decentralized mar-
+ket settings to estimate outside option(s) of market participants. Natural
+settings include reservation wages in labor literature33 and the utility
+of staying single for potential spouses in the marriage market.34
+
+CRediT authorship contribution statement
+
+Terrence Hendershott: Writing – review & editing, Writing – orig-
+inal draft, Validation, Resources, Methodology, Investigation, Formal
+analysis, Data curation, Conceptualization. Dan Li: Writing – review
+& editing, Writing – original draft, Validation, Supervision, Software,
+Resources, Project administration, Methodology, Investigation, Formal
+analysis, Data curation, Conceptualization. Dmitry Livdan: Writing
+– review & editing, Writing – original draft, Validation, Software,
+Resources, Project administration, Methodology, Investigation, Formal
+analysis, Data curation, Conceptualization. Norman Schürhoff: Writ-
+ing – review & editing, Writing – original draft, Validation, Software,
+Resources, Project administration, Methodology, Investigation, Formal
+analysis, Data curation, Conceptualization.
+
+Declaration of competing interest
+
+Terrence Hendershott provides expert witness services to a variety
+of clients. He has taught a course for a financial institution that engages
+in liquidity provision and high-frequency trading activity. He gratefully
+acknowledges support from the Norwegian Finance Initiative.
+
+Dan Li has no conflict of interest to disclose.
+Dmitry Livdan has no conflict of interest to disclose.
+Norman Schürhoff gratefully acknowledges research support from
+the Swiss Finance Institute and the Swiss National Science Foundation
+under SNF project #100018_192584, ‘‘Sustainable Financial Market
+Infrastructure: Towards Optimal Design and Regulation’’ and has no
+conflict of interest to disclose.
+
+Data availability
+
+TCI Data (Original data) (Mendeley Data)
+.
+
+32 Calculating the full gains from trade for the round trip transaction where
+the dealer both buys and sells requires information about the eventual end
+buyer. Without such information, we focus on the gains from trade for the
+seller. Calculating the frictionless gains from trade for the seller requires
+endogenizing the benchmark price, which is beyond the scope of this paper.
+
+33 See Devine and Kiefer (1991) for the review of evidence on reservation
+
+wages.
+
+34 See Chiappori (2020) for the review of literature on marriage markets.
+
+JournalofFinancialEconomics157(2024)10385921T. Hendershott et al.
+
+Appendix A. Data filters
+
+The following table reports the steps to clean and filter the CLO
+
+BWIC data and the number of BWICs remaining after each step.
+
+Step
+
+All auctions between
+1.1.2012 and 3.31.2020
+Keep only USD CLO
+Keep only
+TRACE-eligible CUSIPs
+Keep only if
+seniority/rating
+information is not
+missing
+
+Number of BWICs
+remaining
+58,853
+
+43,701
+34,138
+
+33,408
+
+The following table reports summary statistics on merging TRACE
+and Creditflux (CF). We report for each dealer-to-client, interdealer,
+and client-to-dealer trade out of the total how many are in TRACE only,
+how many are in both TRACE and CF, and how high is the match rate.
+In the table, the statistic on ‘In TRACE and CF’ includes auctions with
+DNT flags or cover information that are nonstandard and cannot be
+translated into a decimal price.
+
+is relatively low at 1.4%, suggesting limited explanatory power from
+characteristics of the trade or the CLO. Adding market condition vari-
+ables such as leveraged loan spread and dealer CDS spread (Columns
+2 and 3) improves R2 noticeably. The bid–ask spread is significantly
+positively related to both leveraged loan spread and dealer CDS spread.
+Therefore, when market conditions or dealer health worsens, bid–ask
+spread increases. When quarter-fixed effects are included together with
+market condition variables (Column 6), the leveraged loan market
+spread continues to be significant.
+
+Panel B of Table A.1 shows results for the mezzanine tranche.
+The results are similar to the ones reported in Panel A for the senior
+tranche. Unique to this tranche, trade size is negatively significant
+across all specifications—larger trades are associated with smaller bid–
+ask spreads. Results reported in Column 5 indicate that once quarter
+fixed effects are included, only trade size retains explanatory power.
+The highest R2 in Panel B is equal to 7.2% (Column 5). Panel C of
+Table A.1 reports results for the junior tranche. Notably, credit rating
+plays a more prominent role. When quarter fixed effects are included,
+only rating matters. Perhaps unsurprisingly, equity tranches have the
+highest bid–ask spread.
+
+Overall, effective bid–ask spreads do not vary much within a quarter
+for CLOs with the same vintage and credit rating. When bid–ask spreads
+do vary within a quarter, the variation is mainly due to major economy-
+wide credit events affecting the riskiness of leveraged loans held by the
+CLOs.
+
+In TRACE only In TRACE and CF Total
+13,093
+88,573
+
+101,666 13%
+
+Appendix C. Proofs
+
+Matched %
+
+Proof of Proposition 1. The BWIC success probability is
+
+18,742
+
+3112
+
+21,854
+
+14%
+
+Pr(Trade) = Pr(𝑅 ≤ 𝐵) = Pr(𝜎𝑅𝜀𝑅 − 𝜎𝐵𝜀𝐵
+
+≤ 𝜇𝐵(𝑋) − 𝜇𝑅(𝑍)) =
+
+43,194
+
+27,890
+
+71,084
+
+39%
+
+= Pr(𝜂 ≤ (𝑋)) = 𝐻((𝑋)),
+
+(C.1)
+
+thus completing the proof. □
+
+Dealer-
+to-client
+Inter-
+dealer
+Client-
+to-
+dealer
+
+Appendix B. Evidence on bid–ask spreads in CLOs
+
+This section examines the determinants of effective bid–ask spread
+using multivariate analysis. We estimate the following model for bid–
+ask spread that corresponds to a successful BWIC for CLO 𝑖 at time 𝑡:
+
+Proof of Lemma 1. For 𝑟 ∈ D
+−(𝜇𝐵(𝑋) − 𝜇𝑅(𝑍)) + 𝜎𝑅𝑟 ⇔ 𝜀𝐵
+
+𝑟, we have 𝐵 ≤ 𝜇𝑅(𝑍) + 𝜎𝑅𝑟 ⇔ 𝜎𝐵𝜀𝐵
+≤ 𝛾(𝑋) + 𝜆𝑟 with 𝜆 = 𝜎𝑅
+𝜎𝐵
+
+. Define
+
+≤
+
+𝜏∗(𝑟) ≡ Pr(𝐵 ≤ 𝜇𝑅(𝑍) + 𝜎𝑅𝑟|Trade)
+
+= Pr(𝜎𝐵𝜀𝐵
+Pr(𝜀𝐵
+
+=
+
+≤ −(𝜇𝐵(𝑋) − 𝜇𝑅(𝑍) − 𝜎𝑅𝑟)|Trade)
+
+≤ 𝛾(𝑋) + 𝜆𝑟, 𝜂 ≤ (𝑋))
+
+Pr(Trade)
+
+=
+
+(𝐻(𝛾 + 𝜆𝑟), 𝐻(); 𝜌)
+𝐻()
+
+.
+
+(C.2)
+
+Bid–ask spread𝑖𝑡 = 𝛼𝑡 + 𝛽′𝑋𝑖𝑡 + 𝜖𝑖𝑡,
+
+(B.1)
+
+By definition, 𝜏∗ = 𝜏∗(0). □
+
+where 𝛼𝑡 are quarter fixed effects. The explanatory variables 𝑋 include
+characteristics of the trade (log of par value), of the CLO (log of
+amount outstanding, vintage, CLO rating), as well as market and dealer
+conditions (JPM leveraged loan spread and dealer CDS spread). We do
+not include CLO fixed effects 𝛼𝑖 because individual CUSIPs do not trade
+often enough.
+
+Table A.1 reports parameter estimates for the determinants of the
+effective bid–ask spread on successful BWICs. All results are split by
+CLO tranche. The baseline specification (Column 1) includes only trade
+and CLO characteristics. We add credit rating dummies to the baseline
+specification in the case of the mezzanine and junior tranches. Across
+specifications 2 to 5, we vary the set of explanatory variables by adding
+market and dealer characteristics, and, finally, quarter fixed effects
+𝛼𝑡. This approach allows us to trace the explanatory power of the
+incremental variables.
+
+Panel A of Table A.1 presents results for the senior tranche. The
+vintage effect is robust to specifications, with newer vintages signif-
+icantly cheaper to trade. The R2 for the specification in Column (1)
+
+Proof of Proposition 2. Consider a seller with a noise component of
+the reserve price equal to 𝜎𝑅𝜀𝑅 = 𝜎𝑅𝑟, with 𝑟 ∈ D
+𝑟. We observe in the
+data for 𝑅(𝑟) ≡ 𝜇𝑅 + 𝜎𝑅𝑟,
+
+Pr(Trade|𝑅(𝑟))𝑑𝐺𝑅(𝑟).
+
+Pr(Trade) = ∫D𝑟
+Using the properties of the copula (⋅) capturing the joint relation of
+(𝜀𝑅, 𝜂) in the expression (C.3), the BWIC success probability conditional
+on 𝑅(𝑟) is equal to
+
+(C.3)
+
+1(𝐺𝑅(𝑟), 𝐻()).
+
+Pr(Trade|𝑅(𝑟)) = 
+Note that the conditional hazard rate of BWIC failure, (𝑟), depends on
+the seller’s reserve and equals
+(𝑟) ≡ Pr(Fail|𝑅(𝑟))
+1 − Pr(Fail|𝑅(𝑟))
+
+1
+1(𝐺𝑅(𝑟), 𝐻())
+
+(C.4)
+
+(C.5)
+
+− 1.
+
+=
+
+
+
+We now determine the conditional expected best bids for a buyer
+the
+
+𝑏. We have for an event 𝐵 ≤ 𝑏 equivalent to 𝜀𝐵
+
+𝑏 ∈ D
+
+≤ 𝑏−𝜇𝐵
+𝜎𝐵
+
+JournalofFinancialEconomics157(2024)10385922T. Hendershott et al.
+
+Table A.1
+Effective bid–ask spread on successful BWICs.
+The table reports the determinants of the effective bid–ask spread on successful BWICs. The sample is restricted to CLO round-trip trades with one day or less in dealer inventory.
+Standard errors are robust to heteroskedasticity.
+
+Bid–ask spread (% of par value)
+
+(1)
+
+(2)
+
+(3)
+
+(4)
+
+(5)
+
+Panel A: Senior tranche (AAA, I = 2234 successful BWICs)
+
+Dealer CLO inventory
+
+log(Par value of trade)
+
+CLO 2.0 vintage
+CLO 3.0 vintage
+log(CLO issue size)
+CLO issue size missing
+
+JPM LL spread
+Dealer CDS spread
+
+Quarter FE
+R2
+
+0.00
+
+−0.00
+
+−0.01 ∗∗
+−0.02 ∗∗∗
+−0.00
+
+0.03 ∗∗
+
+No
+0.014
+
+Panel B: Mezzanine tranche (AA–BBB, I = 3370 successful BWICs)
+
+Dealer CLO inventory
+
+log(Par value of trade)
+
+CLO 2.0 vintage
+CLO 3.0 vintage
+log(CLO issue size)
+CLO issue size missing
+
+A rating
+BBB rating
+
+JPM LL spread
+Dealer CDS spread
+
+Quarter FE
+R2
+
+0.02 ∗∗
+
+−0.01 ∗∗
+
+−0.02
+−0.04 ∗∗∗
+−0.00
+−0.03 ∗∗∗
+
+0.01
+0.01
+
+No
+0.016
+
+Panel C: Junior tranche (BB–equity, I = 2853 successful BWICs)
+
+Dealer CLO inventory
+
+log(Par value of trade)
+
+CLO 2.0 vintage
+CLO 3.0 vintage
+log(CLO issue size)
+CLO issue size missing
+
+B rating
+Equity rating
+
+JPM LL spread
+Dealer CDS spread
+
+Quarter FE
+R2
+
+* Significance at the 10% level.
+** Significance at the 5% level.
+*** Significance at the 1% level.
+
+0.02 ∗∗
+
+0.00
+
+−0.00
+−0.02 ∗∗
+−0.00
+0.01
+
+0.03 ∗∗
+0.05 ∗∗∗
+
+No
+0.016
+
+−0.00
+
+−0.00 ∗
+
+−0.01 ∗∗
+−0.02 ∗∗∗
+−0.00
+
+0.03 ∗∗
+
+0.02 ∗∗∗
+
+No
+0.068
+
+0.03 ∗∗∗
+
+−0.01 ∗∗∗
+
+−0.01
+−0.04 ∗∗∗
+−0.00
+−0.03 ∗∗∗
+
+0.00
+0.01
+
+0.03 ∗∗∗
+
+No
+0.036
+
+0.01
+
+0.00
+
+−0.00
+−0.03 ∗∗∗
+−0.00
+0.00
+
+0.03 ∗∗
+0.05 ∗∗∗
+
+0.03 ∗∗∗
+
+No
+0.033
+
+following expression:
+
+Pr(𝐵 ≤ 𝑏|Trade, 𝑅(𝑟)) =
+
+=
+
+=
+
+Pr(𝐵 ≤ 𝑏, Trade|𝑅(𝑟))
+Pr(Trade|𝑅(𝑟))
+≤ 𝑏−𝜇𝐵
+𝜎𝐵
+Pr(𝜂 ≤ 
+
+, 𝜂 ≤ 
+
+Pr(𝜀𝐵
+
+|𝑅(𝑟))
+), 𝐺𝑅(𝑟))
+
+
+
+1(𝐺𝐵( 𝑏−𝜇𝐵
+𝜎𝐵
+1(𝐺𝑅(𝑟), 𝐻())
+
+
+|𝑅(𝑟))
+
+− 1.
+
+(C.6)
+
+Using properties of the conditional expectation and expression (C.6),
+the best bid conditional on trade and reserve price 𝑅(𝑟) in (C.8) equals
+
+E[𝐵|Trade, 𝑅(𝑟)] = ∫D𝑏
+
+𝑏
+
+𝜕
+𝜕𝑏
+
+Pr(𝐵 ≤ 𝑏|Trade, 𝑅(𝑟))𝑑𝑏
+
+𝜕
+𝜕𝑏
+
+𝑏
+
+= ∫D𝑏
+
+
+
+1(𝐺𝐵( 𝑏−𝜇𝐵
+𝜎𝐵
+1(𝐺𝑅(𝑟), 𝐻())
+
+
+), 𝐺𝑅(𝑟))
+
+𝑑𝑏
+
+=
+
+1
+𝜎𝐵
+
+∫D𝑏
+
+𝑏𝑔𝐵(
+
+𝑏 − 𝜇𝐵
+𝜎𝐵
+
+)
+
+
+
+11(𝐺𝐵( 𝑏−𝜇𝐵
+𝜎𝐵
+1(𝐺𝑅(𝑟), 𝐻())
+
+
+), 𝐺𝑅(𝑟))
+
+−0.00
+
+−0.00 ∗
+
+−0.00
+−0.00
+−0.00
+
+0.03 ∗∗
+
+0.08 ∗∗∗
+
+No
+0.046
+
+0.02 ∗∗
+
+−0.01 ∗∗∗
+
+−0.00
+−0.01
+−0.00
+−0.03 ∗∗
+
+0.01
+0.01
+
+0.12 ∗∗∗
+
+No
+0.035
+
+0.02 ∗
+
+−0.00
+
+0.01
+0.00
+−0.00
+0.01
+
+0.03 ∗
+0.05 ∗∗∗
+
+0.13 ∗∗∗
+
+No
+0.035
+
+−0.00
+
+−0.00 ∗∗
+
+−0.01
+−0.02 ∗∗∗
+−0.00
+
+0.03 ∗∗
+
+0.01 ∗∗∗
+0.04 ∗∗∗
+
+No
+0.073
+
+0.02 ∗∗
+
+−0.01 ∗∗∗
+
+−0.00
+−0.02 ∗∗
+−0.00
+−0.03 ∗∗∗
+
+0.00
+0.01
+
+0.02 ∗∗∗
+0.08 ∗∗∗
+
+No
+0.043
+
+0.01
+
+0.00
+
+0.01
+−0.01
+−0.00
+0.01
+
+0.03 ∗∗
+0.05 ∗∗∗
+
+0.02 ∗∗∗
+0.09 ∗∗∗
+
+No
+0.041
+
+0.01
+
+−0.00 ∗∗
+
+−0.01 ∗
+−0.01 ∗∗
+−0.01
+
+0.04 ∗∗∗
+
+0.02 ∗∗
+0.01
+
+Yes
+0.105
+
+−0.03
+
+−0.01 ∗∗∗
+
+−0.01
+0.01
+−0.00
+−0.02
+
+0.00
+0.01
+
+0.02
+0.12
+
+Yes
+0.072
+
+−0.01
+
+−0.00
+
+−0.00
+0.01
+−0.00
+
+0.03 ∗
+
+0.02
+0.06 ∗∗∗
+
+0.01
+0.05
+
+Yes
+0.104
+
+Hence,
+
+Pr(Fail|𝑅(𝑟))E[𝐵|Trade, 𝑅(𝑟)] = Pr(Fail|𝑅(𝑟))
+
+Pr(𝐵 ≤ 𝑏, Trade|𝑅(𝑟))𝑑𝑏
+
+=
+
+𝑏
+
+𝜕
+× ∫D𝑏
+𝜕𝑏
+Pr(Fail|𝑅(𝑟))
+1(𝐺𝑅(𝑟), 𝐻())
+𝑏 − 𝜇𝐵
+𝜎𝐵
+
+11(𝐺𝐵(
+
+⋅
+
+
+
+𝑏𝑔𝐵(
+
+𝑏 − 𝜇𝐵
+𝜎𝐵
+
+)
+
+× ∫D𝑏
+), 𝐺𝑅(𝑟))
+
+𝑑𝑏
+𝜎𝐵
+
+= (𝑟) × ∫D𝑏
+11(𝐺𝐵(
+
+⋅
+
+𝑏𝑔𝐵(
+
+𝑏 − 𝜇𝐵
+𝜎𝐵
+
+)
+
+𝑏 − 𝜇𝐵
+𝜎𝐵
+
+), 𝐺𝑅(𝑟))
+
+𝑑𝑏
+𝜎𝐵
+
+.
+
+Expression (26) follows using the expressions for conditional failure
+rate (C.4) and best bid (C.7).
+
+To derive expression (28), note that we observe in the data the
+
+expected best bids in successful BWICs, which are given by
+
+𝑑𝑏.
+
+(C.7)
+
+E
+
+𝑅[𝐵|Trade] = E
+
+𝑅[
+
+Pr(Trade|𝑅)
+Pr(Trade)
+
+E[𝐵|Trade, 𝑅]]
+
+JournalofFinancialEconomics157(2024)10385923T. Hendershott et al.
+
+Table A.2
+Simulation evidence on optimal rotation 𝜏 ∗.
+The table documents the optimal rotation 𝜏 ∗ across BWICs 𝑖 = 1, … , 𝐼 in simulated data from the specification 𝐵𝑖 = 𝛼 + 𝑧𝑖 + 𝑤𝑖 + 𝜎𝐵 𝜀𝐵,𝑖, 𝑅𝑖 = 𝑧𝑖 + 𝜎𝑅𝜀𝑅,𝑖.
+BWIC 𝑖 is successful if and only if 𝐵𝑖
+𝑧 ) is a determinant of best
+𝑤) is a determinant of best bid 𝐵 only. The errors 𝜀 ∼  (0, 1) are iid noise. We normalize 𝜎𝐵 = 1.
+bid 𝐵 and reserve price 𝑅. The variable 𝑤 ∼  (0, 𝜎2
+Across rows we vary the selection bias through 𝜆 = SD(𝜎𝑅 ∗𝜀𝑅 )
+. Across panels we vary the expected surplus through 𝛼 = E[𝐵] − E[𝑅]. In Panel A, we set
+SD(𝜀𝐵 )
+𝜎𝑧 = 𝜎𝑤 = 1 to simulate a small ratio of unobserved to the observed variation. In Panel B, we set 𝜎𝑧 = 𝜎𝑤 = 1∕10 to simulate a large ratio of unobserved
+to the observed variation.
+
+≥ 𝑅𝑖. We simulate 𝐼 = 100, 000 BWICs. In the specification, the variable 𝑧 ∼  (0, 𝜎2
+
+Panel A: Optimal rotation 𝜏∗ with small ratio of unobserved to observed variation
+
+Distribution of 𝜏 ∗ across BWICs
+
+𝜆
+
+Implied 𝜌
+
+Pr(Trade)
+
+Mean
+
+High expected surplus 𝛼 = 2
+
+0.1
+0.5
+1
+2
+10
+
+−1.00
+−0.89
+−0.71
+−0.45
+−0.10
+
+Low expected surplus 𝛼 = 1
+
+0.1
+0.5
+1
+2
+10
+
+−1.00
+−0.89
+−0.71
+−0.45
+−0.10
+
+No expected surplus 𝛼 = 0
+
+0.1
+0.5
+1
+2
+10
+
+−1.00
+−0.89
+−0.71
+−0.45
+−0.10
+
+0.92
+0.91
+0.87
+0.79
+0.58
+
+0.76
+0.75
+0.72
+0.66
+0.54
+
+0.50
+0.50
+0.50
+0.50
+0.50
+
+0.01
+0.02
+0.04
+0.05
+0.08
+
+0.01
+0.07
+0.12
+0.17
+0.23
+
+0.03
+0.18
+0.30
+0.39
+0.49
+
+S.D.
+
+0.01
+0.04
+0.07
+0.10
+0.13
+
+0.01
+0.09
+0.14
+0.19
+0.23
+
+0.02
+0.14
+0.22
+0.27
+0.29
+
+Panel B: Optimal rotation 𝜏∗ with large ratio of unobserved to observed variation
+
+Distribution of 𝜏 ∗ across BWICs
+
+𝜆
+
+Implied 𝜌
+
+Pr(Trade)
+
+Mean
+
+High expected surplus 𝛼 = 2
+
+0.1
+0.5
+1
+2
+10
+
+−1.00
+−0.89
+−0.71
+−0.45
+−0.10
+
+Low expected surplus 𝛼 = 1
+
+0.1
+0.5
+1
+2
+10
+
+−1.00
+−0.89
+−0.71
+−0.45
+−0.10
+
+No expected surplus 𝛼 = 0
+
+0.1
+0.5
+1
+2
+10
+
+−1.00
+−0.89
+−0.71
+−0.45
+−0.10
+
+0.98
+0.96
+0.92
+0.81
+0.58
+
+0.84
+0.81
+0.76
+0.67
+0.54
+
+0.50
+0.50
+0.50
+0.50
+0.50
+
+0.00
+0.01
+0.01
+0.02
+0.06
+
+0.00
+0.03
+0.07
+0.10
+0.20
+
+0.01
+0.12
+0.22
+0.34
+0.47
+
+S.D.
+
+0.00
+0.00
+0.00
+0.00
+0.01
+
+0.00
+0.00
+0.01
+0.02
+0.03
+
+0.00
+0.01
+0.02
+0.03
+0.04
+
+5%
+
+0.00
+0.00
+0.00
+0.00
+0.00
+
+0.00
+0.00
+0.00
+0.00
+0.00
+
+0.00
+0.01
+0.02
+0.03
+0.05
+
+5%
+
+0.00
+0.00
+0.01
+0.01
+0.04
+
+0.00
+0.02
+0.05
+0.07
+0.16
+
+0.01
+0.10
+0.19
+0.29
+0.41
+
+50%
+
+0.00
+0.01
+0.01
+0.01
+0.02
+
+0.01
+0.04
+0.07
+0.10
+0.15
+
+0.02
+0.15
+0.25
+0.36
+0.48
+
+50%
+
+0.00
+0.01
+0.01
+0.02
+0.06
+
+0.00
+0.03
+0.07
+0.10
+0.20
+
+0.01
+0.12
+0.22
+0.34
+0.47
+
+95%
+
+0.03
+0.10
+0.17
+0.25
+0.36
+
+0.04
+0.25
+0.43
+0.58
+0.72
+
+0.07
+0.47
+0.73
+0.87
+0.94
+
+95%
+
+0.00
+0.01
+0.01
+0.03
+0.08
+
+0.00
+0.04
+0.09
+0.13
+0.25
+
+0.01
+0.13
+0.26
+0.39
+0.53
+
+Pr(Trade|𝑅(𝑟))
+Pr(Trade)
+
+= ∫D𝑟
+
+E[𝐵|Trade, 𝑅(𝑟)]𝑑𝐺𝑅(𝑟).
+
+(C.8)
+
+The average TCI across all sellers (28) hence equals
+
+where E
+Using relation (C.8) we have
+
+𝑅[⋅] is the expectation over all possible reserve prices 𝑟 ∈ D
+
+𝑟.
+
+𝑅[Pr(Trade|𝑅) ⋅ E[𝐵|Trade, 𝑅]] = Pr(Trade) ⋅ E
+E
+
+𝑅[𝐵|Trade],
+
+E
+
+𝑅[Pr(Fail|𝑅) ⋅ 𝑅] = Pr(Fail)𝜇𝑅 + 𝐶𝑜𝑣𝑅(Pr(Fail|𝑅), 𝑅).
+
+The expected total payoff across all sellers is equal to
+
+(C.9)
+
+𝑅[Pr(Trade|𝑅) ⋅ E[𝐵|Trade, 𝑅]]
+
+𝑅[TCI] = E
+E
+= E
+− E
+= E
++ E
+= E
+
+𝑅[E[𝐴|Trade, 𝑅] − E[𝛱]]
+𝑅[E[𝐴|Trade, 𝑅]] − E
+𝑅[Pr(Fail|𝑅) ⋅ 𝑅]
+𝑅[E[𝑃 − 𝐵|Trade, 𝑅]]
+𝑅[Pr(Fail|𝑅) ⋅ (E[𝐵|Trade, 𝑅] − 𝑅)]
+𝑅[E[𝑃 − 𝐵|Trade, 𝑅]] + Pr(Fail) ⋅ (E
+𝑅[E[𝐵|Trade, 𝑅]] − E
+
++E
+
+𝑅[𝐵|Trade]
+
+𝑅[𝐵|Trade] − 𝜇𝑅)
+
+E
+
+𝑅[E[𝛱]] = E
+= E
+
+𝑅[Pr(Trade|𝑅) ⋅ E[𝐵|Trade, 𝑅]] + E
+𝑅[𝐵|Trade] − Pr(Fail) ⋅ (E
+
+𝑅[𝐵|Trade] − 𝜇𝑅)
+
+𝑅[Pr(Fail|𝑅) ⋅ 𝑅]
+
+− 𝐶𝑜𝑣𝑅(Pr(Fail|𝑅), 𝑅)
+= ̂TCI + E
+
+𝑅[E[𝐵|Trade, 𝑅]] − E
+
+𝑅[𝐵|Trade]
+
++ 𝐶𝑜𝑣𝑅(Pr(Fail|𝑅), 𝑅).
+
+(C.10)
+
+− 𝐶𝑜𝑣𝑅(Pr(Fail|𝑅), 𝑅). □
+
+(C.11)
+
+JournalofFinancialEconomics157(2024)10385924T. Hendershott et al.
+
+Table A.3
+GMM estimates of 𝜏∗.
+The table reports GMM estimates of 𝜏∗ for senior (Panel A), mezzanine (Panel B), and junior (Panel C) tranches. Models (1)–(6) use the same determinants 𝑋𝑖 across BWICs 𝑖 as
+in all previous tables to capture observed heterogeneity in the reserve price 𝑅𝑖 = 𝜇𝑅(𝑍𝑖) + 𝜎𝑅𝜀𝑅,𝑖. The models assume a linear form 𝜇𝑅(𝑍𝑖) = 𝛼𝑅 + 𝛽′
+𝑅𝑍𝑖. The models differ in the
+assumptions about the unobserved heterogeneity in reserve price 𝑅𝑖. Models (1)–(3) assume the optimal rotation to recover expected reserve prices conditional on the observables
+𝑍𝑖 is given by a Gaussian copula, 𝜏∗ = 𝛷(𝛾, ; 𝜌)∕𝛷(). Models (4)–(5) assume the optimal rotation is given by a semiparametric copula, 𝜏 ∗ = ()∕𝐻(), where the copula is
+approximated by a polynomial in the failure probability 𝑓 = 1 − 𝐻() of chosen degree 𝐿, () = 1 − ∑𝐿
+𝑙=1 𝜅𝑙𝑓 𝑙, and 𝐻() is the predicted probability of trade from a Probit model.
+Model (6) assumes the optimal rotation is given by a fixed 𝜏 ∗. Tables A.4/A.5/A.6 report all other relevant details of the estimation.
+
+(1)
+Gaussian copula
+
+general
+
+Panel A: Senior tranche (AAA, I = 9000 BWICs)
+
+Distribution of rotation 𝜏 ∗ across BWICs:
+
+Mean
+S.D.
+5%
+50%
+95%
+
+0.0054
+0.0077
+0.0001
+0.0026
+0.0197
+
+(2)
+
+𝜌 = 0
+
+0.0160
+0.0239
+0.0003
+0.0069
+0.0609
+
+Panel B: Mezzanine tranche (AA–BBB, I = 12,955 BWICs)
+
+Distribution of rotation 𝜏 ∗ across BWICs:
+
+Mean
+S.D.
+5%
+50%
+95%
+
+0.0302
+0.0194
+0.0073
+0.0260
+0.0665
+
+0.0603
+0.0511
+0.0076
+0.0464
+0.1585
+
+Panel C: Junior tranche (BB–equity, I = 11,453 BWICs)
+
+Distribution of rotation 𝜏 ∗ across BWICs:
+
+Mean
+S.D.
+5%
+50%
+95%
+
+0.1198
+0.0358
+0.0698
+0.1165
+0.1829
+
+0.2919
+0.0996
+0.1520
+0.2826
+0.4696
+
+(3)
+
+𝜔 = 0
+
+0.0026
+0.0015
+0.0007
+0.0023
+0.0055
+
+0.0338
+0.0262
+0.0057
+0.0272
+0.0834
+
+0.0567
+0.0205
+0.0297
+0.0542
+0.0930
+
+Proof of (20).
+and take expectation over all realizations of 𝑅 as follows
+
+In the expression (19) for ̂TCI(𝑋), we condition on 𝑋
+
+̂Bid–ask spread(𝑋) ≡ E
+= ∫D𝑅
+≡ E
+= ∫D𝑅
+≡ E
+
+̂BWIC fail rate(𝑋)
+
+̂Failure cost(𝑋)
+
+𝑅[E[𝑃 − 𝐵|𝑋, Trade, 𝑅]]
+
+E[𝑃 − 𝐵|𝑋, Trade, 𝑅(𝜀𝑅)]𝑑𝐺𝑅(𝜀𝑅),
+
+𝑅[Pr(Fail|𝑋, 𝑅)]
+
+Pr(Fail|𝑋, 𝑅(𝜀𝑅))𝑑𝐺𝑅(𝜀𝑅),
+
+𝑅[𝐵|𝑋, Trade] − 𝜇𝑅(𝑍).
+
+(C.12)
+
+In (C.12), the expected bid–ask spread is captured by (21), the expected
+BWIC failure rate is captured by (1), and the expected best bid is the
+observed price in successful BWICs:
+
+E
+
+𝑅[𝐵|𝑋, Trade] = ∫D𝑅
+
+Pr(Trade|𝑋, 𝑅(𝜀𝑅))
+Pr(Trade|𝑋)
+
+E[𝐵|𝑋, Trade, 𝑅(𝜀𝑅)]𝑑𝐺𝑅(𝜀𝑅).
+
+(C.13)
+
+The expected best-bids conditional on the characteristics 𝑋 and trade
+success that we require in expression (C.13) can be estimated by (22).
+QED
+
+Appendix D. Simulation evidence on optimal quantile rotation
+
+Here we provide simulation evidence on the optimal rotation 𝜏∗. We
+simulate data on successful and failed BWICs. Best bids 𝐵𝑖 and reserve
+prices 𝑅𝑖 in BWIC 𝑖 = 1, … , 𝐼 are drawn randomly according to the
+following specification:
+
+𝐵𝑖 = 𝛼 + 𝑧𝑖 + 𝑤𝑖 + 𝜎𝐵𝜀𝐵,𝑖,
+𝑅𝑖 = 𝑧𝑖 + 𝜎𝑅𝜀𝑅,𝑖.
+
+BWIC 𝑖 is successful if and only if 𝐵𝑖
+BWICs. In the specification, the variable 𝑧 ∼  (0, 𝜎2
+of best bid 𝐵 and reserve price 𝑅. The variable 𝑤 ∼  (0, 𝜎2
+
+≥ 𝑅𝑖. We simulate 𝐼 = 100, 000
+𝑧 ) is a determinant
+𝑤) is a
+
+(4)
+Semiparametric copula
+
+(5)
+
+polynomial
+degree 1
+
+polynomial
+degree 2
+
+0.0015
+0.0011
+0.0003
+0.0012
+0.0036
+
+0.0197
+0.0094
+0.0077
+0.0182
+0.0368
+
+0.0415
+0.0245
+0.0178
+0.0371
+0.0793
+
+0.0312
+0.0151
+0.0091
+0.0300
+0.0571
+
+0.0265
+0.0159
+0.0084
+0.0230
+0.0557
+
+0.1306
+0.0413
+0.0719
+0.1270
+0.2039
+
+(6)
+
+fixed 𝜏∗
+
+0.0041
+0.0000
+0.0041
+0.0041
+0.0041
+
+0.0056
+0.0000
+0.0056
+0.0056
+0.0056
+
+0.0097
+0.0000
+0.0097
+0.0097
+0.0097
+
+determinant of best bid 𝐵 only. The errors 𝜀 ∼  (0, 1) are iid noise.
+Specifications with correlated errors yield similar results. We normalize
+𝜎𝐵 = 1 and vary 𝜎𝑅. Across rows we vary the selection bias through
+𝜆 = SD(𝜎𝑅∗𝜀𝑅)
+from 0.1 to 10. Across panels we vary the expected surplus
+SD(𝜀𝐵 )
+through 𝛼 = E[𝐵] − E[𝑅] between 0 and 2.
+
+We estimate the model using the parametric specification (1). Ta-
+ble A.2, Panel A provides simulation evidence when the unobserved
+variation from (𝜀𝐵, 𝜀𝑅) is small compared to the observed variation in
+best bids and reserve prices, by setting 𝜎𝑧 = 𝜎𝑤 = 1. Table A.2, Panel B
+provides simulation evidence when the unobserved variation from (𝜀𝐵,
+𝜀𝑅) is large compared to the observed variation in best bids and reserve
+prices, by setting 𝜎𝑧 = 𝜎𝑤 = 1∕10. In the second column, we report the
+implied correlation 𝜌. In the third column, we report the probability of
+BWIC success. In the remaining columns, we report the distribution of
+optimal rotations 𝜏∗ across BWICs.
+
+The implied correlation 𝜌 varies between −1 for 𝜆 = 0.1 to −0.1
+for 𝜆 = 10. The probability of BWIC success drops with 𝜆 and varies
+between 92% (98%) for 𝛼 = 2 and 50% for 𝛼 = 0 in Panel A.
+The simulations show the optimal rotations 𝜏∗ and its cross-sectional
+moments increase with the selection bias captured by 𝜆. When 𝜆 = 0.1,
+the mean of 𝜏∗ across BWICs is no more than 3%. For 𝜆 = 1, the
+mean of 𝜏∗ across BWICs ranges between 4% and 30% in Table A.2
+and between 1% and 22% in Panel B. The median of 𝜏∗ across BWICs
+is typically less than the mean because the right tail is skewed. Across
+sub-panels, the optimal rotations 𝜏∗ and its cross-sectional moments
+decrease with the expected surplus captured by 𝛼. When the trade
+probability exceeds 80%, the mean 𝜏∗ is less than 5%, and when the
+trade probability exceeds 90%, the mean 𝜏∗ drops below 3%. This
+range captures the trade probability observed in the data during normal
+times. Thus, we should expect 𝜏∗ to rarely exceed these numbers. When
+Pr(Trade) drops to 50%, however, 𝜏∗ can take a wide range of values.
+The observation-specific rotation 𝜏∗ captures this variability. Finally,
+comparing Panels A and B, the median 𝜏∗ decreases (increases) with
+the observed variation in best bids and reserve prices relative to the
+
+JournalofFinancialEconomics157(2024)10385925T. Hendershott et al.
+
+Table A.4
+GMM estimates of sellers’ reserve prices for senior tranche.
+The table reports the determinants of sellers’ reserve prices across BWICs for senior tranches. Models (1)–(6) use the same determinants 𝑋𝑖 across BWICs 𝑖 as in all previous tables
+to capture observed heterogeneity in the reserve price 𝑅𝑖 = 𝜇𝑅(𝑍𝑖) + 𝜎𝑅𝜀𝑅,𝑖. The models assume a linear form 𝜇𝑅(𝑍𝑖) = 𝛼𝑅 + 𝛽′
+𝑅𝑍𝑖. The models differ in the assumptions about
+the unobserved heterogeneity in reserve price 𝑅𝑖. Models (1)–(3) assume the optimal rotation to recover expected reserve prices conditional on the observables 𝑍𝑖 is given by a
+Gaussian copula, 𝜏∗ = 𝛷(𝛾, ; 𝜌)∕𝛷(). Models (4)–(5) assume the optimal rotation is given by a semiparametric copula, 𝜏 ∗ = ()∕𝐻(), where the copula is approximated by a
+polynomial in the failure probability 𝑓 = 1 − 𝐻() of chosen degree 𝐿, () = 1 − ∑𝐿
+𝑙=1 𝜅𝑙𝑓 𝑙, and 𝐻() is the predicted probability of trade from a Probit model. Model (6) assumes
+the optimal rotation is given by a fixed 𝜏∗. Panel A of Table A.3 reports 𝜏 ∗ estimates. Standard errors are robust to heteroskedasticity.
+
+(1)
+Gaussian copula
+
+(2)
+
+(3)
+
+general
+
+𝜌 = 0
+
+𝜔 = 0
+
+(4)
+Semiparametric copula
+
+(5)
+
+polynomial
+degree 1
+
+polynomial
+degree 2
+
+Determinants of observed heterogeneity in reserve price 𝑅𝑖:
+
+log(Par value of trade)
+
+CLO 2.0 vintage
+
+CLO 3.0 vintage
+
+log(CLO issue size)
+
+CLO issue size missing
+
+JPM LL spread
+
+Dealer CDS spread
+
+Constant
+
+0.66 ∗∗∗
+(0.15)
+2.04 ∗∗∗
+(0.14)
+2.71 ∗∗∗
+(0.23)
+0.28 ∗∗∗
+(0.09)
+−0.88
+(1.18)
+−0.89 ∗∗∗
+(0.18)
+−4.70 ∗∗
+(2.04)
+−1.74 ∗∗
+(0.81)
+
+Determinants of unobserved heterogeneity in reserve price 𝑅𝑖:
+
+−1.44 ∗∗∗
+(0.22)
+−1.16 ∗∗
+(0.48)
+
+0.55 ∗∗∗
+(0.15)
+1.13 ∗∗
+(0.52)
+1.81 ∗∗∗
+(0.51)
+0.32
+(0.26)
+−0.20
+(2.33)
+−0.99 ∗∗∗
+(0.22)
+−3.12 ∗∗
+(1.49)
+−0.87
+(1.24)
+
+−1.60 ∗∗∗
+(0.15)
+
+0.13 ∗
+(0.08)
+2.57 ∗∗∗
+(0.23)
+3.25 ∗∗∗
+(0.31)
+0.75 ∗∗∗
+(0.09)
+−1.09
+(1.15)
+−0.75 ∗∗∗
+(0.09)
+−8.42 ∗∗∗
+(0.78)
+−1.90 ∗∗∗
+(0.50)
+
+−3.74 ∗∗∗
+(0.48)
+
+0.22
+(0.15)
+2.75 ∗∗∗
+(0.68)
+2.89 ∗∗∗
+(0.58)
+1.08 ∗∗
+(0.49)
+−0.89
+(0.86)
+−0.58 ∗∗∗
+(0.10)
+−8.63 ∗∗∗
+(1.59)
+−4.62
+(3.10)
+
+0.02
+(0.01)
+
+10
+10
+0.00
+1.43𝑒−31
+
+10
+9
+0.04
+5.74𝑒−06
+
+10
+9
+0.12
+1.68𝑒−05
+
+10
+9
+0.36
+4.89𝑒−05
+
+𝛾
+
+𝑎𝑡𝑎𝑛ℎ(𝜌)
+
+𝜅1
+
+𝜅2
+
+𝜏 ∗
+
+GMM statistics:
+
+No. of moments
+No. of parameters
+J
+Q
+
+* Significance at the 10% level.
+** Significance at the 5% level.
+*** Significance at the 1% level.
+
+(6)
+
+fixed 𝜏 ∗
+
+0.01
+(0.07)
+2.41 ∗
+(1.34)
+3.17 ∗∗
+(1.54)
+0.75
+(0.61)
+−0.81
+(1.07)
+−0.81 ∗∗∗
+(0.10)
+−8.23 ∗∗∗
+(1.63)
+−1.47
+(5.86)
+
+0.00
+(0.00)
+
+10
+9
+0.09
+1.24𝑒−05
+
+0.59 ∗∗∗
+(0.18)
+1.29 ∗∗∗
+(0.33)
+1.95 ∗∗∗
+(0.28)
+0.32 ∗
+(0.17)
+−0.37
+(2.13)
+−0.97 ∗∗∗
+(0.03)
+−3.67 ∗∗∗
+(0.41)
+−0.93
+(0.57)
+
+−0.02
+(0.04)
+1.57 ∗∗∗
+(0.38)
+
+10
+10
+0.00
+5.39𝑒−33
+
+unobserved variation from (𝜀𝐵, 𝜀𝑅) for high (low) 𝛼. As one would
+expect, the relation reverses at the mean because the right tail is more
+skewed.
+
+Appendix E. GMM estimation procedure
+
+Choice of moments. Define the error term for each successful BWIC 𝑖 by
+
+det(𝜕𝑚∕𝜕𝜃), to be nonzero. For this condition to be satisfied, we require
+a suitable choice of moments (functions 𝛯) to match, the instrumental
+variable 𝑊 that is private information to dealers and affects their
+bidding, and functional form for copula , which we explain now.
+
+The score 
+
+𝑖 and powers of the score are functions 𝛯 of 𝑋𝑖. They
+are informative about the parameters as 
+𝑖 embodies 𝑋𝑖. In turn, 𝑋𝑖
+consists of two sets of observables, (𝑍𝑖, 𝑊𝑖). Based on this logic, we can
+deduce from (E.2) that the following moment conditions hold:
+
+𝜀𝑖 =
+
+(𝐻(𝛾
+
+𝑖); 𝜌)
+
+𝑖), 𝐻(
+𝐻(
+𝑖)
+
+− 1(𝐵𝑖
+
+≤ 𝛼𝑅 + 𝛽′
+
+𝑅𝑍𝑖),
+
+(E.1)
+
+]
+
+where 
+𝑖 is the score, 𝐵𝑖 is the transaction price, and 𝑍𝑖 are the reserve
+price determinants if the BWIC is successful so that 𝜀𝑖 is missing oth-
+erwise. Then condition (18) yields by conditioning down the moment
+conditions
+E [ 𝛯(𝑋𝑖) ∗ 𝜀𝑖 |Trade𝑖
+for arbitrary functions 𝛯(⋅) satisfying standard regularity conditions.
+We focus on functions 𝛯/moments 𝑚 that are a priori informative
+about the parameters we seek to estimate. Heuristically, a moment 𝑚 is
+informative about an unknown parameter 𝜃 if that moment is sensitive
+to changes in the parameter and the sensitivity differs across parame-
+ters. Formally, local identification requires the Jacobian determinant,
+
+(E.2)
+
+= 0,
+
+]
+
+E [ 𝜀𝑖 |Trade𝑖
+= 0,
+E [ 𝑍𝑖 ∗ 𝜀𝑖 |Trade𝑖
+]
+E [ 
+]
+𝑖 ∗ 𝜀𝑖 |Trade𝑖
+E [  2
+𝑖 ∗ 𝜀𝑖 |Trade𝑖
+
+]
+
+= 0,
+
+= 0,
+
+= 0.
+
+(E.3)
+
+Identification.
+It will be useful to provide some intuition and formal
+analysis for why the moment conditions (E.3) identify the parameters
+(𝛼𝑅, 𝛽𝑅, 𝛾, 𝜌). A sufficient condition for identification is a one-to-one
+mapping between the parameters and a set of data moments of the same
+dimension. For this to be the case, the model-implied moments must
+exhibit different sensitivity with respect to the parameters. Intuitively,
+the first moment in (E.3) identifies 𝛼𝑅, the second moment identifies
+𝛽𝑅, the third moment identifies 𝛾, and the fourth moment identifies
+
+JournalofFinancialEconomics157(2024)10385926T. Hendershott et al.
+
+Table A.5
+GMM estimates of sellers’ reserve prices for mezzanine tranche.
+The table reports the determinants of sellers’ reserve prices across BWICs for mezzanine tranches. Models (1)–(6) use the same determinants 𝑋𝑖 across BWICs 𝑖 as in all previous
+tables to capture observed heterogeneity in the reserve price 𝑅𝑖 = 𝜇𝑅(𝑍𝑖) + 𝜎𝑅𝜀𝑅,𝑖. The models assume a linear form 𝜇𝑅(𝑍𝑖) = 𝛼𝑅 + 𝛽′
+𝑅𝑍𝑖. The models differ in the assumptions
+about the unobserved heterogeneity in reserve price 𝑅𝑖. Models (1)–(3) assume the optimal rotation to recover expected reserve prices conditional on the observables 𝑍𝑖 is given
+by a Gaussian copula, 𝜏∗ = 𝛷(𝛾, ; 𝜌)∕𝛷(). Models (4)–(5) assume the optimal rotation is given by a semiparametric copula, 𝜏∗ = ()∕𝐻(), where the copula is approximated
+by a polynomial in the failure probability 𝑓 = 1 − 𝐻() of chosen degree 𝐿, () = 1 − ∑𝐿
+𝑙=1 𝜅𝑙𝑓 𝑙, and 𝐻() is the predicted probability of trade from a Probit model. Model (6)
+assumes the optimal rotation is given by a fixed 𝜏∗. Panel B of Table A.3 reports 𝜏 ∗ estimates. Standard errors are robust to heteroskedasticity.
+
+(1)
+Gaussian copula
+
+(2)
+
+(3)
+
+general
+
+𝜌 = 0
+
+𝜔 = 0
+
+(4)
+Semiparametric copula
+
+(5)
+
+polynomial
+degree 1
+
+polynomial
+degree 2
+
+Determinants of observed heterogeneity in reserve price 𝑅𝑖:
+
+log(Par value of trade)
+
+CLO 2.0 vintage
+
+CLO 3.0 vintage
+
+log(CLO issue size)
+
+CLO issue size missing
+
+A rating
+
+BBB rating
+
+JPM LL spread
+
+Dealer CDS spread
+
+Constant
+
+0.49
+(0.37)
+0.85 ∗
+(0.44)
+2.43 ∗∗∗
+(0.38)
+−0.73 ∗∗∗
+(0.19)
+−0.87 ∗∗
+(0.35)
+−2.40 ∗∗∗
+(0.64)
+−4.65 ∗∗∗
+(0.56)
+−2.30 ∗∗∗
+(0.11)
+−12.51 ∗∗∗
+(1.40)
+12.38 ∗∗∗
+(1.55)
+
+Determinants of unobserved heterogeneity in reserve price 𝑅𝑖:
+
+−1.32 ∗∗∗
+(0.15)
+−1.18 ∗∗∗
+(0.29)
+
+0.78 ∗∗∗
+(0.21)
+1.26 ∗∗
+(0.50)
+2.15 ∗∗∗
+(0.39)
+−0.67 ∗∗∗
+(0.26)
+0.59
+(0.95)
+−1.65 ∗∗∗
+(0.41)
+−3.30 ∗∗∗
+(0.43)
+−1.94 ∗∗∗
+(0.35)
+−11.33 ∗∗∗
+(0.58)
+10.39 ∗∗∗
+(1.08)
+
+−1.68 ∗∗∗
+(0.06)
+
+0.79 ∗∗
+(0.35)
+1.00 ∗
+(0.59)
+2.36 ∗∗∗
+(0.35)
+−0.81 ∗∗∗
+(0.23)
+0.40
+(0.53)
+−2.30 ∗∗∗
+(0.24)
+−4.27 ∗∗∗
+(0.28)
+−2.31 ∗∗∗
+(0.06)
+−11.88 ∗∗∗
+(0.31)
+11.82 ∗∗∗
+(1.27)
+
+−0.79 ∗∗∗
+(0.06)
+
+0.30
+(0.33)
+0.73
+(1.78)
+2.59 ∗∗∗
+(0.60)
+−0.73 ∗∗
+(0.36)
+−1.26 ∗∗
+(0.63)
+−3.38 ∗∗∗
+(1.28)
+−5.70 ∗∗∗
+(0.79)
+−2.30 ∗∗∗
+(0.13)
+−14.20 ∗∗∗
+(0.44)
+13.34 ∗∗∗
+(1.59)
+
+0.10 ∗∗∗
+(0.03)
+
+12
+12
+0.00
+9.76𝑒−32
+
+12
+11
+0.30
+3.39𝑒−05
+
+12
+11
+0.15
+1.70𝑒−05
+
+12
+11
+0.09
+1.06𝑒−05
+
+𝛾
+
+𝑎𝑡𝑎𝑛ℎ(𝜌)
+
+𝜅1
+
+𝜅2
+
+𝜏 ∗
+
+GMM statistics:
+
+No. of moments
+No. of parameters
+J
+Q
+
+* Significance at the 10% level.
+
+** Significance at the 5% level.
+*** Significance at the 1% level.
+
+(6)
+
+fixed 𝜏 ∗
+
+−0.06
+(0.65)
+0.21
+(1.20)
+3.21 ∗∗∗
+(0.57)
+−0.62
+(0.52)
+−0.71
+(0.81)
+−10.31 ∗∗
+(4.68)
+−6.57 ∗∗∗
+(0.57)
+−2.27 ∗∗∗
+(0.35)
+−16.16 ∗∗∗
+(3.38)
+12.96 ∗∗∗
+(0.71)
+
+0.01 ∗∗
+(0.00)
+
+12
+11
+9.95
+1.12𝑒−03
+
+0.39
+(0.26)
+0.82
+(0.68)
+2.48 ∗∗∗
+(0.33)
+−0.69 ∗∗
+(0.34)
+−0.90
+(0.68)
+−2.52 ∗∗∗
+(0.75)
+−4.87 ∗∗∗
+(0.55)
+−2.30 ∗∗∗
+(0.09)
+−12.71 ∗∗∗
+(0.65)
+12.47 ∗∗∗
+(1.69)
+
+0.09 ∗
+(0.05)
+0.24
+(0.36)
+
+12
+12
+0.00
+4.72𝑒−32
+
+the correlation coefficient 𝜌. The last relation is more obvious once we
+= E [ 
+recognize that E [  2
+captures the
+covariance between the probability of trade, captured by the first term
+, and the error term 𝜀 weighted by , captured by the second term
+𝜀.
+
+𝑖𝜀𝑖) |Trade𝑖
+
+𝑖 𝜀𝑖 |Trade𝑖
+
+𝑖 ∗ (
+
+]
+
+]
+
+Fig. A.1 plots the moments in (E.3) as functions of the model
+parameters to check if this intuition holds in the model. We generate
+the figure by simulating BWICs as in Appendix D and then plot how
+the various moments 𝑚 depend on each parameter, 𝜃. The subplots
+in Fig. A.1 reveal that the model moments exhibit significant sensitiv-
+ity to the model parameters. More importantly for identification, the
+sensitivities differ across parameters, such that one can find moments
+with det(𝜕𝑚∕𝜕𝜃) ≠ 0. Moments 1 and 4 are highly sensitive to 𝛼𝑅
+while moment 2 is insensitive to 𝛼𝑅 and moment 3 has intermediate
+sensitivity to 𝛼𝑅. By contrast, moment 2 is highly sensitive to 𝛽𝑅 while
+moments 1, 3, and 4 are insensitive to 𝛽𝑅. Panel C shows that 𝛾 is
+identified from moment 3, E [ 
+= 0, as it is sensitive to 𝛾
+while the other moments are not or at least less. Panel D shows that 𝜌
+is identified predominantly from moment 4, E [  2
+= 0, as it
+is sensitive to 𝜌 while in particular moment 3 is rather insensitive to 𝜌.
+
+𝑖 𝜀𝑖 |Trade𝑖
+
+𝑖𝜀𝑖 |Trade𝑖
+
+]
+
+]
+
+Choice of instrument. For identification of (𝛼𝑅, 𝛽𝑅, 𝛾, 𝜌) in the data,
+we require characteristics 𝑊 that serve as instruments in relation
+(8). We use aggregate dealers’ CLO inventory positions to instrument
+their demand. The exclusion restriction here is that dealers’ private
+information affecting the BWIC success probability through a demand
+shock to dealers’ bids is uncorrelated with the reserve price. Intuitively,
+as dealers’ inventories increase, their demand declines, and so does
+their propensity to bid and the reduced number of bidders results in less
+competitive bids. Importantly, inventory statistics are collected by the
+New York Fed on Wednesdays and published with a one-week delay.
+Therefore, it is reasonable to assume that the seller does not know
+inventories at the time of the auction so they cannot directly affect the
+reserve price thus making dealers’ inventories a natural choice for 𝑊 .
+
+Choice of copula(s). We consider three approaches to parametrize cop-
+ula (⋅) in (18).
+
+1. Parametric copula. The most straightforward approach is to assume
+a copula form. For the Gaussian copula, the rotation in (18) is simply
+
+JournalofFinancialEconomics157(2024)10385927T. Hendershott et al.
+
+Table A.6
+GMM estimates of sellers’ reserve prices for junior tranche.
+The table reports the determinants of sellers’ reserve prices across BWICs for junior tranches. Models (1)–(6) use the same determinants 𝑋𝑖 across BWICs 𝑖 as in all previous tables
+to capture observed heterogeneity in the reserve price 𝑅𝑖 = 𝜇𝑅(𝑍𝑖) + 𝜎𝑅𝜀𝑅,𝑖. The models assume a linear form 𝜇𝑅(𝑍𝑖) = 𝛼𝑅 + 𝛽′
+𝑅𝑍𝑖. The models differ in the assumptions about
+the unobserved heterogeneity in reserve price 𝑅𝑖. Models (1)–(3) assume the optimal rotation to recover expected reserve prices conditional on the observables 𝑍𝑖 is given by a
+Gaussian copula, 𝜏∗ = 𝛷(𝛾, ; 𝜌)∕𝛷(). Models (4)–(5) assume the optimal rotation is given by a semiparametric copula, 𝜏 ∗ = ()∕𝐻(), where the copula is approximated by a
+polynomial in the failure probability 𝑓 = 1 − 𝐻() of chosen degree 𝐿, () = 1 − ∑𝐿
+𝑙=1 𝜅𝑙𝑓 𝑙, and 𝐻() is the predicted probability of trade from a Probit model. Model (6) assumes
+the optimal rotation is given by a fixed 𝜏∗. Panel C of Table A.3 reports 𝜏 ∗ estimates. Standard errors are robust to heteroskedasticity.
+
+(1)
+Gaussian copula
+
+(2)
+
+(3)
+
+general
+
+𝜌 = 0
+
+𝜔 = 0
+
+(4)
+Semiparametric copula
+
+(5)
+
+polynomial
+degree 1
+
+polynomial
+degree 2
+
+Determinants of observed heterogeneity in reserve price 𝑅𝑖:
+
+log(Par value of trade)
+
+CLO 2.0 vintage
+
+CLO 3.0 vintage
+
+log(CLO issue size)
+
+CLO issue size missing
+
+B rating
+
+Equity rating
+
+JPM LL spread
+
+Dealer CDS spread
+
+Constant
+
+0.27
+(0.43)
+−2.60 ∗∗∗
+(0.98)
+−0.12
+(1.22)
+−1.23 ∗∗
+(0.57)
+2.60
+(1.86)
+−6.13 ∗∗∗
+(0.88)
+−36.27 ∗∗∗
+(2.90)
+−5.32 ∗∗∗
+(0.37)
+−21.89 ∗∗∗
+(2.46)
+25.41 ∗∗∗
+(1.55)
+
+Determinants of unobserved heterogeneity in reserve price 𝑅𝑖:
+
+−1.01 ∗∗∗
+(0.09)
+−1.16 ∗∗∗
+(0.16)
+
+0.91 ∗∗∗
+(0.31)
+−3.30 ∗∗∗
+(1.16)
+−0.44
+(1.09)
+−1.37 ∗
+(0.83)
+2.94 ∗∗∗
+(1.05)
+−4.60 ∗∗∗
+(0.66)
+−25.36 ∗∗∗
+(3.49)
+−4.06 ∗∗∗
+(0.57)
+−16.55 ∗∗∗
+(1.63)
+22.05 ∗∗∗
+(2.56)
+
+−1.06 ∗∗∗
+(0.12)
+
+0.73
+(0.79)
+−1.51
+(1.56)
+0.84
+(2.34)
+−1.41
+(1.68)
+3.72
+(2.92)
+−7.01 ∗∗∗
+(1.97)
+−41.98 ∗∗∗
+(3.21)
+−6.24 ∗∗∗
+(2.10)
+−25.01 ∗∗∗
+(9.22)
+26.46 ∗∗∗
+(8.32)
+
+−1.84 ∗∗∗
+(0.35)
+
+0.52
+(1.01)
+−1.31
+(6.46)
+1.10
+(4.43)
+−1.58
+(1.78)
+3.61
+(5.18)
+−6.68 ∗
+(3.67)
+−43.11 ∗∗∗
+(1.01)
+−6.31 ∗∗∗
+(0.70)
+−26.25 ∗∗∗
+(7.02)
+26.23 ∗∗∗
+(4.93)
+
+0.09 ∗∗∗
+(0.02)
+
+12
+12
+0.00
+5.28𝑒−32
+
+12
+11
+1.57
+2.48𝑒−04
+
+12
+11
+0.20
+3.08𝑒−05
+
+12
+11
+0.34
+5.43𝑒−05
+
+𝛾
+
+𝑎𝑡𝑎𝑛ℎ(𝜌)
+
+𝜅1
+
+𝜅2
+
+𝜏 ∗
+
+GMM statistics:
+
+No. of moments
+No. of parameters
+J
+Q
+
+* Significance at the 10% level.
+
+** Significance at the 5% level.
+*** Significance at the 1% level.
+
+(6)
+
+fixed 𝜏 ∗
+
+−0.68
+(1.08)
+−1.07
+(5.23)
+0.61
+(3.75)
+−1.47 ∗
+(0.76)
+0.47
+(2.66)
+−10.19 ∗∗∗
+(2.66)
+−58.78 ∗∗∗
+(2.30)
+−9.02 ∗∗∗
+(0.28)
+−28.51 ∗∗∗
+(7.75)
+32.88 ∗∗∗
+(4.07)
+
+0.01 ∗∗∗
+(0.00)
+
+12
+11
+0.16
+2.46𝑒−05
+
+0.35
+(0.25)
+−2.89 ∗∗
+(1.18)
+−0.32
+(1.20)
+−1.10
+(1.18)
+2.41 ∗∗∗
+(0.82)
+−5.78 ∗∗∗
+(1.06)
+−35.14 ∗∗∗
+(0.98)
+−5.07 ∗∗∗
+(0.21)
+−21.95 ∗∗∗
+(1.54)
+24.66 ∗∗∗
+(3.88)
+
+0.43 ∗∗∗
+(0.08)
+−0.43 ∗∗∗
+(0.13)
+
+12
+12
+0.00
+4.48𝑒−32
+
+Table A.7
+Specification tests.
+The table reports specification tests for model (1) that assumes the optimal rotation to recover expected reserve prices conditional on the observables 𝑋𝑖 is given by a Gaussian
+copula, 𝜏 ∗ = 𝛷(𝛾, ; 𝜌)∕𝛷(), where 𝜌 and 𝛾 are the estimated structural parameters.
+
+Point estimates:
+
+𝜌
+1∕𝛾
+
+(1) No selection test, 𝐻0 ∶ 𝜌 = 0
+
+𝜒 2(1)
+Prob > 𝜒 2
+
+(2) No unobserved heterogeneity test, 𝐻0 ∶ 𝜌 = −1
+
+𝜒 2(1)
+Prob > 𝜒 2
+
+(3) Pure private value test, 𝐻0 ∶ 𝛾 ∗ 𝜌 = 1
+
+𝜒 2(1)
+Prob > 𝜒 2
+
+* Significance at the 10% level.
+** Significance at the 5% level.
+*** Significance at the 1% level.
+
+Senior
+
+−0.82
+−0.69
+
+27.78 ∗∗∗
+0.0000
+
+1.30
+0.2542
+
+4.38 ∗∗
+0.0364
+
+Mezzanine
+
+−0.83
+−0.76
+
+82.31 ∗∗∗
+0.0000
+
+3.61 ∗
+0.0576
+
+5.53 ∗∗
+0.0187
+
+Junior
+
+−0.82
+−0.99
+
+250.66 ∗∗∗
+0.0000
+
+12.16 ∗∗∗
+0.0005
+
+8.33 ∗∗∗
+0.0039
+
+JournalofFinancialEconomics157(2024)10385928T. Hendershott et al.
+
+Table A.8
+TCI across BWICs using OQR approach.
+The table reports the estimates of TCI, ̂TCI, across BWICs for senior tranches (Panel A), mezzanine tranches (Panel B), and junior tranches (Panel C). The models (1)–(6) use the
+same specifications as in Tables A.4–A.6. Models (1)–(3) assume the optimal rotation is given by a Gaussian copula, 𝜏 ∗ = 𝛷(𝛾, ; 𝜌)∕𝛷(). Models (4)–(5) assume the optimal
+rotation is given by a semiparametric copula, 𝜏 ∗ = ()∕𝐻(). Model (6) assumes the optimal rotation is given by a fixed 𝜏∗.
+
+(1)
+Gaussian copula
+
+general
+
+Panel A: Senior tranche (AAA, I = 8683 BWICs)
+̂TCI mean
+̂TCI S.D.
+Dispersion of TCI across BWICs:
+
+0.31
+0.23
+
+5%
+25%
+50%
+75%
+95%
+
+0.09
+0.16
+0.25
+0.36
+0.78
+
+(2)
+
+𝜌 = 0
+
+0.24
+0.17
+
+0.08
+0.13
+0.20
+0.28
+0.56
+
+Panel B: Mezzanine tranche (AA–BBB, I = 12,341 BWICs)
+̂TCI mean
+̂TCI S.D.
+Dispersion of TCI across BWICs:
+
+1.32
+0.87
+
+0.99
+0.61
+
+5%
+25%
+50%
+75%
+95%
+
+0.42
+0.74
+1.10
+1.61
+3.02
+
+Panel C: Junior tranche (BB–equity, I = 10,794 BWICs)
+̂TCI mean
+̂TCI S.D.
+Dispersion of TCI across BWICs:
+
+3.79
+2.94
+
+5%
+25%
+50%
+75%
+95%
+
+1.03
+1.82
+2.77
+4.55
+10.40
+
+0.38
+0.61
+0.83
+1.17
+2.18
+
+1.25
+1.07
+
+0.00
+0.61
+1.07
+1.70
+3.16
+
+(3)
+
+𝜔 = 0
+
+0.34
+0.37
+
+0.06
+0.13
+0.22
+0.41
+1.09
+
+1.28
+0.80
+
+0.44
+0.76
+1.08
+1.53
+2.82
+
+5.45
+4.14
+
+1.55
+2.71
+4.07
+6.49
+14.79
+
+(4)
+Semiparametric copula
+
+(5)
+
+polynomial
+degree 1
+
+polynomial
+degree 2
+
+(6)
+
+fixed 𝜏∗
+
+0.37
+0.38
+
+0.08
+0.15
+0.24
+0.45
+1.13
+
+1.55
+1.07
+
+0.43
+0.84
+1.29
+1.91
+3.65
+
+6.11
+4.50
+
+1.84
+3.13
+4.63
+7.27
+16.33
+
+0.26
+0.19
+
+0.08
+0.14
+0.21
+0.30
+0.62
+
+1.38
+0.95
+
+0.41
+0.76
+1.14
+1.70
+3.25
+
+3.53
+2.72
+
+0.96
+1.70
+2.59
+4.29
+9.57
+
+0.34
+0.37
+
+0.05
+0.12
+0.21
+0.40
+1.08
+
+2.80
+1.95
+
+0.55
+1.45
+2.44
+3.55
+6.58
+
+9.75
+7.71
+
+2.56
+4.68
+7.25
+11.58
+27.41
+
+the ratio of binormal to normal CDF:
+
+𝜏∗ =
+
+𝛷(𝛾 ̂, ̂; 𝜌)
+𝛷( ̂)
+
+=
+
+𝛷(𝛾𝛷−1(Pr(Trade)), 𝛷−1(Pr(Trade)); 𝜌)
+Pr(Trade)
+
+.
+
+(E.4)
+
+In the implementation of the moment conditions, we use powers of ̂
+that depend on 𝑊 to identify 𝛾 and 𝜌. We also consider two special
+cases of our parametric specification. We estimate (E.4) under the
+assumption that the unobserved components of the bid and reserve
+prices are uncorrelated: 𝜔 = 0, in which case 𝛾 = 1∕𝜌. Alternatively,
+we assume 𝜔 = 𝜎𝐵
+𝜎𝑅
+
+= 1∕𝜆, in which case 𝛾 = −
+
+)2 − 1 and 𝜌 = 0.
+
+( 𝜎𝑅
+𝜎𝐵
+
+√
+
+2. Semiparametric copula. An alternative approach to estimating (18) is
+to estimate (⋅) semiparametrically. Here we can exploit the boundary
+conditions
+
+lim
+𝑠→∞
+
+𝐻(𝑠) = 1,
+
+(𝑠) = 1.
+
+lim
+𝑠→∞
+
+(E.5)
+
+Condition (E.5) allows us to avoid estimating a constant term when
+we use appropriate basis functions. If we use the probability of trade
+failure, 𝑓 = 1 − 𝐻(𝑠), as basis function and assume that the copula is
+well approximated by a polynomial in 𝑓 of chosen degree 𝐿, we have
+
+(𝑠) ≈ 1 −
+
+𝐿
+∑
+
+𝑙=1
+
+𝜅𝑙𝑓 𝑙,
+
+(E.6)
+
+where we have used that 𝜅0 = 0. In the implementation of the moment
+conditions, we again use powers of ̂ depending on 𝑊 to identify
+𝜅𝑙, 𝑙 = 1, … , 𝐿. We report results for 𝐿 = 1, 2.
+
+3. Constrained quantile rotation with endogenous 𝜏⋆.
+In a third approach,
+we estimate a fixed 𝜏⋆ endogenously based on GMM condition (17).
+This approach is equivalent to the CQR approach in Section 6.4, but
+we do not set 𝜏⋆ and instead estimate it together with the reserve price
+determinants.
+
+We evaluate the performance of our OQR approaches outlined
+by (16)–(18) and (E.1)–(E.6) using simulations. We simulate data on
+successful and failed BWICs and then estimate the optimal rotation 𝜏∗
+and the correlation 𝜌 using the parametric specification (1).
+
+Appendix D discusses the simulations in greater detail and the
+results are reported in Table A.2. The simulations show the optimal
+rotation 𝜏∗ increases with the selection bias captured by 𝜆. When 𝜆 =
+0.1, the mean of 𝜏∗ across BWICs is no more than 3%, while for 𝜆 = 1,
+the mean of 𝜏∗ across BWICs ranges between 1% and 30%. When the
+trade probability exceeds 80%, the mean 𝜏∗ is less than 5%, and when
+the trade probability exceeds 90%, the mean 𝜏∗ drops below 3%. This
+range captures the trade probability observed in the data during normal
+times. Thus, we should expect 𝜏∗ to rarely exceed these numbers.
+
+GMM estimates for OQR. We estimate the optimal quantile rotation, 𝜏∗,
+that depends on the parameters (𝛾, 𝜌) by GMM using (E.3). We use the
+same set of explanatory variables 𝑋𝑖 as in Sections 3 and 4 to capture
+observed heterogeneity in the reserve price 𝑅𝑖 = 𝜇𝑅(𝑍𝑖) + 𝜎𝑅𝜀𝑅,𝑖, where
+we assume a linear form for 𝜇𝑅(𝑍𝑖) = 𝛼𝑅 + 𝛽′
+𝑅𝑍𝑖. The explanatory
+variables include characteristics of the trade (size measured as log of
+par), characteristics of the CLO (log of CLO amount outstanding, CLO
+vintage, CLO rating), as well as market and dealer conditions (JPM
+leveraged loan spread and dealer CDS spread). We omit quarter fixed
+effects as leveraged loan spread and dealer CDS spread capture well the
+time series variation in the data and the estimation would otherwise be
+too high-dimensional. In addition, to account for differences in credit
+risks, we perform the estimation separately for senior, mezzanine, and
+junior CLO tranches.
+
+We employ six different model specifications for 𝜏∗. The model
+specifications differ in the assumptions about the unobserved hetero-
+geneity in reserve price 𝑅𝑖. Models (1)–(3) assume the optimal rotation
+to recover expected reserve prices conditional on the observables 𝑍𝑖
+
+JournalofFinancialEconomics157(2024)10385929T. Hendershott et al.
+
+Fig. A.1. Identification of model parameters.
+
+is given by a Gaussian copula, 𝜏∗ = 𝛷(𝛾, ; 𝜌)∕𝛷(). Models (4)–
+(5) assume the optimal rotation is given by a semiparametric copula,
+𝜏∗ = ()∕𝐻(), where the copula is approximated by a polynomial
+in the failure probability 𝑓 = 1 − 𝐻() of chosen degree 𝐿, () =
+1 − ∑𝐿
+𝑙=1 𝜅𝑙𝑓 𝑙, and 𝐻() is the predicted probability of trade from a
+Probit model. Model (6) assumes the optimal rotation is given by a fixed
+𝜏∗.
+
+Tables A.3–A.7 summarize the distribution of rotations 𝜏∗ across
+BWICs, the GMM estimates of the sellers’ reserve prices, and specifi-
+cation tests. We discuss these findings here briefly. In Table A.3, we
+report the distribution of rotation 𝜏∗ across BWICs for senior (Panel A),
+mezzanine (Panel B), and junior (Panel C) CLO tranches. All selection-
+adjusted rotations are positive and show a significant variation across
+BWICs. The rotations 𝜏∗ are larger for lower-ranked tranches. For the
+
+JournalofFinancialEconomics157(2024)10385930T. Hendershott et al.
+
+Fig. A.2. Semiparametric specification for TCI, sellers’ reserves, and BWIC failure cost
+Panel A of the figure documents the quarterly total cost of immediacy in the CLO market using the semiparametric specification (5) for estimating the seller’s reserve price. Panel
+B of the figure documents sellers’ reserves (solid and dashed lines) and dealers’ expected best bids (dotted line) expressed in terms of par value in the CLO market at a quarterly
+frequency. Panel C of the figure shows the BWIC failure cost (solid and dashed line) expressed in terms of par value in the CLO market at a quarterly frequency. In all panels,
+the solid line depicts the mean value across BWICs at a quarterly frequency. The dashed line corresponds to the median across BWICs. The shaded area indicates the 5% to 95%
+range across BWICs. The dotted line in Panel A indicates the bid–ask spreads in the CLO market. The dotted line in Panel B indicates the dealers’ expected best bids. The sample
+period is 2012–2020 with grey areas indicating periods of market stress: the 2012 European debt crisis, the 2015–16 credit stress, and the 2020 COVID-19 pandemic. Results are
+split by tranche into the senior tranche rated AAA (left), mezzanine tranche rated AA–BBB (middle), and junior tranche rated BB–equity (right).
+
+senior tranche, 𝜏∗ is 54 bps with a standard deviation of 77 bps in spec-
+ification (1). For specification (5), 𝜏∗ for the senior tranche is higher at
+3.12% mean (1.51% S.D.). The mean 𝜏∗ for the mezzanine tranche is
+3.02%/2.65% in specification (1)/(5), with a standard deviation equal
+
+to 1.94%/1.59%. The mean 𝜏∗ for the junior tranche is 11.98%/13.06%
+in specification (1)/(5), with a standard deviation 3.58%/4.13%. These
+numbers yield the fraction of the lowest best bids that need to be
+truncated to capture the sellers’ expected reserve prices.
+
+JournalofFinancialEconomics157(2024)10385931T. Hendershott et al.
+
+Tables A.4/A.5/A.6 report the GMM estimates of the sellers’ reserve
+prices for the senior/ mezzanine/junior tranche and across six model
+specifications. Results presented in Tables A.4/A.5/A.6 rely on the
+distribution of rotation 𝜏∗ across BWICs reported in Table A.3 and
+thus these tables shares their layouts with Table A.3. Across panels,
+the tables report the determinants of observed heterogeneity in re-
+serve prices, (𝛼𝑅, 𝛽𝑅), the determinants of unobserved heterogeneity
+in reserve prices, (𝛾, 𝜌, 𝜅𝑙, fixed 𝜏∗), and GMM statistics. For the senior
+tranche, Table A.4 shows that sellers have higher reserve prices in
+BWICs with larger par value of trade and larger CLO issue size. Sellers
+have higher reserve prices in CLO 2.0 and CLO 3.0 vintages than in
+CLOs of 1.0 vintage. Higher leverage loan spreads and higher dealer
+CDS spreads lower sellers’ reserve prices. Results for the mezzanine
+tranche in Table A.5 and the junior tranche in Table A.6 are generally
+similar to the senior tranche: The larger par value of trade, lower lever-
+age loan spreads, and lower dealer CDS spreads increase the reserve
+price. As one would expect, sellers have lower reserve prices in CLOs
+with lower credit ratings. However, larger CLO issue size leads to lower
+reserve prices for the mezzanine and junior tranches. For all tranches,
+the general Gaussian copula (model 1) and the semiparametric copula
+with polynomial degree 2 (model 5) provide the best fit with the lowest
+𝑄 value. For the Gaussian copula, the 𝛾 and 𝜌 estimates are significant
+across all tranches, while the 𝜅𝑙 coefficients have varying significance.
+Table A.7 reports specification tests for our main specification (1)
+(Gaussian copula 𝜏∗ = 𝛷(𝛾, ; 𝜌)∕𝛷() where 𝜌 and 𝛾 are the estimated
+structural parameters). The point estimates for 𝜌 are −0.82, −0.83, and
+−0.82 for senior, mezzanine, and junior tranches, respectively. The
+point estimates for 1∕𝛾 are −0.69, −0.76, and −0.99. To understand
+what economic features are important to include, we perform three
+specification tests: (1) No selection test, 𝐻0 ∶ 𝜌 = 0, which is rejected
+for all tranches with 𝜒 2(1) = 27.78, 82.31, 250.66; (2) No unobserved
+heterogeneity test, 𝐻0 ∶ 𝜌 = −1, which is rejected for mezzanine
+at 5.76% and junior at 0.05%, with 𝜒 2(1)=1.30, 3.61, 12.16; for the
+senior tranche, the no unobserved heterogeneity cannot be rejected; (3)
+Pure private value test, 𝐻0 ∶ 𝛾 ∗ 𝜌 = 1, which is rejected at 3.64%,
+1.87%, 0.39% with 𝜒 2(1)=4.38, 5.53, 8.33. The pure private value test
+is consistent with there being adverse selection risk, especially in the
+lower tranches.
+
+References
+
+Bollinger, C.R., Hirsch, B.T., Hokayem, C.M., Ziliak, J.P., 2019. Trouble in the tails?
+What we know about earnings nonresponse 30 years after Lillard, Smith, and
+Welch. J. Polit. Econ. 127, 2143–2185.
+
+Campo, S., Perrigne, I., Vuong, Q., 2003. Asymmetry in first-price auctions with
+
+affiliated private values. J. Appl. Econometrics 18, 179–207.
+
+Cassola, N., Hortaçsu, A., Kastl, J., 2013. The 2007 subprime market crisis in the EURO
+
+area through the lens of ECB repo auctions. Econometrica 81, 1309–1345.
+
+Chade, H., Eeckhout, J., Smith, L., 2017. Sorting through search and matching models
+
+in economics. J. Econ. Lit. 55, 493–544.
+
+Chernozhukov, V., Hansen, C., 2005. An IV model of quantile treatment effects.
+
+Econometrica 73, 245–262.
+
+Chiappori, P.A., 2020. The theory and empirics of the marriage market. Annu. Rev.
+
+Econ. 12, 547–578.
+
+Cordell, L., Roberts, M.R., Schwert, M., 2023. CLO performance. J. Finance 78,
+
+1235–1278.
+
+Demsetz, H., 1968. The cost of transacting. Q. J. Econ. 82, 33–53.
+Devine, T.J., Kiefer, N.M., 1991. Empirical Labor Economics: The Search Approach.
+
+Oxford University Press, Oxford.
+
+Dick-Nielsen, J., Feldhütter, P., Lando, D., 2012. Corporate bond liquidity before and
+
+after the onset of the subprime crisis. J. Financ. Econ. 103, 471–492.
+
+Dick-Nielsen, J., Rossi, M., 2019. The cost of immediacy for corporate bonds. Rev.
+
+Financ. Stud. 32, 1–41.
+
+Duffie, D., Garleanu, N., Pedersen, L., 2005. Over-the-counter markets. Econometrica
+
+73, 1815–1847.
+
+Ellul, A., Jotikasthira, C., Lundblad, C., 2011. Regulatory pressure and fire sales in the
+
+corporate bond market. J. Financ. Econ. 101, 596–620.
+
+Friewald, N., Jankowitsch, R., Subrahmanyam, M.G., 2012. Illiquidity or credit dete-
+rioration: A study of liquidity in the U.S. corporate bond market during financial
+crises. J. Financ. Econ. 105, 18–36.
+
+Gimenes, N., Guerre, E., 2021. Quantile regression methods for first-price auctions. J.
+
+Econometrics 226, 224–247.
+
+Green, R.C., Hollifield, B., Schürhoff, N., 2007. Financial intermediation and the costs
+
+of trading in an opaque market. Rev. Financ. Stud. 20, 275–314.
+
+Haile, P.A., Kitamura, Y., 2019. Unobserved heterogeneity in auctions. Econom. J. 22,
+
+1–19.
+
+Harris, L.E., Hasbrouck, J., 1996. Market vs. limit orders: The SuperDOT evidence on
+
+order submission strategy. J. Financ. Quant. Anal. 31, 213–231.
+
+Harris, L.E., Piwowar, M.S., 2006. Municipal bond liquidity. J. Finance 61, 1330–1366.
+Hendershott, T., Madhavan, A., 2015. Click or call? Auction versus search in the
+
+over-the-counter market. J. Finance 70, 419–444.
+
+Hong, G., Warga, A., 2000. An empirical study of bond market transactions. Financ.
+
+Anal. J. 56, 32–46.
+
+Hortaçsu, A., Kastl, J., Zhang, A., 2018. Bid shading and bidder surplus in the U.S.
+
+treasury auction system. Amer. Econ. Rev. 108, 147–169.
+
+Hugonnier, J., Lester, B., Weill, P.O., 2020. Frictional intermediation in over-the-counter
+
+markets. Rev. Econ. Stud. 87, 1432–1469.
+
+Kargar, M., Lester, B., Lindsay, D., Liu, S., Weill, P.O., Zuniga, D., 2020. Corporate
+bond liquidity during the COVID-19 crisis. Rev. Financ. Stud. 34, 5352–5401.
+Koenker, R., Bassett, Jr., G., 1978. Regression quantiles. Econometrica 46, 33–50.
+Krasnokutskaya, E., 2011.
+
+Identification and estimation of auction models with
+
+Allen, J., Wittwer, M., 2023. Centralizing over-the-counter markets? J. Polit. Econ. 131,
+
+unobserved heterogeneity. Rev. Econ. Stud. 78, 293–327.
+
+3310–3351.
+
+Arellano, M., Bonhomme, S., 2016. Sample selection in quantile regression: A survey. In:
+Koenker, Roger, Chernozhukov, Victor, He, Xuming, Peng, Limin (Eds.), Handbook
+of Quantile Regression. CRC, Boca Raton, FL.
+
+Arellano, M., Bonhomme, S., 2017. Quantile selection models with an application to
+
+understanding changes in wage inequality. Econometrica 85, 1–28.
+
+Lagos, R., Rocheteau, G., 2007. Search in asset markets: Market structure, liquidity,
+
+and welfare. Amer. Econ. Rev. 97, 198–202.
+
+Lagos, R., Rocheteau, G., 2009. Liquidity in asset markets with search frictions.
+
+Econometrica 77, 403–426.
+
+Li, D., Schürhoff, N., 2019. Dealer networks. J. Finance 74, 91–144.
+Maasoumi, E., Wang, L., 2019. The gender gap between earnings distributions. J. Polit.
+
+Atkeson, A., Eisfeldt, A., Weill, P.O., 2015. Entry and exit in OTC derivatives markets.
+
+Econ. 127, 2438–2504.
+
+Econometrica 83, 2231–2292.
+
+Machado, J.A.F., Silva, J.M.C.S., 2019. Quantiles via moments. J. Econometrics 213,
+
+Becker, B., Ivashina, V., 2015. Reaching for yield in the bond market. J. Finance 70,
+
+145–173.
+
+1863–1902.
+
+Malamud, S., Rostek, M., 2017. Decentralized exchange. Amer. Econ. Rev. 107,
+
+Bessembinder, H., Jacobsen, S., Maxwell, W., Venkataraman, K., 2018. Capital
+
+3320–3362.
+
+commitment and illiquidity in corporate bonds. J. Finance 73, 1615–1661.
+
+Bessembinder, H., Maxwell, W., Venkataraman, K., 2006. Market transparency, liquidity
+externalities, and institutional trading costs in corporate bonds. J. Financ. Econ. 82,
+251–288.
+
+Bessembinder, H., Panayides, M., Venkataraman, K., 2009. Hidden liquidity: an analysis
+of order exposure strategies in electronic stock markets. J. Financ. Econ. 94,
+361–383.
+
+Bessembinder, H., Spatt, C., Venkataraman, K., 2020. A survey of the microstructure
+
+of fixed-income markets. J. Financ. Quant. Anal. 55, 1–45.
+
+O’Hara, M., Zhou, X., 2020. Anatomy of a liquidity crisis: Corporate bonds in the
+
+Covid-19 crisis. J. Financ. Econ. 142, 46–68.
+
+Perold, A., 1988. The implementation shortfall: Paper versus reality. J. Portf. Manag.
+
+114, 4–9.
+
+Riggs, L., Onur, E., Reiffen, D., Zhu, H., 2020. Swap trading after dodd-frank: Evidence
+
+from index CDS. J. Financ. Econ. 137, 857–886.
+
+Roberts, J.W., 2014. Unobserved heterogeneity and reserve prices in auctions. Rand J.
+
+Econ. 44, 712–732.
+
+Weill, P.O., 2020. The search theory of OTC markets. Annu. Rev. Econ. 12, 747–773.
+
+JournalofFinancialEconomics157(2024)10385932

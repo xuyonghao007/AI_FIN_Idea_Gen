@@ -1,0 +1,6269 @@
+Journal of Financial Economics 172 (2025) 104138 
+
+Contents lists available at ScienceDirect
+
+Journal of Financial Economics
+
+journal homepage: www.elsevier.com/locate/finec
+
+Machine learning from a ‘‘Universe’’ of signals: The role of feature 
+engineering(cid:73)
+Bin Li a, Alberto G. Rossi b,∗, Xuemin (Sterling) Yan c, Lingling Zheng d
+a Economics and Management School, Wuhan University, PR China
+b McDonough School of Business, Georgetown University, United States of America
+c College of Business, Lehigh University, United States of America
+d School of Business, Renmin University of China, PR China
+
+A R T I C L E   I N F O
+
+A B S T R A C T
+
+Dataset  link: Replication_Package_LRYZ_Machi
+ne_Learning_Feature_Engineering (Reference da
+ta)
+
+Keywords:
+Machine learning
+Feature engineering
+Return predictability
+Cross-section of stock returns
+
+We construct real-time machine learning strategies based on a ‘‘universe’’ of fundamental signals. The out-of-
+sample performance of these strategies is economically meaningful and statistically significant, but considerably 
+weaker than those documented by prior studies that use curated sets of signals as predictors. Strategies 
+based on a simple recursive ranking of each signal’s past performance also yield substantially better out-
+of-sample performance. We find qualitatively similar results when examining past-return-based signals. Our 
+results underscore the key role of feature engineering and, more broadly, inductive biases in enhancing the 
+economic benefits of machine learning investment strategies.
+
+1. Introduction
+
+Machine learning methods have received considerable attention in 
+the recent asset pricing literature, particularly in the area of return 
+prediction (see, e.g., Chen et al., 2024c; Freyberger et al., 2020; Gu 
+et al., 2020; Leippold et al., 2022). The general conclusions of the 
+existing studies are remarkably similar— machine-learning models are 
+superior to traditional models in predicting the cross-section of stock 
+returns, and using machine-learning methods leads to large improve-
+ments in investment performance. Indeed, a common theme among 
+many existing studies is constructing long–short investment strategies 
+based  on  machine  learning  forecasts  and  demonstrating  that  these 
+strategies are highly profitable.
+
+While prior studies have clearly established the potential for large 
+economic gains to investors using machine learning forecasts, an im-
+portant issue that has been overlooked in the literature is the real-time 
+performance of machine learning strategies, and particularly how the 
+choice of input variables affects such performance. Specifically, many 
+existing studies use published anomaly variables as predictors of stock 
+returns and implicitly assume that they are known to investors during 
+the training period, even though most anomalies are discovered years 
+later.1 While this approach is appropriate if the objective is to measure 
+risk premium or estimate the stochastic discount factor, in which case 
+we can take an econometrician’s perspective and analyze data ex-post, 
+such  an  approach  raises  the  issue  of  whether  investors  could  have 
+
+(cid:73)
+
+Nikolai Roussanov was the editor for this article. We are grateful to the editor and an anonymous referee for their feedback and suggestions, which greatly 
+improved the paper. We thank Marcin Kacperczyk, David Solomon, Allan Timmermann, and seminar and conference participants at the Chinese Finance Annual 
+Meeting, Duke Kunshan University, Hunan University, Lehigh University, Nanjing University, Renmin University of China, Sun Yat-Sen University, Taiwan Finance 
+Association Asset Pricing Conference, Tongji University, and Xiamen University for helpful comments and discussions. Bin Li acknowledges financial support 
+from the National Natural Science Foundation of China (No. 72371191 and 71971164) and the Key Program of the National Social Science Fund of China 
+(No. 24AZD020). Lingling Zheng acknowledges financial support from the National Natural Science Foundation of China (No. 72122021 and 72495154). We 
+acknowledge the computational support provided by the Supercomputing Center of Wuhan University. All errors are our own.
+
+E-mail addresses:  binli.whu@whu.edu.cn (B. Li), agr60@georgetown.edu (A.G. Rossi), xuy219@lehigh.edu (X. Yan), zhenglingling@rmbs.ruc.edu.cn 
+
+∗ Corresponding author.
+
+(L. Zheng).
+
+1 There  are  exceptions.  For  example,  Kozak  et  al.  (2020)  use  shrinkage  and  selection  method  to  construct  a  stochastic  discount  factor  (SDF)  from  a 
+
+comprehensive set of financial ratios compiled by WRDS.
+
+https://doi.org/10.1016/j.jfineco.2025.104138
+Received 15 September 2022; Received in revised form 1 July 2025; Accepted 4 July 2025
+Available online 22 July 2025 
+0304-405X/© 2025 Elsevier B.V. All rights are reserved, including those for text and data mining, AI training, and similar technologies. 
+
+ 
+ 
+ 
+B. Li et al.
+
+selected those signals out of a universe of (potentially uninformative) 
+signals in real time. As a consequence, the economic gains from using 
+machine learning forecasts documented by the aforementioned studies 
+are potentially overstated for real-time investors.
+
+In this paper, we examine machine learning strategies based on 
+a ‘‘universe’’ of over 18,000 fundamental signals that are accessible 
+to investors in real time. Because these signals are constructed from 
+financial statement variables using permutational arguments (Yan and 
+Zheng, 2017), our strategies are not based on curated sets of inputs. By 
+comparing machine-learning strategies based on a universe of signals 
+with strategies based on selected sets of signals, our paper can shed 
+light on the importance of feature engineering – i.e. the process of 
+selecting  and  transforming  the  predictors  used  in  machine-learning 
+applications – for the performance of machine-learning strategies.2, 3 
+Such  comparisons  also  provide  insights  into  how  human  expertise 
+influences machine learning models in predicting returns. Moreover, 
+examining a universe of fundamental signals, rather than selecting a 
+subset of them based on whether they have been published in academic 
+journals, allows us to address the issue of publication bias (Harvey, 
+2017; Chen and Zimmermann, 2020).4
+
+The primary machine learning method we use is boosted regression 
+trees (BRT). We focus on BRT for several reasons. First, previous studies 
+have shown that BRT exhibit strong predictive performance in finance 
+applications. Gu et al. (2020), for example, show that BRT and neural 
+networks are the two best-performing machine learning methods in pre-
+dicting stock returns. Second, BRT are ideally suited for handling large, 
+high-dimensional data sets because of their computational efficiency. 
+This is important for us because our predictor set, which contains more 
+than 18,000 signals, is much larger than those examined by previous 
+studies. Third, BRT are robust to missing values and outliers. Given 
+the findings in Gu et al. (2020), we also use neural networks as an 
+alternative machine learning method to ensure the robustness of our 
+findings.
+
+We follow Gu et al. (2020) and partition our sample period into 
+a training period, a cross-validation period, and an out-of-sample test 
+period. We form long–short portfolios based on machine learning pre-
+dicted returns, buying stocks with the highest predicted returns and 
+shorting stocks with the lowest predicted returns. Using boosted re-
+gression trees (BRT) forecasts, our equal-weighted long–short portfolio 
+generates an average return of 0.95% per month (𝑡-statistic = 6.63) 
+and  an  annualized  Sharpe  ratio  of  1.02,  while  the  value-weighted 
+portfolio earns an average return of 0.40% per month (𝑡-statistic = 
+2.34)  and  a  Sharpe  ratio  of  0.30.  In  comparison,  Gu  et  al.  (2020) 
+
+2 We highlight ‘‘feature engineering’’ here for simplicity of exposition. More 
+broadly, our work highlights the importance of the inductive biases associated 
+with implementing machine learning methods. As detailed in Goyal and Bengio 
+(2022), inductive biases encompass preferences or constraints imposed on the 
+hypothesis space to guide the learning and improve the generalization of 
+machine learning methods. Feature engineering can be considered an inductive 
+bias  because  it  imposes  a  preference  over  the  features  to  be  considered, 
+effectively shaping the learning process by narrowing the focus of machine 
+learning methods to specific predictor variables.
+
+3 While humans determine the set of inputs to be fed into machine learning 
+algorithms, the machine learning algorithms themselves often include variable 
+selection mechanisms. This built-in variable selection identifies the most rele-
+vant features from the human provided inputs based on statistical significance 
+or contribution to the model’s accuracy. Throughout this paper, we use the 
+term feature engineering to refer specifically to the human-driven process of 
+selecting and designing the initial set of inputs, distinct from the algorithmic 
+selection of variables during model training.
+
+4 Although publication bias may overstate the true expected returns of 
+published anomalies, several prior studies have shown that the magnitude of 
+the publication bias is relatively small (McLean and Pontiff, 2016; Chen and 
+Zimmermann, 2020). Chen and Zimmermann (2020), for example, quantify 
+the publication bias to be around 12%.
+
+2 
+
+Journal of Financial Economics 172 (2025) 104138 
+
+report that their BRT-based equal-weighted portfolios achieve a sig-
+nificantly higher 2.14% per month (Sharpe ratio = 1.73), and their 
+value-weighted portfolios earn 0.99% per month (Sharpe ratio = 0.81), 
+which are more than double the returns and Sharpe ratios we observe.
+Neural networks also show weaker performance in our analysis. For 
+equal-weighted portfolios, our strategies generate average returns of 
+0.80%–1.17% per month with Sharpe ratios of 0.74-1.16, compared to 
+the 3.33% per month (Sharpe ratio = 2.45) documented by Gu et al. 
+(2020). Similarly, for value-weighted portfolios, our neural networks 
+yield returns of 0.21%–0.74% per month (Sharpe ratio = 0.16-0.70), 
+whereas Gu et al. (2020) report 2.26% per month (Sharpe ratio = 1.35). 
+Other studies, such as Chen et al. (2024c) and Freyberger et al. (2020), 
+further emphasize this gap, reporting Sharpe ratios of 2.6 and 2.75, 
+respectively, which significantly exceed our results.
+
+To investigate whether the weaker performance is due to limitations 
+in our machine learning implementation, we replicate our analyses on 
+datasets of published anomalies. Using the Green et al. (2017, GHZ) 
+sample, our BRT and neural network models achieve equal-weighted 
+long–short returns exceeding 3.5% per month with Sharpe ratios of 
+2.21–2.81, matching the performance reported by Gu et al. (2020). 
+The results are even stronger with the Chen and Zimmermann (2022, 
+CZ) sample: BRT models achieve equal-weighted returns of 5.14% per 
+month with an annualized Sharpe ratio of 3.64. These results indicate 
+that our implementation can deliver performance on par with prior 
+studies when using curated predictors. This suggests that the choice of 
+input predictors, rather than the ML implementation itself, is the key 
+driver of the performance gap between our strategies and those based 
+on published signals.
+
+Thus, compared to the previous literature that uses published – 
+and hence implicitly selected – signals as return predictors, our results 
+indicate that the economic gains to real-time investors from using our 
+machine learning strategies are much more modest. Prior literature, 
+such as Yan and Zheng (2017), however, has shown evidence that 
+investors could obtain large economic gains by learning from a universe 
+of return signals. To explore this possibility, we follow Yan and Zheng 
+(2017) and construct a recursive ranking strategy. In particular, we first 
+construct a long–short strategy based on each fundamental signal in our 
+sample. We then sort all signals each year into deciles based on the 𝑡-
+stat of their past long–short portfolio alphas using a recursive window. 
+Finally, we form an equal-weighted portfolio by going long in those 
+signals ranked in the highest 𝑡-stat decile and shorting those signals 
+ranked in the lowest 𝑡-stat decile.5 This procedure can be viewed as a 
+crude machine-learning strategy that selects a subset of predictors to be 
+included in the final investment strategy out of the universe of available 
+ones using the 𝑡-statistic of their past univariate performance. The out-
+of-sample performance of this investment strategy is impressive. The 
+equal- and value-weighted portfolios generate an annualized Sharpe 
+ratio  of  1.60  and  1.17,  respectively,  which  are  significantly  higher 
+than  those  of  our  machine  learning  strategies  (i.e.,  1.02  and  0.30, 
+respectively). The fact that feeding the universe of predictors to our 
+machine-learning methods delivers a performance that is inferior to a 
+simple recursive ranking strategy suggests that imposing an appropri-
+ate structure or ‘‘inductive bias’’ is important to the performance of 
+machine-learning algorithms (Goyal and Bengio, 2022).
+
+Fig.  1 succinctly summarizes our main results. We plot the Sharpe 
+ratios  for  the  following  five  investment  strategies:  The  real-time
+machine-learning strategy based on our universe of fundamental signals 
+(FS-ML);6 the recursive ranking strategy based on the same universe of 
+
+5 We thank an anonymous referee for suggesting this analysis, which is 
+
+motivated by an analysis in Table 3 of Yan and Zheng (2017).
+
+6 We refer to our machine-learning strategy as real-time machine-learning 
+strategy primarily because our strategy can be implemented using only real-
+time  information,  i.e.,  our  universe  of  signals  is  accessible  to  real-time 
+investors. We acknowledge that to implement our machine-learning strategy, 
+
+B. Li et al.
+
+Journal of Financial Economics 172 (2025) 104138 
+
+Fig. 1.  Comparison of Sharpe ratios across strategies. This figure presents the Sharpe ratios for five investment strategies: FS-ML, a machine-learning strategy based on a universe 
+of fundamental signals (1987–2019); FS-RR, a recursive-ranking strategy based on the same universe of fundamental signals (1987–2019); GKX, the baseline results from Gu 
+et al. (2020) (1987–2016); GHZ, a machine-learning strategy based on the Green et al. (2017) signals (1987–2019); and CZ, a machine-learning strategy based on the Chen and 
+Zimmermann (2022) signals (1987–2019). The left panel shows results using boosted regression trees, while the right panel presents those based on neural networks. For each 
+approach, we report Sharpe ratios for both equally weighted (EW) and value-weighted (VW) portfolio returns.
+
+fundamental signals (FS-RR); the Gu et al. (2020) strategy (GKX); the 
+machine-learning strategy based on the selected set of signals in Green 
+et al. (2017) (GHZ); and the machine-learning strategy based on the 
+selected set of signals in Chen and Zimmermann (2022) (CZ). Three 
+main takeaways are evident in Fig.  1. First, our real-time machine-
+learning  strategies  (FS-ML)  deliver  economically  meaningful  out-of-
+sample  Sharpe  ratios.  Second,  machine-learning  strategies  based  on 
+curated sets of signals (GKX, GHZ, and CZ) exhibit significantly higher 
+Sharpe ratios than FS-ML. Third, FS-RR, which can also be implemented 
+using only real-time information, performs significantly better than FS-
+ML. That is, a simple recursive ranking strategy based on the same 
+universe of fundamental signals yields much higher Sharpe ratios than 
+standard  machine-learning  strategies.  Our  main  findings  are  robust 
+across BRT and neural networks and hold for both equal- and value-
+weighted portfolios.7 Overall, our results indicate that large economic 
+gains are achievable for real-time investors, and that feature engineer-
+ing and – more broadly – inductive biases are key to achieving such 
+gains.
+
+Our analyses so far have focused on fundamental signals. The main 
+reason for this focus is that we can construct a ‘‘universe’’ of fundamen-
+tal signals (Yan and Zheng, 2017). Past return-based signals are another 
+class of predictors for which we can construct an ‘‘exhaustive’’ list of 
+signals. In particular, we follow Martin and Nagel (2022) and use the 
+past 120 months (excluding the most recent month) of stock returns. 
+We also consider an alternative sample that includes the most recent 
+month of stock return. As in our analysis of fundamental signals, we 
+continue to use BRT as the primary machine-learning method. We find 
+that the machine-learning strategy based on past-return signals earns an 
+average return of 1.38% per month (𝑡-statistic = 4.93) and exhibits an 
+annualized Sharpe ratio of 1.04 in equal-weighted portfolios. The value-
+weighted portfolios deliver an average long–short return of 0.78% per 
+month (𝑡-statistic = 2.41) and a Sharpe ratio of 0.46. The results are 
+stronger  when  we  include  the  most  recent  month  of  stock  returns. 
+The strategy earns an average return of 1.81% per month (𝑡-statistic 
+
+investors would also need considerable computing power and access to modern 
+machine-learning algorithms. To the extent that these resources may not have 
+been available to investors in the 1980s and 1990s, the performance of our 
+machine-learning strategy shown in Fig.  1 could overestimate the economic 
+gains to real-time investors.
+
+7 We include the performance of FS-RR in Fig.  1 for comparison, even 
+though  it  is  not  a  standard  machine-learning  strategy.  Its  performance  is 
+identical in the left panel (BRT) and the right panel (NN).
+
+3 
+
+=  6.40)  and  exhibits  an  annualized  Sharpe  ratio  of  1.77  in  equal-
+weighted  portfolios  while  earning  an  average  return  of  0.98%  per 
+month (𝑡-statistic = 3.14) and a Sharpe ratio of 0.66 in value-weighted 
+portfolios.
+
+These results are economically and statistically significant; how-
+ever, they are weaker than those reported by prior studies that use 
+curated sets of past-return-based predictors. For example, Moritz and 
+Zimmermann (2016) show that machine learning strategies based on 
+the past 24 monthly returns, which could have been plausibly selected 
+by  investors  in  real  time,  deliver  a  Sharpe  ratio  of  2.96  in  equal-
+weighted portfolios. Similarly, Murray et al. (2024) show that machine 
+learning strategies based on past 12 monthly cumulative returns, ex-
+hibit a Sharpe ratio of 0.78 in value-weighted portfolios. Comparing 
+these performances with those of our past return strategies suggests, 
+once  again,  that  feature  engineering  can  significantly  improve  the 
+performance of machine-learning strategies.
+
+As in Fig.  1 for fundamental signals, we summarize our main results 
+for past-return signals in Fig.  2. We plot the Sharpe ratios of the fol-
+lowing strategies: (1) Our machine-learning strategy based on 119 past 
+monthly returns excluding the most recent month return (PR119); (2) 
+the machine-learning strategy based on the past 120 monthly returns 
+including the most recent month return (PR120); (3) the Moritz and 
+Zimmermann (2016) strategy (MZ); and (4) the Murray et al. (2024) 
+strategy (MXX). Because Moritz and Zimmermann (2016) report equal-
+weighted  results,  while  Murray  et  al.  (2024)  report  value-weighted 
+results, we combine the results of these two strategies in Fig.  2.
+
+The main takeaways from Fig.  2 are as follows. First, our baseline 
+machine-learning strategy (PR119) delivers economically meaningful 
+Sharpe ratios. Second, PR120, which includes the short-term reversal as 
+an additional predictor, yields a higher Sharpe ratio than PR119. Third, 
+strategies based on curated sets of inputs (i.e., MZ and MXX) perform 
+better than both PR119 and PR120. Overall, our analyses based on past-
+return signals paint a similar picture to those based on fundamental 
+signals.  That  is,  the  performance  of  our  real-time  machine-learning 
+strategies is economically meaningful and statistically significant. More 
+importantly, larger returns are available to real-time investors, and 
+choosing a curated set of signals is key to realizing these larger returns 
+for real-time investors.
+
+We perform several robustness tests and additional analyses.8 First, 
+we repeat our analysis using a rolling-window approach instead of a 
+recursive one. If the relations between fundamental signals and future 
+
+8 Robustness  is  important  in  machine  learning  studies  given  the  large 
+
+‘‘non-standard errors’’ found in the recent paper by Chen et al. (2024a).
+
+B. Li et al.
+
+Journal of Financial Economics 172 (2025) 104138 
+
+Fig. 2.  Comparison of Sharpe ratios across ML strategies based on past-return signals. This figure presents the Sharpe ratios for three investment strategies: PR119, a BRT 
+machine-learning strategy based on 119 past monthly returns—excluding the most recent month (1987–2019); PR120, a BRT machine-learning strategy based on 120 past monthly 
+returns—including the most recent month (1987–2019); MZ, the Moritz and Zimmermann (2016) baseline results (1968–2012); and MXX, the Murray et al. (2024) baseline results 
+(1963–2022). We report Sharpe ratios for both equally weighted (EW) and value-weighted (VW) portfolio returns.
+
+stock returns are unstable over time, then the rolling-window approach 
+should perform better. Contrary to this argument, our machine-learning 
+strategies perform slightly worse under the rolling-window approach 
+than  under  the  recursive-window  approach.  Second,  we  repeat  our 
+analysis using alternative training and validation periods and find our 
+results to be robust. Third, we repeat our analysis for subsamples of 
+stocks sorted by firm size. We find that the out-of-sample performance 
+of our machine-learning strategies is significantly stronger among small 
+stocks than among large stocks. Fourth, we examine the after-trading-
+cost performance of our machine-learning strategies using Chen and 
+Velikov (2022)’s low-frequency effective spreads as our trading cost 
+measure. We find that the net returns to our machine-learning strate-
+gies based on fundamental signals are positive, while the net returns 
+to  strategies  based  on  past-return  signals  are  consistently  negative. 
+Finally, we explore the issue of time-varying predictability and find 
+some evidence that the performance of our machine-learning strategies 
+varies with the state of the market. However, there is little evidence 
+that the profitability of our strategies varies systematically with in-
+vestor sentiment, market volatility, market liquidity, or business cycle 
+conditions.
+
+Our paper builds on and contributes to the recent literature em-
+ploying machine learning methods in empirical asset pricing. Gu et al. 
+(2020) use machine learning methods to measure risk premium and 
+show that machine learning models, particularly trees and neural net-
+works, significantly outperform linear regression models in predicting 
+stock returns. Freyberger et al. (2020) use the adaptive group LASSO 
+for model selection and show that their model exhibits superior out-of-
+sample performance. Kozak et al. (2020) use shrinkage and selection 
+methods to construct an SDF that summarizes the joint explanatory 
+power of a large cross-section of return predictors. Chen et al. (2024c) 
+estimate  the  SDF  using  deep  neural  networks  and  show  that  their 
+model outperforms all other benchmark models.9 These studies have 
+established the potential for large economic gains to investors using 
+machine learning strategies. We complement the existing studies by 
+taking the perspective of real-time investors. Specifically, we show that 
+
+using machine learning methods is beneficial for real-time investors and 
+that feature engineering is key to significantly enhancing such benefits.
+Our paper is also related to a growing literature examining the 
+performance  of  data-mined  signals  (Yan  and  Zheng,  2017;  Chordia 
+et al., 2020; Harvey and Liu, 2020; Zhu, 2023; Chen and Dim, 2024; 
+Chen, 2024; Chen et al., 2024b). In particular, Chen and Dim (2024) 
+show  that  systematic  data-mining  leads  to  significant  out-of-sample 
+performance and argue that ‘‘high-throughput methods provide a rig-
+orous, unbiased method for documenting asset pricing facts’’. Chen 
+et al. (2024b) show that mining a universe of accounting ratios yields 
+out-of-sample performance comparable to that of published signals.
+
+Finally,  our  paper  is  related  to  Arnott  et  al.  (2019)  and  Israel 
+et al. (2020), who caution that machine learning methods may not 
+work as well in finance as in some other disciplines. In particular, 
+machine learning methods face three significant challenges in finance 
+applications:  the  lack  of  data  (on  the  time  series  dimension),  the 
+low signal-to-noise ratio, and the adaptive nature of financial mar-
+kets. While the modest performance of our real-time machine-learning 
+strategies could be a manifestation of these challenges faced by market 
+professionals and investors, we argue that feature engineering holds 
+considerable  promise  in  significantly  improving  the  performance  of 
+machine-learning-based investment strategies.
+
+The  rest  of  our  paper  proceeds  as  follows.  Section  2  describes 
+our data, sample, and methods. Section 3 presents our main empiri-
+cal results. Section 4 presents the results for additional analyses and 
+robustness tests. Section 5 concludes.
+
+2. Data, sample, and methods
+
+This section describes the stock sample and the fundamental signals 
+we employ in our main analysis. We then describe the cross-sectional 
+prediction problem underlying the portfolio strategies we generate and 
+the main empirical method we use—boosted regression trees (BRT). 
+Finally, we describe how we implement our machine-learning strategy.
+
+2.1. Stock sample and associated fundamental signals
+
+9 For additional studies that use machine learning methods in asset pric-
+ing, please also see, e.g., Rapach et al. (2013), Chinco et al. (2019), Feng 
+et al. (2020), Bryzgalova et al. (2020), Bianchi et al. (2021), Dong et al. 
+(2022),  Leippold  et  al.  (2022),  Avramov  et  al.  (2022),  Kelly  and  Xiu 
+(2023), Geertsema and Lu (2023), Kaniel et al. (2023), Bali et al. (2023) 
+and  Chen  and  McCoy  (2024).  Several  earlier  studies    (Ou  and  Penman, 
+1989; Holthausen and Larcker, 1992; Haugen and Baker, 1996) use machine 
+learning-like methods to predict future stock returns.
+
+We obtain monthly stock returns, share price, SIC code, and shares 
+outstanding from the Center for Research in Security Prices (CRSP) and 
+annual accounting data from Compustat. Our sample consists of the 
+NYSE, AMEX, and NASDAQ common stocks (with a CRSP share code 
+of 10 or 11) with the necessary data to construct fundamental signals 
+and compute subsequent stock returns. We exclude financial stocks, 
+i.e., those with a one-digit SIC code of 6. We also remove stocks with 
+
+4 
+
+B. Li et al.
+
+a share price lower than $1. To mitigate backfilling biases, we require 
+that a firm be listed on Compustat for two years before it is included 
+in our sample (Fama and French, 1993). We obtain Fama and French 
+(1996, 2015) factors and the momentum factor from Kenneth French’s 
+website and Hou et al. (2015) 𝑞-factors from Lu Zhang’s website.10 Our 
+sample spans from July 1963 to June 2019, and our sample consists of 
+15,035 stocks.
+
+We  construct  the  universe  of  fundamental  signals  for  our  sam-
+ple of stocks following Yan and Zheng (2017).11 We start with 240
+accounting variables (listed in Table  B.1) and compute, for each vari-
+able,  a  total  of  76  signals  (listed  in  Table   C.1).  These  signals  are 
+obtained by taking the original accounting variables and transforming 
+them by computing changes, ratios, and other potentially economically 
+meaningful transformations. The final number of fundamental signals 
+we include in our analysis is 18,113, which is slightly smaller than 
+18,240 (240 × 76) because not all combinations of the accounting 
+variables result in meaningful signals, and some of the combinations 
+are redundant. For brevity, we refer the readers to Yan and Zheng 
+(2017) for complete details regarding selecting accounting variables 
+and constructing fundamental signals.
+
+2.2. Methodology
+
+2.2.1. Prediction equation
+
+We predict the cross-section of stock returns using the following 
+
++ 𝜖𝑖,𝑡+1
+
+specification: 
+𝑅𝑖,𝑡+1 = 𝑓 (𝐱𝑖,𝑡|𝜃)
+where 𝑅𝑖,𝑡+1 denotes annual excess return for stock 𝑖 from July of year 𝑡
+to June of year 𝑡+1, 𝐱𝑖,𝑡 denotes a vector of variables used to predict the 
+cross section of returns, and 𝜃 denotes the parameters for the prediction 
+function 𝑓 . Stocks are indexed as 𝑖 = 1, … , 𝑁 and years are indexed by 
+𝑡 = 1, … , 𝑇 .
+
+(1)
+
+The vector of predictive variables includes the 18,113 fundamental 
+signals described earlier. To make sure the accounting information is 
+publicly  available  to  investors,  we  follow  Fama  and  French  (1992) 
+and pair accounting variables in year 𝑡 − 1 with stock returns from 
+July of year 𝑡 to June of year 𝑡 + 1. We follow Gu et al. (2020) and 
+transform all fundamental signals as follows. We first rank all non-
+missing fundamental signals each year and then scale their ranks to 
+the interval [−1, +1]. By construction, the cross-sectional median of the 
+transformed fundamental signals is zero.
+
+We predict annual excess returns for two reasons. First, our funda-
+mental signals are constructed from annual financial statements and 
+are updated annually. Second, the number of signals considered in our 
+study is substantially larger than those in prior studies. Predicting an-
+nual returns is computationally more efficient than predicting monthly 
+returns.12
+
+10 Kenneth French’s data library is located at https://mba.tuck.dartmouth.
+edu/pages/faculty/ken.french/data_library.html. The 𝑞-factors can be down-
+loaded from http://global-q.org/index.html.
+11 To minimize our discretion, we use a pre-existing universe of fundamental 
+signals instead of constructing one specifically for this study. Chordia et al. 
+(2020) extend (Yan and Zheng, 2017) and construct a universe of over 2 
+million fundamental signals. We choose not to use this universe because real-
+time investors are unlikely to have the computing power to evaluate these 
+many predictive variables in a machine-learning context.
+12 We conduct our empirical analyses on a high-performance cluster of 45
+computing nodes, each of which is equipped with 128 GB, 384 GB, or 4TB of 
+RAM. For neural networks, we have to use nodes with 4TB of RAM.
+
+5 
+
+Journal of Financial Economics 172 (2025) 104138 
+
+2.2.2. Machine learning methods vs. linear regressions
+
+Traditionally, it was common in the literature to assume linearity 
+of the 𝑓 function and estimate Equation (1) using linear regression 
+(LR) methods. More recently, the finance literature has instead started 
+adopting more advanced Machine Learning (ML) methods.
+
+One may expect that ML methods should have an advantage com-
+pared to linear regression methods because they feature (1) variable 
+selection,  (2)  model  combination,  and  (3)  regularization/shrinkage, 
+which allow them to handle large sets of conditioning information and 
+stabilize their predictions by making them less sensitive to outliers.
+
+ML methods also allow to capture nonlinearities in the relations 
+between the target variable and the regressors. When viewed through 
+the lenses of the bias–variance trade-off, including nonlinearities allows 
+for a smaller bias at the cost of a higher variance which positively 
+relates to the instability of the predictions. In fact, a growing field in 
+computer science, referred to as ‘‘adversarial machine learning’’, shows 
+that even very small perturbations of the predictor variables can result 
+in large changes in ML predictions.13
+
+Similar  effects  could  arise  naturally  in  finance,  where  the  data-
+generating  process  relating  regressands  and  regressors  constantly
+evolves. As profitable strategies are arbitraged away by smart money 
+in  a  Schumpeterian  creative  destruction  cycle,  ML  methods  could 
+potentially overfit certain temporary patterns that exist only in certain 
+periods. This is particularly true for ML models with thousands (mil-
+lions or even billions) of parameters that have been trained to capture 
+deep, non-linear interactions because such a process makes them less 
+adaptable to changes in the underlying dynamics of the data. These 
+issues are further complicated by the fact that financial datasets are 
+relatively small compared to those used in other fields, and financial 
+research often faces weak signal-to-noise ratios (Kelly and Xiu, 2023). 
+In these contexts, simpler models, like linear regression, could be more 
+robust to changes in the data-generating process and deliver a more 
+robust performance out-of-sample.
+
+An  important  question  is  whether  we  should  expect  the  advan-
+tages  and  disadvantages  of  ML  models  compared  to  LR  models  to 
+vary depending on whether the researchers use a ‘‘universe’’ versus a 
+‘‘selected set’’ of predictors in their analysis. The theoretical literature 
+does not provide a definitive answer to this question. Intuitively, on 
+the one hand, we can expect ML methods to have a greater advantage 
+compared to LR methods in the ‘‘universe’’ predictor setting than in 
+the  ‘‘selected’’  predictor  setting  because  they  feature  regularization 
+and variable selection. On the other hand, ML may have a smaller 
+advantage relative to LR when deployed on a ‘‘universe’’ of predictors 
+because nonlinearities and variable interactions may be less important 
+in higher-dimensional settings, and ML methods may be less robust to 
+time variations in the relation between regressand and regressors. We 
+leave an in-depth analysis of these theoretical and empirical issues to 
+further research.
+
+2.2.3. Boosted regression trees
+
+Our baseline specification includes 18,113 fundamental signals. We 
+choose the ‘‘off-the-shelf’’ machine learning tool called Boosted Regres-
+sion Trees (BRT), in particular, the LightGBM implementation (Ke et al., 
+2017) for our baseline analysis.
+
+We choose BRT as our primary machine learning method for several 
+reasons. First, BRT routinely rank among the very best machine learn-
+ing algorithms in both finance and non-finance applications.14 Second, 
+BRT  can  handle  large  data  sets  with  high  dimensionality  without 
+overfitting because they simultaneously perform subsampling, model 
+
+13 See  https://en.wikipedia.org/wiki/Adversarial_machine_learning  for  an 
+introduction to the topic and additional details.
+14 See  a  list  of  Machine  Learning  Challenge  Winning  Solutions  on  the 
+LightGBM’s website at https://github.com/microsoft/LightGBM/tree/master/
+examples.
+
+B. Li et al.
+
+combination, and shrinkage. Third, BRT are robust to missing values 
+and outliers (Hastie et al., 2009). In particular, BRT are invariant under 
+all monotone transformations of the individual input variables, making 
+the forecasts generated robust to extreme values. Finally, because BRT 
+are rooted in the CART framework, they possess good interpretability. 
+For example, BRT return the rank and relative importance of all the 
+potential regressors available, known as relative influence measures.15 
+This feature distinguishes BRT from harder-to-interpret methods such 
+as neural networks.
+Regression Trees
+
+A regression tree is built through a process known as binary re-
+cursive partitioning, which is an iterative process that splits the data 
+into partitions or branches. Suppose we have 𝑃  potential predictor 
+(‘‘state’’) variables and a single dependent variable over 𝑇  observations, 
+i.e., (𝑥𝑡, 𝑦𝑡+1
+)
+. Fitting 
+a  regression  tree  requires  deciding  (i)  which  predictor  variables  to 
+use to split the sample space and (ii) which split points to use. The 
+regression trees we use employ recursive binary partitions, so the fit of 
+a regression tree can be written as an additive model:
+
+) for 𝑡 = 1, 2, … , 𝑇 , with 𝑥𝑡 =
+
+(𝑥𝑡1, 𝑥𝑡2, … , 𝑥𝑡𝑝
+
+𝑓 (𝑥) =
+
+𝐽
+∑
+
+𝑗=1
+
+𝑐𝑗 𝐼 {𝑥 ∈ 𝑆𝑗
+
+} ,
+
+)
+.
+
+where 𝑆𝑗 , 𝑗 = 1, … , 𝐽 are the regions we split the space spanned by 
+the predictor variables into, 𝐼{⋅} is an indicator variable, and 𝑐𝑗 is 
+the constant used to model the dependent variable in each region. 
+If the 𝐿2 norm criterion function is adopted, the optimal constant is 
+̂𝑐𝑗 = 𝑚𝑒𝑎𝑛 (𝑦𝑡+1|𝑥𝑡 ∈ 𝑆𝑗
+
+The globally optimal splitting point is difficult to determine, par-
+ticularly in cases where the number of state variables is large. Hence, 
+we use a sequential greedy algorithm. Using the full set of data, the 
+algorithm considers a splitting variable 𝑝 and a split point 𝑠 so as to 
+construct half-planes,
+≤ 𝑠}
+
+𝑎𝑛𝑑 𝑆2 (𝑝, 𝑠) =
+
+{𝑋|𝑋𝑝 > 𝑠} ,
+
+{𝑋|𝑋𝑝
+
+𝑆1 (𝑝, 𝑠) =
+
+that minimize the sum of squared residuals:
+
+[
+
+min
+𝑝,𝑠
+
+min
+𝑐1
+
+∑
+
+(𝑦𝑡+1 − 𝑐1
+
+)2
+
+𝑥𝑡∈𝑆1(𝑝,𝑠)
+
++ min
+𝑐2
+
+∑
+
+(𝑦𝑡+1 − 𝑐2
+
+)2
+
+]
+
+.
+
+𝑥𝑡∈𝑆2(𝑝,𝑠)
+
+For a given choice of 𝑝 and 𝑠, the fitted values, ̂𝑐1 and ̂𝑐2, are
+
+̂𝑐1 =
+
+̂𝑐2 =
+
+1
+}
+𝑡=1 𝐼 {𝑥𝑡 ∈ 𝑆1 (𝑝, 𝑠)
+1
+}
+𝑡=1 𝐼 {𝑥𝑡 ∈ 𝑆2 (𝑝, 𝑠)
+
+∑𝑇
+
+∑𝑇
+
+𝑇
+∑
+
+𝑡=1
+𝑇
+∑
+
+𝑡=1
+
+𝑦𝑡+1𝐼 {𝑥𝑡 ∈ 𝑆1 (𝑝, 𝑠)
+
+} ,
+
+𝑦𝑡+1𝐼 {𝑥𝑡 ∈ 𝑆2 (𝑝, 𝑠)
+
+} .
+
+The best splitting pair (𝑝, 𝑠) in the first iteration can be determined 
+by searching through each of the predictor variables, 𝑝 = 1, … , 𝑃 . Given 
+the best partition from the first step, the data is then partitioned into 
+two additional states, and the splitting process is repeated for each of 
+the subsequent partitions. Predictor variables that are never used to 
+split the sample space do not influence the fit of the model, so the 
+choice of splitting variable effectively performs variable selection.
+
+Regression trees are ideally suited for handling high-dimensional 
+data sets, incorporating multiway interactions among predictors, and 
+capturing non-linear relations between predictors and the predicted 
+variable. However, the approach is sequential, and successive splits 
+are performed on fewer and fewer observations, increasing the risk of 
+fitting idiosyncratic data patterns. Furthermore, there is no guarantee 
+that the sequential splitting algorithm leads to the globally optimal 
+solution. To deal with these problems, we next consider a regularization 
+method known as boosting.
+
+15 To conserve space, we provide a description of the relative influence 
+measures in Appendix  D. We also implement the relative influence measure 
+on our data and report the results in Appendix  D.
+
+6 
+
+Journal of Financial Economics 172 (2025) 104138 
+
+Boosting
+
+Boosting is based on the idea that combining a series of simple pre-
+diction models can lead to more accurate forecasts than those available 
+from any individual model. Boosting algorithms iteratively re-weight 
+data used in the initial fit by adding new trees in a way that increases 
+the weight on observations modeled poorly by the existing collection 
+of trees. From above, recall that a regression tree can be written as:
+
+(
+
+
+
+𝑥;
+
+{𝑆𝑗 , 𝑐𝑗
+
+}𝐽
+
+𝑗=1
+
+)
+
+=
+
+𝐽
+∑
+
+𝑗=1
+
+𝑐𝑗 𝐼 {𝑥 ∈ 𝑆𝑗
+
+} .
+
+A boosted regression tree is simply the sum of regression trees:
+
+𝑓𝐵 (𝑥) =
+
+𝐵
+∑
+
+(
+
+𝑥;
+
+
+
+𝑏
+
+{𝑆𝑏,𝑗 , 𝑐𝑏,𝑗
+
+}𝐽
+
+𝑗=1
+
+)
+
+,
+
+𝑏=1
+(
+
+𝑏
+
+𝑥;
+
+𝑗=1
+
+}𝐽
+
+{𝑆𝑏,𝑗 , 𝑐𝑏,𝑗
+
+)
+where 
+ is the regression tree used in the 𝑏th boost-
+ing iteration and 𝐵 is the number of boosting iterations. Given the 
+model fitted up to the (𝑏 − 1)-th boosting iteration, 𝑓𝑏−1(𝑥), the subse-
+quent boosting iteration seeks to find parameters {𝑆𝑗,𝑏, 𝑐𝑗,𝑏
+}𝐽
+𝑗=1 for the 
+next tree to solve a problem of the form
+{ ̂𝑆𝑗,𝑏, ̂𝑐𝑗,𝑏
+
+}𝐽
+𝑗=1 =
+𝑇 −1
+[
+∑
+𝑦𝑡+1 −
+
+min
+{𝑆𝑗,𝑏,𝑐𝑗,𝑏
+
+}𝐽
+
+𝑗=1
+
+𝑡=0
+
+(
+
+𝑓𝑏−1
+
+)
+
+(𝑥𝑡
+
++ 
+
+𝑏
+
+(
+𝑥𝑡;
+
+{𝑆𝑗,𝑏, 𝑐𝑗,𝑏
+
+}𝐽
+
+𝑗=1
+
+))]2
+
+.
+
+For a given set of state definitions (‘‘splits’’), 𝑆𝑗,𝑏, 𝑗 = 1, … , 𝐽 , the 
+optimal constants, 𝑐𝑗,𝑏, in each state are derived iteratively from the 
+solution to the problem
+∑
+[𝑦𝑡+1 −
+
+(𝑓𝑏−1
+
++ 𝑐𝑗,𝑏
+
+(𝑥𝑡
+
+)]2
+
+)
+
+̂𝑐𝑗,𝑏 = min
+𝑐𝑗,𝑏
+
+𝑥𝑡∈𝑆𝑗,𝑏
+∑
+
+𝑥𝑡∈𝑆𝑗,𝑏
+
+[𝑒𝑡+1,𝑏−1 − 𝑐𝑗,𝑏
+
+]2 ,
+
+= min
+𝑐𝑗,𝑏
+
+(𝑥𝑡
+
+) is the empirical error after 𝑏−1 boosting 
+where 𝑒𝑡+1,𝑏−1 = 𝑦𝑡+1 −𝑓𝑏−1
+iterations. The solution to this problem is the regression tree that most 
+reduces the average of the squared residuals ∑𝑇
+𝑡+1,𝑏−1, and ̂𝑐𝑗,𝑏 is the 
+mean of the residuals in the 𝑗th state.
+
+𝑡=1 𝑒2
+
+Forecasts are simple to generate from this approach. The boosted 
+regression tree is first estimated using data from 𝑡 = 1, … , 𝑡∗. Then, 
+the forecast of 𝑦𝑡∗+1 is based on the model estimates and the value of 
+the predictor variable at time 𝑡∗, 𝑥𝑡∗ . Boosting makes it more attractive 
+to employ small trees (characterized by few terminal nodes) at each 
+boosting iteration, reducing the risk that the regression trees will over-
+fit. Moreover, by summing over a sequence of trees, boosting performs 
+a type of model averaging that increases the stability and accuracy of 
+the forecasts.
+
+2.3. Implementation
+
+We implement our BRT model by following Gu et al. (2020). We 
+divide our sample period (1963–2019) into 12 years of training sample 
+(1963–1974),  12  years  of  validation  sample  (1975–1986),  and  the 
+remaining 33 years (1987–2019) for out-of-sample testing. We begin 
+the out-of-sample period in 1987 in order to align with Gu et al. (2020).
+We refit our model every year because our fundamental signals 
+are updated annually. Each time we refit the model, we increase the 
+training sample by one year while maintaining the length of the vali-
+dation period at 12 years. This recursive window approach allows for 
+the incorporation of all available information in generating forecasts. 
+Every year, we generate return forecasts for all the stocks in our sample. 
+We then construct decile portfolios based on the predicted returns. We 
+hold these portfolios for 12 months and rebalance them every year. Our 
+long–short strategy goes long in the decile portfolio with the highest 
+BRT expected returns and short in the decile portfolio with the lowest 
+BRT predicted returns.
+
+B. Li et al.
+
+Journal of Financial Economics 172 (2025) 104138 
+
+To generate return forecasts, we need to estimate the model’s pa-
+rameters using the training data and specify two key hyper-parameters, 
+i.e., the number of boosting iterations and the BRT shrinkage param-
+eter (also known as the learning rate). To choose these two hyper-
+parameters, we adopt the commonly used grid search with validation 
+procedure (Hastie et al., 2009; Gu et al., 2020).16 We leave all other 
+tuning parameters at their LightGBM default values.
+
+Specifically, we first use the training sample to estimate the model 
+under  each  set  of  hyper-parameter  values.  We  then  use  the  hyper-
+parameters that show the best performance during the validation period 
+to  re-estimate  the  final  model.  For  example,  suppose  we  want  to 
+forecast the cross-section of stock returns for 1987. We fit models under 
+different hyper-parameter values during the training period 1963–1974 
+and then use the validation period 1975–1986 to gauge the perfor-
+mance of these trained models. We choose the hyper-parameters that 
+deliver the best performance during the validation period and then use 
+these hyper-parameters to re-estimate the final model for the combined 
+training and validation period 1963–1986. When we move forward 
+and forecast the cross-section of stock returns for 1988, our validation 
+period rolls forward by one year and stays at 12 years, i.e.,1976–1987, 
+while our training period increases by one year and goes from 1963 to 
+1975 (13 years).17
+
+Our fundamental signals contain missing values. Although BRT can 
+handle  missing  values,  we  pre-process  the  missing  values  to  make 
+BRT  forecasts  comparable  to  other  machine  learning  methods  that 
+cannot  handle  missing  values.  Specifically,  we  follow  the  approach 
+of Gu et al. (2020) and replace missing values with the cross-sectional 
+median.18 Recall that we have normalized all non-missing fundamental 
+signals to the [−1, +1] interval by using their cross-sectional ranks. By 
+construction, the cross-sectional median of the transformed signals is 
+zero. We, therefore, assign all missing values as zero.19
+Performance Evaluation
+
+Each year, we sort all sample stocks into deciles based on BRT 
+predicted returns, construct equal- and value-weighted portfolios, and 
+focus on the long–short strategy that buys stocks in the top decile 
+and shorts stocks in the bottom decile. We estimate CAPM 1-factor, 
+Fama–French 3-factor, Carhart 4-factor, Fama–French 5-factor, Fama–
+French 5-factor + Momentum factor, and q-factor models by running 
+the following time-series regressions:
+𝑟𝑡 = 𝛼 + 𝛽𝑀𝐾𝑇𝑡 + 𝜖𝑡
+𝑟𝑡 = 𝛼 + 𝛽𝑀𝐾𝑇𝑡 + 𝑠𝑆𝑀𝐵𝑡 + ℎ𝐻𝑀𝐿𝑡 + 𝜖𝑡
+𝑟𝑡 = 𝛼 + 𝛽𝑀𝐾𝑇𝑡 + 𝑠𝑆𝑀𝐵𝑡 + ℎ𝐻𝑀𝐿𝑡 + 𝑢𝑈 𝑀𝐷𝑡 + 𝜖𝑡
+𝑟𝑡 = 𝛼 + 𝛽𝑀𝐾𝑇𝑡 + 𝑠𝑆𝑀𝐵𝑡 + ℎ𝐻𝑀𝐿𝑡 + 𝑟𝑅𝑀𝑊𝑡
+
++ 𝑐𝐶𝑀𝐴𝑡 + 𝜖𝑡
+
+𝑟𝑡 = 𝛼 + 𝛽𝑀𝐾𝑇𝑡 + 𝑠𝑆𝑀𝐵𝑡 + ℎ𝐻𝑀𝐿𝑡 + 𝑟𝑅𝑀𝑊𝑡
+
++ 𝑐𝐶𝑀𝐴𝑡 + 𝑢𝑈 𝑀𝐷𝑡 + 𝜖𝑡
+
+𝑟𝑡 = 𝛼 + 𝛽𝑀𝐾𝑇𝑡 + 𝑠𝑆𝑀𝐵𝑡 + 𝑟𝑅𝑂𝐸𝑡 + 𝑖𝐼𝐴𝑡 + 𝜖𝑡
+where 𝑟𝑡 is the long–short portfolio return based on BRT-generated fore-
+casts for month 𝑡, and 𝑀𝐾𝑇 , 𝑆𝑀𝐵, 𝐻𝑀𝐿, 𝑈 𝑀𝐷, 𝑅𝑀𝑊 , 𝐶𝑀𝐴, 𝑅𝑂𝐸, 
+and 𝐼𝐴 are market, size, value, momentum, profitability, investment 
+(FF5), return on equity, and investment (Q) factors (Carhart, 1997; 
+Fama and French, 2015; Hou et al., 2015). We focus on the alpha 
+estimates and their 𝑡-statistics estimated using Newey and West (1987) 
+standard errors.
+
+16 Our grid for the number of boosting iterations is {100, 250, 500, 750, 1000}, 
+while our grid for the learning rate is {0.01, 0.05, 0.10}.
+17 We show in Section 4.2 that our main results are robust to alternative 
+training and validation periods.
+18 Chen  and  McCoy  (2024)  provide  a  rigorous  justification  for  the  use 
+of mean/median imputation in machine learning studies. Specifically, they 
+show that mean/median and sophisticated imputation methods lead to similar 
+results.
+19 The performance of the BRT portfolios is similar without pre-processing 
+the missing values.
+
+3. Main results
+
+In this section, we report the main results of our paper. We start 
+by  reporting  in  Section  3.1  the  baseline  results  that  compute  the 
+out-of-sample realized returns for BRT portfolios using our predictor 
+universe. We then report in Section 3.2 the abnormal performance of 
+the BRT portfolios that control for various risk factors. Section 3.3 uses 
+an alternative machine learning method, i.e., neural networks. Sec-
+tion 3.4 examines whether our ML implementation can generate high 
+long–short returns and Sharpe ratios using selected sets of predictors. 
+Section 3.5 examines the performance of a simple recursive ranking 
+strategy  applied  to  the  universe  of  predictors.  Finally,  Section  3.6 
+examines the machine learning performance based on a universe of 
+past-return signals.
+
+3.1. Baseline results
+
+Table  1 shows the results of our baseline analysis. As stated earlier, 
+we sort stocks into deciles each year based on one-year-ahead BRT 
+predicted returns constructed using our universe of fundamental sig-
+nals. We then construct a long–short portfolio that buys stocks with 
+the  highest  BRT  predicted  returns  and  sells  stocks  with  the  lowest 
+BRT predicted returns. We track the performance of these portfolios 
+for 12 months. Following Gu et al. (2020), we report in Table  1 the 
+BRT predicted returns (i.e., the sorting variable), the average realized 
+returns, the standard deviation of realized returns, and the annualized 
+Sharpe ratios of BRT-sorted portfolios.
+
+The left panel of Table  1 focuses on equally weighted portfolios. The 
+first column shows the BRT predicted return, which is by construction 
+monotonically increasing from decile 1 (−0.04% per month) to decile 
+10 (1.69% per month). The second column reports the out-of-sample 
+average  realized  return  for  each  portfolio:  our  primary  variable  of 
+interest.  We  find  that  the  performance  of  BRT  portfolios  increases 
+nearly monotonically from decile 1 (−0.01%) to decile 10 (0.94%). The 
+long–short portfolio earns an average return of 0.95% per month (or 
+11.4% per year), with a highly significant 𝑡-statistic of 6.63.20
+
+The standard deviation of the realized returns is U-shaped across the 
+BRT decile portfolios, i.e., the portfolios with the lowest and the highest 
+BRT predicted returns have higher volatilities than the other portfolios. 
+Not surprisingly, we find that the long–short portfolio has a much lower 
+volatility than the long-only portfolios. Finally, the last column of the 
+left panel reports the annualized Sharpe ratio, which ranges from −0.01 
+to 0.62 across the ten BRT decile portfolios. The Sharpe ratio of the 
+long–short portfolio is much higher at 1.02, which is primarily driven 
+by the lower volatility of the long–short portfolio.
+
+Equally  weighted  portfolios  tend  to  overweight  small-cap  stocks 
+that  can  be  harder  and  more  expensive  to  trade  (e.g.,  Fama  and 
+French,  2008;  Novy-Marx  and  Velikov,  2016).  To  mitigate  this  is-
+sue,  we  examine  in  the  right  panel  of  Table   1  the  value-weighted 
+portfolio returns. The BRT predicted return is again by construction 
+monotonically increasing from decile 1 (0.00%) to decile 10 (1.61%). 
+More importantly, the realized average portfolio return also increases 
+from decile 1 (0.40%) to decile 10 (0.80%), although the relation is 
+not monotonic. The spread between decile 10 and decile 1 is 0.40% 
+per month, or 4.8% per year.21 Even though this spread is less than 
+half of the spread for equally weighted portfolios, it is nevertheless 
+economically meaningful and statistically significant at the 5% level. 
+
+20 Appendix  D reports the top 25 fundamental signals based on an analysis 
+of variable importance. We find that signals constructed using excise tax and 
+minority interest are among the most important predictors.
+21 These returns are before trading costs. We report the before-trading cost 
+performance of our machine learning strategies for ease of comparison with 
+prior literature (e.g., Chen et al., 2024c; Freyberger et al., 2020; Gu et al., 
+2020). In Section 4.4, we examine the after-trading-cost performance of our 
+machine-learning strategies.
+
+7 
+
+B. Li et al.
+
+Journal of Financial Economics 172 (2025) 104138 
+
+Table 1
+Performance of portfolios sorted by BRT predicted returns. This table reports the excess returns of decile portfolios sorted 
+by BRT predicted returns from 1987 to 2019. We predict stock annual excess returns using 18,113 fundamental signals (as 
+described in Section 2.1). We use a recursive window approach and select the optimal hyper-parameters using a cross-validation 
+approach. Our initial estimation period is 1963–1986. The first 12 years is the training period and the second 12 years is 
+the validation period. As we roll forward, the training period expands while the validation period stays at 12 years. The 
+left panel reports equal-weighted portfolio results. In the first column of this panel we report the average predicted monthly 
+returns from the BRT model (Pred). The second and third columns report the average realized monthly excess returns (Avg ) 
+and associated 𝑡-statistics (t-stat ), computed using Newey and West (1987) standard errors with 12 lags. Finally, in the fourth 
+and fifth column we report the portfolios’ return standard deviations (SD) and annualized Sharpe ratios (SR), respectively. 
+The right panel reports the same results using value-weighted portfolio returns. All returns are expressed in percent per month.
+  Rank
+
+Equal weight
+Pred
+
+Avg
+
+  1 (Low)
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+  10 (High)
+  10–1
+
+−0.04
+0.30
+0.49
+0.64
+0.73
+0.80
+0.88
+0.97
+1.12
+1.69
+1.74
+
+−0.01
+0.49
+0.65
+0.74
+0.76
+0.90
+0.90
+0.96
+0.93
+0.94
+0.95
+
+t-stat
+
+−0.05
+1.58
+2.12
+2.65
+2.72
+3.23
+3.18
+3.17
+2.84
+2.55
+6.63
+
+SD
+
+7.51
+6.22
+6.02
+5.64
+5.45
+5.44
+5.57
+5.43
+5.78
+6.71
+3.26
+
+SR
+
+−0.01
+0.28
+0.37
+0.46
+0.48
+0.58
+0.56
+0.62
+0.56
+0.48
+1.02
+
+Value weight
+Avg
+Pred
+
+0.00
+0.30
+0.50
+0.64
+0.73
+0.80
+0.88
+0.97
+1.11
+1.61
+1.61
+
+0.40
+0.58
+0.58
+0.75
+0.60
+0.66
+0.68
+0.49
+0.64
+0.80
+0.40
+
+t-stat
+
+1.30
+2.39
+2.63
+3.21
+2.34
+2.99
+2.68
+1.81
+2.20
+2.51
+2.34
+
+SD
+
+6.18
+5.53
+4.73
+4.60
+4.61
+4.51
+4.93
+4.82
+5.15
+5.96
+4.68
+
+SR  
+0.22 
+0.36 
+0.42 
+0.56 
+0.45 
+0.51 
+0.48 
+0.35 
+0.43 
+0.47 
+0.30 
+
+The Sharpe ratio exhibits a similar pattern, higher for decile 10 (0.47) 
+than for decile 1 (0.22). The Sharpe ratio for the long–short portfolio 
+is 0.30.
+
+Overall, we show in Table  1 that long–short portfolios formed based 
+on BRT forecasts earn economically and statistically significant returns. 
+The magnitude of the long–short performance, however, is much lower 
+than that documented in the prior literature. For example, the BRT 
+models in Gu et al. (2020) achieve an equally weighted monthly long–
+short portfolio return of 2.14% per month and a Sharpe ratio of 1.73. 
+The corresponding numbers for value-weighted portfolios are 0.99% 
+per  month  and  a  Sharpe  ratio  of  0.81.22  The  long–short  portfolios 
+formed based on neural network forecasts perform even better in Gu 
+et al. (2020), earning an average return of 3.33% per month and an 
+annualized Sharpe ratio of 2.45 in equal-weighted portfolios and an 
+average  return  of  2.26%  per  month  and  a  Sharpe  ratio  of  1.35  in 
+value-weighted portfolios.23 Similarly, Chen et al. (2024c) report an 
+out-of-sample Sharpe ratio of 2.60, and Freyberger et al. (2020) report 
+that their model delivers an out-of-sample Sharpe ratio of 2.75.
+
+The main difference between our paper and prior studies is that 
+we  employ  a  universe  of  fundamental  signals  and  do  not  feed  our 
+machine-learning methods a curated set of predictors. Hence, these 
+results provide initial evidence that feature engineering – as a form of 
+inductive bias involving the selection and transformation of predictors 
+in machine-learning applications – may play a key role in determining 
+the economic gains achievable by real-time investors.
+
+3.2. Controlling for common risk factors
+
+The results in Table  1 do not control for risk exposures. It could 
+be that the long–short portfolios based on BRT forecasts have posi-
+tive and significant returns because they are exposed to well-known 
+sources of risk, such as value or profitability. Table  2 shows the risk-
+adjusted performance of our BRT portfolios once we control for risk 
+exposures using the six models described in Section 2.3. Irrespective 
+of whether we use the CAPM model (columns 1–2), the Fama–French 
+
+22 We note that we implement our BRT model using LightGBM, while Gu 
+et al. (2020) implement using scikit-learn. When we implement our model 
+using scikit-learn in conjunction with our fundamental signals, we obtain even 
+less significant results than what we currently report in the paper.
+23 We implement our strategies using neural networks in Section 3.3.
+
+3-factor model (columns 3–4), the Carhart 4-factor model (columns 
+5–6), the Fama–French 5-factor model (columns 7–8), the Fama–French 
+5-factor model augmented with momentum (columns 9–10) or the 𝑞-
+factor model (columns 11–12), we find that portfolios with higher BRT 
+predicted returns have higher average realized risk-adjusted returns. 
+Taking the Carhart 4-factor model as an example, we find that the alpha 
+of decile 1 is negative and significant at −0.71% per month (𝑡-statistic 
+= −4.63), while the alpha of decile 10 is 0.37% per month (𝑡-statistic = 
+2.66). The resulting long–short portfolio has a monthly alpha of 1.08% 
+and is statistically significant with a 𝑡-statistic of 6.43.
+
+The results for value-weighted risk-adjusted returns are weaker than 
+the equal-weighted results—in line with the findings in Table  1. Across 
+the various risk-adjustment models, the monthly abnormal performance 
+ranges from a minimum of 0.46% (5.52% annualized) for the CAPM 
+to a maximum of 0.80% (9.60% annualized) for the Fama–French 5-
+factor model with momentum. In all cases, the alphas of the long–short 
+portfolios are statistically different from zero.
+
+Consistent with the findings reported in Section 3.1, our results 
+suggest  that  machine  learning  tools  indeed  can  help  predict  stock 
+returns. After adjusting for standard asset pricing factors, the long–short 
+returns are economically meaningful and statistically significant. Still, 
+the degree of predictability is significantly lower than what has been 
+reported in the literature that uses selected signals as return predictors.
+
+3.3. Neural networks
+
+In our baseline analysis, we use BRT, which is one of the most 
+powerful machine learning methods for stock return predictions. Nev-
+ertheless, one might be concerned that our main results are specific 
+to BRT and may not extend to other machine-learning methods. To 
+ensure this is not the case, we extend our analysis to neural networks 
+(NNs) mainly because – together with boosted regression trees – NNs 
+are among the top performers when it comes to return prediction (Gu 
+et al., 2020; Bianchi et al., 2021). We follow Gu et al. (2020) and 
+conduct our analysis using NNs with 1 to 5 hidden layers. Appendix 
+A describes our NNs implementation in detail.
+
+Our results, reported in Table  3, reveal several important findings. 
+First, the equal-weighted long–short returns based on NNs are highly 
+significant, while the value-weighted long–short returns are generally 
+(but not always) significant. Second, among both equal- and value-
+weighted  portfolios,  we  find  that  shallow  NNs  perform  better  than 
+deep NNs. For example, NNs with 1 hidden layer achieve long–short 
+
+8 
+
+ 
+B. Li et al.
+
+Journal of Financial Economics 172 (2025) 104138 
+
+Table 2
+Risk-adjusted performance of portfolios sorted by BRT predicted returns. This table shows the risk-adjusted performance of the BRT portfolios based on the CAPM model, the 
+Fama–French 3-factor model, the Carhart 4-factor model, the Fama–French 5-factor model, the Fama–French 5-factor model augmented with momentum factor, and the 𝑞-factor 
+model. The BRT model specifications are the same as that in Table  1. The top panel reports results for equal-weighted portfolios, and the bottom panel reports results for 
+value-weighted portfolios. All returns are expressed in percent per month.
+  Equal Weight
+  Rank
+
+FF5+MOM
+
+Carhart
+
+CAPM
+
+FF5
+
+FF3
+
+Q
+
+alpha
+
+−0.83
+−0.21
+−0.06
+0.05
+0.11
+0.24
+0.23
+0.30
+0.22
+0.18
+1.01
+
+  L(ow)
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+  H(igh)
+  H-L
+  Value Weight
+  Rank
+
+CAPM
+
+  L(ow)
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+  H(igh)
+  H-L
+
+alpha
+
+−0.36
+−0.11
+−0.05
+0.12
+−0.01
+0.08
+0.04
+−0.13
+−0.02
+0.10
+0.46
+
+t-stat
+
+−3.71
+−0.98
+−0.32
+0.30
+0.60
+1.22
+1.27
+1.61
+1.34
+0.85
+6.29
+
+t-stat
+
+−2.40
+−0.76
+−0.53
+1.61
+−0.14
+0.80
+0.41
+−1.10
+−0.10
+0.46
+2.17
+
+alpha
+
+−0.75
+−0.19
+−0.06
+0.04
+0.08
+0.18
+0.21
+0.28
+0.22
+0.25
+1.01
+
+FF3
+
+alpha
+
+−0.26
+−0.03
+−0.02
+0.15
+−0.01
+0.04
+0.00
+−0.13
+0.06
+0.20
+0.46
+
+t-stat
+
+−4.89
+−1.47
+−0.60
+0.51
+1.08
+2.37
+3.08
+3.21
+2.25
+1.62
+6.34
+
+t-stat
+
+−2.29
+−0.19
+−0.23
+2.00
+−0.10
+0.47
+0.03
+−1.02
+0.43
+1.23
+2.57
+
+alpha
+
+−0.71
+−0.17
+−0.05
+0.03
+0.08
+0.23
+0.20
+0.29
+0.29
+0.37
+1.08
+
+Carhart
+
+alpha
+
+−0.31
+−0.04
+−0.03
+0.10
+0.01
+0.06
+0.03
+−0.07
+0.11
+0.34
+0.65
+
+t-stat
+
+−4.63
+−1.45
+−0.59
+0.49
+1.12
+2.80
+2.77
+3.37
+3.10
+2.66
+6.43
+
+t-stat
+
+−2.74
+−0.28
+−0.33
+1.27
+0.11
+0.71
+0.35
+−0.60
+1.00
+2.37
+3.66
+
+alpha
+
+−0.44
+−0.09
+−0.03
+0.02
+0.03
+0.11
+0.22
+0.29
+0.35
+0.59
+1.03
+
+FF5
+
+alpha
+
+−0.13
+0.01
+−0.08
+0.05
+−0.12
+−0.17
+−0.13
+−0.17
+0.14
+0.54
+0.67
+
+t-stat
+
+−3.39
+−0.72
+−0.32
+0.24
+0.38
+1.44
+2.81
+3.26
+3.26
+3.88
+5.40
+
+t-stat
+
+−1.12
+0.08
+−0.82
+0.68
+−1.47
+−2.03
+−1.37
+−1.26
+1.25
+3.80
+3.18
+
+alpha
+
+−0.43
+−0.08
+−0.03
+0.02
+0.03
+0.15
+0.21
+0.30
+0.39
+0.65
+1.08
+
+FF5+MOM
+
+alpha
+
+−0.18
+0.00
+−0.08
+0.02
+−0.10
+−0.13
+−0.10
+−0.12
+0.17
+0.62
+0.80
+
+t-stat
+
+−3.30
+−0.70
+−0.30
+0.25
+0.44
+1.91
+2.67
+3.37
+3.75
+4.44
+5.58
+
+t-stat
+
+−1.57
+0.00
+−0.84
+0.30
+−1.37
+−1.51
+−1.01
+−0.99
+1.60
+4.24
+3.79
+
+alpha
+
+−0.29
+0.03
+0.07
+0.09
+0.09
+0.19
+0.26
+0.35
+0.45
+0.69
+0.98
+
+Q
+
+alpha
+
+−0.09
+0.08
+−0.02
+0.08
+−0.07
+−0.12
+−0.11
+−0.09
+0.25
+0.58
+0.68
+
+t-stat
+
+−1.76
+0.19
+0.73
+1.30
+1.21
+2.04
+3.76
+3.85
+4.88
+4.68
+5.10
+
+t-stat
+
+−0.59
+0.54
+−0.15
+0.88
+−0.98
+−1.69
+−1.13
+−0.61
+1.92
+4.03
+2.94
+
+returns of 1.08% (𝑡-statistic = 6.09) for equal-weighted portfolios and 
+0.74%  per  month  (𝑡-statistic  =  4.58)  for  value-weighted  portfolios. 
+The corresponding long–short returns for NNs with 5 hidden layers 
+are much lower at 0.80% (𝑡-statistic = 3.79) and 0.21% per month 
+(𝑡-statistic  =  1.00),  respectively.  This  finding  is  consistent  with  Gu 
+et al. (2020), who show that shallow learning performs better than 
+deep learning. Third, the performance of long–short portfolios based 
+on neural network forecasts is much weaker than those documented 
+by prior machine learning studies. Gu et al. (2020), for example, show 
+that the long–short portfolios formed based on neural network forecasts 
+earn an average return of 3.33% per month in equal-weighted portfolios 
+and an average return of 2.26% in value-weighted portfolios. Overall, 
+similar  to  BRT,  our  results  based  on  neural  networks  suggest  that 
+the real-time performance of machine learning strategies based on a 
+universe of predictors is more modest than that obtained by using a 
+selected set of predictors, highlighting, once again, the importance of 
+the choice of input variables when implementing machine learning 
+investment strategies.
+
+3.4. ML implementation
+
+One might be concerned that the relatively weak performance of 
+our machine learning strategies is perhaps due to our ML implementa-
+tion not being as powerful as those employed in previous studies. To 
+evaluate this possibility, we replicate our ML results – both boosted 
+regression  trees  (BRT)  and  neural  networks  (NN)  –  on  samples  of 
+published anomalies.
+
+For ease of comparison with GKX, we use the sample of 94 anoma-
+lies listed in Green et al. (2017, GHZ).24 We downloaded the SAS code 
+that generates the 94 predictors from Jeremiah Green’s website at https:
+
+24 GKX  construct  their  data  set  based  on  GHZ’s  94  characteristics.  See 
+footnote 30 in Gu et al. (2020) for more details.
+
+//sites.google.com/site/jeremiahrgreenacctg/home.  The  second  sam-
+ple comprises the Chen and Zimmermann (2022, CZ) predictors. We 
+downloaded  the  data  from  https://www.openassetpricing.com/  and 
+used the March 2022 data release, which includes 207 anomaly predic-
+tors.25 The out-of-sample testing period for this analysis is 1987–2019, 
+the same as that for our main analyses based on fundamental signals 
+and past-return signals.26
+
+In  Table   4,  we  report  the  results  based  on  the  GHZ  sample  of 
+anomalies. We find that both BRT and neural networks (NN1 through 
+NN5) deliver an out-of-sample long–short return in excess of 3.5% per 
+month for equally weighted portfolios and over 1.5% per month for 
+value-weighted portfolios. We also find that NNs outperform BRT, in 
+line with the results in Gu et al. (2020). We obtain similar findings 
+when we focus on risk-adjusted returns, as shown in the remaining 
+columns of Table  4. BRT and neural networks generate a Sharpe ratio 
+between  2.21  and  2.81  in  equal-weighted  portfolios,  demonstrating 
+that our ML implementation could generate similar Sharpe ratios to 
+those in prior literature (e.g., Gu et al., 2020) when using published 
+predictors.27
+
+25 The  definitions  of  these  variables  are  available  at  https://www.
+openassetpricing.com/march-2022-data-release/.
+26 We also consider three alternative out-of-sample testing periods, namely 
+1987–2016, 1991–2004, and 1991–2014 in Tables IA.8 and IA.9. The perfor-
+mance of machine-learning strategies during these alternative sample periods 
+is qualitatively similar to and quantitatively stronger than that for 1987–2019.
+27 Note that, while rather similar, our results for BRT and NN1-NN5 in Table 
+4 do not replicate exactly those in Table 7 and Table A.9 of GKX. Three 
+implementation differences explain the results. First, the GKX predictions are 
+generated by interacting the original 94 predictors with 8 macroeconomic 
+predictors (such as the aggregate dividend-price ratio) from the Welch and 
+Goyal (2008) dataset, as well as 74 industry dummies. Second, the gradient 
+boosted regression trees (GBRT) in GKX is implemented using the scikit-learn 
+
+9 
+
+ 
+ 
+B. Li et al.
+
+Journal of Financial Economics 172 (2025) 104138 
+
+Table 3
+Performance of portfolios sorted by NN predicted returns. This table shows the performance of long–short portfolios sorted by neural network (NN) predicted returns. We consider 
+NN models with hidden layers that range from 1 through 5. The first three columns report average monthly returns for the long–short portfolios as well as the associated annualized 
+Sharpe ratios. The remaining columns report risk-adjusted returns—see Table  2 for details. The top panel reports results for equal-weighted returns. The bottom panel reports 
+results for value-weighted returns. All returns are expressed in percent per month.
+  Equal Weight
+  Method
+
+FF5+MOM
+
+Returns
+
+Carhart
+
+CAPM
+
+FF5
+
+FF3
+
+SR
+
+Q
+
+Avg
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+1.08
+1.03
+1.17
+0.99
+0.80
+
+  NN1
+  NN2
+  NN3
+  NN4
+  NN5
+  Value Weight
+  Method
+
+Returns
+
+  NN1
+  NN2
+  NN3
+  NN4
+  NN5
+
+Avg
+
+0.74
+0.32
+0.51
+0.42
+0.21
+
+6.09
+4.10
+5.32
+5.53
+3.79
+
+t-stat
+
+4.58
+1.42
+2.05
+2.47
+1.00
+
+1.16
+0.75
+1.10
+0.98
+0.74
+
+1.17
+1.17
+1.30
+1.10
+0.89
+
+6.51
+4.83
+5.55
+5.97
+4.17
+
+SR
+
+CAPM
+
+6.17
+4.89
+6.21
+5.84
+3.94
+
+1.11
+1.03
+1.17
+1.02
+0.80
+
+FF3
+
+1.14
+1.11
+1.15
+1.10
+0.84
+
+6.78
+6.31
+6.40
+7.04
+4.77
+
+Carhart
+
+5.71
+2.93
+5.35
+4.49
+2.79
+
+0.97
+0.81
+0.89
+0.93
+0.56
+
+FF5
+
+1.01
+0.89
+0.90
+0.99
+0.61
+
+6.18
+3.70
+5.41
+5.28
+3.30
+
+FF5+MOM
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+0.70
+0.23
+0.40
+0.36
+0.16
+
+0.74
+0.48
+0.65
+0.51
+0.33
+
+4.51
+2.07
+2.62
+3.15
+1.50
+
+0.68
+0.36
+0.52
+0.47
+0.29
+
+4.22
+1.85
+2.32
+2.93
+1.38
+
+0.72
+0.43
+0.56
+0.58
+0.28
+
+3.84
+2.17
+2.62
+3.07
+1.39
+
+0.62
+0.12
+0.13
+0.44
+0.03
+
+3.55
+0.52
+0.78
+2.42
+0.15
+
+0.66
+0.19
+0.20
+0.53
+0.05
+
+3.61
+0.83
+1.20
+2.75
+0.23
+
+alpha
+
+1.01
+0.73
+0.86
+0.92
+0.54
+
+Q
+
+alpha
+
+0.67
+0.12
+0.22
+0.55
+0.03
+
+t-stat
+5.59 
+2.34 
+4.53 
+4.08 
+2.37 
+
+t-stat
+3.65 
+0.48 
+1.19 
+2.77 
+0.13 
+
+Table 4
+Performance of portfolios sorted by ML predicted returns on the GHZ sample. This table reports the returns and risk-adjusted performance for the long–short portfolios sorted by 
+ML-predicted returns on the GHZ sample from 1987 to 2019. We predict stock monthly excess returns using the 94 signals collected by Green et al. (2017). We use a recursive 
+window approach and select the optimal hyper-parameters using a cross-validation approach. Our initial estimation period is 1963–1986. The first 12 years is the training period 
+and the second 12 years is the validation period. As we roll forward, the training period expands while the validation period stays at 12 years. The risk-adjusted performance are 
+calculated based on the CAPM model, the Fama–French 3-factor model, the Carhart 4-factor model, the Fama–French 5-factor model, the Fama–French 5-factor model augmented 
+with momentum factor, and the 𝑞-factor model. The top panel reports results for equal-weighted portfolios. The bottom panel reports results for value-weighted portfolios. All 
+returns are expressed in percent per month.
+  Equal Weight
+  Method
+
+FF5+MOM
+
+Returns
+
+Carhart
+
+CAPM
+
+FF5
+
+FF3
+
+SR
+
+Q
+
+Avg
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+3.57
+3.64
+4.21
+4.16
+4.19
+3.73
+
+  BRT
+  NN1
+  NN2
+  NN3
+  NN4
+  NN5
+  Value Weight
+  Method
+
+Returns
+
+  BRT
+  NN1
+  NN2
+  NN3
+  NN4
+  NN5
+
+Avg
+
+1.52
+1.62
+2.67
+2.42
+2.45
+2.02
+
+8.95
+8.37
+8.80
+8.65
+8.77
+7.99
+
+t-stat
+
+4.56
+4.60
+6.27
+5.64
+6.69
+4.67
+
+2.35
+2.62
+2.77
+2.64
+2.81
+2.21
+
+3.67
+3.69
+4.29
+4.25
+4.26
+3.83
+
+9.40
+8.18
+8.86
+8.71
+8.73
+8.18
+
+SR
+
+CAPM
+
+9.15
+8.47
+8.94
+8.75
+8.73
+8.29
+
+3.69
+3.67
+4.30
+4.26
+4.28
+3.86
+
+FF3
+
+3.37
+3.42
+4.04
+3.99
+3.98
+3.45
+
+8.62
+7.78
+8.41
+8.39
+8.29
+6.97
+
+Carhart
+
+7.86
+8.13
+8.48
+8.31
+8.12
+7.18
+
+3.67
+3.48
+4.17
+4.15
+4.10
+3.76
+
+FF5
+
+3.43
+3.32
+3.99
+3.96
+3.89
+3.47
+
+8.05
+7.53
+8.11
+8.18
+7.98
+6.55
+
+FF5+MOM
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+0.72
+0.88
+1.25
+1.14
+1.19
+1.04
+
+1.67
+1.83
+2.91
+2.68
+2.62
+2.27
+
+5.54
+4.72
+6.59
+5.79
+6.50
+5.00
+
+1.71
+1.79
+2.89
+2.66
+2.62
+2.30
+
+5.17
+5.83
+7.47
+6.35
+7.00
+5.34
+
+1.13
+1.12
+2.30
+2.00
+1.86
+1.66
+
+4.05
+4.48
+7.11
+6.33
+5.96
+4.98
+
+1.56
+1.32
+2.52
+2.20
+2.21
+2.02
+
+3.27
+4.20
+6.21
+4.84
+5.34
+4.25
+
+1.15
+0.87
+2.13
+1.75
+1.68
+1.58
+
+3.35
+3.56
+6.32
+5.48
+5.28
+4.57
+
+3.36
+3.40
+4.07
+4.03
+3.97
+3.55
+
+Q
+
+alpha
+
+1.11
+1.00
+2.23
+1.90
+1.80
+1.76
+
+t-stat 
+6.74  
+7.87  
+8.07  
+7.92  
+7.74  
+6.35  
+
+t-stat 
+2.24  
+3.36  
+5.44  
+4.23  
+4.28  
+3.51  
+
+In Table  5, we report the results that use the Chen and Zimmermann 
+(2022) covariates. The results for this set of covariates are even more 
+impressive. For example, BRT generate an equal-weighted long–short 
+return of 5.14% per month and a VW long–short return of 2.32% per 
+month. Adjusting for risk using standard models reveals very similar 
+findings. Furthermore, BRT deliver an equally-weighted Sharpe ratio 
+of 3.64. The results for shallow neural networks are somewhat lower 
+than those of BRT but still very strong.
+
+Taken together, these results indicate that our ML implementation 
+is capable of generating rather strong performance when we use pub-
+lished predictors.  The fact that we are able to replicate the strong 
+
+package in Python. We instead use the LightGBM implementation in Python. 
+Third, despite our best efforts to replicate GKX’s implementation of neural 
+networks, it is possible that some differences remain.
+
+10 
+
+ML performance of previous studies when we use published predictors 
+indicates that our ML implementation is not the reason why the perfor-
+mance of ML strategies based on our universe of fundamental signals 
+is relatively weak. Overall, this analysis confirms that the performance 
+differences between our machine-learning strategies and those in recent 
+studies are primarily driven by the choice of input features rather than 
+the specific machine-learning implementations used.
+
+3.5. A simple recursive ranking strategy
+
+Our findings suggest that the economic benefits for real-time in-
+vestors from applying our machine-learning strategies are relatively 
+modest. However, Yan and Zheng (2017, Table 3) have shown evidence 
+that investors could obtain large economic gains by learning from a 
+universe of return signals. In this section, we construct a simple recur-
+sive ranking strategy following Yan and Zheng (2017). Specifically, we 
+
+ 
+ 
+ 
+ 
+B. Li et al.
+
+Journal of Financial Economics 172 (2025) 104138 
+
+Table 5
+Performance of portfolios sorted by ML predicted returns on the CZ sample. This table reports the returns and risk-adjusted performance for the long–short portfolios sorted by ML-
+predicted returns on the CZ sample from 1987 to 2019. We predict stock monthly excess returns using the March 2022 data release from https://www.openassetpricing.com/data/, 
+which contains the 207 signals collected by Chen and Zimmermann (2022). We use a recursive window approach and select the optimal hyper-parameters using a cross-validation 
+approach. Our initial estimation period is 1963–1986. The first 12 years is the training period and the second 12 years is the validation period. As we roll forward, the training 
+period expands while the validation period stays at 12 years. The risk-adjusted performance are calculated based on the CAPM model, the Fama–French 3-factor model, the Carhart 
+4-factor model, the Fama–French 5-factor model, the Fama–French 5-factor model augmented with momentum factor, and the 𝑞-factor model. The top panel reports results for 
+equal-weighted portfolios. The bottom panel reports results for value-weighted portfolios. All returns are expressed in percent per month.
+  Equal Weight
+  Method
+
+FF5+MOM
+
+Returns
+
+Carhart
+
+CAPM
+
+FF5
+
+FF3
+
+SR
+
+Q
+
+Avg
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+5.14
+4.66
+4.91
+4.65
+4.62
+4.57
+
+  BRT
+  NN1
+  NN2
+  NN3
+  NN4
+  NN5
+  Value Weight
+  Method
+
+Returns
+
+  BRT
+  NN1
+  NN2
+  NN3
+  NN4
+  NN5
+
+Avg
+
+2.32
+2.30
+2.84
+2.25
+2.34
+2.27
+
+10.35
+9.43
+10.07
+10.06
+9.40
+9.50
+
+t-stat
+
+7.21
+6.65
+8.69
+6.39
+6.37
+7.70
+
+3.64
+3.46
+3.57
+3.41
+3.37
+3.29
+
+5.28
+4.78
+5.05
+4.78
+4.73
+4.67
+
+10.40
+9.33
+10.03
+9.98
+9.25
+9.45
+
+SR
+
+CAPM
+
+10.79
+9.74
+10.48
+10.21
+9.73
+9.66
+
+5.23
+4.75
+5.00
+4.74
+4.69
+4.66
+
+FF3
+
+4.91
+4.62
+4.85
+4.57
+4.59
+4.53
+
+10.85
+9.49
+10.21
+9.99
+9.33
+9.24
+
+Carhart
+
+10.00
+9.39
+10.01
+9.64
+9.45
+9.38
+
+5.02
+4.62
+4.78
+4.57
+4.53
+4.58
+
+FF5
+
+4.81
+4.55
+4.69
+4.47
+4.47
+4.49
+
+10.32
+9.39
+10.03
+9.72
+9.25
+9.24
+
+FF5+MOM
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+1.25
+1.40
+1.75
+1.33
+1.29
+1.41
+
+2.59
+2.43
+3.08
+2.46
+2.49
+2.43
+
+8.41
+6.66
+9.33
+6.75
+6.49
+8.08
+
+2.59
+2.39
+3.02
+2.40
+2.45
+2.38
+
+8.09
+7.02
+9.93
+6.95
+7.22
+8.02
+
+1.92
+1.89
+2.51
+1.95
+1.99
+1.99
+
+9.01
+6.41
+9.04
+6.63
+6.56
+7.40
+
+2.30
+2.23
+2.71
+2.06
+2.17
+2.21
+
+5.67
+5.51
+8.08
+5.61
+7.57
+6.54
+
+1.83
+1.87
+2.36
+1.76
+1.86
+1.93
+
+7.49
+5.95
+8.47
+5.92
+6.93
+6.90
+
+4.84
+4.60
+4.73
+4.49
+4.51
+4.54
+
+Q
+
+alpha
+
+1.96
+1.95
+2.40
+1.86
+1.93
+1.99
+
+t-stat 
+9.53  
+8.83  
+9.67  
+9.30  
+9.00  
+8.65  
+
+t-stat 
+4.60  
+4.87  
+7.57  
+5.22  
+6.51  
+5.74  
+
+follow Yan and Zheng (2017) and first construct a long–short strategy 
+of stocks based on each fundamental signal in our sample. We then 
+sort all signals each year into deciles based on the 𝑡-stat of their past 
+long–short portfolio alphas using a recursive window. Finally, we form 
+an equal-weighted portfolio of signals by going long in those signals 
+ranked in the highest 𝑡-stat decile and shorting those signals ranked 
+in the lowest 𝑡-stat decile. Unlike Yan and Zheng (2017), we apply 
+a recursive-window approach instead of dividing the sample period 
+into two halves. These portfolios are held for one year and rebalanced 
+annually. To align with our machine-learning strategies, the out-of-
+sample  evaluation  begins  in  1987.  This  strategy  would  have  been 
+accessible to real-time investors since it relies solely on historical data 
+to form the portfolios. Importantly, this procedure can be viewed as a 
+crude machine-learning strategy that selects a subset of predictors to be 
+included in the final investment strategy out of the universe of available 
+ones using the 𝑡-statistic of their past univariate performance.
+
+Table  6 presents the out-of-sample performance of the recursive-
+ranking strategy. As in earlier tables, we provide both raw returns and 
+a range of risk-adjusted returns, along with the Sharpe ratios. Panel A 
+displays results for equal-weighted portfolios, while Panel B reports the 
+results for value-weighted portfolios. Overall, the results highlight the 
+strong performance of this investment strategy. For instance, the equal-
+weighted long–short portfolio generates an average monthly return of 
+0.87% with a 𝑡-statistic of 9.05 and a Sharpe ratio of 1.60. Notably, 
+this Sharpe ratio exceeds those of our machine-learning strategies (1.02 
+for BRT and 1.16 for NN1). Similarly, the value-weighted long–short 
+portfolio delivers an average monthly return of 0.80%, with a 𝑡-statistic 
+of 6.60 and a Sharpe ratio of 1.17, again outperforming our machine-
+learning strategies, which had Sharpe ratios of 0.30 for BRT and 0.70 
+for NN1.
+
+The fact that feeding the universe of predictors to our machine-
+learning methods results in performance that is not only inferior to the 
+same methods that use curated sets of predictors but also worse than a 
+simple recursive ranking strategy that incorporates feature engineering 
+underscores the importance of imposing an appropriate structure or 
+‘‘inductive bias’’ on machine-learning algorithms (Goyal and Bengio, 
+2022). Inductive biases encompass preferences or constraints imposed 
+on the hypothesis space to guide learning and improve generalization 
+in  machine  learning  methods.  This  effectively  shapes  the  learning 
+
+process by narrowing the focus of machine learning methods to specific 
+predictor variables, thereby enhancing their performance and leading 
+to greater economic gains for real-time investors.
+
+3.6. Past-return signals
+
+Our analyses so far have focused on fundamental signals. The main 
+reason for this focus is that we can construct a ‘‘universe’’ of fundamen-
+tal signals (Yan and Zheng, 2017). Past return-based signals represent 
+another class of signals for which we can construct an ‘‘exhaustive’’ list. 
+In this section, we follow Martin and Nagel (2022) and construct a uni-
+verse of past return-based signals and then repeat our main analyses.28 
+Specifically, we include in our universe the monthly returns during 
+the past 120 months, excluding the most recent month. Martin and 
+Nagel (2022) exclude the most recent month to avoid microstructure 
+effects. Therefore, we have 119 past return-based signals in our baseline 
+analysis. To gauge the impact of short-term reversal, we also repeat our 
+analysis by adding the most recent month’s return to the predictor set.
+Our stock sample for this analysis consists of the NYSE, AMEX, and 
+NASDAQ common stocks (with a CRSP share code of 10 or 11) with 
+valid past return data. We exclude those stocks with a share price lower 
+than $1 at the end of month 𝑡 − 1. For ease of comparison with our 
+analysis of fundamental signals and previous machine learning studies, 
+the sample period of our past-return analysis spans from July 1963 to 
+December 2019. We employ the same training, cross-validation, and 
+out-of-sample testing periods as in our study of fundamental signals.
+
+We continue to use BRT as the primary machine-learning method 
+but also examine neural networks with 1 to 5 hidden layers. As in our 
+analysis of fundamental signals, we form long–short portfolios of stocks 
+based on the machine learning predicted returns. Specifically, we go 
+long in the stocks with the highest predicted returns and short in the 
+stocks with the lowest predicted returns. We track the performance 
+of  these  portfolios  for  one  month  and  compute  the  return  spread 
+between the long and short portfolios. For performance evaluation, 
+we  report  alphas  for  the  long–short  portfolio  using  the  CAPM,  the 
+
+28 Moritz and Zimmermann (2016) and Murray et al. (2024) also examine 
+machine learning strategies based on past-return signals.
+
+11 
+
+ 
+ 
+B. Li et al.
+
+Journal of Financial Economics 172 (2025) 104138 
+
+Table 6
+Performance of portfolios sorted using a simple recursive ranking strategy. This table reports the returns and risk-adjusted performance for decile and long–short portfolios 
+constructed using a simple recursive ranking strategy from 1987 to 2019. We use the baseline samples in Table  1, and conduct the analysis using a recursive window specification. 
+We first construct a long–short strategy based on each fundamental signal and then perform a simple recursive ranking of all signals according to their past strategy performance. 
+Finally, we form decile and long–short portfolios based on this ranking. The first three columns report average monthly returns for the long–short portfolios as well as the associated 
+annualized Sharpe ratios. The risk-adjusted performance is calculated based on the CAPM model, the Fama–French 3-factor model, the Carhart 4-factor model, the Fama–French 
+5-factor model, the Fama–French 5-factor model augmented with momentum factor, and the 𝑞-factor model. The top panel reports results for equal-weighted portfolios. The bottom 
+panel reports results for value-weighted portfolios. All returns are expressed in percent per month.
+  Equal Weight
+  Rank
+
+FF5+MOM
+
+Returns
+
+Carhart
+
+CAPM
+
+FF5
+
+FF3
+
+SR
+
+Q
+
+Avg
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+−0.48
+−0.25
+−0.15
+−0.07
+−0.01
+0.06
+0.14
+0.22
+0.29
+0.39
+0.87
+
+  L(ow)
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+  H(igh)
+  H-L
+  Value Weight
+  Rank
+
+Returns
+
+−8.34
+−9.66
+−6.89
+−2.12
+−0.40
+1.51
+4.11
+4.45
+7.96
+8.88
+9.05
+
+−1.47
+−1.71
+−1.22
+−0.37
+−0.07
+0.27
+0.73
+0.79
+1.41
+1.57
+1.60
+
+−0.54
+−0.26
+−0.14
+−0.04
+0.01
+0.10
+0.16
+0.26
+0.32
+0.44
+0.97
+
+−6.18
+−6.56
+−5.12
+−1.12
+0.41
+2.52
+4.75
+5.23
+7.86
+6.75
+6.64
+
+−0.51
+−0.26
+−0.16
+−0.06
+−0.01
+0.07
+0.15
+0.24
+0.30
+0.41
+0.91
+
+−6.45
+−7.02
+−6.68
+−2.15
+−0.33
+2.79
+6.30
+6.76
+9.61
+8.42
+7.47
+
+−0.44
+−0.24
+−0.16
+−0.08
+−0.03
+0.03
+0.11
+0.18
+0.26
+0.35
+0.79
+
+−6.67
+−7.43
+−6.86
+−2.98
+−1.34
+1.26
+4.96
+5.84
+9.99
+9.15
+7.96
+
+−0.41
+−0.24
+−0.17
+−0.11
+−0.07
+0.00
+0.08
+0.13
+0.22
+0.29
+0.70
+
+−5.49
+−7.45
+−7.45
+−3.60
+−2.60
+−0.12
+3.25
+4.09
+7.38
+7.02
+6.25
+
+−0.36
+−0.23
+−0.16
+−0.12
+−0.08
+−0.03
+0.05
+0.10
+0.20
+0.26
+0.63
+
+−6.02
+−7.90
+−7.38
+−3.96
+−2.96
+−0.85
+2.24
+3.12
+7.30
+8.07
+7.17
+
+−0.38
+−0.24
+−0.17
+−0.13
+−0.09
+−0.04
+0.05
+0.09
+0.20
+0.28
+0.66
+
+−5.11
+−6.21
+−5.78
+−3.44
+−2.69
+−1.06
+1.68
+2.27
+6.00
+7.27
+6.15
+
+SR
+
+CAPM
+
+FF3
+
+Carhart
+
+FF5
+
+FF5+MOM
+
+Q
+
+Avg
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+  L(ow)
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+  H(igh)
+  H-L
+
+−0.37
+−0.20
+−0.13
+−0.07
+−0.03
+0.04
+0.10
+0.18
+0.28
+0.43
+0.80
+
+−5.65
+−7.27
+−5.24
+−2.90
+−0.96
+1.20
+2.77
+3.61
+5.36
+7.00
+6.60
+
+−1.00
+−1.29
+−0.93
+−0.51
+−0.17
+0.21
+0.49
+0.64
+0.95
+1.24
+1.17
+
+−0.45
+−0.22
+−0.11
+−0.04
+0.01
+0.08
+0.15
+0.25
+0.35
+0.50
+0.95
+
+−4.20
+−4.45
+−3.95
+−1.89
+0.25
+2.34
+3.45
+3.97
+4.55
+4.53
+4.44
+
+−0.40
+−0.21
+−0.12
+−0.05
+−0.01
+0.06
+0.12
+0.22
+0.32
+0.47
+0.87
+
+−5.19
+−5.25
+−4.74
+−2.79
+−0.63
+2.61
+4.34
+5.02
+5.63
+5.55
+5.51
+
+−0.34
+−0.18
+−0.11
+−0.06
+−0.02
+0.04
+0.09
+0.17
+0.27
+0.40
+0.74
+
+−4.88
+−4.90
+−4.45
+−3.04
+−1.47
+1.73
+3.60
+4.56
+5.54
+5.54
+5.39
+
+−0.26
+−0.16
+−0.11
+−0.08
+−0.05
+0.00
+0.05
+0.10
+0.20
+0.32
+0.58
+
+−5.17
+−5.31
+−4.78
+−3.55
+−2.89
+−0.18
+2.25
+4.14
+5.73
+5.66
+5.70
+
+−0.22
+−0.15
+−0.11
+−0.08
+−0.06
+−0.02
+0.03
+0.07
+0.17
+0.29
+0.51
+
+−4.94
+−4.91
+−4.48
+−3.73
+−3.34
+−1.15
+1.40
+3.70
+6.00
+5.96
+5.84
+
+−0.24
+−0.16
+−0.12
+−0.08
+−0.06
+−0.02
+0.03
+0.08
+0.18
+0.30
+0.54
+
+−4.44
+−4.92
+−4.29
+−3.35
+−3.00
+−0.83
+1.24
+2.63
+4.97
+5.44
+5.21
+
+Fama–French three-factor model, and the Carhart four-factor model, 
+the Fama–French five-factor alphas, Fama–French five-factor plus mo-
+mentum factor alphas, and 𝑞-factor alphas. We report results for both 
+equal-weighted and value-weighted portfolios.
+
+Table  7 report the results. Panel A reports the results for our baseline 
+sample  that  excludes  the  most  recent  month,  i.e.,  119  past  return 
+signals, while Panel B reports the results for 120 past return signals that 
+include the most recent month. In each panel, we report the results for 
+BRT as well as neural networks with 1–5 hidden layers. As in previous 
+tables, we report raw returns, risk-adjusted returns, and Sharpe ratios.29
+In Panel A, we find that the BRT strategy based on past-return 
+signals earns an average return of 1.38% per month (𝑡-statistic = 4.93) 
+and exhibits an annualized Sharpe ratio of 1.04 in equal-weighted port-
+folios.30 The performance of value-weighted portfolios is significantly 
+weaker. The average long–short return is 0.78% per month (𝑡-statistic 
+= 2.41), while the Sharpe ratio is 0.46. The results based on neu-
+ral network forecasts are qualitatively similar, with shallow networks 
+(NN1 and NN2) performing similarly to BRT and deep networks (NN3 
+through NN5) performing worse than BRT.
+
+Risk-adjusted returns indicate that the performance is significantly 
+reduced when we control for the momentum factor. For example, the 
+Carhart alpha is 1.09% (𝑡-statistic = 6.62) for equal-weighted portfo-
+lios and 0.63% (𝑡-statistic = 3.05) for value-weighted portfolios. The 
+FF5+MOM alpha is even lower, at 0.78% (𝑡-statistic = 5.83) for equal-
+weighted portfolios and 0.28% (𝑡-statistic = 1.55) for value-weighted 
+
+29 For brevity, we only report the long–short portfolio returns in this table.
+30 Appendix  D reports the top 25 past-return signals. Return during month 
+𝑡 − 24 is the most important predictor, followed by return during month 𝑡 − 12. 
+Overall, the list is dominated by past returns during the past two years.
+
+portfolios. The smaller Carhart alpha and the smaller FF5+MOM alpha 
+are not surprising because much of the predictive ability of past returns 
+is related to the momentum effect of Jegadeesh and Titman (1993).
+
+The results reported in Panel B, which includes the short-term rever-
+sal, are measurably higher than those reported in Panel A. Specifically, 
+we find that the BRT strategy earns an average return of 1.81% per 
+month (𝑡-statistic = 6.40) and exhibits an annualized Sharpe ratio of 
+1.77 in equal-weighted portfolios. The average long–short return for 
+value-weighted portfolios is 0.98% per month (𝑡-statistic = 3.14), while 
+the Sharpe ratio is 0.66. The results based on neural network forecasts 
+are qualitatively similar. We again find that shallow networks (NN1 
+and NN2) perform better than deep networks. Risk-adjusted returns 
+continue to indicate that the performance is significantly reduced when 
+we control for the momentum factor.
+
+Overall, our results based on past-return signals are broadly con-
+sistent with those based on fundamental signals. Specifically, we find 
+significant long–short returns for our machine learning strategies, sug-
+gesting that real-time investors benefit from machine learning forecasts. 
+However, the performance of these real-time machine-learning strate-
+gies is weaker or significantly weaker than those reported in the prior 
+literature. For example, Moritz and Zimmermann (2016) and Murray 
+et al. (2024) use past 12 or 24 monthly returns to construct predictive 
+signals and find Sharpe ratios of 2.96 (equal-weighted) and 0.78 (value-
+weighted), respectively. In comparison, our past-return-based machine 
+learning strategies deliver a Sharpe ratio of 1.04 for EW portfolios 
+and 0.46 for VW portfolios when we exclude short-term reversal, and 
+a Sharpe ratio of 1.77 for EW portfolios and 0.66 for VW portfolios 
+when we include short-term reversal. It is important to note that the 
+higher Sharpe ratios of Moritz and Zimmermann (2016) and Murray 
+et al. (2024), like those of our machine-learning strategies, are avail-
+able to real-time investors. Comparing our Sharpe ratios with those 
+
+12 
+
+ 
+ 
+B. Li et al.
+
+Journal of Financial Economics 172 (2025) 104138 
+
+Table 7
+Performance of portfolios constructed using past-return signals. This table reports the returns and risk-adjusted performance for the long–short portfolios sorted by ML-predicted 
+returns based on past-return signals from 1987 to 2019. We predict stock monthly excess returns using 119 or 120 past-return signals (PR119 and PR120 as described in Section 3.6). 
+Our sample starts in 1963, and the out-of-sample periods begin in 1987, which is consistent with our baseline specifications on fundamental signals. We use a recursive window 
+approach and select the optimal hyper-parameters using a cross-validation approach. Our initial estimation period is 1963–1986. The first 12 years is the training period, and 
+the second 12 years is the validation period. As we roll forward, the training period expands while the validation period stays at 12 years. The risk-adjusted performance is 
+calculated based on the CAPM model, the Fama–French 3-factor model, the Carhart 4-factor model, the Fama–French 5-factor model, the Fama–French 5-factor model augmented 
+with momentum factor, and the 𝑞-factor model. The top panel reports results for equal-weighted portfolios. The bottom panel reports results for value-weighted portfolios. All 
+returns are expressed in percent per month.
+  Panel A: PR119
+  Method
+
+FF5+MOM
+
+Returns
+
+Carhart
+
+CAPM
+
+FF5
+
+FF3
+
+SR
+
+Q
+
+Avg
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+  Equal Weight
+  BRT
+  NN1
+  NN2
+  NN3
+  NN4
+  NN5
+
+1.38
+1.37
+1.52
+1.06
+1.19
+0.66
+
+  Value Weight
+  BRT
+  NN1
+  NN2
+  NN3
+  NN4
+  NN5
+
+0.78
+0.99
+1.11
+0.74
+0.79
+0.56
+
+4.93
+5.49
+6.07
+4.20
+6.54
+4.23
+
+2.41
+3.34
+3.97
+2.28
+3.97
+3.17
+
+  Panel B: PR120
+  Method
+
+Returns
+
+1.04
+1.01
+1.09
+0.86
+1.09
+0.68
+
+0.46
+0.58
+0.63
+0.48
+0.56
+0.46
+
+1.63
+1.51
+1.66
+1.17
+1.29
+0.76
+
+1.17
+1.12
+1.28
+0.83
+0.91
+0.70
+
+5.86
+6.51
+7.54
+4.97
+6.86
+5.28
+
+4.00
+3.96
+4.75
+2.72
+4.17
+4.17
+
+1.56
+1.55
+1.71
+1.19
+1.33
+0.77
+
+1.07
+1.22
+1.39
+0.90
+1.01
+0.72
+
+6.90
+6.82
+7.75
+5.41
+7.44
+5.26
+
+4.23
+4.28
+5.24
+2.91
+5.13
+4.51
+
+1.09
+0.89
+1.02
+0.63
+0.87
+0.44
+
+0.63
+0.42
+0.58
+0.26
+0.52
+0.33
+
+6.62
+6.41
+8.66
+4.53
+8.20
+3.11
+
+3.05
+2.18
+3.27
+1.12
+2.62
+1.99
+
+1.09
+1.27
+1.43
+0.93
+1.10
+0.58
+
+0.56
+1.00
+1.19
+0.80
+0.91
+0.53
+
+4.82
+4.58
+4.95
+3.74
+5.85
+2.84
+
+2.37
+2.77
+3.67
+2.24
+4.37
+2.85
+
+0.78
+0.81
+0.95
+0.54
+0.77
+0.35
+
+0.28
+0.44
+0.61
+0.34
+0.56
+0.26
+
+5.83
+5.20
+6.65
+3.51
+7.29
+2.32
+
+1.55
+2.13
+3.53
+1.34
+3.01
+1.58
+
+SR
+
+CAPM
+
+FF3
+
+Carhart
+
+FF5
+
+FF5+MOM
+
+Avg
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+alpha
+
+t-stat
+
+  Equal Weight
+  BRT
+  NN1
+  NN2
+  NN3
+  NN4
+  NN5
+
+1.81
+1.83
+1.87
+1.46
+1.41
+1.46
+
+  Value Weight
+  BRT
+  NN1
+  NN2
+  NN3
+  NN4
+  NN5
+
+0.98
+1.13
+1.32
+1.04
+1.00
+0.75
+
+6.40
+8.43
+7.85
+6.43
+5.80
+6.53
+
+3.14
+4.96
+5.32
+3.69
+3.97
+3.56
+
+1.77
+1.77
+1.83
+1.41
+1.46
+1.45
+
+0.66
+0.79
+0.94
+0.72
+0.74
+0.58
+
+1.83
+1.77
+1.84
+1.44
+1.39
+1.46
+
+1.13
+1.13
+1.35
+1.03
+1.04
+0.74
+
+6.21
+8.06
+7.89
+6.43
+5.75
+6.15
+
+3.61
+4.78
+5.48
+3.65
+4.06
+3.36
+
+1.76
+1.80
+1.88
+1.46
+1.41
+1.46
+
+1.04
+1.21
+1.42
+1.09
+1.12
+0.80
+
+6.76
+8.22
+7.91
+6.68
+5.88
+6.45
+
+3.77
+5.31
+5.91
+3.99
+4.47
+3.69
+
+1.67
+1.49
+1.56
+1.13
+1.16
+1.22
+
+0.74
+0.69
+0.86
+0.57
+0.69
+0.37
+
+6.08
+7.48
+6.84
+5.70
+4.92
+5.55
+
+2.76
+3.59
+4.65
+3.03
+3.15
+2.10
+
+1.57
+1.71
+1.80
+1.36
+1.32
+1.33
+
+0.72
+1.15
+1.34
+0.97
+1.07
+0.76
+
+6.67
+8.47
+7.97
+6.85
+5.87
+6.29
+
+3.17
+5.29
+5.46
+3.41
+4.28
+3.14
+
+1.52
+1.49
+1.58
+1.13
+1.14
+1.16
+
+0.52
+0.77
+0.94
+0.60
+0.75
+0.45
+
+5.98
+7.22
+6.68
+5.45
+4.85
+5.18
+
+2.14
+3.55
+4.47
+3.12
+3.23
+2.15
+
+0.78
+0.84
+0.99
+0.59
+0.87
+0.35
+
+0.28
+0.60
+0.82
+0.44
+0.72
+0.39
+
+Q
+
+alpha
+
+1.47
+1.50
+1.58
+1.10
+1.15
+1.15
+
+0.42
+0.84
+0.98
+0.66
+0.84
+0.54
+
+t-stat 
+
+3.89  
+2.87  
+3.12  
+2.13  
+4.82  
+1.60  
+
+1.36  
+1.55  
+2.26  
+1.09  
+3.39  
+1.73  
+
+t-stat 
+
+5.13  
+6.98  
+6.58  
+5.49  
+4.59  
+4.88  
+
+1.50  
+3.56  
+3.81  
+2.40  
+3.23  
+2.16  
+
+documented by Moritz and Zimmermann (2016) and Murray et al. 
+(2024) suggests that using a curated set of inputs – a form of feature 
+engineering – is critical for the performance of ML strategies.
+
+4. Additional results
+
+In this section, we provide several extensions and robustness tests 
+of  our  baseline  analysis.  Section  4.1  employs  rolling  windows  in-
+stead of recursive windows in estimating the BRT model. Section 4.2 
+studies whether our results are robust to alternative training and valida-
+tion periods. Section 4.3 examines the performance of BRT long–short 
+portfolios separately for large and small stocks. Section 4.4 examines 
+the after-trading-cost performance of our machine-learning strategies. 
+Finally, Section 4.5 investigates whether the performance of BRT port-
+folios varies with economic and market conditions. In all cases, we use 
+our universe of fundamental signals as input for our machine-learning 
+methods. For brevity, we report the results of these additional analyses 
+in the Internet Appendix.
+
+4.1. Rolling windows
+
+Recursive windows allow for incorporating all available information 
+in  generating  forecasts,  but  they  can  lead  to  poor  forecasts  if  the 
+data-generating process changes over time. An alternative to recursive 
+windows is rolling windows that generate forecasts based on less in-
+formation and hence are potentially less precise but are more robust 
+to time variations in the relation between fundamental signals and 
+returns.  If  the  relation  between  the  fundamental  signals  and  stock 
+returns is time-varying, rolling windows may improve the predictive 
+power of machine learning algorithms. To assess this possibility, we 
+repeat our main analysis using the rolling window approach described 
+below.
+
+We set the initial estimation period to 24 years so that our out-
+of-sample test period starts from 1987, the same as in the recursive 
+window approach. To select the optimal hyper-parameters, we split the 
+24 years into training and validation periods following our baseline 
+specification. In particular, our training period is 12 years, and the 
+validation  period  is  12  years.31  After  obtaining  the  optimal  hyper-
+parameters, we re-estimate the final model using the 24-year window. 
+Each year we refit the model by moving the 24-year window forward 
+
+We use recursive windows in our baseline specification to align 
+ourselves with the majority of the literature (e.g., Gu et al., 2020). 
+
+31 We have considered several alternative training and validation periods 
+and find our results to be qualitatively similar.
+
+13 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+B. Li et al.
+
+by  one  year.  The  estimation  period  is  fixed  at  24  years  under  the 
+rolling window approach. In comparison, under the recursive window 
+approach, the estimation period expands as we roll forward.
+
+Table IA.1 presents the performance of BRT portfolios for the rolling 
+window approach. We find that the equally weighted portfolios achieve 
+a long–short return of 0.83% per month (𝑡-statistic = 4.27) and a Sharpe 
+ratio of 0.77. These numbers are lower than their counterparts for the 
+recursive window approach. Specifically, in Table  1 we report that 
+the equal-weighted portfolios exhibit a long–short return of 0.95% (𝑡-
+statistic = 6.63) and a Sharpe ratio of 1.02. The risk-adjusted returns for 
+the rolling window approach are also correspondingly lower than those 
+for  the  recursive  window  approach.  The  results  for  value-weighted 
+portfolios paint a similar picture. For example, the average long–short 
+return is 0.33% (𝑡-statistic = 1.35) under the rolling window approach, 
+compared to the 0.40% (𝑡-statistic = 2.34) under the recursive window 
+approach.  Overall,  we  find  that  the  performance  of  BRT  portfolios 
+based on a universe of predictors is somewhat weaker for the rolling 
+window approach than for the recursive window approach.
+
+4.2. Alternative training and validation periods
+
+In our baseline specification, we use an initial training period of 
+12 years and a validation period of 12 years. In comparison, Gu et al. 
+(2020) employ an initial training period of 18 years and a validation 
+period of 12 years. As explained earlier, we choose an initial training 
+period of 12 years because we want to start our out-of-sample test 
+period in 1987, the same as in Gu et al. (2020). In this section, we 
+examine whether our results are robust to our choices of the initial 
+training period and validation period. Specifically, we consider nine 
+alternative  specifications  in  which  the  initial  training  period  varies 
+from 10 to 18 years, while the validation period varies from 10 to 
+14 years. We examine the performance of BRT portfolios under each 
+of these alternative specifications.
+
+Table IA.2 presents the results. The top panel reports the results 
+for equal-weighted portfolios, while the bottom panel reports the re-
+sults for value-weighted portfolios. For convenience, we reproduce the 
+results for our baseline specification in the first row of each panel. 
+Our baseline specification is denoted as ‘‘12+12’’, meaning 12 years 
+of initial training period and 12 years of validation period. We denote 
+the alternative specifications similarly. For example, ‘‘18+12’’ means 
+18 years of initial training and 12 years of validation period.
+
+Overall, our results are highly robust across all alternative spec-
+ifications. For example, the equal-weighted long–short returns range 
+from 0.87% to 1.02% across the alternative specifications, compared 
+to 0.95% for the baseline specification. Similarly, the value-weighted 
+long–short returns range from 0.37% to 0.55% across the alternative 
+specifications, compared to 0.40% for the baseline specification. The 
+level of statistical significance for the long–short returns is also similar 
+between the baseline and alternative specifications. Finally, the results 
+on risk-adjusted returns are also robust to alternative specifications of 
+initial training and validation periods.
+
+4.3. Focusing on stocks with different market capitalizations
+
+To  evaluate  whether  the  performance  of  our  machine  learning 
+strategies varies across stocks with different capitalizations, each year 
+we divide our sample stocks into two groups based on the median 
+market capitalization: those above the median are large stocks and 
+those below the median are small stocks. We then repeat our baseline 
+analysis for each of these two groups of stocks and report the results in 
+Table IA.3.
+
+The top panel of Table IA.3 reports the results for equal-weighted 
+portfolios. We find that the raw and risk-adjusted long–short returns 
+are positive and significant for both large and small stocks. More im-
+portantly, the long–short performance is significantly higher for small 
+stocks than for large stocks. Specifically, the long–short return is 0.63% 
+
+Journal of Financial Economics 172 (2025) 104138 
+
+per month (𝑡-statistic = 2.93) for large stocks and is 1.13% (𝑡-statistic 
+= 6.14) for small stocks. The lower predictive performance for large 
+stocks is not surprising. These stocks are likely to incorporate new 
+information more quickly and are hence less likely to be predictable 
+using machine learning algorithms.
+
+The results for value-weighted portfolios are qualitatively similar. 
+The average long–short return for large stocks is only 0.27% (𝑡-statistic 
+= 1.23). The long–short returns for large stocks do become marginally 
+significant when we control for risks using the Carhart 4-factor model, 
+the Fama–French 5-factor model, the Fama–French 5-factor augmented 
+with momentum, and the 𝑞-factor model. In comparison, the average 
+long–short return for small stocks is economically and statistically sig-
+nificant whether we examine raw or risk-adjusted returns. For example, 
+the average long–short return for small stocks is 1.16% (𝑡-statistic = 
+5.50).
+
+Overall, the results in Table IA.3 indicate that the long–short per-
+formance of BRT portfolios is weaker for large stocks than for small 
+stocks. This finding suggests that machine learning methods based on 
+a universe of predictors are better at predicting the returns of smaller 
+stocks, for which news is incorporated more slowly into asset prices.
+
+4.4. After-trading-cost performance
+
+For ease of comparison with prior literature (e.g., Gu et al., 2020; 
+Freyberger et al., 2020; Chen et al., 2024c), we focus on the gross 
+performance of our machine learning strategies in this paper. There 
+is,  however,  growing  attention  to  trading  costs  in  the  anomaly  lit-
+erature and ML literature (e.g., Novy-Marx and Velikov, 2016; Chen 
+and Velikov, 2022; Jensen et al., 2022). In this section, we provide a 
+simple analysis of the net performance (after-trading-cost returns) of 
+our machine-learning strategies based on a universe of predictors.
+
+We follow the general approach of Chen and Velikov (2022) to 
+calculate turnover, trading costs, and net returns to long–short trad-
+ing strategies. We also use their low-frequency (LF) measures of ef-
+fective  spreads  as  our  trading  cost  measure.32  These  four  LF  mea-
+sures are (i) (Hasbrouck, 2009)’s Gibbs sampler estimate, (ii) (Corwin 
+and  Schultz,  2012)’s  high-low  measure,  (iii)  (Kyle  and  Obizhaeva, 
+2016)’s volume-over-volatility measure, and (iv) (Abdi and Ranaldo, 
+2017)’s close-high-low measure. Following Chen and Velikov (2022), 
+we use the average of the four low-frequency (LF) measures of effective 
+spreads.
+
+In Table IA.4, we show that the turnover rate for our BRT strategy 
+based on fundamental signals is fairly low, with a two-sided turnover 
+of 14% per month for both EW portfolios and VW portfolios. These 
+relatively low turnover rates are not surprising because most of the fun-
+damental signals are updated annually and we rebalance our portfolios 
+once a year. We find that trading costs account for significantly less 
+than half of the gross returns to our ML strategy. The net returns to the 
+BRT strategy remain positive, at 0.73% per month for EW portfolios 
+and 0.25% for VW portfolios. The net returns of NN strategies are 
+also positive and of similar magnitude. We note that the gross returns 
+reported here are slightly different from those of our baseline analysis. 
+This is because the trading cost data is available only up to 2017, so 
+the sample period for this analysis is slightly shorter than our baseline 
+analysis.
+
+Table IA.5 reports the corresponding results for our past-return-
+based machine-learning strategies. In contrast to those for fundamental 
+signals, we find that the turnover rate for past-return-based machine-
+learning strategies is extremely high, well over 100% in both equal- and 
+value-weighted portfolios. As a consequence, we find that net returns to 
+
+32 Due to the data availability issue, we do not adopt their high-frequency 
+(HF) measures of effective spreads. We download the LF data from Andrew 
+Chen’s website at https://sites.google.com/site/chenandrewy/. We note their 
+data is available up to 2017, so our analysis ends in 2017.
+
+14 
+
+B. Li et al.
+
+machine learning strategies are consistently negative. For example, the 
+net return for BRT strategies is −0.97% per month for equal-weighted 
+portfolios and −0.29% for value-weighted portfolios. Adding short-term 
+reversal to the predictor set improves the gross returns but makes the 
+net returns even worse. Specifically, the net return is −1.48% per month 
+for equal-weighted portfolios and −0.40% for value-weighted portfolios 
+after including the short-term reversal. The results for NN strategies are 
+similar to those for BRT strategies.
+
+Chen and Velikov (2022) note that LF spreads are biased upward 
+by 25–50 basis points (compared to HF effective spreads) post deci-
+malization. As such, the net returns to our machine learning strategies 
+reported in Table IA.4 and Table IA.5 may be too low. We decided not 
+to make an ad-hoc adjustment related to this bias because despite their 
+upward bias relative to HF spreads, the LF spreads may underestimate 
+the total trading costs because they do not include other important 
+components of trading costs, such as the cost of short selling and price 
+impact. The shorting cost is particularly important for us because our 
+machine learning strategies are long–short strategies.
+
+Overall, we show that the net performance of ML strategies based on 
+a universe of predictors is positive for fundamental signals and negative 
+for past-return signals. We acknowledge that our analysis is exploratory 
+and preliminary. An in-depth trading cost analysis that incorporates HF 
+spreads, shorting cost, and price impact is a promising area of future 
+research in the machine learning literature.33
+
+4.5. Testing for time-varying predictability
+
+In Table IA.7, we examine whether the profitability of BRT strate-
+gies varies with economic and market conditions. Specifically, we split 
+our sample period based on investor sentiment,34 the VIX index also 
+known as the ‘‘fear-gauge’’, market liquidity (Pástor and Stambaugh, 
+2003), business cycle indicators as published by NBER, and market 
+state—proxied by the cumulative market returns over the previous 24 
+months. We also divide our sample period into two halves (1987–2003 
+and 2003–2019) to examine whether the predictability declines over 
+time.
+
+Panel A shows the long–short portfolio returns for high- and low-
+sentiment periods. When examining equal-weighted returns, we find 
+significant predictability during both high- and low-sentiment periods. 
+In  contrast,  value-weighted  returns  are  only  marginally  significant 
+during low-sentiment periods and insignificant during high-sentiment 
+periods. Whether we look at equal- or value-weighted returns, the dif-
+ference in long–short returns between high- and low-sentiment periods 
+is statistically insignificant. We find similar results in Panel B, where we 
+divide the sample period into high- and low-VIX periods, and in Panel 
+C, where we divide periods into high- and low-liquidity periods. In each 
+panel, we find significant equal-weighted returns across both subperi-
+ods. The value-weighted returns, however, are either insignificant or 
+marginally significant. As in Panel A, we find little significant evidence 
+of differential predictability across subperiods. We also find little dif-
+ference in predictability between recession and expansion periods in 
+Panel D.
+
+In Panel E, we split the sample period into UP and DOWN market 
+states  based  on  previous  24-month  cumulative  market  returns.  We 
+find that the long–short return is higher during UP states than during 
+DOWN  states.  Specifically,  the  equal-weighted  long–short  return  is 
+1.24% during UP states and 0.67% during DOWN states. Similarly, the 
+value-weighted long–short return is 0.79% during UP states and 0% 
+during DOWN states. The differences in long–short returns between the 
+
+33 We also examine the after-trading cost performance of machine-learning 
+strategies based on the GHZ and CZ samples of published anomalies. For 
+brevity, we report the results in Table IA.6 in the Internet Appendix.
+34 We obtain the investor sentiment’s data from Wurgler’s website at http:
+//people.stern.nyu.edu/jwurgler/.
+
+Journal of Financial Economics 172 (2025) 104138 
+
+UP and DOWN states are economically large and statistically marginally 
+significant. In Panel F, we divide our sample period into two halves 
+and find no statistically significant difference in predictability during 
+the first and second half of our sample period.
+
+Overall, the results in Table IA.7 indicate that the return predictabil-
+ity implied by our machine learning strategies based on a universe 
+of predictors does not change significantly with investor sentiment, 
+market volatility, market liquidity, or business cycle. However, there 
+is some evidence that the profitability of our BRT strategies varies 
+systematically with the state of the market. Finally, we find no evidence 
+that the return predictability differs significantly across the two halves 
+of our sample period.
+
+5. Conclusions
+
+We develop real-time machine-learning strategies based on a broad 
+universe of fundamental signals. These strategies exhibit out-of-sample 
+performance  that  is  both  economically  meaningful  and  statistically 
+significant; however, their long–short returns and Sharpe ratios are 
+considerably  lower  than  those  reported  in  earlier  studies  that  use 
+curated sets of signals as return predictors. Our findings suggest that 
+the difference in performance is driven by the differences in input data 
+rather than differences in the implementation of the machine learning 
+algorithms. We also show that strategies employing a simple recursive 
+ranking based on each signal’s past performance achieve substantially 
+better  out-of-sample  results.  The  fact  that  feeding  the  universe  of 
+predictors  to  our  machine-learning  methods  results  in  performance 
+that is not only inferior to the same methods that use curated sets 
+of predictors but also worse than a simple recursive ranking strategy 
+that incorporates feature engineering underscores the importance of 
+imposing  an  appropriate  structure  or  ‘‘inductive  bias’’  for  machine 
+learning algorithms to perform effectively in cross-sectional prediction 
+tasks. As Domingos (2012) puts it, ‘‘feature engineering is the key’’ 
+in machine learning applications. Our analyses using past-return sig-
+nals yield similar conclusions to those based on fundamental signals. 
+Specifically, while our real-time machine learning strategies produce 
+economically meaningful and statistically significant performance, us-
+ing curated sets of inputs can significantly enhance this performance 
+for real-time investors. In summary, our results suggest that employing 
+machine learning methods is beneficial for real-time investors, and that 
+feature engineering plays a vital role in substantially elevating these 
+benefits.
+
+CRediT authorship contribution statement
+
+Bin Li: Writing – review & editing, Writing – original draft, Vi-
+sualization, Validation, Supervision, Software, Resources, Project ad-
+ministration, Methodology, Investigation, Funding acquisition, Formal 
+analysis, Data curation, Conceptualization. Alberto G. Rossi: Writing 
+– review & editing, Writing – original draft, Visualization, Validation, 
+Supervision, Software, Resources, Project administration, Methodology, 
+Investigation, Funding acquisition, Formal analysis, Data curation, Con-
+ceptualization. Xuemin (Sterling) Yan: Writing – review & editing, 
+Writing – original draft, Visualization, Validation, Supervision, Soft-
+ware, Resources, Project administration, Methodology, Investigation, 
+Funding acquisition, Formal analysis, Data curation, Conceptualization. 
+Lingling Zheng: Writing – review & editing, Writing – original draft, 
+Visualization, Validation, Supervision, Software, Resources, Project ad-
+ministration, Methodology, Investigation, Funding acquisition, Formal 
+analysis, Data curation, Conceptualization.
+
+Declaration of competing interest
+
+The  authors  declare  that  they  have  no  known  competing  finan-
+cial interests or personal relationships that could have appeared to 
+influence the work reported in this paper.
+
+15 
+
+B. Li et al.
+
+Journal of Financial Economics 172 (2025) 104138 
+
+Table A.1
+Grids of hyper-parameters for cross validation and implementation details for BRT and NN. This 
+table shows the grids of hyper-parameters used in the cross validation of boosted regression trees 
+(BRT) and neural networks (NN). We follow Gu et al. (2020) to select the grids of hyper-parameters. 
+  BRT
+  # of iteration ∈ {100, 
+250, 500, 750, 1000}
+learning rate ∈ {0.01, 
+0.05, 0.1}
+
+NN
+L1 penalty 𝜆1 ∈ {10−5, 10−3}
+Learning Rate LR ∈ {0.001, 0.01}
+Batch Size = 10000
+Epochs = 100
+Patience = 5 
+Ensemble = 10
+Adam Para. = Default
+
+Appendix A
+
+We implement BRT using LightGBM package in Python (version: 
+3.1.1)  using  the  hyper-parameters’  grid  reported  in  Table   A.1  and 
+minimizing the standard L2 objective function.
+
+For the implementation of neural networks, we follow Gu et al. 
+(2020)  and  Chen  and  McCoy  (2024)  and  build  5  neural  networks, 
+including NN1 to NN5. NN1 has hidden layers with 32 neurons, NN2 
+has hidden layers with 32 and 16 neurons, NN3 has hidden layers 
+with 32, 16, and 8 neurons, NN4 has hidden layers with 32, 16, 8, 
+and 4 neurons, and NN5 has hidden layers with 32, 16, 8, 4, and 2 
+neurons. All layers are connected with the ReLU activation function. 
+The objective is L2 with an L1 penalty to weight parameters and the 
+minimization is performed using the Adam extension of the Stochastic 
+Gradient Descent under early stopping with a patience parameter 5 and 
+batches of 10,000, for 100 epochs. We also include batch normaliza-
+tion. Finally, we construct the final forecasts as the ensemble average 
+of 10 neural network forecasts.
+
+Appendix B
+
+See Table  B.1. 
+
+Appendix C
+
+See Table  C.1. 
+
+Appendix D. Relative influence measures
+
+One criticism of machine learning algorithms is that they are ‘‘Black 
+Boxes’’ that do not provide a lot of intuition to the researcher and the 
+reader. This criticism hardly applies to BRT that feature very useful 
+and intuitive visualization tools. The first commonly used measure is 
+referred to as the ‘‘relative influence’’ measure. Consider the reduction 
+in the empirical error every time one of the covariates 𝑥𝑙,⋅ is used to split 
+the tree. Summing the reductions in empirical errors (or improvements 
+in fit) across the nodes in the tree gives a measure of the variable’s 
+influence (Breiman et al., 1984):
+
+𝐼𝑙 ( ) =
+
+𝐽
+∑
+
+𝑗=2
+
+𝛥𝑒 (𝑗)2 𝐼 (𝑥 (𝑗) = 𝑙) ,
+
+(𝑒𝑡 (𝑗 − 1)2 − 𝑒𝑡 (𝑗)2) is the reduction in the 
+where 𝛥𝑒 (𝑗)2 = 𝑇 −1 ∑𝑇
+𝑡=1
+squared empirical error at the 𝑗th node and 𝑥 (𝑗) is the regressor chosen 
+at this node, so 𝐼 (𝑥 (𝑗) = 𝑙) equals 1 if regressor 𝑙 is chosen, and 0
+otherwise. The sum is computed across all observations, 𝑡 = 1, … , 𝑇 , 
+and over the 𝐽 − 1 internal nodes of the tree.
+
+The rationale for this measure is that at each node, one of the 
+regressors gets selected to partition the sample space into two sub-
+states. The particular regressor at node 𝑗 achieves the greatest reduction 
+in the empirical risk of the model fitted up to node 𝑗−1. The importance 
+of each regressor, 𝑥𝑙,⋅, is the sum of the reductions in the empirical 
+
+16 
+
+errors computed over all internal nodes for which it was chosen as the 
+splitting variable. If a regressor never gets chosen to conduct the splits, 
+its influence is zero. Conversely, the more frequently a regressor is used 
+for splitting, and the bigger its effect on reducing the model’s empirical 
+risk, the larger its influence.
+
+This measure of influence can be generalized by averaging over 
+the number of boosting iterations, 𝐵, which generally provides a more 
+reliable measure of influence:
+
+̄𝐼𝑙 =
+
+1
+𝐵
+
+𝐵
+∑
+
+𝑏=1
+
+(
+
+) .
+
+𝑏
+
+𝐼𝑙
+
+This is best interpreted as a measure of relative influence that can be 
+compared across regressors. We therefore report the following measure 
+of relative influence, 𝑅𝐼 𝑙, which sums to 1:
+
+𝑅𝐼 𝑙 =
+
+̄𝐼𝑙
+∑𝐿
+
+𝑙=1
+
+.
+
+̄𝐼𝑙
+
+Figure IA.1 shows the relative influence of the top 25 signals in 
+the baseline BRT model estimated in the paper. We first compute the 
+signals’ relative influence in each year of the test period,1987–2019, 
+and average their values across all test years. Note that the relative 
+importance measure across all signals sums to one every year. We then 
+rank and plot the signals according to their average relative influence. 
+The 𝑌 -axis reports the 25 most important signals, while the 𝑋-axis 
+presents each signal’s average relative influence measure.
+
+Figure IA.2 shows the relative influence of the top 25 signals in 
+the baseline BRT model on past return signals. We first compute the 
+signals’ relative influence in each month of the test period,1987–2019, 
+and average their values across all test months. Note that the relative 
+importance measure across all signals sums to one every month. We 
+then  rank  and  plot  the  signals  according  to  their  average  relative 
+influence. The 𝑌 -axis reports the 25 most important signals in terms of 
+lags, while the 𝑋-axis presents each signal’s average relative influence 
+measure.
+
+Appendix E. Supplementary data
+
+Supplementary material related to this article can be found online 
+
+at https://doi.org/10.1016/j.jfineco.2025.104138.
+
+Data availability
+
+Replication_Package_LRYZ_Machine_Learning_Feature_Engineering (Ref
+erence data) (Mendeley Data)
+
+ 
+ 
+B. Li et al.
+
+Journal of Financial Economics 172 (2025) 104138 
+
+Variable
+
+Table B.1
+List of accounting variables. This table lists the 240 accounting variables used in this study and their descriptions. Our sample period is 
+1963–2019. We begin with all accounting variables on the balance sheet, income statement, and cash flow statement included in the annual 
+Compustat database. We exclude all variables with fewer than 20 years of data or fewer than 1,000 firms with non-missing data on average per 
+year. We exclude per-share-based variables such as book value per share and earnings per share. We remove LSE (total liabilities and equity), 
+REVT (total revenue), OIBDP (operating income before depreciation), and XDP (depreciation expense) because they are identical to TA (total 
+assets), SALE (total sale), EBITDA (earnings before interest) and DFXA (depreciation of tangible fixed assets) respectively. Please refer to Yan 
+and Zheng (2017) for more details.
+  #
+  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+  10
+  11
+  12
+  13
+  14
+  15
+  16
+  17
+  18
+  19
+  20
+  21
+  22
+  23
+  24
+  25
+  26
+  27
+  28
+  29
+  30
+  31
+  32
+  33
+  34
+  35
+  36
+  37
+  38
+  39
+  40
+  41
+  42
+  43
+  44
+  45
+  46
+  47
+  48
+  49
+  50
+  51
+  52
+  53
+  54
+  55
+  56
+  57
+  58
+  59
+  60
+  61
+  62
+  63
+  64
+  65
+  66
+  67
+
+Description
+Accounting changes - cumulative effect
+Current assets other total
+Current assets other sundry
+Current assets - total
+Amortization of intangibles
+Assets – other
+Assets and liabilities other net change
+Assets – other - sundry
+Accounts payable – trade
+Accounts payable & accrued liabilities increase/decrease
+Acquisitions
+Acquisitions income contribution
+Acquisitions sales contribution
+Assets – total
+Average short-term borrowing
+Capital surplus/share premium reserve
+Capital expenditure
+Capital expenditure PPE Schedule V
+Common/ordinary equity - total
+Common equity liquidation value
+Common equity tangible
+Cash
+Cash and short-term investments
+Cash and cash equivalents increase/decrease
+Capitalized leases - due in 2nd year
+Capitalized leases - due in 3rdyear
+Capitalized leases - due in 4thyear
+Capitalized leases - due in 5thyear
+Cost of goods sold
+Common/ordinary stock (capital)
+Common stock-carrying value
+Common stock equivalents – dollar savings
+Deferred charges
+Debt capitalized lease obligations
+Deferred compensation
+Convertible debt and stock
+Debt senior convertible
+Debt subordinated convertible
+Debt – convertible
+Debt debentures
+Long-term debt due in one year
+Debt Due in 2nd Year
+Debt Due in 3rd Year
+Debt Due in 4th Year
+Debt Due in 5th Year
+Debt finance subsidiary
+Depreciation of tangible fixed assets
+Dilution adjustment
+Dilution available excluding extraordinary items
+Debt in current liabilities - total
+Current debt changes
+Long-term debt issuance
+Other long-term debt
+Long-term debt tied to prime
+Long-term debt reduction
+Long-term debt - total
+Debt mortgages &other secured
+Debt notes
+Income (loss) from discontinued operations
+Nonrecurring discontinued operations
+Depreciation and amortization
+Depreciation , depletion and amortization
+Depreciation and amortization (cash flow)
+Depreciation ending balance (schedule VI)
+Depreciation other changes (schedule VI)
+Depreciation retirements (schedule VI)
+Deferred revenue current
+
+Missing rate
+39.29%
+0.76%
+2.20%
+2.13%
+33.03%
+0.06%
+38.36%
+2.22%
+4.88%
+53.14%
+12.98%
+32.50%
+32.26%
+0.01%
+74.28%
+2.08%
+2.18%
+1.39%
+1.54%
+1.62%
+1.64%
+12.33%
+0.72%
+28.77%
+46.55%
+46.44%
+46.18%
+46.15%
+0.09%
+1.96%
+28.31%
+0.06%
+28.45%
+10.08%
+72.02%
+2.85%
+9.89%
+11.96%
+5.80%
+10.55%
+5.05%
+23.27%
+23.32%
+23.16%
+24.04%
+79.68%
+65.07%
+62.54%
+62.54%
+0.72%
+60.86%
+10.50%
+9.96%
+38.66%
+9.84%
+0.20%
+33.76%
+10.56%
+3.66%
+71.10%
+0.24%
+0.44%
+8.59%
+19.34%
+65.12%
+65.14%
+73.42%
+
+Start year
+1988
+1963
+1963
+1963
+1965
+1963
+1988
+1963
+1963
+1988
+1972
+1975
+1975
+1963
+1978
+1963
+1963
+1963
+1963
+1963
+1963
+1963
+1963
+1972
+1985
+1985
+1985
+1985
+1963
+1963
+1963
+1963
+1965
+1965
+1980
+1963
+1970
+1970
+1963
+1965
+1963
+1974
+1974
+1974
+1974
+1992
+1970
+1994
+1994
+1963
+1974
+1972
+1965
+1975
+1972
+1963
+1981
+1965
+1963
+1994
+1963
+1963
+1972
+1970
+1970
+1970
+1994
+
+ACCHG
+ACO
+ACOX
+ACT
+AM
+AO
+AOLOCH
+AOX
+AP
+APALCH
+AQC
+AQI
+AQS
+AT
+BAST
+CAPS
+CAPX
+CAPXV
+CEQ
+CEQL
+CEQT
+CH
+CHE
+CHECH
+CLD2
+CLD3
+CLD4
+CLD5
+COGS
+CSTK
+CSTKCV
+CSTKE
+DC
+DCLO
+DCOM
+DCPSTK
+DCVSR
+DCVSUB
+DCVT
+DD
+DD1
+DD2
+DD3
+DD4
+DD5
+DFS
+DFXA
+DILADJ
+DILAVX
+DLC
+DLCCH
+DLTIS
+DLTO
+DLTP
+DLTR
+DLTT
+DM
+DN
+DO
+DONR
+DP
+DPACT
+DPC
+DPVIEB
+DPVIO
+DPVIR
+DRC
+
+(continued on next page)
+
+17 
+
+ 
+B. Li et al.
+
+Journal of Financial Economics 172 (2025) 104138 
+
+Variable
+
+Table B.1 (continued).
+  #
+  68
+  69
+  70
+  71
+  72
+  73
+  74
+  75
+  76
+  77
+  78
+  79
+  80
+  81
+  82
+  83
+  84
+  85
+  86
+  87
+  88
+  89
+  90
+  91
+  92
+  93
+  94
+  95
+  96
+  97
+  98
+  99
+  100
+  101
+  102
+  103
+  104
+  105
+  106
+  107
+  108
+  109
+  110
+  111
+  112
+  113
+  114
+  115
+  116
+  117
+  118
+  119
+  120
+  121
+  122
+  123
+  124
+  125
+  126
+  127
+  128
+  129
+  130
+  131
+  132
+  133
+  134
+  135
+  136
+  137
+  138
+  139
+
+DS
+DUDD
+DV
+DVC
+DVP
+DVPA
+DVPIBB
+DVT
+DXD2
+DXD3
+DXD4
+DXD5
+EBIT
+EBITDA
+ESOPCT
+ESOPDLT
+ESOPT
+ESUB
+ESUBC
+EXRE
+FATB
+FATC
+FATE
+FATL
+FATN
+FATO
+FATP
+FIAO
+FINCF
+FOPO
+FOPOX
+FOPT
+FSRCO
+FSRCT
+FUSEO
+FUSET
+GDWL
+GP
+IB
+IBADJ
+IBC
+IBCOM
+ICAPT
+IDIT
+INTAN
+INTC
+INTPN
+INVCH
+INVFG
+INVO
+INVRM
+INVT
+INVWIP
+ITCB
+ITCI
+IVACO
+IVAEQ
+IVAO
+IVCH
+IVNCF
+IVST
+IVSTCH
+LCO
+LCOX
+LCOXDR
+LCT
+LIFR
+LO
+LT
+MIB
+MII
+MRC1
+
+Description
+
+Debt-subordinated
+Debt unamortized debt discount and other
+Cash dividends (cash flow)
+Dividends common/ordinary
+Dividends - preferred/preference
+Preferred dividends in arrears
+Depreciation beginning balance (schedule VI)
+Dividends – total
+Debt (excl capitalized leases) due in 2nd year
+Debt (excl capitalized leases) due in 3rd year
+Debt (excl capitalized leases) due in 4thyear
+Debt (excl capitalized leases) due in 5thyear
+Earnings before interest and taxes
+Earnings before interest
+ESOP obligation (common) - total
+ESOP debt - long term
+Preferred ESOP obligation - total
+Equity in earnings -unconsolidated subsidiaries
+Equity in net loss earnings
+Exchange rate effect
+Property, plant, and equipment buildings
+Property, plant and equipment construction in progress
+Property, plant, equipment and machinery equipment
+Property, plant, and equipment leases
+Property, plant, equipment and natural resources
+Property, plant, and equipment other
+Property, plant, equipment and land improvements
+Financing activities other
+Financing activities net cash flow
+Funds from operations other
+Funds from operations - Other excl option tax benefit
+Funds from operations total
+Sources of funds other
+Sources of funds total
+Uses of funds other
+Uses of funds total
+Goodwill
+Gross profit (loss)
+Income before extraordinary items
+IB adjusted for common stock equivalents
+Income before extraordinary items (cash flow)
+Income before extraordinary items available for common
+Invested capital – total
+Interest and related income - total
+Intangible assets – total
+Interest capitalized
+Interest paid net
+Inventory decrease (increase)
+Inventories finished goods
+Inventories other
+Inventories raw materials
+Inventories – total
+Inventories work in progress
+Investment tax credit (balance sheet)
+Investment tax credit (income account)
+Investing activities other
+Investment and advances – equity
+Investment and advances other
+Increase in investments
+Investing activities net cash flow
+Short-term investments – total
+Short-term investments change
+Current liabilities other total
+Current liabilities other sundry
+Current liabilities-other-excl deferred revenue
+Current liabilities – total
+LIFO reserve
+Liabilities – other – total
+Liabilities – total
+Minority interest (balance sheet)
+Minority interest (income account)
+Rental commitments minimum 1styear
+
+18 
+
+Missing rate
+9.93%
+29.51%
+8.55%
+0.11%
+0.06%
+17.95%
+60.82%
+0.11%
+49.31%
+49.25%
+48.96%
+49.36%
+1.36%
+0.21%
+40.69%
+49.09%
+41.01%
+12.33%
+22.05%
+38.46%
+51.33%
+47.36%
+53.32%
+57.58%
+47.37%
+52.84%
+51.25%
+38.35%
+38.35%
+7.83%
+76.37%
+69.42%
+70.81%
+71.27%
+70.81%
+71.61%
+47.13%
+0.09%
+0.05%
+0.05%
+7.82%
+0.05%
+1.54%
+42.18%
+10.02%
+16.78%
+43.82%
+43.46%
+41.28%
+52.52%
+40.27%
+1.43%
+43.69%
+3.20%
+37.65%
+38.35%
+9.07%
+7.07%
+13.68%
+38.35%
+12.35%
+48.38%
+4.76%
+6.10%
+72.40%
+1.69%
+22.04%
+0.72%
+0.50%
+6.37%
+10.24%
+27.85%
+
+Start year
+1965
+1963
+1972
+1963
+1963
+1964
+1970
+1963
+1985
+1985
+1985
+1985
+1963
+1963
+1980
+1990
+1964
+1963
+1972
+1988
+1985
+1985
+1985
+1985
+1985
+1985
+1985
+1988
+1988
+1972
+1992
+1972
+1972
+1972
+1972
+1972
+1989
+1963
+1963
+1963
+1972
+1963
+1963
+1965
+1963
+1963
+1988
+1988
+1970
+1984
+1969
+1963
+1970
+1963
+1963
+1988
+1963
+1963
+1972
+1988
+1963
+1988
+1963
+1963
+1994
+1963
+1976
+1963
+1963
+1963
+1963
+1975
+
+(continued on next page)
+
+ 
+B. Li et al.
+
+Journal of Financial Economics 172 (2025) 104138 
+
+Variable
+
+Table B.1 (continued).
+  #
+  140
+  141
+  142
+  143
+  144
+  145
+  146
+  147
+  148
+  149
+  150
+  151
+  152
+  153
+  154
+  155
+  156
+  157
+  158
+  159
+  160
+  161
+  162
+  163
+  164
+  165
+  166
+  167
+  168
+  169
+  170
+  171
+  172
+  173
+  174
+  175
+  176
+  177
+  178
+  179
+  180
+  181
+  182
+  183
+  184
+  185
+  186
+  187
+  188
+  189
+  190
+  191
+  192
+  193
+  194
+  195
+  196
+  197
+  198
+  199
+  200
+  201
+  202
+  203
+  204
+  205
+  206
+  207
+  208
+  209
+  210
+  211
+  212
+  213
+
+MRC2
+MRC3
+MRC4
+MRC5
+MRCT
+MSA
+NI
+NIADJ
+NIECI
+NOPI
+NOPIO
+NP
+OANCF
+OB
+OIADP
+PI
+PIDOM
+PIFO
+PPEGT
+PPENB
+PPENC
+PPENLI
+PPENME
+PPENNR
+PPENO
+PPENT
+PPEVBB
+PPEVEB
+PPEVO
+PPEVR
+PRSTKC
+PSTK
+PSTKC
+PSTKL
+PSTKN
+PSTKR
+PSTKRV
+RDIP
+RE
+REA
+REAJO
+RECCH
+RECCO
+RECD
+RECT
+RECTA
+RECTR
+REUNA
+SALE
+SEQ
+SIV
+SPI
+SPPE
+SPPIV
+SSTK
+TLCF
+TSTK
+TSTKC
+TSTKP
+TXACH
+TXBCO
+TXC
+TXDB
+TXDBA
+TXDBCA
+TXDBCL
+TXDC
+TXDFED
+TXDFO
+TXDI
+TXDITC
+TXDS
+TXFED
+TXFO
+
+Description
+Rental commitments minimum 2ndyear
+Rental commitments minimum 3rdyear
+Rental commitments minimum 4th year
+Rental commitments minimum 5th year
+Rental commitments minimum 5 year total
+Marketable securities adjustment
+Net income (loss)
+Net income adjusted for common stock equiv.
+Net income effect capitalized interest
+Non-operating income (expense)
+Non-operating income (expense) other
+Notes payable short-term borrowings
+Operating activities net cash flow
+Order backlog
+Operating income after depreciation
+Pre-tax income
+Pretax income domestic
+Pretax income foreign
+Property, plant, and equipment – total (gross)
+Property, plant, and equipment buildings (net)
+Property plant equipment construction in progress (net)
+Property plant equipment land and improvements (net)
+Property plant equipment machinery and equipment (net)
+Property plant equipment natural resources (net)
+Property plant and equipment other (net)
+Property, plant, and equipment – total (net)
+Property plant equipment beginning balance (schedule V)
+Property, plant, and equipment ending balance
+Property, plant, and equipment other changes (schedule V)
+Property, plant and equipment retirements (schedule V)
+Purchase of common and preferred stock
+Preferred/preference stock (capital) – total
+Preferred stock convertible
+Preferred stock liquidating value
+Preferred/preference stock – non-redeemable
+Preferred/preference stock - redeemable
+Preferred stock redemption value
+In process R&D expense
+Retained earnings
+Retained earnings restatement
+Retained earnings other adjustments
+Accounts receivable decrease (increase)
+Receivables – current – other
+Receivables – estimated doubtful
+Receivables – total
+Retained earnings cumulative translation adjustment
+Receivables – trade
+Retained earnings unadjusted
+Sales/turnover (net)
+Stockholders’ equity – total
+Sale of investments
+Special items
+Sale of property
+Sale of property plant equipment investments gain (loss)
+Sale of common and preferred stock
+Tax loss carry forward
+Treasury stock – total (all capital)
+Treasury stock – common
+Treasury stock – preferred
+Income taxes accrued increase/decrease
+Excess tax benefit stock options -cash flow
+Income tax – current
+Deferred taxes (balance sheet)
+Deferred tax asset - long term
+Deferred tax asset - current
+Deferred tax liability - current
+Deferred taxes (cash flow)
+Deferred taxes-federal
+Deferred taxes-foreign
+Income tax – deferred
+Deferred taxes and investment tax credit
+Deferred taxes-state
+Income tax federal
+Income tax foreign
+
+19 
+
+Missing rate
+28.34%
+28.46%
+28.61%
+30.38%
+29.51%
+18.18%
+0.06%
+2.24%
+59.92%
+0.10%
+0.10%
+0.80%
+38.36%
+64.22%
+0.07%
+0.06%
+74.94%
+75.36%
+0.45%
+70.38%
+65.66%
+70.26%
+69.73%
+69.31%
+69.26%
+0.11%
+57.03%
+15.25%
+62.50%
+62.50%
+12.98%
+0.24%
+4.96%
+0.05%
+1.48%
+20.89%
+0.06%
+65.68%
+2.04%
+10.33%
+30.06%
+41.58%
+3.21%
+29.03%
+1.45%
+30.39%
+17.96%
+29.89%
+0.05%
+2.24%
+16.24%
+3.93%
+28.92%
+38.36%
+9.55%
+23.48%
+16.37%
+26.38%
+25.51%
+56.69%
+76.43%
+16.78%
+3.34%
+73.84%
+73.11%
+74.46%
+10.38%
+48.37%
+45.98%
+6.99%
+3.34%
+48.91%
+16.78%
+19.02%
+
+Start year
+1975
+1975
+1975
+1975
+1975
+1976
+1963
+1963
+1976
+1963
+1963
+1963
+1988
+1971
+1963
+1963
+1981
+1981
+1963
+1970
+1970
+1970
+1970
+1970
+1970
+1963
+1963
+1963
+1963
+1963
+1972
+1963
+1963
+1963
+1963
+1964
+1963
+1994
+1963
+1970
+1983
+1988
+1963
+1970
+1963
+1983
+1967
+1983
+1963
+1963
+1972
+1963
+1972
+1988
+1972
+1963
+1970
+1974
+1963
+1988
+1992
+1963
+1963
+1993
+1994
+1994
+1972
+1985
+1985
+1963
+1963
+1985
+1963
+1970
+
+(continued on next page)
+
+ 
+B. Li et al.
+
+Journal of Financial Economics 172 (2025) 104138 
+
+Variable
+
+Table B.1 (continued).
+  #
+  214
+  215
+  216
+  217
+  218
+  219
+  220
+  221
+  222
+  223
+  224
+  225
+  226
+  227
+  228
+  229
+  230
+  231
+  232
+  233
+  234
+  235
+  236
+  237
+  238
+  239
+  240
+
+TXNDB
+TXNDBA
+TXNDBL
+TXNDBR
+TXO
+TXP
+TXPD
+TXR
+TXS
+TXT
+TXW
+WCAP
+WCAPC
+WCAPCH
+XACC
+XAD
+XDEPL
+XI
+XIDO
+XIDOC
+XINT
+XOPR
+XPP
+XPR
+XRD
+XRENT
+XSGA
+
+Description
+Net deferred tax asset (liab) - total
+Net deferred tax asset
+Net deferred tax liability
+Deferred tax residual
+Income taxes - other
+Income tax payable
+Income taxes paid
+Income tax refund
+Income tax state
+Income tax total
+Excise taxes
+Working capital (balance sheet)
+Working capital change other increase/decrease
+Working capital change total
+Accrued expenses
+Advertising expense
+Depletion expense (schedule VI)
+Extraordinary items
+Extra. items and discontinued operations
+Extra. items and disc. operations (cash flow)
+Interest and related expenses – total
+Operating expenses – total
+Prepaid expenses
+Pension and retirement expense
+Research and development expense
+Rental expense
+Selling, general and administrative expense
+
+Missing rate
+69.95%
+72.66%
+72.67%
+72.05%
+33.11%
+5.93%
+45.36%
+10.40%
+17.76%
+0.06%
+24.39%
+2.15%
+72.51%
+74.62%
+19.16%
+64.98%
+68.80%
+1.60%
+0.06%
+9.44%
+5.05%
+0.09%
+43.96%
+25.03%
+47.01%
+14.34%
+12.13%
+
+Start year
+1994
+1994
+1994
+1994
+1963
+1963
+1988
+1963
+1963
+1963
+1976
+1963
+1972
+1972
+1963
+1963
+1970
+1963
+1963
+1972
+1963
+1963
+1963
+1963
+1963
+1963
+1963
+
+#
+
+#
+
+Description
+
+Table C.1
+List of financial ratios and configurations. This table lists the 76 financial ratios and configurations used in this study. Our sample period is 1963–2019. We 
+begin with all accounting variables on the balance sheet, income statement, and cash flow statement included in the annual Compustat database. We exclude all 
+variables with fewer than 20 years of data or fewer than 1,000 firms with non-missing data on average per year. We exclude per-share-based variables such as 
+book value per share and earnings per share. ‘‘X’’ represents the 240 accounting variables listed in Table B.1. ‘‘Y’’ represents the fifteen base variables, including 
+AT (total assets), ACT (total current assets), INVT (inventory), PPENT (property, plant, and equipment), LT (total liabilities), LCT (total current liabilities), DLTT 
+(long-term debt), CEQ (total common equity), SEQ (stockholders’ equity), ICAPT (total invested capital), SALE (total sale), COGS (cost of goods sold), XSGA 
+(selling, general, and administrative cost), EMP (number of employees), and MKTCAP (market capitalization). Please refer to Yan and Zheng (2017) for more 
+details. 
+  #
+  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+  10
+  11
+  12
+  13
+  14
+  15
+
+Description
+%𝛥 in X − %𝛥 in AT
+%𝛥 in X − %𝛥 in ACT
+%𝛥 in X − %𝛥 in INVT
+%𝛥 in X − %𝛥 in PPENT  
+%𝛥 in X − %𝛥 in LT
+%𝛥 in X − %𝛥 in LCT
+%𝛥 in X − %𝛥 in DLTT
+%𝛥 in X − %𝛥 in CEQ
+%𝛥 in X − %𝛥 in SEQ
+%𝛥 in X − %𝛥 in ICAPT  
+%𝛥 in X − %𝛥 in SALE
+%𝛥 in X − %𝛥 in COGS
+%𝛥 in X − %𝛥 in XSGA
+%𝛥 in X − %𝛥 in EMP
+%𝛥 in X − %𝛥 in MKTCAP 
+%𝛥 in X
+
+Description
+%𝛥 in X/AT
+%𝛥 in X/ACT
+%𝛥 in X/INVT
+%𝛥 in X/PPENT
+%𝛥 in X/LT
+%𝛥 in X/LCT
+%𝛥 in X/DLTT
+%𝛥 in X/CEQ
+%𝛥 in X/SEQ
+%𝛥 in X/ICAPT
+%𝛥 in X/SALE
+%𝛥 in X/COGS
+%𝛥 in X/XSGA
+%𝛥 in X/EMP
+%𝛥 in X/MKTCAP
+
+Description
+𝛥 in X/AT
+𝛥 in X/ACT
+𝛥 in X/INVT
+𝛥 in X/PPENT
+𝛥 in X/LT
+𝛥 in X/LCT
+𝛥 in X/DLTT
+𝛥 in X/CEQ
+𝛥 in X/SEQ
+𝛥 in X/ICAPT
+𝛥 in X/SALE
+𝛥 in X/COGS
+𝛥 in X/XSGA
+𝛥 in X/EMP
+𝛥 in X/MKTCAP
+
+𝛥X/LAGAT
+𝛥X/LAGACT
+𝛥X/LAGINVT
+𝛥X/LAGPPENT
+𝛥X/LAGLT
+𝛥X/LAGLCT
+𝛥X/LAGDLTT
+𝛥X/LAGCEQ
+𝛥X/LAGSEQ
+𝛥X/LAGICAPT
+𝛥X/LAGSALE
+𝛥X/LAGCOGS
+𝛥X/LAGXSGA
+𝛥X/LAGEMP
+𝛥X/LAGMKTCAP
+
+X/AT
+X/ACT
+X/INVT
+X/PPENT
+X/LT
+X/LCT
+X/DLTT
+X/CEQ
+X/SEQ
+X/ICAPT
+X/SALE
+X/COGS
+X/XSGA
+X/EMP
+X/MKTCAP
+
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+
+Description
+
+#
+
+#
+
+References
+
+Abdi, F., Ranaldo, A., 2017. A simple estimation of bid-ask spreads from daily close, 
+
+high, and low prices. Rev. Financ. Stud. 30 (12), 4437–4480.
+
+Arnott, R., Harvey, C.R., Markowitz, H., 2019. A backtesting protocol in the era of 
+
+machine learning. J. Financ. Data Sci. 1 (1), 64–74.
+
+Avramov, D., Kaplanski, G., Subrahmanyam, A., 2022. Postfundamentals price drift 
+in capital markets: A regression regularization perspective. Manag. Sci. 68 (10), 
+7065–7791.
+
+Bali, T.G., Beckmeyer, H., Mörke, M., Weigert, F., 2023. Option return predictability 
+with machine learning and big data. Rev. Financ. Stud. 36 (9), 3548–3602.
+Bianchi, D., Büchner, M., Tamoni, A., 2021. Bond risk premiums with machine learning. 
+
+Rev. Financ. Stud. 34 (2), 1046–1089.
+
+Breiman, L., Friedman, J., Stone, C.J., Olshen, R., 1984. Classification and Regression 
+
+Trees. Chapman and Hall/CRC.
+
+Bryzgalova,  S.,  Pelger,  M.,  Zhu,  J.,  2020.  Forest  through  the  Trees:  Building 
+
+Cross-Sections of Stock Returns. Tech. Rep., London Business School.
+
+57–82.
+
+20 
+
+Chen,  A.Y.,  2024.  Most  Claimed  Statistical  Findings  in  Cross-Sectional  Return 
+
+Predictability are Likely True. Tech. Rep., arXiv.
+
+Chen, A.Y., Dim, C., 2024. High-Throughput Asset Pricing. Tech. Rep., arXiv.
+Chen, M., Hanauer, M.X., Kalsbach, T., 2024a. Design Choices, Machine Learning, and 
+the Cross-Section of Stock Returns. SSRN Scholarly Paper 5031755, Social Science 
+Research Network, Rochester, NY.
+
+Chen, A.Y., Lopez-Lira, A., Zimmermann, T., 2024b. Peer-Reviewed Theory Does Not 
+
+Help Predict the Cross-Section of Stock Returns. Tech. Rep., arXiv.
+
+Chen, A.Y., McCoy, J., 2024. Missing values handling for machine learning portfolios. 
+
+Chen, L., Pelger, M., Zhu, J., 2024c. Deep learning in asset pricing. Manag. Sci. 70 (2), 
+
+Chen, A.Y., Velikov, M., 2022. Zeroing in on the expected returns of anomalies. J. 
+
+J. Financ. Econ. 155, 103815.
+
+714–750.
+
+Financ. Quant. Anal. 1–83.
+
+Chen, A.Y., Zimmermann, T., 2020. Publication bias and the cross-section of stock 
+
+returns. Rev. Asset Pricing Stud. 10 (2), 249–289.
+
+Chen, A.Y., Zimmermann, T., 2022. Open source cross-sectional asset pricing. Crit. 
+
+Financ. Rev. 11 (2), 207–264.
+
+returns. J. Financ. 74 (1), 449–492.
+
+Carhart, M.M., 1997. On persistence in mutual fund performance. J. Financ. 52 (1), 
+
+Chinco, A., Clark-Joseph, A.D., Ye, M., 2019. Sparse signals in the cross-section of 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+B. Li et al.
+
+Journal of Financial Economics 172 (2025) 104138 
+
+Chordia, T., Goyal, A., Saretto, A., 2020. Anomalies and false rejections. Rev. Financ. 
+
+Jegadeesh,  N.,  Titman,  S.,  1993.  Returns  to  buying  winners  and  selling  losers: 
+
+Dong, X., Li, Y., Rapach, D., Zhou, G., 2022. Anomalies and the expected market return. 
+
+of mutual fund managers. J. Financ. Econ. 150 (1), 94–138.
+
+Fama, E.F., French, K.R., 1996. Multifactor explanations of asset pricing anomalies. J. 
+
+Kozak, S., Nagel, S., Santosh, S., 2020. Shrinking the cross-section. J. Financ. Econ. 
+
+Stud. 33 (5), 2134–2179.
+
+Corwin, S.A., Schultz, P., 2012. A simple way to estimate bid-ask spreads from daily 
+
+high and low prices. J. Financ. 67 (2), 719–760.
+
+Domingos, P., 2012. A few useful things to know about machine learning. Commun. 
+
+Fama, E.F., French, K.R., 1992. The cross-section of expected stock returns. J. Financ. 
+
+Fama, E.F., French, K.R., 1993. Common risk factors in the returns on stocks and bonds. 
+
+ACM 55 (10), 78–87.
+
+J. Financ. 77 (1), 639–681.
+
+47 (2), 427–465.
+
+J. Financ. Econ. 33 (1), 3–56.
+
+Financ. 51 (1), 55–84.
+
+Implications for stock market efficiency. J. Financ. 48 (1), 65–91.
+
+Jensen, T.I., Kelly, B.T., Malamud, S., Pedersen, L.H., 2022. Machine Learning and 
+the Implementable Efficient Frontier. Tech. Rep., Swiss Finance Institute Research 
+Paper No. 22-63.
+
+Kaniel, R., Lin, Z., Pelger, M., Van Nieuwerburgh, S., 2023. Machine-learning the skill 
+
+Ke, G., Meng, Q., Finley, T., Wang, T., Chen, W., Ma, W., Ye, Q., Liu, T.-Y., 2017. 
+LightGBM: A highly efficient gradient boosting decision tree. In: Advances in Neural 
+Information Processing Systems, vol. 30, pp. 3146–3154.
+
+Kelly, B.T., Xiu, D., 2023. Financial machine learning. Found. Trends textregistered 
+
+Financ. 13 (3–4), 205–363.
+
+135 (2), 271–292.
+
+Kyle,  A.S.,  Obizhaeva,  A.A.,  2016.  Market  microstructure  invariance:  Empirical 
+
+hypotheses. Econometrica 84 (4), 1345–1404.
+
+Leippold, M., Wang, Q., Zhou, W., 2022. Machine learning in the Chinese stock market. 
+
+Martin, I., Nagel, S., 2022. Market efficiency in the age of big data. J. Financ. Econ. 
+
+McLean,  R.D.,  Pontiff,  J.,  2016.  Does  academic  research  destroy  stock  return 
+
+Moritz, B., Zimmermann, T., 2016. Tree-Based Conditional Portfolio Sorts: The Relation 
+
+between Past and Future Stock Returns. Tech. rep., SSRN Working Paper.
+
+Murray, S., Xiao, H., Xia, Y., 2024. Charting by machines. J. Financ. Econ. 153, 103791.
+Newey, W.K., West, K.D., 1987. A simple, positive semi-definite, heteroskedasticity and 
+autocorrelation consistent covariance matrix. Econometrica 55 (3), 703–708.
+Novy-Marx, R., Velikov, M., 2016. A taxonomy of anomalies and their trading costs. 
+
+Rev. Financ. Stud. 29 (1), 104–147.
+
+Ou, J.A., Penman, S.H., 1989. Financial statement analysis and the prediction of stock 
+
+Pástor, Ľ., Stambaugh, R.F., 2003. Liquidity risk and expected stock returns. J. Political 
+
+Rapach, D.E., Strauss, J.K., Zhou, G., 2013. International stock return predictability: 
+
+What is the role of the United States? J. Financ. 68 (4), 1633–1662.
+
+Welch, I., Goyal, A., 2008. A comprehensive look at the empirical performance of equity 
+
+Yan, X.S., Zheng, L., 2017. Fundamental analysis and the cross-section of stock returns: 
+
+Zhu, M., 2023. Evaluating the Efficacy of Multiple Testing Adjustments in Empirical 
+
+Fama, E.F., French, K.R., 2008. Dissecting anomalies. J. Financ. 63 (4), 1653–1678.
+Fama, E.F., French, K.R., 2015. A five-factor asset pricing model. J. Financ. Econ. 116 
+
+(1), 1–22.
+
+Feng, G., Polson, N., Xu, J., 2020. Deep Learning in Characteristics-Sorted Factor 
+
+J. Financ. Econ. 145 (2), 64–82.
+
+Freyberger, J., Neuhierl, A., Weber, M., 2020. Dissecting characteristics nonparametri-
+
+145 (1), 154–177.
+
+Models. SSRN Scholarly Paper ID 3243683.
+
+cally. Rev. Financ. Stud. 33 (5), 2326–2377.
+
+Geertsema, P., Lu, H., 2023. Relative valuation with machine learning. J. Account. Res. 
+
+predictability? J. Financ. 71 (1), 5–32.
+
+61 (1), 329–376.
+
+Goyal, A., Bengio, Y., 2022. Inductive biases for deep learning of higher-level cognition. 
+
+Proc. R. Soc. A 478 (2266), 20210068.
+
+Green, J., Hand, J.R.M., Zhang, X.F., 2017. The characteristics that provide independent 
+information about average U.S. Monthly stock returns. Rev. Financ. Stud. 30 (12), 
+4389–4436.
+
+Gu, S., Kelly, B.T., Xiu, D., 2020. Empirical asset pricing via machine learning. Rev. 
+
+Harvey, C.R., 2017. Presidential address: The scientific outlook in financial economics. 
+
+returns. J. Account. Econ. 11 (4), 295–329.
+
+Harvey, C.R., Liu, Y., 2020. False (and missed) discoveries in financial economics. J. 
+
+Econ. 111 (3), 642–685.
+
+Financ. Stud. 33 (5), 2223–2273.
+
+J. Financ. 72 (4), 1399–1440.
+
+Financ. 75 (5), 2503–2553.
+
+Hasbrouck, J., 2009. Trading costs and returns for US equities: Estimating effective 
+
+costs from daily data. J. Financ. 64 (3), 1445–1477.
+
+Hastie, T., Tibshirani, R., Friedman, J., 2009. The Elements of Statistical Learning: Data 
+
+premium prediction. Rev. Financ. Stud. 21 (4), 1455–1508.
+
+Mining, Inference, and Prediction. Springer.
+
+stock returns. J. Financ. Econ. 41 (3), 401–439.
+
+Haugen, R.A.R.A., Baker, N.L., 1996. Commonality in the determinants of expected 
+
+A data-mining approach. Rev. Financ. Stud. 30 (4), 1382–1423.
+
+Holthausen, R.W., Larcker, D.F., 1992. The prediction of stock returns using financial 
+
+Asset Pricing. SSRN Scholarly Paper.
+
+statement information. J. Account. Econ. 15 (2), 373–411.
+
+Hou, K., Xue, C., Zhang, L., 2015. Digesting anomalies: An investment approach. Rev. 
+
+Israel, R., Kelly, B.T., Moskowitz, T.J., 2020. Can machines ‘‘learn’’ finance? J. Invest. 
+
+Financ. Stud. 28 (3), 650–705.
+
+Manag. 18 (2), 23–36.
+
+21 
+
+

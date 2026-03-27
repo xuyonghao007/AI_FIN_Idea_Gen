@@ -1,0 +1,3168 @@
+Journal of Financial Economics 174 (2025) 104182 
+
+Contents lists available at ScienceDirect
+
+Journal of Financial Economics
+
+journal homepage: www.elsevier.com/locate/finec
+
+Dealer balance sheets and bidding behavior in the Bank of England’s QE 
+reverse auctions(cid:73)
+Lena Boneva a,d, Jakub Kastl b,d,e,∗, Filip Zikes c
+a Swiss National Bank, Börsenstrasse 15, Zürich, 8022, Switzerland
+b Princeton University, 391 Julis Romo Rabinowitz Building, Princeton, 08544, NJ, United States
+c Federal Reserve Board of Governors, 20th and C Streets NW, WA, 20006, DC, United States
+d CEPR, 2 Coldbath Square, London, EC1R 5HL, United Kingdom
+e NBER, 1050 Massachusetts Avenue, Cambridge, 02138, MA, United States
+
+A R T I C L E   I N F O
+
+A B S T R A C T
+
+Dataset link: Replication package for ‘‘Dealer b
+alance sheets and bidding behavior in the Bank
+of England’s QE reverse auctions’’ (Reference d
+ata)
+
+Keywords:
+Quantitative easing
+Reverse auctions
+Dealer balance sheets
+Structural estimation
+
+1. Introduction
+
+We study dealers’ bidding behavior in the Bank of England’s quantitative easing (QE) reverse auctions. Using a 
+granular dataset on both accepted and rejected offers together with an equilibrium model of bidding behavior, 
+we estimate dealers’ valuations of securities offered to the Bank of England. We also recover the rents accruing 
+to dealers from participating in the auctions as opposed to liquidating gilts in the secondary market, thereby 
+possibly causing prices to change. These rents or so-called "liquidity benefits" are largest in the early phases 
+of QE implemented during the Global Financial Crisis, suggesting that QE may be particularly effective in 
+restoring smooth market functioning when market participants are facing large liquidity shocks. Finally, we 
+document that dealers’ valuations vary significantly with the amount of interest rate risk acquired in the 
+secondary gilt market before the auction and with dealers’ regulatory capital.
+
+During the global financial crisis and the covid pandemic, many 
+central banks engaged in unconventional monetary policy operations in 
+the form of outright asset purchases—commonly known as quantitative 
+easing (QE). The main objective of these operations was to provide 
+further  monetary  accommodation  at  a  time  when  nominal  interest 
+rates were constrained by the effective lower bound. But central banks 
+have also used asset purchases to address temporary dysfunction in 
+government bond markets, such as during the covid-induced turmoil 
+in the U.S. Treasury market in March 2020 (Vissing-Jorgensen, 2020) 
+or in response to the sudden increase in long-dated U.K. government 
+bond yields in September 2022 (Bank of England, 2022; Pinter, 2022). 
+By arresting fire-sale dynamics, these targeted purchases helped restore 
+
+orderly conditions in safe-asset markets and thus contributed to finan-
+cial stability more broadly (Duffie et al., 2023; Vissing-Jorgensen, 2020; 
+Hauser, 2022).
+
+Many  central  banks  implement  QE  through  reverse  auctions  in 
+which primary dealers compete to sell eligible assets to the central 
+bank. In the United Kingdom (UK), the Bank of England (BoE) pur-
+chased over £800 billion worth of UK government bonds (so-called 
+gilts) between 2009 and 2022, amounting to around one third of all 
+gilts in issue. Despite the size and scope of these operations, research 
+studying the mechanics of reverse auctions, dealers’ bidding behavior, 
+and auction results is relatively scarce.
+
+In  this  paper,  we  attempt  to  bridge  this  gap  and  make  several 
+contributions to the literature. First, we collect granular data recording 
+both accepted and rejected offers submitted by primary dealers in the 
+BoE’s reverse auctions. This novel dataset allows us to estimate an 
+
+(cid:73)
+
+Philipp Schnabl was the editor for this article. The authors would like to thank the editor, an anonymous referee, Gabor Pinter, Raf Kinston, Evangelos 
+Benos, Jon Bridges, Andrea Rosen, Andrew Hauser, Nick Butt, Richard Gordon, Dennis Jeevarajasingham, Nick McLaren, Eddie Gerba, Matt Roberts-Sklar, Rodrigo 
+Guimares, Iryna Kaminska, Mike Joyce, Sarah Illingworth, Jitendra Patil, Haoxiang Zhu, Paolo Vitale, and participants at the 2017 AEA Annual Meetings, the 
+2017 Annual Central Bank Conference on the Microstructure of Financial Markets, the 2024 BIS-SNB workshop, the 2024 SNB research conference, the 2024 
+CEPR Paris Symposium and seminar participants at the Bank of England, Bank of Canada, European Central Bank, St. Gallen University, Swiss National Bank 
+and Queen Mary University London for many useful comments. The authors are also grateful to Mark Morley of the Federal Reserve Board for excellent research 
+assistance. The views expressed in this paper are solely those of the authors and should not be interpreted as representing the views of the Swiss National Bank, 
+or the Federal Reserve Board, or any other person associated with the Federal Reserve System.
+
+∗ Corresponding author at: Princeton University, 391 Julis Romo Rabinowitz Building, Princeton, 08544, NJ, United States.
+
+E-mail address:  jkastl@princeton.edu (J. Kastl).
+
+https://doi.org/10.1016/j.jfineco.2025.104182
+Received 12 January 2023; Received in revised form 25 September 2025; Accepted 3 October 2025
+Available online 17 October 2025 
+0304-405X/© 2025 Elsevier B.V. All rights are reserved, including those for text and data mining, AI training, and similar technologies. 
+
+ 
+ 
+ 
+L. Boneva et al.
+
+equilibrium model of bidding in reverse auctions and thus to recover 
+dealers’  willingness  to  sell  gilts  to  the  BoE,  which  rationalizes  the 
+observed bids, as well as the usual private information rents that deal-
+ers earn by participating in these auctions and behaving strategically. 
+Second, we document that these rents or ‘‘liquidity benefits’’ of running 
+the auctions have been largest during times of market dysfunction, 
+indicating that the BOE’s auctions have been effective as a backstop for 
+secondary market liquidity. Finally, we show that dealers’ willingness-
+to-sell varies with dealers’ balance sheet constraints, originating from 
+the  regulatory  capital  framework  and  the  internal  management  of 
+interest rate risk.
+
+Specifically, our dataset contains offers submitted by primary deal-
+ers in the 352 reverse gilt auctions run by the BoE between March 2009 
+and March 2017. In contrast to other papers in the literature, we have 
+information on both the offers that were accepted and those that were 
+rejected in each auction. Armed with these granular data, we first es-
+timate dealers’ private valuations or their willingness-to-sell, adapting 
+the methods developed in Hortaçsu and McAdams (2010), Kastl (2011), 
+and Hortaçsu and Kastl (2012). Our model is standard in the literature 
+on auctions while respecting the institutional details of the BoE’s gilt 
+QE auctions: Following Kastl (2012), we assume that bids have to be 
+submitted as a collection of price-quantity pairs, defining the demand 
+curve for central bank reserves as a step function, and our model allows 
+different securities to be sold to the auctioneer. To estimate dealers’ 
+willingness-to-sell, the basic idea is to use the variation in bids to infer 
+the distribution of the residual supplies a bidder is facing. Assuming 
+that primary dealers participating in QE auctions rationally expect to 
+bid against this distribution and that they submit bids that maximize 
+their expected profits, one can then estimate the marginal willingness-
+to-sell a given security that rationalizes the observed bid. This inversion 
+technique is by now standard in the empirical analysis of auctions, but 
+our application to QE reverse auctions is novel.
+
+After estimating dealers’ valuations, we can then recover rents or 
+liquidity  benefits  accruing  to  the  dealers  from  participating  in  the 
+auctions as opposed to liquidating gilts in the secondary market. We 
+document  that  liquidity  benefits  are  largest  in  the  early  phases  of 
+QE implemented during the Global Financial Crisis, consistent with 
+previous work suggesting that the so-called liquidity channel is more 
+powerful during times of market turmoil (Bailey et al., 2020; Vissing-
+Jorgensen, 2020). Hence, QE may be particularly effective in restoring 
+smooth market functioning when market participants are faced with 
+large liquidity shocks and simultaneously sell large quantities of safe 
+assets, which supports a recent theory by Eisenbach and Phelan (2022).
+Next, we study the determinants of dealers’ bidding behavior, fo-
+cusing  on  constraints  that  affect  dealers’  willingness  to  hold  inter-
+est  rate  risk  on  their  balance  sheets.  These  constraints  stem  from 
+dealers’  internal  risk-management  constraints  such  as  position  lim-
+its, Value-at-Risk limits, and risk-factor exposure limits (Amihud and 
+Mendelson, 1980; Duffie et al., 2023; Anderson et al., 2023), funding 
+constraints (Brunnermeier and Pedersen, 2008; He and Krishnamurthy, 
+2013), regulatory constraints, such as capital and liquidity require-
+ments (Adrian et al., 2017; Duffie, 2018), and restrictions on propri-
+etary trading (Falato et al., forthcoming). To understand how these 
+constraints affect dealers’ bidding behavior, we collect audit trail trans-
+action level data for individual gilts in the secondary market, allowing 
+us to estimate how much interest rate risk dealers have accumulated 
+ahead of each auction. Our results suggest that dealers use the BoE’s 
+auctions as an exit strategy for unwanted or strategically accumulated 
+gilt  positions:  the  willingness  to  sell  is  higher  when  a  dealer  has 
+increased its interest rate exposure prior to the auction and lower when 
+a dealer has sold interest rate risk instead. Balance sheet constraints 
+originating from regulation can also affect dealers’ bidding behavior. 
+Specifically, following an exemption rule implemented in 2016, UK 
+banks can improve their leverage ratios – the minimum amount of 
+equity capital banks must hold regardless of the riskiness of their assets 
+– by exchanging gilts for central bank reserves. Consistent with these 
+
+Journal of Financial Economics 174 (2025) 104182 
+
+regulatory incentives, our results suggest that dealers actively use QE 
+auctions to meet their leverage ratio requirements.
+
+Finally, we compute the cost of running the auctions incurred by 
+the BOE. The average cost is around 0.4 bps, which is less than the 
+average bid–ask spread in the gilt market. Clearly any such measure 
+of the costs of QE auctions should be put in the context of the much 
+broader macroeconomic benefits of the policy—that is, achieving the 
+BoE’s inflation target.
+
+The  remainder  of  this  paper  is  organized  as  follows.  Section  2 
+explains the design of the BoE’s gilt QE auctions. Section 3 describes 
+the  data  used  in  the  paper  and  Section  4  introduces  our  auction 
+model. Section 5 studies the liquidity benefits that dealers obtain when 
+participating in the auctions. Section 6 estimates the role of inventory 
+risk and regulatory constraints in explaining dealers’ bidding behavior. 
+Section 7 reports the cost of running the auctions incurred by the BOE. 
+Section 8 concludes.
+
+Related  literature.  Our  paper  is  most  closely  related  to  the  nascent 
+literature that examines the design and cost of QE operations through 
+the  lens  of  auction  data.  Song  and  Zhu  (2018)  study  dealer  prof-
+its in Treasury QE auctions in the US between November 2010 and 
+September 2011. In a related paper, Bonaldi et al. (2015) assess dealer 
+profits and efficiency in the Federal Reserve Board’s QE auctions of 
+Treasury and mortgage-backed securities. Breedon (2018) computes 
+the ‘‘round-trip’’ costs of issuing gilts and purchasing them again in 
+QE operations. Finally, An and Zhaogang (2022) document that in the 
+Fed‘s agency MBS auctions, dealers charge a higher price to the Fed 
+compared to other customers and attribute this finding to the dealers‘ 
+market power. These papers use publicly available auction outcomes 
+and market prices. Compared to these papers, the advantage of our 
+data is that it records both accepted and rejected offers, allowing us 
+to estimate dealers‘ private willingness-to-sell.
+
+In addition, the paper is also related to a recent literature that 
+studies the effect of central bank interventions on the functioning of 
+government bond markets. Duffie and Keane (2023) discuss the costs 
+and  benefits  of  market  function  interventions  and  argue  that  well-
+designed official sector purchases would provide a liquidity backstop 
+in times of stress, improving primary market demand for Treasuries 
+and reducing the cost of debt to the government. Eisenbach and Phelan 
+(2022)  show  theoretically  that  when  the  balance  sheet  capacity  of 
+dealers is constrained, asset purchases are a particularly effective tool 
+to restore orderly functioning in safe asset markets. Vissing-Jorgensen 
+(2020) documents that the Federal Reserve’s purchases of Treasury 
+securities reduced Treasury yields during the dash-for-cash episode in 
+March 2020. Our estimation shows that the liquidity benefits dealers 
+obtain from the reverse auctions are sizable and therefore BoE’s QE 
+purchases  may  have  played  an  important  role  in  helping  alleviate 
+market dysfunction and arrest the dynamics of fire sale in times of 
+market stress. More broadly, this evidence is also consistent with work 
+emphasizing the importance of the liquidity channel in the transmission 
+of QE (Vissing-Jorgensen and Krishnamurthy, 2011; Eser and Schwaab, 
+2016; Pooter et al., 2018; Grimaldi et al., 2021; Christensen and Gillan, 
+2022).1
+
+Moreover, our paper is related to the literature that studies interest 
+rate risk management at dealers and banks. At the bank level, Drechsler 
+et al. (2017, 2022) show that banks are exposed to interest rate risk 
+through their deposit franchise, which increases in value when interest 
+rates rise, thereby naturally hedging banks’ holdings of long-term fixed 
+rate assets, which tend to depreciate with rising interest rates. Drech-
+sler et al.  (forthcoming) observe that the deposit franchise is only 
+
+1 We focus on actual asset purchases and so our approach cannot distinguish 
+between alternative transmission mechanisms of QE, such as local supply, 
+duration, or signaling (Vissing-Jorgensen and Krishnamurthy, 2011; Busetto 
+et al., 2022), some of which operate at the time of the announcement of 
+operations rather than at the time of implementation.
+
+2 
+
+L. Boneva et al.
+
+valuable if the deposits remain inside the bank when interest rates 
+rise and develop a theory of optimal management of the associated 
+liquidity risk. English et al. (2018) show that bank stock prices decline 
+after unexpected increases in the level and slope of the yield curve, 
+suggesting that bank equity is somewhat sensitive to interest rates, 
+although, as Drechsler et al. (2022) point out, this sensitivity is an 
+order of magnitude smaller than that implied by the banks’ mismatch 
+between the maturity of their assets and liabilities.
+
+Primary  dealers  typically  operate  in  a  different  way  from  com-
+mercial banks. They fund their inventory of securities in short-term 
+wholesale funding markets and manage the associated inventory risk 
+by imposing internal risk limits, such as position limits, risk factor 
+exposure  limits,  and  Value-at-Risk  limits  as  their  primary  objective 
+is to maintain a flat book and derive revenue from bid–ask spreads, 
+commissions, and fees (Duffie et al., 2023; Anderson et al., 2023). Using 
+high-frequency data on trading-book profits at major US banks – most 
+of which are also US primary dealers – (Falato et al., forthcoming) show 
+that these banks have, on average, economically small exposures to 
+interest rate risk in their trading books. McPhail et al. (2024) show that 
+US banks have very little interest rate risk in their interest rate swap 
+positions on net and that dealer banks use swaps primarily for market 
+making. Our results are consistent with these findings—UK primary 
+dealers seem reluctant to accumulate large interest rate risk exposures 
+in the trading book and hence offload the gilts more aggressively in 
+the reverse auction when they do acquire a large inventory prior to the 
+auction.
+
+Furthermore, the paper is related to the literature on the effects of 
+capital regulation on dealer intermediation in Treasury markets. Duffie 
+(2018)  argues  that  the  leverage  ratio  requirements  for  large  banks 
+may reduce their willingness and ability to intermediate in markets for 
+safe assets. Consistent with these predictions, Favara et al. (2022) find 
+significant negative effects of the leverage ratio requirements on banks’ 
+participation in the US Treasury market. Breckenfelder and Ivashina 
+(2023) document that following the introduction of the leverage ratio 
+in Europe the liquidity of corporate bonds declines when dealer banks 
+move closer to their leverage ratio requirement. However, Bicu-Lieb 
+et al. (2020) study the effect of the leverage ratio requirement on the 
+secondary market for UK gilts and show that while market liquidity 
+generally deteriorated with the introduction of this requirement, they 
+do not find a conclusive causal link between the two. We contribute 
+to this literature by showing that regulatory constraints affect dealers’ 
+bidding behavior in QE auctions.
+
+Finally, this paper is also related to the literature studying the cost 
+and efficiency of primary auctions of government securities (Hortaçsu 
+and McAdams, 2010; Kastl, 2011; Hortaçsu and Kastl, 2012; Hortaçsu 
+et al., 2018; Han et al., 2007; Kang and Puller, 2008). These papers 
+focus mainly on comparing auction formats across various countries 
+and argue that the data do not show that one format would dominate 
+the others. In this paper, we borrow from the methods developed in 
+those papers to estimate dealers’ willingness-to-sell a gilt to the Bank 
+of England and we use these estimates to quantify rents accruing to QE 
+participants.
+
+2. Institutional background
+
+This section introduces the auction protocol used by the BoE to 
+purchase gilts and explains how trading takes place in the secondary 
+market for gilts. This information is used in Section 4 to set up a model 
+that is consistent with these facts.
+
+2.1. Quantitative easing in the United Kingdom
+
+After the policy rate in the UK was lowered to 0.5 percent in early 
+2009, the Monetary Policy Committee (MPC) of the BoE announced 
+outright purchases of UK government bonds (gilts) on March 5, 2009. 
+
+Journal of Financial Economics 174 (2025) 104182 
+
+The initial stock of purchases amounted to £75 billion but was in-
+creased  to  £200  billion  shortly  thereafter.2  In  2011  and  2012,  the 
+purchases were further extended to £300 and £375 billion, respec-
+tively. Following the UK’s European Union membership referendum 
+in July 2016, the MPC announced a further round of QE purchases 
+worth £60 billion. In 2020, the BoE’s MPC announced to purchase an 
+additional £450 billion of government bonds and sterling non-financial 
+investment-grade corporate bonds to tackle the economic outfall of the 
+covid pandemic. The stock of gilts held by the BoE peaked at £875 
+billion at end of 2021, amounting to approximately one-third of annual 
+U.K. GDP. In September 2022, the BoE announced plans to reduce the 
+stock of gilts. Besides for monetary policy purposes, the BoE also used 
+QE to safeguard financial stability by conducting temporary purchases 
+of long-dated U.K. government bonds in September and October 2022 
+to  restore  orderly  market  conditions  after  a  sudden  repricing  had 
+occurred.
+
+The  asset  purchases  were  financed  by  creation  of  central  bank 
+reserves  and  formally  carried  out  by  the  Bank  of  England’s  Asset 
+Purchase Facility Fund Limited which is a subsidiary of the BoE. The 
+Asset Purchase Facility is fully indemnified by the UK finance ministry 
+against losses associated with its QE operations, and any profits from 
+the Asset Purchase Facility portfolio are returned to the Treasury.
+
+2.2. The design of reverse QE auctions in the United Kingdom
+
+To  implement  QE,  the  BoE  uses  a  multi-object,  multi-unit,  dis-
+criminatory price reverse auction format.3 Eligible participants include 
+the  participants  in  the  BoE’s  gilt-purchase  open  market  operations 
+and the Gilt-Edged Market Makers (primary dealers) as listed on the 
+website of the U.K.’s Debt Management Office. There is no mandatory 
+participation in QE auctions. In each auction, participants are allowed 
+to submit an unlimited number of offers containing price, quantity, and 
+the gilt identifier.4
+
+The auctions are conducted on a weekly basis and are scheduled 
+from 2:15 to 2:45 p.m. The BoE runs separate auctions for different ma-
+turity sectors and these auctions take place on different days. Initially, 
+the BoE ran only two auctions per week, one for maturities between 
+5 and 10 years, and one for maturities between 10 to 25 years. As 
+of August 6, 2009, the number of maturity sectors was expanded to 
+include long-term gilts (over 25 years of residual maturity), and the 
+maturity sectors were further modified in February 2012 (Table  1). 
+
+In  the  week  ahead  of  each  auction,  the  BoE  publishes  a  list  of 
+eligible gilts together with the total amount to be purchased. In general, 
+the purchases exclude gilts with residual maturity less than three years, 
+gilts of which the BoE already holds more than 70 percent of free 
+float, index-linked gilts, and gilts with an issue size of £4 billion or 
+less. Gilts that are newly issued by the Debt Management Office in the 
+
+2 Between different rounds of QE, the stock of QE purchases was maintained 
+
+by reinvesting the principal amount of maturing gilts.
+
+3 See also the most recent market notice for details on the design of the re-
+verse QE auctions, available at: https://www.bankofengland.co.U.K./markets/
+market-notices/2019/asset-purchase-facility-gilt-purchases-june-2019.
+
+4 In addition to the competitive auctions, some participants are eligible to 
+sell gilts in a non-competitive auction at the average accepted price determined 
+in the competitive auction. Dealers only submitted non-competitive bids during 
+the first round of QE, and only 1 percent of the purchased amount is allocated 
+to non-competitive bids (Joyce and Tong, 2012). There are several reasons for 
+why participating dealers preferred to submit their bids in the competitive 
+auction: (i) participation in the competitive auction is operationally easier, 
+(ii) non-competitive bids need to be submitted by noon on the auction day, 
+leaving dealers exposed to interest rate risk until around the price is announced 
+at around 14.50, and (iii) in case the gilt a dealer placed a non-competitive bid 
+for is not allocated in the competitive auction, the non-competitive bid will 
+be canceled. To ensure a specific offer is accepted, dealers therefore prefer to 
+submit a competitive bid at a low price.
+
+3 
+
+L. Boneva et al.
+
+Journal of Financial Economics 174 (2025) 104182 
+
+Table 1
+Residual maturity buckets in UK QE reverse auctions. 
+Maturity bucket
+  Regime
+  1
+M
+  1
+L
+  2
+S
+  2
+M
+  2
+L
+  3
+S
+  3
+M
+  3
+L
+
+Min. maturity
+5
+10
+3
+10
+25
+3
+7
+15
+
+Table 2
+QE phases in the UK. 
+  Phase
+  QE1
+  QE2
+  QE3
+  Reinvestment
+  QE4
+
+Start date
+March 5, 2009
+October 6, 2011
+July 5, 2012
+March 11, 2013
+August 4, 2016
+
+End date
+October 5, 2011 
+July 4, 2012
+March 10, 2013 
+August 3, 2016  
+March 3, 2017  
+
+week preceding the auction or those that will be re-opened by the Debt 
+Management Office either one week before or after the auction are also 
+excluded.
+
+Fig.  1 graphically illustrates how the auctions are run in practice. 
+On auction days, dealers submit their offers to sell eligible gilts to the 
+BoE between 2:15 to 2:45 p.m.. After the auction is closed, the received 
+offers are ranked according to the spread between the offered yield and 
+the secondary market yield prevailing at the auction close. The BoE 
+accepts the most attractive offers until the announced volume has been 
+filled. Successful auction participants are notified privately and receive 
+their offer price, consistent with the discriminatory price protocol. After 
+the close of each auction, the BoE publishes aggregate auction results, 
+including quantities offered and allocated. Information on individual 
+offers is not made public.
+
+Before and during each auction, the BoE closely monitors the de-
+velopments in the secondary market and reserves the right to exclude 
+a gilt from the auction should unusual price developments occur.5
+
+2.3. The secondary market for gilts
+
+The  UK  primary  dealers  play  a  vital  role  in  the  secondary  gilt 
+market. They are required to provide liquidity to market participants 
+by quoting bid and ask prices on a continuous basis in all market 
+conditions. In return, they are eligible to participate in the primary 
+auctions and related operations run by the UK Debt Management Office. 
+The vast majority of trading in the secondary gilt market is carried 
+out over the counter (OTC) and only a small amount occurs on the 
+London Stock Exchange.6 The number of primary dealers varies during 
+our sample period, as some firms resigned their primary dealer status, 
+while new firms acquired it. In total, there were 22 different primary 
+dealers active during our sample period (Table  3).
+
+3. Data
+
+This  section  introduces  the  granular  dataset  we  use  to  analyze 
+
+bidding behavior in the BoE‘s QE auctions.
+
+5 Breedon (2018) provides an example of price manipulation in an eligible 
+gilt that occurred on October 10, 2011, leading to a fine of the responsible 
+trader by the UK’s Financial Conduct Authority.
+
+6 Benos and Zikes (2018) and Bicu-Lieb et al. (2020) provide a detailed 
+
+description and analysis of the UK gilt market structure.
+
+Max. maturity
+10
+25
+10
+25
+
+7
+15
+
+Start date
+5-Mar-2009
+5-Mar-2009
+6-Aug-2009
+6-Aug-2009
+6-Aug-2009
+9-Feb-2012
+9-Feb-2012
+9-Feb-2012
+
+End date
+5-Aug-2009  
+5-Aug-2009  
+8-Feb-2012  
+8-Feb-2012  
+8-Feb-2012  
+25-Mar-2015 
+25-Mar-2015 
+
+Table 3
+UK primary dealers between March 2009 and March 2017.
+Source: U.K. Debt Management Office.
+  UK primary dealers
+  Banco Santander SA, London Branch
+  Barclays Bank Plc
+  BNP Paribas (London Branch)
+  Citigroup Global Markets Limited
+  Credit Suisse
+  Deutsche Bank AG (London Branch)
+  Goldman Sachs International Bank
+  HSBC Bank Plc
+  Jefferies International Limited
+  J.P. Morgan Securities Plc
+  Lloyds Bank Corporate Markets Plc
+  Merrill Lynch International
+  Morgan Stanley & Co. International Plc  
+  Nomura International Plc
+  Royal Bank of Canada Europe Limited
+  Royal Bank of Scotland Plc
+  Scotiabank Europe Plc
+  Societe Generale (London Branch)
+  State Street Bank Europe
+  Toronto-Dominion Bank (London Branch) 
+  UBS Limited
+  Winterflood Securities Limited
+
+3.1. Auction data
+
+Our auction dataset covers 352 QE auctions that took place between 
+March 2009 and March 2017. The majority of these purchases are 
+concentrated in four distinct phases, known as QE1-QE4 (Table  2). 
+But auctions also took place between these QE programs in order to 
+reinvest the proceeds from maturing gilt holdings. A unique feature of 
+our data is that it records detailed information about each individual 
+bid submitted during the auctions. This includes the identity of the 
+dealer, the gilt to be offered to the BoE, the offer yield and quantity, 
+and the allocated amount (which can be zero). This information is not 
+only available for accepted offers, but for all offers that were submitted 
+into the auction. For each auction, we also have data for the gilt yields 
+that prevailed in the secondary market at the close of the auction (2:45 
+p.m.) and that are used by BoE staff in the allocation process.
+
+A small proportion of bids is placed by dealers on behalf of clients. 
+Because clients are likely to follow a different, usually speculative, 
+offering strategy compared with dealers’ own accounts, client offers are 
+removed from our data prior to analysis. Client bids are not labeled 
+as such in the data, so we have developed a method for approximate 
+identification of customer bids.
+
+Because client bids are usually of speculative nature, we exclude 
+offers where the offer amount exceeds £100 million or offers placed 
+at a high price that exceeds the prevailing market price by a sizable 
+margin.7 In total, this procedure identifies around 4% of all offers as 
+offers placed on behalf of clients. 
+
+7 The threshold chosen for the bid amount (£100 mn) is twice the typical 
+trade size in the gilt market (Belsham et al., 2017). To determine speculative 
+
+4 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+L. Boneva et al.
+
+Journal of Financial Economics 174 (2025) 104182 
+
+Fig. 1. Time line of a typical QE auction at the BoE.
+
+Table 4
+Descriptive statistics for the UK QE reverse auctions. The table reports descriptive statistics for the gilt QE auctions carried out 
+by the BoE between 2009 and 2017 by QE phase and residual maturity bucket. QE1-QE4 denote the four different QE phases and 
+R denotes reinvestments (Table  2). S, M, L stand for the short, medium and long maturity sector, respectively (Table  1). Data 
+exclude client offers. 
+
+  # auctions
+
+  # gilts per auction
+
+  # dealers per auction
+
+  Offered per auction (GBP mn)
+
+  Purchased per auction (GBP mn)
+
+Bucket
+
+QE phase
+All
+
+All
+S
+M
+L
+All
+S
+M
+L
+All
+S
+M
+L
+All
+S
+M
+L
+All
+S
+M
+L
+
+352
+103
+125
+124
+8.38
+8.43
+5.75
+11.00
+15.7
+15.5
+15.5
+16
+2389
+2444.1
+2587.4
+2143.1
+893.1
+773
+919.2
+966.6
+
+QE1
+
+92
+17
+38
+37
+7.01
+8.94
+6.13
+7.03
+14
+13.3
+14
+14.2
+3323
+3281.6
+3468.7
+3192.4
+1288.9
+788.5
+1239.6
+1569.5
+
+QE2
+
+78
+26
+26
+26
+9.10
+9.65
+6.73
+10.92
+17.6
+17.5
+17.6
+17.8
+2582.3
+3139.3
+2556.3
+2051.2
+1009.1
+991
+1062
+974.3
+
+QE3
+
+50
+16
+17
+17
+8.78
+7.25
+6.00
+13.00
+16.2
+15.8
+15.7
+17.2
+1680
+1611.4
+1941.6
+1483.1
+579.2
+583
+588.6
+566.4
+
+R
+
+51
+17
+17
+17
+9.31
+8.35
+6.18
+13.41
+16.6
+16.6
+16.1
+17.1
+2084.8
+2346.7
+2187.4
+1720.4
+957.2
+977.3
+960.7
+933.7
+
+QE4
+
+81
+27
+27
+27
+8.42  
+7.67  
+3.85  
+13.74  
+14.9  
+14.3  
+15
+15.3  
+1771.0 
+1802.0 
+2035.7 
+1475.4 
+485.2  
+537.2  
+512.7  
+405.7  
+
+Table  4 reports descriptive statistics for the auction data (excluding 
+client offers) at the aggregate level, broken down by QE phase and 
+residual maturity. The average number of eligible gilts per auction is 
+8, but some auctions during QE4 were conducted with as few as two 
+gilts, while others included more than 10 eligible gilts. The average 
+number of participating dealers is 16, with a minimum of 14 during 
+the first round and a maximum of 18 during the second round of QE. 
+On average, the amount offered per auction is £2, 389 million and the 
+BoE purchased on average £893 million per auction, indicating that 
+
+offer yields, we compute the distribution of offer yields relative to the market 
+yields at auction close and remove the offers below the 1 st percentile. This 
+is done separately for the different QE phases and maturity buckets. The 
+approximate thresholds for removing client offers have been provided to us 
+by the BoE‘s QE desk and are informed by regular conversations with auction 
+participants.
+
+the auctions were well covered.8 Measured by the amount offered or 
+purchased, auctions held during the initial round of QE were larger 
+compared to later QE phases, in particular for the medium and long 
+maturity buckets.
+
+Figs.  2 and 3 report descriptive statistics by dealer and gilt. The 
+average amount offered per dealer and gilt is £57 million, similar to 
+the typical trade size in the UK gilt market (Belsham et al., 2017). The 
+average amount accepted by dealer and gilt is £40 million. The largest 
+amounts offered and accepted are observed during the first round of QE 
+that was implemented in 2009 when secondary market functioning was 
+poor. Also, the average amount offered is smaller in the large maturity 
+bucket compared to the short- or medium maturity bucket.
+
+8 One exception was an uncovered auction in August 2016 with a shortfall 
+
+of £52 million.
+
+5 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+L. Boneva et al.
+
+Journal of Financial Economics 174 (2025) 104182 
+
+Fig. 2. Average offer amount by gilt and dealer by maturity bucket and QE phase. The average offer amount is in £million. The sample period is 2009 to 2017.
+
+Fig. 3. Average accepted amount by gilt and dealer by maturity bucket and QE phase. The average accepted amount is in £million. The sample period is 2009 
+to 2017.
+
+3.2. Transaction records from the UK secondary gilt market
+
+Our secondary market transaction records are obtained from the 
+ZEN database maintained by the UK Financial Conduct Authority for 
+the period from August 2011 until March 2017, covering QE2, QE3, 
+reinvestments, and QE4. In total, there were 61 different conventional 
+gilts traded during our sample period, including gilts issued prior to 
+the beginning of the sample period as well as gilts issued during the 
+sample period. Each transaction record contains the trading account of 
+the reporting party, transaction date and time, gilt identifier, execution 
+price, size of the transaction, buyer/seller flag, reporting party name, 
+and frequently, but not always, the identity of the counterparty. Large 
+dealer banks typically have multiple trading accounts corresponding 
+to the different functions these banks perform. For the purposes of 
+this paper, we are only interested in trading activities associated with 
+market making and hence only retain the trading accounts used for 
+this purpose. To identify the market-making accounts, we follow the 
+methodology in Kondor and Pinter (2019).9
+
+Once having identified dealers’ market making accounts, we aggre-
+gate notional volumes bought and sold across different accounts to 
+construct measures of trading activity for each dealer and gilt. The 
+
+Table 5
+Descriptive statistics for dealers’ trading activity in the secondary market. 
+The table reports averages for both interest rate risk and traded volumes 
+accumulated by dealer and gilt during the 2.5 days preceding each auction. 
+The sample period is from 2011 to 2017.
+
+  Volume bought (GBP million)
+  Volume sold (GBP million)
+  Interest rate risk bought (GBP million)
+  Interest rate risk sold (GBP million)
+
+Allocated Offered
+
+Eligible
+
+90.57
+81.42
+1180.49
+1056.26
+
+92.44
+85.64
+1160.98
+1075.41
+
+43
+42.77
+555.88
+550
+
+Ineligible 
+42.99
+43.73
+475.81  
+481.49  
+
+notional volumes bought and sold are then accumulated over 2.5 days 
+preceding each auction.10 To translate the notional volumes traded into 
+interest rate risk, the notional volumes bought and sold are multiplied 
+by a gilt’s duration (DV01), which measures the change in the value of 
+a bond with a 1 basis point change in its yield.11
+
+Table  5 reports descriptive statistics for both interest rate risk and 
+traded volumes. On average, we find that the trading activity was larger 
+for gilts that have been offered or purchased compared to those that are 
+eligible or ineligible.
+
+9 Kondor and Pinter (2019) develop a fixed-point algorithm and show that 
+it successfully identifies the market-making accounts of the primary dealers 
+in the gilt market. For robustness, we apply an alternative procedure that 
+identifies market-making accounts using a narrative procedure by selecting 
+accounts that exhibit a large, two-way trading activity together with a name 
+indicating market-making activity. The correlation between the traded volume 
+computed using either method is around 95 percent.
+
+10 Specifically, traded volumes is accumulated on the auction day itself until 
+the start of the auction at 2:15 p.m. and on the 2 days preceding each auction. 
+Because auctions for the different maturity buckets are held weekly, 2.5 days is 
+exactly in the middle between two subsequent auctions. Using a window over 
+2.5 days also ensures that a sufficient number of transactions are observed.
+11 Online Appendix A describes the construction of these measures of interest 
+rate risk in more detail.
+
+6 
+
+ 
+ 
+ 
+L. Boneva et al.
+
+Journal of Financial Economics 174 (2025) 104182 
+
+Mean
+
+Median
+
+Table 6
+Descriptive statistics for regulatory ratios, gilt characteristics and further auction variables. Data on gilt characteristics are from 
+the UK Debt Management Office, the BoE and Bloomberg. Regulatory returns are from S&P Global Market Intelligence and are 
+available at quarterly frequency. The sample period is from 2009 to 2017.
+  Statistic
+  Gilt characteristics
+  Free float (GPB mn)
+  Duration (GBP per bps change in yield)
+  Pre-auction yield change (bps)
+  Additional UK QE reverse auction variables
+  Max. offer amount (GPB mn)
+  No. bids per dealer
+  No. bids per gilt
+  Dispersion of winning bids
+  Regulatory ratios
+  Leverage ratio (percent)
+  Liquidity cov. ratio (percent)
+  Tier one capital ratio (percent)
+
+25.01  
+0.98
+1.51
+0.09
+
+7753.21 
+10.41  
+3.99
+
+20,771.38
+10.38
+−1.18
+
+20,872.00
+7.04
+−1.00
+
+36,025.00
+62.23
+15.90
+
+1.14
+22.91  
+2.41
+
+2249.00
+0.003
+−25.10
+
+100
+8.86
+26.00
+1.30
+
+28.87
+2.13
+2.34
+0.06
+
+5.00
+127.00
+15.58
+
+3.40
+112.00
+12.10
+
+7.40
+204.75
+20.04
+
+5.32
+134.91
+15.80
+
+1
+1.00
+1.00
+0.00
+
+25
+2.00
+2.00
+0.03
+
+St. Dev.
+
+Max
+
+Min
+
+3.3. UK dealer balance sheet data
+
+Balance sheet data for UK banks are obtained from the S&P Global 
+Market Intelligence data base. Specifically, we obtain, at the quarterly 
+frequency, dealers’ leverage ratio, Tier 1 capital ratio, and liquidity 
+coverage ratio.12 The first two ratios measure the banks’ resilience to 
+negative shocks to the value of their assets. The liquidity coverage 
+ratio measures banks’ ability to withstand deposit and other short-term 
+funding outflows in times of stress. 
+
+Table   6  reports  descriptive  statistics  for  these  regulatory  ratios. 
+The  average  leverage  ratio  equals  around  5  percent,  exceeding  the 
+minimum of 3 percent by a comfortable margin. The Tier 1 capital ratio 
+is on average 15.8 percent (compared to a minimum requirement of 6 
+percent) and the average liquidity coverage ratio in our sample is 135 
+percent (compared to a minimum requirement of 100 percent).
+
+collection of price-quantity pairs, defining the demand curve for central 
+bank  reserves  as  a  step  function  (Kastl,  2011).  Also,  we  allow  for 
+different  securities  to  be  sold  to  the  auctioneer  during  auctions,  a 
+common practice in QE reverse auctions.
+
+Since the BoE’s QE auctions follow a discriminatory pricing rule, 
+bidders trade off their (marginal) surplus against the probability of 
+winning. However, the QE auctions are rather non-standard. Different 
+securities can be sold to the auctioneer. Let 𝑝𝑡
+𝑗 denote the price of gilt 
+𝑗 at time 𝑡 and let 𝛽𝑖,𝑡 (⋅) denote the offer submitted by dealer 𝑖, for 
+security 𝑗 at time 𝑡. Let 𝑡∗ denote the time when the earliest offer 𝛽𝑖,𝑡 (⋅)
+was submitted, which is typically a few minutes before the deadline. 
+In order to translate this environment into a more familiar framework, 
+such as the one governing sales of treasury bills, for example, we need 
+to make the offers of different securities comparable. We achieve this 
+goal by imposing the following assumption: 
+
+4. Model for the Bank of England’s gilt QE auctions
+
+Assumption 1.  𝑃 𝑡=2∶45
+
+𝑗
+
+= 𝑝𝑡∗
+
+𝑗 + 𝜀, ∀𝑗
+
+Unlike many previous papers that analyze QE auctions, our data 
+is  unique  because  it  includes  not  only  the  winning  bids,  but  also 
+the unsuccessful ones. This means that our data allow us to see the 
+complete bid curves, essentially demand curves for cash in exchange 
+for gilts, albeit strategically modified due to the auction process. The 
+key advantage is that only when all bids are observed can we hope 
+to infer bidders’ beliefs about the competition they face from other 
+participants. This is because the shapes of the submitted bid curves will 
+reflect the beliefs about the distribution of the residual supplies of cash 
+they might face. The key observation is that by selling a given security 
+in the QE auction rather than in the secondary market, a dealer can 
+potentially transact a very large quantity without an immediate impact 
+on the market price of that security. We now discuss the formal setup 
+of the model that allows us to infer the marginal willingness-to-sell a 
+given gilt from the observed offer yields.
+
+4.1. Theoretical setup
+
+The model we use is standard in the literature on Treasury bill 
+auctions (Hortaçsu and McAdams, 2010 or Kastl, 2011) while at the 
+same time respecting institutional details about the BoE’s gilt QE auc-
+tions. Most importantly, our model assumes that the auction follows 
+a  discriminatory  pricing  rule  and  bids  have  to  be  submitted  as  a 
+
+12 The leverage ratio is defined as Tier 1 capital over the total leverage 
+exposure measure, the Tier 1 capital ratio as Tier 1 capital over total risk-
+weighted assets and the liquidity coverage ratio as total high-quality liquid 
+assets over total net cash outflows expected over a 30-day period of stress.
+
+𝑗
+
+where 𝑃 𝑡=2∶45
+ denotes the random market price of security 𝑗 as will 
+prevail at 2:45 p.m. This assumption essentially says that in the last 
+minutes before the auction, after the earliest offer as been submitted, 
+the prices of securities which the dealers are allowed to sell in the 
+auction move together. Thus, bidders know the relative prices of the 
+securities when submitting their offers. This assumption is supported by 
+observations on how bidders behave during the auction. Most bidders 
+submit or modify their offers in the final minutes and seconds of an 
+auction in order to minimize interest rate risk. If there were unobserved 
+heterogeneity related to the ‘‘quality’’ of the securities (for example, if 
+the default probability were to differ across securities due to different 
+issuers), our approach would need to be modified to take that into 
+account since assuming that the innovations are perfectly correlated 
+would clearly be problematic. Since in our application the securities 
+share the same issuer and are of comparable maturity within a QE 
+auction, we do not believe that unobserved heterogeneity is material in 
+our environment and instead opt for assuming dealers know the prices 
+up to a common shock.
+
+Normalizing  the  submitted  offers  by  the  ex  post  observed  price 
+allows us to homogenize all offers and express them as one curve. Since 
+offers are expressed in yield spreads over the 2:45 p.m. yield, it might 
+be easier to view the auction as one in which bidders bid for a share 
+of the offered cash amount—that is, submit their bids as if these were 
+demand curves that are non-increasing in the yield (or to be precise, 
+yield spread over the prevailing 2:45 p.m. yield). This is essentially 
+a standard model of Treasury bill auctions. We thus adopt the usual 
+terminology of bidders submitting demands that specify a share of the 
+unit good at a given yield.
+
+In what follows, bidders are indexed by 𝑖 ∈ {1, … , 𝑁}. To respect 
+the institutional details, we further assume that the bids have to be 
+
+7 
+
+ 
+ 
+ 
+ 
+ 
+ 
+L. Boneva et al.
+
+submitted as a collection of price-quantity pairs {𝑞𝑖𝑘, 𝑏𝑖𝑘
+}𝐾𝑖
+𝑘=1, which 
+define a step-function demand curve, where 𝐾𝑖 is the number of steps 
+bidder 𝑖 uses. Bidders’ willingness-to-pay—that is, the maximal yield 
+at which they are willing to ‘‘buy’’ 𝑞 units of offered central bank 
+reserves, is given by a function 𝑣(𝑞, 𝑆𝑖), where 𝑆𝑖 is a possibly multi-
+dimensional privately observed signal distributed according to a CDF 
+𝐹𝑖(𝑆). Bidders’ total value for quantity 𝑞 given signal 𝑆𝑖 is denoted 
+)
+by  𝑉 (𝑞, 𝑆𝑖
+.  To  facilitate  estimation,  following  Kastl 
+(2012), we make the following assumption on the valuations and on 
+information structure: 
+
+0 𝑣 (𝑞, 𝑆𝑖
+
+= ∫ 𝑞
+
+)
+
+Assumption 2. 
+
+(a) The marginal value for central bank reserves 𝑣 (𝑞, 𝑆𝑖
+
+) is non-
+negative, bounded and strictly increasing in each component of 
+𝑆𝑖 ∀𝑞, and non-increasing and continuous in 𝑞 ∀𝑆𝑖.
+
+(b) The  private  signals  are  independently  and  identically
+= ∏𝑁
+
+𝑖=1 𝐹𝑖(𝑆) = 𝐹 (𝑆)𝑁 .
+
+)
+
+distributed: 𝐹 (𝑆1, … , 𝑆𝑁
+(c) Dealers are risk neutral.
+
+This assumption imposes ex ante symmetry and, more importantly, 
+that values are ‘‘private’’ as the marginal value for central bank re-
+serves are independent of private signals of rival bidders. Since the QE 
+operations are auctions where dealers essentially swap securities that 
+would need to be traded on the secondary market with some illiquidity 
+discount for immediate liquidity, most dealers’ bidding behavior will 
+be driven by dealer-specific opportunity costs and immediate liquidity 
+needs, thus justifying the private value assumption. Although some 
+common value component due to the potential differential informa-
+tion  about  the  resale  value  of  the  illiquid  securities  might  still  be 
+present, we assume it away. The main reason being that the secondary 
+market still exists, and hence any arbitrage opportunity can be taken 
+advantage of there. Once we accept that any trading based on resale-
+value-relevant information takes place immediately, at any given point 
+the uncertainty about the resale value is symmetric, and hence this 
+information structure fits into the private value paradigm. Assumption 
+2 further imposes independence and identical distribution of signals 
+across bidders, which substantially simplifies estimation. The final part 
+of Assumption  2, risk neutrality, implies that dealers are indifferent 
+between  a  fair  bet  on  trading  at  two  different  prices  at  2:45  p.m. 
+versus trading with certainty at their expectation. This assumption is 
+made for convenience; risk aversion could be brought into the model, 
+but it would require some further data variation to identify the risk 
+aversion parameters.13 Furthermore, the assumption of risk neutrality 
+is supported by discussions with BoE staff running the auctions. We 
+note  that  under  risk  aversion,  our  estimates  of  rents  would  be  an 
+upper bound: bidders that are risk averse would prefer to eliminate the 
+uncertainty arising due to the auction process, and thus would bid more 
+aggressively in a discriminatory auction, much like in a standard first 
+price sealed bid auction.
+
+Under  these  assumptions,  the  expected  utility  of  a  bidder  of  a 
+}𝐾𝑖
+𝑘=1 in a discriminatory 
+
+particular type 𝑠𝑖 who submits a curve {𝑞𝑖𝑘, 𝑏𝑖𝑘
+auction can be written as follows:
+
+E
+
+𝑆−𝑖𝑈 (𝑠𝑖
+
+)
+
+=
+
+𝐾𝑖∑
+
+𝑘=1
+
+[
+Pr
+
+(𝑏𝑖𝑘 > 𝑃 𝑐 > 𝑏𝑖𝑘+1|𝑠𝑖
+(𝑞𝑖𝑘 − 𝑞𝑖𝑘−1
+
+)]
+
+(𝑏𝑖𝑘 = 𝑃 𝑐
+
+|𝑠𝑖
+
+) E
+
+𝑆−𝑖|𝑠𝑖
+
+× 𝑏𝑖𝑘
+𝐾𝑖∑
+
+Pr
+
+𝑘=1
+
++
+
+) 𝑉 (𝑞𝑖𝑘, 𝑠𝑖
+
+)
+
+− Pr
+
+(𝑏𝑖𝑘 > 𝑃 𝑐
+
+)
+
+|𝑠𝑖
+
+Journal of Financial Economics 174 (2025) 104182 
+
+Both random variables are functions of the vector of private signals of 
+all market participants as they are impacted through the equilibrium 
+strategies. The summation term on the first line captures the expected 
+profits from all realizations of the market clearing price, where bidder 
+of type 𝑠𝑖 is not rationed, and hence 𝑄𝑐
+𝑖 = 𝑞𝑖,𝑘. The summation on the 
+second line captures the states with rationing and hence the market 
+clearing yield spread is equal to the offer (𝑃 𝑐 = 𝑏𝑖,𝑘), but the market 
+clearing quantity is random, because it depends on the realization of 
+demands of other bidders, which in turn depend on realization of their 
+private information. A Bayesian Nash Equilibrium in this market consists 
+of a profile of strategies, one for each dealer, that maps each dealer’s 
+private signal 𝑆𝑖 into a set of admissible offer curves and maximizes 
+Eq. (1) for (almost) every realization of the signal.
+
+Under the assumption of rational expectations and optimal bidding 
+behavior, both of which are standard in the empirical auction literature, 
+we can use the distribution of the submitted bid curves to estimate 
+bidders’ beliefs about their rivals’ play (see, for example, Guerre et al. 
+(2000) or Hortaçsu and McAdams (2010)) and then find the value that 
+rationalizes the observed bid. If each bidder maximizes (expected) prof-
+its, Kastl (2012) shows that the optimal bid curve in a discriminatory 
+auction with bidding constrained to the choice of a step function will 
+satisfy: 
+
+)
+
+𝑣 (𝑞𝑘, 𝑠𝑖
+⏟⏞⏟⏞⏟
+Willingness-to-sell
+
+=
+
++
+
+𝑏𝑘
+⏟⏟⏟
+Offer spread
+
+|𝑠𝑖
+
+(𝑏𝑘+1
+
+)
+≥ 𝑃 𝑐
+Pr
+(𝑏𝑘 > 𝑃 𝑐 > 𝑏𝑘+1|𝑠𝑖
+
+(𝑏𝑘 − 𝑏𝑘+1
+Pr
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+Rent accruing to dealers from participating in the auctions
+
+)
+
+)
+
+(2)
+
+where 𝑃 𝑐 is the market clearing yield spread. 𝑃 𝑐 is a random variable 
+from the perspective of each bidder, 𝑠𝑖 is private information of bidder 
+𝑖, 𝑞𝑘 is the quantity of central bank reserves demanded in the auction 
+at 𝑘th step of the bid curve and 𝑏𝑘 is the yield-spread at which 𝑞𝑘 is 
+demanded. This equation, therefore, reveals that the uncertainty about 
+rivals’ play and hence about the market clearing yield spread introduces 
+a wedge between dealers’ bids and their willingness-to-accept for a 
+particular security (which could be determined by the opportunity cost 
+of keeping it or selling it in the secondary market). Bidders choose each 
+step in their bids to optimally trade off the impact of a higher yield 
+spread (i.e., lower profit made if that offer were to be accepted) against 
+the larger probability that it actually will be accepted. Note that the 
+equilibrium offer will be at a yield spread that is below the willingness-
+to-accept-spread, 𝑏 < 𝑣 and the difference, or rent, will be a function of 
+the uncertainty about the market clearing price.14 Notice that selling a 
+larger quantity of bonds will result in a (weakly) lower market clearing 
+price—hence there might be price impact even when selling in the QE 
+auctions. The extent of this price impact depends on the bids submitted 
+by rival dealers. Eq. (2) hence implicitly defines a non-increasing bid 
+curve (or, equivalently, demand curve for reserves) of a bidder with 
+type 𝑠𝑖. In absence of uncertainty about 𝑃 𝑐 , the dealer would demand 
+as much central bank reserves as to equate its marginal value and the 
+clearing yield spread (whenever an interior solution exists). Note that 
+the beliefs about the distribution of the market clearing yield spread, 
+which enter in Eq.  (2), are potentially specific to each dealer as the 
+distribution of the market clearing yield spread may be determined 
+by this dealer’s bid. The variation in shapes of the submitted bids (for 
+example, their locations and slopes) both within and across dealers and 
+auctions and also across gilts within an auction allows us to identify 
+this uncertainty about the market clearing yield under the assumption 
+of optimal bidding.
+
+×
+
+[𝑉 (𝑄𝑐
+
+𝑖 , 𝑠𝑖
+
+)
+
+− 𝑏𝑖𝑘
+
+(𝑄𝑐
+
+𝑖 − 𝑞𝑖𝑘−1
+
+)
+
+|𝑏𝑖𝑘 = 𝑃 𝑐]
+
+(1)
+
+4.2. Estimation
+
+where we let 𝑞𝑖0 = 𝑏𝑖𝐾𝑖+1 = 0. 𝑃 𝑐 is the (random) market clearing 
+yield  spread  and  𝑄𝑐
+𝑖   is  the  (random)  quantity  share  allocated  to  𝑖. 
+
+By  inspecting   Eq.   (2),  it  can  be  seen  that  in  order  to  recover 
+the marginal values that would rationalize a given observed bid, we 
+
+13 Häfner (2023) describes how a share auction with risk averse bidders 
+could be estimated and we elaborate on this in the Online Appendix.
+
+14 No  auction  protocol  could  eliminate  these  rents  fully  due  to  private 
+information dealers have.
+
+8 
+
+L. Boneva et al.
+
+Journal of Financial Economics 174 (2025) 104182 
+
+Fig. 4. Liquidity benefits by maturity bucket and QE phase. The liquidity benefit, expressed in bps, is the surplus accruing to dealers from participating in the 
+auctions. The sample period is 2009 to 2017.
+
+need to estimate the distribution of the market clearing yield spread. 
+Given Assumption  2—that is, that each dealer draws independently 
+a signal 𝑆𝑖 from an identical distribution 𝐹 (𝑠)—one can estimate this 
+distribution by following a resampling technique proposed in Hortaçsu 
+and McAdams (2010). It closely resembles the bootstrap approximation 
+of a population distribution as it involves drawing with replacement 
+𝑁 − 1 bids from the sample of observed bids. After subtracting these 
+bids from the pre-announced ‘‘supply’’ (here this is simply the amount 
+to be purchased in the auction), each such draw results in one possible 
+realization of the residual supply (how much of central bank reserves 
+is left at a given yield spread after satisfying all other bidders). Inter-
+secting these residual supplies with each bidder’s bid curve, one can 
+obtain an estimate of the whole distribution of the market clearing yield 
+spread for each bidder. This distribution can be plugged into Eq. (2) 
+in order to recover the private information rents and ultimately the 
+marginal value rationalizing each individual bid. To aggregate rents 
+and marginal values from the bid-level to the dealer-level, we compute 
+averages weighted by the offer amount.
+
+To sum up, the structural estimation allows us to decompose the 
+observed  bids  into  dealers’  willingness-to-sell  and  the  usual  private 
+information  rents.  The  following  Section  provides  some  insights  on 
+rents, while Section 6 analyzes the willingness-to-sell.
+
+5. The Bank of England’s QE auctions as a backstop for secondary 
+market liquidity
+
+In the context of gilt QE auctions, the private information rents can 
+be interpreted as gains from trade accruing to dealers from participat-
+ing in the auctions as opposed to liquidating gilts in the secondary 
+market, potentially causing prices to change and volatility to increase. 
+Although  the  goal  of  the  QE  program  was  not  to  allow  dealers  to 
+extract  rents,  in  times  of  stress  these  rents  can  also  be  interpreted 
+as liquidity benefits of running QE auctions: by participating in the 
+BoE’s QE auctions, successful dealers exchange gilts that can be illiquid 
+in the secondary market during times of market stress against liquid 
+central bank reserves, avoiding forced sales and further impairment 
+of market functioning. Now, since the liquidity benefits we estimate 
+using our model assume the counterfactual of selling the gilts in the 
+secondary market post-auction, they do not fully capture the potential 
+liquidity benefits of the QE program itself. Some of these benefits have 
+been  shown  to  occur  on  or  shortly  after  the  announcement  of  the 
+program (Vissing-Jorgensen and Krishnamurthy, 2011) and persisted 
+for the duration of the QE program (Pooter et al., 2018; Christensen 
+and Gillan, 2022).
+
+On average, we estimate that the liquidity benefits are around 3 bps, 
+suggesting that dealers would expect to face a significant price impact if 
+they needed to raise liquidity using their gilt holdings on the secondary 
+
+market.15 The bootstrap standard error is about 0.08 bps, indicating 
+that the estimate is statistically significant at all conventional levels.16 
+To the extent that the goal of the central bank is to provide liquidity 
+to  dealers  in  a  non-targeted  way,  no  mechanism  would  be  able  to 
+fully eliminate these liquidity benefits because of the usual private 
+information rents.17
+
+Liquidity benefits are higher for longer-dated gilts. In particular, 
+they range from around 2.5 bps in the short maturity bucket to around 
+3.5 bps in the long bucket (Panel (a) of Fig.  4). Compared with shorter-
+dated gilts, longer-dated gilts trade with a larger price impact in the 
+secondary market, explaining why the willingness-to-sell and hence the 
+liquidity benefit associated with them is larger.
+
+The  liquidity  benefits  are  greatest  during  times  of  market  tur-
+moil. With 4 bps, they are the largest during the initial phase of QE 
+that took place in the immediate aftermath of the Global Financial 
+Crisis and decreased to around 2.5 bps during subsequent waves of 
+QE  (Panel  (b)  of  Fig.   4).  This  pattern  is  consistent  with  previous 
+work suggesting that QE is particularly effective when introduced in 
+dysfunctional markets (Vissing-Jorgensen, 2020; Busetto et al., 2022; 
+Bernanke, 2020; Hauser, 2022). Via the so-called liquidity channel, 
+central bank asset purchases can improve market conditions in times of 
+turmoil. This state-contingency can arise because in impaired markets, 
+liquidity premiums are larger and more sensitive to policy intervention.
+Hence, by providing liquidity to dealers in an anonymous and price-
+insensitive way, QE auctions reduce dealers’ need for distressed selling 
+to meet their demand for liquidity (Vlieghe, 2020).18 For example, the 
+targeted and temporary QE purchases carried out by the BoE in Septem-
+ber 2022 backstopped liquidity in the gilt market and arrested fire sale 
+
+15 Our estimate of rents in QE auctions is in line with previous estimates 
+obtained  for  primary  markets,  or  even  below  that.  In  primary  auctions, 
+these rents are reflecting opportunity costs of using the funds elsewhere. For 
+example, Hortaçsu et al. (2018) report that for Treasury bill auctions, this 
+number ranges from a fraction of a basis point for most liquid securities, over 
+0.7 bps for a 52 weeks to 13.07 bps for a 5 year bond and 22.2 bps for a 
+10 year bond. Rents or liquidity benefits in Canada or the Czech Republic 
+have been estimated at around 5–8 bps (Kastl, 2012). However, some of these 
+securities have rather different characteristics compared with gilts.
+16 The tiny standard error is driven likely by the estimate being the average 
+across all auctions—and thus the sampling error washes out.
+17 Dealers have private information on how liquidity constrained they might 
+be, how diversified they are and how much price impact they would need to 
+cope with if they were to adjust their positions to get liquidity, and also on 
+the likelihood of that liquidity-constrained state arising.
+18 As put by Bernanke (2020), ‘‘A possible interpretation is that the initial 
+[2008-2009] rounds of QE were particularly effective because they were intro-
+duced, and provided critical liquidity, in a period of exceptional dysfunction 
+in financial markets’’.
+
+9 
+
+L. Boneva et al.
+
+Journal of Financial Economics 174 (2025) 104182 
+
+Table 7
+Liquidity benefits, the cost of UK QE reverse auction, bidding behavior and secondary market trading. The table reports estimation 
+results from Eq.  (3). Standard errors are clustered by gilt. The cost of QE is measured as the weighted average accepted yield 
+relative to the market yield at auction close. The liquidity benefit is measured as the surplus accruing to dealers from participating 
+in the auctions. Cost and liquidity benefit are expressed in bps. The sample period is 2011 to 2017.
+
+  Interest rate risk bought (GPB bn)
+
+  Interest rate risk sold (GPB bn)
+
+  Volume bought (GPB bn)
+
+  Volume sold (GPB bn)
+
+  DV01
+
+  Free float (GPB mn)
+
+  Pre-auction yield change (bps)
+
+  Max. offer amount (GPB mn)
+
+  Cover ratio by bond
+
+  Offer amount by bond
+
+  No. bids per dealer
+
+  No. dealers per bond
+
+  Dispersion of winning bids
+
+  Maturity bucket FE
+  Auction FE
+  Dealer FE
+  No. auctions
+∗p < 0.1; ∗∗p < 0.05; ∗∗∗p < 0.01.
+
+WAAY spread
+−0.01
+(0.01)
+
+0.001
+(0.01)
+
+0.01∗∗
+(0.003)
+
+−0.002
+(0.002)
+
+−0.02
+(0.01)
+
+0.002∗∗∗
+(0.0004)
+
+−0.0003∗
+(0.0002)
+
+−0.0000
+(0.0001)
+
+−0.03∗∗
+(0.01)
+
+−0.02
+(0.03)
+
+−0.51
+(0.31)
+
+Yes
+Yes
+Yes
+81
+
+Rent
+
+0.02
+(0.08)
+
+−0.08
+(0.10)
+
+−0.01
+(0.02)
+
+0.01
+(0.01)
+
+−0.14∗
+(0.08)
+
+−0.01∗∗∗
+(0.004)
+
+−0.002
+(0.002)
+
+−0.0003
+(0.0004)
+
+−0.39∗∗∗
+(0.09)
+
+−0.69∗∗∗
+(0.27)
+
+1.28
+(1.10)
+
+Yes
+Yes
+Yes
+81
+
+WAAY spread
+
+Rent
+
+−0.06
+(0.08)
+
+−0.06
+(0.07)
+
+0.01∗∗
+(0.003)
+
+−0.002
+(0.002)
+
+−0.02
+(0.01)
+
+0.002∗∗∗
+(0.0004)
+
+−0.0003
+(0.0002)
+
+0.0000
+(0.0001)
+
+−0.03∗∗
+(0.01)
+
+−0.02
+(0.03)
+
+−0.53∗
+(0.31)
+
+Yes
+Yes
+Yes
+81
+
+−0.19
+(0.91)
+
+−0.44
+(1.05)
+
+−0.01
+(0.02)
+
+0.005
+(0.01)
+
+−0.13
+(0.08)
+
+−0.01∗∗∗ 
+(0.004)  
+−0.002  
+(0.002)  
+−0.0003 
+(0.0004) 
+−0.40∗∗∗ 
+(0.09)
+
+−0.72∗∗∗ 
+(0.27)
+
+1.14
+(1.09)
+
+Yes
+Yes
+Yes
+81
+
+dynamics. Such ‘‘fire sales’’ can, in the worst case, lead to severe market 
+dysfunction, tighten financial conditions, amplify the weakening in the 
+economic outlook and impair the monetary transmission mechanism.
+
+Finally, we relate the estimated liquidity benefits or expected rents 
+to our measure of interest rate risk and a broad range of variables 
+characterizing dealers’ bidding behavior: 
+
+Liquidity benefit𝑎,𝑏,𝑑,𝑚 = 𝛼𝑎 + 𝜇𝑚 + 𝛿𝑑 + 𝛽′𝑍𝑎,𝑏,𝑑,𝑚 + 𝛿′𝑋𝑎,𝑏,𝑚 + 𝜖𝑎,𝑏,𝑑,𝑚 (3)
+
+where 𝑍𝑎,𝑏,𝑑,𝑚 is a vector of variables of interest that measure interest 
+rate risk and bidding behavior for auction 𝑎, dealer 𝑑 and gilt 𝑏 in 
+maturity bucket 𝑚, including the maximal offer amount, number of bids 
+by gilt and the dispersion of winning bids. 𝑋𝑎,𝑏,𝑚 is a vector of gilt-
+specific controls including the free float, duration, and the pre-auction 
+yield change from the end of the previous day to the end of the auction. 
+Finally, 𝛼𝑎, 𝜇𝑚, 𝛿𝑑 are auction, maturity bucket, and dealer fixed effects, 
+respectively.
+
+Columns (2) and (4) in Table  7 report the results. The amount of 
+interest rate risk traded ahead of the auction does not affect liquidity 
+benefits. Regarding variables characterizing bidding behavior, we find 
+the higher the maximum offer amount, the lower the liquidity benefits, 
+indicating that dealers are willing to forego some liquidity benefits to 
+be able to sell large offers to the BoE that are costly to sell in the 
+secondary market. The number of bids per dealer is also negatively 
+associated with the expected rents. Finally, the more dealers compete 
+to purchase a specific gilt, the lower the liquidity benefits.
+
+6. Bidding behavior, interest rate risk and regulatory constraints
+
+Section 4 described how to invert the observed bids into the actual 
+marginal willingness-to-sell. In this section, we present some descrip-
+tive evidence about the willingness-to-sell and uncover its determi-
+nants.
+
+To  begin  with,  Fig.   5  depicts  how  the  marginal  willingness-to-
+sell  a  given  security  varies  across  maturity  sectors  and  QE  phases. 
+Since we normalized the bids for each security by the respective 2:45 
+p.m. secondary market yield, the reported values should be viewed as 
+spreads. Positive values essentially correspond to a dealer willing to sell 
+the security at a price that is lower than the secondary market price (or, 
+equivalently, willingness to accept a higher yield than the secondary 
+market yield). It follows immediately from Eq.  (2) that bidders will not 
+truthfully reveal their willingness-to-sell, however, due to pay-your-bid 
+pricing. Panel (a) of Fig.  5 shows that in particular for long-dated yields, 
+dealers are willing to transact at yields that are up to 0.9 bps above the 
+2:45 p.m. market yields.
+
+Panel (b) of Fig.  5 then shows that during QE4 dealers would require 
+a premium relative to the secondary market prices to sell the security 
+in the auction. This may suggest that by then they were confident that 
+if they were unsuccessful in selling the gilts in the auction with the 
+required premium, they could easily obtain liquidity in exchange for 
+those securities in the secondary markets. In contrast, during all other 
+QE phases they would be willing to transact at yields that are above the 
+
+10 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+L. Boneva et al.
+
+Journal of Financial Economics 174 (2025) 104182 
+
+Fig. 5. Willingness-to-sell by maturity bucket and QE phase, expressed in bps.
+
+2:45 p.m. market yields. The highest willingness-to-sell was observed 
+during the initial round of QE when it reached 1.4 bps.
+
+6.1. Determinants of bidding behavior
+
+Motivated by theory and previous empirical research, we begin by 
+discussing various sources that might impact the way the dealers bid 
+and then present a simple empirical model that is aimed to shed light 
+on the bidding behavior of dealers in QE auctions.
+
+Interest rate risk.  Standard market microstructure theory predicts, and 
+empirical  evidence  confirms,  that  dealers  actively  manage  interest 
+rate risk, and that the amount of risk faced by dealers mean-reverts. 
+This can be achieved by adjusting prices to incentivize risk-reducing 
+order flow from market participants (Ho and Stoll, 1981; Hendershott 
+and Menkveld, 2014), hedging with derivative instruments (Naik and 
+Yadav, 2003), or offloading positions anonymously in the interdealer 
+market  (Reiss  and  Werner,  1998).  The  introduction  of  quantitative 
+easing offered dealers yet another attractive option to manage their 
+interest  rate  risk,  as  the  arrival  of  a  large,  predictable,  and  price-
+insensitive buyer (central bank) significantly improved their prospects 
+of reducing unwanted (or strategically accumulated) inventory should 
+they wish to do so. The BoE publishes a list with eligible gilts one week 
+ahead of its auctions, thus facilitating inventory management.
+
+As explained in Section 3.2, we approximate the amount of interest 
+rate risk bought and sold by multiplying notional traded volumes over 
+2.5  days  preceding  each  auction  with  the  duration  (DV01)  of  the 
+gilt.19,20
+
+Regulatory incentives.  In addition, we assess if dealers’ bidding behav-
+ior relates to balance sheet constraints stemming from the post-crisis 
+regulatory  reforms.  Although  these  reforms  are  widely  believed  to 
+have strengthened the resilience of individual financial institutions and 
+the financial system as a whole, they have also significantly affected 
+the  business  models  of  dealers  and  their  ability  and  willingness  to 
+provide intermediation services (Duffie, 2018; Adrian et al., 2017), 
+which in turn has implications for the implementation and effectiveness 
+
+19 In comparison, An and Zhaogang (2022) documents that for the Fed‘s 
+MBS purchases, dealers’ inventory buildup occurs over around 60 days. Each 
+month, the Fed is publishing a schedule of its MBS purchases for the following 
+month so dealers knew at most one month in advance that a particular MBS 
+would be eligible, motivating their rather long window choice. In comparison, 
+the BoE is announcing eligible gilts one week in advance. To also differentiate 
+between unwinding inventory that has not been sold in the past auction and 
+building up inventory ahead of the next auction, we use a window of 2.5 days.
+20 This measure should be considered as a proxy for interest rate risk as 
+it does not take into account derivative positions or positions in other fixed 
+income assets.
+
+of monetary policy (Duffie and Krishnamurthy, 2016). A key element 
+of  the  new  Basel  III  regulatory  framework  was  the  introduction  of 
+the leverage ratio with the aim of preventing excessive build-up of 
+leverage while avoiding the pitfalls associated with risk-based capital 
+requirements.21 The leverage ratio is defined as Tier 1 capital over the 
+total leverage exposure measure, where the definition of total exposures 
+differs across jurisdictions. In contrast to most other countries, in the 
+UK, central bank reserves have been exempted from total exposures 
+since August 2016. As a result, dealers can improve their leverage ratio 
+by swapping gilts for central bank reserves via QE auctions. In contrast 
+to  the  leverage  ratio,  dealers  cannot  directly  improve  the  liquidity 
+coverage ratio (LCR) and risk-based capital ratios by trading gilts for 
+central bank reserves.
+
+6.2. Econometric model
+
+To investigate the role played by these different determinants in 
+shaping dealers’ bidding behavior, we estimate the following panel data 
+regression: 
+
+𝑌𝑎,𝑏,𝑑,𝑚 = 𝛼𝑎 + 𝜇𝑚 + 𝛿𝑑 + 𝛽′𝑍𝑎,𝑏,𝑑,𝑚 + 𝛾 ′𝑋𝑎,𝑏,𝑚 + 𝜖𝑎,𝑏,𝑑,𝑚
+
+(4)
+
+where the dependent variable 𝑌  is any of the willingness-to-sell, the 
+offered amount, or offer yield for auction 𝑎, dealer 𝑑, and gilt 𝑏 in 
+maturity bucket 𝑚; 𝑍 is a vector of variables of interest that measure 
+the amount of interest rate risk bought and sold ahead of the auctions as 
+well as regulatory constraints; and 𝑋 is a vector of gilt-specific control 
+variables including the free float, duration, and the pre-auction yield 
+change from the end of the previous day to the end of the auction.22 
+Finally, 𝛼𝑎, 𝜇𝑚, 𝛿𝑑 are auction, maturity bucket and dealer fixed effects, 
+respectively.
+
+6.3. Estimation results
+
+Table   8  reports  how  interest  rate  risk  accumulated  prior  to  the 
+auctions  and  the  regulatory  constraints  affect  dealers’  offering  be-
+havior. Specifically, we consider four different measures of offering 
+behavior; willingness-to-sell, weighted average offer yield relative to 
+the secondary market yield at the auction close (offer spread), weighted 
+average accepted yield relative to the secondary market yield at the 
+auction close (accepted spread) and the offer amount.23 Recall that offer 
+
+21 Kotidis and van Horen (2018) provide a detailed overview of the design 
+and implementation of the leverage ratio.
+22 Table  6 provides descriptive statistics for the regression variables not 
+introduced thus far.
+23 The offer amount is set to zero if a gilt was eligible but no offer was 
+submitted.  In  contrast,  the  offer  spread,  accepted  spread  and  willingness-
+to-sell are set to ‘‘missing’’ in these instances, which explains the different 
+
+11 
+
+L. Boneva et al.
+
+Journal of Financial Economics 174 (2025) 104182 
+
+Table 8
+Participant’s offering behavior in UK QE reverse auction, interest risk and regulatory constraints. The table reports estimation results from Eq.  (4). Standard errors 
+are clustered by gilt. Willingness-to-sell, offer spread and accepted spread are in bps, and offer amount is in £billion. The sample is restricted to the period after 
+the exemption of central bank reserves from the calculation of the leverage ratio was announced, that is, after August 2016 (coinciding with QE4).
+Accepted 
+spread
+
+Willingness-
+to-sell
+
+Willingness-
+to-sell
+
+Accepted 
+spread
+
+Offer 
+amount
+
+Offer 
+amount
+
+Offer 
+spread
+
+Offer 
+spread
+
+  Interest rate risk bought (GPB bn)
+
+  Interest rate risk sold (GPB bn)
+
+0.10
+(0.10)
+
+−0.35∗∗∗
+(0.09)
+
+0.08
+(0.07)
+
+−0.26∗∗∗
+(0.06)
+
+−0.04∗∗
+(0.02)
+
+0.02
+(0.02)
+
+0.003∗∗
+(0.001)
+
+0.002
+(0.001)
+
+  Volume bought (GPB bn)
+
+  Volume sold (GPB bn)
+
+  DV01
+
+  Free float (GPB bn)
+
+  Pre-auction yield change (bps)
+
+  Leverage ratio (percent)
+
+  Liquidity cov. ratio (percent)
+
+  Tier one capital ratio (percent)
+
+  Maturity bucket FE
+  Auction FE
+  Dealer FE
+  No. auctions
+∗p < 0.1; ∗∗p < 0.05; ∗∗∗p < 0.01.
+
+0.04
+(0.03)
+
+−0.01
+(0.03)
+
+−0.51∗
+(0.29)
+
+−2.45∗∗
+(0.99)
+
+−0.03
+(0.02)
+
+−0.10
+(0.61)
+
+Yes
+Yes
+Yes
+81
+
+0.02
+(0.03)
+
+−0.004
+(0.02)
+
+−0.21∗
+(0.11)
+
+−1.43∗∗
+(0.69)
+
+−0.03∗∗
+(0.01)
+
+−0.33
+(0.51)
+
+Yes
+Yes
+Yes
+81
+
+0.01
+(0.01)
+
+0.001
+(0.005)
+
+0.04
+(0.05)
+
+−0.48
+(0.30)
+
+−0.01
+(0.01)
+
+0.19∗
+(0.10)
+
+Yes
+Yes
+Yes
+81
+
+−0.0002∗∗∗
+(0.0001)
+
+−0.0001
+(0.0002)
+
+0.003∗
+(0.002)
+
+−0.01∗
+(0.005)
+
+−0.0002∗
+(0.0001)
+
+−0.001
+(0.003)
+
+Yes
+Yes
+Yes
+81
+
+1.51
+(1.09)
+
+−4.84∗∗∗
+(1.52)
+
+0.04
+(0.03)
+
+−0.03
+(0.03)
+
+−0.47
+(0.29)
+
+−2.54∗∗∗
+(0.97)
+
+−0.03
+(0.02)
+
+−0.03
+(0.60)
+
+Yes
+Yes
+Yes
+81
+
+1.34∗
+(0.75)
+
+−3.42∗∗∗
+(1.05)
+
+0.01
+(0.03)
+
+−0.01
+(0.02)
+
+−0.18
+(0.13)
+
+−1.50∗∗
+(0.67)
+
+−0.03∗∗
+(0.01)
+
+−0.28
+(0.50)
+
+Yes
+Yes
+Yes
+81
+
+−0.51
+(0.38)
+
+0.04
+(0.34)
+
+0.004
+(0.01)
+
+0.001
+(0.005)
+
+0.03
+(0.05)
+
+−0.49∗
+(0.29)
+
+−0.01
+(0.01)
+
+0.20∗
+(0.10)
+
+Yes
+Yes
+Yes
+81
+
+0.08∗∗∗
+(0.02)
+
+0.02
+(0.03)
+
+−0.0001  
+(0.0001)  
+−0.0001  
+(0.0002)  
+0.003∗
+(0.001)
+
+−0.01∗
+(0.005)
+
+−0.0002∗∗ 
+(0.0001)  
+
+−0.002
+(0.003)
+
+Yes
+Yes
+Yes
+81
+
+spreads differ from the willingness-to-sell due to private information 
+rents or liquidity benefits (Eq. (2)). Accepted spreads differ from the 
+offer spreads due to selecting winning bids only. Our baseline measure 
+of interest rate risk is the change in the notional amount bought or 
+sold  during  the  2.5  days  prior  to  the  auction  multiplied  by  DV01 
+(Section 3.2). Regressions using this measure of interest rate risk are 
+reported  in  columns  (1)–(4)  of  Table   8.  For  comparison,  columns 
+(5)–(8) report regressions where we measure interest rate risk by the 
+notional amount bought and sold without any duration adjustment. To 
+assess the role played by the regulatory environment in shaping bidding 
+behavior,  we  focus  on  the  leverage  ratio,  while  controlling  for  the 
+liquidity coverage ratio and the Tier 1 capital ratio. Hence, the sample 
+is restricted to the period after the exemption of central bank reserves 
+from the calculation of the leverage ratio was announced, that is, after 
+August 2016. As explained in Section 3.1, the data used throughout 
+our empirical analysis is purged of offers placed on behalf of clients 
+as they are placed with different strategic considerations compared to 
+offers from dealers’ own accounts. 
+
+Our first empirical result is that dealers actively use QE auctions 
+as an exit strategy for unwanted or strategically accumulated gilt posi-
+tions. In particular, dealers who sold interest rate risk in the secondary 
+market  ahead  of  the  auctions  are  less  willing  to  participate  in  QE 
+auctions. Quantitatively, the response of the willingness-to-sell to the 
+average amount of interest rate risk sold is 0.38 bps, comparable in size 
+to the bid–ask spread of 0.5 bps observed in the gilt market (Belsham 
+
+et al., 2017). In addition, dealers who successfully bought gilts in the 
+secondary market ahead of the auction offered larger amounts of gilts 
+in the forthcoming auction. For the average amount bought ahead of 
+the auction, the amount offered into the forthcoming auction increases 
+by £3.5 million. By comparison, the typical trade size in the gilt market 
+is £50 million (Belsham et al., 2017).24
+
+Our  second  empirical  result  is  that  dealers  use  QE  auctions  to 
+improve their leverage ratio. In particular, dealers with a lower lever-
+age ratio have a higher willingness-to-sell. The size of this effect is 
+economically meaningful: if the leverage ratio falls by 1 percentage 
+point, the willingness-to-sell increases by 2.5 bps or about 5 times the 
+average bid–ask spread in the gilt market. Although dealers forgo a 
+higher return when exchanging gilts for reserves, this seems a price 
+worth paying to improve their regulatory compliance. Dealers with less 
+regulatory space also offer larger quantities for sale in the auctions. 
+If the leverage ratio declines by 1 percentage point, dealers offer an 
+additional £10 million into the auction, or about 1/5 of the typical 
+trade size in the gilt market. The LCR and the Tier 1 capital ratio 
+does not affect bidding behavior in the auctions. The coefficient on the 
+Tier 1 capital ratio is insignificant, and the coefficient on the liquidity 
+coverage ratio is statistically significant but economically negligible.
+
+We also investigate whether the effect of the leverage ratio differs 
+at quarter ends, when dealers report their balance sheet data to the 
+regulator, and hence may have stronger incentives to improve their 
+leverage ratios (‘‘window dressing’’). We find no evidence that this is 
+the case in our sample period (Table 12 in the Online Appendix).
+
+number of observations used for different dependent variables. Re-estimating 
+the regressions for the offer amount and setting all zeros to ‘‘missing’’ does 
+not affect the results reported below.
+
+24 We also find a positive relationship between the interest rate risk bought 
+and the number of bids placed in the subsequent auction, suggesting that 
+dealers acquiring more interest risk place both more and larger offers.
+
+12 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+L. Boneva et al.
+
+Journal of Financial Economics 174 (2025) 104182 
+
+Table 9
+Participant’s offering behavior in UK QE reverse auction, interest rate risk and regulatory constraints: including trading in gilt 
+substitutes (±2.5 yrs of residual maturity). The table reports estimation results from Eq.  (4). Standard errors are clustered by 
+gilt. Willingness-to-sell is in bps, and offer amount is in £billion. The sample is restricted to the period after the exemption 
+of central bank reserves from the calculation of the leverage ratio was announced, that is, after August 2016 (coinciding with
+QE4).
+
+  Interest rate risk bought (GPB bn)
+
+  Interest rate risk sold (GPB bn)
+
+  Interest rate risk of substitutes bought (GPB bn)
+
+  Interest rate risk of substitutes sold (GPB bn)
+
+  Volume bought (GPB bn)
+
+  Volume sold (GPB bn)
+
+  Volume of substitutes bought (GPB bn)
+
+  Volume of substitutes sold (GPB bn)
+
+  DV01
+
+  Free float (GPB bn)
+
+  Pre-auction yield change (bps)
+
+  Leverage ratio (percent)
+
+  Liquidity cov. ratio (percent)
+
+  Tier one capital ratio (percent)
+
+  Maturity bucket FE
+  Auction FE
+  Dealer FE
+  No. auctions
+∗p < 0.1; ∗∗p < 0.05; ∗∗∗p < 0.01.
+
+Willingness-to-sell
+
+Offer amount
+
+Willingness-to-sell
+
+0.14∗
+(0.08)
+
+−0.33∗∗∗
+(0.10)
+
+0.003
+(0.005)
+
+−0.004
+(0.005)
+
+Offer amount
+0.003∗∗
+(0.002)
+
+0.002
+(0.001)
+
+−0.0000
+(0.0000)
+
+0.0000
+(0.0000)
+
+1.63
+(1.04)
+
+−4.74∗∗∗
+(1.45)
+
+0.05
+(0.04)
+
+−0.06
+(0.04)
+
+0.03
+(0.04)
+
+−0.03
+(0.03)
+
+−0.48
+(0.29)
+
+−2.50∗∗∗
+(0.97)
+
+−0.03
+(0.02)
+
+−0.05
+(0.60)
+
+Yes
+Yes
+Yes
+260
+
+0.08∗∗∗
+(0.02)
+
+0.02
+(0.03)
+
+0.0001
+(0.0003)
+
+−0.0001
+(0.0004)
+
+−0.0001
+(0.0001)
+
+−0.0001
+(0.0002)
+
+0.003
+(0.002)
+
+−0.01∗
+(0.005)
+
+−0.0002∗∗  
+(0.0001)
+
+−0.002
+(0.003)
+
+Yes
+Yes
+Yes
+260
+
+0.03
+(0.04)
+
+−0.02
+(0.03)
+
+−0.49∗
+(0.29)
+
+−2.44∗∗
+(0.99)
+
+−0.03
+(0.02)
+
+−0.09
+(0.61)
+
+Yes
+Yes
+Yes
+260
+
+−0.0002
+(0.0001)
+
+−0.0001
+(0.0002)
+
+0.003
+(0.002)
+
+−0.01∗
+(0.005)
+
+−0.0002∗
+(0.0001)
+
+−0.001
+(0.003)
+
+Yes
+Yes
+Yes
+260
+
+Compared to the willingness-to-sell, the effects of interest rate risk 
+and the leverage ratio on offer spreads are similar in sign but are about 
+50%  smaller,  illustrating  the  importance  of  removing  time-varying 
+rents before analyzing bidding behavior in auctions (columns 2 and 6 
+in Table  8). Furthermore, restricting the sample to accepted bids only, 
+the results are either insignificant or even change in sign compared to 
+those using the offer spread or willingness-to-sell (columns 3 and 7 in 
+Table  8). Overall, focusing on accepted bids only confounds the results 
+because of both variation in rents and a sample selection problem, as 
+‘‘winning’’ leads to only the more competitive bids to enter into the 
+regressions.
+
+Regarding  the  additional  control  variables,  we  find  that  dealers 
+are less willing to sell gilts to the BOE when observing their price 
+to fall ahead of the auction, while the other control variables are not 
+statistically significant.
+
+Table   10  reports  the  results  for  the  full  sample  period  without 
+
+regulatory ratios with similar qualitative findings.
+
+6.4. Robustness
+
+One concern with these results is that different gilt securities are 
+likely to be substitutes to some degree. So a dealer’s bidding strategy 
+for a specific gilt could also be driven by interest rate risk held for a 
+broader set of gilts with a similar residual maturity. To assess if that is 
+
+the case, Table  9 also controls for interest rate risk bought and sold of 
+gilts within 2.5 years of residual maturity, respectively. Controlling for 
+interest rate of substitutes leaves the coefficient estimates on interest 
+rate risk and on the leverage ratio almost unchanged in magnitude and 
+statistical significance. One exception is the effect of interest rate risk 
+bought on the willingness-to-sell that is statistically significant in this 
+specification.25
+
+In  addition,  the  effects  of  interest  rate  risk  and  regulatory  con-
+straints on bidding behavior can vary across maturity buckets and time. 
+Tables 3–5 in the Online Appendix report our estimates separately for 
+the short, medium, and long maturity auctions. Concerning the amount 
+of interest rate risk sold or bought, the largest effect is observed in the 
+short maturity bucket. Regarding the leverage ratio, the largest impact 
+is observed in the long-maturity bucket.
+
+When assessing variation in our results over time, we only focus 
+on the relationship between interest rate risk and bidding behavior, 
+excluding  the  regulatory  ratios.  This  is  because  our  baseline  Table 
+8 only uses data from QE4 due to the change in the leverage ratio 
+regulation at that time. In the full sample spanning QE2 to QE4, the 
+effect of interest rate risk on offering behavior is qualitatively similar 
+
+25 Results  are  also  robust  to  using  a  broader  definition  of  substitutes 
+spanning ±5 years of residual maturity (Table 10 in the Online Appendix).
+
+13 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+L. Boneva et al.
+
+Journal of Financial Economics 174 (2025) 104182 
+
+Table 10
+Participant’s offering behavior in UK QE reverse auction and interest rate risk: full sample period. The table reports estimation 
+results from Eq.  (4), excluding regulatory ratios. Standard errors are clustered by gilt. Willingness-to-sell is in bps, and offer 
+amount is in £billion. The sample period is 2011 to 2017.
+Willingness-to-sell
+
+Willingness-to-sell
+
+Offer amount
+
+  Interest rate risk bought (GPB bn)
+
+  Interest rate risk sold (GPB bn)
+
+  Volume bought (GPB bn)
+
+  Volume sold (GPB bn)
+
+  DV01
+
+  Free float (GPB bn)
+
+  Pre-auction yield change (bps)
+
+  Maturity bucket FE
+  Auction FE
+  Dealer FE
+  No. auctions
+∗p < 0.1; ∗∗p < 0.05; ∗∗∗p < 0.01.
+
+0.04
+(0.05)
+
+−0.14∗∗∗
+(0.04)
+
+−0.05
+(0.03)
+
+−0.01
+(0.02)
+
+−0.05
+(0.13)
+
+Yes
+Yes
+Yes
+260
+
+Offer amount
+0.004∗∗∗
+(0.001)
+
+−0.0003
+(0.001)
+
+−0.0001
+(0.0001)
+
+0.0002
+(0.0001)
+
+0.002∗
+(0.001)
+
+Yes
+Yes
+Yes
+260
+
+−0.12
+(0.56)
+
+−1.39∗∗∗
+(0.52)
+
+−0.05∗
+(0.03)
+
+−0.01
+(0.02)
+
+−0.04
+(0.13)
+
+Yes
+Yes
+Yes
+260
+
+0.07∗∗∗
+(0.01)
+
+−0.01
+(0.01)
+
+−0.0001
+(0.0001)
+
+0.0002
+(0.0001)
+
+0.002∗∗∗
+(0.0005)
+
+Yes
+Yes
+Yes
+260
+
+to the results reported above. To uncover potential time variation in 
+this effect, Tables 6–9 in the Online Appendix estimate this effect by QE 
+phase. Although the effect of interest rate risk on the amount offered 
+is broadly stable over time, the effect on the willingness-to-sell varies, 
+with the largest effects observed during QE4.
+
+Another potential concern is how client bids are removed prior to 
+analysis. For the results reported so far, we exclude offers where the 
+offer amount exceeds £100 million or offers placed at a speculative 
+price that exceeds the prevailing market price by a sizable margin. 
+Our results are robust to variations of this method, including a higher 
+threshold for the offer amount, only excluding offers with both a large 
+offer amount and placed at a speculative price and retaining client 
+offers (Tables 13–15 in the Online Appendix). Some coefficients even 
+increase in magnitude relative to our baseline results, indicating that 
+our approach to remove client offers is probably conservative.
+
+Finally, our results are robust to using the net amount of interest 
+rate risk bought as the main explanatory variable instead of includ-
+ing the amounts bought and sold separately (Table 11 in the online 
+Appendix).
+
+7. The cost of the Bank of England’s gilt QE purchases
+
+So far, our analysis has relied on our unique data comprising both 
+accepted and rejected offers that has enabled us to recover dealers’ 
+private willingness-to-sell and liquidity benefits from the observed offer 
+yields. In contrast, previous work on QE auctions has primarily used 
+data  on  accepted  bids  only.  For  comparison,  this  section  therefore 
+reports a measure of the cost of the auctions following the approach 
+in Breedon (2018). Specifically, we compute the cost of running the 
+auctions incurred by the BoE as the volume-weighted difference be-
+tween  the  yield  accepted  by  the  BoE and  the  prevailing  secondary 
+market  yield  at  the  auction  close  (WAAY  spread).  Hence,  negative 
+values of our cost measure indicate a loss for the BoE.26
+
+On average, the cost of running the auctions is −0.38 bps, which 
+implies that the dealers sold the securities in the auctions at prices 
+
+26 Strictly speaking, these costs should not be interpreted as pure dealer 
+profits because they also include the cost of allocating staff and technology 
+to participate in the auctions.
+
+that are slightly higher than those prevailing on the secondary market. 
+The cost of QE is largest for gilts in the medium and long buckets 
+(Panel (a) of Fig.  6). A potential explanation for this observed pattern 
+is interest rate risk: toward the end of each auction, there is a short 
+period of time between the close of the auction (after which dealers 
+cannot modify their bids) and the announcement of the results. During 
+that period, dealers are exposed to market risk, which is higher for 
+long-dated gilts, because of their longer duration. To compensate for 
+this risk, dealers may want to submit lower yield offers for longer-
+dated gilts to begin with. Panel (a) of Fig.  6 also indicates that dealers 
+are making losses when selling short-duration gilts to the BoE. One 
+possible  explanation  for  this  observation  is  that  dealers  are  paying 
+up for immediacy. Alternatively, they may also be willing to pay for 
+turnover as only dealers with a high turnover are allowed to participate 
+in the DMO’s syndications that are attractive for dealers to obtain gilts. 
+Panel (b) of Fig.  6 reports how the cost of QE spread varied across 
+time. The first round of QE recorded the highest cost incurred by the 
+BoE (−0.7 bps), while that cost was essentially zero during the third 
+round  of  QE.Overall,  the  cost  of  QE  for  the  BoE  is  very  small,  in 
+particular when put in perspective with the ultimate benefits of the 
+policy. There are numerous studies documenting that the BoE’s asset 
+purchases were successful in stimulating spending and inflation to meet 
+the BoE’s inflation target of 2 percent over the medium term (Joyce 
+et al., 2011; Busetto et al., 2022), suggesting that the benefits of QE 
+outweigh its cost. By participating in the auctions and by trading in 
+the secondary market, dealers are actively facilitating the transmission 
+of QE to the real economy, perhaps justifying a small profit.
+
+Our estimates of the cost of QE are smaller compared with previous 
+research. For example, measuring the cost of QE during the first two 
+rounds of QE by comparing average accepted yields to gilt yields at 
+the end of auction day, Breedon (2018) concludes that these programs 
+have been expensive. Indeed, his estimates of the cost are almost double 
+ours, which can be explained by the fact that (Breedon, 2018) uses 
+end of day yields as a point of comparison, while we compare average 
+accepted yields to yields prevailing in the secondary market at auction 
+close. So the relatively large cost figures in Breedon (2018) are likely 
+to be partially driven by news arriving after the auction close and that 
+are unrelated to the auctions themselves.
+
+14 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+L. Boneva et al.
+
+Journal of Financial Economics 174 (2025) 104182 
+
+Fig. 6. Cost of QE by maturity bucket and QE phase, expressed in bps. The cost of QE is measured as the weighted average accepted yield relative to the market 
+yield at auction close. The sample period is 2009 to 2017.
+
+Finally,  we  assess  if  interest  rate  risk  and  bidding  behavior  are 
+related to the cost of QE. To do this, we estimate a version of (3) where 
+the dependent variable is replaced by the WAAY spread. Columns (1) 
+and (3) in Table  7 report the estimation results. We do not find a signif-
+icant effect of interest rate risk bought and sold on the WAAY spread. 
+This implies that participating dealers may not be able to systematically 
+increase their profits by strategically trading in the secondary market 
+ahead of the auctions, suggesting that the BoE‘s QE auctions are well 
+designed and carefully implemented. Regarding independent variables 
+that  characterize  bidding  behavior,  we  find  that  dealers  offering  a 
+larger maximum amount also offer a higher yield relative to the market 
+yield prevailing at auction close, reducing the cost of QE. Given the 
+auction allocation protocol used by the BoE, submitting an offer at a 
+lower price relative to the market increases the chance of having the 
+offer accepted. This may be a less costly way for dealers to offload large 
+positions given the price impact associated with such large trades in 
+the secondary market. In addition, the cover ratio and the number of 
+bids per dealer are also negatively related to the WAAY spread. Finally, 
+the cost of QE is positively related to duration, suggesting that gilts 
+carrying higher interest rate risk are more costly to acquire for the BoE, 
+consistent with the descriptive statistics in Fig.  6.
+
+8. Conclusions
+
+In this paper, we study the bidding behavior during four rounds of 
+QE auctions implemented by the BoE between 2009 and 2017. Using 
+a novel dataset containing both accepted and rejected offers together 
+with an equilibrium model of bidding behavior, we estimate dealers’ 
+willingness-to-sell gilts to the BoE and the rents accruing to them.
+
+Since a dealer’s willingness-to-sell in an auction can be viewed as 
+its expectation of the price she would get if the trade were to take place 
+in the secondary market, rents can also be viewed as liquidity benefits 
+that the dealers accrue from participating in the auction as compared 
+to liquidating assets in the secondary market. We document that the 
+liquidity benefits of the BoE‘s gilt purchases have been largest during 
+the first round of QE taking place in the immediate aftermath of the 
+global financial crisis when financial markets were dysfunctional. By 
+providing ample liquidity in an anonymous and price-insensitive way, 
+the BoE’s QE purchases have prevented dealers from facing binding 
+liquidity constraints that could have resulted in distressed selling and 
+market turmoil. For policy makers, this implies that central bank facil-
+ities designed to backstop liquidity in dysfunctional market segments 
+are most effective when implemented in a timely fashion.
+
+15 
+
+In addition, we document that the amount of interest rate risk ac-
+cumulated ahead of the auction and regulatory constraints play an im-
+portant role in determining bidding behavior in the BoE‘s QE auctions. 
+Hence, central banks should assess how regulations affecting dealers’ 
+balance sheet capacity interact with their operational framework when 
+designing QE operations.
+
+CRediT authorship contribution statement
+
+Lena Boneva: Writing – review & editing, Writing – original draft, 
+Software, Project administration, Methodology, Investigation, Formal 
+analysis. Jakub Kastl: Writing – review & editing, Writing – original 
+draft, Software, Resources, Project administration, Methodology, For-
+mal analysis, Data curation, Conceptualization. Filip Zikes: Writing 
+– review & editing, Writing – original draft, Visualization, Software, 
+Project administration, Methodology, Investigation, Formal analysis, 
+Data curation, Conceptualization.
+
+Declaration of competing interest
+
+The  authors  declare  that  they  have  no  known  competing  finan-
+cial interests or personal relationships that could have appeared to 
+influence the work reported in this paper.
+
+Appendix A. Supplementary data
+
+Supplementary material related to this article can be found online 
+
+at https://doi.org/10.1016/j.jfineco.2025.104182.
+
+Data availability
+
+Replication package for ‘‘Dealer balance sheets and bidding behavior in
+the Bank of England’s QE reverse auctions’’ (Reference data) (Mendeley 
+Data)
+
+References
+
+Adrian, Tobias, Boyarchenko, Nina, Shachar, Or, 2017. Dealer balance sheets and bond 
+
+liquidity provision. J. Monet. Econ. 89, 92–109.
+
+Amihud,  Yakov,  Mendelson,  Haim,  1980.  Dealership  market:  Market-making  with 
+
+inventory. J. Financ. Econ. 8 (1), 31–53.
+
+An, Yu, Zhaogang, Song, 2022. Does the Federal Reserve Obtain Competitive and 
+Appropriate Prices in Monetary Policy Implementation? SSRN Working Paper.
+Anderson, Christopher S., McArthur, David C., Wang, Ke, 2023. Internal risk limits of 
+
+dealers and corporate bond market making. J. Bank. Financ. 147, 106653.
+
+L. Boneva et al.
+
+Journal of Financial Economics 174 (2025) 104182 
+
+Bailey, Andrew, Bridges, Jonathan, Harrison, Richard, Jones, Josh, Mankodi, Aakash, 
+2020. The central bank balance sheet as a policy tool: Past, present and future. In: 
+Paper prepared for the Jackson Hole Economic Policy Symposium.
+
+Bank of England, 2022. Bank of England announces gilt market operation. https://ww
+w.bankofengland.co.uk/news/2022/september/bank-of-england-announces-gilt-mar
+ket-operation.
+
+Belsham,  Thomas,  Rattan,  Alex,  Maher,  Rebecca,  2017.  Corporate  bond  purchase 
+
+scheme: design, operation and impact. Bank Engl. Q. Bull. Q3.
+
+Benos, Evangelos, Zikes, Filip, 2018. Funding constraints and liquidity in two-tiered 
+
+OTC markets. J. Financ. Mark. 39, 24–43.
+
+Bernanke, Ben, 2020. The new tools of monetary policy. Am. Econ. Rev. 110, 943–983.
+Bicu-Lieb, Andreea, Chen, Louisa, Elliott, David, 2020. The leverage ratio and liquidity 
+
+in the gilt and gilt repo markets. J. Financ. Mark. 48.
+
+Bonaldi, Pietro, Hortaçsu, Ali, Song, Zhaogang, 2015. An Empirical Test of Auction 
+Efficiency:  Evidence  from  MBS  Auctions  of  the  Federal  Reserve.  Finance  and 
+Economics Discussion Series 2015-082, Federal Reserve Board.
+
+Breckenfelder, J., Ivashina, V., 2023. Bank Leverage Constraints and Bond Market 
+Illiquidity During the COVID-19 Crisis. European Central Bank Research Bulletin 
+No. 89.
+
+Breedon, Francis, 2018. On the transaction costs of UK quantitative easing. J. Bank. 
+
+Financ. 88, 347–356.
+
+Brunnermeier, Markus K., Pedersen, Lasse Heje, 2008. Market liquidity and funding 
+
+liquidity. Rev. Financ. Stud. 22 (6), 2201–2238.
+
+Busetto, F., Chavaz, M., Froemel, M., Joyce, M., Kaminska, I., Worlidge, J., 2022. QE 
+at the bank of England: A perspective on its functioning and effectiveness. Bank 
+Engl. Q. Bull. Q1.
+
+Christensen, Jens H.E., Gillan, James M., 2022. Does quantitative easing affect market 
+
+Drechsler, Itamar, Savov, Alexi, Schnabl, Phillip, 2017. The deposit channel of monetary 
+
+liquidity? J. Bank. Financ. 134, 106349.
+
+policy. Q. J. Econ. 132 (4), 1819–1876.
+
+Drechsler, Itamar, Savov, Alexi, Schnabl, Phillip, 2022. Banking on deposits: Maturity 
+
+transformation without interest rate risk. J. Financ. 76 (3), 1091–1143.
+
+Drechsler, Itamar, Savov, Alexi, Schnabl, Phillip, Wang, Olivier, 2025. Deposit franchise 
+
+Duffie, Darrell, 2018. Financial regulatory reform after the crisis: An assessment. Manag. 
+
+runs.
+
+Sci. 64, 4471–4965.
+
+Duffie, Darrell, Fleming, Michael, Keane, Frank, Nelson, Claire, Shachar, Or, Tasse, Pe-
+ter Van, 2023. Dealer Capacity and U.S. Treasury Market Functionality. Federal 
+Reserve Bank of New York Staff Reports, no. 1070.
+
+Duffie, Darrell, Keane, Frank, 2023. Market-Function Asset Purchases. Federal Reserve 
+
+Bank of New York Staff Reports, no. 1054.
+
+Duffie, Darrell, Krishnamurthy, Arvind, 2016. Passthrough efficiency in the fed’s new 
+monetary policy setting. In: Designing Resilient Monetary Policy Frameworks for 
+the Future. Federal Reserve Bank of Kansas City, Jackson Hole Symposium. pp. 
+1815–1847.
+
+Eisenbach, Thomas, Phelan, Gregory, 2022. Fragility of Safe Asset Markets. Staff Report 
+
+No. 1026, Federal Reserve Bank of New York.
+
+risk and bank equity valuations. J. Monet. Econ. 98, 80–97.
+
+Eser, F., Schwaab, B., 2016. Evaluating the impact of unconventional monetary policy 
+measures: empirical evidence from the ECB’s securities markets programme. J. 
+Financ. Econ. 119, 147–167.
+
+Falato, Antonio, Iercosan, Diana, Zikes, Filip, 2025. Banks as regulated traders. J. 
+
+Financ. Econ. 170.
+
+Favara, Giovanni, Infante, Sebastian, Rezende, Marcelo, 2022. Leverage Regulations 
+and Treasury Market Participation: Evidence from Credit Line Drawdowns. Working 
+Paper, Federal Reserve Board.
+
+Grimaldi, M. B., Crosta, A., Zhang, D., 2021. The Liquidity of the Government Bond 
+Market - What Impact Does Quantitative Easing Have? Evidence from Sweden. 
+Sveriges Riksbank Working Paper Series No. 402.
+
+Guerre, Emmanuel, Perrigne, Isabelle, Vuong, Quang, 2000. Optimal nonparametric 
+
+estimation of first-price auctions. Econometrica 68 (3), 525–574.
+
+Häfner, Samuel, 2023. Risk aversion in share auctions: Estimating import rents from 
+
+TRQs in Switzerland. Quant. Econ. 14, 419–470.
+
+Han, Bing, Longstaff, Francis, Merrill, Craig, 2007. The U.S. treasury buyback auctions: 
+
+The cost of retiring illiquid bonds. J. Financ. 62 (6), 2673–2693.
+
+Hauser, Andrew, 2022. Thirteen days in october: How central bank balance sheets can 
+support monetary and financial stability. In: Speech at the ECB 2022 Conference 
+on Money Markets. https://www.bankofengland.co.uk/speech/2022/november/an
+drew-hauser-keynote-speech-at-the-european-central-bank-conference-on-money-ma
+rkets.
+
+He, Zhiguo, Krishnamurthy, Arvind, 2013. Intermediary asset pricing. Am. Econ. Rev. 
+
+103 (2), 732–770.
+
+(3), 405–423.
+
+Hendershott, Terrence, Menkveld, Albert J., 2014. Price pressures. J. Financ. Econ. 114 
+
+Ho, Thomas, Stoll, Hans R., 1981. Optimal dealer pricing under transactions and return 
+
+uncertainty. J. Financ. Econ. 9 (1), 47–73.
+
+Hortaçsu, Ali, Kastl, Jakub, 2012. Valuing dealers’ informational advantage: A study of 
+
+Canadian treasury auctions. Econometrica 80 (6), 2511–2542.
+
+Hortaçsu, Ali, Kastl, Jakub, Zhang, Allen, 2018. Bid shading and bidder surplus in the 
+
+US treasury auction system. Am. Econ. Rev. 108 (1), 147–169.
+
+Hortaçsu, Ali, McAdams, David, 2010. Mechanism choice and strategic bidding in 
+divisible  good  auctions:  An  empirical  analysis  of  the  turkish  treasury  auction 
+market. J. Political Econ. 118 (5), pp. 833–865.
+
+Joyce, Michael A.S., Tong, Matthew, 2012. QE and the gilt market: A disaggregated 
+
+analysis. Econ. J. 122 (564), 348–384.
+
+Joyce, Michael, Tong, Matthew, Woods, Robert, 2011. The United Kingdom’s quan-
+titative easing policy: design, operation and impact. Bank Engl. Q. Bull. 51 (3), 
+200–212.
+
+Kang, Boo-Sung, Puller, Steven L., 2008. The effect of auction format on efficiency and 
+revenue in divisible goods auctions: A test using Korean treasury auctions. J. Ind. 
+Econ. 56 (2), 290–332.
+
+Kastl, Jakub, 2011. Discrete bids and empirical inference in divisible good auctions. 
+
+Rev. Econ. Stud. 78, 978–1014.
+
+Kastl, Jakub, 2012. On the properties of equilibria in private value divisible good 
+
+auctions with constrained bidding. J. Math. Econom. 48 (6), 339–352.
+
+Kondor, Peter, Pinter, Gabor, 2019. Clients’ connections: Measuring the role of private 
+
+information in decentralised markets. J. Financ. 77 (1), 505–544.
+
+Kotidis, Antonis, van Horen, Neeltje, 2018. Repo Market Functioning: The Role of 
+
+Capital Regulation. Staff Working Paper No. 746, Bank of England.
+
+McPhail,  Lihong,  Schnabl,  Phillip,  Tuckman,  Bruce,  2024.  Do  Banks  Hedge  Using 
+
+Interest Rate Swaps? NBER Working Paper 31166.
+
+Naik, Narayan Y., Yadav, Pradeep K., 2003. Risk management with derivatives by 
+dealers  and  market  quality  in  government  bond  markets.  J.  Financ.  58  (5), 
+1873–1904.
+
+Pinter, Gabor, 2022. An Anatomy of the 2022 Gilt Market Crisis. Bank of England Staff 
+
+Working Paper.
+
+intervention. J. Financ. Quant. Anal. 53, 243–268.
+
+Reiss,  Peter  C.,  Werner,  Ingrid  M.,  1998.  Does  risk  sharing  motivate  interdealer 
+
+Song, Zhaogang, Zhu, Haoxiang, 2018. Quantitative easing auctions of treasury bonds. 
+
+trading? J. Financ. 53 (5), 1657–1703.
+
+J. Financ. Econ. 128 (1), 103–124.
+
+Vissing-Jorgensen, Annette, 2020. The treasury market in spring 2020 and the response 
+
+of the federal reserve. J. Monet. Econ. 124, 19–47.
+
+Vissing-Jorgensen, Annette, Krishnamurthy, Arvind, 2011. The effects of quantitative 
+easing on interest rates: Channels and implications for policy. Brook. Pap. Econ. 
+Act. 43 (2), 215–287.
+
+Vlieghe, Gertjan, 2020. Monetary policy and the bank of England’s balance sheet. 
+Speech given 23 April, Bank of England, https://www.bankofengland.co.uk/spee
+ch/2020/gertjan-vlieghe-speech-monetary-policy-and-the-boes-balance-sheet.
+
+English, William B., den Heuvel, Skander J. Van, Zakrajšek, Egon, 2018. Interest rate 
+
+Pooter, M. De, Martin, R.F., Pruitt, S., 2018. The liquidity effects of official bond market 
+
+16 
+
+

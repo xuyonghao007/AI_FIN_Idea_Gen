@@ -1,0 +1,4440 @@
+Journal of Financial Economics 169 (2025) 104062 
+
+Contents lists available at ScienceDirect
+
+Journal of Financial Economics
+
+journal homepage: www.elsevier.com/locate/finec
+
+Trust as an entry barrier: Evidence from FinTech adoption
+Keer Yang1
+Graduate School of Management, University of California, Davis, One Shields Avenue, Davis, 95616, CA, United States
+
+A R T I C L E   I N F O
+
+A B S T R A C T
+
+Dataset link: Replication Package for "Trust as a
+n Entry Barrier: Evidence from FinTech Adopti
+on" (Original data)
+
+Keywords:
+FinTech
+FinTech adoption
+Trust in bank
+Bank scandal
+Belief heterogeneity
+Machine learning and causal inference
+Race and gender
+
+This paper studies the role of trust in incumbent lenders (banks) as an entry barrier to emerging FinTech 
+lenders in credit markets. The empirical setting exploits the outbreak of the Wells Fargo scandal as a negative 
+shock to borrowers’ trust in banks. Using a difference-in-differences framework, I find that increased exposure 
+to the Wells Fargo scandal leads to an increase in the probability of borrowers using FinTech as mortgage 
+originators. Utilizing political affiliation to proxy for the magnitude of trust erosion in banks in a triple-
+differences specification, I find that, conditional on the same exposure to the scandal, a county experiencing 
+a greater erosion of trust has a larger increase in FinTech share relative to a county experiencing less of an 
+erosion of trust. Estimating treatment effect heterogeneity using generic machine learning inference suggests 
+that borrowers with the greatest decrease in trust in banks and the greatest increase in FinTech adoption have 
+similar characteristics.
+
+1. Introduction
+
+Financial  Technology  (FinTech)  has  been  increasingly  replacing 
+bank lending in credit markets. In the U.S., the market share of Fin-
+Tech mortgage lending increased from 2% in 2010 to 8% in 2016. 
+FinTech lenders provide efficient and convenient services to borrow-
+ers.  They  use  machine  learning  techniques  to  process  online  loan 
+applications, largely reducing processing time compared to traditional 
+banks.  Moreover,  the  increasing  growth  of  FinTech  firms  competes 
+with bank lending, affecting overall credit market conditions and credit 
+accessibility.2 However, FinTech adoption is not universal. Different 
+local residential mortgage markets have immensely different FinTech 
+adoption rates. The ability of FinTech lenders to effectively compete 
+against banks is not well understood. What are the factors that affect 
+the competition between banks and FinTech lenders?
+
+This  paper  studies  trust  in  the  incumbent  lenders  (banks)  as  a 
+potential entry barrier to FinTech lenders. Trust is at the heart of every 
+economic transaction (Arrow, 1974; Tirole, 2017). Guiso et al. (2008) 
+define trust as an individual’s subjective belief of the probability of be-
+ing cheated. Gennaioli et al. (2015) think of trust as inducing a tighter, 
+or lower volatility of, perceived distribution of financial returns. Both 
+these two aspects of trust could serve as the underlying mechanisms 
+through which trust affects borrowers’ choice of FinTech lenders. More 
+trust placed on FinTech lenders could indicate that FinTech lenders 
+have a lower perceived probability of cheating. Borrowers could also 
+choose FinTech lenders because trust in FinTech lenders tightens the 
+perceived distribution of the probability of being cheated. Therefore, 
+the role of trust may not be absolute but relative. Households need to 
+use intermediaries to transact, even if they trust them very little. As a
+
+E-mail address:  kkeyang@ucdavis.edu.
+
+1 Philipp Schnabl was the editor for this article. I thank the editor and an anonymous referee for their helpful comments, and thank Murray Frank, Tracy 
+Yue Wang, Richard Thakor, Tom Holmes, Andy Winton, Bob Goldstein, Erik Loualiche, Jacelly Cespedes, Colin Ward, Martin Szydlowski, Mariassunta Giannetti, 
+Alberto G. Rossi, Rawley Heimer, Ulrike Malmendier, Xiaoyang Li, Raghavendra Rau, Ben Roth, Mark Johnson, Mike Weisbach, Brad Barber, Ayako Yasuda, 
+Robert Marquez, Joe Chen, and seminar participants at University of Minnesota, CEPR European Conference on Household Finance 2020, China Fintech Research 
+Conference 2021, 4th Annual Dauphine Finance Ph.D. Workshop, BFWG Conference 2021, Cambridge Centre for Alternative Finance Sixth Annual Conference 
+2021, 2nd Ph.D. Student Symposium on Financial Market Research and Policy Developments, 2021 FMA, Syracuse, OSU, Southern Methodist University, Santa 
+Clara University, The Chinese University of Hong Kong, NYU Shanghai, UC Davis, Shanghai Advanced Institute of Finance, AFR International Conference, Nanjing 
+University, and Macquarie Business School. I alone am responsible for any errors.
+
+2 Fuster et al. (2019) show that FinTech lenders process mortgage loans faster than traditional banks without incurring higher default rates. Tang (2018) finds 
+that peer-to-peer lending platforms only expand credit to existing bank borrowers, while Di Maggio and Yao (2020) show that FinTech lenders lend to high risk 
+borrowers first when they enter the market. Hong et al. (2020) find that FinTech adoption improves household risk-taking.
+
+https://doi.org/10.1016/j.jfineco.2025.104062
+Received 6 October 2023; Received in revised form 29 March 2025; Accepted 2 April 2025
+Available online 16 April 2025 
+0304-405X/© 2025 The Author. Published by Elsevier B.V. This is an open access article under the CC BY license ( http://creativecommons.org/licenses/by/4.0/ ). 
+
+ 
+ 
+ 
+K. Yang
+
+result, erosions of trust can shift demand away from traditional lenders 
+toward new ones, such as FinTech lenders.3
+
+Trust could be important for borrowers to enter financial contracts 
+with lenders due to the complex financial contracts issue. Mortgage 
+loans are complex transactions involving multiple parties and dozens 
+of pages of legal documents, and most borrowers do not thoroughly 
+learn the financial terms. In most predatory lending cases, lenders not 
+only misled borrowers before contracts were finalized but also altered 
+the documents after they were signed. Therefore, trust could be crucial 
+for borrowers to enter financial contracts with lenders. Whether trust 
+affects  households’  choice  between  banks  and  FinTech  is  a  crucial 
+real-world  consideration.  The  question  is  further  motivated  by  the 
+literature studying the impact of trust on household financial decisions 
+(e.g.,  Guiso  et  al.,  2008;  Giannetti  and  Wang,  2016;  Brown  et  al., 
+2019; Gennaioli et al., 2015; Gurun et al., 2018; D’Acunto et al., 2020; 
+Gennaioli et al., 2022).
+
+However, empirically identifying the impact of trust on FinTech 
+adoption poses significant challenges. Firstly, we need a shock to trust 
+in banks to address the identification challenge, as trust in banks may 
+be correlated with unobservable local economic conditions that also 
+affect FinTech adoptions. Secondly, a comprehensive identification of 
+all lenders in the market is necessary to compare the credit supply 
+and pricing strategies of FinTech and non-FinTech lenders. Thirdly, 
+the empirical setting must account for alternative factors contributing 
+to  FinTech  adoption,  such  as  convenience  of  FinTech  service.  This 
+paper tackles these challenges by leveraging the Wells Fargo scandal 
+outbreak  as  a  negative  shock  to  trust  in  banks  relative  to  FinTech 
+lenders and using the U.S. residential mortgage market as a lab to study 
+the question.
+
+As one of the most prominent bank scandals after the financial crisis, 
+the Wells Fargo account fraud scandal involved the creation of millions 
+of fraudulent saving and checking accounts, issuing unwanted collateral 
+and auto insurance, and inappropriately charging extension fees. I mea-
+sure county-level household exposure to the Wells Fargo scandal using 
+the share of Wells Fargo branch deposits over deposits in all commercial 
+bank branches in a given county. As bank branches play an important 
+role in local financial services (Célerier and Matray, 2019; Nguyen, 
+2019), households residing in areas where Wells Fargo branches oper-
+ate would be more likely to experience fraudulent financial services. In 
+areas where Wells Fargo operates more intensively, local media would 
+also likely have greater news coverage of the scandal, which intensifies 
+the exposure. The revelation of the Wells Fargo account fraud scandal 
+thus could serve as a negative shock to households’ trust in banks in the 
+exposed (treated) areas. Using a difference-in-differences framework, I 
+compare FinTech adoption in regions with a higher initial Wells Fargo 
+deposit share to regions with a lower initial Wells Fargo deposits share 
+before and after the revelation of the scandal in 2016. I find that a 
+one standard deviation increase in exposure to the Wells Fargo scandal 
+leads to a 4.1% increase in the average probability of a household 
+choosing a FinTech lender. I further establish that this effect is not just 
+confined to Wells Fargo. An increase in an area’s exposure to the Wells 
+Fargo scandal also leads to a decrease in the probability of borrowers 
+in that area choosing non-Wells Fargo banks.
+
+I analyze the channels through which trust affects FinTech adoption 
+by examining how the Wells Fargo scandal affects borrowers’ choices 
+of non-FinTech shadow banks. I first test a ‘‘non-bank lender’’ channel. 
+Trust creates additional utility gain for borrowers when matching with 
+trusted lenders who are perceived to have a lower probability of cheat-
+ing. The utility loss of matching with traditional banks due to the trust 
+erosion in the banking sector would lead to a relative increase in the 
+utility gain when matching with non-bank lenders. I find that exposure 
+
+3 This paper does not take a stand on whether FinTech lenders complement 
+or substitute traditional banks. As long as the relative trust shifts, we expect 
+a change in demand for different lenders.
+
+Journal of Financial Economics 169 (2025) 104062 
+
+to the Wells Fargo scandal also increases the probability of choosing 
+non-FinTech shadow banks, suggesting that the non-bank feature makes 
+FinTech lenders more appealing after the erosion of trust in the banking 
+sector.
+
+Trust erosion in the banking sector could also affect FinTech adop-
+tion due to FinTech lenders’ online nature of customer-lender inter-
+action.  FinTech  borrowers  face  homogeneous  decision-making  pro-
+cesses  when  submitting  mortgage  applications  through  online  plat-
+forms. When customers borrow from lenders who have yet to adopt 
+online lending platforms, the qualities and outcomes of the loan ap-
+plication processes have more significant variations because customers 
+may interact with different human agents. After the Wells Fargo scan-
+dal,  lenders  with  online  platforms  are  less  likely  to  experience  in-
+creased perceived volatility of cheating due to standardization. Bor-
+rowers would be more likely to borrow from lenders adopting online 
+platforms because of the relatively higher utility from the lower per-
+ceived volatility of being cheated. I test this channel by comparing the 
+effect of the scandal on the choice of FinTech with that of non-FinTech 
+shadow banks. I find that FinTech lending is more affected by trust 
+erosion in banks, compared with non-FinTech shadow bank lending. 
+Therefore, the online customer-lender interaction feature also plays 
+a vital role in FinTech adoption when trust in existing bank lenders 
+erodes.
+
+Examining  the  relationship  between  trust  and  FinTech  adoption 
+offers several empirical challenges. Trust in financial institutions could 
+be correlated with other unobservable factors that also affect FinTech 
+adoption. For example, suppose that one region experiences an unob-
+servable banking industry shock, which affects banks’ credit supply and 
+thus the demand for alternative lenders. At the same time, the banking 
+industry  shock  leads  to  deterioration  in  banks’  quality  of  services, 
+lowering households’ trust in banks. It is also possible that increased 
+FinTech penetration makes banks act more aggressively to compete 
+with FinTech lenders, leading to fraudulent or reckless behavior that 
+would erode people’s trust in banks. In both scenarios, trust in banks 
+would be negatively correlated with FinTech adoption.
+
+The setting of the Wells Fargo account fraud scandal allows me to 
+address these challenges due to the nature of the shock. First, most of 
+the fraudulent behaviors dated back to as early as 2005, and thus were 
+unlikely to be a reaction to FinTech penetration. Second, the revelation 
+of this fraud in late 2016, when federal regulators fined the bank $ 185 
+million, was not correlated with any banking industry shock. Third, 
+there is a large degree of variation in the exposure to this fraud across 
+geographic areas.
+
+Having established that the exposure to the Wells Fargo scandal 
+has a causal effect on the probability of choosing a FinTech lender, I 
+next provide further evidence suggesting that the effect is likely going 
+through the channel of an erosion of trust in banks. First, I use Gallup 
+survey data to measure the level of trust that households place on 
+banks, and show that the Wells Fargo scandal directly reduced trust 
+in banks. I show that a one standard deviation increase in the exposure 
+to  the  Wells  Fargo  scandal  in  a  county  leads  to  a  6%  decrease  in 
+the  probability  of  trusting  banks  relative  to  the  average.  Second,  I 
+explore the heterogeneity in households’ responses to the Wells Fargo 
+scandal. Thakor and Merton (2018) theorize that an individual’s re-
+sponse to public information is affected by the individual’s ex-ante 
+belief. Thus, conditional on the exposure to the Wells Fargo scandal, 
+individuals with different ex-ante beliefs in trust in banks will likely 
+experience different decreases in their trust in banks after the scandal. 
+Since the Gallup Survey data are not panel data of households’ beliefs, 
+I use households’ political affiliations to proxy for their ex-ante level 
+of  trust  in  banks.  The  Gallup  survey  shows  that,  on  average,  non-
+Republican survey respondents tend to have lower trust in banks. I find 
+that conditional on the exposure to the Wells Fargo scandal, counties 
+with more non-Republican voters not only experience a larger decrease 
+in trust in banks but also a larger increase in FinTech adoption. These 
+
+2 
+
+K. Yang
+
+results further support the argument that exposure to bank scandals 
+affects FinTech adoption through the erosion of trust in banks.
+
+Furthermore, I explore the treatment effect heterogeneity by using 
+a  generic  machine  learning  inference  approach  proposed  by  Cher-
+nozhukov et al. (2020) (CDDF) to provide additional support for the 
+trust channel. The CDDF approach allows researchers to sort observa-
+tions into groups with different levels of treatment effects based on a 
+machine learning proxy predictor without pre-specifying the possible 
+characteristics, and make inferences on the average characteristics of 
+the sorted groups. The generic machine learning approach has several 
+advantages. First, it provides a systematic way to perform treatment 
+effects heterogeneity analysis. The approach allows me to stay agnos-
+tic about the borrowers’ characteristics ex-ante and let the machine 
+learning  algorithm  choose  the  characteristics  that  will  be  the  most 
+affected. Second, the sample splitting feature in the method overcomes 
+the overfitting concern in the subgroup analysis. For example, one may 
+argue that the non-Republican borrowers responded to the Wells Fargo 
+scandal differently due to unobserved random variation. The CDDF 
+method solves this issue by randomly splitting observations within the 
+treatment group, thus teasing out the effect of any random variation.
+
+Specifically, I analyze the treatment effects heterogeneity of the 
+Wells Fargo scandal on both trust in banks and FinTech adoption. I 
+sort observations into five groups based on the magnitude of treatment 
+effects, and compute the average characteristics of the most and least 
+affected groups. I then compare the differences in individual charac-
+teristics between the most affected group and the least affected group. 
+If the individuals that have the greatest decrease in trust in banks and 
+those that have the greatest increase in FinTech adoption share similar 
+characteristics, then it is unlikely that the Wells Fargo scandal affects 
+FinTech adoption through channels other than trust. I find that female 
+borrowers have a smaller decrease in trust in banks and a smaller 
+increase in FinTech adoption. Similarly, I find that minority borrowers, 
+defined  as  either  African  American  or  Hispanic  borrowers,  have  a 
+smaller decrease in trust in banks and a smaller increase in FinTech 
+adoption. Given that the individuals who have the greatest decrease 
+in trust in banks have similar characteristics to individuals who have 
+the greatest increase in FinTech adoption, the machine learning results 
+further support the trust channel.
+
+My  conclusions  rely  on  several  assumptions.  First,  the  level  of 
+exposure measured by the Wells Fargo deposit share should be un-
+correlated  with  local  shocks  that  may  affect  FinTech  adoption.  For 
+example, D’Acunto and Rossi (2017) show that large banks have been 
+exiting some segments of the mortgage lending market since 2009. 
+Thus, it is crucial to show that such time trends do not drive my results.
+To address this possibility, I examine the dynamic effects of ex-
+posure to the Wells Fargo scandal on the trust in banks and FinTech 
+adoption. The idea is that if there is an unobservable shock that only 
+affects an area with a high initial Wells Fargo deposit share, we should 
+see that the FinTech share evolves differently between treated and less 
+treated regions before the revelation of the Wells Fargo scandal. I find 
+that trust in banks and FinTech adoption are not significantly different 
+between more- and less-treated regions before the scandal at an annual 
+level. To provide finer evidence on the dynamic effects, I also use the 
+Fannie Mae single-family loan dataset to show that FinTech adoptions 
+are not different between more- and less-treated regions until the third 
+quarter of 2016, which corresponds to the timing of the Wells Fargo 
+scandal. Additionally, the parallel trends assumption is not violated in 
+the triple-differences setup involving households’ political orientations.
+Moreover, I use the deposit share of a placebo bank that was not 
+directly affected by the Wells Fargo scandal to conduct falsification 
+tests. I find that counties with higher JPMorgan Chase deposit shares 
+do not experience larger increases in FinTech adoption. As JPMorgan 
+Chase Bank is one of the largest mortgage originators and has a similar 
+mortgage  origination  volume  as  Wells  Fargo  bank,  it  rules  out  the 
+possibility that the results are driven by the nation-wide decline of big 
+banks’ participation in mortgage origination.
+
+Journal of Financial Economics 169 (2025) 104062 
+
+The second identifying assumption is that exposure to the Wells 
+Fargo scandal affects FinTech adoption only through decreased trust 
+in  banks.  Even  assuming  that  exposure  to  the  Wells  Fargo  scandal 
+is uncorrelated with unobserved local shocks, FinTech adoption may 
+increase because banks operating in areas with more exposure to the 
+Wells Fargo scandal reduced local credit supply after the scandal.
+
+To rule out the credit supply channel, I examine mortgage rejection 
+rates. I find that the percentage of mortgages rejected by lenders does 
+not change after exposure to the Wells Fargo shock for most types of 
+lenders. Moreover, treated counties with higher non-Republican shares 
+do not seem to experience a greater credit supply reduction by banks. 
+Thus, the results of the Wells Fargo scandal on FinTech adoption are 
+unlikely to be driven by a reduction in banks’ credit supply.
+
+Furthermore, I study how exposure to the Wells Fargo scandal af-
+fects loan pricing. I follow Scharfstein and Sunderam (2016) to examine 
+mortgage rate variation not due to credit risk, and find that FinTech 
+lenders and non-Wells Fargo banks do not change their mortgage rates 
+after exposure to the scandal. This finding suggests that the increase 
+in FinTech adoption is unlikely to result from the different pricing 
+strategies between banks and FinTech lenders.
+
+As previous literature (Buchak et al., 2018; Fuster et al., 2019) have 
+documented,  the  relative  convenience  of  online  lenders  matters  for 
+FinTech adoption. One may be concerned that a significant loss of trust 
+in the Wells Fargo banks could prompt Wells Fargo customers to seek 
+other options. In this scenario, the ease and accessibility of FinTech 
+platforms play a crucial role in driving the higher demand for FinTech 
+loans because FinTech loans can be initiated without the need for any 
+human interaction. To address this possibility, I examine the reaction of 
+‘‘online’’ banks after the Wells Fargo scandal. I find that exposure to the 
+Wells Fargo scandal has a negative and statistically significant impact 
+on the probability of choosing ‘‘online’’ banks. If our results were purely 
+driven by the convenience channel and not the trust channel, we would 
+observe similar effects of the scandal on FinTech lenders and ‘‘online’’ 
+banks. Therefore, this evidence suggests that it is unlikely the findings 
+are purely driven by the convenience channel.
+
+My paper contributes to the literature on the role of trust in the 
+FinTech growth. Rossi and Utkus (2020) find that trust emerges as the 
+most critical factor among the most significant barriers to robo-advising 
+adoption.  Bertsch  et  al.  (2020)  use  Consumer  Financial  Protection 
+Bureau complaint data to proxy for bank misconduct, finding a positive 
+association between bank misconduct and online peer-to-peer (P2P) 
+lending usage. Saiedi et al. (2022) also documents the role of trust and 
+FinTech adoption in the P2P lending. Okat et al. (2022) uses survey 
+and experiment evidence and find that the relationship between trust 
+and FinTech adoption is ambiguous.
+
+This paper makes significant contributions to the literature in three 
+aspects. Firstly, it leverages the Wells Fargo scandal and Gallup survey 
+to directly identify a substantial negative impact on trust in banks 
+and demonstrates how this directly affects FinTech adoption. By doing 
+so, it addresses concerns in the literature regarding the correlation 
+between trust in banks and FinTech adoption. This correlation could 
+be influenced by unobservable characteristics or reverse causal factors, 
+which is not addressed in existing literature. Secondly, the paper takes 
+advantage of the U.S. residential mortgage market’s unique features, 
+allowing for the identification of the complete universe of mortgage 
+originations and rejections, along with lender information. Unlike stud-
+ies using P2P lender platforms (Saiedi et al., 2022; Bertsch et al., 2020), 
+which cannot observe this complete universe, this paper can address 
+crucial concerns related to loan origination and rejection. Additionally, 
+the paper addresses the potential influence of pricing strategies, which 
+might not be easily observable through survey evidence.
+
+My paper contributes to a strand of literature studying the factors 
+that  drive  the  increasing  growth  of  FinTech  lenders  and  affect  the 
+competition between banks and FinTech lenders. For example, Buchak 
+et al. (2018) show that both technology advantages and lower reg-
+ulatory pressure contribute to the growth of FinTech lending. Fuster 
+
+3 
+
+K. Yang
+
+et  al.  (2019)  find  no  correlation  between  improved  internet  access 
+and FinTech adoption. Previous research studies the differences in cost 
+of  capital  (Thakor  and  Merton,  2018;  Donaldson  et  al.,  2019)  and 
+the differences in regulatory burden (Buchak et al., 2018; Chrétien 
+and  Lyonnet,  2021)  between  banks  and  non-bank  lenders.  Buchak 
+et al. (2018) and Fuster et al. (2019) have documented, the relative 
+convenience of online lenders matters for FinTech adoption. My paper 
+is the first to study and empirically identify the role of trust in banks as 
+an entry barrier affecting the competition between banks and FinTech 
+lenders. The paper also rules out the potential convenience channel.
+
+Recent studies in FinTech examine how FinTech adoption affects 
+overall credit market conditions and credit accessibility. Several papers 
+focus on identifying the types of borrowers FinTech lenders lend to 
+and examine whether FinTech lenders extend credit to under-served 
+borrowers (e.g., Tang, 2018; Di Maggio and Yao, 2020; De Roure et al., 
+2021). My paper sheds light on cross-regional differences in FinTech 
+adoption, suggesting that lack of trust from potential borrowers could 
+affect FinTech lenders’ credit expansion.
+
+This paper also contributes to the literature that documents the role 
+of trust in finance, pioneered by Guiso et al. (2004), who show that 
+social capital plays a vital role in financial development. Researchers 
+have examined the role of trust in the stock market (Guiso et al., 2008; 
+Giannetti and Wang, 2016), credit market (Brown et al., 2019; Thakor 
+and Merton, 2018), financial advisory market (Gennaioli et al., 2015; 
+Gurun et al., 2018), and contract design (D’Acunto et al., 2020; Gen-
+naioli et al., 2022). This paper highlights trust in traditional financial 
+intermediaries such as banks as an entry barrier to financial innovation.
+Finally, this paper contributes to the use of machine learning in 
+finance. The recent literature at the intersection between econometrics 
+and  machine  learning  has  developed  several  applications  of  using 
+machine  learning  for  causal  inference,  especially  for  heterogeneous 
+treatment  effects  estimation  (e.g.,  Athey  and  Imbens,  2016;  Athey 
+and Wager, 2019; Chernozhukov et al., 2020). This paper designs an 
+empirical framework that uses a generic machine learning method in a 
+difference-in-difference setup. By estimating the average characteristics 
+of the most and least treated groups and comparing the differences in 
+the average characteristics for different outcome variables, the research 
+design  can  be  applied  for  studying  the  underline  mechanisms  of  a 
+quasi-experiment.
+
+2. Data description
+
+2.1. Defining FinTech lenders
+
+The definition of a FinTech lender is central to my research ques-
+tion. Following existing literature on FinTech lending in the residential 
+mortgage origination market (Buchak et al., 2018; Fuster et al., 2019), 
+I  define  a  FinTech  lender  as  an  institution  that  provides  full-scale, 
+comprehensive online mortgage origination services. A bank is defined 
+as a depository institution, and a shadow bank is defined as a non-
+depository institution. In my primary analysis sample, no bank falls into 
+my strict definition of FinTech. For some banks, even though people can 
+submit their documents online, they must meet a banker in person to 
+finalize the lending process. Therefore, a lender is classified as either a 
+bank, a non-FinTech shadow bank, or a FinTech lender.
+
+The first key feature in the definition of FinTech is the scope of 
+technological innovation. The lenders’ ability to process fully online 
+mortgage origination services represents technological advancement in 
+both the ‘‘front-end’’ and ‘‘back-end’’. At the ‘‘front-end’’, the online 
+application platform can electronically collect borrowers’ documents, 
+including  financial  statements  and  tax  returns.  At  the  ‘‘back-end’’, 
+software and algorithms have been developed to process and verify 
+collected information. For example, the system can identify potentially 
+fraudulent applications by flagging inconsistent data. Such a degree 
+of automation reduces the information processing time and labor in-
+tensity. I define FinTech lender based on the ‘‘front-end’’, the nature 
+
+Journal of Financial Economics 169 (2025) 104062 
+
+of customer lender interaction. Some anecdotal evidence also suggests 
+that lender which employ the online lending platform are also likely to 
+use more advanced technology to screen and monitor borrowers.
+
+Through the adoption of full-scale online lending technology ini-
+tiated by mortgage companies, such as, Quicken Loan’s Rocket Mort-
+gage, it is possible that some banks also provide some level of online 
+mortgage origination services. No bank falls into my strict definition 
+of FinTech in my sample. However, some banks are adopting more 
+customer-lender interaction than others. More information can be up-
+loaded and processed on their website than on other banks. I classify 
+banks  with  a  high  degree  of  automation  in  their  online  mortgage 
+application process as ‘‘online’’ banks.4
+
+The definition is consistent with Buchak et al. (2018)’s FinTech clas-
+sification, which can be downloaded from their website.5 One caveat is 
+that some companies classified as non-FinTech lenders in 2017 could fit 
+into the definition of FinTech lender in 2019. Though such transition 
+may correlate with trust erosion in banks, I do not classify these lenders 
+as FinTech in the primary analysis mostly because it was only indirectly 
+affected by the scandal.
+
+Define FinTech adoption.  County-level FinTech adoption is measured as 
+the share of mortgage loans handled by FinTech lenders.
+
+∑
+
+∑
+
+FinTech adoption𝑐𝑡 =
+
+𝑖∈FinTech Num of Loans𝑖𝑐𝑡
+𝑖∈All Lenders Num of Loans𝑖𝑐𝑡
+The number of mortgage loans can be defined as either the number of 
+loan originations or the number of total loan applications. The number 
+of total applications reflects households’ demand for FinTech services, 
+whereas the number of originated loans reflects supply and demand 
+equilibrium results. Both measures are essential when examining Fin-
+Tech  adoption.  FinTech  adoption  measured  using  total  applications 
+allows researchers to assess household demand and how trust affects 
+household demand for FinTech. FinTech adoption measured using orig-
+inated loans directly measures the actual degree of FinTech adoption, 
+which matters for welfare analysis (see Fig.  1). These two measures 
+respond to different perspectives of the same question; I will use both 
+in my analyses. If the supply of FinTech loans is elastic, these two 
+measures should produce similar results. Similar results using total loan 
+amount instead of total number of loans are provided in the appendix.
+
+2.2. United States residential mortgage data
+
+The Home Mortgage Disclosure Act (HMDA) requires all depository 
+and non-depository lenders to disclose information on housing-related 
+loans. This loan-level mortgage application dataset covers most home 
+mortgage applications in the U.S.. The dataset provides information 
+including the lender name, year of application, property location, appli-
+cation outcome, loan amount, loan type, loan purpose, loan purchaser 
+type, gender, income, race, and ethnicity of the applicant.
+
+The application outcome is named as the ‘‘Type of Action’’ in the 
+HMDA dataset, indicating the type of action taken on the application, 
+including ‘‘Loan originated’’, ‘‘Application approved but not accepted’’, 
+‘‘Application denied’’, ‘‘Application withdrawn’’, ‘‘File closed for incom-
+pleteness’’, ‘‘Loan purchased by your institution’’, ‘‘Preapproval request 
+denied’’,  ‘‘Preapproval  request  approved  but  not  accepted  (optional 
+reporting)’’. The originated loan is defined as a loan with ‘‘Type of 
+Action’’ equals to ‘‘Loan Originated’’.
+
+A direct measure of household demand for mortgages is the total 
+number of applications.6 In this project, instead of measuring aggre-
+gate demand for mortgages, I need to measure mortgage demand for 
+
+4 Although these online banks did not fully qualify as FinTech lenders, some 
+studies, such as Buchak et al. (2018), classified them as FinTech banks in 2019. 
+In this paper, however, I classify them as ‘‘online’’ banks, as their bankers tend 
+to engage directly with borrowers.
+
+5 https://sites.google.com/view/fintech-and-shadow-banks.
+
+4 
+
+K. Yang
+
+different types of lenders (in different regions). However, the vagueness 
+in defining ‘‘loan origination’’ and ‘‘loan purchase’’ in HMDA may bias 
+the measurement. When a loan is originated from a retail originator 
+and is purchased by another institution in the same year, the loan 
+may be double-counted in the HMDA. Therefore, I exclude ‘‘loan pur-
+chase’’ when measuring total applications. Furthermore, action types 
+such as ‘‘Application approved but not accepted’’ (3%), ‘‘Application 
+withdrawn’’ (9%), ‘‘File closed for incompleteness’’ (3%), ‘‘Preapproval 
+request denied’’ (0.4%), ‘‘Preapproval request approved but not ac-
+cepted (optional reporting)’’ (0.2%) are also excluded because they 
+do not necessarily represent mortgage demand. Since FinTech lenders 
+are online lenders and are convenient to apply to, there may be more 
+‘‘File closed for incompleteness’’ cases. Therefore, I do not include those 
+records in ‘‘total applications’’.
+
+The Fannie Mae single-family loan performance dataset provides 
+origination  and  performance  data  on  a  subset  of  Fannie  Mae’s  30-
+year  and  less,  full-documentation,  single-family,  conventional  fixed-
+rate mortgages. The origination (acquisition) dataset provides informa-
+tion including: the name of the entity that delivered the mortgage loan, 
+month of origination, loan amount, original interest rate, months to 
+maturity, original loan to value, debt to income ratio, borrower FICO 
+score, the property’s metropolitan statistical area (MSA) code. Sellers’ 
+names are available only for entities representing more than 1% of 
+the unpaid principal volume within a given quarter. I focus on the 
+Fannie Mae sample from 2014 to 2020 because Fannie Mae indicates 
+that it used the same MSA definition from 2014 to 2020, and Fannie 
+Mae offered several forms of COVID relief7 to mortgage owners during 
+COVID,  which  could  affect  the  incentives  for  securitization  among 
+different types of mortgage lenders.8
+
+2.3. Wells Fargo Account Fraud
+
+The Wells Fargo account fraud scandal is one of the most prominent 
+corporate scandals after the 2008 financial crisis. Wells Fargo was en-
+gaged in creating millions of fraudulent saving and checking accounts, 
+issuing unwanted collateral and auto insurance, and inappropriately 
+charging mortgage rate lock extension fees, dating back to as early as 
+2005.
+
+Despite documentation as early as 2013 by Los Angeles Times, the 
+controversy received national attention only in September 2016 after 
+the bank was fined $ 185 million by the regulators. Following Giannetti 
+and Wang (2020), I plot the Google search topic trends for ‘‘Wells 
+Fargo Account Fraud Scandal’’ to provide time series trends of public 
+attention to the scandal in Fig.  2. The Google search index is normalized 
+to 100, which is the index value when the topic has the highest search 
+intensity volume. The highest search intensity occurred in September 
+2016  when  regulators  issued  enforcement  actions.  In  Fig.   2,  I  also 
+plot the number of local newspaper articles covering the Wells Fargo 
+scandal each month from 2013 to 2018. Consistent with the patterns 
+observed using Google Search Intensity data, I find that local newspaper 
+massively cover the Wells Fargo scandal began in the third quarter of 
+2016. Therefore, I use 2016 as the year when households are exposed 
+to the Wells Fargo scandal, particularly after the third quarter of 2016. 
+One potential concern is that California might have had some exposure 
+to the Wells Fargo scandal before 2016 due to the news reported by
+Los Angeles Times. To explore this, I examine Google searches only from 
+
+6 Fuster et al. (2019) use two ways to measure time-series change of aggre-
+gate mortgage demand. One measure is the total mortgage application from 
+HMDA, and another one is the weighted average coupon rate on fixed-rate 
+mortgage-backed securities less than 10-year Treasury yield.
+
+7 https://www.fanniemae.com/newsroom/fannie-mae-news/understand-
+
+your-covid-19-mortgage-options.
+
+8 The HMDA sample is less of a concern because it covers a broader sample 
+
+of mortgage applications and originations.
+
+Journal of Financial Economics 169 (2025) 104062 
+
+the users in California. The second row from Fig.  2 shows that there are 
+no significant differences in Google search intensity between California 
+and other states.
+
+Having established that the revelation of the Wells Fargo scandal 
+is an arguably exogenous event following the massive media attention, 
+I use the location and deposits share of Wells Fargo banks to measure 
+cross-regional differences in the exposures to the Wells Fargo exposure. 
+As bank branches play an important role in local financial services 
+(Célerier and Matray, 2019; Nguyen, 2019), households residing in 
+areas where Wells Fargo branches operate would be more likely to 
+experience fraudulent financial services. In areas where Wells Fargo 
+operates more intensively, local media would also be more likely to 
+notice the scandal, which intensifies the effect.
+
+Data on deposits come from the Federal Deposit Insurance Corpora-
+tion(FDIC) Summary of Deposits (SOD). The Summary of Deposits is the 
+annual survey for all FDIC-insured institutions of branch office deposits 
+as of June 30. This data provide the physical location of the branch 
+office of all FDIC-insured institutions, and the deposits as of June 30 in 
+that branch.
+
+I measure the county-level household exposure to the Wells Fargo 
+scandal using the Wells Fargo deposit share on June 30, 2015 (Fig.  3). 
+For each county, the Wells Fargo deposits share is calculated as the 
+total amount of deposits in Wells Fargo branches in that county over 
+the total amount of deposits by all FDIC insured institution,
+
+Wells Fargo(WF) Exposure𝑐 =
+
+∑
+
+𝑖∈Wells Fargo Deposits𝑖𝑐
+∑
+𝑖∈All Banks Deposits𝑖𝑐
+
+Another way to measure the cross-region differences is to use the 
+geographic variation of public attention in the Wells Fargo scandal, 
+which can be measured using the Google Trend data and local newspa-
+per data. Google Trend provides a state-level index called ‘‘Interest by 
+subregion’’. The index is on a scale from 0 to 100, with 100 indicating 
+the month in the state with the peak search intensity, while 0 indicates 
+no data for the search. I measure state-level attention to the ‘‘Wells 
+Fargo scandal’’ using the Google Trend ‘‘Interest by subregion’’ index of 
+search topic ‘‘Wells Fargo Account Fraud Scandal’’ from August 2016 
+to August 2017 and plot it in Fig.  4. Figs.  3 and 4 suggest that the 
+public attention was mostly concentrated in states with high Wells 
+Fargo deposits share. People in states without Wells Fargo branches 
+were not exposed to the Wells Fargo scandal.
+
+Public attention can also be measured using local newspaper cov-
+erage  of  the  Wells  Fargo  scandal.  I  focus  on  local  newspapers  be-
+cause they serve as a centralized source of information for households 
+(Gentzkow and Shapiro, 2010). Additionally, newspaper coverage com-
+plements the analysis of digital media, as measured by the Google 
+Search  Intensity  Index.  I  collect  news  coverage  of  the  Wells  Fargo 
+Account Fraud scandal across all daily newspapers available in the 
+Factiva ProQuest database. Following Gentzkow and Shapiro (2010), 
+I exclude four newspapers — The New York Times, The Wall Street 
+Journal,  The  Christian  Science  Monitor,  and  USA  Today  —  due  to 
+the  lack  of  a  well-defined  local  market  for  these  publications.  The 
+Factiva ProQuest data identify the Metropolitan Statistical Area (MSA) 
+of each newspaper’s headquarters, which I match to counties using the 
+City-County Crosswalk data from City County Crosswalk.9 The sample 
+includes a total of 333 daily newspapers from 156 counties. I search 
+for articles covering the Wells Fargo Account Fraud scandal within this 
+set of 333 newspapers.
+
+I use both the Google Trend Index and local newspaper coverage as 
+alternative measures of exposure to the Wells Fargo scandal. However, 
+since  the  local  newspaper  coverage  database  includes  only  a  small 
+subset of the counties in our sample, I use the local newspaper coverage 
+measure as a robustness check.
+
+9 https://simplemaps.com/data/us-cities.
+
+5 
+
+K. Yang
+
+Journal of Financial Economics 169 (2025) 104062 
+
+Fig. 1.  Heterogeneity in FinTech adoption.
+This figure displays county-level FinTech adoption measured as the average share of mortgage loans originated by FinTech lenders from 2012 to 2021.
+
+FinTech adoption𝑐𝑡 =
+
+∑
+𝑖∈FinTech Num of Loans𝑖𝑐𝑡
+𝑖∈All Lenders Num of Loans𝑖𝑐𝑡
+
+∑
+
+The mortgage origination data are obtained from the Home Mortgage Disclosure Act (HMDA). A mortgage lender is classified as a FinTech lender if it provides full-scale, 
+comprehensive online mortgage origination services.
+
+2.4. Trust in banks
+
+Trust in Banks is measured using the Gallup Analytics Survey, ‘‘Trust 
+in Institutions’’. In the surveys, Gallup Analytics randomly interviewed 
+approximately 1000 individuals across the U.S. about their confidence 
+in U.S. institutions, from 1981 to 2021. The respondents’ age, income, 
+gender, education, race, political affiliation, religion, and county of 
+residence are recorded. The surveys are conducted in June or July 
+each year, and the geographical distribution of individual respondents 
+is sampled proportional to the regional population.
+
+Respondents report their confidence in institutions on five scales: ‘‘a 
+great deal’’, ‘‘a lot’’, ‘‘very little’’, ‘‘some’’, or ‘‘none’’. I define a dummy 
+variable Trust in Banks, that is equal to one hundred if the individual 
+reported a level of confidence in banks as ‘‘a great deal’’ or ‘‘a lot’’, 
+and zero otherwise. I apply the same definition to Trust in Big Business,
+Trust in Newspapers, and Trust in Television News. Since there is no direct 
+survey question asking about the confidence level in the U.S. media, 
+I take the average trust level of newspaper and TV news as a proxy 
+for trust in media. Respondents were asked to report their political 
+affiliation as ‘‘Republican’’, ‘‘Lean Republican’’, ‘‘Independent’’, ‘‘Lean 
+Democrat’’, or ‘‘Democrat’’. I define a dummy variable Non-Republican
+that equals to one if the respondents reported their party affiliations as 
+‘‘Independent’’, ‘‘Lean Democrat’’, or ‘‘Democrat’’.
+
+2.5. Other variables
+
+I obtained county-year and MSA-year level demographic data from 
+the U.S. Census American Community Survey(ACS) 1-year estimates10 
+
+10 US Census American Community Survey(ACS) 1-year estimates data is 
+a  part  of  American  Community  Survey,  a  survey  program  that  provides 
+demographics information at many geographic summary levels. ‘‘1-year es-
+timates’’ denotes the data collecting period. For example, 2019 ACS 1-year 
+estimates  use  data  collected  between  January  1,  2019  and  December  31, 
+2019.2015–2019 ACS 5-year estimates use date collected between January 1, 
+
+between 2012 and 2021. ACS 1-year estimates are only available for 
+areas with a population larger than 65,000, so I restrict my sample to 
+counties larger than 65,000.
+
+County-level political affiliation data are from the MIT Election Data 
+and Science Lab.11 The dataset includes county-level results for the 
+2016 presidential election, in terms of county-level total votes, votes for 
+the Democratic, the Republican, and independent candidates. I measure 
+party affiliation for non-Republican as the total share of votes for the 
+Democratic and independent candidates.
+
+3. Empirical methodology
+
+The main challenges for estimating the causal effect of the erosion 
+of trust in banks on the propensity to choose FinTech mortgage lenders 
+are  the  issues  of  omitted  variables  and  reverse  causality.  Trust  in 
+banks and FinTech adoption may correlate with unobservable local 
+banking industry shocks and local economic conditions. If one region 
+experienced an unobservable banking industry shock, the banks’ quality 
+of services might deteriorate, and households may be less likely to 
+trust banks. It is also possible that increased FinTech penetration makes 
+banks act more aggressively to compete with FinTech lenders, leading 
+to fraudulent or reckless behavior that would erode people’s trust in 
+banks. In both scenarios, trust in banks would be negatively correlated 
+with FinTech adoption. Moreover, higher trust in banks does not imply 
+a larger difference between trust in banks and trust in FinTech. The 
+higher probability of choosing FinTech lending may not result from a 
+larger difference between trust in banks and trust in FinTech.
+
+I use the geographic variation of exposure to the Wells Fargo scandal 
+to estimate the causal effect. I compare FinTech adoption between an 
+area with higher initial Wells Fargo deposits share to an area with lower 
+Wells Fargo deposits share before and after massive media attention 
+
+2015 and December 31, 2019. Therefore, 1-year estimates data is the most 
+current data.
+11 https://electionlab.mit.edu/data.
+
+6 
+
+K. Yang
+
+Fig. 2.  Media coverage of the Wells Fargo Scandal.
+This figure displays Google search topic trends for ‘‘Wells Fargo Account Fraud Scandal’’ 
+from 2013 January to 2018 December, and the number of local newspaper articles 
+covering the Wells Fargo scandal each month from 2013 January to 2018 December. 
+The first and second rows show the Google search volume for the topic ‘‘Wells Fargo 
+Account Fraud Scandal’’ from users across the U.S. and California, respectively. The 
+third row displays the number of local newspaper articles covering the Wells Fargo 
+scandal each month. The Google search index is normalized to 100, the index value 
+when the topic has the highest search intensity volume.
+
+in 2016. The empirical strategy is akin to a difference-in-differences 
+approach, and most of the analysis is a variation of the following form, 
+
+𝑦(𝑖),𝑐,𝑡 = 𝛽𝑊 𝐹 𝐸𝑥𝑝𝑜𝑠𝑢𝑟𝑒𝑐 × 𝑃 𝑜𝑠𝑡𝑡 + 𝐶𝑜𝑛𝑡𝑟𝑜𝑙(𝑖),𝑐,𝑡 + 𝜆𝑐 + 𝛿𝑡 + 𝜀(𝑖),𝑐,𝑡
+
+(1)
+
+WF Exposure is the percentage of Wells Fargo deposits in county c 
+in 2015. Post is a dummy equal to 1 after 2016, and 0 otherwise. 
+I  include  county  fixed  effects  𝜆𝑐  and  time  fixed  effects  𝛿𝑡.  County-
+level control variables are from Buchak et al. (2018), which I will 
+discuss when presenting the results. Since the American Community 
+Survey one-year estimates only report annual county characteristics for 
+counties with a population larger than 65 000, I only include those 
+counties  in  our  sample.  It  is  robust  when  extending  the  sample  to 
+all counties. In the loan-level analysis, the dependent variable is an 
+indicator variable equal to 100 if the mortgage lender is a FinTech 
+lender. In the county-level analysis, the dependent variable is the share 
+of mortgages originated by FinTech lenders.
+
+The parameter of interest 𝛽 measures the incremental effects of 
+the increased household exposure to the Wells Fargo scandal on the 
+
+7 
+
+Journal of Financial Economics 169 (2025) 104062 
+
+propensity  of  the  household  to  choose  a  FinTech  mortgage  lender. 
+Interpreting 𝛽 as a causal effect of the erosion of trust in banks on the 
+probability of choosing FinTech lenders relies on two assumptions.
+
+The first assumption is that the level of exposure measured by the 
+Wells Fargo deposits share is uncorrelated with unobservable shocks 
+that affect FinTech adoption. Suppose there is an unobserved shock 
+that only affects areas with high initial Wells Fargo deposit shares, I 
+should see the FinTech shares evolve differently between treated and 
+less-treated regions before the revelation of the Wells Fargo scandal. I 
+will thus examine the dynamic effects of exposure to the Wells Fargo 
+scandal on FinTech adoption in different areas.
+
+The second assumption is that the Wells Fargo scandal generates 
+a  negative  shock  to  households’  trust  in  banks,  through  which  the 
+scandal affects households’ FinTech adoption. I will first establish a 
+causal relationship between exposure to the scandal and households’ 
+trust in banks. Then I will present evidence that the erosion of trust in 
+banks is the most likely mechanism through which the scandal affects 
+households’ FinTech adoption.
+
+One caveat is that my empirical setting does not assume whether 
+FinTech lenders complement or substitute traditional banks. The results 
+document the relative probability of choosing FinTech or traditional 
+banks. The relative probability change could come from FinTech both 
+complementing and substituting bank lenders.
+
+4. Results
+
+4.1. The revelation of wells Fargo Account Fraud and trust in banks
+
+Before establishing the relationship between the exposure to the 
+bank scandal and the probability of choosing a FinTech lender, I first 
+show  that  the  Wells  Fargo  scandal  erodes  trust  in  banks.  Using  a 
+difference-in-differences model similar to Eq.  (1), I estimate the effects 
+of exposure to the bank scandal on trust in banks. 
+
+𝑦𝑖,𝑐,𝑡 = 𝛽𝑊 𝐹 𝐸𝑥𝑝𝑜𝑠𝑢𝑟𝑒𝑐 × 𝑃 𝑜𝑠𝑡𝑡 + 𝐶𝑜𝑛𝑡𝑟𝑜𝑙𝑖,𝑐,𝑡 + 𝜆𝑐 + 𝛿𝑡 + 𝜀𝑖,𝑐,𝑡
+
+(2)
+
+The  dependent  variable  is  an  individual’s  trust  in  banks,  which  is 
+measured using the Gallup survey data from June 2012 to June 2021.12 
+Trust in Banks is a dummy variable equaling to one hundred if the 
+respondent reports ‘‘a great deal’’ or ‘‘a lot of’’ confidence in banks. 
+Since Gallup does not provide an individual identifier, one cannot iden-
+tify individuals who repeatedly responded in different years. Although 
+I cannot add individual fixed effects, I control for a wide range of 
+respondent characteristics and compare individuals’ reported trust in 
+banks before and after the scandal.
+
+Column (1) of Table  2 shows that exposure to bank scandals leads 
+to a decrease in the probability of reporting trust in banks. A one-
+standard-deviation increase in the exposure to the Wells Fargo scandal 
+in a county leads to a 1.67-percentage-point decrease (= −10.4 ∗ 0.163)
+in the probability of reporting trust in banks, which is a 6% decrease 
+from the average probability of reporting trust in banks (29).
+
+Column (2) includes several respondent-level control variables: age, 
+gender, education, income, race, ethnicity, religion, and political affili-
+ation. Column (3) includes trust in media. Column (4) includes local 
+economic  conditions.13  The  point  estimate  remains  significant,  and 
+the economic magnitude remains similar. Heterogeneity in respondent 
+characteristics  and  local  economic  conditions  does  not  explain  the 
+results.
+
+12 The Gallup surveys are conducted in June or July each year. Therefore, we 
+have five-year observations (June 2012, 2013, 2014, 2015, and 2016) before 
+the scandal and five-year observations (June 2017, 2018, 2019, 2020, and 
+2021) after the scandal.
+13 There  are  fewer  observations  in  Column  (4)  because  local  economic 
+condition measure is not available for counties with total population larger 
+than 65 000.
+
+K. Yang
+
+Journal of Financial Economics 169 (2025) 104062 
+
+Fig. 3.  Household exposure to the Wells Fargo Scandal.
+This figure displays county-level household exposure to the Wells Fargo scandal using the Wells Fargo deposit share in 2015. For each county, the Wells Fargo deposits share is 
+calculated as the total amount of deposits in Wells Fargo branches in that county over the total amount of deposits by all FDIC-insured institution.
+
+Wells Fargo(WF) Exposure𝑐 =
+
+∑
+
+𝑖∈Wells Fargo Deposits𝑖𝑐
+∑
+𝑖∈All Banks Deposits𝑖𝑐
+
+Data on deposits come from the Federal Deposit Insurance Corporation(FDIC) Summary of Deposits (SOD).
+
+Fig. 4.  Google search intensity.
+This figure displays state-level exposure to the Wells Fargo scandal using the Google Trend ‘‘Interest by subregion’’ index of search topic ‘‘Wells Fargo Account Fraud Scandal’’ 
+from August 2016 to August 2017. The index is on a scale from 0 to 100, with 100 indicating the state with the peak search intensity.
+
+As previously noted, the Gallup survey does not survey individuals’ 
+confidence  in  other  types  of  financial  institutions.  Thus,  a  reliable 
+cross-regional measure of trust in FinTech is not available. Instead, 
+I  use  trust  in  general  businesses  to  measure  the  trust  in  FinTech 
+companies. In the Gallup survey, individuals were surveyed on their 
+confidence in big businesses and banks. Since FinTech companies do 
+not belong to the traditional definition of bank lenders, the survey 
+questions on trust in big businesses are the best available proxies for 
+trust in FinTech companies. In columns (5), (6), (7), and (8), I re-do 
+
+all of the analyses using trust in big businesses as dependent variables. 
+The results show that exposure to the Wells Fargo scandal does not 
+decrease trust in big businesses. The trust that households place on 
+FinTech and non-FinTech shadow banks do not change after exposure 
+to the Wells Fargo scandal. This is therefore consistent with the relative 
+difference between trust in banks and trust in FinTech decreasing after 
+the scandal.
+
+In the Appendix Table A6, I use an alternative measure of exposure 
+to the Wells Fargo scandal. 𝑊 𝐹 𝐸𝑥𝑝𝑜𝑠𝑢𝑟𝑒𝑐 is instead measured using 
+
+8 
+
+K. Yang
+
+Table 1
+Summary statistics.
+  Table A: Mortgage share
+
+  Mortgage origination
+  FinTech
+  + NonFinTech shadow bank
+  = Shadow bank
+  Wells Fargo
+  + Non-Wells Fargo bank
+  Bank
+  Mortgage application
+  FinTech
+  + NonFinTech shadow bank
+  = Shadow bank
+  Wells Fargo
+  + Non-Wells Fargo bank
+  Bank
+  Table B: County characteristics: 2012–2021
+
+  Treated (Wells Fargo deposits share in 2015)
+  Treated × post
+  Non-Republican (NonRep) share
+  Treated × Post × NonRep
+  Google search intensity
+  Top 4 share
+  American Community Survey: 1 Year
+  Population (000s)
+  Median household income
+  Unemployment rate
+  % with less than 35K income
+  Table C: Gallup individuals, 2012–2021
+
+  Trust in banks
+  Trust in big business
+  Trust in media
+  NonRep
+  Age
+  Female
+  College
+  High income
+  White
+  Hispanic
+  Black
+  Protestant
+  Jewish
+  Trust in banks (NonRep)
+  Trust in banks (Republican)
+  Table D: Loan characteristics
+
+Mean
+
+7.79
+38.31
+46.10
+4.77
+49.13
+53.90
+
+8.46
+37.21
+45.66
+5.26
+49.08
+54.34
+
+Mean
+9.13
+5.52
+0.47
+2.80
+51.11
+0.31
+
+333.88
+60 055.46
+6.29
+30.44
+
+Mean
+
+29.27
+21.15
+21.68
+0.56
+53.13
+0.47
+0.76
+0.34
+0.74
+0.08
+0.13
+0.37
+0.02
+25.74
+33.70
+
+Mean
+
+Median
+
+Std Dev
+
+7.22
+37.94
+45.89
+3.41
+48.40
+54.11
+
+7.89
+36.83
+45.52
+4.02
+48.39
+54.48
+
+Median
+5.94
+0.00
+0.46
+0.00
+66.00
+0.29
+
+158.77
+56 482.00
+5.80
+30.40
+
+Median
+
+0.00
+0.00
+0.00
+1.00
+55.00
+0.00
+1.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+
+Median
+
+3.54
+13.98
+15.86
+4.12
+15.71
+15.86
+
+3.74
+12.59
+14.56
+4.16
+14.51
+14.56
+
+Std Dev
+10.41
+9.26
+0.15
+5.14
+32.41
+0.10
+
+584.28
+16 951.45
+2.68
+9.02
+
+Std Dev
+45.50
+40.84
+34.18
+0.50
+18.75
+0.50
+0.43
+0.47
+0.44
+0.27
+0.33
+0.48
+0.14
+43.72
+47.27
+
+Std Dev
+
+Journal of Financial Economics 169 (2025) 104062 
+
+25%
+
+5.28
+28.36
+34.79
+1.84
+37.49
+42.49
+
+5.86
+28.24
+35.07
+2.21
+38.41
+43.87
+
+25%
+0.00
+0.00
+0.36
+0.00
+33.00
+0.23
+
+75%
+
+9.76
+48.29
+57.51
+6.33
+60.30
+65.21
+
+10.50
+46.16
+56.13
+6.96
+59.50
+64.93
+
+75%
+16.65
+9.89
+0.57
+4.12
+75.00
+0.36
+
+96.19
+47 999.00
+4.40
+23.90
+
+333.75
+68 424.00
+7.70
+36.90
+
+75%
+
+100.00
+0.00
+50.00
+1.00
+68.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+1.00
+0.00
+100.00
+100.00
+
+25%
+
+0.00
+0.00
+0.00
+0.00
+38.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+
+25%
+
+N
+
+8 229
+8 229
+8 229
+8 229
+8 229
+8 229
+
+8 229
+8 229
+8 229
+8 229
+8 229
+8 229
+
+N
+8 229
+8 229
+8 229
+8 229
+8 229
+8 229
+
+8 229
+8 229
+8 229
+8 229
+
+N
+
+11 372
+11 372
+11 372
+11 372
+11 372
+11 372
+11 372
+11 372
+11 372
+11 372
+11 372
+11 372
+11 372
+6 318
+5 054
+
+75%
+
+N
+
+8.84
+4.97
+43.73
+48.70
+42.47
+51.30
+
+0.00
+0.00
+0.00
+0.00
+0.00
+100.00
+
+  Mortgage origination
+  FinTech
+  Wells Fargo
+  Non-Wells Fargo bank
+  Bank
+  NonFinTech shadow bank
+  Shadow bank
+  Mortgage application
+110 071 472 
+  FinTech
+110 071 472 
+  Wells Fargo
+110 071 472 
+  Non-Wells Fargo bank
+110 071 472 
+  Bank
+110 071 472 
+  NonFinTech shadow bank
+110 071 472 
+  Shadow bank
+This table reports the summary statistics of the key variables. Tables A and B present summary statistics for counties with populations larger than 65 000. Table C presents the 
+characteristics of Gallup survey individuals. Table D reports the U.S. residential mortgage loan characteristics. The U.S. Residential Mortgage Data are obtained from the HMDA. 
+County-year level demographic data from the U.S. Census American Community Survey(ACS) 1-year estimates 6 between 2012 to 2021. Trust in institutions data is obtained from 
+the Gallup Analytics surveys.
+
+86 860 239  
+86 860 239  
+86 860 239  
+86 860 239  
+86 860 239  
+86 860 239  
+
+0.00
+0.00
+100.00
+100.00
+100.00
+100.00
+
+0.00
+0.00
+0.00
+100.00
+0.00
+0.00
+
+0.00
+0.00
+100.00
+100.00
+100.00
+100.00
+
+28.97
+22.83
+49.73
+50.00
+49.07
+50.00
+
+9.25
+5.52
+44.84
+50.36
+40.39
+49.64
+
+28.38
+21.72
+49.61
+49.98
+49.43
+49.98
+
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+
+9 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+K. Yang
+
+Table 2
+The effect of the revelation of the Well Fargo scandal on trust in banks.
+
+  WF exposure
+
+  NonRep
+
+  Age
+
+  Female
+
+  College
+
+  High income
+
+  White
+
+  Hispanic
+
+  Black
+
+  Protestant
+
+  Jewish
+
+  Trust in media
+
+  % with less than 35K income
+
+Trust in banks
+(1)
+
+−0.163∗∗
+(−2.0)
+
+(2)
+
+−0.169∗∗
+(−2.1)
+−7.373∗∗∗
+(−7.0)
+−0.009
+(−0.3)
+2.785∗∗∗
+(3.0)
+−2.685∗∗
+(−2.4)
+1.277
+(1.3)
+−4.741∗∗
+(−2.1)
+−3.209
+(−1.2)
+−4.786∗
+(−1.9)
+5.929∗∗∗
+(5.9)
+2.959
+(1.0)
+
+(3)
+
+−0.214∗∗∗
+(−2.9)
+−13.115∗∗∗
+(−12.7)
+−0.061∗∗
+(−2.3)
+2.379∗∗∗
+(2.7)
+−1.681
+(−1.6)
+1.485
+(1.6)
+−4.659∗∗
+(−2.1)
+−3.197
+(−1.2)
+−4.600∗
+(−1.8)
+5.648∗∗∗
+(5.7)
+1.539
+(0.5)
+0.317∗∗∗
+(21.9)
+
+Journal of Financial Economics 169 (2025) 104062 
+
+(4)
+
+Trust in big business
+(5)
+
+(6)
+
+(7)
+
+(8)
+
+−0.178∗∗
+(−2.3)
+−13.238∗∗∗
+(−12.1)
+−0.072∗∗∗
+(−2.6)
+2.011∗∗
+(2.1)
+−1.337
+(−1.2)
+1.509
+(1.5)
+−5.654∗∗
+(−2.5)
+−4.052
+(−1.5)
+−5.519∗∗
+(−2.1)
+5.649∗∗∗
+(5.4)
+1.728
+(0.6)
+0.316∗∗∗
+(20.6)
+0.095
+(0.3)
+Yes
+Yes
+
+0.024
+(0.3)
+
+0.017
+(0.2)
+−17.255∗∗∗
+(−17.1)
+0.020
+(0.8)
+−5.268∗∗∗
+(−6.6)
+−3.101∗∗∗
+(−3.1)
+2.864∗∗∗
+(3.0)
+−5.177∗∗∗
+(−2.7)
+−1.297
+(−0.6)
+−1.883
+(−0.8)
+−0.233
+(−0.2)
+−0.283
+(−0.1)
+
+−0.010
+(−0.1)
+−20.656∗∗∗
+(−21.0)
+−0.010
+(−0.4)
+−5.508∗∗∗
+(−7.0)
+−2.506∗∗
+(−2.5)
+2.988∗∗∗
+(3.3)
+−5.128∗∗∗
+(−2.8)
+−1.290
+(−0.6)
+−1.773
+(−0.8)
+−0.399
+(−0.4)
+−1.124
+(−0.4)
+0.188∗∗∗
+(14.1)
+
+0.032
+(0.4)
+−20.967∗∗∗ 
+(−20.0)
+−0.012
+(−0.5)
+−5.504∗∗∗  
+(−6.7)
+−1.921∗
+(−1.8)
+2.991∗∗∗
+(3.2)
+−5.805∗∗∗  
+(−3.0)
+−1.442
+(−0.7)
+−2.774
+(−1.2)
+−0.433
+(−0.4)
+−0.846
+(−0.3)
+0.184∗∗∗
+(13.1)
+−0.243
+(−1.0)
+Yes
+Yes
+
+Yes
+Yes
+
+Yes
+Yes
+
+Yes
+Yes
+
+10 687
+0.028
+
+  County FE
+  Year FE
+  Observations
+  Adjusted 𝑅2
+This table reports the effects of the Wells Fargo scandal revelation on trust in banks, using ‘‘Confidence in Institution’’ survey data from Gallup Analytics from 2012 to 2021. The 
+coefficients are estimated using following regressions.
+𝑦𝑖,𝑐,𝑡 = 𝛽𝑊 𝐹 𝐸𝑥𝑝𝑜𝑠𝑢𝑟𝑒𝑐 × 𝑃 𝑜𝑠𝑡𝑡 + 𝐶𝑜𝑛𝑡𝑟𝑜𝑙𝑖,𝑐,𝑡 + 𝜆𝑐 + 𝛿𝑡 + 𝜀𝑖,𝑐,𝑡
+The dependent variable is respondent’s trust in banks and trust in big business, which equal to one hundred if the respondent reports the level of confidence as ‘‘a great deal’’ 
+or ‘‘a lot’’, zero if reports ‘‘very little’’, ‘‘some’’ or ‘‘none’’. 𝑊 𝐹 𝐸𝑥𝑝𝑜𝑠𝑢𝑟𝑒𝑐 is the percentage of Wells Fargo deposits in county c in 2015. 𝑃 𝑜𝑠𝑡𝑡 is a dummy variable that equals 
+to 1 after September 2016. The constant term is included, and fixed effects are indicated in the table. Standard errors are clustered at the county level, and t statistics are in 
+parentheses.
+
+10 687
+0.039
+
+10 687
+0.091
+
+10 687
+0.078
+
+10 687
+0.007
+
+10 687
+0.056
+
+9303
+0.081
+
+9303
+0.078
+
+Yes
+Yes
+
+Yes
+Yes
+
+Yes
+Yes
+
+Fig. 5.  Dynamic effects of the Wells Fargo scandal revelation on FinTech adoption.
+This figure shows the dynamic effects of exposure to the Wells Fargo scandal on FinTech 
+adoption. Coefficients are estimated from the following regression using HMDA loan-
+level data from 2012 to 2021.
+𝑦𝑖,𝑐,𝑡 = 𝛽𝑡𝑊 𝐹 𝐸𝑥𝑝𝑜𝑠𝑢𝑟𝑒𝑐 × ∑2021
+The dependent variable is a dummy variable that equals 100 if the lender is FinTech, 
+and 0 otherwise. WF Exposure is the share of Wells Fargo deposits in county c in 2015. 
+Year dummy t is a dummy variable that equals 1 at year t and 0 otherwise. The year 
+2015 is omitted as the reference year. The result include only originated loans. The 
+constant term, county and year fixed effects are included in all regressions. Standard 
+errors are clustered at the county level; confidence intervals are calculated at the 5% 
+level.
+
+𝑡=2012,𝑡≠2015 𝐷𝑢𝑚𝑚𝑦𝑡 + 𝐶𝑜𝑛𝑡𝑟𝑜𝑙𝑖,𝑐,𝑡 + 𝜆𝑐 + 𝛿𝑡 + 𝜀𝑖,𝑐,𝑡
+
+Fig. 6.  Dynamic effects of the Wells Fargo scandal revelation on FinTech adoption: 
+Fannie Mae Loans.
+This figure reports the dynamic effects of exposure to the Wells Fargo scandal on 
+mortgage loan origination using Fannie Mae loans. The plotted coefficients are esti-
+mated from the following regression, using MSA-year-quarter-level data from 2014Q1 
+to 2019Q4.
+𝑦𝑐,𝑡 = 𝛽𝑡𝑊 𝐹 𝐸𝑥𝑝𝑜𝑠𝑢𝑟𝑒𝑐 × ∑2019𝑄4
+The dependent variable is the share of the number of mortgages originated by FinTech 
+lenders at the MSA level. WF Exposure is the percentage of Wells Fargo deposits in 
+MSA c in 2015. Post is a dummy variable that equals to one after the third quarter of 
+2016. The 2016 Q2 dummy is the reference period, and is thus omitted. The constant 
+term, MSA and year-quarter fixed effects are included in all regressions. Standard errors 
+are clustered at the MSA level; confidence intervals are calculated at the 5% level.
+
+𝑡=2014𝑄1,𝑡≠2016𝑄2 𝐷𝑢𝑚𝑚𝑦𝑡 + 𝐶𝑜𝑛𝑡𝑟𝑜𝑙𝑐,𝑡 + 𝜆𝑐 + 𝛿𝑡 + 𝜀𝑐,𝑡
+
+10 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+K. Yang
+
+Journal of Financial Economics 169 (2025) 104062 
+
+Table 3
+The effect of the revelation of the Well Fargo scandal on FinTech adoption.
+
+  WF exposure × post
+
+  Population
+
+  Median household income
+
+  Unemployment rate
+
+  % with less than 35K income
+
+  Top 4 share
+
+  Income
+
+  Loan Amount
+
+  Loan type (Omitted category = Conventional)
+  FHA
+
+  VA
+
+  FSA/RHS
+
+Origination
+
+FinTech
+(1)
+
+0.035∗∗∗
+(3.4)
+
+−0.000∗
+(−1.7)
+−0.001∗∗∗
+(−5.4)
+
+3.790∗∗∗
+(22.9)
+1.578∗∗∗
+(14.3)
+−0.033
+(−0.2)
+
+  Loan purpose (Omitted category = Home purchase)
+  Home improvement
+
+  Refinance
+
+  Purchaser type (Omitted category = Held)
+  Fannie Mae
+
+  Ginnie Mae
+
+  Freddie Mac
+
+  Farmer Mac
+
+  Private securitization
+
+  Bank
+
+  Insurance
+
+  Affiliate
+
+  Other
+
+  Gender (Omitted category = Male)
+  Female
+
+  N.A.
+
+  Ethnicity (Omitted category = Non-Hispanic)
+  Hispanic
+
+  Other
+
+  Race (Omitted category = White)
+  Native American
+
+  Asian
+
+  Black
+
+  Hawaiian
+
+−1.008∗∗∗
+(−10.2)
+6.096∗∗∗
+(42.5)
+
+11.659∗∗∗
+(61.8)
+9.102∗∗∗
+(37.1)
+8.863∗∗∗
+(38.2)
+−0.895∗∗∗
+(−4.1)
+0.965∗∗∗
+(2.9)
+2.083∗∗∗
+(5.6)
+−1.120∗∗∗
+(−6.8)
+−2.950∗∗∗
+(−17.1)
+−0.218
+(−1.4)
+
+0.532∗∗∗
+(15.4)
+11.212∗∗∗
+(35.2)
+
+−0.943∗∗∗
+(−6.0)
+1.141∗∗∗
+(8.8)
+
+1.473∗∗∗
+(13.6)
+0.441∗∗
+(2.2)
+0.825∗∗∗
+(9.6)
+0.494∗∗∗
+
+11 
+
+FinTech
+(2)
+
+0.033∗∗∗
+(3.2)
+−0.004∗∗
+(−2.6)
+0.000∗∗∗
+(5.3)
+−0.033
+(−1.0)
+0.032
+(1.4)
+−0.103
+(−0.1)
+−0.000∗
+(−1.8)
+−0.001∗∗∗
+(−4.8)
+
+3.541∗∗∗
+(20.8)
+1.600∗∗∗
+(13.5)
+0.470∗∗
+(2.2)
+
+−0.821∗∗∗
+(−7.1)
+6.233∗∗∗
+(38.0)
+
+11.901∗∗∗
+(56.9)
+8.836∗∗∗
+(32.2)
+9.065∗∗∗
+(34.8)
+−1.242∗∗∗
+(−4.5)
+1.331∗∗∗
+(3.8)
+2.455∗∗∗
+(6.1)
+−0.780∗∗∗
+(−4.5)
+−2.734∗∗∗
+(−14.7)
+0.170
+(1.0)
+
+0.430∗∗∗
+(12.0)
+11.056∗∗∗
+(32.1)
+
+−1.049∗∗∗
+(−6.5)
+0.613∗∗∗
+(4.8)
+
+1.565∗∗∗
+(12.8)
+0.337∗
+(1.7)
+0.741∗∗∗
+(8.3)
+0.468∗∗∗
+
+Application
+
+FinTech
+(3)
+
+0.030∗∗∗
+(3.5)
+
+0.000
+(0.0)
+−0.001∗∗∗
+(−5.3)
+
+4.744∗∗∗
+(25.5)
+2.154∗∗∗
+(16.9)
+−0.437∗∗∗
+(−2.8)
+
+−4.152∗∗∗
+(−33.0)
+5.623∗∗∗
+(45.0)
+
+8.486∗∗∗
+(46.3)
+4.842∗∗∗
+(26.2)
+5.698∗∗∗
+(23.8)
+−4.206∗∗∗
+(−20.1)
+−2.407∗∗∗
+(−7.0)
+−1.317∗∗∗
+(−3.5)
+−4.756∗∗∗
+(−30.1)
+−6.093∗∗∗
+(−34.2)
+−3.835∗∗∗
+(−24.4)
+
+0.769∗∗∗
+(21.5)
+10.587∗∗∗
+(39.7)
+
+−0.314∗
+(−1.8)
+2.480∗∗∗
+(14.1)
+
+1.770∗∗∗
+(16.7)
+0.435∗∗
+(2.4)
+1.266∗∗∗
+(13.2)
+0.539∗∗∗
+
+FinTech  
+(4)
+0.032∗∗∗  
+(3.4)
+−0.003∗  
+(−1.9)
+0.000∗∗∗  
+(4.4)
+−0.011
+(−0.4)
+0.021
+(1.0)
+−0.678
+(−0.6)
+0.000
+(0.1)
+−0.001∗∗∗ 
+(−4.8)
+
+4.493∗∗∗  
+(22.7)
+2.172∗∗∗  
+(15.3)
+0.334∗
+(1.8)
+
+−3.610∗∗∗ 
+(−26.3)  
+5.988∗∗∗  
+(42.7)
+
+8.815∗∗∗  
+(44.4)
+4.767∗∗∗  
+(22.8)
+5.986∗∗∗  
+(22.6)
+−4.473∗∗∗ 
+(−16.8)  
+−1.900∗∗∗ 
+(−5.3)
+−0.807∗∗  
+(−2.0)
+−4.262∗∗∗ 
+(−26.4)  
+−5.806∗∗∗ 
+(−30.0)  
+−3.294∗∗∗ 
+(−19.9)  
+
+0.610∗∗∗  
+(17.6)
+10.686∗∗∗  
+(36.2)
+
+−0.505∗∗∗ 
+(−2.9)
+1.479∗∗∗  
+(9.9)
+
+1.780∗∗∗  
+(14.6)
+0.339∗
+(1.9)
+0.920∗∗∗  
+(10.1)
+0.500∗∗∗  
+(continued on next page)
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+K. Yang
+
+Journal of Financial Economics 169 (2025) 104062 
+
+Table 3 (continued).
+
+  N.A.
+
+  Constant
+
+(4.1)
+3.571∗∗∗
+(31.6)
+−1.009∗∗∗
+(−6.5)
+
+(3.9)
+3.634∗∗∗
+(30.0)
+−3.908∗
+(−1.8)
+
+(4.5)
+3.174∗∗∗
+(25.3)
+2.350∗∗∗
+(17.3)
+
+76 809 340
+0.088
+
+86 860 239
+0.090
+
+  Observations
+  Adjusted 𝑅2
+This table reports the effect of the Well Fargo scandal revelation on FinTech adoption. Coefficients are estimated from the following regression, 
+using loan-level data from 2012 to 2021 from the HMDA.
+𝑦𝑖,𝑐,𝑡 = 𝛽𝑡𝑊 𝐹 𝐸𝑥𝑝𝑜𝑠𝑢𝑟𝑒𝑐 × 𝑃 𝑜𝑠𝑡𝑡 + 𝐶𝑜𝑛𝑡𝑟𝑜𝑙𝑖,𝑐,𝑡 + 𝜆𝑐 + 𝛿𝑡 + 𝜀𝑖,𝑐,𝑡
+The dependent variable is a dummy variable equaling to one hundred if the lender is a FinTech lender and zero otherwise. 𝑊 𝐹 𝐸𝑥𝑝𝑜𝑠𝑢𝑟𝑒𝑐 is 
+the percentage points of Wells Fargo deposits in county c in 2015. 𝑃 𝑜𝑠𝑡𝑡 is a dummy variable that equals to one after 2016. 𝐶𝑜𝑛𝑡𝑟𝑜𝑙𝑖,𝑐,𝑡 include 
+both county-level and loan-level control variables. Columns (1) and (2) only include originated loans, and columns (3) and (4) include all 
+applications. The constant term is included, and fixed effects are indicated in the table. Standard errors are clustered at the county level, and
+t statistics are in parentheses.
+
+110 071 472
+0.078
+
+(4.1)
+3.466∗∗∗
+(26.7)
+0.243
+(0.1)
+96 648 461 
+0.076
+
+Google  Trend  ‘‘Interest  by  subregion’’  index  of  search  topic  ‘‘Wells 
+Fargo Account Fraud Scandal’’ from August 2016 to August 2017. I 
+find a very similar result that exposure to the bank scandal leads to 
+a decrease in the probability of reporting trust in banks.14 This result 
+suggests that these two are both valid measures of the exposure to the 
+Wells Fargo scandal and that cross-sectional variation in the exposure 
+to the scandal creates cross-sectional variation in the changes of trust 
+in banks.
+
+Moreover, the coefficient controlling for individuals’ political af-
+filiations is large and significant. On average, people who reported 
+not being affiliated with the Republican Party had much lower trust 
+in  banks.  Not  being  affiliated  with  the  Republican  Party  decreases 
+the probability of reporting trust in banks by 7.4-percentage-points, 
+a  nontrivial  effect.  Survey  evidence  shows  that  people  behave  het-
+erogeneously in terms of their trust in banks, which will be further 
+investigated in Section 4.4 to sharpen the trust channel.
+
+4.2. Wells Fargo Account Fraud and FinTech adoption
+
+4.2.1. Baseline results
+
+Next, I relate the exposure to the Wells Fargo scandal to FinTech 
+adoption,  comparing  FinTech  adoption  in  regions  with  high  initial 
+Wells Fargo deposit share to regions with low Wells Fargo deposits 
+share before and after the outburst of the scandal in 2016. I estimate 
+the difference-in-differences model specified in Eq.  (1).
+
+In Table  3 the dependent variable is a dummy variable equal to 100 
+if the lender is FinTech. Regressions in Columns (1) and (2) include only 
+originated loans, whereas Columns (3) and (4) include all applications 
+(originated + denied loans). As previously noted, total applications of 
+mortgage loans is a direct measure of household demand for different 
+types of mortgage lenders, while the total number of originated mort-
+gages is a result of both credit supply and demand. Later I will show 
+that the lender’s credit supply does not affect our results.
+
+I begin by focusing on origination in Columns (1) and (2). Column 
+(1) shows that an increased exposure to the Wells Fargo scandal leads 
+to an increase in the probability of choosing a FinTech lender. A one-
+standard-deviation increase in exposure to the Wells Fargo scandal in 
+a county leads to a 0.36-percentage-point increase (= 10.4 ∗ 0.035) in 
+the probability of choosing a FinTech lender, which is a 4.1% increase 
+from the average probability of choosing a FinTech lender (8.84). The 
+
+result is significant at the 1% level. Since individual characteristics and 
+types of loans may also affect lender choice, I include applicant and 
+loan characteristics in the regression. Women are more likely to choose 
+FinTech lenders than men. Compared to White, African Americans are 
+also more likely to choose FinTech lenders.
+
+Since local economic and market conditions may also affect the 
+probability  of  choosing  a  FinTech  lender,  I  add  county-level  eco-
+nomic controls from the American Community Survey one-year esti-
+mates. I lose some observations since the county-year level economic 
+data  are  only  available  for  counties  with  a  population  larger  than 
+65,000. Scharfstein and Sunderam (2016) and Liebersohn (2017) show 
+that market power plays an important role in mortgage lending. To 
+control for local credit market conditions, I use the total share of the 
+top 4 lenders as a measure of competition.15 Column (2) shows that 
+an increased exposure to the Wells Fargo scandal has a positive and 
+significant effect on the probability of choosing a FinTech lender, even 
+after controlling for county-level demographics, economic conditions, 
+and local credit market conditions. The economic magnitude is similar.
+Columns  (3)  and  (4)  show  the  results  using  all  mortgage  loan 
+applications to measure FinTech adoption.16 The coefficients are all 
+statistically significant and have values similar to the results for loan 
+origination. An increased exposure to the Wells Fargo scandal leads 
+to an increase in the probability of choosing a FinTech lender among 
+approved and rejected borrowers. Since rejected loans are included in 
+the regression, the positive coefficient reflects the increase in household 
+demand for FinTech lenders. Overall, these results suggest that the 
+effects of exposure to the Wells Fargo scandal on FinTech adoption 
+are not driven by changes in credit supply. Later in Section 4.7, I will 
+further show that lenders’ credit supply is not affected by exposure to 
+the Wells Fargo scandal.
+
+In the Appendix Tables A4 and A5, I use two alternative measures 
+of exposure to the Wells Fargo scandal. 𝑊 𝐹 𝐸𝑥𝑝𝑜𝑠𝑢𝑟𝑒𝑐 is measured 
+using Google Trend’s ‘‘Interest by subregion’’ index for the search topic 
+‘‘Wells Fargo Account Fraud Scandal’’ from August 2016 to August 
+2017. 𝐿𝑜𝑐𝑎𝑙𝑁𝑒𝑤𝑠𝑐 represents the number of local newspaper articles 
+covering the Wells Fargo scandal in county 𝑐 in 2016, expressed in 
+logarithmic form as 𝑙𝑜𝑔(𝑁𝑢𝑚𝑏𝑒𝑟𝑜𝑓 𝑁𝑒𝑤𝑠+1). I find that a one-standard-
+deviation increase in exposure to the Wells Fargo scandal, measured 
+using Google Search Intensity in a county, leads to a 0.2-percentage-
+point  decrease  in  the  probability  of  choosing  FinTech.  Similarly,  a 
+
+14 The results based on Google Trends data, measured at the state level, 
+may exhibit reduced statistical significance due to the lack of within-state 
+variation. This limitation likely contributes to the observed discrepancy in 
+statistical significance between the Google Trends data and the deposit share 
+exposure data. I do not use the local newspaper coverage measure due to 
+the low overlap between the Gallup survey and counties covered by local 
+newspaper markets. I used a shorter sample from 2014 to 2018 due to the well-
+documented short-term effect of scandals on trust, which will be explained 
+further in Section 4.4.
+
+15 Stanton et al. (2014) discussed that concentration in the US mortgage 
+market  might  be  underestimated;  the  results  are  robust  using  either  the 
+Herfindahl index or share of Top 4 lenders.
+16 However, many individuals rely on real estate agents to purchase homes 
+and apply for mortgages, and the incentive of real estate agents may distort 
+individuals’ choice of mortgage lender. Although we do not observe the real 
+estate agencies in HMDA data, most real estate agencies are local. Thus they 
+should be exposed to trust shock similarly to individuals who were shopping 
+for the mortgage.
+
+12 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+K. Yang
+
+one-standard-deviation  increase  in  exposure  to  local  news  coverage 
+of the Wells Fargo scandal leads to a 0.18-percentage-point increase 
+in FinTech shares. Both magnitudes are comparable to the effects of 
+exposure measured using the Wells Fargo deposit share.
+
+Our findings demonstrate consistent effects of exposure to the Wells 
+Fargo scandal, whether measured using county-level Wells Fargo de-
+posit shares, the Google Search Index, or local newspaper coverage. 
+Overall, these results suggest that the effects observed through media 
+coverage are as significant as those derived from deposit share exposure 
+to Wells Fargo prior to the scandal.
+
+4.2.2. Parallel trends
+
+One possible concern of the causal interpretation is that the results 
+may  be  driven  by  the  different  trends  of  FinTech  adoption  among 
+areas with different Wells Fargo scandal exposure. If this is the case, 
+we  should  see  that  the  FinTech  share  evolved  differently  between 
+more- and less-treated regions before the revelation of the Wells Fargo 
+scandal. Furthermore, the parallel trends assumption is critical to rule 
+out alternative channels when studying FinTech adoption. For exam-
+ple, D’Acunto and Rossi (2017) show that large banks have been exiting 
+some mortgage lending market segments since 2009. To rule out the 
+alternative channel, I estimate the dynamic treatment effect models in 
+the following forms,
+
+𝑦𝑖,𝑐,𝑡 = 𝛽𝑡𝑊 𝐹 𝐸𝑥𝑝𝑜𝑠𝑢𝑟𝑒𝑐 ×
+
++ 𝜆𝑐 + 𝛿𝑡 + 𝜀𝑖,𝑐,𝑡
+
+2021
+∑
+
+𝑡=2012,𝑡≠2015
+
+𝐷𝑢𝑚𝑚𝑦𝑡 + 𝐶𝑜𝑛𝑡𝑟𝑜𝑙𝑖,𝑐,𝑡
+
+The dependent variable is a dummy variable that equals 100 if the 
+lender is FinTech, and 0 otherwise. WF Exposure is the share of Wells 
+Fargo deposits in county c in 2015. Year dummy t is a dummy variable 
+that equals to 1 at year t, and 0 otherwise. The year 2015 is omitted, 
+as the reference year.
+
+Fig.  5 shows the dynamic effects of exposure to the Wells Fargo 
+scandal on FinTech adoption. The treatment dynamics are consistent 
+with the parallel trends assumption. The increase in FinTech adoption 
+occurred in the treated areas only after the scandal in 2016, and there 
+existed no pre-trends before the scandal. The results indicate that the 
+Wells Fargo deposits in county c in 2015 are unlikely to be correlated 
+with  potential  confounding  unobservable  shocks  related  to  FinTech 
+adoption.
+
+The treatment effect in 2017 is positive but not statistically sig-
+nificant, possibly due to the loan-level empirical specification used to 
+estimate the treatment dynamics. The estimates in Fig.  5 are based on 
+regression analysis using HMDA loan-level data. If counties with greater 
+decreases in trust in banks experienced fewer loan originations in 2017, 
+a loan-level analysis could attenuate the treatment effects observed 
+for that year. I calculate the total number of loans in counties with 
+high exposure to the Wells Fargo scandal. In 2017, Counties with high 
+exposure to the Wells Fargo scandal recorded the lowest number of 
+loan applications and originations during the six post-treatment years 
+(2016, 2017, 2018, 2019, 2020, and 2021). From 2016 to 2017, the 
+total number of loan decreased 12% in regions with low exposure to the 
+Wells Fargo scandal, and 18% decrease in regions with high exposure 
+to the Wells Fargo scandal. We indeed find that the number of loan 
+originations decline more sharply in 2017 in high exposure counties, 
+compared to low exposure counties. In Appendix Figure A1, I present 
+the dynamic effects of the Wells Fargo scandal revelation on FinTech 
+adoption, with coefficients estimated using county-year-level data from 
+2012 to 2021. In this county-level dynamic effect analysis, with equal 
+weights assigned to each county, the treatment effects in 2016 and 
+2017 have similar magnitudes and are both statistically significant.
+
+The publicly available HMDA dataset is at an annual frequency, 
+so my dynamic analysis is at an annual frequency. Fig.  2 shows an 
+intensive  search  of  the  ‘‘Wells  Fargo  Account  Fraud  Scandal’’  that 
+started  in  September  2016  when  the  regulators  issued  enforcement 
+
+Journal of Financial Economics 169 (2025) 104062 
+
+actions. Therefore, in our primary annual-level analysis, the treatment 
+year started in 2016. Ideally, we would like to see that the treatment 
+effect started in September 2016. To explore the finer time trends, I 
+turn to Fannie Mae’s single-family loan datasets, which provide loan 
+origination at the quarterly frequency. Since these datasets provide 
+only the first three digits or the MSA codes of the property location, 
+I conduct a similar dynamic difference-in-differences estimates at the 
+year-quarter-MSA level. Post is a dummy variable that equals one after 
+the third quarter of 2016. The 2016 Q2 dummy is the reference period, 
+and is thus omitted.
+
+Fig.  6 shows the dynamic effects of the exposure to the Wells Fargo 
+scandal on FinTech adoption at a quarterly frequency. There are no 
+significant differences between the more and less treated regions before 
+Q3 of 2016. The treatment effect is strong and significant right after the 
+scandal outburst in Q3 of 2016 and remains positive and significant 
+later. Overall, the results show that there existed no pre-trends before 
+the scandal.
+
+4.2.3. The spillover effect of the scandal
+
+The previous results show a causal relationship between the expo-
+sure to the Wells Fargo scandal and FinTech adoption. However, it 
+is unclear which types of lenders failed to retain the borrowers after 
+the outburst of the Wells Fargo scandal. Moreover, since the scandal 
+focuses on Wells Fargo bank, one may be concerned that the increase in 
+FinTech adoption is simply a shift from Wells Fargo to FinTech, rather 
+than a more general shift from banks to FinTech firms. To address 
+this concern, I conduct a similar empirical analysis of the mortgage 
+origination activities of all types of lenders in Table  4.
+
+The dependent variable in Table  4a is a dummy variable equal to 
+100 if the lender is a Wells Fargo, a non-Wells Fargo bank, or any bank, 
+respectively. Table  4a presents that a one-standard-deviation increase 
+in the exposure of the Wells Fargo scandal leads to a 1%(= 0.043 ∗
+10.4∕43.76) decrease in the probability of choosing a non-Wells Fargo 
+bank. Although the bank scandal focuses on Wells Fargo, there is a 
+significant  spillover  effect  on  other  banks.  The  increase  in  FinTech 
+adoption did not only result from a switch from Wells Fargo to other 
+lenders; individuals are also more likely to choose FinTech compared 
+to banks other than Wells Fargo.
+
+4.3. How trust affects FinTech adoption?
+
+In this section, I analyze the channels through which trust affect 
+FinTech adoption by examining the how the Wells Fargo scandal affects 
+borrowers’ choices of non-FinTech shadow banks.
+
+There  are  two  perspectives  of  trust  that  could  affect  economic 
+agents’ decision makings. Guiso et al. (2008) define trust as an indi-
+vidual’s subjective belief of the probability of being cheated. Gennaioli 
+et al. (2015) think of trust as inducing a tighter, or lower volatility 
+of, perceived distribution of financial returns. Both these two aspects 
+of  trust  could  serve  as  the  underlying  mechanisms  through  which 
+trust affects borrowers’ choice of FinTech lenders. More trust placed 
+on FinTech lenders could indicate that FinTech lenders have a lower 
+perceived probability of cheating. Borrowers who trust FinTech more 
+would choose FinTech lenders because they are less likely to be cheated 
+by FinTech lenders. Borrowers could also choose FinTech lenders be-
+cause trust in FinTech lenders tightens the perceived distribution of the 
+probability of being cheated. Risk-averse borrowers who trust FinTech 
+more would be more likely to choose FinTech lenders because they 
+experience less anxiety from the likelihood of being cheated. Therefore, 
+the role of trust may not be absolute but relative. Households need to 
+use intermediaries to transact, even if they trust them very little. As a 
+result, erosions of trust can shift demand away from traditional lenders 
+toward new ones, such as FinTech lenders.
+
+Given the two perspectives, I test two channels through which the 
+erosion of trust in banks could affect FinTech adoption. First, trust 
+erosion in the banking sector affects FinTech adoption because FinTech 
+
+13 
+
+K. Yang
+
+Journal of Financial Economics 169 (2025) 104062 
+
+Table 4
+The effect of the Wells Fargo scandal revelation on lender choice.
+  (a) Other banks
+
+  WF exposure × post
+
+  Loan Char.
+  County Char.
+  County FE
+  Year FE
+  Observations
+  Adjusted R-squared
+  (b) Other shadow banks and online banks
+
+Wells Fargo
+(1)
+
+−0.121***
+(−18.0)
+Yes
+Yes
+Yes
+Yes
+
+86 860 239
+0.058
+
+Non-WF bank
+(2)
+
+−0.043**
+(−2.5)
+Yes
+Yes
+Yes
+Yes
+
+86 860 239
+0.305
+
+All bank  
+(3)
+−0.164*** 
+(−7.9)
+Yes
+Yes
+Yes
+Yes
+86 860 239 
+0.324
+
+FinTech
+
+(1)
+
+Non-FinTech
+shadow bank
+(2)
+
+All
+shadow banks
+(3)
+
+  WF exposure × post
+
+0.035***
+(3.4)
+Yes
+Yes
+Yes
+Yes
+
+0.129***
+(6.5)
+Yes
+Yes
+Yes
+Yes
+
+  Loan Char.
+  County Char.
+  County FE
+  Year FE
+  Observations
+86 860 239
+  Adjusted 𝑅2
+0.281
+This table reports the effect of the Wells Fargo scandal revelation on mortgage lender choice. Coefficients are estimated from the following 
+regression, using loan-level data from 2012 to 2021 in the HMDA.
+𝑦𝑖,𝑐,𝑡 = 𝛽𝑡𝑊 𝐹 𝐸𝑥𝑝𝑜𝑠𝑢𝑟𝑒𝑐 × 𝑃 𝑜𝑠𝑡𝑡 + 𝐶𝑜𝑛𝑡𝑟𝑜𝑙𝑖,𝑐,𝑡 + 𝜆𝑐 + 𝛿𝑡 + 𝜀𝑖,𝑐,𝑡
+The dependent variable is a dummy variable that equals to one hundred if the lender is the indicated type and zero otherwise. 𝑊 𝐹 𝐸𝑥𝑝𝑜𝑠𝑢𝑟𝑒𝑐
+is the percentage points of Wells Fargo deposits in county c in 2015. 𝑃 𝑜𝑠𝑡𝑡 is a dummy variable that equals to one after 2016. The constant 
+term is included, and the control variables and fixed effects are indicated in the table. Standard errors are clustered at the county level, and t
+statistics are in parentheses.
+
+86 860 239
+0.090
+
+86 860 239
+0.324
+
+0.164***
+(7.9)
+Yes
+Yes
+Yes
+Yes
+
+‘‘Online’’  
+bank
+(4)
+−0.045*** 
+(−5.8)
+Yes
+Yes
+Yes
+Yes
+86 860 239 
+0.053
+
+Table 5
+The heterogeneous effects of the Wells Fargo scandal revelation on FinTech adoption.
+
+Origination
+
+Application
+
+High
+NonRepublican share
+FinTech
+(2)
+
+Low
+
+FinTech
+(3)
+
+FinTech
+(4)
+
+High
+NonRepublican share
+FinTech
+(5)
+
+Low
+
+FinTech
+(6)
+
+FinTech
+(1)
+
+0.082∗∗
+(2.2)
+−0.021
+(−1.0)
+−1.960∗∗∗
+(−3.7)
+Yes
+Yes
+Yes
+Yes
+
+0.024∗∗∗
+(3.7)
+
+0.003
+(0.3)
+
+0.027∗∗∗
+(3.8)
+
+0.008  
+(0.8)  
+
+  WF exposure × post × nonRep
+
+  WF exposure × post
+
+  NonRep × post
+
+0.080∗∗
+(2.4)
+−0.023
+(−1.2)
+−1.966∗∗∗
+(−3.7)
+Yes
+Yes
+Yes
+Yes
+
+7335
+0.873
+
+Yes
+Yes
+Yes
+Yes
+
+Yes
+Yes
+Yes
+Yes
+
+  Loan Char.
+Yes
+  County Char.
+Yes
+  County FE
+Yes
+  Year FE
+Yes
+3574  
+  Observations
+  Adjusted 𝑅2
+0.820  
+This table reports the heterogeneous effects of the Wells Fargo scandal revelation on FinTech adoption. Coefficients are estimated from the 
+following regression, using county-year level data from 2012 to 2021.
+𝑦𝑐,𝑡 = 𝛽𝑊 𝐹 𝐸𝑥𝑝𝑜𝑠𝑢𝑟𝑒𝑐 × 𝑃 𝑜𝑠𝑡𝑡 × 𝑁𝑜𝑛𝑅𝑒𝑝𝑐 + 𝛾1𝑊 𝐹 𝐸𝑥𝑝𝑜𝑠𝑢𝑟𝑒𝑐 × 𝑃 𝑜𝑠𝑡𝑡 + 𝛾2𝑃 𝑜𝑠𝑡𝑡×
+𝑁𝑜𝑛𝑅𝑒𝑝𝑐 + 𝐶𝑜𝑛𝑡𝑟𝑜𝑙𝑐,𝑡 + 𝜆𝑐 + 𝛿𝑡 + 𝜀𝑐,𝑡
+
+The dependent variable is the share of the number of mortgages handled by FinTech lenders for both origination and application. 𝑊 𝐹 𝐸𝑥𝑝𝑜𝑠𝑢𝑟𝑒𝑐
+is the percentage of Wells Fargo deposits in county c in 2015. 𝑃 𝑜𝑠𝑡𝑡 is a dummy variable that equals one after 2016. NonRep is the percentage 
+of share voted for non-Republican candidates in the 2016 presidential election. In columns (2), (3), (5), and (6), the sample is divided into 
+counties with higher than and lower than median Non-Republican voting shares. The constant term is included, and fixed effects are indicated 
+in the table. Standard errors are clustered at the county level, and t statistics are in parentheses.
+
+Yes
+Yes
+Yes
+Yes
+
+3779
+0.886
+
+3574
+0.867
+
+7335
+0.837
+
+3779
+0.860
+
+lenders are new entrants. Following Guiso et al. (2008)’s argument, 
+trust creates additional utility loss for borrowers when matching with 
+distrusted lenders, who are perceived to have a higher probability of 
+cheating. The utility loss of matching with traditional banks due to the 
+trust erosion in the banking sector would lead to a relative increase in 
+the utility gain of matching with non-bank lenders. Therefore, FinTech 
+lenders, as new non-bank entrants, could gain market share due to the 
+
+relative utility increase. I test this hypothesis by studying the choice of 
+non-FinTech shadow banks after exposure to the Wells Fargo scandal 
+in Table  4b. Similar to Table  4a, the dependent variable in Table  4b 
+is a dummy variable equal to 100 if the lender is a FinTech lender, 
+non-FinTech shadow bank, or any shadow bank, respectively. The coef-
+ficient in column (2) of Table  4b is positive and statistically significant, 
+showing that exposure to the Wells Fargo scandal also increases the 
+
+14 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+K. Yang
+
+Table 6
+Treatment effects heterogeneity analysis using machine learning.
+  (a) Trust in banks
+
+Least decrease
+𝛽
+(1)
+
+0.510
+[0.464, 0.555]
+0.262
+[0.222, 0.302]
+
+  Female
+
+  Minority
+
+  (b) FinTech adoption
+
+Least increase
+𝛽
+(1)
+
+0.280
+[0.279, 0.281]
+0.130
+[0.130, 0.131]
+
+  Female
+
+  Minority
+
+Most decrease
+𝛽
+(2)
+
+0.439
+[0.394, 0.484]
+0.219
+[0.181, 0.256]
+
+Most increase
+𝛽
+(2)
+
+0.258
+[0.258, 0.259]
+0.093
+[0.092, 0.094]
+
+Difference
+
+𝛽
+(3)
+
+𝑝-value
+
+−0.076
+
+0.016
+
+[−0.140, −0.012]
+
+−0.044
+
+0.025
+
+[−0.099, 0.011]
+
+Difference
+
+𝛽
+(3)
+
+𝑝-value
+
+−0.020
+
+0.000
+
+[−0.021, −0.019]
+
+−0.034
+
+0.000
+
+[−0.034,−0.033]
+
+This table reports the average characteristics of the most and least affected groups, from 
+Chernozhukov et al. (2020) treatment effects heterogeneity estimates for the effects 
+of exposure to the Wells Fargo scandal. In Table  6a, the dependent variable is the 
+respondent’s trust in banks. In Table  6b, the dependent variable is a dummy variable 
+equal to one hundred if the lender is a FinTech lender and zero otherwise. A borrower 
+belongs to the treatment group if she resides in a county with an above-median level 
+of the Wells Fargo deposits share (> 10%). Borrowers are sorted into five groups with 
+different levels of treatment effects based on the machine learning estimations. Column 
+(1) of Table  6a (or Table  6b) shows the average characteristics of survey respondents 
+who have the smallest decrease in trust in banks (or smallest increase in FinTech 
+adoption) after exposure to the Wells Fargo scandal. Column (2) of Table  6a (or 
+Table  6b) shows the average characteristics of the survey respondents who have the 
+largest decrease in trust in banks (or largest increase in FinTech adoption). Column 
+(3) of Table  6a (or Table  6b) shows the difference in average characteristics between 
+survey respondents who have the largest decrease in trust in banks(or largest increase 
+in FinTech adoption) and those who have the smallest decrease in trust in banks(or 
+smallest increase in FinTech adoption). The Chernozhukov et al. (2020) algorithm is 
+applied to estimate the average group characteristics 𝛽. 0.51 indicates that 51% of the 
+group individuals are female. The 90% confidence intervals of 𝛽 are in parentheses.
+
+probability of choosing non-FinTech shadow banks. Therefore, trust 
+erosion in banks leads to a higher probability of choosing any non-bank 
+lender. This result supports the channel of new non-bank entrants.
+
+Second, trust erosion in the banking sector affects FinTech adoption 
+due to FinTech lenders’ online nature of customer-lender interaction. 
+FinTech borrowers face homogeneous decision-making processes when 
+submitting mortgage applications through online platforms. For tra-
+ditional offline lenders, customers interact with human agents. When 
+customers  borrow  from  lenders  who  have  yet  to  adopt  the  online 
+customer-lender interaction platform, the qualities and outcomes of the 
+loan application processes experience more significant variations be-
+cause customers may interact with immensely different human agents. 
+Therefore,  the  online  customer-lender  interaction  could  tighten,  or 
+lower the volatility of, the perceived distribution of being targeted as 
+fraud victims.17 After the trust erosion in the banking sector, borrowers 
+would be more likely to borrow from lenders adopting online platforms 
+because of the higher utility gain created by lower perceived volatility 
+of being cheated. This applies to both banks and non-bank lenders with 
+online platforms. Bank lenders with online platforms are less likely 
+to have an increase in perceived volatility of cheating after the Wells 
+Fargo scandal due to standardization. Since the Wells Fargo scandal 
+could have a spillover effect on the perceived volatility of cheating 
+by non-bank lenders,18 the increase in perceived volatility would also 
+affect non-bank lenders with online lending platforms less.
+
+17 The idea is similar to the (Gennaioli et al., 2015). They model trust as 
+reducing the perceived volatility of financial returns in the context of financial 
+advisors.
+
+Journal of Financial Economics 169 (2025) 104062 
+
+To test this channel, I compare the effect of the scandal on the 
+choice  of  FinTech  with  that  of  non-FinTech  shadow  banks.  A  one-
+standard-deviation increase in the exposure of the Wells Fargo scandal 
+leads to a 3.1%(= 0.129 ∗ 10.4∕42.47) increase in the probability of 
+choosing a non-FinTech shadow bank, indicating that erosion of trust 
+in banks also benefits other types of non-bank lenders. Given that the 
+Wells Fargo scandal leads 4.1% increase from the average probability 
+of choosing a FinTech lender, the results suggest that FinTech lending 
+is more affected by trust erosion in banks, compared with non-FinTech 
+shadow bank lending. Therefore, the online customer-lender interaction 
+feature also makes FinTech lenders more appealing.
+
+However, as previous literature (Buchak et al., 2018; Fuster et al., 
+2019) have documented, the relative convenience of online lenders 
+matters for FinTech adoption. One may be concerned that a significant 
+loss of trust in traditional banks could prompt Wells Fargo customers 
+to seek other options. In this scenario, the ease and accessibility of 
+FinTech platforms play a crucial role in driving the higher demand for 
+FinTech loans. This is because FinTech loans can be initiated without 
+the  need  for  any  human  interaction.  To  address  this  possibility,  I 
+exploit the heterogeneity in bank lenders by studying banks close to 
+adopting online customer-lender interaction platforms. In my sample 
+period, some banks were adopting online customer-lender interaction 
+more. More information can be uploaded and processed on these banks’ 
+websites than on other banks. I classify banks with a high degree of 
+online automation in their mortgage application process as ‘‘online’’ 
+banks. A majority part of the loan application processes can be done 
+online for these ‘‘online’’ banks.19 I then examine the choice of these 
+‘‘online’’ banks after exposure to the Wells Fargo scandal. The result is 
+presented in column (4) of Table  4b.20
+
+The coefficient is negative, showing that exposure to the Wells Fargo 
+scandal does not increase the probability of choosing ‘‘online’’ banks. 
+If our results were purely driven by the convenience channel and not 
+the trust channel, we would observe similar effects of the scandal on 
+FinTech lenders and ‘‘online’’ banks. Therefore, our result suggest that 
+it is unlikely the findings are purely driven by the convenience channel. 
+This result also suggest that the negative trust effect overweights the 
+positive ‘‘online’’ feature for ‘‘online’’ banks. Combining these three 
+pieces  of  evidence,  I  conclude  that  both  the  non-bank  and  online 
+customer-lender interaction features serve as underlying mechanisms 
+through which trust affects FinTech adoption. Our empirical evidence is 
+not due to alternative advantages that contribute to FinTech adoption, 
+such as convenience.
+
+4.4. Heterogeneous effects of scandal on trust in banks
+
+In this section, I further explore the heterogeneous effects of the 
+Wells  Fargo  scandal  on  trust  in  banks  to  sharpen  the  documented 
+effects’ underlying mechanism. Many studies have documented the role 
+of belief differences in households’ financial decisions (e.g. Meeuwis 
+et al., 2018; Giglio et al., 2019). Particularly, Meeuwis et al. (2018) uses 
+political affiliation to measure investors’ ex-ante belief heterogeneity. 
+Tables  1 and 2 present that people with different political affiliations 
+have different prior beliefs about the trustworthiness of banks. People 
+not affiliated with the Republican Party are less likely to report trust 
+
+18 Because trust is relative, not absolute. The Wells Fargo scandal can lead 
+to an overall increase in the perceived volatility of cheating for all lenders, 
+but much higher increase for banks than non-bank lenders.
+19 These  ‘‘online’’  banks  were  not  classified  as  FinTech  lenders  because 
+borrowers  needed  to  meet  with  bankers  offline  before  getting  the  loans 
+approved.
+20 In the regression, if one of the ‘‘online’’ banks originated loans before 
+2018, I also classify these loans as ‘‘online’’ bank loans because we want to 
+compare the changes in loan origination for these banks before and after the 
+scandal.
+
+15 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+K. Yang
+
+in banks. On average, 34% of Republican survey respondents reported 
+trust in banks, whereas only 26% of non-Republican survey respondents 
+reported trust in banks. This evidence is consistent with a cross-country 
+analysis by Fungáčová et al. (2019), who find that individuals who do 
+not prefer government ownership of businesses and prefer competition 
+in the economy are more likely to report trust in banks. These different 
+prior beliefs on banks’ trustworthiness may lead to different responses 
+to the Wells Fargo bank scandal.
+
+Thakor and Merton (2018) theorize that an individual’s response to 
+public information is affected by the individual’s ex-ante belief. Thus, 
+conditional on the exposure to the Wells Fargo scandal, individuals 
+with different ex-ante beliefs in trust in banks will likely experience 
+different decreases in their trust in banks after the scandal.21 I use 
+individuals’ political affiliation to proxy for their ex-ante trust in banks, 
+since the Gallup survey does not allow the identification of repeated 
+respondents  in  different  years.  To  test  the  theoretical  prediction,  I 
+estimate  the  dynamic  treatment  effect  of  the  Wells  Fargo  scandal 
+on trust in banks separately for Republican survey respondents and 
+non-Republican survey respondents.
+
+𝑦𝑖,𝑐,𝑡 = 𝛽𝑡𝑊 𝐹 𝐸𝑥𝑝𝑜𝑠𝑢𝑟𝑒𝑐 ×
+
++ 𝜆𝑐 + 𝛿𝑡 + 𝜀𝑖,𝑐,𝑡
+
+2021
+∑
+
+𝑡=2012,𝑡≠2015
+
+𝐷𝑢𝑚𝑚𝑦𝑡 + 𝐶𝑜𝑛𝑡𝑟𝑜𝑙𝑖,𝑐,𝑡
+
+The dependent variable is an individual’s trust in banks, measured 
+by the Gallup survey data. Trust in Banks is a dummy variable equaling 
+to one hundred if the respondent reports ‘‘a great deal’’ or ‘‘a lot of’’ 
+confidence in banks, zero if reports ‘‘very little’’ or ‘‘some’’ or ‘‘none’’. 
+WF Exposure is the percentage of Wells Fargo deposits in county c 
+in 2015. Dummy is a dummy variable equal to one at year t. The 
+year 2015 is omitted, as the reference year. The scandal happened in 
+September 2016. Therefore, the observations in 2016 were surveyed 
+before the treatment. The regressions are run in subsamples, split into 
+‘‘Republican’’ or ‘‘Non-Republican’’ respondents.
+
+The results are presented in Fig.  8. For both Republican and non-
+Republican survey respondents, the treatment dynamics align with the 
+parallel trends assumption, with no evidence of pre-trends before the 
+scandal. Among Republican survey respondents, no significant decline 
+in trust in banks is observed after the scandal. For non-Republican 
+respondents,  statistically  significant  decreases  in  trust  in  banks  are 
+evident in 2017 and 2018. However, no significant differences in trust 
+are observed in regions with high exposure to the Wells Fargo scandal 
+during 2019, 2020, or 2021.
+
+The decaying effects of the Wells Fargo scandal on trust in banks 
+align with prior findings on the influence of scandals on household 
+financial  decisions.  For  example,  Gurun  et  al.  (2018)  examines  the 
+impact of the December 2008 revelation of the Madoff Ponzi scheme 
+on  the  investment  advisory  industry.  The  study  finds  the  effect  of 
+exposure to the Madoff scandal on the assets under management of 
+registered investment advisers is negative and statistically significant 
+only in 2009, and negative though statistically insignificant in 2010. 
+The impact of the revelation of the Madoff Ponzi scheme persists for 
+just two years after the scandal (see Figure 5 in Gurun et al., 2018). 
+Our findings also align with the memory decay effects observed in how 
+individuals form beliefs. For instance, both psychology and behavioral 
+economics  literature  document  individuals’  tendency  to  overweight 
+recently sampled information (Hertwig et al., 2004; Malmendier and 
+Nagel, 2011).
+
+Overall, the findings indicate that non-Republicans and Republicans 
+exhibit different levels of ex-ante trust in banks and respond differently 
+to  the  Wells  Fargo  scandal.  The  decline  in  trust  in  banks  among 
+non-Republicans lasts around three years.22
+
+21 Here, I do not predict whether individual with ex-ante low trust in banks 
+will have a greater or less decrease in trust in banks. I rely on the empirical 
+findings to conclude.
+
+Journal of Financial Economics 169 (2025) 104062 
+
+4.5. Heterogeneous effects of scandal and FinTech adoption
+
+The previous section documents the heterogeneous effects of the 
+bank scandal on trust in banks of Republican-leaning individuals versus 
+others. I now utilize this heterogeneity to sharpen the role of trust in 
+explaining the effect of the Wells Fargo scandal on FinTech adoption. 
+Suppose the Wells Fargo scandal affects FinTech adoption through the 
+erosion of trust in banks. In that case, individuals leaning towards the 
+non-Republican Party should be more likely to choose FinTech lenders 
+than others with the same exposure to the scandal.
+
+Neither HMDA nor any other mortgage origination dataset reports 
+party affiliation of the originator. Thus it is not possible to identify the 
+exact party affiliation of the mortgage originator. Meeuwis et al. (2018) 
+uses  zip  code  level  political  contribution  to  measure  a  household’s 
+probability of being Democrats at the zip code level. Since the Wells 
+Fargo scandal measure is at the county level, I instead measure county-
+level political affiliation using the 2016 presidential election results, 
+assuming that individuals who live in counties with a higher share 
+of non-Republican votes have a higher probability of holding beliefs 
+similar to non-Republicans, and are thus more likely to be affected by 
+the scandal. County-level FinTech adoption is measured using the share 
+of loans by FinTech lenders. Consistently with the loan level analysis, 
+both loan application and loan origination were analyzed.
+
+More specifically, I run the following triple-differences specification:
+
+𝑦𝑐,𝑡 = 𝛽𝑊 𝐹 𝐸𝑥𝑝𝑜𝑠𝑢𝑟𝑒𝑐 × 𝑃 𝑜𝑠𝑡𝑡 × 𝑁𝑜𝑛𝑅𝑒𝑝𝑐
+
++ 𝛾1𝑊 𝐹 𝐸𝑥𝑝𝑜𝑠𝑢𝑟𝑒𝑐 × 𝑃 𝑜𝑠𝑡𝑡 + 𝛾2𝑁𝑜𝑛𝑅𝑒𝑝𝑐 × 𝑃 𝑜𝑠𝑡𝑡
++ 𝐶𝑜𝑛𝑡𝑟𝑜𝑙𝑐,𝑡 + 𝜆𝑐 + 𝛿𝑡 + 𝜀𝑐,𝑡
+
+where  the  dependent  variable  is  the  county-level  FinTech  share.
+𝑁𝑜𝑛𝑅𝑒𝑝𝑐 is the percentage of votes for non-Republican candidates in 
+county c in the 2016 presidential election.
+
+The interaction term 𝑊 𝐹 𝐸𝑥𝑝𝑜𝑠𝑢𝑟𝑒𝑐 × 𝑃 𝑜𝑠𝑡𝑡 captures the average 
+change in the FinTech share for all counties exposed to the Wells Fargo 
+scandal in the years after the scandal. Since the Wells Fargo scandal 
+coincides with the 2016 national election, different updates of beliefs 
+about  the  future  of  the  US  economy  may  affect  FinTech  adoption. 
+Including the term 𝑁𝑜𝑛𝑅𝑒𝑝𝑐 × 𝑃 𝑜𝑠𝑡𝑡 lets me tease out the potentially 
+confounding change of the FinTech share for counties with high non-
+Republican share after the scandal. I include year and county fixed 
+effects, which capture county-invariant effects and time effects.
+
+The coefficient of interest here is 𝛽, the effect from triple interaction 
+term 𝑊 𝐹 𝐸𝑥𝑝𝑜𝑠𝑢𝑟𝑒𝑐 × 𝑃 𝑜𝑠𝑡𝑡 × 𝑁𝑜𝑛𝑅𝑒𝑝𝑐 . Conditional on the exposure to 
+the Wells Fargo scandal, 𝛽 captures the additional change in FinTech 
+share for counties with higher non-Republican shares.
+
+Table  5 presents results adding triple interaction. Column (1) shows 
+the effect on FinTech adoption measured using mortgage origination. 
+The  coefficient  estimate  for  𝛽  is  statistically  significant  and  has  a 
+value of 0.080. In terms of the economic magnitudes, a one-standard-
+deviation increase in the exposure to the Wells Fargo scandal for a 
+non-Republican individual leads to a 0.8= (10.4 ∗ 0.080)-percentage-
+point increase in the probability of choosing a FinTech lender, which 
+is  approximately  a  9%(= 0.8∕8.84)  increase  relative  to  the  sample 
+mean. The effect is similar when the FinTech share is measured using 
+mortgage applications (column [4]). The positive and significant triple-
+differences coefficient suggests that areas with a larger drop in the trust 
+in banks also experience a larger increase in FinTech adoption.
+
+22 The technology adoption literature documents that even when the re-
+moval  of  the  barrier  to  adoption  is  temporary  or  limited  to  a  subset  of 
+a population, the spatial interaction and network effects among neighbors 
+imply that adoption spills over to the neighbors, making the adoption rate 
+permanently  high  in  a  treated  population  (Foster  and  Rosenzweig,  1995; 
+Conley and Udry, 2010; Carter et al., 2014; Comin and Mestieri, 2014; Beaman 
+et al., 2021).
+
+16 
+
+K. Yang
+
+Fig. 7.  Dynamic heterogeneous effects of the revelation of the Wells Fargo scandal on 
+FinTech adoption.
+This  figure  reports  the  dynamic  effects  of  the  Wells  Fargo  scandal  revelation  on 
+mortgage loan origination. Coefficients are estimated from the following regression, 
+using county-year level data from 2012 to 2021.
+𝑦𝑐,𝑡 = 𝛽𝑡𝑊 𝐹 𝐸𝑥𝑝𝑜𝑠𝑢𝑟𝑒𝑐 × 𝑁𝑜𝑛𝑅𝑒𝑝𝑐 × ∑2021
+
+𝑡=2012,𝑡≠2015 𝐷𝑢𝑚𝑚𝑦𝑡 + 𝛾1𝑊 𝐹 𝐸𝑥𝑝𝑜𝑠𝑢𝑟𝑒𝑐 ×
+
+𝑃 𝑜𝑠𝑡𝑡 + 𝛾2𝑁𝑜𝑛𝑅𝑒𝑝𝑐 × 𝑃 𝑜𝑠𝑡𝑡 + 𝐶𝑜𝑛𝑡𝑟𝑜𝑙𝑐,𝑡 + 𝜆𝑐 + 𝛿𝑡 + 𝜀𝑐,𝑡
+
+The dependent variable is the share of the number of mortgages handled by FinTech 
+lenders for both origination and application. WF Exposure is the percentage of Wells 
+Fargo deposits in county c in 2015. NonRep is the percentage of shares voted for 
+non-Republican candidates in the 2016 election. A dummy variable is equal to one at 
+year t. Year 2015 is omitted, as the reference year. The constant term, county and year 
+fixed effects are included in all regressions. Standard errors are clustered at the county 
+level; confidence intervals are calculated at the 5% level.
+
+𝑡=2012,𝑡≠2015 𝐷𝑢𝑚𝑚𝑦𝑡 + 𝐶𝑜𝑛𝑡𝑟𝑜𝑙𝑖,𝑐,𝑡 + 𝜆𝑐 + 𝛿𝑡 + 𝜀𝑖,𝑐,𝑡
+
+Fig. 8.  The effect of the revelation of the Wells Fargo scandal on trust in banks.
+This figure reports the effects of the Wells Fargo account fraud scandal on trust in 
+banks using ‘‘Confidence in Institution’’ survey data from Gallup Analytics from 2012 
+to 2021. The plotted coefficients are estimated from the following regression.
+𝑦𝑖,𝑐,𝑡 = 𝛽𝑡𝑊 𝐹 𝐸𝑥𝑝𝑜𝑠𝑢𝑟𝑒𝑐 × ∑2021
+The dependent variable is an individual’s trust in banks, measured by the Gallup survey 
+data. Trust in Banks is a dummy variable equaling to one hundred if the respondent 
+reports ‘‘a great deal’’ or ‘‘a lot of’’ confidence in banks, zero if reports ‘‘very little’’ or 
+‘‘some’’ or ‘‘none’’. WF Exposure is the percentage of Wells Fargo deposits in county 
+c in 2015. Dummy is a dummy variable equal to one at year t. The year 2015 is 
+omitted, as the reference year. The scandal happened in September 2016. Therefore, 
+the observations in 2016 were surveyed before the treatment. The regressions are run 
+in subsamples, split into ‘‘Republican’’ or ‘‘Non-Republican’’ respondents. The constant 
+term, county and year fixed effects are included in all regressions. Standard errors are 
+clustered at the county level; confidence intervals are calculated at the 5% level.
+
+In columns (2)–(3) and (5)–(6), I exploit heterogeneity by conduct-
+ing  difference-in-differences  analyses  in  sub-samples.  The  sample  is 
+split into counties with high non-Republican shares (≥45%, the sample 
+median) and with low non-Republican shares. The results suggest that 
+the exposure to the Wells Fargo scandal leads to an increase in FinTech 
+adoption only in counties with high non-Republican shares.
+
+Moreover,  although  I  already  show  that,  on  average,  there  are 
+no different time trends between more- and less-treated regions, it is 
+
+17 
+
+Journal of Financial Economics 169 (2025) 104062 
+
+possible  that  conditional  on  the  same  exposure  to  the  Wells  Fargo 
+scandal, FinTech adoption in counties with more non-Republican voters 
+evolved differently from counties with fewer non-Republican voters. 
+If so, the significant triple differences could result from distinct time 
+trends of FinTech adoption, rather than from different reactions to the 
+Wells Fargo scandal. Thus, the results would not validate the trust 
+channel. I estimate a dynamic triple-differences model, the results of 
+which are shown in Fig.  7. The dynamic triple-differences estimates 
+show no differences in FinTech adoption between high non-Republican 
+share counties and low non-Republican share counties, conditioning on 
+the same amount of exposure before the treatment. The parallel trends 
+assumption is not violated in the triple-difference setup. After being 
+exposed to the Wells Fargo scandal, counties with more non-Republican 
+voters  experience  a  larger  increase  in  FinTech  share,  compared  to 
+counties with the same level of scandal exposure but more Republican 
+voters.
+
+Overall, the results in Table  5 and Fig.  7 lend further support to the 
+interpretation that the exposure to the bank scandal affects FinTech 
+adoption through the erosion of trust in banks.
+
+4.6. Heterogeneity analysis using machine learning
+
+To provide additional support of the trust channel and better un-
+derstand the borrowers’ heterogeneous responses to the Wells Fargo 
+scandal, in addition to the OLS (difference-in-differences) estimations, 
+I  exploit  a  generic  machine  learning  inference  approach  proposed 
+by Chernozhukov et al. (2020) (CDDF) to estimate treatment effect 
+heterogeneity. One advantage of using the machine learning method 
+in heterogeneity analysis is that we do not need pre-specific subgroups. 
+The Chernozhukov et al. (2020) approach allows me to ex-ante stay ag-
+nostic about the characteristics of borrowers that will be more affected 
+by the Wells Fargo scandal and let the machine learning algorithm 
+choose those who will be more affected. Afterwards, I could compare 
+the differences in characteristics between the most affected group and 
+the least affected group.
+
+The CDDF method develops a method of generic machine learning 
+inference on heterogeneous treatment effects in randomized experi-
+ments. I apply the method to understand the heterogeneous treatment 
+effect of the exposure to the Wells Fargo scandal, a quasi-experiment 
+setting.23 The estimation details are presented in Appendix B. The CDDF 
+method allows us to sort observations into groups with different levels 
+of treatment effects based on a machine learning proxy predictor. The 
+method also provide a consistent estimation of the average characteris-
+tics of the most and least affected groups. I follow Chernozhukov et al. 
+(2020), sort observations into five groups, and compute the average 
+characteristics of the most and least affected groups.
+
+The  generic  machine  learning  approach  has  several  advantages. 
+First, it provides a systematic way to perform treatment effects het-
+erogeneity analysis. The approach allows researchers to stay agnostic 
+about the borrowers characteristics ex-ante and let the machine learn-
+ing algorithm choose the characteristics that will be more affected. 
+Given that there are various ways to perform subgroup analysis, this 
+approach provides a disciplined process. Second, the sample splitting 
+feature in the method overcomes the overfitting concern in the subgroup 
+analysis. For example, one may argue that the non-Republican borrow-
+ers responded to the Wells Fargo scandal differently due to unobserved 
+random variation. The CDDF method solves this issue by randomly 
+splitting observations within the treatment group, thus teasing out the 
+effect of any random variation.
+
+I analyze the treatment effect heterogeneity of the Wells Fargo scan-
+dal on trust in banks and FinTech adoption. I sort observations into five 
+groups based on the magnitude of treatment and compute the average 
+
+23 For  example,  Deryugina  et  al.  (2019)  also  applies  the  method  in  a 
+quasi-experiment setting.
+
+K. Yang
+
+Journal of Financial Economics 169 (2025) 104062 
+
+characteristics of the most and least affected groups. One advantage 
+of the Gallup and HMDA data is that both datasets contain individual-
+level information on race, ethnicity, and gender. I follow Bartlett et al. 
+(2021), defining African American and Hispanic borrower as minority 
+borrower.24 Considering that several important borrowers’ credit risk 
+metrics are not available in the HMDA data, I restrict the HMDA sample 
+to the conforming loans purchased by Fannie Mae and Freddie Mac, to 
+ensure that the loans are maximally comparable.
+
+Table  6 compares the average characteristics of the most and least 
+affected groups by the Wells Fargo scandal. In this heterogeneity anal-
+ysis, I focus on a shorter sample period from 2014 to 2018 to ensure 
+that the effect of the Wells Fargo scandal on trust in banks is statisti-
+cally significant throughout the post-treatment period in the sample. 
+In  Table   6a,  the  dependent  variable  is  trust  in  banks.  Column  (1) 
+shows the average characteristics of survey respondents who have the 
+smallest decrease in trust in banks after exposure to the Wells Fargo 
+scandal.  In  the  group  with  the  smallest  increase  in  trust  in  banks, 
+51.0%  are  female  and  26.2%  are  minority.  Column  (2)  shows  the 
+average characteristics of the survey respondents who have the largest 
+decrease in trust in banks. In the group with the largest increase in 
+trust in banks, 43.9% are female and 21.9% are minority. Column 
+(3)  shows  the  difference  in  average  characteristics  between  survey 
+respondents who have the largest decrease in trust in banks and those 
+who have the smallest decrease in trust in banks. The differences in 
+means between most and least affected group for the percentage of 
+females and minorities are negative and statistically significant. The 
+machine learning inference suggests that compared to female survey 
+respondents, males are more responsive to the Wells Fargo scandal with 
+respect to their decrease in trust in banks. Moreover, I find that non-
+minority borrowers are more responsive to the Wells Fargo scandal. 
+Minority borrowers have a smaller probability of reporting a decrease 
+in trust in banks.
+
+In Table  6b, the dependent variable is FinTech adoption. Column (3) 
+of Table  6b shows that female and minority borrowers have a smaller 
+decrease in trust in banks and a smaller increase in FinTech adoption. 
+Therefore, female and minority borrowers are significantly less likely to 
+respond to the Wells Fargo scandal, both in trust in banks and FinTech 
+adoption. The female and minority borrowers have a smaller decrease 
+in trust in banks and a smaller increase in FinTech adoption. Given 
+that the individuals who have the highest decrease in trust in banks 
+have similar characteristics to those who have the highest increase 
+in FinTech adoption, the machine learning results validate the trust 
+channel.
+
+One argument in support of FinTech adoption is that FinTech lend-
+ing can reduce face-to-face bias against minority borrowers. For exam-
+ple, Bartlett et al. (2021) find that FinTech lending reduces discrimina-
+tion in interest rates against Latinx and African-American borrowers.25 
+However, the treatment effect heterogeneity results suggest that trust 
+erosion (building) is more difficult for minority and female borrowers. 
+This imposes potential challenges to fostering financial inclusion with 
+new technologies.
+
+24 Given that the Gallup survey have little coverage on Asian, I do not 
+include Asian borrower in the minority borrower. Moreover, given the caveat 
+in  Buchak  et  al.  (2018)  and  Fuster  et  al.  (2019),  this  broader  definition 
+alleviate the concern that since the HMDA has missing values on race and 
+ethnicity.
+25 They find that Latinx and African-American borrowers pay 7.9 bp more in 
+home-purchase mortgage interest and 3.6 bp more in refinance mortgage inter-
+est, after controlling for all credit risk. However, for mortgages originated by 
+FinTech lenders, Latinx and African-American borrowers only 5.3 bp more for 
+home-purchase mortgage interest, and 2.0 bp more for refinance mortgages. 
+Moreover, traditional lenders reject 6% more Latinx and African-American 
+borrowers for GSE guaranteed loans.
+
+Table 7
+Falsification tests: Use JPMorgan chase deposit share.
+  (a) Trust in banks
+
+Trust in banks
+(1)
+
+(2)
+
+Trust in big business
+(3)
+
+−0.107
+(−0.9)
+
+−0.077
+(−0.6)
+
+−0.094
+(−0.9)
+
+Yes
+No
+Yes
+Yes
+
+7386
+0.075
+
+Yes
+Yes
+Yes
+Yes
+
+6558
+0.072
+
+Yes
+No
+Yes
+Yes
+
+7386
+0.070
+
+(4)
+−0.070 
+(−0.6)  
+Yes
+Yes
+Yes
+Yes
+6558  
+0.072
+
+  Chase exposure × post
+
+  Respondent Char.
+  County Char.
+  County FE
+  Year FE
+  Observations
+  Adjusted 𝑅2
+  (b) FinTech adoption
+
+  Chase exposure × post
+
+Origination
+
+Application
+
+FinTech
+(1)
+
+FinTech
+(2)
+
+FinTech
+(3)
+
+FinTech
+(4)
+
+−0.010
+(−1.3)
+Yes
+No
+Yes
+Yes
+
+−0.003
+(−0.3)
+Yes
+Yes
+Yes
+Yes
+81 984 842 
+0.072
+
+−0.007
+(−0.8)
+Yes
+Yes
+Yes
+Yes
+
+−0.007
+(−1.0)
+Yes
+No
+Yes
+Yes
+
+93 579 405
+0.074
+
+73 043 669
+0.087
+
+64 462 683
+0.084
+
+  Loan Char.
+  County Char.
+  County FE
+  Year FE
+  Observations
+  Adjusted 𝑅2
+This table reports how JPMorgan deposits share affect FinTech adoption and trust in 
+banks. The coefficients are estimated using the following regressions.
+𝑦𝑖,𝑐,𝑡 = 𝛽𝐶ℎ𝑎𝑠𝑒𝐸𝑥𝑝𝑜𝑠𝑢𝑟𝑒𝑐 × 𝑃 𝑜𝑠𝑡𝑡 + 𝐶𝑜𝑛𝑡𝑟𝑜𝑙𝑖,𝑐,𝑡 + 𝜆𝑐 + 𝛿𝑡 + 𝜀𝑖,𝑐,𝑡
+Chase Exposure is the percentage of JPMorgan Chase deposits in county c in 2015. 
+Post is a dummy variable that equals to one after 2016. In Table  7a, the dependent 
+variable is the respondent’s trust in banks and trust in big business, which equal to one 
+hundred if the individual reports the level of confidence as ‘‘a great deal’’ or ‘‘a lot,’’ 
+zero if reports ‘‘very little’’ or ‘‘some’’ or ‘‘none.’’ In Table  7b, the dependent variable 
+is a dummy variable equaling to one hundred if the lender is a FinTech lender and 
+zero otherwise. The constant term is included. Control variables and fixed effects are 
+indicated in the table. Standard errors are clustered at the county level, and t statistics 
+are in parentheses.
+
+4.7. Robustness
+
+4.7.1. Falsification test using JPMorgan chase share
+
+The difference-in-differences design is based on the localized expo-
+sure to the Wells Fargo scandal. A potential concern is that exposure to 
+the scandal may also capture exposures to some nation-wide structural 
+change in the banking industry. For example, the deposits share of 
+Wells Fargo may coincide with the decline in big banks’ participation in 
+mortgage origination. To address this concern, I construct the deposit 
+share of another big national bank — JPMorgan Chase — in 2015 and 
+examine how the deposits share of JPMorgan Chase affects trust in 
+banks and FinTech adoption after 2016.26 JPMorgan Chase is the fourth 
+largest residential mortgage originator and has a similar origination 
+volume  as  Wells  Fargo.  Suppose  the  positive  relationship  between 
+FinTech adoption and exposure to the Wells Fargo scandal reflects a 
+decline in big banks’ participation in mortgage origination. In that case, 
+we should see a positive relationship between the JPMorgan Chase 
+share and FinTech adoption.
+
+The results presented in Table  7b suggest that counties with higher 
+exposure to JPMorgan Chase shares do not experience larger increases 
+in FinTech adoption after 2015 relative to counties with lower JP-
+Morgan  Chase  shares.  Moreover,  the  results  in  Table   7a  show  that 
+higher exposure to JPMorgan Chase Bank is not accompanied by a 
+larger decrease in trust in banks. The falsification tests suggest that our 
+results are unlikely to be driven by the nationwide decline in big banks’ 
+
+26 D’Acunto et al. (2020) use similar falsification tests to dismiss concerns 
+about confounding time varying trends in consulting industry.
+
+18 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+K. Yang
+
+Journal of Financial Economics 169 (2025) 104062 
+
+Table 8
+The effect of the revelation of the Wells Fargo scandal on lenders’ credit supply and banks’ deposits.
+  (a) Loan denial rate
+
+All lenders
+
+Wells Fargo
+
+(1)
+
+−0.010∗∗
+(−2.0)
+Yes
+Yes
+Yes
+
+8194
+0.954
+
+(2)
+
+−0.036∗∗∗
+(−2.7)
+Yes
+Yes
+Yes
+
+8194
+0.899
+
+Non-Wells Fargo
+bank
+(3)
+
+0.013
+(1.5)
+Yes
+Yes
+Yes
+
+8194
+0.924
+
+All banks
+
+FinTech
+
+(4)
+
+0.013
+(1.5)
+Yes
+Yes
+Yes
+
+8194
+0.934
+
+(5)
+
+0.002
+(0.2)
+Yes
+Yes
+Yes
+
+8194
+0.901
+
+Non-FinTech
+shadow bank
+(6)
+
+0.009
+(1.1)
+Yes
+Yes
+Yes
+
+8194
+0.931
+
+Shadow bank 
+
+(7)
+
+0.004
+(0.5)
+Yes
+Yes
+Yes
+
+8194
+0.943
+
+Log value deposits
+Total
+(1)
+
+Wells Fargo
+(2)
+
+Non-Wells Fargo
+(3)
+
+Deposits per capita
+Total
+(4)
+
+Wells Fargo
+(5)
+
+Non-Wells Fargo
+(6)
+
+  WF exposure × post
+
+  County Char.
+  County FE
+  Year FE
+  Observations
+  Adjusted 𝑅2
+  (b) Bank deposits
+
+  WF exposure × post
+
+−0.001
+(−0.5)
+Yes
+Yes
+Yes
+
+0.204∗∗∗
+(17.5)
+Yes
+Yes
+Yes
+
+−0.006∗∗∗
+(−3.2)
+Yes
+Yes
+Yes
+
+  County Char.
+  County FE
+  Year FE
+  Observations
+  Adjusted 𝑅2
+This table reports the effect of the Wells Fargo scandal on lenders’ credit supply and banks’ deposits. The coefficients are estimated from the following regression using county-year 
+level data from 2012 to 2021.
+𝑦𝑐,𝑡 = 𝛽𝑊 𝐹 𝐸𝑥𝑝𝑜𝑠𝑢𝑟𝑒𝑐 × 𝑃 𝑜𝑠𝑡𝑡 + 𝐶𝑜𝑛𝑡𝑟𝑜𝑙𝑐,𝑡 + 𝜆𝑐 + 𝛿𝑡 + 𝜀𝑐,𝑡
+In Table  8a, the dependent variable is the percentage of mortgage applications denied by different types of lenders. In Table  8b, the dependent variable is per capita deposits and 
+the logarithm of deposits of different banks in county c at time t. WF Exposure is the percentage point of Wells Fargo deposits in county c in 2015. Post is a dummy variable 
+equaling to one after 2016. The constant term is included. Control variables and fixed effects are indicated in the table. Standard errors are clustered at the county level, and t
+statistics are in parentheses.
+
+8194
+0.994
+
+8194
+0.874
+
+8194
+0.710
+
+8194
+0.911
+
+8194
+0.872
+
+8194
+0.994
+
+0.420
+(0.6)
+Yes
+Yes
+Yes
+
+0.698
+(1.3)
+Yes
+Yes
+Yes
+
+−0.278∗∗
+(−2.2)
+Yes
+Yes
+Yes
+
+Table 9
+Wells Fargo scandal and loan pricing.
+
+FinTech
+
+Purchase
+(1)
+
+−0.082
+(−1.4)
+Yes
+Yes
+Yes
+
+Refinance
+(2)
+
+−0.045
+(−1.4)
+Yes
+Yes
+Yes
+
+Wells Fargo
+Purchase
+(3)
+
+0.068∗∗
+(2.5)
+Yes
+Yes
+Yes
+
+Refinance
+(4)
+
+0.133∗∗∗
+(3.7)
+Yes
+Yes
+Yes
+
+Non-Wells Fargo bank
+Purchase
+(5)
+
+Refinance 
+(6)
+
+0.086
+(1.2)
+Yes
+Yes
+Yes
+
+0.081
+(1.6)
+Yes
+Yes
+Yes
+
+  WF exposure × post
+
+  MSA Char.
+  MSA FE
+  Year-Quarter FE
+
+6481
+0.823
+
+6481
+0.898
+
+6481
+0.847
+
+6481
+0.855
+
+6481
+  Adjusted 𝑅2
+0.947
+This table reports the effects of the Wells Fargo scandal revelation on loan pricing, using Fannie Mae single-family data. 
+The sample is at the MSA-year-quarter level from 2014Q1 to 2019Q4. The coefficients are estimated using the following 
+regressions.
+𝑦𝑐,𝑡 = 𝛽𝑊 𝐹 𝐸𝑥𝑝𝑜𝑠𝑢𝑟𝑒𝑐 × 𝑃 𝑜𝑠𝑡𝑡 + 𝑀𝑆𝐴𝐶𝑜𝑛𝑡𝑟𝑜𝑙𝑐,𝑡 + 𝜆𝑐 + 𝛿𝑡 + 𝜀𝑐,𝑡
+The dependent variable 𝑦𝑐,𝑡 is the average mortgage rate by FinTech lenders, Wells Fargo, and non-Wells Fargo banks. Mortgage 
+rates are residualized with respect to FICO and LTV in each MSA-quarter following procedure used in Scharfstein and Sunderam 
+(2016). WF Exposure is the percentage of Wells Fargo deposits in MSA c in 2015. Post is a dummy variable equal to one 
+after 2016Q3. All regressions are performed separately for home purchase loans and refinance loans. The constant term is 
+included, and fixed effects are indicated in the table. Standard errors are clustered at the MSA level, and t statistics are in 
+parentheses.
+
+6481
+0.772
+
+participation in mortgage origination and other structural changes in 
+big banks.
+
+4.7.2. Supply of credit
+
+One underlying assumption for my identification strategy is that 
+the exposure to the Wells Fargo scandal affects FinTech adoption only 
+through decreased trust in banks. An alternative possibility is that the 
+FinTech share may change because banks in areas with more exposure 
+to the Wells Fargo scandal may reduce their credit supply more after 
+the scandal. Although my baseline results are robust to using mortgage 
+applications rather than originations to measure FinTech adoption, I 
+now more formally rule out the supply side interpretation by showing 
+that mortgage rejection rates do not change.
+
+Table  8a reports how exposure to the Wells Fargo scandal affects 
+county-level mortgage rejection rates. The results show that the per-
+centages of mortgage rejected do not significantly increase for all types 
+of lenders after exposure to the Wells Fargo shock, except in the case of 
+Wells Fargo itself. The results rule out the supply-side interpretation.
+
+Next,  I  examine  the  effect  of  the  Wells  Fargo  scandal  on  bank 
+deposits because deposits are a key source of funding for banks and, 
+therefore, an important factor affecting credit supply. Table  8b exam-
+ines how exposure to the Wells Fargo scandal affects the deposits of 
+Wells Fargo and other banks. I find that the scandal has a minimal 
+effect on bank deposits. The coefficients in columns (1) and (4) are 
+insignificant, indicating that the total deposits in the banking sector did 
+not change following the Wells Fargo scandal. This result is consistent 
+with what we find in Table  8a. As deposits are held as safe assets for 
+
+19 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+K. Yang
+
+households, the total amount of deposits is not affected by the Wells 
+Fargo scandal, probably due to the protection from deposit insurance.27
+However, we cannot examine county-level changes in other types 
+of bank liabilities due to data limitations. The trust shock may affect 
+banks’  more  vulnerable  liabilities  at  the  aggregate  level.  Since  our 
+difference-in-differences framework compares the local FinTech usage, 
+the aggregate change in bank liabilities would not invalidate the credit 
+demand channel as long as the local credit supply is not affected by the 
+Wells Fargo scandal, as shown in Table  8a.
+
+Moreover, Appendix Table A9 further analyzes the scandal’s effect 
+on banks’ credit supply using the triple differences specification. The 
+previous section shows that conditional on the exposure to the Wells 
+Fargo scandal, counties with more non-Republican voters experience 
+a  larger  increase  in  FinTech  adoption;  the  increased  FinTech  share 
+may be due to a decrease in credit supply rather than an erosion of 
+trust  in  counties  with  larger  share  of  non-Republican  voters.  How-
+ever, the results in Appendix Table A9 do not support this alternative 
+interpretation.  Conditional  on  the  scandal  exposures,  counties  with 
+higher non-Republican shares do not experience a larger credit supply 
+reduction by banks, proxied by the mortgage rejection rate, relative to 
+counties with lower non-Republican shares.
+
+Overall,  the  results  suggest  that  the  effects  of  the  Wells  Fargo 
+scandal on FinTech adoption are unlikely to be driven by a reduction 
+in banks’ credit supply after the scandal.
+
+4.7.3. Loan pricing
+
+The evidence so far has shown that the erosion of trust in banks 
+leads to an increase in FinTech adoption in local mortgage markets. 
+However, borrowers may choose to use FinTech lenders due to the 
+differences in pricing strategies between banks and FinTech lenders.
+
+I investigate the effects of the revelation of the Wells Fargo scandal 
+on loan pricing in local mortgage markets, using the Fannie Mae single-
+family loan dataset. I follow the procedure used in Scharfstein and 
+Sunderam (2016)28 to purge mortgage rate variations due to borrowers’ 
+credit risk. The mortgage loans from the Fannie Mae single-family loan 
+dataset are sold to the government-sponsored enterprise (GSE), which 
+charges the lender a guarantee fee to cover the projected borrower 
+default cost. Therefore, the lender who originates the mortgage is not 
+exposed to the borrower’s credit risk when the mortgage defaults. Since 
+March 2008, the guarantee fee has been determined solely by the FICO 
+score, LTV, and loan type, according to a Loan Level Price Adjustments 
+(LLPAs)  matrix.  Consequently,  any  interest  rate  deviation  from  the 
+guarantee fee reflects the lenders’ different overhead costs and strategic 
+price positioning. Specifically, I run the following regression: 
+
+𝑅𝑎𝑡𝑒𝑖,𝑗,𝑐,𝑚 = 𝛼𝑚 + 𝛽𝑚𝑋𝑖,𝑚 + 𝜂𝑖,𝑗,𝑐,𝑚
+
+(3)
+
+where 𝑅𝑎𝑡𝑒𝑖,𝑗,𝑐,𝑚 is the mortgage rate on a loan 𝑖 from lender 𝑗 in 
+MSA 𝑐 in month 𝑚, and 𝑋𝑖,𝑚 is a series of FICO and LTV dummy vari-
+ables that capture the variation in LLPAs matrix. To achieve maximal 
+comparability, I restrict the sample to 30-year, full amortization, full 
+documentation,  single-family,  and  conventional  fixed  rate  mortgage 
+with FICO scores above 660. We denote the estimated residuals as 
+̂𝜂𝑖,𝑗,𝑐,𝑚.
+
+For each MSA 𝑐 at each quarter 𝑡, we compute the average residual 
+rate charged by different types of lenders as our variables of interest. 
+∑
+
+̂𝜂𝑖,𝑗,𝑐,𝑚
+
+(4)
+
+𝑅𝐿𝑒𝑛𝑑𝑒𝑟𝑇 𝑦𝑝𝑒
+
+𝑐,𝑡
+
+=
+
+1
+𝑁 𝐿𝑒𝑛𝑑𝑒𝑟𝑇 𝑦𝑝𝑒
+
+𝑐,𝑡
+
+𝑚∈𝑡,𝑗∈{𝐿𝑒𝑛𝑑𝑒𝑟𝑇 𝑦𝑝𝑒𝑇 𝑦𝑝𝑒}
+
+Journal of Financial Economics 169 (2025) 104062 
+
+where 𝐿𝑒𝑛𝑑𝑒𝑟𝑇 𝑦𝑝𝑒 can be FinTech, Wells Fargo Bank, or non-Wells 
+Fargo bank.29 All measures are performed separately for home purchase 
+mortgages and refinance mortgages.
+
+I estimate a similar difference-in-differences model as before, but 
+use the average residual rate charged by different lenders as the de-
+pendent variables. MSA-level characteristics are included as control 
+variables, and the results are shown in Table  9. In columns (1) and 
+(2), the dependent variables are the average home purchasing mort-
+gage rate and refinance mortgage rate charged by FinTech lenders. 
+The  coefficients  are  not  statistically  significant,  suggesting  that  the 
+FinTech lenders do not change their strategic pricing after one region 
+experiences a decrease in trust in banks and an increase in FinTech 
+adoption. The result in columns (3) and (4) show that the Wells Fargo 
+charges a significantly higher interest rate after losing clients due to 
+the erosion of trust in banks. Given that the borrowers who stayed 
+with the Wells Fargo bank after the erosion of trust in banks are loyal 
+customers who are less likely to shop around for rates, the Wells Fargo 
+bank may exploit the clientele and strategically increase the mortgage 
+rate to offset the profit loss. I do not observe non-Wells Fargo lenders 
+charging different rates.
+
+This finding suggests that the increase in FinTech adoption is un-
+likely to result from the different pricing strategies between banks and 
+FinTech lenders.
+
+4.8. Discussion
+
+This  section  discuses  how  my  empirical  results  substantiate  the 
+identification of trust as an entry barrier and the magnitude of the trust 
+effect.
+
+4.8.1. The identification of trust
+
+Following Guiso et al. (2008), trust is defined as borrowers’ subjec-
+tive beliefs about the lender types—whether lenders will cheat or not. I 
+test whether trust enters borrowers’ expected utility (Guiso et al., 2008; 
+Gennaioli et al., 2015).30
+
+First, the Wells Fargo shock should be uncorrelated with unobserv-
+able factors that affect the borrower’s utility to achieve the identifica-
+tion. Even under the circumstances that the Wells Fargo scandal does 
+not affect unobservable factors that affect the borrower’s utility, the 
+change in a lender’s market share may be driven by borrowers’ trust 
+in the lender and the interest rate charged by the lender. I empirically 
+observe that the treatment effect of the Wells Fargo scandal on loan 
+pricing is not significant. Therefore, it is trust, not the interest rate, that 
+affects the borrower’s probability of choosing a FinTech lender. More-
+over, the supply shock may affect FinTech adoption through channels 
+other than the interest rate. To rule out this possibility, I empirically 
+test whether lenders’ credit supply does not change. To further identify 
+the trust channel and rule out the possibility that the Wells Fargo scan-
+dal affects unobservable factors, markets with different levels of trust 
+erosion are compared. If the shock affects through unobservable factors 
+other than trust, a variation in the trust will not lead to a variation 
+in market share 𝑠𝑖. My heterogeneity treatment effects analysis further 
+rules out this possible explanation.
+
+Moreover, there is a concept closely related to trust – reputation. 
+Trust and reputation are indistinguishable in a non-dynamic setting. 
+They are both economic agents’ subjective beliefs. In a dynamic set-
+ting, as argued by Thakor and Merton (2018), if we define trust as 
+an  investor  (borrower)’s  perceived  probability  of  the  lender’s  type 
+
+27 This result is also consistent with the theoretical prediction by Thakor 
+and Merton (2018); erosion of trust for banks does not affect their access to 
+financing.
+28 The  method  is  pioneered  by  Hurst  et  al.  (2016),  and  similarly  used 
+in Bartlett et al. (2021).
+
+29 I did not add back the time dummies ̂𝛼𝑚 to 𝑅𝐿𝑒𝑛𝑑𝑒𝑟𝑇 𝑦𝑝𝑒
+ because we use this 
+average residual rate in a difference-in-differences framework. Therefore, there 
+is no need to consider the time-invariant time-series change in the residual 
+price.
+30 The idea is formalized in Appendix C, using a simple logit demand system 
+with trust to formalize the idea.
+
+𝑐,𝑡
+
+20 
+
+K. Yang
+
+Journal of Financial Economics 169 (2025) 104062 
+
+and economic agents in the model update their beliefs following the 
+Bayesian rule, trust and reputation are still mostly indistinguishable. 
+My empirical results do not distinguish between trust and reputation. 
+They  are  all  modeled  as  the  borrowers’  perceived  belief  about  the 
+lenders’ type, and enter borrowers’ utility function. (Similarly in Guiso 
+et al., 2008; Gennaioli et al., 2015)
+
+4.8.2. The magnitude of the trust effect
+
+To summarize the effects documented in the trust literature and 
+compare  the  magnitudes  reported  in  this  paper  with  those  in  the 
+existing  studies,  I  focus  on  research  examining  the  impact  of  trust 
+on household financial decisions, particularly two relevant empirical 
+papers that analyze the effect of corporate scandals on households’ 
+financial choices.
+
+Giannetti and Wang (2016) investigate how decreases in trust in the 
+stock market influence household stock market participation. They find 
+that ‘‘a one-standard-deviation increase in the state’s fraud revelation 
+intensity (2.2 percentage points) decreases the probability that a house-
+hold participates in the stock market by about 1.23 percentage points. 
+Since approximately 30% of the sample households participate in the 
+stock market, this implies an almost 4% decrease in the probability of 
+household stock market participation’’.
+
+Gurun et al. (2018) examine the impact of the Madoff Ponzi scheme 
+on the investment advisory industry. Their findings indicate that, fol-
+lowing the revelation of the fraud in December 2008, residents in af-
+fected communities shifted their assets away from investment advisers 
+and toward bank deposits. They report that ‘‘a one-standard-deviation 
+increase in the log number of victims leads to a decrease in AUM of 
+8.8%’’.
+
+In this paper, I find that a one-standard-deviation increase in expo-
+sure to the Wells Fargo scandal leads to a 4.1% increase in the average 
+probability of a household choosing a FinTech lender. The magnitude 
+of this effect aligns closely with the findings reported in the broader 
+trust literature.
+
+Moreover, only a few studies have utilized survey-based trust mea-
+sures on the same scale as those used in our paper. To provide further 
+insights, we focus on Giannetti and Wang (2016), which also employed 
+a Gallup-based survey measure of trust. Specifically, we examine the 
+magnitudes associated with the Gallup-based trust survey in greater 
+detail.
+
+Giannetti  and  Wang  (2016)  find  that  ‘‘a  one-standard-deviation 
+increase in fraud revelation corresponds to a 7-percentage-point de-
+crease  in  the  fraction  of  respondents  reporting  high  confidence  in 
+big business’’. Their estimates suggest that a one-percentage-point de-
+crease in the likelihood of reporting high confidence in big business 
+leads to a 0.18-percentage-point reduction in household stock market 
+participation, equivalent to a 0.6% decrease.
+
+In this paper, I find that a 1.67-percentage-point decrease (=0.163 ∗
+10.4) in the probability of reporting trust in banks corresponds to a 0.33-
+percentage-point increase (=0.032 ∗ 10.4) in the probability of using 
+FinTech as mortgage lenders, which is a 4.1% increase in the average 
+probability of a household choosing a FinTech lender. My results sug-
+gest that a one-percentage-point decrease in the probability of reporting 
+trust in banks leads to a 0.2-percentage-point increase in the likelihood 
+of using FinTech as mortgage lenders, representing an approximately 
+2.5% increase. Trust appears to play a slightly more significant role in 
+FinTech adoption compared to stock market participation, perhaps due 
+to the critical importance of trust in banking relationships.
+
+Overall, the findings indicate that the effects of trust on FinTech 
+adoption are consistent with those documented in the broader trust 
+literature. Furthermore, I find that the magnitude of this effect closely 
+aligns with the results reported in existing studies.
+
+21 
+
+5. Conclusion
+
+This paper analyzes the role of trust in incumbent financial insti-
+tutions in deterring new entrants with innovative technology. Using 
+the Wells Fargo scandal as a negative shock to households’ trust in 
+banks, I document that areas with larger exposures to the Wells Fargo 
+scandal leads to an increase in the probability of choosing a FinTech 
+mortgage lender. My analysis further shows that the erosion of trust in 
+banks relative to other financial institutions is the most likely channel 
+through which the exposure to the Wells Fargo scandal affects FinTech 
+adoption.
+
+I utilize this heterogeneity to sharpen the identification strategy in 
+studying the effect of the Wells Fargo scandal on FinTech adoption. 
+After exposure to the Wells Fargo scandal, counties with more non-
+Republican voters have a larger increase in FinTech lending share than 
+others with the same level of scandal exposure. Since non-Republic 
+respondents  reduced  their  trust  in  banks  more  than  Republican  re-
+spondents after exposure to the scandal, the results corroborate that 
+exposure to the scandal affects FinTech adoption through the erosion 
+of trust in banks. Specifically, I compute the treatment effect hetero-
+geneity  of  the  Wells  Fargo  scandal  on  trust  in  banks  and  FinTech 
+adoption. I find that female borrowers have a smaller decrease in trust 
+in banks and smaller increase in FinTech adoption. The treatment effect 
+heterogeneity by using a generic machine learning inference approach 
+proposed by Chernozhukov et al. (2020), I find that female and mi-
+nority borrowers are less likely to respond to the Wells Fargo scandal, 
+both in trust in banks and FinTech adoption. Given that individuals who 
+have the highest decrease in trust in banks have similar characteristics 
+to individuals who have the highest increase in FinTech adoption, the 
+machine learning results further support the trust channel.
+
+Declaration of competing interest
+
+The  authors  declare  that  they  have  no  known  competing  finan-
+cial interests or personal relationships that could have appeared to 
+influence the work reported in this paper.
+
+Appendix A. Supplementary data
+
+Supplementary material related to this article can be found online 
+
+at https://doi.org/10.1016/j.jfineco.2025.104062.
+
+Data availability
+
+Replication Package for "Trust as an Entry Barrier: Evidence from FinT
+ech Adoption" (Original data) (Mendeley Data)
+
+References
+
+Arrow, K.J., 1974. The Limits of Organization. WW Norton & Company.
+Athey, S., Imbens, G., 2016. Recursive partitioning for heterogeneous causal effects. 
+
+Proc. Natl. Acad. Sci. 113 (27), 7353–7360.
+
+Athey,  S.,  Wager,  S.,  2019.  Estimating  treatment  effects  with  causal  forests:  An 
+
+application. arXiv preprint arXiv:1902.07409.
+
+Bartlett, R., Morse, A., Stanton, R., Wallace, N., 2021. Consumer-lending discrimination 
+
+in the FinTech era. J. Financ. Econ..
+
+Beaman,  L.,  BenYishay,  A.,  Magruder,  J.,  Mobarak,  A.M.,  2021.  Can  network 
+theory-based targeting increase technology adoption? Am. Econ. Rev. 111 (6), 
+1918–1943.
+
+Bertsch, C., Hull, I., Qi, Y., Zhang, X., 2020. Bank misconduct and online lending. J. 
+
+Brown, J.R., Cookson, J.A., Heimer, R.Z., 2019. Growing up without finance. J. Financ. 
+
+Bank. Financ. 105822.
+
+Econ. 134 (3), 591–616.
+
+Buchak, G., Matvos, G., Piskorski, T., Seru, A., 2018. Fintech, regulatory arbitrage, and 
+
+the rise of shadow banks. J. Financ. Econ. 130 (3), 453–483.
+
+Carter, M.R., Laajaj, R., Yang, D., 2014. Subsidies and the Persistence of Technol-
+ogy Adoption: Field Experimental Evidence from Mozambique. Technical Report, 
+National Bureau of Economic Research.
+
+K. Yang
+
+Journal of Financial Economics 169 (2025) 104062 
+
+Célerier, C., Matray, A., 2019. Bank-branch supply, financial inclusion, and wealth 
+
+Giglio, S., Maggiori, M., Stroebel, J., Utkus, S., 2019. Five Facts About Beliefs and 
+
+accumulation. Rev. Financ. Stud. 32 (12), 4767–4809.
+
+Chernozhukov, V., Demirer, M., Duflo, E., Fernandez-Val, I., 2020. Generic Machine 
+Learning Inference on Heterogenous Treatment Effects in Randomized Experiments. 
+Technical Report, National Bureau of Economic Research.
+
+Chrétien, E., Lyonnet, V., 2021. Are Traditional and Shadow Banks Symbiotic?. Fisher 
+
+College of Business Working Paper, 011.
+
+Comin,  D.,  Mestieri,  M.,  2014.  Technology  diffusion:  Measurement,  causes,  and 
+consequences. In: Handbook of Economic Growth. Vol. 2, Elsevier, pp. 565–622.
+Conley, T.G., Udry, C.R., 2010. Learning about a new technology: Pineapple in Ghana. 
+
+Am. Econ. Rev. 100 (1), 35–69.
+
+D’Acunto,  F.,  Rossi,  A.,  2017.  Regressive  Mortgage  Credit  Redistribution  in  the 
+
+Post-Crisis Era. Robert H. Smith School Research Paper No. RHS 2833961.
+
+D’Acunto, F., Xie, J., Yao, J., 2020. Trust and contracts: Empirical evidence.
+De  Roure,  C.,  Pelizzon,  L.,  Thakor,  A.V.,  2021.  P2P  lenders  versus  banks:  Cream 
+
+skimming or bottom fishing?.
+
+Deryugina, T., Heutel, G., Miller, N.H., Molitor, D., Reif, J., 2019. The mortality and 
+medical costs of air pollution: Evidence from changes in wind direction. Am. Econ. 
+Rev. 109 (12), 4178–4219.
+
+Di  Maggio,  M.,  Yao,  V.,  2020.  Fintech  borrowers:  Lax  screening  or  cream-
+
+skimming? Rev. Financ. Stud..
+
+Portfolios. Technical Report, National Bureau of Economic Research.
+
+Guiso,  L.,  Sapienza,  P.,  Zingales,  L.,  2004.  The  role  of  social  capital  in  financial 
+
+development. Am. Econ. Rev. 94 (3), 526–556.
+
+Guiso, L., Sapienza, P., Zingales, L., 2008. Trusting the stock market. J. Financ. 63 (6), 
+
+2557–2600.
+
+Gurun, U.G., Stoffman, N., Yonker, S.E., 2018. Trust busting: The effect of fraud on 
+
+investor behavior. Rev. Financ. Stud. 31 (4), 1341–1376.
+
+Hertwig, R., Barron, G., Weber, E.U., Erev, I., 2004. Decisions from experience and the 
+
+effect of rare events in risky choice. Psychol. Sci. 15 (8), 534–539.
+
+Hong, C.Y., Lu, X., Pan, J., 2020. FinTech adoption and household risk-taking. Available 
+
+At SSRN 3706709.
+
+Hurst, E., Keys, B.J., Seru, A., Vavra, J., 2016. Regional redistribution through the US 
+
+mortgage market. Am. Econ. Rev. 106 (10), 2982–3028.
+
+Liebersohn, J., 2017. How does Competition Affect Bank Lending? Quasi-Experimental 
+
+Evidence from Bank Mergers. Technical Report, Technical Report.
+
+Malmendier, U., Nagel, S., 2011. Depression babies: do macroeconomic experiences 
+
+affect risk taking? Q. J. Econ. 126 (1), 373–416.
+
+Meeuwis, M., Parker, J.A., Schoar, A., Simester, D.I., 2018. Belief Disagreement and 
+
+Portfolio Choice. Technical Report, National Bureau of Economic Research.
+
+Nguyen, H.-L.Q., 2019. Are credit markets still local? Evidence from bank branch 
+
+Donaldson, J.R., Piacentino, G., Thakor, A., 2019. Intermediation Variety. Technical 
+
+closings. Am. Econ. J.: Appl. Econ. 11 (1), 1–32.
+
+Report, National Bureau of Economic Research.
+
+Foster, A.D., Rosenzweig, M.R., 1995. Learning by doing and learning from others: 
+Human  capital  and  technical  change  in  agriculture.  J.  Polit.  Econ.  103  (6), 
+1176–1209.
+
+Fungáčová, Z., Hasan, I., Weill, L., 2019. Trust in banks. J. Econ. Behav. Organ. 157, 
+
+452–476.
+
+Fuster,  A.,  Plosser,  M.,  Schnabl,  P.,  Vickery,  J.,  2019.  The  role  of  technology  in 
+
+mortgage lending. Rev. Financ. Stud. 32 (5), 1854–1899.
+
+Okat, D., Paaso, M., Pursiainen, V., 2022. Trust in Finance and Consumer Fintech 
+
+Adoption. Working Paper.
+
+Robo-Advising. Working Paper.
+
+Rossi, A.G., Utkus, S., 2020. The Needs and Wants in Financial Advice: Human versus 
+
+Saiedi,  E.,  Mohammadi,  A.,  Broström,  A.,  Shafi,  K.,  2022.  Distrust  in  banks  and 
+fintech participation: The case of peer-to-peer lending. Entrep. Theory Pr. 46 (5), 
+1170–1197.
+
+Scharfstein,  D.,  Sunderam,  A.,  2016.  Market  Power  in  Mortgage  Lending  and  the 
+
+Gennaioli, N., LaPorta, R., Lopez-de Silanes, F., Shleifer, A., 2022. Trust and insurance 
+
+Transmission of Monetary Policy. Working Paper.
+
+contracts. Rev. Financ. Stud..
+
+Gennaioli, N., Shleifer, A., Vishny, R., 2015. Money doctors. J. Financ. 70 (1), 91–114.
+Gentzkow, M., Shapiro, J.M., 2010. What drives media slant? Evidence from US daily 
+
+newspapers. Econometrica 78 (1), 35–71.
+
+Stanton, R., Walden, J., Wallace, N., 2014. The industrial organization of the US 
+
+residential mortgage market. Annu. Rev. Financ. Econ. 6 (1), 259–288.
+
+Tang, H., 2018. Peer-to-peer lenders versus banks: substitutes or complements? Rev. 
+
+Giannetti,  M.,  Wang,  T.Y.,  2016.  Corporate  scandals  and  household  stock  market 
+
+Thakor, R.T., Merton, R.C., 2018. Trust in Lending. Technical Report, National Bureau 
+
+Financ. Stud..
+
+of Economic Research.
+
+Giannetti, M., Wang, T.Y., 2020. Public attention to gender equality and the demand 
+
+Tirole, J., 2017. Economics for the Common Good. Princeton University Press.
+
+participation. J. Financ. 71 (6), 2591–2636.
+
+for female directors. Available at SSRN.
+
+22 
+
+

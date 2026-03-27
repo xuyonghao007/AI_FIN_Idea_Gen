@@ -1,0 +1,4648 @@
+Journal of Financial Economics 174 (2025) 104173 
+
+Contents lists available at ScienceDirect
+
+Journal of Financial Economics
+
+journal homepage: www.elsevier.com/locate/finec
+
+Green tilts(cid:73)
+Lubos Pastor a,c,d, Robert F. Stambaugh b,c,∗, Lucian A. Taylor b,c
+a University of Chicago, 5807 S. Woodlawn Ave, Chicago, IL 60637, USA
+b University of Pennsylvania, 3620 Locust Walk, Philadelphia, PA 19104, USA
+c NBER, USA
+d CEPR, United Kingdom
+
+A R T I C L E   I N F O
+
+A B S T R A C T
+
+Dataset link: Green Tilts -- Replication Package
+(Original data)
+
+JEL classification:
+G11
+G23
+
+Keywords:
+ESG
+Sustainable investing
+Portfolio tilt
+
+1. Introduction
+
+We estimate financial institutions’ portfolio tilts related to U.S. stocks’ environmental, social, and governance 
+(ESG) characteristics. From 2012 to 2023, ESG-related tilts consistently total about 6% of the investment 
+industry’s assets and rise from 17% to 27% of institutions’ total portfolio tilts. Significant ESG tilts arise from 
+the choice of stocks held and, especially, the weights on stocks held. The largest institutions tilt increasingly 
+toward green stocks, while other institutions and households tilt increasingly brown. Divestment from brown 
+stocks is typically partial rather than full, even for individual mutual funds. UNPRI signatories and European 
+institutions tilt greener; banks tilt browner.
+
+‘‘Investing based on environmental, social, and governance (ESG) 
+criteria  has  exploded  in  popularity,  reaching  $35  trillion  in  global 
+assets  under  management  (AUM)  in  2020,  according  to  Bloomberg 
+Intelligence’’.  Sentences  with  numbers  like  this  introduce  countless 
+papers on ESG investing. Those numbers show that ESG matters to 
+many financial institutions, but not how much it matters. How much do 
+institutions’ portfolio weights differ from what they would be without 
+ESG considerations? We estimate these ESG-related portfolio tilts and 
+explore  various  additional  questions.  For  example,  how  have  ESG-
+related tilts evolved over time? Which investors tilt toward ‘‘green’’ 
+assets with favorable ESG characteristics, and which ones make the 
+
+offsetting ‘‘brown’’ tilts? These questions are important because tilting 
+green could have financial implications, given both theoretical argu-
+ments and empirical evidence that green assets have lower expected 
+returns.1
+
+We assess the amount of ESG investing by estimating the size of 
+institutions’ ESG-related portfolio tilts. Our approach has three main 
+virtues. First, when estimating how stocks’ ESG characteristics relate 
+to portfolio weights, we control for non-ESG stock characteristics. We 
+thus separate ESG tilts from investment styles such as large-cap growth. 
+This is useful because non-ESG attributes such as size and book-to-
+market are correlated with ESG characteristics. Second, our approach 
+measures ESG-related tilts at both the extensive margin (i.e., which 
+stocks are held) and the intensive margin (i.e., weights on stocks held). 
+
+(cid:73)
+
+Dimitris Papanikolaou was the editor for this article. Pastor also serves as an independent director and trustee of Vanguard. The views in this paper are 
+the responsibility of the authors, not the institutions they are affiliated with. We are grateful for comments from our discussants Dan Green, Sam Hartzmark, 
+Andrei Kirilenko, Pedro Matos, Kunal Sachdeva, Adam Winegar, and Shaojun Zhang; from Doug Diamond, Winston Dou, Joanna Harris, Christian Leuz, David 
+Musto, Mike Sebastian, Yao Zeng, Olivier David Zerbib; participants at the 2025 AFA conference, 2024 WFA conference, 2024 Baruch Climate Finance and ESG 
+Conference, 2024 Cornell OFR Conference on Climate Change, 2024 EFMA meeting, 2024 SoFiE conference, 2023 BI Conference on Corporate Governance, 2023 
+Fall Chicago Quantitative Alliance meeting, 2023 FRA conference, 2023 Olin Finance Conference at Washington University, 2023 University of Houston/Dallas 
+Fed Energy Finance and the Energy Transition Conference, 2023 University of Alberta Frontiers in Finance Conference; and seminar participants at the following 
+universities: Alabama, Brigham Young, Chicago, EDHEC, Emory, Florida State, HEC Montreal, Maryland, Peking, Penn State, Pennsylvania, Purdue, Stockholm 
+School of Economics, and Tinbergen Institute. We dedicate this paper to the memory of Livia Amato, whose many contributions as a research professional have 
+benefited this article as well as our prior work. We also thank Vitor Furtado Farias, Vanessa Hu, and Chris Yaoyao Zhu for excellent research assistance. This 
+research was supported by the Fama-Miller Center for Research in Finance and the Robert King Steel Fellowship at the University of Chicago Booth School of 
+Business.
+
+∗ Corresponding author at: University of Pennsylvania, 3620 Locust Walk, Philadelphia, PA 19104, USA.
+
+E-mail address:  stambaugh@wharton.upenn.edu (R.F. Stambaugh).
+
+1 See Pástor et al. (2021, 2022) and Bolton and Kacperczyk (2021, 2023), among others.
+
+https://doi.org/10.1016/j.jfineco.2025.104173
+Received 11 January 2024; Received in revised form 22 September 2025; Accepted 26 September 2025
+Available online 8 October 2025 
+0304-405X/© 2025 The Authors. Published by Elsevier B.V. This is an open access article under the CC BY-NC-ND license ( http://creativecommons.org/licenses/by- 
+nc-nd/4.0/ ). 
+
+ 
+ 
+ 
+L. Pastor et al.
+
+This allows us, for example, to assess the relative importance of partial 
+versus full divestment of brown stocks. Third, our approach allows 
+a stock’s E, S, and G characteristics to relate separately to portfolio 
+weights. This helps when, say, some investors care primarily about G, 
+and one stock has good G and bad S, while another has the opposite. A 
+composite ESG score could rate both stocks equally, but these investors 
+will overweight the first stock and underweight the second, creating 
+tilts explained by G but not by composite ESG.
+
+We do not confine ESG investing to motives related to social re-
+sponsibility. ESG characteristics could also enter for financial or other 
+reasons.2 For example, an institution could overweight brown stocks 
+because it sees them as underpriced, or it could overweight green stocks 
+because it sees them as a hedge against climate risk. We do confine ESG 
+investing to portfolio choice, excluding shareholder engagement.
+
+Our  empirical  implementation  focuses  on  U.S.  stocks  and  insti-
+tutional holdings from 13F filings. After computing institution-level 
+ESG-related portfolio tilts, we aggregate them across institutions to 
+estimate the total ESG tilt in the investment industry. We find that 
+this tilt consistently accounts for about 6% of the industry’s U.S. equity 
+AUM between years 2012 and 2023, reaching 6.5% by the end of the 
+sample. Our approach’s three virtues are confirmed by our results: First, 
+controlling for non-ESG characteristics avoids overstating the total ESG 
+tilt by nearly twice. Second, separating the extensive- and intensive-
+margin tilts reveals that both are significant, with the intensive being 
+two to four times larger. Finally, allowing E, S, and G to enter separately 
+avoids understating the total tilt by over 40%, which occurs if just a 
+composite ESG score is used.
+
+We also assess ESG tilts in the context of institutions’ overall port-
+folio tilts. For an institution less inclined to deviate from the market 
+portfolio for any reason, a given ESG tilt is more economically signifi-
+cant, as it represents a greater disruption of what the institution would 
+otherwise do, given its investing style or mandate. To measure total 
+portfolio tilts — deviations of portfolio weights from market weights 
+for any reason — we use the active share measure of Cremers and 
+Petajisto (2009). On average, ESG tilts are about 20% as large as active 
+share during our sample period. So, while ESG tilts are modest relative 
+to AUM, they are more substantial relative to total tilts. Moreover, 
+although ESG tilts have not grown as a share of AUM, they have grown 
+as a share of total tilts: the average ratio of ESG tilt to active share has 
+grown from 17% in 2012 to 27% in 2023.
+
+We  then  examine  whether  ESG  tilts  are  green  or  brown.  Given 
+the multiple dimensions of ESG, any of them can be used to measure 
+greenness. For each dimension, we compute each institution’s net tilt 
+toward green stocks, or ‘‘GMB’’ tilt (green minus brown). From 2012 
+until  a  modest  downturn  in  2023,  institutions  become  increasingly 
+green, exhibiting a positive and rising aggregate GMB tilt. Offsetting 
+that behavior, the aggregate portfolio of non-13F investors becomes 
+browner, with a negative and decreasing GMB tilt. The rise in GMB tilts 
+of 13F institutions occurs primarily via the intensive margin, that is, 
+by increasingly overweighting green stocks and underweighting brown 
+stocks. For example, divestment from brown stocks, a long-standing 
+theme, occurs largely at the intensive margin, by reducing positions 
+rather than eliminating them. All of these findings are robust across 
+our four measures of greenness: E, S, G, and the composite score.
+
+Our green tilt measure clearly differs from several potential alterna-
+tives. For example, at the end of our sample, the aggregate institutional 
+GMB  tilt  is  4.2%.  Without  controlling  for  non-ESG  characteristics, 
+this tilt would be almost three times larger, 11.2%. An even simpler 
+alternative measure, a difference between the portfolio’s total weights 
+in green and brown stocks, produces an even larger aggregate value, 
+27.6%. Both larger values reflect at least in part the institutions’ well 
+
+2 In their global survey of equity portfolio managers, Edmans et al. (2025) 
+find that managers’ primary motivation for using environmental and social 
+criteria is to improve financial performance.
+
+Journal of Financial Economics 174 (2025) 104173 
+
+known preference for large-cap stocks and growth stocks, which tend to 
+score higher on ESG than small-cap or value stocks. All of these values 
+pale in comparison with 76.1%, the share of our sample’s U.S. equity 
+AUM managed by institutions that have signed the United Nations’ 
+Principles for Responsible Investment (UNPRI). Numbers like that show 
+ESG is widely endorsed, but clearly overstate its investment role.
+
+Even though much of their investing is unrelated to ESG, UNPRI 
+signatories do have significantly larger GMB tilts. We find this greener 
+tilt not only across institutions but, for environmental greenness, also 
+over time: institutions tend to become greener after signing the UNPRI. 
+We  also  find  that  banks  are  browner  than  other  institutions,  espe-
+cially insurance companies, and that European institutions are greener 
+(i.e., European institutions’ holdings of U.S. equities are greener than 
+U.S. institutions’ holdings of those equities).
+
+ESG investing varies greatly across 13F-filing institutions. For exam-
+ple, the rise in the investment industry’s aggregate greenness is driven 
+by the largest institutions. When we rank institutions by AUM and 
+separate them at the 33rd and 66th percentiles, we find that only the 
+top third exhibits a positive and rising GMB tilt. In contrast, the GMB 
+tilts of the middle and bottom thirds of institutions are mostly negative 
+and  decreasing  over  time—meaning  brown  and  becoming  browner. 
+For the biggest institution, BlackRock, the GMB tilt becomes especially 
+large through 2020 but declines thereafter.
+
+We  construct  firms’  ESG  characteristics  using  ESG  ratings  from 
+MSCI, a leading data provider. For robustness, we re-estimate insti-
+tutional tilts using ratings from Sustainalytics.  The results are very 
+similar; for example, the aggregate ESG-related tilt ranges from 5.9% 
+to 6.7% of AUM, and our main conclusions remain unchanged.
+
+Results are also similar when using industry-adjusted ESG scores, 
+computed by subtracting industry averages from firms’ scores. The re-
+sulting ESG tilts are smaller, averaging 4% to 5%, but otherwise behave 
+similarly to the unadjusted tilts. The same holds for industry-adjusted 
+green and brown tilts. Again, our conclusions remain unchanged.
+
+ESG tilts reflect decisions having diverse origins, such as differ-
+ent managerial layers within an institution. In a mutual fund family, 
+for  example,  an  active  fund’s  tilt  is  chosen  by  the  fund’s  portfolio 
+manager, while a passive fund inherits the tilt of the index it tracks, 
+chosen by fund-family management. In other cases, ESG tilts reflect 
+decisions made outside the institution. For example, client mandates 
+could dictate ESG tilts (or the absence thereof) in the portfolios of 
+bank-administered trusts or advisor-managed separate accounts. We 
+adopt an inclusive approach, not confining our analysis to tilts traceable 
+to particular decision origins. Moreover, we focus on AUM-weighted 
+tilts, which ultimately reflect the decisions of asset owners, who decide 
+where the AUM resides.
+
+Computing an institution’s ESG tilt from 13F holdings may obscure 
+offsetting tilts across separate investing entities within the institution. 
+For example, a mutual fund family with half its AUM in green-tilting 
+funds and half in brown-tilting funds may show little ESG tilt in its 
+13F holdings. In that sense, our estimates likely understate the tilts we 
+would see if we could disaggregate the entities within each institution. 
+Even  for  institutions  that  available  data  allow  us  to  disaggregate, 
+namely mutual fund families, the data limit the disaggregation. For 
+example, mutual funds often employ multiple managers or sub-advisors 
+managing separate ‘‘sleeves’’ that aggregate to the observed fund port-
+folio. It seems hard, even in theory, to identify a uniquely meaningful 
+level of disaggregation. Quite simply, institutions’ 13F holdings offer 
+a consistent and feasible level of aggregation for analyzing ESG tilts 
+across the investment industry.
+
+To complement this institution-level analysis, we estimate ESG tilts 
+for U.S. equity mutual funds, using fund-level holdings from the S12 
+dataset. Disaggregating the holdings of mutual fund families allows us 
+to uncover ESG tilts that offset within families. We find these offsets 
+to be modest: in 2023, they account for 1.8% of fund families’ AUM, 
+or just under 0.5% of aggregate AUM—one fourteenth of the total ESG 
+tilt.
+
+2 
+
+L. Pastor et al.
+
+Mutual  funds’  total  ESG  tilt  ranges  from  6%  to  10%  of  AUM, 
+and from 10% to 13% for actively managed funds. Extensive-margin 
+tilts are about twice as large as those for institutions but remain be-
+low intensive-margin tilts. Similarly, extensive-margin divestment from 
+brown stocks exceeds that of institutions but still falls short of intensive-
+margin divestment, indicating that for mutual funds, just like for 13F 
+institutions, brown divestment is more partial than full. Mutual funds 
+collectively tilt green, though not as much as institutions in aggregate. 
+ESG-labeled funds exhibit larger green tilts and smaller brown tilts than 
+non-ESG funds. Funds with higher Morningstar globe ratings also tilt 
+greener.
+
+ESG  investing  is  distinct  from  index  investing,  i.e.,  holding  the 
+market portfolio. While investors’ ESG preferences can affect market 
+weights,  we  do  not  view  pure  index  investors  as  engaging  in  ESG 
+investing. Our framework assigns zero ESG tilts to index investors, as 
+we control for market weights when estimating tilts. We also show that 
+over the past decade, the market portfolio itself has increasingly tilted 
+toward environmentally green stocks.
+
+Our paper contributes to the large literature that studies the compo-
+sition of institutional portfolios. This literature documents various insti-
+tutional investors’ preference for large and liquid stocks (e.g., Falken-
+stein  (1996),  Gompers  and  Metrick  (2001),  Bennett  et  al.  (2003), 
+and  Ferreira  and  Matos  (2008)).  Institutions’  portfolio  holdings  are 
+also related to stock characteristics such as the book-to-market ratio, 
+prior-year  return,  and  various  risk  measures.3  We  estimate  institu-
+tions’ ESG-related portfolio tilts while controlling for non-ESG stock 
+characteristics that prior work relates to portfolio weights.
+
+We  are  not  the  first  to  examine  institutions’  portfolio  tilts  with 
+respect to stocks’ ESG characteristics. For example, Ferreira and Matos 
+(2008) document institutions’ preference for firms with good gover-
+nance. Bolton and Kacperczyk (2021) find that institutions underweight 
+firms with high scope-1 carbon emission intensity. Atta-Darkua et al. 
+(2023) find that institutions that join climate-related investor initiatives 
+increase  their  holdings  of  firms  with  low  carbon  emissions.  Starks 
+et al. (2023) find that institutions with longer investment horizons 
+tilt their portfolios more towards firms with high ESG scores. Brandon 
+et al. (2021) relate institutions’ portfolio-level environmental and social 
+scores to performance. Nofsinger et al. (2019) find that institutions 
+underweight  stocks  with  negative  environmental  and  social  indica-
+tors. Hong and Kostovetsky (2012) find that Democratic-leaning fund 
+managers allocate less to the stocks of firms viewed as socially irre-
+sponsible. Choi et al. (2020a) show that institutions reduced the carbon 
+exposures of their portfolios between 2001 and 2015. Starks (2023) 
+shows that U.S. active mutual funds have increased their ownership of 
+high-ESG firms between 2013 and 2021.
+
+Like some of these studies, we find that institutions’ portfolios tilt 
+green, and increasingly so. However, our approach to measuring ESG-
+related portfolio tilts is fundamentally different. Most importantly, the 
+above studies do not quantify the total amount of institutions’ ESG-
+related  investing.  Moreover,  we  do  not  analyze  portfolio-level  ESG 
+characteristics because they reflect also stocks’ non-ESG characteristics 
+such as size and book-to-market, for which we control. Our approach 
+has  two  additional  advantages.  First,  measuring  the  extensive-  and 
+intensive-margin components of ESG tilts delivers new insights, such 
+as  that  divestment  from  brown  stocks  occurs  largely  at  the  inten-
+sive margin. Second, instead of analyzing one ESG characteristic at a 
+time, we find it important to allow all three characteristics to enter 
+simultaneously.
+
+In a complementary study, Cremers et al. (2023) develop a new 
+measure of how actively a fund uses ESG information. Their measure, 
+
+Journal of Financial Economics 174 (2025) 104173 
+
+which they call active ESG share, is very different from ours: it com-
+pares the distribution of a portfolio’s stock-level ESG scores to that of 
+its benchmark. Their focus is also different in that they relate their 
+measure to fund performance. They do not examine aggregate tilts, 
+nor do they compare green vs. brown tilts or intensive vs. extensive 
+margins.
+
+Existing studies find mixed evidence on whether UNPRI signatories 
+engage in ESG-related behavior, raising concerns about greenwashing 
+(Brandon et al. (2022), Humphrey and Li (2021), Kim and Yoon (2023), 
+and Liang et al. (2022)). We find that UNPRI signatories’ portfolios tend 
+to exhibit greener tilts.
+
+Prior evidence on ESG-related trading by retail investors is also 
+mixed. On the one hand, Choi et al. (2020b) find that retail investors, 
+but  not  institutions,  respond  to  abnormally  warm  temperatures  by 
+selling stocks of carbon-intensive firms. Li et al. (2023) find that retail 
+investors’  trades  respond  to  a  broader  set  of  ESG  news  events.  On 
+the other hand, Moss et al. (2020) find that retail investors’ buy and 
+sell decisions do not respond to ESG disclosures. Instead of analyzing 
+responses to news or disclosures, we focus on ESG-related portfolio tilts. 
+We find that the portfolios of non-13F investors, most of whom are 
+retail investors, tilt brown, and increasingly so.
+
+Our study also relates to the literature exploring links between own-
+ership by institutions, including responsible ones, and various aspects 
+of corporate social responsibility.4 Our focus on institutions’ ESG tilts 
+provides a different and complementary perspective on institutional 
+responsibility. Finally, our study relates to those that estimate ESG-
+related asset demands in other ways, to address different issues, such 
+as price impact.5
+
+The remainder of the paper is organized as follows. Section 2 defines 
+ESG-related tilts. Section 3 outlines our estimation procedure. Section 4 
+presents evidence on ESG tilts for a large sample of institutional in-
+vestors. Section 5 examines mutual funds’ tilts. Section 6 compares 
+our green tilt measures to several alternatives. Section 7 analyzes the 
+greening of the market portfolio. Section 8 concludes.
+
+2. ESG-related tilts
+
+To quantify the amount of ESG investing, we measure the extent 
+to which investors tilt their portfolios in relation to stocks’ ESG char-
+acteristics. We denote the set of all stocks’ ESG characteristics by . 
+Each stock has multiple ESG characteristics. We denote neutral values 
+of the same characteristics by 
+0 is the counterpart of 
+ in which each stock’s value of each ESG characteristic is replaced by 
+the market portfolio’s value of the same characteristic. Let 𝑤𝑖𝑛 denote 
+investor 𝑖’s portfolio weight on stock 𝑛. For any given investor-stock 
+pair, we define the investor’s ESG-related portfolio tilt in this stock as 
+
+0. Specifically, 
+
+(1)
+
+0, ] ,
+
+
+, ] − E[𝑤𝑖𝑛|
+
+𝛥𝑖𝑛 = E[𝑤𝑖𝑛|
+where E denotes a conditional expectation and  is the set of stocks’ 
+non-ESG stock characteristics. 𝛥𝑖𝑛 is the part of 𝑤𝑖𝑛 attributable to the 
+difference between  and 
+0, holding constant the non-ESG character-
+istics. Holding  constant is important because the ESG and non-ESG 
+characteristics  can  be  correlated.  For  example,  Pástor  et  al.  (2022) 
+show that stocks with lower book-to-market ratios tend to have higher 
+environmental ratings (i.e., growth stocks tend to be greener than value 
+stocks). By including a stock’s book-to-market ratio among the non-
+ESG characteristics, we control for this ratio in estimating the relation 
+between  and portfolio weights. We conduct our analysis at a given 
+point in time, 𝑡, but we suppress the variables’ dependence on 𝑡, for 
+simplicity.
+
+3 See, for example, Falkenstein (1996), Gompers and Metrick (2001), Ede-
+len et al. (2016), DeVault et al. (2019), Koijen and Yogo (2019), and Lettau 
+et al. (2021).  Lewellen (2011) shows that institutions’ aggregate holdings 
+closely resemble those of the market portfolio.
+
+4 See, for example, Chen et al. (2020), Choi et al. (2023), Dyck et al. (2019), 
+Gantchev et al. (2022), Heath et al. (2021), Hwang et al. (2022), Ilhan et al. 
+(2020), and Li and Raghunandan (2021).
+
+5 See Koijen et al. (2024), Noh et al. (2023), and van der Beck (2022).
+
+3 
+
+L. Pastor et al.
+
+The above definition of 𝛥𝑖𝑛, a difference in conditional expectations, 
+has a familiar analogue in regression analysis. A common way to quan-
+tify an independent variable’s contribution to the dependent variable is 
+to compare fitted values (estimated conditional expectations) for two 
+values of the independent variable, such as the latter’s actual value 
+and its sample average. One could, for example, follow that procedure 
+and estimate 𝛥𝑖𝑛 by just regressing, across stocks, 𝑤𝑖𝑛 on stock 𝑛’s ESG 
+and non-ESG characteristics. We avoid that simple regression approach 
+for two reasons. First, how an investor weights a stock depends on 
+its attractiveness relative to other stocks in the investor’s portfolio, 
+and that comparison involves the other stocks’ characteristics as well. 
+Second, we include portfolio choices made at the extensive margin, not 
+just the intensive, as there are often many stocks for which 𝑤𝑖𝑛 = 0. 
+That feature of the data is poorly suited for the simple regression.
+
+2.1. Extensive- and intensive-margin tilts
+
+The conditional expectations entering the value of 𝛥𝑖𝑛 in Eq. (1) 
+can be written as E[𝑤𝑖𝑛|⋅] = Prob{𝑤𝑖𝑛 > 0|⋅} × E[𝑤𝑖𝑛|𝑤𝑖𝑛 > 0, ⋅], under 
+≥ 0.6 Therefore,  relates to 𝑤𝑖𝑛 through two 
+the assumption that 𝑤𝑖𝑛
+channels: the probability that investor 𝑖 holds stock 𝑛 and the amount 
+invested in the stock if held. To quantify both channels, for any set of 
+ESG characteristics  ̃, we denote
+𝜋( ̃) ≡ Prob{𝑤𝑖𝑛 > 0|
+̃, }
+𝑤+( ̃) ≡ E[𝑤𝑖𝑛|𝑤𝑖𝑛 > 0; ̃, ] .
+We apply these formulas for two different values of  ̃: the observed 
+values,  ,  and  the  neutral  values,  
+0.  We  can  thus  rewrite  Eq.  (1) 
+as  𝛥𝑖𝑛 = 𝜋()𝑤+() − 𝜋(
+0).  We  can  then  split  𝛥𝑖𝑛  into  two 
+components, 
+𝑖𝑛 + 𝛥𝑖𝑛𝑡
+𝑖𝑛 ,
+
+𝛥𝑖𝑛 = 𝛥𝑒𝑥𝑡
+
+0)𝑤+(
+
+(3)
+
+(2)
+
+(4)
+
+representing  the  extensive-  and  intensive-margin  tilts,  respectively. 
+These components are
+𝛥𝑒𝑥𝑡
+0) {𝜋() − 𝜋(
+𝑖𝑛 = 𝑤+(
+𝛥𝑖𝑛𝑡
+𝑖𝑛 = 𝜋() {𝑤+() − 𝑤+(
+
+0)} .
+
+0)}
+
+(5)
+
+(6)
+
+The extensive-margin tilt, 𝛥𝑒𝑥𝑡
+
+𝑖𝑛 , is computed by varying the prob-
+ability of holding the stock, without changing the expected portfolio 
+weight conditional on holding the stock. This tilt answers the question: 
+how much of investor 𝑖’s weight in stock 𝑛 is attributable to the relation 
+between the stock’s ESG characteristics and the probability of holding 
+the stock?
+
+The intensive-margin tilt, 𝛥𝑖𝑛𝑡
+
+𝑖𝑛 , is computed by varying the expected 
+portfolio weight conditional on holding the stock, without changing 
+the probability of holding the stock. This tilt answers the question: 
+how much of investor 𝑖’s weight in stock 𝑛 relates to the stock’s ESG 
+characteristics, conditional on holding the stock?
+
+2.2. Investor-level tilts
+
+We compute investor 𝑖’s ESG-related portfolio tilt by adding up the 
+absolute values of the investor’s portfolio tilts with respect to each of 
+the 𝑁 stocks: 
+𝑁
+∑
+
+(7)
+
+𝑇𝑖 =
+
+1
+2
+
+|𝛥𝑖𝑛| .
+
+𝑛=1
+
+This definition parallels that of the ESG tilt in Pástor et al. (2021), 
+except that here 𝛥𝑖𝑛 is not simply a deviation of the stock’s portfolio 
+weight  from  its  market  weight.  The  division  by  2  ensures  that  we 
+
+6 This assumption accommodates our data. Reported holdings of institutions 
+and funds include only long stock positions. For stocks that are not held long, 
+we set 𝑤𝑖𝑛 = 0 in our empirical implementation.
+
+4 
+
+Journal of Financial Economics 174 (2025) 104173 
+
+avoid double-counting: for each stock the investor overweights because 
+of , the investor must underweight one or more other stocks. Put 
+differently, ∑𝑁
+𝑛=1 𝛥𝑖𝑛 = 0 for all 𝑖, which follows from Eq. (1), so any 
+positive 𝛥𝑖𝑛’s must be balanced by negative ones.
+
+We similarly compute the investor’s intensive- and extensive-margin 
+
+tilts:
+
+𝑇 𝑖𝑛𝑡
+𝑖 =
+
+1
+2
+
+𝑇 𝑒𝑥𝑡
+𝑖
+
+=
+
+1
+2
+
+𝑁
+∑
+
+𝑛=1
+𝑁
+∑
+
+|𝛥𝑖𝑛𝑡
+𝑖𝑛 |
+
+|𝛥𝑒𝑥𝑡
+
+𝑖𝑛 | .
+
+(8)
+
+(9)
+
+≠ 𝑇 𝑖𝑛𝑡
+
+𝑛=1
+Note that, in general, 𝑇𝑖
+cleanly into 𝛥𝑖𝑛𝑡
+𝑖𝑛  and 𝛥𝑒𝑥𝑡
+forward. In particular, |𝛥𝑖𝑛| = |𝛥𝑖𝑛𝑡
+inequality is strict if and only if 𝛥𝑖𝑛𝑡
+follows immediately that 𝑇𝑖
+
+. While 𝛥𝑖𝑛 can be decomposed 
+𝑖𝑛  (see Eq. (4)), decomposing |𝛥𝑖𝑛| is less straight-
+≤
+𝑖𝑛 + 𝛥𝑒𝑥𝑡
+𝑖𝑛 |, and the 
+𝑖𝑛 |
+𝑖𝑛  and 𝛥𝑒𝑥𝑡
+𝑖𝑛  have opposite signs. It 
+.
+
+𝑖𝑛 | + |𝛥𝑒𝑥𝑡
+
+𝑖 + 𝑇 𝑒𝑥𝑡
+
+≤ 𝑇 𝑖𝑛𝑡
+
+|𝛥𝑖𝑛𝑡
+
+𝑖 + 𝑇 𝑒𝑥𝑡
+
+𝑖
+
+𝑖
+
+2.3. Aggregate tilts
+
+Let 𝐴𝑖 denote the dollar value of investor 𝑖’s assets. For any given set 
+of investors, , we can compute the aggregate tilt as an asset-weighted 
+average tilt across investors: 
+
+(10)
+
+𝐴𝑖𝑇𝑖 ,
+
+∑
+
+𝑖∈
+
+𝑇 =
+
+1
+𝐴
+where 𝐴 = ∑
+is ‘‘tilted’’.
+
+𝑖∈ 𝐴𝑖. 𝑇  measures the fraction of total investor assets that 
+
+We compute aggregate intensive- and extensive-margin tilts analo-
+
+gously:
+
+𝑇 𝑖𝑛𝑡 =
+
+𝑇 𝑒𝑥𝑡 =
+
+1
+𝐴
+
+1
+𝐴
+
+∑
+
+𝑖∈
+∑
+
+𝑖∈
+
+𝐴𝑖𝑇 𝑖𝑛𝑡
+𝑖
+
+𝐴𝑖𝑇 𝑒𝑥𝑡
+𝑖
+
+.
+
+2.4. Green and brown tilts
+
+(11)
+
+(12)
+
+The tilt measures presented so far capture all ESG-related portfolio 
+tilts, regardless of their direction. Two investors with identical 𝑇𝑖 values 
+could in principle be using ESG characteristics in opposite ways, one 
+tilting toward and the other away from stocks with high values of 
+these  characteristics.  Next,  we  design  directional  tilt  measures  that 
+separate ‘‘green’’ investment behavior from ‘‘brown’’. Green behavior 
+tilts toward green stocks and away from brown stocks, whereas brown 
+behavior tilts in the opposite direction.
+
+To define directional tilt measures, we must designate stocks as 
+green or brown. That is not straightforward with multiple ESG charac-
+teristics, as stocks with high values of one characteristic could have low 
+values of another. For any given ESG characteristic, however, such as a 
+composite ESG rating or an E score, we can define greenness in terms 
+of that characteristic. Let 𝑔𝑛 denote stock 𝑛’s value of that characteristic 
+and 𝑔0 the characteristic’s neutral value — the capitalization-weighted 
+≥ 𝑔0
+average of 𝑔𝑛 across stocks. We classify the stock as green if 𝑔𝑛
+and brown if 𝑔𝑛 < 𝑔0. In other words, a stock is green if it is greener 
+than the market portfolio and brown if it is browner than the market 
+portfolio.
+
+For each {𝑖, 𝑛} pair, we classify the tilt into one of four categories. 
+Consequently, each 𝛥𝑖𝑛 from Eq. (1) takes one of the following four 
+values (the other three are zero):
+≥ 𝑔0
+
+𝛥𝑂𝐺
+𝑖𝑛 ∶ when 𝛥𝑖𝑛 > 0 and 𝑔𝑛
+
+→ Overweight Green stocks (green tilt)
+
+𝛥𝑈 𝐵
+𝑖𝑛 ∶ when 𝛥𝑖𝑛 < 0 and 𝑔𝑛 < 𝑔0
+
+→ Underweight Brown stocks (green tilt)
+
+𝛥𝑂𝐵
+𝑖𝑛 ∶ when 𝛥𝑖𝑛 > 0 and 𝑔𝑛 < 𝑔0
+
+(13)
+
+(14)
+
+L. Pastor et al.
+
+→ Overweight Brown stocks (brown tilt)
+
+𝛥𝑈 𝐺
+𝑖𝑛 ∶ when 𝛥𝑖𝑛 < 0 and 𝑔𝑛
+
+≥ 𝑔0
+→ Underweight Green stocks (brown tilt) .
+
+(15)
+
+(16)
+
+There are two types of ‘‘green tilts’’, which reflect green investment 
+behavior, and two types of ‘‘brown tilts’’, which reflect brown invest-
+ment behavior. An investor can tilt green by either overweighting green 
+stocks or underweighting brown stocks. An investor can tilt brown by 
+either overweighting brown stocks or underweighting green stocks.
+
+Aggregating the signed tilts across stocks to the investor level, we 
+
+define
+
+𝑇 𝑂𝐺
+𝑖
+
+=
+
+𝑇 𝑂𝐵
+𝑖
+
+=
+
+𝑁
+∑
+
+𝑛=1
+𝑁
+∑
+
+𝑛=1
+
+𝛥𝑂𝐺
+𝑖𝑛
+
+,
+
+𝑇 𝑈 𝐵
+𝑖
+
+= −
+
+𝛥𝑂𝐵
+𝑖𝑛 ,
+
+𝑇 𝑈 𝐺
+𝑖
+
+= −
+
+𝑁
+∑
+
+𝑛=1
+𝑁
+∑
+
+𝑛=1
+
+𝛥𝑈 𝐵
+𝑖𝑛
+
+,
+
+𝛥𝑈 𝐺
+𝑖𝑛
+
+.
+
+(17)
+
+We put minus signs in front of two of the sums to ensure that all four 
+tilts are nonnegative. For a given investor 𝑖, all four tilts can be strictly 
+positive—the investor can be overweighting some green stocks while 
+underweighting others, and similarly for brown stocks.
+
+To quantify a given investor’s overall green and brown behaviors, 
+we combine the above tilts to measure the investor’s total green tilt 
+(𝑇 𝐺
+
+𝑖 ):
+
+𝑖 ) and total brown tilt (𝑇 𝐵
+𝑇 𝐺
+𝑖 = 𝑇 𝑂𝐺
+𝑖 = 𝑇 𝑂𝐵
+𝑇 𝐵
+We also compute the investor’s green-minus-brown tilt as7
+
+𝑖 + 𝑇 𝑈 𝐵
+𝑖 + 𝑇 𝑈 𝐺
+
+≥ 0 .
+
+≥ 0
+
+𝑖
+
+𝑖
+
+(18)
+
+(19)
+
+(20)
+
+𝑇 𝐺𝑀𝐵
+𝑖
+
+= 𝑇 𝐺
+
+𝑖 − 𝑇 𝐵
+𝑖
+
+.
+
+> 0  indicates  that  the  investor’s  behavior  is  green  overall, 
+< 0 indicates net brown behavior. For comparison, note 
+
+𝑇 𝐺𝑀𝐵
+𝑖
+whereas 𝑇 𝐺𝑀𝐵
+that the unsigned tilt from Eq. (7) equals
+
+𝑖
+
+𝑇𝑖 =
+
+=
+
+1
+2
+1
+2
+
+(𝑇 𝑂𝐺
+
+𝑖 + 𝑇 𝑈 𝐵
+
+𝑖
+
++ 𝑇 𝑂𝐵
+
+𝑖 + 𝑇 𝑈 𝐺
+
+𝑖
+
+(𝑇 𝐺
+
+𝑖 + 𝑇 𝐵
+
+𝑖 ) .
+
+)
+
+(21)
+
+(22)
+
+The value of 𝑇𝑖 thus represents the average of the green and brown tilts 
+𝑇 𝐺
+𝑖  and 𝑇 𝐵
+
+ represents their difference.
+
+𝑖 , whereas 𝑇 𝐺𝑀𝐵
+
+We also compute asset-weighted averages across investors, analo-
+gous to Eqs. (10) through (12), yielding the aggregate tilt measures 𝑇 𝐺, 
+𝑇 𝐵, and 𝑇 𝐺𝑀𝐵. If the aggregates are computed across all investors, the 
+green and brown tilts are always equal: 
+
+𝑖
+
+𝑇 𝐺 = 𝑇 𝐵 ,
+
+(23)
+
+as we prove in Appendix  A. Given that the green and brown tilts fully 
+offset each other, the value of 𝑇 𝐺𝑀𝐵 computed across all investors is 
+zero. Nonetheless, 𝑇 𝐺𝑀𝐵 can be nonzero when computed across subsets 
+of investors, as we show later.
+
+Finally, we separate the green and brown tilts into their extensive- 
+and intensive-margin components. We first split the 𝛥𝑖𝑛’s in Eqs. (13) 
+through (16) into two parts, as in Eq. (4). We then aggregate those parts 
+to the investor level, as in Eqs. (8) and (9), and then to the aggregate 
+level, as in Eqs. (10) through (12).
+
+3. Estimation framework
+
+To estimate the portfolio tilts from Section 2, we first estimate two 
+quantities: 𝜋𝑖𝑛, the probability of investor 𝑖 holding stock 𝑛, and 𝑤+
+𝑖𝑛, 
+the expected weight conditional on holding the stock (see Eqs. (2) and 
+
+7 An  alternative  way  to  compute  this  quantity  is  𝑇 𝐺𝑀𝐵
+𝑛∈
+𝐵
+
+𝛥𝑖𝑛 −
+𝐵 denote the sets of all green and brown stocks, 
+
+𝛥𝑖𝑛, where 
+
+𝐺 and 
+
+𝑛∈
+
+𝐺
+
+𝑖
+
+∑
+
+= ∑
+
+respectively.
+
+5 
+
+Journal of Financial Economics 174 (2025) 104173 
+
+(3)). With those estimates in hand, we compute the components of 𝛥𝑖𝑛
+in Eqs. (5) and (6), which yield 𝛥𝑖𝑛 in Eq. (4).8 We then aggregate the 
+𝛥𝑖𝑛 estimates into the tilts defined in Section 2. We estimate 𝜋𝑖𝑛 and 
+𝑤+
+𝑖𝑛 separately for each quarter 𝑡, but we continue suppressing the 𝑡
+subscripts, as in Section 2.
+
+Estimating 𝜋 and 𝑤+ requires a model for portfolio weights. In Sec-
+tion 3.1, we describe our econometric model for the extensive margin 
+of portfolio weights, which yields an estimate of 𝜋. In Section 3.2, we 
+present our model for the intensive margin, which yields an estimate of 
+𝑤+, after incorporating a selection correction described in Section 3.3. 
+In Section 3.4, we discuss how we adjust our estimates for potential 
+bias and compute their standard errors.
+
+We arrange the elements of  into an 𝑁 × 𝐾1 matrix 𝐺 of the 𝑁
+stocks’ ESG characteristics. We also arrange the elements of  into 
+an 𝑁 × 𝐾2 matrix 𝐶 of non-ESG characteristics, which include stocks’ 
+market capitalization weights. We define 𝑋 ≡ [𝜄 𝐺 𝐶], where 𝜄 is an 𝑁-
+vector of ones, so that 𝑋 is an 𝑁 ×𝐾 matrix, where 𝐾 = 1+ 𝐾1 +𝐾2. Let 
+𝑥𝑛𝑗 denote the (𝑛, 𝑗) element of 𝑋, and 𝑋𝑛 its 𝑛th row. We ensure that 
+all elements of 𝑋 are non-negative (by using cross-sectional percentiles 
+of raw characteristics, as we explain later).
+
+We estimate tilts related to ESG characteristics, but our method-
+ology can be used to estimate tilts related to other characteristics of 
+interest. That is, let  contain those characteristics and  contain other 
+characteristics included as controls. The tilts defined in Section 2 are 
+then reinterpreted as tilts related to the characteristics in . A key 
+aspect of our methodology in general is that it estimates tilts at the 
+extensive margin in addition to the intensive margin. An alternative 
+approach for analyzing primarily the latter is Koijen and Yogo (2019), 
+who take as exogenous the subset of stocks an institution can weight 
+positively.
+
+3.1. Extensive margin
+
+Our model of the extensive margin gives the value of 
+≡ Prob{𝑤𝑖𝑛 > 0|𝑋} .
+
+𝜋𝑖𝑛
+
+(24)
+
+We assume that 𝜋𝑖𝑛 for each investor-stock pair is given by an investor-
+specific probit model: 
+
+𝜋𝑖𝑛 = 𝛷(𝑋𝑛𝑎𝑖) ,
+
+(25)
+
+where 𝛷(⋅) denotes the cumulative distribution function of the standard 
+normal distribution.
+
+We estimate the model in Eq. (25) for each investor 𝑖 across all 
+stocks with non-missing data; as a result, the number of observations is 
+the same for all investors. The dependent variable is an indicator 1𝑤𝑖𝑛>0, 
+which is equal to one if stock 𝑛 is held by investor 𝑖 and zero otherwise. 
+We estimate the coefficients 𝑎𝑖 by maximum likelihood and denote the 
+fitted value by ̂𝜋𝑖𝑛. The estimated probabilities ̂𝜋𝑖𝑛 lie between 0 and 1, 
+by construction. Additional details, including on goodness of fit, are in 
+the Internet Appendix.
+
+Suppose 𝑋 were to include all of the information used by investor 
+𝑖, such that 1𝑤𝑖𝑛>0 depends deterministically on 𝑋. The latter depen-
+dence could involve all rows of 𝑋, not just 𝑋𝑛, but that dependence 
+would likely be complicated, having no analytic solution, especially 
+with realistic constraints on asset weights faced by many institutions.9 
+Given that any 𝑋 we specify empirically is only a subset of the in-
+vestor’s information, the dependence of 1𝑤𝑖𝑛>0 on 𝑋 is probabilistic, 
+not  deterministic.  We  condition  the  probability  in  Eq.  (25)  on  just 
+𝑋𝑛 for parsimony and tractability. The modeled randomness in 1𝑤𝑖𝑛>0
+therefore reflects the omission of information as well as uncertainty 
+
+8 Note that 𝛥𝑖𝑛 is defined for all stocks 𝑛, including stocks not actually held 
+
+by investor 𝑖.
+
+9 For example, even a standard mean–variance optimization with short-sale 
+
+constraints generally does not admit an analytic solution.
+
+L. Pastor et al.
+
+about how information determines the institution’s asset choices. We 
+construct 𝑋𝑛 as the cross-sectional percentiles of asset 𝑛’s character-
+istics, as explained later, so to that extent 𝑋𝑛 incorporates cross-asset 
+information. All stocks’ 𝑋𝑛 values affect the probit estimate of 𝑎𝑖, which 
+is another way cross-asset information enters.
+
+3.2. Intensive margin
+
+Our model of the intensive margin gives the value of 
+≡ E[𝑤𝑖𝑛|𝑤𝑖𝑛 > 0, 𝑋, 𝜋𝑖] .
+
+𝑤+
+𝑖𝑛
+
+(26)
+
+The expectation in Eq. (26) conditions on the full set of probabilities 
+≡ [𝜋𝑖1 ⋯ 𝜋𝑖𝑁 ]′ and the full matrix 𝑋, because an investor’s expected 
+𝜋𝑖
+weight on a given stock can depend on what other stocks, and char-
+acteristics thereof, the investor could hold as well. For example, the 
+portfolio weight on each stock held by the investor can depend on the 
+greenness of all stocks, including stocks not held.
+
+We model 𝑤+
+
+𝑖𝑛 as a restricted linear function of stock 𝑛’s charac-
+teristics, after scaling it by the stock’s market portfolio weight, 𝑤𝑚𝑛. 
+Specifically, we assume that 
+
+𝑤+
+𝑖𝑛
+𝑤𝑚𝑛
+
+𝐾
+∑
+
+=
+
+𝑐𝑖𝑗 𝑥𝑛𝑗 ,
+
+𝑛 = 1, … , 𝑁,
+
+(27)
+
+𝑗=1
+so that 𝑤+
+𝑖𝑛 is linear in the 𝐾 values of 𝑤𝑚𝑛𝑥𝑛𝑗 . If stock 𝑛 is held, 
+its expected weight could in principle depend not only on the stock’s 
+own value of 𝑤𝑚𝑛𝑥𝑛𝑗 but also on the values of that quantity for other 
+stocks the investor may hold. Recognizing that potential dependence, 
+we allow 𝑐𝑖𝑗 to depend on the portfolio’s expected sum of 𝑤𝑚𝑛𝑥𝑛𝑗 across 
+stocks. We also restrict the expected portfolio weights to add up to one:
+𝑁
+∑
+
+𝜋𝑖𝑛𝑤+
+
+𝑖𝑛 = 1 ,
+
+𝑛=1
+as long as 𝜋𝑖 has at least one positive element. As we show in the 
+Appendix, we can then estimate 𝑤+
+𝑖𝑛∕𝑤𝑚𝑛 by the fitted values from the 
+regression 
+
+𝐾
+∑
+
+=
+
+𝑏𝑖𝑗 ̃𝑥𝑖𝑛𝑗 + 𝑒𝑖𝑛 ,
+
+𝑛 = 1, … , 𝑁,
+
+𝑤𝑖𝑛
+𝑤𝑚𝑛
+
+𝑗=1
+where ∑𝐾
+
+̃𝑥𝑖𝑛𝑗 =
+
+𝑥𝑛𝑗
+𝑛=1 𝜋𝑖𝑛𝑤𝑚𝑛𝑥𝑛𝑗
+
+∑𝑁
+
+.
+
+𝑗=1 𝑏𝑖𝑗 = 1 and the 𝑗th independent variable is 
+
+This regression’s error term, 𝑒𝑖𝑛, could in principle be heteroskedastic, 
+but this concern should be alleviated by our use of scaled portfolio 
+weights,  𝑤𝑖𝑛∕𝑤𝑚𝑛,  on  the  left-hand  side.  In  fact,  the  main  reason 
+why we scale 𝑤𝑖𝑛 by the market weight in Eq. (27) is to reduce the 
+heteroskedasticity in 𝑒𝑖𝑛. If we worked with raw weights 𝑤𝑖𝑛 instead, 
+𝑒𝑖𝑛’s would likely be more volatile for larger firms (whose portfolio 
+weights tend to be larger).
+
+To derive the regression model in Eq. (29), we assume that for each 
+
+stock 𝑛, 
+
+𝑤𝑖𝑛 = 𝑤+
+
+𝑖𝑛 + 𝜖𝑖𝑛 ,
+
+(31)
+
+(28)
+
+(29)
+
+(30)
+
+Journal of Financial Economics 174 (2025) 104173 
+
+of 𝜁𝑛 to 𝑤𝑖𝑛 be 𝜆𝑖𝜁𝑛. The correlation between 𝜖𝑖𝑛 and 𝑝𝑛 is positive 
+(negative)  if  𝜆𝑖  and  ̄𝜆  have  the  same  (opposite)  sign.  Suppose  the 
+investor  is  an  actively  managed  fund.  (For  a  passive  fund,  we  are 
+presumably not omitting a relevant 𝜁𝑛.) Suppose 𝜁𝑛 reflects positive 
+noise-trader sentiment injecting a positive component,  ̄𝜆𝜁𝑛, into the 
+equilibrium 𝑝𝑛. On one hand, an active manager with sufficient skill 
+to recognize that effect underweights the stock, giving the fund’s 𝜆𝑖
+the opposite sign of  ̄𝜆. That opposite sign occurs even if the fund and 
+others with similar skill exert negative pressure on 𝑝𝑛 in the process 
+of underweighting the stock. The decision to underweight the stock 
+is made with full knowledge of the accompanying 𝑝𝑛, whatever the 
+forces determining that equilibrium price. On the other hand, an active 
+manager with less skill can be infected with the same positive sentiment 
+as the noise traders, giving that fund’s 𝜆𝑖 the same sign as  ̄𝜆. Because 
+even the sign of any correlation between 𝜖𝑖𝑛 and 𝑝𝑛 is ambiguous, we 
+adopt E[𝜖𝑖𝑛|𝑋] = 0 as a reasonable simplification. Also motivating this 
+simplification is that we do not focus on the relation between 𝑤𝑖𝑛 and 
+the price-related variables in 𝑋.
+
+3.3. Selection correction
+
+The regression in Eq. (29) assumes that for each stock 𝑛 in the 𝑁-
+stock universe, if investor 𝑖 were to hold the stock, the weight they 
+would place on it, 𝑤𝑖𝑛, would obey that equation, with E[𝑒𝑖𝑛|𝑋] = 0. 
+The values of 𝑤𝑖𝑛 we use in estimating the regression in Eq. (29) can 
+be only those for the subset of stocks actually held by the investor. If 
+the probability of holding stock 𝑛 is correlated with 𝑒𝑖𝑛, then 𝑒𝑖𝑛 need 
+not have zero expectation conditional on stock 𝑛 being in that selected 
+subset. Estimates of 𝑏𝑖𝑗 can be inconsistent if this selection effect is not 
+corrected.
+
+To correct for selection, we follow the two-step procedure of Heck-
+man (1979), as described in Appendix  A. We find empirically that the 
+selection correction matters more for institutions holding fewer stocks, 
+for which selection is more likely to matter. Given that institutions 
+holding fewer stocks tend to be smaller, the correction makes relatively 
+little difference in the aggregate asset-weighted tilt estimates (see the 
+Internet Appendix).
+
+3.4. Bias adjustment and standard errors
+
+The coefficients in Eqs. (25) and (29) are consistently estimated, 
+and thus so are the values of 𝛥𝑖𝑛 and the resulting tilts defined in Sec-
+tion 2. The finite-sample properties of those estimates are not evident, 
+however. We therefore conduct bootstrap simulations to adjust for any 
+potential biases in our estimated tilts and to obtain standard errors.
+
+𝑖
+
+For  example,  to  de-bias  the  raw  estimates  of  𝑇𝑖,  which  we  de-
+note by 𝑇 𝑟𝑎𝑤
+, we simulate many samples of portfolio weights, which 
+we  denote  by  ̃𝑤𝑖𝑛,  by  resampling  the  residuals  from  the  extensive- 
+and intensive-margin regressions estimated on the sample of observed 
+weights, 𝑤𝑖𝑛. For each simulated sample  ̃𝑤𝑖𝑛, we estimate the extensive- 
+and intensive-margin regressions on that sample, obtaining an estimate 
+of the investor-level tilt, which we denote by  ̃𝑇𝑖. We estimate the bias 
+, where  ̄̃𝑇𝑖 is the average value of  ̃𝑇𝑖
+in 𝑇 𝑟𝑎𝑤
+𝑖
+𝑖
+across simulations. Our bias-adjusted estimate of 𝑇𝑖 is 𝑇 𝑟𝑎𝑤
+− 𝑇 𝐵𝑖𝑎𝑠𝑖. 
+An important by-product of the bootstrap analysis is the standard error 
+of 𝑇𝑖, which we obtain from the standard deviation of the  ̃𝑇𝑖’s across 
+simulations. The details of the bootstrap procedure are in Appendix  A.
+
+ as 𝑇 𝐵𝑖𝑎𝑠𝑖 = ̄̃𝑇𝑖 − 𝑇 𝑟𝑎𝑤
+
+𝑖
+
+with E[𝜖𝑖𝑛|𝑋] = 0. The assumption that E[𝜖𝑖𝑛|𝑋] = 0 merits discussion 
+in  light  of  alternative  treatments  such  as  Koijen  and  Yogo  (2019). 
+Following  their  argument,  note  that  𝜖𝑖𝑛  includes  effects  on  𝑤𝑖𝑛  of 
+the stock’s characteristics that our model omits. Let 𝜁𝑛 denote such a 
+characteristic. If 𝜁𝑛 is related to demands for stock 𝑛 by a substantial 
+mass of investors, then 𝜁𝑛 can affect the stock’s price, 𝑝𝑛, making 𝜖𝑖𝑛
+correlated with 𝑝𝑛. Because 𝑋 includes variables that contain 𝑝𝑛, such 
+as the market weight 𝑤𝑚𝑛, the assumption E[𝜖𝑖𝑛|𝑋] = 0 then fails.
+
+While the above scenario of non-zero correlation between 𝜖𝑖𝑛 and 
+𝑝𝑛 is possible, it does not even imply a sign for the correlation. In 
+particular, let ̄𝜆𝜁𝑛 denote the effect of 𝜁𝑛 on 𝑝𝑛, and let the contribution 
+
+4. Estimates of ESG tilts: Financial institutions
+
+This section presents our main empirical findings. Using the econo-
+metric framework from Section 3, we estimate the ESG-related portfolio 
+tilts introduced in Section 2 for a comprehensive sample of institutional 
+investors. After describing our data in Section 4.1, we analyze total ESG 
+tilts in Section 4.2, followed by green and brown tilts in Section 4.3. 
+In Section 4.4, we examine how the tilts vary across institutions. In 
+Section  4.5,  we  study  tilts  based  on  industry-adjusted  ESG  scores. 
+Finally, in Section 4.6, we assess the robustness of our results using 
+ESG metrics from an alternative data provider.
+
+6 
+
+L. Pastor et al.
+
+4.1. Data
+
+We estimate the model using quarterly panel data on institutional 
+investment managers that file Form 13F with the Securities and Ex-
+change Commission. An institution is required to file this form if its 
+holdings of U.S. stocks exceed $100 million. Here, ‘‘institution’’ refers 
+to an investment company such as Fidelity, not its individual funds. 
+Most sample institutions are investment advisors, but the sample also 
+includes banks, insurance companies, pension funds, and endowments. 
+It also includes non-U.S. institutions’ holdings of U.S. stocks.
+
+We obtain the 13F holdings data from Thomson/Refinitiv. From 
+these data, we compute institutions’ quarterly portfolio weights 𝑤𝑖𝑛
+among the subset of ‘‘covered’’ stocks, meaning stocks with non-missing 
+ESG  and  non-ESG  characteristics.  There  are  roughly  2,000  covered 
+stocks throughout our sample period. In 2023, covered stocks account 
+for 86% of the combined market capitalization of all CRSP stocks.10 
+We define an institution’s AUM to be its combined dollar holdings of 
+covered stocks.
+
+We exclude institutions with less than $100 million in total 13F 
+holdings (covered and uncovered), less than 50% of their total 13F 
+dollar holdings in covered stocks, and, to allow sufficient precision in 
+the intensive model, fewer than 30 covered stocks held. These filters 
+drop institutions that together account for just 3.8% of covered stocks’ 
+total market capitalization in 2023.
+
+The number of institutions in our sample ranges from 1,727 in 2012 
+to 3,260 in 2023. Institutions’ combined AUM increases from $9.7 tril-
+lion to $31.5 trillion during that period. The institutions hold between 
+63% and 70% of covered stocks’ combined market capitalization during 
+our sample period.
+
+Our measures of ESG characteristics follow Pástor et al. (2022), 
+who use data from MSCI, the world’s largest provider of ESG ratings 
+(e.g., Eccles and Stroehle (2018), and Berg et al. (2023b)).  Berg et al. 
+(2023a) find that among the ESG ratings from five major providers, 
+MSCI’s rating is the most important in explaining ESG fund holdings. 
+They also note that MSCI has the largest market share in the ESG 
+data market. The MSCI data cover more companies than other ESG 
+raters  (Berg  et  al.,  2022)  and  provide  granular  industry-unadjusted 
+measures. Our sample begins in 2012q4, when MSCI greatly expanded 
+its coverage.
+
+We compute environmental greenness as in Pástor et al. (2022), 
+interacting the MSCI variables ‘‘Environmental Pillar Score’’ and ‘‘Envi-
+ronmental Pillar Weight’’.11 We compute social and governance green-
+ness the same way, replacing MSCI’s E variables with their S and G 
+counterparts. In most of our analysis, each stock’s ESG characteristics 
+are represented by a 3 × 1 vector representing E, S, and G greenness. 
+In some of our analysis, there is only one ESG characteristic per stock: 
+the stock’s composite ESG score, which is equal to MSCI’s Weighted 
+Average Key Issue score. This composite score equals the sum of our E, 
+S, and G greenness measures plus a constant.
+
+In the set of non-ESG stock characteristics, we include seven vari-
+ables that are commonly used in portfolio construction: market capi-
+talization, book-to-market ratio, profitability, investment, dividends-to-
+book ratio, market beta, and the stock’s return over the past 12 months, 
+excluding the most recent month. All seven variables are motivated by 
+evidence from prior work cited earlier. For example, Koijen and Yogo 
+(2019) use essentially the same variables, except for the last one, which 
+is motivated by Gompers and Metrick (2001). In the intensive-margin 
+
+10 We study stocks with CRSP share codes of 10, 11, 12, or 18.
+11 Environmental greenness equals −(10 − 𝐸_𝑠𝑐𝑜𝑟𝑒𝑖,𝑡−1) × 𝐸_𝑤𝑒𝑖𝑔ℎ𝑡𝑖,𝑡−1∕100. 
+𝐸_𝑠𝑐𝑜𝑟𝑒  is  ‘‘Environmental  Pillar  Score’’,  a  number  between  zero  and  10 
+measuring a company’s resilience to long-term environmental risks. 𝐸_𝑤𝑒𝑖𝑔ℎ𝑡
+is ‘‘Environmental Pillar Weight’’, a number between zero and 100 measuring 
+the importance of E relative to S and G in the company’s industry. As Pástor 
+et al. (2022) explain, interacting pillar scores and weights in this way is 
+important for producing a meaningful measure of greenness.
+
+Journal of Financial Economics 174 (2025) 104173 
+
+model, non-ESG characteristics also include 𝑤𝑚𝑛, the stock’s weight in 
+the market portfolio of covered stocks, as dictated by the model. The 
+intensive model thus includes two different measures related to stock 
+size. All variables are computed from CRSP and Compustat data. Their 
+precise definitions are in the Internet Appendix.
+
+Some of the non-ESG stock characteristics, such as market capital-
+ization, exhibit significant skewness. Therefore, instead of using their 
+raw  values,  we  employ  their  cross-sectional  percentiles.  For  consis-
+tency, we also use cross-sectional percentiles of stocks’ E, S, and G 
+greenness values, as well as of the stock’s ESG composite score. In 
+short, both sets  and  contain the cross-sectional percentiles of stocks’ 
+characteristics rather than raw values. Finally, we use cross-sectional 
+percentiles also to compute 
+0, which contains the values of the ESG 
+characteristics  for  the  market  portfolio.  For  each  characteristic,  we 
+compute its value-weighted average across all covered stocks, then we 
+set the corresponding element of 
+0 to that average’s percentile in the 
+cross section of stocks.
+
+4.2. Total ESG tilts
+
+The solid line in Panel A of Fig.  1 displays quarterly estimates of 
+𝑇  from Eq. (10) computed across all sample 13F institutions, i.e., the 
+aggregate ESG-related tilt. The series begins at 6.9% in 2012, drops 
+as low as 5.2% in 2016, and ends at 6.5% in 2023. In other words, 
+the  dollar  amount  of  ESG-related  effects  in  each  institution’s  stock 
+holdings, summed across institutions, has consistently been about 6% 
+of the institutions’ total AUM.
+
+The estimates of 𝑇  are bias-adjusted using the bootstrap procedure 
+explained earlier, which also provides standard errors. The bootstrap 
+results validate well our estimation approach under the model assump-
+tions, as the estimates of 𝑇  require minimal bias adjustment and have 
+low standard errors. The bias adjustment in 𝑇  averages just 0.1% across 
+quarters, and the standard errors in 𝑇  are at most 0.2%. Table  1 reports 
+fourth-quarter values, year by year, of the tilts plotted in Fig.  1, along 
+with  the  bootstrap  standard  errors.12  A  key  reason  behind  the  low 
+standard errors of 𝑇  is that estimation error in each institution’s 𝑇𝑖
+diversifies across institutions when computing the weighted sum in 
+Eq. (10); a standard error of 𝑇𝑖 is typically much larger than that of 
+𝑇 . In the last quarter of 2023, for example, the estimate of Fidelity’s 𝑇𝑖
+has a standard error of 1.2%, as compared to the 0.1% standard error 
+of 𝑇  in Table  1. Fidelity’s estimated 𝑇𝑖 in that quarter is 5.5%, after 
+a bias adjustment of 0.2%. Recall that Fidelity’s bias adjustment and 
+standard error reflect a bootstrap simulation conducted separately for 
+each institution and quarter.
+
+A key feature of our estimation approach is that it controls for 
+numerous  non-ESG  stock  characteristics.  If  we  rerun  our  approach 
+without  including  those  controls,  the  estimate  of  𝑇   is  substantially 
+larger, attributing too much to ESG effects. In 2023, for example, that 
+alternative estimate is 11.5%, more than three-fourths higher than our 
+estimate of 6.5% when controls are included. Across institutions, the 
+correlation between 𝑇𝑖 values estimated with and without controls is 
+just 0.42. Again in the case of Fidelity, the 5.5% value of 𝑇𝑖 noted above 
+instead becomes 7.8% without controls, more than a 40% increase. 
+Such  results  underscore  the  importance  of  controlling  for  non-ESG 
+characteristics when computing ESG-related tilts.
+
+As noted earlier,  includes three ESG characteristics per stock—
+cross-sectional percentiles of the E, S, and G greenness measures. To 
+complement this baseline analysis, we re-estimate the model with 
+containing only one ESG characteristic: the composite ESG score, also 
+expressed as a cross-sectional percentile. The resulting estimates of 𝑇
+are substantially smaller. In 2023, for example, our estimate of 𝑇  that 
+
+12 These standard errors lend themselves to the usual interpretation, because 
+the 5th and 95th percentiles of the bootstrap distributions are close to the 
+estimated tilts minus/plus twice the standard errors.
+
+7 
+
+L. Pastor et al.
+
+Fig. 1. Total, intensive, and extensive ESG tilts. Panel A plots the aggregate 
+ESG-related tilt (𝑇 ) and its decomposition into intensive and extensive tilts, 
+𝑇 𝑖𝑛𝑡 and 𝑇 𝑒𝑥𝑡, respectively. In Panel B, we divide each institution’s tilt by 
+its active share and then plot the AUM-weighted average of the resulting 
+quantities. Tilt estimates are from the specification in which  contains three 
+ESG characteristics (E, S, and G) per stock. Tick marks are at the fourth quarter 
+of each year.
+
+allows the three ESG dimensions to matter individually is 1.7 times 
+the estimate based on the composite. A single ESG score thus fails to 
+capture the full extent of ESG-related tilts. The three dimensions of ESG 
+are distinct, and institutions differ in how much importance they assign 
+to each dimension.
+
+Panel A of Fig.  1 also displays estimates of the aggregate tilts at 
+the intensive and extensive margins, defined in Eqs. (11) and (12). The 
+extensive-margin tilt is typically around 2%, while the intensive-margin 
+tilt is two to four times higher.
+
+The greater role for the intensive-margin tilt could in principle be 
+driven by institutions holding many stocks. After all, the extensive-
+margin tilt of an institution holding every stock (e.g., a total market 
+index fund) is zero. Our aggregate tilts are AUM-weighted, and large 
+institutions  tend  to  hold  more  stocks.  To  investigate,  we  construct 
+two counterparts of Panel A of Fig.  1, where instead of aggregating 
+tilts across all institutions, we aggregate them within two subsets. The 
+first subset includes institutions that hold an above-median number of 
+stocks in the given quarter, while the second subset includes institutions 
+
+Journal of Financial Economics 174 (2025) 104173 
+
+Table 1
+Aggregate tilts.
+This table shows estimated aggregate tilts from each year’s fourth quarter. 
+Tilts  are  estimated  from  the  specification  in  which    contains  three  ESG 
+characteristics (E, S, and G) per stock. Columns 2 to 4 report the estimated tilts, 
+and columns 5 to 7 show the bootstrapped standard errors. Tilts are expressed 
+as a fraction of institutions’ aggregate covered AUM.
+
+Estimated tilt
+Total
+
+Intensive
+
+Extensive
+
+Standard error
+Total
+
+Intensive
+
+0.069
+0.063
+0.059
+0.059
+0.052
+0.055
+0.055
+0.054
+0.063
+0.062
+0.065
+0.065
+
+0.057
+0.051
+0.053
+0.051
+0.047
+0.050
+0.052
+0.050
+0.059
+0.058
+0.061
+0.061
+
+0.029
+0.027
+0.023
+0.022
+0.019
+0.019
+0.018
+0.020
+0.018
+0.017
+0.015
+0.015
+
+0.002
+0.002
+0.002
+0.002
+0.002
+0.002
+0.002
+0.002
+0.002
+0.001
+0.002
+0.001
+
+0.002
+0.002
+0.002
+0.002
+0.002
+0.002
+0.002
+0.001
+0.002
+0.001
+0.002
+0.001
+
+Extensive 
+0.001
+0.001
+0.001
+0.001
+0.001
+0.001
+0.001
+0.001
+0.001
+0.001
+0.001
+0.000
+
+  Year
+  2012
+  2013
+  2014
+  2015
+  2016
+  2017
+  2018
+  2019
+  2020
+  2021
+  2022
+  2023
+
+with a below-median number of holdings, typically fewer than 100.13 
+(The plots are in the Internet Appendix.) We find that all tilts are 
+substantially smaller for the first subset of institutions, which is not 
+surprising, as larger institutions tend to tilt less. More importantly, for 
+both subsets of institutions, the intensive-margin tilt always exceeds the 
+extensive-margin tilt. Specifically, for the first subset, the intensive-to-
+extensive tilt ratio varies from 2.1 to 6.4 across quarters, while for the 
+second subset it varies from 1.2 to 2.1. So, even for institutions holding 
+relatively few stocks, the intensive-margin tilt is substantially higher 
+than the extensive-margin tilt. Therefore, our finding of a greater role 
+for the intensive-margin tilt is not driven just by institutions that hold 
+many stocks.
+
+Our 6% headline number of the aggregate ESG tilt rests on a variety 
+of modeling choices. As noted earlier, this number would rise if we 
+were to leave out controls for non-ESG characteristics, and it would fall 
+if we were to replace the E, S, and G scores with the ESG composite. 
+It would also rise if we were to disaggregate the holdings of mutual 
+fund families (see Section 5), but it might fall if we were to include 
+more non-ESG characteristics beyond the seven already included. The 
+number is also conditional on the functional forms of our extensive- and 
+intensive-margin models as well as ESG ratings from a specific provider 
+(see Section 4.6 for an alternative). While we find our modeling choices 
+reasonable, we encourage the reader to view the magnitudes of our 
+results  with  the  customary  dose  of  caution.  We  also  note  that  our 
+measures of ESG investing exclude any potential greening of the market 
+portfolio (see Section 7) as well as shareholder engagement.
+
+4.2.1. ESG tilts in the context of total portfolio tilts
+
+Many discussions of ESG investing note its growing popularity over 
+the past decade. It may therefore seem puzzling that Panel A of Fig.  1 
+shows no clear upward trend in the aggregate ESG-related tilt. Instead, 
+the pattern is relatively flat, with the largest estimates of 𝑇  appearing 
+both early and late in the sample period.
+
+To understand this seeming puzzle, it is useful to note that ESG in-
+vesting is not the only trend in the U.S. investment industry. Two other 
+trends also matter in this context. First, indexing has steadily gained 
+
+13 The median number of stocks held ranges from 104 to 121 across quarters, 
+with the overall median of 115 across institution-quarters. The 90th percentile 
+of the number of holdings across institution-quarters is 653, less than one third 
+of all covered stocks in our sample. Most institutions hold relatively few stocks.
+
+8 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+L. Pastor et al.
+
+Journal of Financial Economics 174 (2025) 104173 
+
+market share relative to active management.14 Second, actively man-
+aged funds have become more diversified, increasingly holding more 
+stocks and aligning more closely with benchmark weights (e.g., Pástor 
+et al., 2020). In other words, active management has been both losing 
+market share and becoming less active, continuing the trends noted 
+by  Stambaugh  (2014).  These  trends  combine  to  produce  a  down-
+ward trend in the industry’s overall portfolio tilts relative to passive 
+benchmarks.
+
+Given  this  broader  decline  in  portfolio  tilts,  it  is  less  surprising 
+that ESG-related tilts have not increased. We suggest gauging ESG tilts 
+within the context of this overall reduction in active tilts. A simple 
+measure of institution 𝑖’s total portfolio tilt is active share, defined 
+by Cremers and Petajisto (2009) as 
+
+𝑁
+∑
+
+|𝑤𝑖𝑛 − 𝑤𝑚𝑛| .
+
+(32)
+
+𝐴𝑆𝑖 =
+
+1
+2
+
+𝑛=1
+
+Active share varies both over time and across institutions. Panel A 
+of Fig.  2 displays the AUM-weighted average of active share for the 
+institutions in our sample. Consistent with a decline in tilts generally, 
+this  series  exhibits  a  steady  downward  trend,  falling  from  0.42  to 
+0.30  between  2012  and  2023.15  This  fall  in  total  tilts  represents  a 
+headwind to institutions’ ESG tilts. Panel B of Fig.  2 plots time series 
+of cross-sectional percentiles in active share. The 5th percentile hovers 
+around 0.3, while the 95th percentile is consistently near the maximum 
+value of 1.0. This large dispersion in active share reflects heterogeneity 
+in institutions’ investment approaches. For example, institutions with 
+a large presence in indexing tend to have low active shares. Given 
+their weaker propensity to tilt overall, such institutions typically have 
+relatively low ESG tilts, too.16
+
+To account for overall tilts, we divide each institution’s ESG tilt 
+by its concurrent active share. We then compute an AUM-weighted 
+average of these ratios and plot the resulting aggregate, essentially 
+a scaled version of 𝑇 , in Panel B of Fig.  1. In contrast to Panel A, 
+the scaled 𝑇  trends clearly upward, especially after 2016. Adjusting 
+for active share thus presents a different picture of ESG investing’s 
+importance over time: even though ESG tilts are not a growing share 
+of AUM, they are a growing share of total portfolio tilts. The latter 
+share doubles between 2016 and 2023, reaching 27% by the end of 
+our sample.
+
+4.3. Green and brown portfolio tilts
+
+Next, we separate green tilts from brown. For any given dimension 
+of ESG, such as E or the composite ESG score, we compute the various 
+tilts  defined  in  Section  2.4.  For  example,  by  taking  AUM-weighted 
+averages of 𝑇 𝐺
+𝑖  defined via Eqs. (17) through (19), we compute 
+the aggregate green and brown tilts, 𝑇 𝐺 and 𝑇 𝐵, respectively. In this 
+section, we examine the empirical patterns in green and brown tilts 
+both across investors and over time, considering both extensive and 
+intensive margins.
+
+𝑖  and 𝑇 𝐵
+
+Fig.  3 plots the time series of 𝑇 𝐺 (Panel A) and 𝑇 𝐵 (Panel B). 
+Each panel displays these tilts computed using four alternative scales 
+to classify greenness: E, S, G, and the composite ESG score. There are 
+
+14 For example, among equity mutual funds and ETFs, index funds’ owner-
+ship of the U.S. stock market increased from 9% to 18%, while active funds’ 
+ownership share dropped from 19% to 13% between 2013 and 2023 (see 
+the Investment Company Institute’s 2024 Investment Company Fact Book, page 
+29).
+15 A  steady  decline  in  active  share  has  been  reported  by  Cremers  and 
+Petajisto (2009), Stambaugh (2014), Koijen et al. (2024), and others. Koijen 
+et al. argue that most of this decline is due to capital flows from active to 
+passive investors rather than strategies becoming more passive.
+16 In an earlier version of this paper, we present regression evidence showing 
+a significant positive relation between institutions’ ESG tilts and their active 
+shares, across both time and institutions.
+
+9 
+
+Fig. 2. Active share. Panel A plots the AUM-weighted average of institutions’ 
+active share. Panel B plots the cross-sectional percentiles of active share.
+
+three main findings. First, 𝑇 𝐺 always exceeds 𝑇 𝐵, indicating that fi-
+nancial institutions as a whole tilt green throughout the sample period. 
+Second, 𝑇 𝐺 trends upward whereas 𝑇 𝐵 is fairly constant, implying that 
+institutions are becoming increasingly green. Third, all of these patterns 
+are similar across the four greenness measures.
+
+If 13F-filing institutions tilt green, other investors must tilt brown 
+(see Eq. (23)). We illustrate this point in Fig.  4. Our sample institutions’ 
+positive and increasing green-minus-brown (GMB) tilt is plotted as the 
+solid line in each of the four panels, with each panel based on one 
+of the four greenness measures. The dashed line shows the GMB tilt 
+of non-13F filers, taken collectively as one quasi-institution. Non-13F 
+filers include households and institutions below the $100 million filing 
+threshold for Form 13F. This segment of stockholders has tilted brown 
+and increasingly so, balancing the green tilt of the 13F-filers.
+
+Some of the most vocal dialogue surrounding ESG investing calls 
+for institutions to divest from brown stocks.17 Such divestment is the 
+component of green tilt that we denote as underweighting brown stocks 
+(Eq. (14)). In this context, divestment includes both avoidance of brown 
+
+17 For  example,  in  2020,  the  world’s  largest  asset  manager,  BlackRock, 
+announced that it would exit investments in thermal coal producers, and the 
+world’s largest sovereign wealth fund, that of Norway, fully divested from oil 
+and gas explorers and producers.
+
+L. Pastor et al.
+
+Journal of Financial Economics 174 (2025) 104173 
+
+Fig. 3. Green and brown tilts. The green and brown tilts for the ESG composite are from the model specification with a single ESG characteristic per stock. 
+The other three pairs of tilts are from the specification with three ESG characteristics per stock, changing one of the three characteristics to its neutral value 
+while holding the other two characteristics at their sample values. We plot the AUM-weighted average of the tilts.
+
+stocks and reduction of existing positions. Fig.  5 shows that divestment 
+at the intensive margin (Panel A) is consistently larger than divestment 
+at the extensive margin (Panel B). In other words, most divestment is 
+partial, reducing brown stocks’ weights, as opposed to total divestment 
+that  eliminates  holdings.  This  finding  is  consistent  with  the  theory 
+of Edmans et al. (2024), in which full divestment can be suboptimal 
+from  the  perspective  of  a  responsible  investor,  because  it  does  not 
+incentivize firms to mitigate their externalities. We find that, unlike 
+the extensive margin, the intensive one rises substantially over time, 
+especially from 2017 to 2022.
+
+4.4. Which institutions are greener?
+
+In this section, we analyze how greenness varies across institutions 
+with  respect  to  institutional  characteristics  such  as  size,  type,  and 
+location. We begin with institution size.
+
+In Fig.  6 we plot the AUM-weighted average GMB tilt separately for 
+large, medium, and small institutions, grouped by AUM terciles. For 
+each of the four greenness measures, large institutions exhibit positive 
+and mostly increasing GMB tilts. In other words, large institutions are 
+green, and increasingly so. In contrast, the GMB tilts of medium and 
+small institutions are often negative and mostly decreasing. In essence, 
+the 13F filers’ positive and growing GMB tilt, observed earlier in Fig. 
+4, owes to just the largest institutions.
+
+The world’s largest institution, BlackRock, increasingly emphasized 
+sustainability  in  the  late  2010s.  This  emphasis  culminated  in  Jan-
+uary 2020, when BlackRock declared that sustainability should be its 
+new standard for investing (BlackRock, 2020). After 2020, BlackRock’s 
+emphasis on sustainability waned. In line with these public stances, 
+BlackRock’s GMB tilt grew rapidly in the 2010s for all four measures 
+of greenness, peaked in 2020, and declined afterwards. For example, 
+based on the ESG composite, BlackRock’s tilt rose from nil in 2013 
+to 9% of AUM in 2020, before dropping to 5.5% of AUM by 2023. 
+BlackRock’s GMB tilt outpaced its large-institution counterpart, which 
+reached 4.2% of AUM in 2020 (see Panel A of Fig.  6). Nonetheless, 
+even when we exclude BlackRock from the large-institution group, the 
+remaining institutions in that group still display a positive and rising 
+GMB tilt for all four greenness measures. Similarly, when we exclude 
+the ‘‘Big Three’’ institutions — BlackRock, State Street, and Vanguard 
+— from the large-institution group, the remaining large institutions 
+have a positive and increasing GMB tilt. The main patterns in Fig.  6 
+are thus robust to the exclusions of BlackRock and the Big Three. See 
+the Internet Appendix for details.
+
+We also explore whether characteristics other than AUM relate to 
+an institution’s GMB tilt. First, we entertain differences across types 
+of institutions, as classified by prior studies including Bushee (2001) 
+and Bushee et al. (2014). Following those studies, we classify institu-
+tions as (i) investment advisors, (ii) banks, (iii) insurance companies, 
+or (iv) pensions/endowments.18 By both institution count and AUM, 
+the bulk of sample institutions are investment advisors, with banks a 
+distant second. Second, we consider whether an institution has signed 
+the UNPRI. We download the list of signatories and signature dates 
+from the UNPRI website. We merge these data with our sample by 
+using institution name and combining fuzzy matching, manual checks, 
+and web searches. Finally, we determine each institution’s geographical 
+location based on the 13F filings and manual checks.
+
+Table  2 reports the estimates from panel regressions of institutions’ 
+GMB tilts on a number of explanatory variables that include UNPRI, 
+institution-type, and location dummies as well as the institution’s ac-
+tive share and log AUM. We also include a time trend, by itself and 
+interacted with log AUM. Across the columns, we show specifications 
+with no fixed effects, with time fixed effects, and with institution fixed 
+effects. Results including both fixed effects are in the Internet Appendix; 
+they are very similar to the results based on institution fixed effects 
+only. When including fixed effects, we omit explanatory variables as ap-
+propriate (e.g., no institution-type dummies when including institution 
+fixed effects).
+
+A number of significant relations appear in Table  2. With either no 
+fixed effects or time fixed effects, AUM exhibits a strongly significant 
+positive relation to greenness. Since the time trend is constructed to 
+equal  zero  in  2023,  the  result  indicates  that  larger  institutions  are 
+greener at the end of the sample period. The positive coefficient on the 
+interaction term indicates that the relation between AUM and greenness 
+strengthens over time. These results are robust across greenness mea-
+sures, with just two exceptions (the AUM coefficient when greenness 
+is measured by E and the interaction-term coefficient when greenness 
+is measured by G). Estimates in the first column imply that increasing 
+AUM from its 33rd percentile to its 67th percentile is associated with 
+a 3.2 percentage point (pp) increase in GMB tilt in 2023 and a 1.6 pp 
+
+18 We are grateful to Brian Bushee for providing these data on his website. 
+Following Bushee et al. (2014), we combine the categories Investment Com-
+pany and Independent Investment Advisor into a single category; we combine 
+Public Pension Funds and University and Foundation Endowments into a single 
+category; and we omit institutions classified as Miscellaneous.
+
+10 
+
+L. Pastor et al.
+
+Journal of Financial Economics 174 (2025) 104173 
+
+Fig. 4. GMB tilts of 13F filers and non-filers. The solid line shows the AUM-weighted average of GMB tilt across sample 13F institutions. The dashed line shows 
+the same quantity for non-13F investors, which we treat as a single quasi-institution whose dollar holding of each stock equals the stock’s market capitalization 
+minus the combined holdings of the stock by 13F institutions (including those not in our sample). In Panel A,  contains just the composite ESG score, so tilts 
+are computed from the model specification with a single ESG characteristic per stock. In Panels B through D, 𝑔𝑛 is a stock’s E, S, or G component, and tilts are 
+computed from the specification with  containing three ESG characteristics per stock.
+
+decrease in GMB tilt in 2012.19 These relations, including their reversal 
+over time, are consistent with the patterns in Fig.  6.
+
+UNPRI  signatories  have  significantly  greener  tilts.  This  relation 
+holds strongly across institutions (i.e., in specifications with time fixed 
+effects), for all four greenness measures. The relation has the same 
+estimated sign also within institutions (i.e., in specifications with in-
+stitution  fixed  effects),  but  it  is  significant  only  for  the  E  measure 
+of greenness, indicating that an institution becomes environmentally 
+greener after signing UNPRI. Across institutions, UNPRI signatories’ 
+GMB tilts are higher by a sizable 1.8–4.7 pp. The regressions’ low 𝑅2
+values, however, suggest that UNPRI status is far from a perfect indi-
+cator of an institution’s greenness. Moreover, these simple regressions 
+do not establish any causal relation. Nonetheless, it seems useful to 
+document that institutions that sign a commitment to invest responsibly 
+tilt their portfolios toward greener stocks.
+
+19 The difference in log(AUM) between the two percentiles is 1.40. Note that 
+0.032 equals 1.40 × 0.0229, and −0.016 equals 1.40 × [0.0229 − 0.44 × 0.0779], 
+where −0.44 is the value of Trend in 2012.
+
+GMB tilts also differ significantly across the four institution types. 
+F-tests strongly reject equality of tilts across institution types, except 
+for the E measure of greenness. Depending on the specification, banks’ 
+GMB tilts are 2.9–14.0 pp lower than those of insurance companies (the 
+omitted type), and the difference is significant for each greenness mea-
+sure except E. Banks are also browner than both investment advisors 
+and pensions/endowments. In most specifications, insurance companies 
+are the greenest institution type.
+
+In the Internet Appendix, we show the time series of GMB tilts by 
+institution type. For all four types, including banks, the GMB tilt is 
+mostly positive and growing over the sample period. The positive GMB 
+tilt for banks may seem surprising, given the evidence discussed in the 
+previous paragraph. The reason behind it is that the type-level GMB tilts 
+are computed by AUM-weight-averaging the GMB tilts of institutions 
+within the given type. While a typical bank is brown, the largest banks 
+are green (recall the positive coefficients on AUM in Table  2), and their 
+greenness disproportionately affects the AUM-weighted average.
+
+As also shown by Table  2, European institutions are significantly 
+greener than U.S. ones (the omitted category). More precisely, Euro-
+pean institutions’ holdings of U.S. stocks are greener than U.S. insti-
+tutions’ holdings of U.S. stocks, as measured by GMB tilts. Depending 
+
+11 
+
+L. Pastor et al.
+
+Journal of Financial Economics 174 (2025) 104173 
+
+Fig. 5. Divestment from brown stocks. Divestment from brown stocks, which is a component of green tilt, can be done on either the extensive margin 
+(full divestment) or intensive margin (partial divestment). We show both. Panel A shows the component of intensive green tilts coming from under-weighting 
+brown stocks. Panel B shows the component of the extensive green tilts coming from under-weighting brown stocks. Tilts using the ESG composite are from the 
+model specification with a single ESG characteristic per stock, and other tilts are from the specification with three ESG characteristics per stock. We plot the 
+AUM-weighted average of the tilts.
+
+Table 2
+Which institutions are greener?
+This table shows results from panel regressions with the dependent variable equal to the institution’s GMB tilt, 𝑇 𝐺𝑀𝐵
+. The greenness measure is 
+noted in the column headers. All regressions use 100,357 institution×quarter non-missing observations from 2012q4–2023q4. AUM is divided by 
+the total market capitalization of all covered stocks. Trend equals the observation’s quarter minus 2023q4, divided by 100, so Trend is increasing 
+over time, zero at the end of the sample, and negative in preceding quarters. We compute active share as in Cremers and Petajisto (2009). 
+1(UNPRI) is an indicator for whether the institution signed the UNPRI on or before the given quarter. Institution types are from Bushee et al. 
+(2014), with 1(Insurance) the excluded category. Institution locations are from the 13F filings, with 1(United States) the excluded category. Robust 
+𝑡-statistics clustered by institution are in parentheses. The regression 𝑅2 as well as the 𝑅2 from a regression with fixed effects only are shown at 
+the bottom. The last row contains 𝑝-values testing whether the coefficients are equal across the four institution-type indicators (Insurance, Inv. 
+advisor, Bank, and Pension/endowment).
+
+𝑖𝑡
+
+  log(AUM)
+
+  log(AUM) × trend
+
+  Trend
+
+  Active share
+
+  1(UNPRI)
+
+  1(Inv. advisor)
+
+  1(Bank)
+
+No fixed effects
+Env.
+ESG
+
+Soc.
+
+Gov.
+
+0.0229
+(8.50)
+
+0.0779
+(8.19)
+
+0.6341
+(6.53)
+
+0.0043
+(1.42)
+
+0.0428
+(3.87)
+
+0.3585
+(3.18)
+
+0.0245
+(7.48)
+
+0.0513
+(4.66)
+
+0.4315
+(3.85)
+
+0.0179
+(6.91)
+
+0.0031
+(0.33)
+
+0.0276
+(0.28)
+
+Time fixed effects
+ESG
+
+Env.
+
+Soc.
+
+Gov.
+
+0.0231
+(8.56)
+
+0.0803
+(8.41)
+
+0.0056
+(1.85)
+
+0.0486
+(4.37)
+
+0.0251
+(7.64)
+
+0.0551
+(4.98)
+
+0.0194
+(7.53)
+
+0.0100
+(1.06)
+
+Institution fixed effects
+Env.
+ESG
+
+0.0085
+(1.46)
+
+0.0652
+(5.98)
+
+0.5056
+(4.79)
+
+−0.0157
+(−2.24)
+
+0.0347
+(2.93)
+
+0.2303
+(1.97)
+
+−0.0012 −0.0119
+(−0.58)
+(−0.07)
+
+0.0138
+(0.63)
+
+−0.0459
+(−2.52)
+
+−0.0016 −0.0120
+(−0.58)
+(−0.10)
+
+0.0128
+(0.58)
+
+−0.0461
+(−2.53)
+
+−0.0094 −0.0511
+(−1.00)
+(−0.22)
+
+0.0452
+(4.64)
+
+0.0453
+(4.09)
+
+0.0473
+(4.28)
+
+0.0196
+(2.22)
+
+0.0452
+(4.63)
+
+0.0438
+(3.96)
+
+0.0469
+(4.25)
+
+0.0180
+(2.04)
+
+0.0261
+(1.75)
+
+0.0500
+(2.86)
+
+−0.0244
+(−1.68)
+
+0.0019
+(0.10)
+
+−0.0058 −0.0214
+(−0.99)
+(−0.24)
+
+−0.0246
+(−1.69)
+
+0.0020
+(0.11)
+
+−0.0058 −0.0213
+(−0.98)
+(−0.24)
+
+−0.0855 −0.0292 −0.1398 −0.0623
+(−2.47)
+(−4.28)
+
+(−4.39)
+
+(−1.36)
+
+−0.0858 −0.0291 −0.1399 −0.0624
+(−2.47)
+(−4.29)
+
+(−4.39)
+
+(−1.35)
+
+Gov.
+
+Soc.
+0.0111 −0.0020 
+(−0.34)  
+(1.55)
+0.0020  
+(0.18)
+
+0.0471
+(3.86)
+
+0.3996
+(3.36)
+
+0.0150  
+(0.14)
+
+0.0410 −0.0383 
+(−0.90)  
+(0.80)
+0.0008  
+(0.06)
+
+0.0190
+(1.21)
+
+  1(Pension/endowment) −0.0128 −0.0135
+(−0.58)
+
+(−0.75)
+
+  1(Europe)
+
+  1(Rest of world)
+
+  𝑅2
+  𝑅2 (FEs only)
+  𝑝 (Inst. types equal)
+
+0.0345
+(2.49)
+
+0.0113
+(0.75)
+
+0.020
+N/A
+0.000
+
+0.0502
+(3.27)
+
+0.0381
+(2.23)
+
+0.005
+N/A
+0.122
+
+0.0211
+(0.78)
+
+0.0514
+(3.25)
+
+0.0224
+(1.22)
+
+0.023
+N/A
+0.000
+
+0.0059
+(0.24)
+
+0.0377
+(2.89)
+
+0.0112
+(0.66)
+
+0.016
+N/A
+0.004
+
+−0.0128 −0.0134
+(−0.58)
+(−0.75)
+
+0.0210
+(0.78)
+
+0.0349
+(2.51)
+
+0.0118
+(0.79)
+
+0.023
+0.009
+0.000
+
+0.0510
+(3.30)
+
+0.0395
+(2.31)
+
+0.008
+0.003
+0.122
+
+0.0521
+(3.30)
+
+0.0233
+(1.26)
+
+0.025
+0.004
+0.000
+
+0.0059
+(0.24)
+
+0.0386
+(2.96)
+
+0.0128
+(0.76)
+
+0.019
+0.003
+0.004
+
+0.436
+0.432
+N/A
+
+0.446
+0.444
+N/A
+
+0.497
+0.496
+N/A
+
+0.406
+0.406
+N/A
+
+12 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+L. Pastor et al.
+
+Journal of Financial Economics 174 (2025) 104173 
+
+Fig. 6. Institution size and greenness. This figure compares GMB tilts across subsamples formed based on quarterly AUM terciles. Each line shows the 
+subsample’s AUM-weighted average GMB tilt.
+
+on the specification, European institutions’ GMB tilts are 3.5–5.2 pp 
+higher than those of U.S. institutions. The GMB tilts of institutions 
+located in the rest of the world are between those of European and 
+U.S. institutions.
+
+For comparison, Koijen et al. (2024) find that non-U.S. investors 
+have a higher demand for stocks with higher E scores but lower G 
+scores. They also find differences in demand elasticities for E and G 
+scores across institution types. However, they use a different method-
+ology and different data; for example, their E scores come from Sus-
+tainalytics  and  their  G  scores  reflect  the  number  of  entrenchment 
+provisions. Atta-Darkua et al. (2023) find that European investors who 
+are members of the CDP (formerly the Carbon Disclosure Project) have 
+been decarbonizing their portfolios faster than other investors.
+
+Table  3 explores whether the above patterns in GMB tilt are driven 
+by its green or brown leg. We estimate similar panel regressions replac-
+ing the dependent variable 𝑇 𝐺𝑀𝐵
+𝑖 .20 We see that 
+both green and brown tilts drive the positive relation between AUM 
+and greenness, but brown tilts matter much more. At the end of our 
+
+ with either 𝑇 𝐺
+
+𝑖  or 𝑇 𝐵
+
+𝑖
+
+20 Table  3 reports results from regressions without fixed effects. Results with 
+fixed effects are in the Internet Appendix. Results with time fixed effects are 
+very similar to those reported in Table  3.
+
+13 
+
+sample period, larger institutions are both slightly greener and much 
+less brown. Both legs, green and brown, contribute to the widening 
+gap in GMB tilts between large and small institutions. The roles of 
+time trends, UNPRI status, and institution type are similarly strong, but 
+opposite in sign, for green and brown tilts. Finally, active share has a 
+strong, positive relation to both green and brown tilts. The GMB tilt 
+exhibits no relation to active share, however, as the positive effects in 
+the green and brown legs largely offset each other (Table  2).
+
+4.5. Industry adjustment
+
+Our ESG characteristics are based on MSCI ESG ratings, which are 
+not industry-adjusted. ESG ratings vary across industries—for example, 
+E ratings tend to be higher in finance, health care, and technology, and 
+lower in chemicals, steel, and mining (see Table 2 in (Pástor et al., 
+2022)). We focus on unadjusted ratings because they are widely used 
+and reflect how many investors approach ESG, particularly those who 
+exclude entire industries, such as oil and gas, from their portfolios. That 
+said, some investors assess ESG performance relative to industry peers. 
+In this section, we examine portfolio tilts based on industry-adjusted 
+ESG scores.
+
+We classify each firm into one of 94 industries, quarter by quarter, 
+using MSCI’s industry classification. For each of E, S, G, and the com-
+posite ESG score, we compute the average greenness of each industry 
+
+L. Pastor et al.
+
+Journal of Financial Economics 174 (2025) 104173 
+
+Table 3
+Institutions’ green and brown tilts.
+This table shows results from panel regressions with dependent variable equal to the institution’s green tilt (𝑇 𝐺
+brown tilt (𝑇 𝐵
+
+𝑖𝑡 , columns 5–8). There are no fixed effects. Remaining details are the same as in Table  2.
+
+𝑖𝑡 , columns 1–4) or 
+
+  log(AUM)
+
+  log(AUM) × trend
+
+  Trend
+
+  Active share
+
+  1(UNPRI)
+
+  1(Inv. advisor)
+
+  1(Bank)
+
+  1(Pension/endowment)
+
+  1(Europe)
+
+  1(Rest of world)
+
+  𝑅2
+  𝑝 (Inst. types equal)
+
+Green tilts
+ESG
+
+0.0025
+(1.84)
+
+0.0230
+(4.33)
+
+0.2431
+(4.45)
+
+0.0904
+(10.01)
+
+0.0230
+(3.74)
+
+−0.0030
+(−0.33)
+
+−0.0171
+(−1.72)
+
+−0.0055
+(−0.57)
+
+0.0272
+(2.87)
+
+0.0097
+(1.08)
+
+0.017
+0.085
+
+Env.
+
+−0.0024
+(−1.22)
+
+0.0270
+(3.71)
+
+0.2653
+(3.57)
+
+0.1439
+(11.03)
+
+0.0225
+(2.95)
+
+0.0063
+(0.43)
+
+−0.0121
+(−0.77)
+
+−0.0077
+(−0.47)
+
+0.0388
+(3.55)
+
+0.0258
+(2.19)
+
+0.024
+0.060
+
+Soc.
+
+0.0037
+(2.13)
+
+0.0156
+(2.52)
+
+0.2078
+(3.22)
+
+0.1283
+(11.38)
+
+0.0122
+(1.81)
+
+0.0048
+(0.48)
+
+−0.0303
+(−2.71)
+
+0.0104
+(0.86)
+
+0.0281
+(2.61)
+
+0.0151
+(1.40)
+
+0.023
+0.000
+
+Gov.
+
+0.0038
+(3.08)
+
+0.0029
+(0.63)
+
+0.0564
+(1.17)
+
+0.0939
+(10.45)
+
+0.0020
+(0.43)
+
+−0.0163
+(−1.58)
+
+−0.0298
+(−2.59)
+
+−0.0054
+(−0.46)
+
+0.0271
+(3.57)
+
+0.0139
+(1.56)
+
+0.014
+0.013
+
+Brown tilts
+ESG
+
+Env.
+
+Soc.
+
+−0.0204
+(−11.46)
+
+−0.0550
+(−9.39)
+
+−0.3912
+(−6.62)
+
+0.0916
+(8.52)
+
+−0.0223
+(−4.09)
+
+0.0215
+(2.79)
+
+0.0685
+(5.16)
+
+0.0073
+(0.74)
+
+−0.0072
+(−0.97)
+
+−0.0016
+(−0.19)
+
+0.043
+0.000
+
+−0.0067
+(−4.13)
+
+−0.0160
+(−2.73)
+
+−0.0944
+(−1.58)
+
+0.1552
+(13.34)
+
+−0.0229
+(−4.29)
+
+0.0045
+(0.52)
+
+0.0171
+(1.57)
+
+0.0057
+(0.47)
+
+−0.0114
+(−1.45)
+
+−0.0124
+(−1.43)
+
+−0.0208
+(−9.69)
+
+−0.0356
+(−5.19)
+
+−0.2233
+(−3.24)
+
+0.1143
+(7.77)
+
+−0.0350
+(−5.47)
+
+0.0107
+(0.60)
+
+0.1095
+(4.45)
+
+−0.0108
+(−0.58)
+
+−0.0233
+(−2.70)
+
+−0.0074
+(−0.68)
+
+Gov.
+−0.0140 
+(−7.84)  
+−0.0002 
+(−0.03)  
+0.0288  
+(0.45)
+
+0.1396  
+(11.24)  
+−0.0176 
+(−3.08)  
+0.0052  
+(0.33)
+
+0.0325  
+(1.79)
+
+−0.0113 
+(−0.65)  
+−0.0105 
+(−1.32)  
+0.0026  
+(0.25)
+
+0.030
+0.389
+
+0.043
+0.000
+
+0.037
+0.014
+
+in each quarter by computing the value-weighted average of 𝑔𝑛 across 
+all firms in that industry and quarter. We then compute each firm 𝑛’s 
+industry-adjusted score in each quarter as 𝑔𝑛 minus the corresponding 
+industry average. We convert both the industry-adjusted values and 
+the industry average to percentiles in the full cross section of stocks, 
+analogous to our main analysis. Finally, we treat the industry-adjusted 
+ESG scores’ percentiles as our ESG characteristics (), and we add the 
+industry-average ESG scores’ percentiles to the set of controls ().
+
+Fig.  7 is the counterpart of Fig.  1 using industry-adjusted ESG scores. 
+The resulting total ESG tilt, 𝑇 , remains fairly stable over time, ranging 
+mostly from 4% to 5%. This range is below that of the unadjusted 𝑇
+(5.2% to 6.9%; see Fig.  1), suggesting that more investors use raw 
+scores than industry-adjusted scores when forming portfolios. Apart 
+from their lower levels, the adjusted tilts closely resemble the unad-
+justed  ones:  in  both  figures,  𝑇 𝑖𝑛𝑡  far  exceeds  𝑇 𝑒𝑥𝑡,  with  the  former 
+trending slightly upward and the latter downward. The key takeaway 
+from both figures is the same: ESG tilts account for a modest share of 
+AUM and are much larger on the intensive margin.
+
+Fig.  8 mirrors Fig.  3 but uses industry-adjusted green and brown 
+tilts. Again, the levels are lower compared to the unadjusted tilts, but 
+the overall patterns remain similar. In both figures, green tilts exceed 
+brown, green tilts trend upward while brown tilts are flat, and these 
+patterns hold across the four greenness measures. Industry-adjusted 
+or not, institutions collectively tilt green, and increasingly so. In the 
+Internet Appendix, we show the industry-adjusted versions of the other 
+previous figures and tables.
+
+4.6. Sustainalytics ratings
+
+While  MSCI  is  the  leading  global  provider  of  ESG  ratings  (see 
+Section 4.1), investors have access to multiple data sources. In this 
+section, we assess the robustness of our results by using ESG scores 
+from one of MSCI’s main competitors: Sustainalytics.
+
+Our Sustainalytics sample is smaller than our MSCI sample, for two 
+reasons. First, MSCI covers more than twice as many firms. Second, we 
+
+use Sustainalytics data only from December 2018 onward, following 
+a major methodology overhaul that year. ESG ratings from the two 
+providers are positively correlated, with correlations ranging from 0.17 
+for G scores to 0.78 for E scores. For a detailed description of the 
+Sustainalytics data, including data coverage and summary statistics, see 
+the Internet Appendix.
+
+We use Sustainalytics’ ESG scores to re-estimate all portfolio tilts 
+for  our  institutional  sample.  We  report  all  of  our  main  results  — 
+the counterparts of Figs.  1 through 6 and Tables  1 through 3 — in 
+the Internet Appendix. These results are remarkably similar to those 
+based on MSCI scores. For example, the aggregate tilt is stable over 
+time, ranging from 5.9% to 6.7%. The aggregate intensive-margin tilt 
+remains much larger than the extensive-margin tilt. Green tilts exceed 
+brown, indicating that institutions as a whole tilt green. Divestment 
+from brown stocks still occurs primarily at the intensive margin. Larger 
+institutions tilt greener for three of the four greenness measures. UNPRI 
+signatories and European institutions are also greener, significantly so 
+for the ESG composite and E measures. To summarize, all of our main 
+conclusions hold also when using Sustainalytics’ ESG scores.
+
+5. Estimates of ESG tilts: Mutual funds
+
+In this section, we estimate ESG-related portfolio tilts for U.S. equity 
+mutual funds. Looking at mutual funds is useful for several reasons. 
+First, some of the institutions analyzed in Section 4 are mutual fund 
+families.  In  their  13F  filings,  fund  families  aggregate  the  portfolio 
+holdings of their individual funds. This aggregation could mask fund-
+level ESG tilts that offset within families, understating the extent of 
+overall tilting. It could also understate extensive-margin tilts, because 
+a stock excluded by some funds will still appear in family-level holdings 
+if held by any fund of the same family. Analyzing fund-level holdings 
+allows us to address both issues and assess their importance. It also 
+enables us to examine the tilts of ESG-labeled funds, which cannot be 
+identified in 13F filings.
+
+14 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+L. Pastor et al.
+
+Fig. 7. Industry-adjusted tilts. This figure plots versions of the tilts from Fig. 
+1 estimated using stocks’ industry-adjusted ESG scores. For each of E, S, and 
+G, we compute stocks’ industry-adjusted scores as 𝑔𝑛 minus the value-weighted 
+average of 𝑔𝑛 across stocks in the same industry and quarter. We convert the 
+industry average and industry-adjusted values to percentiles in the full cross 
+section of stocks, similar to our main analysis. We include in  the industry-
+adjusted E, S, and G scores’ percentiles, and we add the three industry-average 
+E, S, and G scores’ percentiles to the set of exogenous controls. Otherwise, the 
+method and data are the same as in our main analysis.
+
+A key limitation of the mutual fund universe is that it is much 
+smaller than financial institutions in aggregate, covering only about 
+a  quarter  of  the  13F  sample’s  AUM.  The  mutual  fund  sample  ex-
+cludes significant holdings, especially of banks, insurers, pension funds, 
+endowments, hedge funds, and sovereign wealth funds. As a result, 
+mutual fund evidence cannot fully capture the extent of ESG-related 
+tilting in the investment industry. We view the results presented in 
+this section as complementary to our main findings in Section 4, which 
+draw on a broader and more comprehensive institutional sample.
+
+5.1. Data
+
+Starting with the Thomson Reuters Mutual Fund Holdings (S12) 
+dataset, we compute funds’ quarterly portfolio weights 𝑤𝑖𝑛 among the 
+subset of covered stocks. We take data on funds’ characteristics from 
+CRSP and Morningstar Direct.
+
+15 
+
+Journal of Financial Economics 174 (2025) 104173 
+
+We construct the fund sample as follows. Starting from all funds in 
+the S12 dataset, we exclude bond funds, international funds, funds of 
+funds, real estate funds, target retirement funds, and other non-equity 
+funds based on keywords in the Morningstar Category variable. We also 
+exclude variable annuity funds using the CRSP flag. We include index 
+funds, labeled as ‘‘index’’ or ‘‘enhanced index’’ by CRSP or Morningstar. 
+We aggregate multiple share classes of the same fund and drop funds 
+with less than $10 million in AUM. As in the previous section, we 
+require funds to have at least 50% of their assets in covered stocks and 
+at least 30 holdings, and we define a fund’s AUM as the total value of 
+its covered holdings. We clean the mutual fund data following Pástor 
+et al. (2020).21
+
+The number of funds in our sample ranges from 1,506 in 2012 to 
+1,221 in 2023. Funds’ combined AUM grows from $2.5 trillion to $8.3 
+trillion during that period. For comparison, the 13F sample studied 
+earlier contains roughly four times as much AUM. As of 2023, index 
+funds make up 15% of the fund sample by count and 58% by AUM.
+
+5.2. Total ESG tilts
+
+Fig.  9 plots aggregate ESG tilts — 𝑇 , 𝑇 𝑖𝑛𝑡, and 𝑇 𝑒𝑥𝑡 from Eqs. (10) 
+through (12) — based on three mutual fund samples. The first sample 
+includes only active funds, excluding index funds. The second sample 
+includes all funds, active and passive. The third sample includes mutual 
+fund families, which we create by grouping funds into families based on 
+family names obtained from Morningstar (or CRSP if unavailable). For 
+each family, we combine the holdings of member funds into a single 
+‘‘quasi-fund’’ and estimate its tilt.
+
+Panel A of Fig.  9 shows total ESG tilts, 𝑇 , across the three samples. 
+For active funds, 𝑇  is stable, ranging from 10% to 13%. Including 
+passive  funds  lowers  𝑇   to  6%–10%,  reflecting  their  much  smaller 
+tilts. Fund-family tilts are lower still, between 3.5% and 6%. The gap 
+between the 𝑇  values for all funds and for fund families, which ranges 
+from 1.6 to 4.2 percentage points, captures the extent of within-family 
+offsetting. These offsets modestly reduce overall tilts. For example, at 
+the end of our sample, 𝑇  is 6.5% for all funds and 4.7% for fund fam-
+ilies, so that offsetting tilts account for 1.8% of mutual fund families’ 
+AUM. Multiplying this share by the fraction of institutional AUM held 
+by mutual fund families implies that adjusting for within-family offsets 
+would increase the aggregate tilt in Fig.  1 by just under 0.5% in 2023.22 
+This adjustment, from 6.5% to 7%, is fairly small.
+
+Panels B and C of Fig.  9 plot intensive- and extensive-margin tilts, 
+𝑇 𝑖𝑛𝑡 and 𝑇 𝑒𝑥𝑡. The values of 𝑇 𝑒𝑥𝑡 for the all-fund sample are about three 
+times larger than those for the fund-family sample, and they also exceed 
+their counterparts for the broader institutional sample (see Fig.  1). This 
+is expected, as stock exclusions are more common at the fund level than 
+at the family level, as explained earlier. More importantly, for each 
+sample and each point in time, 𝑇 𝑒𝑥𝑡 < 𝑇 𝑖𝑛𝑡, just like in Fig.  1. In other 
+words, our finding that 𝑇 𝑒𝑥𝑡 < 𝑇 𝑖𝑛𝑡 obtains not only at the institution 
+level but also at the fund level.
+
+21 During the cleaning process, we correct one additional, notable, recently-
+introduced error in the S12 dataset. One data-cleaning step involves excluding 
+funds whose total holdings exceed twice their fund-level assets. This step 
+mistakenly  drops  the  world’s  largest  mutual  fund,  Vanguard’s  Total  Stock 
+Market Index Fund, starting in 2020q4. In the S12 data, this fund’s reported 
+asset values are misreported by a factor of ten from 2020q4 onward. After we 
+correct this data error, the fund is restored to our sample.
+22 Mutual  fund  families  manage  $8.3  trillion  in  2023,  which  represents 
+26.3% of the AUM of all institutions in our 13F sample. Multiplying 26.3% 
+by 1.8% gives 0.47%.
+
+L. Pastor et al.
+
+Journal of Financial Economics 174 (2025) 104173 
+
+Fig. 8. Industry-adjusted green and brown tilts. This figure plots versions of the tilts from Fig.  3 estimated using stocks’ industry-adjusted ESG scores. Details 
+on the method are the same as in Fig.  7.
+
+Fig. 9. Mutual funds’ ESG tilts. Panels A, B, and C plot the aggregate ESG-related tilt (𝑇 ), intensive-margin tilt (𝑇 𝑖𝑛𝑡), and extensive-margin tilt (𝑇 𝑒𝑥𝑡), respectively, 
+estimated in mutual-fund samples indicated in the legend. The sample of all funds includes both active and passive funds. We create the sample of mutual fund 
+families as follows. For each family, we construct a ‘‘quasi-fund’’ by aggregating all funds (active and passive) within each family into a single portfolio, and we 
+estimate that quasi-fund’s tilts. All lines show AUM-weighted averages of tilts within the given sample of mutual funds. Tilt estimates are from the specification 
+in which  contains three ESG characteristics (E, S, and G) per stock.
+
+5.3. Green and brown portfolio tilts
+
+5.4. Which funds are greener?
+
+Fig.  10 plots green and brown tilts, 𝑇 𝐺 and 𝑇 𝐵, for the all-fund 
+sample. The figure mirrors Fig.  3, but with tilts estimated at the mutual 
+fund level rather than the institution level. As in Fig.  3, though to 
+a lesser extent, we observe 𝑇 𝐺 > 𝑇 𝐵, indicating that mutual funds 
+collectively tilt green. Unlike in Fig.  3, there is no upward trend in 
+𝑇 𝐺 (or 𝑇 𝐵), suggesting that the gradual increase in green tilting is 
+driven by non-mutual-fund institutions. Green tilts range from 3% to 
+8%; brown tilts from 2% to 6%. All patterns in Fig.  10 look similar 
+across the four greenness measures.
+
+Fig.   11  examines  mutual  funds’  divestment  from  brown  stocks, 
+paralleling  Fig.   5  but  using  the  all-fund  sample  instead  of  the  full 
+institutional sample. Extensive-margin divestment is larger for funds 
+— ranging mostly from 0.5% to 1.5%, compared to 0.1% to 1.3% for 
+institutions — reflecting the greater prevalence of full divestment at 
+the fund level. More notably, as in the institutional sample, intensive-
+margin divestment remains consistently larger, typically from 1.5% to 
+3%, and it exceeds extensive-margin divestment throughout. Intensive- 
+exceeds extensive-margin divestment even for active funds, where one 
+might expect the latter divestment to be largest, as active funds typi-
+cally hold fewer stocks than passive funds (see the Internet Appendix). 
+Thus, even for individual mutual funds, brown divestment is primarily 
+partial rather than full.
+
+Table  4 reports results from panel regressions of mutual funds’ green 
+and brown tilts on three fund characteristics — AUM, active share, and 
+an ESG-label dummy — along with a time trend and its interaction 
+with AUM. These regressions are analogous to those in Table  3, but 
+they exclude institution-level regressors and include a fund-specific ESG 
+dummy. This indicator, sourced from Morningstar, equals one if the 
+fund is described in its prospectus or other regulatory filings as focusing 
+on ESG, sustainability, or impact investing. We estimate the regressions 
+separately for all mutual funds (Panel A) and for active funds only 
+(Panel B). As the results are similar across panels, we discuss them 
+jointly.
+
+Table  4 shows that both green and brown tilts are strongly and 
+positively related to active share, echoing the institution-level results in 
+Table  3. Green tilts are also positively related to the time trend and its 
+interaction with AUM, though these effects are somewhat weaker than 
+in Table  3. Unlike in Table  3, the negative relations between brown 
+tilts and both AUM and its interaction with the time trend are not 
+statistically significant.
+
+The most novel findings in Table  4, with no counterpart in Table 
+3, concern the ESG dummy. Compared to non-ESG funds, ESG-labeled 
+funds’ green tilts are substantially larger, by 9–16 pp of AUM, and 
+
+16 
+
+L. Pastor et al.
+
+Journal of Financial Economics 174 (2025) 104173 
+
+Fig. 10. Mutual funds’ green and brown tilts. This figure plots the same quantities as Fig.  3, but tilts are estimated at the level of individual mutual funds 
+(both active and passive).
+
+Fig. 11. Mutual funds’ divestment from brown stocks. This figure plots the same quantities as Fig.  5, but tilts are estimated at the level of individual mutual 
+funds (both active and passive).
+
+their brown tilts are 2–5 pp smaller. Both of these relations are highly 
+statistically significant across all four greenness measures. The relations 
+are economically large relative to funds’ aggregate green tilts (3%–8%) 
+and brown tilts (2%–6%), plotted in Fig.  10. These results indicate 
+that tilting, as captured by our methodology, is an important feature 
+of mutual funds’ ESG investment strategies.
+
+6. Comparing measures of green portfolio tilts
+
+𝑖
+
+𝑖
+
+A key feature of 𝑇 𝐺𝑀𝐵
+
+How do other potential measures of green tilts differ from ours? In 
+this section, we contrast our measure, 𝑇 𝐺𝑀𝐵
+ from Eq. (20), with several 
+alternatives. We perform two comparisons at the end of our sample 
+(2023q4): one across 13F institutions and another across mutual funds.
+ is that it controls for non-ESG stock char-
+acteristics, listed in Section 4.1. The first alternative we consider is a 
+modified version of 𝑇 𝐺𝑀𝐵
+ that drops these controls. The second, even 
+simpler alternative is the difference between the portfolio’s weights 
+in green and brown stocks: ∑
+𝑛∈𝐵𝑟𝑜𝑤𝑛 𝑤𝑖𝑛, where 𝐺𝑟𝑒𝑒𝑛
+(𝐵𝑟𝑜𝑤𝑛) denotes covered stocks whose ESG composite score is in the 
+highest (lowest) quintile. This measure does not control for non-ESG 
+characteristics, nor does it separate holdings at the extensive versus 
+intensive margin—another key feature of our measure.
+
+𝑛∈𝐺𝑟𝑒𝑒𝑛 𝑤𝑖𝑛 − ∑
+
+𝑖
+
+The third alternative, computed for the 13F sample, is an indicator 
+for whether the institution signed the UNPRI by 2023q4. The fourth 
+and  fifth,  computed  for  the  mutual-fund  sample,  are  the  ESG-fund 
+indicator from Section 5.4 and the fund’s Morningstar Sustainability 
+Rating,  or  the  ‘‘globe  rating’’.  To  compute  this  rating,  Morningstar 
+uses firm-level data from Sustainalytics to calculate the ESG risk of 
+a fund’s holdings. Funds receive 1 to 5 globes, with 5 indicating the 
+lowest ESG risk relative to peer funds. Peers are funds in the same 
+Morningstar Global Category, based on asset class and investment style 
+(e.g., U.S. large-cap growth equity). Because the globe rating is relative, 
+it implicitly controls for some non-ESG stock characteristics, such as 
+size and book-to-market.
+
+6.1. 13F institutions
+
+Table  5 compares the green tilt measures at the 13F institution 
+level. Column 1 reports each measure’s AUM-weighted mean across 
+institutions in 2023q4. For 𝑇 𝐺𝑀𝐵
+, this average is 4.2%, indicating an 
+aggregate net green tilt (see also Panel A of Fig.  4). Without controlling 
+for non-ESG characteristics, the average rises to 11.2%, nearly three 
+times larger. The even higher average of 27.6% for ∑
+𝑛∈𝐵 𝑤𝑖𝑛
+
+𝑛∈𝐺 𝑤𝑖𝑛 −∑
+
+𝑖
+
+17 
+
+L. Pastor et al.
+
+Journal of Financial Economics 174 (2025) 104173 
+
+Table 4
+Mutual funds’ green and brown tilts.
+This table shows results from panel regressions with dependent variable equal to the mutual fund’s green tilt (𝑇 𝐺
+𝑖𝑡 , columns 1–4) 
+𝑖𝑡 , columns 5–8). Variable 1(ESG-labeled fund), obtained from Morningstar, is an indicator for whether the fund 
+or brown tilt (𝑇 𝐵
+is described in the prospectus or other regulatory filings as focusing on sustainability, impact investing, or ESG factors. Panel 
+A shows results using all mutual funds (passive and active); this sample includes 28,789 fund×quarter non-missing observations 
+from 2018q4–2023q4. (We begin the sample in 2018q4 because this is the first quarter that 1(ESG-labeled fund) is available.) 
+Panel B shows results using active mutual funds only; this sample includes 24,788 fund×quarter non-missing observations from 
+2018q4–2023q4. Other details are the same as in Table  3.
+Green tilts
+ESG
+
+Brown tilts
+ESG
+
+Gov.
+
+Gov.
+
+Env.
+
+Env.
+
+Soc.
+
+Soc.
+
+  Panel A: All funds
+
+  log(AUM)
+
+  log(AUM) × trend
+
+  Trend
+
+  Active share
+
+  1(ESG-labeled fund)
+
+  𝑅2
+
+  Panel B: Active funds
+
+  log(AUM)
+
+  log(AUM) × trend
+
+  Trend
+
+  Active share
+
+  1(ESG-labeled fund)
+
+  𝑅2
+
+−0.0002
+(−0.09)
+
+−0.0028
+(−1.14)
+
+−0.0010
+(−0.49)
+
+0.0252
+(1.90)
+
+0.3598
+(2.48)
+
+0.0862
+(10.58)
+
+0.1395
+(9.78)
+
+0.0412
+(2.31)
+
+0.5525
+(2.93)
+
+0.0642
+(5.56)
+
+0.1581
+(9.49)
+
+0.0339
+(2.25)
+
+0.4306
+(2.62)
+
+0.1108
+(10.59)
+
+0.1118
+(7.62)
+
+0.0011
+(0.71)
+
+0.0282
+(2.10)
+
+0.2055
+(1.40)
+
+0.1011
+(13.08)
+
+0.0896
+(7.55)
+
+−0.0019
+(−1.24)
+
+−0.0048
+(−0.45)
+
+−0.0057
+(−0.05)
+
+0.0269
+(3.87)
+
+−0.0203
+(−3.43)
+
+−0.0000
+(−0.02)
+
+−0.0161
+(−1.24)
+
+−0.2302
+(−1.62)
+
+0.1362
+(12.90)
+
+−0.0437
+(−8.13)
+
+−0.0011
+(−0.57)
+
+−0.0034
+(−0.27)
+
+−0.0761
+(−0.54)
+
+0.0722
+(7.85)
+
+−0.0385
+(−6.21)
+
+−0.0031 
+(−1.94)  
+−0.0079 
+(−0.60)  
+−0.2480 
+(−1.70)  
+0.0584  
+(7.38)
+
+−0.0193 
+(−2.77)  
+
+0.075
+
+0.054
+
+0.051
+
+0.050
+
+0.006
+
+0.039
+
+0.014
+
+0.015
+
+0.0006
+(0.31)
+
+0.0365
+(2.23)
+
+0.4914
+(2.70)
+
+0.0968
+(8.04)
+
+0.1453
+(9.31)
+
+−0.0012
+(−0.41)
+
+−0.0005
+(−0.21)
+
+0.0618
+(2.85)
+
+0.8119
+(3.46)
+
+0.0311
+(1.75)
+
+0.1678
+(9.62)
+
+0.0464
+(2.51)
+
+0.5789
+(2.80)
+
+0.1272
+(8.43)
+
+0.1170
+(7.16)
+
+0.0018
+(0.99)
+
+0.0385
+(2.36)
+
+0.3182
+(1.74)
+
+0.1214
+(10.43)
+
+0.0956
+(7.21)
+
+−0.0016
+(−0.88)
+
+−0.0054
+(−0.41)
+
+−0.0021
+(−0.01)
+
+−0.0103
+(−0.89)
+
+−0.0233
+(−3.42)
+
+−0.0007
+(−0.31)
+
+−0.0238
+(−1.49)
+
+−0.3374
+(−1.89)
+
+0.1543
+(10.02)
+
+−0.0475
+(−7.85)
+
+−0.0012
+(−0.52)
+
+−0.0074
+(−0.47)
+
+−0.1109
+(−0.64)
+
+0.0449
+(3.16)
+
+−0.0415
+(−5.91)
+
+−0.0033 
+(−1.70)  
+−0.0137 
+(−0.85)  
+−0.3271 
+(−1.78)  
+0.0318  
+(2.52)
+
+−0.0208 
+(−2.60)  
+
+0.070
+
+0.049
+
+0.047
+
+0.046
+
+0.003
+
+0.031
+
+0.006
+
+0.007
+
+Table 5
+Comparing measures of institutions’ green tilts.
+This table describes 13F institutions’ green tilt measures in 2023q4. The two 
+ measures are from our specifications in which  contains only the ESG 
+𝑇 𝐺𝑀𝐵
+𝑖
+composite score. The first of those specifications includes the non-ESG controls, 
+as in our main analysis, and the second specification excludes those controls. 
+To compute the third measure below, given by ∑
+𝑛∈𝐵𝑟𝑜𝑤𝑛 𝑤𝑖𝑛, we 
+define 𝐺𝑟𝑒𝑒𝑛 (𝐵𝑟𝑜𝑤𝑛) to be the set of covered stocks whose ESG composite 
+score is in the highest (lowest) quintile. 1(UNPRI𝑖) is an indicator for whether 
+institution 𝑖 signed the UNPRI on or before 2023q4.
+
+𝑛∈𝐺𝑟𝑒𝑒𝑛 𝑤𝑖𝑛 − ∑
+
+𝑖
+
+  Green tilt measure
+  (1) 𝑇 𝐺𝑀𝐵
+  (2) 𝑇 𝐺𝑀𝐵
+  (3) ∑
+  (4) 1(𝑈 𝑁𝑃 𝑅𝐼𝑖)
+
+𝑛∈𝐺𝑟𝑒𝑒𝑛 𝑤𝑖𝑛 − ∑
+
+𝑖
+
+, with controls
+, without controls
+
+𝑛∈𝐵𝑟𝑜𝑤𝑛 𝑤𝑖𝑛
+
+AUM-weighted
+
+Correlations
+
+average
+
+(1)
+
+(2)
+
+(3)
+
+(4) 
+
+0.042
+0.112
+0.276
+0.761
+
+1
+0.352
+0.342
+0.118
+
+1
+0.569
+0.017
+
+1
+0.056
+
+1  
+
+underscores the importance of controlling for firm size, as larger firms 
+tend to score higher on ESG. Finally, the 76.1% average for the UNPRI 
+indicator reflects the share of U.S. equity AUM managed by UNPRI 
+signatories, as mentioned in the introduction.
+
+The remainder of Table  5 reports pairwise correlations across insti-
+tutions among the four measures. The correlation between 𝑇 𝐺𝑀𝐵
+ with 
+and without controls is only 35.2%, again underscoring the importance 
+
+𝑖
+
+Table 6
+Comparing measures of mutual funds’ green tilts.
+This table describes mutual funds’ green tilt measures in 2023q4. Details are as 
+in the previous table. MS Globe Rating𝑖 is fund 𝑖’s Morningstar Sustainability 
+Rating. 1(ESG-labeled fund𝑖) is defined in Table  4.
+
+𝑖
+
+  Green tilt measure
+  Panel A: All funds
+  (1) 𝑇 𝐺𝑀𝐵
+  (2) 𝑇 𝐺𝑀𝐵
+  (3) ∑
+𝑛∈𝐺𝑟𝑒𝑒𝑛 𝑤𝑖𝑛 − ∑
+  (4) MS Globe Rating𝑖
+  (5) 1(ESG-labeled fund𝑖)
+
+, with controls
+, without controls
+
+𝑖
+
+𝑛∈𝐵𝑟𝑜𝑤𝑛 𝑤𝑖𝑛
+
+𝑖
+
+, with controls
+, without controls
+
+  Panel B: Active funds
+  (1) 𝑇 𝐺𝑀𝐵
+  (2) 𝑇 𝐺𝑀𝐵
+  (3) ∑
+𝑛∈𝐺𝑟𝑒𝑒𝑛 𝑤𝑖𝑛 − ∑
+  (4) MS Globe Rating𝑖
+  (5) 1(ESG-labeled fund𝑖)
+
+𝑖
+
+𝑛∈𝐵𝑟𝑜𝑤𝑛 𝑤𝑖𝑛
+
+AUM-weighted Correlations
+
+average
+
+(1)
+
+(2)
+
+(3)
+
+(4)
+
+(5) 
+
+0.012
+0.233
+0.269
+2.902
+0.014
+
+−0.001
+0.229
+0.255
+2.684
+0.026
+
+1
+0.164 1
+0.325 0.759 1
+0.236 0.173 0.357 1
+0.162 0.159 0.255 0.355 1  
+
+1
+0.156 1
+0.314 0.752 1
+0.229 0.171 0.367 1
+0.159 0.169 0.271 0.362 1  
+
+of controls (if the controls had no effect, the correlation would be 
+100%). The correlation between our measure (𝑇 𝐺𝑀𝐵
+ with controls) 
+and  the  simple  difference  ∑
+𝑛∈𝐺 𝑤𝑖𝑛 − ∑
+𝑛∈𝐵 𝑤𝑖𝑛  is  34.2%.  The  fact 
+that this correlation is positive is essentially a sanity check, as both 
+
+𝑖
+
+18 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+L. Pastor et al.
+
+Journal of Financial Economics 174 (2025) 104173 
+
+measures aim to capture portfolio tilts toward green stocks; that this 
+correlation is low shows that our measure is quite different from the 
+simple one. The simple measure correlates more strongly (56.9%) with 
+𝑇 𝐺𝑀𝐵
+ without controls, which is consistent with both ignoring non-
+𝑖
+ESG characteristics. Finally, the UNPRI indicator has positive but low 
+correlations with 𝑇 𝐺𝑀𝐵
+
+, both with and without controls.
+
+𝑖
+
+6.2. Mutual funds
+
+Table  6 mirrors Table  5, but at the mutual fund level. Panel A covers 
+all funds; Panel B focuses on active funds. The results in both panels are 
+similar, and they lead to the same conclusions as in Table  5.
+
+𝑖
+
+The AUM-weighted means show that omitting controls for non-ESG 
+characteristics substantially inflates aggregate green tilt estimates. For 
+example, in Panel A, the tilt is 23.3% without controls but only 1.2% 
+with controls. The correlation between 𝑇 𝐺𝑀𝐵
+ with and without controls 
+is only 16% in both panels — less than half its 13F-level counterpart 
+in Table  5 — indicating that controlling for non-ESG characteristics is 
+even more important at the mutual fund level. This makes sense, as 
+individual mutual funds often follow more focused investment styles 
+(e.g.,  size  or  value/growth),  whereas  styles  tend  to  blend  together 
+within 13F institutions. The correlation between 𝑇 𝐺𝑀𝐵
+ and the simple 
+difference ∑
+𝑛∈𝐵 𝑤𝑖𝑛 is about 32% in both panels, similar 
+to its equivalent in Table  5, but it rises to about 75%, much more 
+sharply than in Table  5, when 𝑇 𝐺𝑀𝐵
+ is computed without controls. 
+Again, controlling for non-ESG characteristics is even more critical for 
+funds than for 13F institutions.
+
+𝑛∈𝐺 𝑤𝑖𝑛 − ∑
+
+𝑖
+
+𝑖
+
+Our measure is also positively correlated with the two remaining 
+measures: about 23% with Morningstar’s globe rating and 16% with 
+the ESG-fund indicator, passing two additional sanity checks.23 The 
+ESG-fund indicator’s correlation with 𝑇 𝐺𝑀𝐵
+ is about the same whether 
+or  not  controls  are  applied.  In  contrast,  the  globe  rating  is  more 
+strongly correlated with 𝑇 𝐺𝑀𝐵
+ with controls, which is consistent with 
+its  peer-adjusted  design  that  effectively  controls  for  some  non-ESG 
+characteristics, as explained earlier.
+
+𝑖
+
+𝑖
+
+7. ESG investing versus index investing
+
+We distinguish ESG investing from index investing. The rationale 
+follows Pástor et al. (2021): when all investors value ESG equally, they 
+all hold the market portfolio, as their preferences are fully reflected in 
+market weights through equilibrium prices. There is then only index 
+investing and no ESG investing.
+
+To say there is no ESG investing in that setting seems reasonable. 
+For example, the standard CAPM is another setting in which all in-
+vestors hold the market portfolio, even though they have a preference 
+for low-beta stocks. In that setting, low-beta stocks have low expected 
+returns, so they have high prices and thus large market weights, all 
+else equal. Yet the CAPM is generally characterized as a world of index 
+investing, not ‘‘low-beta’’ investing. The same logic applies when ESG 
+preferences are fully embedded in market prices.
+
+The  market  portfolio’s  weights  depend  on  the  average  strength 
+of ESG preferences, but without heterogeneity in those preferences, 
+there is no ESG investing. The latter arises from differences in ESG 
+preferences  across  investors.  To  simplify  their  model,  Pástor  et  al. 
+(2021)  assume  that  ESG  is  the  only  reason  investors  deviate  from 
+the market portfolio. Here we allow additional stock characteristics to 
+affect investors’ portfolio choices, given our empirical focus, but we 
+maintain the same distinction between ESG and index investing by 
+controlling for market weights when estimating tilts.
+
+23 The latter positive correlation is expected, given the evidence from Table 
+4 that ESG-labeled funds tend to have larger green tilts and smaller brown tilts 
+than non-ESG funds.
+
+19 
+
+Fig. 12. Market reallocation to green stocks.  This figure plots the cumula-
+tive sum of 𝜅𝑡, defined in Eq. (33). Equivalently, it plots the cumulative change 
+in the fraction of stocks whose greenness, 𝑔𝑛, is less than the value-weighted 
+mean of 𝑔𝑛 across all stocks. A positive (negative) change corresponds to the 
+market placing greater (less) weight on green stocks relative to brown. The 
+figure shows results with four versions of 𝑔𝑛: the composite ESG score as well 
+as its separate E, S, and G components.
+
+If the average ESG preference strengthens, then, all else equal, the 
+market portfolio will allocate more to green stocks. To investigate this 
+possibility, for each month 𝑡 we compute 
+
+𝜅𝑡 =
+
+𝑁𝑡−1∑
+
+𝑛=1
+
+(𝑤𝑚𝑛,𝑡 − 𝑤𝑚𝑛,𝑡−1)𝑔𝑛,𝑡−1 ,
+
+(33)
+
+where 𝑁𝑡−1 is the number of stocks in our covered universe at the 
+beginning of the month, and 𝑤𝑚𝑛,𝑠 is proportional to stock 𝑛’s market 
+capitalization, summing to 1 across stocks for 𝑠 equal to both 𝑡 − 1 and 
+𝑡. The value of 𝜅𝑡 is positive (negative) if market weights reallocate 
+toward green (brown) stocks during month 𝑡.
+
+Fig.  12 plots the cumulative sum of 𝜅𝑡 for each of our four greenness 
+measures.  For  the  ESG  composite,  the  cumulative  reallocation  falls 
+during the first half of the sample period, but then it rises sharply, by 
+5.5 percentage points, between mid-2018 and mid-2020. By the end of 
+the sample period, the cumulative reallocation reaches 2.1%. The end-
+of-sample value is very similar when we measure greenness by the G 
+score, although the reallocation to G-friendly stocks follows a different 
+path. In contrast, the market reallocates away from S-friendly stocks 
+over the full sample period, despite a steady reallocation toward them 
+between 2015 and 2021. Finally, the reallocation to E-friendly stocks 
+increases steadily between 2012 and 2020, before pulling back slightly 
+at the end. Overall, for greenness measured by E, the market portfolio’s 
+allocation to green stocks increases substantially, by 7.6 percentage 
+points, during the sample period.
+
+8. Conclusion
+
+From 2012 to 2023, ESG-related tilts in institutional U.S. equity 
+portfolios consistently account for about 6% of the institutions’ ag-
+gregate U.S. equity AUM. Over the same period, institutions’ overall 
+portfolio tilts in U.S. stocks, as measured by active share, have declined. 
+When scaled by active share, the typical institution’s ESG tilt has grown 
+from 17% to 27%. So, while ESG tilts are a modest and steady fraction 
+of total AUM, they represent a substantial and growing fraction of total 
+portfolio tilts.
+
+Our approach to estimating ESG tilts has several advantages. First, 
+it isolates ESG tilts by controlling for non-ESG characteristics, which 
+is valuable because stocks’ ESG and non-ESG characteristics are cor-
+related. For example, an institution may hold Tesla’s stock either for 
+
+L. Pastor et al.
+
+Journal of Financial Economics 174 (2025) 104173 
+
+its environmental profile or because it likes holding large-cap growth 
+stocks. Our approach separates the two motives. We show that failing to 
+control for non-ESG characteristics would overstate institutions’ overall 
+ESG tilt by more than three-fourths. Second, our approach allows the 
+three dimensions of ESG to enter separately, recognizing, for example, 
+that investors may assess Tesla’s environmental virtues separately from 
+Tesla’s treatment of its employees. We find that using only a composite 
+ESG score misses over 40% of the tilts associated with the E, S, and 
+G  characteristics.  Third,  our  approach  breaks  down  ESG  tilts  into 
+components capturing the extensive and intensive margins. We find 
+significant ESG tilts at both margins, but the intensive-margin tilts are 
+two to four times larger.
+
+Our approach also allows us to separate green tilts from brown. 
+We find that institutions as a whole tilt more green than brown, and 
+increasingly so. The rise in net green tilting occurs primarily at the 
+intensive margin; for example, institutions divest from brown stocks 
+mostly by reducing positions rather than eliminating them. In contrast, 
+non-13F institutions and households tilt more brown than green, and 
+increasingly so. Greenness also varies across institutions. Larger institu-
+tions are greener, and the rise in net green tilting is fully driven by the 
+largest third of institutions. Those institutions are increasingly green, 
+whereas smaller institutions are increasingly brown. UNPRI signatories 
+and European institutions are also greener in terms of their U.S. stock 
+holdings, while banks are the least green institutional type. Our results 
+are similar across four different ESG-related measures of greenness. 
+These results are important because green tilts could come with lower 
+expected returns, as noted at the outset.
+
+We also estimate the ESG-related tilts of U.S. equity mutual funds. 
+We find only small offsetting ESG tilts within fund families. Mutual 
+funds’ aggregate ESG tilts range from 6% to 10%, and up to 13% for 
+active funds. Extensive-margin tilts are larger than for 13F institutions 
+but remain smaller than intensive-margin tilts. Divestment of brown 
+stocks also remains smaller at the extensive margin, indicating that 
+even at the fund level, brown divestment is more partial than full. 
+Mutual funds collectively tilt green, though less so than institutions. 
+Finally, funds with ESG labels or more Morningstar globes tilt greener.
+Our study opens many avenues for future research. For example, do 
+institutions substitute voting green for tilting green, or are those actions 
+complementary?24 What are the financial implications of institutions’ 
+green tilts? Could one compute stock-level ESG tilts and relate them 
+to stocks’ expected returns? One could also apply our methodology to 
+measure portfolio tilts with respect to non-ESG characteristics as well 
+as tilts in other asset classes, such as bonds, bank loans, and private 
+equity.
+
+CRediT authorship contribution statement
+
+Lubos  Pastor:  Writing  –  original  draft.  Robert  F.  Stambaugh: 
+
+Writing – original draft. Lucian A. Taylor: Writing – original draft.
+
+Appendix A
+
+A.1. Green and brown tilts net to zero across all investors
+
+In this section, we prove the statement in Eq. (23), namely, that the 
+green and brown tilts aggregated across all investors are always equal: 
+𝑇 𝐺 = 𝑇 𝐵.
+
+For each investor 𝑖, define 𝜙𝑖 = 𝐴𝑖∕𝐴, where 𝐴 = ∑
+
+𝑗 𝐴𝑗 is total 
+AUM across all investors. Each stock 𝑛’s market portfolio weight is 
+given by 𝑤𝑚𝑛 = 𝑀𝑛∕𝑀, where 𝑀𝑛 is stock 𝑛’s market capitalization 
+and 𝑀 = ∑
+𝑗 𝑀𝑗 is total market capitalization across all stocks. Note 
+that 𝐴 = 𝑀. Also note that 𝑤𝑖𝑛 = 𝑀𝑖𝑛∕𝐴𝑖, where 𝑀𝑖𝑛 is the dollar 
+amount of stock 𝑛 held by investor 𝑖. Therefore, for each stock 𝑛, 
+∑
+
+∑
+
+∑
+
+∑
+
+𝐴𝑖
+𝐴
+
+𝑀𝑖𝑛
+𝐴𝑖
+
+=
+
+𝑀𝑖𝑛
+𝐴
+
+=
+
+𝑀𝑖𝑛
+𝑀
+
+=
+
+𝑀𝑛
+𝑀
+
+= 𝑤𝑚𝑛,
+
+𝑖
+
+𝑖
+
+𝑖
+with the sums taken across all investors. Taking conditional expecta-
+tions of both sides of Eq. (A.1), we obtain 
+∑
+∑
+0, } = 𝑤𝑚𝑛,
+
+, } =
+
+
+𝜙𝑖E{𝑤𝑖𝑛|
+
+𝜙𝑖E{𝑤𝑖𝑛|
+
+(A.2)
+
+𝑖
+
+𝑖
+
+𝑖
+treating  the  𝜙𝑖’s  as  known  and  noting  that  𝑤𝑚𝑛  is  included  in  . 
+Recalling  the  definition  of  𝛥𝑖𝑛  from  Eq.  (1),  Eq.  (A.2)  immediately 
+implies that 
+∑
+
+𝜙𝑖𝑤𝑖𝑛 =
+
+(A.1)
+
+(A.3)
+
+𝜙𝑖𝛥𝑖𝑛 = 0
+
+𝑖
+for all 𝑛. That is, each stock’s AUM-weighted tilt is zero. Let 
+𝐺 denote 
+the  set  of  all  green  stocks.  For  any  green  stock  𝑛,  note  from  the 
+definitions in Eqs. (13) through (16) that 𝛥𝑖𝑛 = 𝛥𝑂𝐺
+𝑖𝑛 . Summing 
+both sides of Eq. (A.3) across all green stocks, using the definitions in 
+(17), we obtain
+
+𝑖𝑛 + 𝛥𝑈 𝐺
+
+(
+
+∑
+
+∑
+
+0 =
+
+)
+
+𝜙𝑖𝛥𝑖𝑛
+
+=
+
+∑
+
+𝜙𝑖
+
+∑
+
+𝑛∈𝐺
+∑
+𝜙𝑖
+
+𝑖
+
+=
+
+𝑖
+𝑖𝑛 + 𝛥𝑈 𝐺
+𝑖𝑛
+
+(𝛥𝑂𝐺
+
+)
+
+𝑖
+∑
+
+𝑛∈𝐺
+
+𝑛∈𝐺
+∑
+
+=
+
+𝑖
+
+𝛥𝑖𝑛
+
+(𝑇 𝑂𝐺
+
+𝑖 − 𝑇 𝑈 𝐺
+
+𝑖
+
+)
+
+𝜙𝑖
+
+= 𝑇 𝑂𝐺 − 𝑇 𝑈 𝐺,
+
+implying 
+
+𝑇 𝑂𝐺 = 𝑇 𝑈 𝐺,
+where  𝑇 𝑂𝐺 = ∑
+  are  the  aggregate 
+overweight-green 
+tilts, 
+respectively.
+Analogously, summing Eqs. (A.3) across all brown stocks, we obtain 
+
+  and  𝑇 𝑈 𝐺 = ∑
+and  underweight-green 
+
+𝑖 𝜙𝑖𝑇 𝑈 𝐺
+𝑖
+
+𝑖 𝜙𝑖𝑇 𝑂𝐺
+𝑖
+
+(A.4)
+
+𝑇 𝑂𝐵 = 𝑇 𝑈 𝐵,
+where 𝑇 𝑂𝐵 = ∑
+desired Eq. (23): 
+
+𝑖 𝜙𝑖𝑇 𝑂𝐵
+𝑖
+
+ and 𝑇 𝑈 𝐵 = ∑
+
+𝑖 𝜙𝑖𝑇 𝑈 𝐵
+𝑖
+
+. We thus obtain the 
+
+(A.5)
+
+𝑇 𝐺 = 𝑇 𝐵,
+where 𝑇 𝐺 = ∑
+𝑖  are the aggregate green and 
+brown tilts, respectively. The last step follows from recognizing that 
+𝑇 𝐺 = 𝑇 𝑂𝐺 + 𝑇 𝑈 𝐵 and 𝑇 𝐵 = 𝑇 𝑂𝐵 + 𝑇 𝑈 𝐺, based on Eqs. (18) and (19). 
+
+𝑖  and 𝑇 𝐵 = ∑
+
+𝑖 𝜙𝑖𝑇 𝐺
+
+𝑖 𝜙𝑖𝑇 𝐵
+
+(A.6)
+
+Declaration of competing interest
+
+A.2. Estimating the intensive-margin model
+
+□
+
+We have no conflicts of interest to disclose.
+
+24 A growing literature compares the effectiveness of exit and voice strategies 
+at curtailing firms’ anti-social behavior. For a recent example of an empirical 
+comparison, see Saint-Jean (2023).
+
+20 
+
+This section extends the discussion from Section 3.2 by providing a 
+detailed justification for the regression model in Eq. (29). We begin by 
+specifying two desired properties of our model for the intensive margin. 
+First, for simplicity, 𝑤+
+𝑖𝑛∕𝑤𝑚𝑛 is given by a restricted linear function of 
+stock 𝑛’s characteristics: 
+𝑤+
+𝑖𝑛
+𝑤𝑚𝑛
+
+𝑛 = 1, … , 𝑁.
+
+𝑐𝑖𝑗 𝑥𝑛𝑗 ,
+
+(A.7)
+
+𝐾
+∑
+
+=
+
+𝑗=1
+
+L. Pastor et al.
+
+That is, 𝑤+
+𝑖𝑛 is linear in the 𝐾 values of 𝑤𝑚𝑛𝑥𝑛𝑗 . If a given stock 𝑛 is held, 
+its expected weight could in principle depend not only on the stock’s 
+own value of 𝑤𝑚𝑛𝑥𝑛𝑗 but also on the values of that quantity for other 
+stocks the investor may hold. Recognizing that potential dependence, 
+we allow 𝑐𝑖𝑗 to depend on the portfolio’s expected sum across stocks of 
+𝑤𝑚𝑛𝑥𝑛𝑗 (i.e., 𝜋′
+𝑖 ℎ𝑗 , where ℎ𝑗 denotes the 𝑁 ×1 vector whose 𝑛th element 
+is 𝑤𝑚𝑛𝑥𝑛𝑗 ). Second, for any 𝜋𝑖 having at least one positive element, 
+expected unconditional weights, which we denote by  ̄𝑤𝑖𝑛, always sum 
+to one: 
+𝑁
+∑
+
+𝑁
+∑
+
+̄𝑤𝑖𝑛 =
+
+𝜋𝑖𝑛𝑤+
+
+𝑖𝑛 = 1.
+
+(A.8)
+
+𝑛=1
+
+𝑛=1
+
+Given these two properties, it can be readily verified that 𝑐𝑖𝑗 must 
+
+be proportional to the reciprocal of ∑𝑁
+
+𝑛=1 𝜋𝑖𝑛𝑤𝑚𝑛𝑥𝑛𝑗 . That is, 
+
+𝑐𝑖𝑗 = 𝑏𝑖𝑗
+
+/ 𝑁
+∑
+
+𝑛=1
+
+𝜋𝑖𝑛𝑤𝑚𝑛𝑥𝑛𝑗 ,
+
+𝑗 = 1, … , 𝐾,
+
+(A.9)
+
+where 𝑏𝑖𝑗 does not depend on 𝑋 or 𝜋𝑖. In addition, it must be that 
+
+𝐾
+∑
+
+𝑗=1
+
+𝑏𝑖𝑗 = 1.
+
+(A.10)
+
+Substituting the right-hand side of Eq. (A.9) into Eq. (A.7) gives 
+)
+
+(
+
+.
+
+(A.11)
+
+𝑤+
+𝑖𝑛
+𝑤𝑚𝑛
+
+=
+
+𝑏𝑖𝑗
+
+𝐾
+∑
+
+𝑗=1
+
+𝑥𝑛𝑗
+𝑛=1 𝜋𝑖𝑛𝑤𝑚𝑛𝑥𝑛𝑗
+
+∑𝑁
+
+For each stock held by the investor, the actual weight 𝑤𝑖𝑛 obeys 
+
+𝑤𝑖𝑛 = 𝑤+
+
+𝑖𝑛 + 𝜖𝑖𝑛,
+
+(A.12)
+
+Journal of Financial Economics 174 (2025) 104173 
+
+regression is estimated for each institution and quarter subject to the 
+linear coefficient restriction in Eq. (A.10). We find that the regressions 
+fit  the  data  quite  well,  delivering  an  average  𝑅2  of  0.41  (Internet 
+Appendix). Finally, we plug the estimated 𝑏𝑖𝑗 ’s into Eq. (A.11) to obtain 
+expected weights for all assets, 𝑛 = 1, … , 𝑁.
+
+The resulting values of 𝑤+
+𝑖𝑛 contain some estimation error. This error 
+causes some estimates of 𝑤+
+𝑖𝑛 to be negative or exceed 1. We remove 
+these implausible values by truncating 𝑤+
+𝑖𝑛 to be in [0,1]. The rate of 
+truncation is low. Roughly 5% of 𝑤+
+𝑖𝑛 values are truncated at 0, and 
+less than 0.5% are truncated at 1. The rate of truncation is not con-
+centrated in any particular set of institutions (e.g., large versus small, 
+investment advisors vs. insurance companies), nor is it concentrated 
+in any particular industry. To show this, we regress an indicator for 
+whether 𝑤+
+𝑖𝑛 is truncated on dummy variables for institution categories 
+and stock industries. We find an 𝑅2 of only 0.003, and few dummies 
+enter significantly (Internet Appendix).
+
+After the truncation of 𝑤+
+
+𝑖𝑛, the expected unconditional weights, 
+̄𝑤𝑖𝑛, no longer sum to 1. We restore that property by rescaling 𝑤+
+𝑖𝑛. 
+Specifically, we divide 𝑤+
+0) by the investor-specific sums 
+0), respectively. After this adjustment,  ̄𝑤𝑖𝑛() and 
+of  ̄𝑤𝑖𝑛() and  ̄𝑤𝑖𝑛(
+̄𝑤𝑖𝑛(
+0) both sum to 1 for every investor. As a result, the sum of our 
+estimated values of 𝛥𝑖𝑛 across stocks is zero for each investor, as it is 
+for the population values of 𝛥𝑖𝑛.
+
+𝑖𝑛() and 𝑤+
+
+𝑖𝑛(
+
+In  addition,  we  truncate  𝑇 𝑖𝑛𝑡
+
+,  𝑇 𝑒𝑥𝑡
+  and  their  green  and  brown 
+𝑖
+components to be less than 1. In 2023, this truncation affects only 0.9% 
+of institutions that represent around 0.1% of covered AUM. No values 
+of 𝑇𝑖 or 𝑇 𝐺𝑀𝐵
+
+ exceed 1 in 2023.
+
+𝑖
+
+𝑖
+
+where 𝜖𝑖𝑛 has zero mean conditional on 𝑋. Combining Eqs. (A.11) and 
+(A.12) gives the following regression model for the stocks held: 
+
+A.3. Bias adjustment and standard errors
+
+𝑤𝑖𝑛
+𝑤𝑚𝑛
+
+=
+
+𝐾
+∑
+
+𝑗=1
+
+𝑏𝑖𝑗 ̃𝑥𝑛,𝑗 + 𝑒𝑖𝑛,
+
+where the 𝑗th independent variable is 
+
+̃𝑥𝑛𝑗 =
+
+𝑥𝑛𝑗
+𝑛=1 𝜋𝑖𝑛𝑤𝑚𝑛𝑥𝑛𝑗
+The  quantity  𝑒𝑖𝑛
+
+∑𝑁
+
+.
+
+≡ 𝜖𝑖𝑛∕𝑤𝑚𝑛  satisfies  the  property  required  of  a 
+regression disturbance, i.e., that it has zero expectation conditional on 
+the ̃𝑥𝑛𝑗 ’s, because the 𝑛th row of 𝑋 includes 𝑤𝑚𝑛 (as noted earlier).
+
+(A.13)
+
+(A.14)
+
+This section describes the bootstrap procedure that we use to de-
+bias the raw estimates of 𝑇𝑖 and obtain their standard errors, extending 
+the discussion from Section 3.4. We use the same procedure to de-bias 
+all other quantities of interest (𝑇 𝑒𝑥𝑡
+, 
+𝑇 𝐺𝑀𝐵,𝑒𝑥𝑡
+𝑖
+
+, 𝑇 𝑒𝑥𝑡, 𝑇 𝑖𝑛𝑡, 𝑇 𝐺
+, 𝑇 𝑖𝑛𝑡
+𝑖
+, etc.) and obtain their standard errors.
+Let 𝑆 denote the set of stocks with non-missing data (i.e., ‘‘covered’’ 
+stocks), and let 𝑁 denote the number of stocks in this set. Let 𝐾𝑖
+denote the number of covered stocks held by institution 𝑖. The bootstrap 
+algorithm proceeds as follows, for each institution 𝑖:
+
+, 𝑇 𝐺𝑀𝐵,𝑖𝑛𝑡
+
+𝑖 , 𝑇 𝐺𝑀𝐵
+𝑖
+
+𝑖 , 𝑇 𝐵
+
+𝑖
+
+𝑖
+
+We estimate the regression in (A.13) using the set of stocks held by 
+the investor. To do so, we must first construct the underlying values of 
+̃𝑥𝑛,𝑗 , which depend on 𝜋𝑖 via Eq. (A.14). For that purpose we set 𝜋𝑖 = ̂𝜋𝑖, 
+the estimate of 𝜋𝑖 from our model of the extensive margin. We also 
+allow for the possible correlation between 𝑒𝑖𝑛 and the probability that 
+stock 𝑛 is held. Specifically, we apply a correction following Heckman 
+(1979). The first step is to estimate the probit model, 
+
+𝑦𝑖𝑛 = 𝛾 ′
+
+𝑖 𝑧𝑖𝑛 + 𝑢𝑖𝑛,
+
+(A.15)
+
+where 𝑢𝑖𝑛 is a standard normal variate, and investor 𝑖 holds stock 𝑛 if 
+𝑦𝑖𝑛 > 0. We specify 𝑧𝑖𝑛 as a two-element vector, with the first element 
+equal to 1 and the second element equal to an indicator variable set to 1 
+if investor 𝑖 held stock 𝑛 during any of the previous 11 quarters (and set 
+to 0 otherwise). The probit model is estimated via maximum likelihood 
+using  all  stocks  with  non-missing  data.  The  second  step  is  to  esti-
+′𝑧𝑖𝑛)
+mate the regression in Eq. (A.13) with the quantity 𝜙( ̂𝛾𝑖
+included as an additional independent variable, where 𝜙(⋅) and 𝛷(⋅)
+denote the standard normal density and distribution functions.25 This 
+
+′𝑧𝑖𝑛)∕𝛷( ̂𝛾𝑖
+
+25 The use of lagged holdings in the probit model is consistent with the 
+finding by Koijen and Yogo (2019) that an institution does not often hold 
+a stock currently if the stock was not held within the past 11 quarters. This 
+persistence in holdings conveniently allows us to have the probit model rely on 
+a variable different from the 𝑥𝑛𝑗 ’s used in the intensive-margin model, thereby 
+satisfying the recommended exclusion restriction for the successful application 
+
+1. Estimate the extensive- and intensive-margin regression mod-
+els using the actual data (observed portfolio weights 𝑤𝑖𝑛 and 
+characteristics 𝑋).
+
+(a) For each covered stock, let ̂𝜋𝑖𝑛 denote the estimated prob-
+ability that institution 𝑖 holds stock 𝑛, for all 𝑛 ∈ 𝑆.
+(b) Let 𝑒𝑖 denote the 𝐾𝑖×1 vector of estimated residuals from 
+the intensive-margin regression (Eq. (A.13)), to which we 
+have  added 
+regressor,
+𝑖 𝑧𝑖𝑛)∕𝛷(̂𝛾 ′
+𝜙(̂𝛾 ′
+𝑖 𝑧𝑖𝑛) (see previous section for details). Since 
+the intensive-margin regression is estimated with a con-
+straint, the mean of 𝑒𝑖 is not necessarily zero. We de-mean 
+𝑒𝑖 at the institution level to be consistent with the model’s 
+assumption that 𝜖𝑖𝑛 = 𝑒𝑖𝑛𝑤𝑚𝑛 has zero mean conditional 
+on 𝑋.
+
+the  additional  Heckman 
+
+of the Heckman correction (e.g., (Puhani, 2000)). If instead we were simply to 
+′𝑧𝑖𝑛) could possess 
+specify 𝑧𝑖𝑛 as containing those same 𝑥𝑛𝑗 ’s, then 𝜙( ̂𝛾𝑖
+strong collinearity with the 𝑥𝑛𝑗 ’s, making it difficult to separate any selection 
+effect from the primary roles of the 𝑥𝑛𝑗 ’s in the intensive-margin model. We 
+do not include lagged holdings in our extensive-margin model, because the 
+objective of that model is to infer how stock characteristics predict the set of 
+stocks the institution currently holds, regardless of how long the institution 
+has held those stocks.
+
+′𝑧𝑖𝑛)∕𝛷( ̂𝛾𝑖
+
+21 
+
+L. Pastor et al.
+
+(c) Let ̂𝑏𝑖 denote the intensive-margin model’s estimated co-
+efficient vector, and let ̂[𝜌𝜎𝑢]𝑖 denote the estimated coef-
+ficient on 𝜙(̂𝛾 ′
+
+𝑖 𝑧𝑖𝑛)∕𝛷(̂𝛾 ′
+
+𝑖 𝑧𝑖𝑛).
+
+2. Motivated by the heteroskedasticity observed in the data, we 
+allow the volatility of 𝑒𝑖𝑛 to depend on stock 𝑛’s market cap-
+italization, 𝑀𝑛, in an institution-specific manner. Specifically, 
+we assume the volatility of 𝑒𝑖𝑛 is proportional to 𝑀 𝜆𝑖
+𝑛 . We esti-
+mate 𝜆𝑖 as the coefficient on log(𝑀𝑛) from an institution-specific 
+regression  of  log(|𝑒𝑖𝑛|)  on  log(𝑀𝑛).26  Let  𝛿𝑖𝑛
+𝑛   de-
+note  the  volatility-adjusted  value  of  𝑒𝑖𝑛,  up  to  a  constant  of 
+proportionality. Let 𝛿𝑖 denote the vector of 𝛿𝑖𝑛.
+
+≡ 𝑒𝑖𝑛∕𝑀 𝜆𝑖
+
+3. Compute the actual value of 𝑇𝑖 from Eq. (7). Label this value 
+
+𝑇 𝑟𝑎𝑤
+𝑖
+
+.
+
+4. Compute a simulated value of  ̃𝑇𝑖 by using the following steps:
+
+(a) Simulate which stocks are held, ̃𝐼𝑖𝑛, as follows. For each of 
+the 𝑁 covered stocks in 𝑆, draw a uniform [0,1] random 
+variable  and  set  the  indicator  ̃𝐼𝑖𝑛 = 1  if  this  random 
+variable is below  ̂𝜋𝑖𝑛 and  ̃𝐼𝑖𝑛 = 0 otherwise. Let 𝐿𝑖 denote 
+the number of stocks with ̃𝐼𝑖𝑛 = 1, which is the number of 
+≥ 30
+stocks held in the simulated sample. We require 𝐿𝑖
+stocks, just like in the actual data; if this condition is not 
+met, we repeat this step until the condition is met.
+(b) With this new sample of size 𝑁, estimate the extensive-
+margin  model  while  replacing  the  actual  𝐼𝑖𝑛  with  the 
+simulated  ̃𝐼𝑖𝑛. Denote the fitted values as  ̃𝜋𝑖𝑛.
+
+(c) Simulate weights among the stocks held,  ̃𝑤𝑖𝑛, as follows. 
+For each of the 𝐿𝑖 stocks that are held, compute 𝑤+
+𝑖𝑛∕𝑤𝑚𝑛
+from Eq. (A.11) while using the estimates of ̂𝑏𝑖 and  ̂𝜋𝑖𝑛
+from step 1. Following Eqs. (A.11) and (A.13), compute 
+a draw of  ̃𝑤𝑖𝑛∕𝑤𝑚𝑛 by adding two terms to 𝑤+
+𝑖𝑛∕𝑤𝑚𝑛. The 
+first term is a random draw of 𝑒, which we compute as 
+the product of 𝑀 𝜆𝑖
+𝑛  and a random draw (with replace-
+ment) of an element of 𝛿𝑖. Multiplying by 𝑀 𝜆𝑖
+𝑛  performs a 
+heteroskedasticity adjustment to 𝑒. The second term, from 
+the Heckman adjustment, is ̂[𝜌𝜎𝑢]𝑖 times 𝜙(̂𝛾 ′
+𝑖 𝑧𝑖𝑛). 
+Adding  this  second  term  allows  a  correlation  between 
+the  error  term  in  the  intensive-margin  model  and  the 
+probability that the stock is held.
+
+𝑖 𝑧𝑖𝑛)∕𝛷(̂𝛾 ′
+
+(d) With this new sample of size 𝐿𝑖, estimate the intensive-
+margin  model  as  in  Eq.  (A.13),  replacing  𝜋𝑖𝑛  with  ̃𝜋𝑖𝑛
+and 𝑤𝑖𝑛 with  ̃𝑤𝑖𝑛, and performing the Heckman adjust-
+ment.  Denote  the  new  intensive-margin  model  coeffi-
+cients  by  ̃𝑏𝑖𝑗 .  Substitute  ̃𝑏𝑖𝑗  and  ̃𝜋𝑖𝑛  into  Eq.  (A.11)  to 
+𝑖𝑛, also denoted  ̃𝑤+[, ̃𝜋𝑖()]. Similarly, compute 
+obtain  ̃𝑤+
+0, ̃𝜋𝑖(
+̃𝑤+[
+
+0)].
+
+(e) Replacing variables with their tilde counterparts, compute 
+
+̃𝛥𝑖𝑛 in Eq. (1).
+
+(f) Compute  ̃𝑇𝑖 from Eq. (7), substituting  ̃𝛥𝑖𝑛 for 𝛥𝑖𝑛.
+
+5. Repeat step 4 for a total of 𝑁𝑆𝑖𝑚 trials.
+6. Compute 𝑇 𝐵𝑖𝑎𝑠𝑖 = ̄̃𝑇𝑖 − 𝑇 𝑟𝑎𝑤
+
+𝑖
+
+, where  ̄̃𝑇𝑖 is the average value of  ̃𝑇𝑖
+
+across the 𝑁𝑆𝑖𝑚 trials. 𝑇 𝐵𝑖𝑎𝑠𝑖 is the estimated bias in 𝑇 𝑟𝑎𝑤
+
+.
+
+𝑖
+
+7. Compute our final bias-adjusted estimate of 𝑇𝑖: 
+
+̂𝑇𝑖 = 𝑇 𝑟𝑎𝑤
+
+𝑖
+
+− 𝑇 𝐵𝑖𝑎𝑠𝑖.
+
+(A.16)
+
+8. Compute the standard error of  ̂𝑇𝑖 as follows. Let 𝑉𝑇  denote the 
+variance of ̃𝑇𝑖 across the 𝑁𝑆𝑖𝑚 trials. The standard error of  ̂𝑇𝑖 is 
+[𝑉𝑇 + 𝑉𝑇 ∕𝑁𝑆𝑖𝑚]1∕2. We need to add 𝑉𝑇 ∕𝑁𝑆𝑖𝑚 because 𝑇 𝐵𝑖𝑎𝑠𝑖, 
+an average across 𝑁𝑆𝑖𝑚 trials, is itself estimated with error. The 
+variance of the 𝑇 𝐵𝑖𝑎𝑠𝑖 estimate is 𝑉𝑇 ∕𝑁𝑆𝑖𝑚.
+
+26 In 2023, the mean and median of estimated 𝜆𝑖 are −0.258 and −0.270, 
+respectively. Estimated 𝜆𝑖 is negative for more than 95% of institutions and 
+significantly negative at the 5% level for more than 75% of institutions.
+
+22 
+
+Journal of Financial Economics 174 (2025) 104173 
+
+9. We compute a 95% confidence interval for 𝑇𝑖 as follows.
+
+𝑖
+
+(a) The lower end of this interval equals  ̂𝑇𝑖 − Gap2.5, where 
+ is the gap between the mean and the 
+
+Gap2.5 = ̄̃𝑇𝑖 − ̃𝑇 2.5
+2.5th percentile of  ̃𝑇𝑖 across simulated trials.
+
+(b) The higher end of this interval equals  ̂𝑇𝑖 + Gap97.5, where 
+− ̄̃𝑇𝑖 is the gap between the 97.5th per-
+
+Gap97.5 = ̃𝑇 97.5
+centile and the mean of  ̃𝑇𝑖 across simulated trials.
+
+𝑖
+
+Appendix B. Supplementary data
+
+Supplementary material related to this article can be found online 
+
+at https://doi.org/10.1016/j.jfineco.2025.104173.
+
+Data availability
+
+Green Tilts -- Replication Package (Original data) (Mendeley Data)
+
+References
+
+Atta-Darkua, Vaska, Glossner, Simon, Krueger, Philipp, Matos, Pedro, 2023. Decarboniz-
+ing institutional investor portfolios: Helping to green the planet or just greening 
+your portfolio?. Working paper.
+
+Bennett, James A., Sias, Richard W., Starks, Laura T., 2003. Greener pastures and the 
+impact of dynamic institutional preferences. Rev. Financ. Stud. 16, 1203–1238.
+Berg, Florian, Heeb, Florian, Koelbel, Julian F., 2023a. The economic impact of ESG 
+
+ratings. Working paper, MIT.
+
+Berg,  Florian,  Koelbel,  Julian  F.,  Pavlova,  Anna,  Rigobon,  Roberto,  2023b.  ESG 
+confusion and stock returns: Tackling the problem of noise. Working paper, MIT.
+Berg, Florian, Koelbel, Julian F., Rigobon, Roberto, 2022. Aggregate confusion: The 
+
+divergence of ESG ratings. Rev. Financ. 26, 1315–1344.
+
+BlackRock, 2020. BlackRock’s 2020 letter to clients. https://www.blackrock.com/corp
+
+orate/investor-relations/2020-blackrock-client-letter.
+
+Bolton, Patrick, Kacperczyk, Marcin, 2021. Do investors care about carbon risk? J. 
+
+Bolton, Patrick, Kacperczyk, Marcin, 2023. Global pricing of carbon-transition risk. J. 
+
+Financ. Econ. 142, 517–549.
+
+Financ. 78, 3677–3754.
+
+Brandon, Rajna Gibson, Glossner, Simon, Krueger, Philipp, Matos, Pedro, Steffen, Tom, 
+2022. Do responsible investors invest responsibly? Rev. Financ. 26, 1389–1432.
+Brandon, Rajna Gibson, Krueger, Philipp, Mitali, Shema F., 2021. The sustainability 
+footprint of institutional investors: ESG driven price pressure and performance. 
+Working paper.
+
+Bushee,  Brian  J.,  2001.  Do  institutional  investors  prefer  near-term  earnings  over 
+
+long-run value? Contemp. Account. Res. 18, 207–246.
+
+Bushee, Brian J., Carter, Mary Ellen, Gerakos, Joseph, 2014. Institutional investor 
+preferences for corporate governance mechanisms. J. Manag. Account. Res. 26, 
+123–149.
+
+Chen, Tao, Dong, Hui, Chen, Lin, 2020. Institutional shareholders and corporate social 
+
+responsibility. J. Financ. Econ. 135, 483–504.
+
+Choi, Darwin, Gao, Zhenyu, Jiang, Wenxi, 2020a. Measuring the carbon exposure of 
+
+institutional investors. J. Altern. Investments 23, 8–11.
+
+Choi, Darwin, Gao, Zhenyu, Jiang, Wenxi, 2020b. Attention to global warming. Rev. 
+
+Choi,  Darwin,  Gao,  Zhenyu,  Jiang,  Wenxi,  Zhang,  Hulai,  2023.  Carbon  stock 
+
+Financ. Stud. 33, 1112–1145.
+
+devaluation. Working paper.
+
+Cremers, Martijn, Petajisto, Antti, 2009. How active is your fund manager? A new 
+
+measure that predicts performance. Rev. Financ. Stud. 22, 3329–3365.
+
+Cremers, Martijn, Riley, Timothy B., Zambrana, Rafael, 2023. The complex materiality 
+of ESG ratings: Evidence from actively managed ESG funds. Working paper.
+DeVault, Luke, Sias, Richard, Starks, Laura, 2019. Sentiment metrics and investor 
+
+demand. J. Financ. 74, 985–1024.
+
+Dyck, Alexander, Lins, Karl V., Roth, Lukas, Wagner, Hannes F., 2019. Do institutional 
+investors drive corporate social responsibility? International evidence. J. Financ. 
+Econ. 131, 693–714.
+
+Eccles, Robert G, Stroehle, Judith C., 2018. Exploring social origins in the construction 
+
+of ESG measures. Working paper, University of Oxford.
+
+Edelen, Roger M., Ince, Ozgur S., Kadlec, Gregory B., 2016. Institutional investors and 
+
+stock return anomalies. J. Financ. Econ. 119, 472–488.
+
+Edmans, Alex, Gosling, Tom, Jenter, Dirk, 2025. Sustainable investing in practice: 
+
+Objectives, constraints, and limits to impact. Working paper.
+
+Edmans, Alex, Levit, Doron, Schneemeier, Jan, 2024. Socially responsible divestment. 
+
+Working paper.
+
+Falkenstein, Eric G., 1996. Preferences for stock characteristics as revealed by mutual 
+
+fund portfolio holdings. J. Financ. 51, 111–135.
+
+L. Pastor et al.
+
+Journal of Financial Economics 174 (2025) 104173 
+
+47, 153–161.
+
+finance. J. Financ. Econ. 103, 1–19.
+
+Hong,  Harrison,  Kostovetsky,  Leonard,  2012.  Red  and  blue  investing:  Values  and 
+
+equity investing. Working paper.
+
+Humphrey, Jacquelyn E., Li, Yong, 2021. Who goes green: Reducing mutual fund 
+
+Econ. 138, 614–634.
+
+Ferreira, Miguel A, Matos, Pedro, 2008. The colors of investors’ money: The role of 
+
+institutional investors around the world. J. Financ. Econ. 88, 499–533.
+
+Gantchev,  Nickolay,  Giannetti,  Mariassunta,  Li,  Rachel,  2022.  Does  money  talk? 
+Divestitures and corporate environmental and social policies. Rev. Financ. 26, 
+1469–1508.
+
+Gompers, Paul A., Metrick, Andrew, 2001. Institutional investors and equity prices. Q. 
+
+J. Econ. 116, 229–259.
+
+Heath, Davidson, Macciocchi, Daniele, Michaely, Roni, Ringgenberg, Matthew C., 2021. 
+
+Does socially responsible investing change firm behavior? Working paper.
+
+Heckman, James J., 1979. Sample selection bias as a specification error. Econometrica 
+
+emissions and its consequences. J. Bank. Financ. 126, 106098.
+
+Hwang, Chuan Yang, Titman, Sheridan, Wang, Ying, 2022. Investor tastes, corporate 
+behavior, and stock returns: An analysis of corporate social responsibility. Manag. 
+Sci. 68, 7131–7152.
+
+Ilhan, Emirhan, Krueger, Philipp, Sautner, Zacharias, Starks, Laura T., 2020. Climate 
+
+risk disclosure and institutional investors. Working paper.
+
+Investment Company Institute, 2024. Investment Company Fact Book. Washington, DC.
+Kim, Soohun, Yoon, Aaron, 2023. Analyzing active fund managers’ commitment to ESG: 
+Evidence from the United Nations Principles for Responsible Investment. Manag. 
+Sci. 69, 741–758.
+
+Koijen, Ralph S.J., Richmond, Robert J., Yogo, Motohiro, 2024. Which investors matter 
+for equity valuations and expected returns?. Rev. Econ. Stud. 91, 2387–2424.
+Koijen, Ralph S.J., Yogo, Motohiro, 2019. A demand system approach to asset pricing. 
+
+J. Political Econ. 127, 1475–1515.
+
+fund portfolios: Where are the value funds?. Working paper.
+
+Lewellen, Jonathan, 2011. Institutional investors and the limits of arbitrage. J. Financ. 
+
+Econ. 102, 62–80.
+
+Li, Xi, Raghunandan, Aneesh, 2021. Institutional ownership and workplace misconduct: 
+
+Evidence from federal labor law violations. Working paper.
+
+Li, Qianqian, Watts, Edward M., Zhu, Christina, 2023. Retail investors and ESG news. 
+
+Liang, Hao, Sun, Lin, Teo, Melvyn, 2022. Responsible hedge funds. Rev. Financ. 26, 
+
+Working paper.
+
+1585–1633.
+
+Moss, Austin, Naughton, James P., Wang, Clare, 2020. The irrelevance of ESG disclosure 
+
+to retail investors: Evidence from Robinhood. Working paper.
+
+Nofsinger, John R., Sulaeman, Johan, Varma, Abhishek, 2019. Institutional investors 
+
+and corporate social responsibility. J. Corp. Financ. 58, 700–725.
+
+Noh, Don, Oh, Sangmin S., Song, Jihong, 2023. Unpacking the demand for sustainable 
+
+Pástor, Ľuboš, Stambaugh, Robert F., Taylor, Lucian A., 2020. Fund tradeoffs. J. Financ. 
+
+Pástor, Ľuboš, Stambaugh, Robert F., Taylor, Lucian A., 2021. Sustainable investing in 
+
+equilibrium. J. Financ. Econ. 142, 550–571.
+
+Pástor, Ľuboš, Stambaugh, Robert F., Taylor, Lucian A., 2022. Dissecting green returns. 
+
+Puhani, Patrick A., 2000. The Heckman correction for sample selection and its critique. 
+
+Saint-Jean, Victor, 2023. Exit or voice? Divestment, activism, and corporate social 
+
+J. Financ. Econ. 146, 403–424.
+
+J. Econ. Surv. 14, 53–68.
+
+responsibility. Working paper.
+
+Financ. 69, 1415–1453.
+
+Stambaugh, Robert F., 2014. Presidential address: Investment noise and trends. J. 
+
+Starks, Laura T., 2023. Presidential address: Sustainable finance and ESG issues—Value 
+
+versus values. J. Financ. 78, 1837–1872.
+
+Starks, Laura T., Venkat, Parth, Zhu, Qifei, 2023. Corporate ESG profiles and investor 
+
+horizons. Working paper.
+
+Lettau, Martin, Ludvigson, Sydney C., Manoel, Paulo, 2021. Characteristics of mutual 
+
+van der Beck, Philippe, 2022. Flow-driven ESG returns. Working paper.
+
+23 
+
+

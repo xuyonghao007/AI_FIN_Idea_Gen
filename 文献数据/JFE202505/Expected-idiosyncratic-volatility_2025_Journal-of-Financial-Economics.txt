@@ -1,0 +1,5141 @@
+Journal of Financial Economics 167 (2025) 104023 
+
+Contents lists available at ScienceDirect
+
+Journal of Financial Economics
+
+journal homepage: www.elsevier.com/locate/jfec
+
+Expected idiosyncratic volatility
+
+☆
+
+Geert Bekaert a,*, Mikael Bergbrant b,#, Haimanot Kassa c,##
+a Columbia Business School and CEPR
+b St. John’s University, Department of Economics and Finance, Tobin College of Business, Queens, NY 11439, USA
+c Miami University, Department of Finance, Farmer School of Business, Oxford, OH 45056, USA
+
+A R T I C L E I N F O
+
+A B S T R A C T
+
+We use close to 80 million daily returns for more than 19,000 CRSP listed firms to establish the best forecasting
+model for realized idiosyncratic variances. Comparing forecasts from multiple models, we find that the popular
+martingale model performs worst. Using the root-mean-squared-error (RMSE) to judge model performance,
+ARMA(1,1) models perform the best for about 46% of the firms in out-of-sample tests. The ARMA(1,1) model
+delivers an average RMSE that is statistically significantly lower than all alternative models, and also performs
+well when not the very best. Its forecasts reverse large, unexpected shocks to realized variances. When using this
+model to revisit the relation between idiosyncratic risk and returns (the IVOL puzzle), we fail to find a significant
+relation. The IVOL puzzle is closely connected to a very small set of observations where the martingale forecast
+over-predicts the future realized variance. These extreme observations are correlated with well-known firm
+characteristics associated with the IVOL puzzle such as poor liquidity as measured by high bid-ask spreads and
+the “MAX” effect.
+
+Dataset link: Expected Idiosycratic Volatility
+(Reference data)
+
+JEL Classification:
+G11
+G12
+G14
+
+Keywords:
+Idiosyncratic volatility
+IVOL puzzle
+Volatility forecasting
+Max returns
+Martingale
+ARMA
+ARIMA
+HAR
+MIDAS
+Quarticity
+Realized variances
+EGARCH
+
+1. Introduction
+
+Quantifying the expected variance of an individual stock position
+requires estimates of systematic exposure, the conditional variances of
+systematic variances (e.g. the market variance in a market model), and
+the expected idiosyncratic variance. There is a very extensive literature
+on the first two components,1 but the literature on quantifying the ex-
+pected idiosyncratic variance is scant. This is surprising as it is well-
+
+known that the idiosyncratic variance component, more often than
+not, dominates the systematic component of individual stock return
+variances.
+
+In this paper, we build on the state-of-the-art literature on volatility
+forecasting to run a horse race between a variety of models to measure
+expected idiosyncratic risk. Our base set of models include the popular
+martingale model (see Ang et al., 2006), a variant of Corsi’s (2009)
+non-linear
+heterogeneous
+
+(“HAR”) model,
+
+autoregressive
+
+a
+
+☆
+
+Nikolai Roussanov was the editor for this article. We sincerely thank the referee for their valuable comments, which significantly improved the exposition of the
+paper. We are grateful for comments from Turan Bali, Jonathan Lewellen, Nikolai Roussanov (editor) and Avanidhar Subrahmanyam as well as the remarks of
+seminar participants at University of Denver, West Virginia University and Ohio University. The paper has also benefitted from feedback at the Southern Finance
+Conference (2023). We thank Jens Mueller for helping us use Miami University’s Redhawk cluster for processing large batches of data.
+
+* Corresponding author at: Columbia University, 3022 Broadway, Uris Hall, Room 411, New York, NY 10027, United States.
+
+E-mail addresses: gb241@gsb.columbia.edu (G. Bekaert), bergbram@stjohns.edu (M. Bergbrant), kassah@miamioh.edu (H. Kassa).
+
+# Reed-McDermott Associate Professor of Finance.
+## Lindmor Associate Professor of Finance.
+
+1 For example, the literature on predicting market variances is too vast to survey, but we use some of its state-of-the-art models, like the Corsi (2009) model, below.
+
+https://doi.org/10.1016/j.jfineco.2025.104023
+Received 18 June 2023; Received in revised form 1 February 2025; Accepted 3 February 2025
+Available online 20 February 2025 
+0304-405X/© 2025 Elsevier B.V. All rights are reserved, including those for text and data mining, AI training, and similar technologies. 
+
+G. Bekaert et al.
+
+Journal of Financial Economics 167 (2025) 104023 
+
+autoregressive model and an ARMA(1,1) model. To accommodate po-
+tential specification errors for the systematic component of returns
+and/or market wide variance components, we also consider the last
+three models with the market variance as an additional independent
+variable. Our models aim to forecast future monthly idiosyncratic real-
+ized variances using daily data for individual firm returns going back to
+1926. Using mainly the Root Mean Squared (Forecast) Error, henceforth
+RMSE, we find that an ARMA(1,1) model for realized variances is the
+best model in terms of out-of-sample performance. It generates the best
+out-of-sample forecasts for more than 34% of firms. The ARMA model
+and the ARMA model with the market variance together generate the
+best forecasts for over 46% of firms. The ARMA(1,1) model also per-
+forms relatively well when not the very best, ranking among the top 3
+models for more than 72% of firms. Furthermore, the median ratio be-
+tween the RMSE of the ARMA model to that of the best model is 1.0106,
+meaning that the ARMA forecast is only 1.06% worse than the forecast
+of the best model for the median firm. More telling, the 75% percentile
+of this ratio is 1.0549 implying that the ARMA forecasts are very good
+even when not the very best. Finally, it delivers statistically significantly
+lower average RMSE than all alternative models. Economically, the
+ARMA model features an autoregressive coefficient much higher than an
+AR(1) model, but lower, of course, than the martingale model. However,
+through a large moving average coefficient its forecasts reverse large,
+unexpected shocks to realized variances.
+
+The outperformance of the ARMA(1,1) should not come as a surprise
+given the literature on high frequency volatility forecasting (see e.g.
+Barndorff-Nielsen and Shephard, 2002). When the integrated variance
+follows a simple autoregressive process, the realized variance naturally
+follows an ARMA(1,1) process.2 This literature also suggests various
+extensions of our base models, including higher order ARMA models
+(see e.g. Andreou and Ghysels, 2002), models embedding quarticity (see
+e.g. Bollerslev et al., 2016), and MIDAS models (see Ghysels et al.,
+2007). However, even compared to these more sophisticated models, the
+ARMA(1,1) model remains the best performing model. We perform a
+host of robustness checks to the measurement of idiosyncratic realized
+variances (IVAR) underlying our main results, and the results remain
+unchanged.
+
+Our results offer a useful perspective on the huge literature on the
+(negative) pricing of idiosyncratic risk in the cross-section of expected
+returns (see Ang et al. 2006). We find that while expected idiosyncratic
+risk derived from the martingale model is negatively (and significantly)
+related to returns (as shown in prior literature), none of the other
+forecasts, including those of the best ARMA(1,1) model, are significantly
+related to returns. Our failure to reject the null of no relation continues
+to hold when generating the forecasts from the “best” model for each
+firm (judged by the lowest out-of-sample RMSE for each firm) and when
+back testing models each month and choosing the forecast from the
+model with the best past performance. Digging deeper, we document
+that the negative relationship between idiosyncratic risk and future
+realized returns using the martingale model is very fragile, and disap-
+pears when a limited number of firm-month observations are removed.
+Specifically, removing just 0.4% of the observations each month with
+the highest realized idiosyncratic variance forecast errors, measured as
+forecast minus realization, suffices to render the relationship insignifi-
+cant. The relationship is also rendered insignificant in the univariate
+(multivariate) regression models when 5% (7%) of firm months with the
+highest martingale - ARMA(1,1) forecast differences are removed.
+Hence, the IVOL puzzle is driven by observations where the martingale
+forecast is particularly poor, and specifically when past IVAR shocks (i.e.
+high IVAR in time t-1) revert in time t, which the martingale fails to
+account for. Importantly, under identical sample variations for the
+ARMA(1,1) model, the inference regarding the relationship between
+idiosyncratic variances and returns does not change.
+
+2 We thank the referee for pointing us in this direction.
+
+2 
+
+We then link these extreme forecast errors to standard controls used
+in IVOL-puzzle regressions and the explanatory variables explored in
+Hou and Loh (2016), using a variety of econometric techniques. We
+conjecture that firm characteristics associated with large martingale
+forecast errors should also help explain the IVOL puzzle. We find a
+strong relationship with bid-ask spreads, size indicators, measures of
+illiquidity, and past returns (the reversal effect). The variable most
+dramatically related to extreme forecast errors is the MAX variable (the
+maximum daily return over the past month) from Bali et al. (2011),
+which seems a good proxy for firm months in which the realized idio-
+syncratic variance is excessively and temporarily high.
+
+The ARMA(1,1) forecasts differ drastically from the martingale
+model, as the former model allows temporary shocks to IVAR to revert,
+and does therefore not generate many of the poor forecasts (outliers with
+large forecast errors) that drive the negative relation between martin-
+gale IVOL and returns. This helps explain the difference in the relation
+between the forecasts from this model and returns. We perform the same
+analysis using the difference between the martingale and ARMA(1,1)
+forecasts and, indeed, the same firm characteristics that explain the
+extreme martingale forecast errors, are associated with large differences
+in the forecasts of the two models.
+
+We further characterize what firm properties cause variation in ex-
+pected idiosyncratic volatility. Focusing on the forecasts from the ARMA
+(1,1) model, we find that expected idiosyncratic volatility is increasing
+in beta and turnover while decreasing in firm size and book to market,
+with the size and turnover effects economically largest. Finally, we
+investigate the evolution of aggregate expected idiosyncratic volatility
+over time. It appears overall stationary but shows occasional extreme
+peaks, such as during the Great Depression, the 1970s’ stagflation, the
+Tech boom and ensuing bear market, the Great Financial Recession, and
+the Covid shock.
+
+Our paper provides useful inputs to several literatures. First, the
+literature on the dynamic properties of expected idiosyncratic volatility
+should be helpful in risk management, asset allocation and option
+pricing. In asset management, idiosyncratic volatility is a key determi-
+nant of the optimal weight assigned to mis-priced securities or arbitrage
+opportunities (see Pontiff, 2006; Treynor and Black, 1973). Many indi-
+vidual option pricing models (see e.g., Bakshi et al., 2021) start from
+models built for index options. Our results suggest that such models may
+miss an important dynamic component of idiosyncratic risk.3
+
+Secondly, a rapidly growing macroeconomic literature studies the
+effect of uncertainty shocks on real economic activity and business cy-
+cles, and documents that heightened uncertainty can entail economic
+slowdowns through delayed firm investments, or increased precau-
+tionary savings by households. While macroeconomists often employ
+stock market data to measure uncertainty, they take various short-cuts
+by using aggregate market volatility or measures of cross-sectional re-
+turn dispersion (see e.g., Bloom (2009) and Christiano et al. (2014)).
+However, the relevant economic models seem to call for a measure of
+idiosyncratic variance, reflecting non-systematic volatility, and, better
+still, a measure of firm-specific productivity or output uncertainty. Our
+measures may therefore provide useful input to this macroeconomic
+literature.4
+
+Finally, our finding that expected IVOL is not priced when estimated
+using reasonable models should be comforting to proponents of efficient
+
+3 Bakshi et al. (2003) show, inter alia, that individual equity options reveal
+less negative skewness than market options. We estimate our models using
+projections or quasi maximum likelihood and do not take a stand on conditional
+distributions, which are very important in asset pricing. Our results suggest that
+the data generating process for individual stock variances should feature a
+shock dampening volatility effect, as implied by the ARMA(1,1) model.
+
+4 Kozeniauskas et al. (2018) distinguish between uncertainty shocks derived
+from both micro and macro data, but also show they are substantially
+correlated.
+
+G. Bekaert et al.
+
+Journal of Financial Economics 167 (2025) 104023 
+
+markets and traditional asset pricing theory. In addition, the findings
+that the negative relation between martingale IVOL forecasts and
+returns is driven by very few observations with particularly poor fore-
+casts, and that explanations of the puzzle are all related to the incidence
+of these poor forecasts should be helpful in resolving the “IVOL Puzzle”.
+The remainder of the paper is organized as follows. The next section
+(2) describes the data. Section 3 describes the construction of our ex-
+pected realized variance proxies using 7 different base models and a
+variety of more sophisticated models. Section 4 analyzes the forecast
+performance; Section 5 contrasts the pricing of idiosyncratic risk under
+different volatility models and analyzes why the martingale model
+uniquely delivers a negative relation with returns. Section 6 analyzes the
+properties of expected idiosyncratic volatility using the best (ARMA)
+model. The conclusion is presented in Section 7.
+
+2. Data and variable descriptions
+
+(2012) scaled by the stock price. Both measures are downloaded from
+the Open Source Asset Pricing website7 and these values are lagged to
+ensure that we do not introduce a look-ahead bias. Finally, Zero return
+(ZERORET) is measured following Han and Lesmond (2011) as the
+fraction of trading days with a zero return in the previous month. We
+also use two alternative size measures (both dummies). One is for firms
+that have a price below $5 at the end of the prior month (LOW_PRC), and
+another is for firms with a market capitalization below the 5th NYSE
+percentile in the prior month (LOW_MC). Finally, we measure MAX as
+the highest daily return in the prior month.
+
+Although we use all available data to create our variables, many of
+our tests start in 1963 due to limitations in accounting data prior to that
+time. For our asset pricing tests, we follow prior literature on investi-
+gating whether idiosyncratic risk is related to returns in the cross-section
+and winsorize all continuous variables (except for returns8 and BETA)
+monthly at the 0.5% and 99.5% levels.
+
+We obtain daily holding period returns inclusive of dividends, prices,
+shares outstanding, and volume data for equities traded on NYSE/
+AMEX, and NASDAQ from January of 1926 to December 2022 from the
+Center for Research in Security Prices (CRSP). This provides us with a
+total of 78,304,731 daily (3,715,261 monthly) firm returns covering
+26,493 firms. The number of firms varies between 500 (1926:1) and
+7,519 (1997:12) over the 1,164 available months. We obtain accounting
+data from Compustat’s annual fundamentals file. The Fama and French
+(1993) factors and the risk-free rate (RF) are obtained through Wharton
+Research Data Services (WRDS). Our tests on the relative performance of
+different models (Tables 1-4) are based on data over the entire
+1926–2022 sample. The remaining tables have a later start date based on
+data availability from Compustat as described below.
+
+To characterize the results and conduct tests for whether idiosyn-
+cratic risk is priced, we collect data on firm characteristics. Beta, size,
+and market-to-book ratios are defined as in Fama and French (1992) and
+updated annually while turnover and the coefficient of variation of
+turnover are constructed following Chordia et al. (2001) and updated
+monthly. Turnover (TURN) is calculated as the average share turnover
+(monthly volume divided by the numbers of shares outstanding) in the
+past 36 months (a minimum of 24 months of data is required). We also
+calculate the coefficient of variation of the turnover over the same time
+period (CVTURN). Momentum (MOM) is calculated as the mean
+monthly holding period return between month t-7 to t-2, and Reversals
+(LAGRET) represents last month’s return. Momentum and Reversals are
+calculated based on monthly data and updated monthly. All
+cross-sectional variables, except for beta, are calculated ex-ante.5
+
+To explore how martingale IVOL forecasts may contribute to the
+IVOL puzzle, we collect data on common explanatory variables used in
+this literature (see e.g. Hou and Loh, 2016). Skewness (SKEW) is
+calculated using daily returns in the previous month while Co-skewness
+(COSKEW) is measured as the regression coefficient of squared daily
+stock returns on market returns in the previous month. We require 15
+return observations within a month for both SKEW and COSKEW. We
+obtain expected idiosyncratic skewness (EXPIDIOSKEW) from Boyer
+et al. (2010).6 We use several alternative measures of market frictions.
+Amihud Illiquidity (AMILL) is calculated following Amihud (2002) as
+the past 12-month average of daily returns divided by turnover while
+bid-ask spread (BIDASK) is calculated following Amihud and Mendel-
+sohn (1986) as the effective bid-ask spread based on Corwin and Schultz
+
+3. Variance forecasting models
+
+To compute the best possible estimate of expected idiosyncratic
+variances, we rely on the state-of-the-art volatility forecasting literature,
+which now almost exclusively uses realized variance models. Andersen
+et al. (2003) show that, under mild conditions, the expected conditional
+realized variance converges to the conditional return variance, where
+the realized variance is the quadratic variation of high frequency
+returns. Therefore, our criterion to define forecasting performance is the
+ability of different models to predict future realized idiosyncratic vari-
+ances.9 In Section 3.1, we outline the computation of idiosyncratic
+variances; in Section 3.2, we first discuss why theoretically, an ARMA(1,
+1) model would be a natural forecasting model for realized variances,
+whereas the martingale model is mis-specified. We then present the 7
+base models we examine. In Section 3.3, we discuss and justify various
+extensions of the base models. These include higher order ARMA(p,q)
+processes, models embedding quarticity (following Bollerslev et al.,
+2016), MIDAS models (Ghysels et al., 2019), and the monthly EGARCH
+Model (Nelson, 1991)
+
+3.1. Calculating idiosyncratic realized variance
+
+The extensive literature on volatility forecasting focuses mostly on
+index returns, where the consensus currently has converged to using 5-
+minute returns (see Andersen et al., 2001, and many others) as an
+adequate trade-off between microstructure noise and the continuous
+time limit. With microstructure noise (see e.g., Chordia and Sub-
+rahmanyam, 2004; Asparouhova et al., 2010; and Han and Lesmond,
+2011 among others) more important for most individual firms than for
+market returns, sparser sampling might be preferred (see Bandi and
+Russell, 2006). Although an active econometric literature has proposed
+several new realized variance estimators to reduce the effects of
+microstructure noise (see e.g. Jacod et al. (2009)), we are forced to
+measure idiosyncratic shocks at the daily frequency because high fre-
+quency data for (a subset of) individual stocks is only available since the
+early nineties.
+
+Let’s define the idiosyncratic return shock for an individual firm i,
+observed at day d in month t, as εi,d,t. We define the monthly idiosyn-
+cratic realized variance (IVARi,t) as the sum of the squared daily idio-
+syncratic return shocks (εi,d,t) within month t. For our main models, we
+use εi,d,t from the Fama and French (1993) model estimated within
+
+5 Fama and French (1992) argue the forward-looking BETA proxy is more
+precise than using BETA estimates at the firm level. While this variable is used
+in analyzing our results, as well as the asset pricing tests, it is not used to
+compute idiosyncratic risk and does not feature in our model selection
+exercises.
+
+6 We thank Prof. Brian Boyer for making the data available for download at
+
+https://boyer.byu.edu/skewness-data.
+
+7 https://www.openassetpricing.com/.
+8 Following prior literature, we set monthly returns over 300% to missing for
+
+our asset pricing tests.
+
+9 While a few articles forecast volatility (the square root of the variance),
+volatility is not a proper moment and constitutes a non-linear transformation of
+the variance.
+
+3 
+
+G. Bekaert et al.
+
+month t.
+
+RETi,d,t (cid:0) RFd,t = ai,t + bi,t
+∑Nt
+
+IVARi,t =
+
+ε2
+i,d,t
+
+d=1
+
+(cid:0)
+
+MKTd,t (cid:0) RFd,t
+
+)
+
++ si,tSMBd,t + hi,tHMLd,t + εi,d,t
+
+(1)
+
+where RETi,d,tis the stock return for firm i on day d in month t, RFd,t is the
+daily equivalent of the one-month Treasury bill rate from Ibbotson As-
+sociates on day d in month t obtained from Professor Ken French
+(through WRDS), and MKT, SMB and HML are the market, size and value
+factors. Nt is the maximum number of trading days within the month.
+Our definition of idiosyncratic shocks closely follows the finance
+literature, but we also consider several additional alternatives for
+robustness (See Section 4.4 for the results). First, we use the CAPM in
+month t instead of the Fama-French three factor model. Second, we
+estimate the parameters of the Fama-French three factor model using
+daily data in the prior 3 months (t-2 to t), to estimate εi,d,t in month t.
+Third, we adjust IVAR for autocorrelation following French et al. (1987)
+by adding 2 times the sum of daily cross-products of adjacent returns.
+Specifically,
+
+IVARFSS
+i,t
+
+=
+
+∑Nt
+
+d=1
+
+ε2
+i,d,t
+
++ 2
+
+∑Nt (cid:0) 1
+
+d=1
+
+εi,d,tεi,d+1,t
+
+(2)
+
+where, as stated above, the subscript i is the firm, t is the month, d is the
+day within the month, and Nt is the maximum number of trading days
+within the month. Fourth, we restrict the sample to only include firms in
+the S&P500 in a given month, as this should ensure that the findings are
+not driven by illiquidity or micro-structure noise.
+
+3.2. Predictive models for realized variances
+
+Ang et al. (2006) find that lagged realized volatility is negatively
+related to returns (which is often termed the IVOL Puzzle), implicitly
+using a martingale model for realized variances. This is the most popular
+IVAR model and the first model we consider:
+
+IVARi,t = IVARi,t(cid:0) 1 + ei,t
+
+(3)
+
+However, on theoretical grounds, this model is almost surely mis-
+specified. Without getting into technical details, the realized variance
+literature shows that under certain conditions, the conditional return
+variance can be measured as the conditional expected value of inte-
+grated variance, which is approximated by the realized variance. Let’s
+define integrated variance as IVt, and realized variance (measured using
+a particular sampling interval) as RVt, then, RVt = IVt + ut where ut is
+a zero mean noise term, reflecting microstructure noise and the fact RVt
+uses a particular sampling frequency during the day (See Anderson et al.,
+2003; Barndorff-Nielsen and Shephard, 2002 for formal discussions). If
+we assume an AR(1) model for IVt, and standard white noise for the error
+term ut, the resulting time series model for RVt is an ARMA(1,1) model.
+Thus, there are theoretical reasons to expect the ARMA(1,1) model to
+outperform the martingale model, and it is the second model we
+consider:
+
+IVARi,t = ai + biIVARi,t(cid:0) 1 (cid:0) θiei,t(cid:0) 1 + ei,t
+
+(4)
+
+We estimate this model by Maximum Likelihood (MLE), assuming
+the initial residual is zero. Economically, when a large volatility spike
+occurs, it likely causes a large positive residual error; with a positive θ
+coefficient, the model can then counteract the high volatility prediction
+of the autoregressive component.
+
+Econometrically, there is an alternative way to accommodate rela-
+tively quick changes in the dependence on past variances, namely time-
+varying autoregressive parameters. It is conceivable that the persistence
+of volatility is different in normal times than in high volatility times. For
+
+Journal of Financial Economics 167 (2025) 104023 
+
+example, imagine a firm experiencing a large earnings shock, which
+causes its volatility to spike. Presumably, such large volatility spike
+should not persist into the next month. To accommodate such variation
+in persistence, our third model is a non-linear AR(1) model, where the
+persistence coefficient is a function of the past variance (“ARNL”):
+)
+*IVARi,t(cid:0) 1 + ei,t
+
+(cid:0)
+IVARi,t = ai + θi*L
+
+bi * IVARi,t(cid:0) 1
+
+(5)
+
+where L(.) is the logistic function, i.e., L(x) = exp(x)/[1 +exp(x)]. We
+expect the b-coefficient to be negative. Bekaert et al. (2024) find evi-
+dence for such non-linearity in US, Euro area and Japanese market
+variances.10 The model is estimated by non-linear least squares.
+
+The fourth model is a variant of the Corsi (2009) “HAR” model,
+perhaps the most popular model in the extensive realized variance
+forecasting literature at the market level:
+
+IVARi,t = ai + biIVARi,t(cid:0) 1 + θiIVARi,t(cid:0) 1,w + ciIVARi,t(cid:0) 1,d + ei,t
+
+(6)
+
+where IVARi,t(cid:0) 1,w is the sum of squared residuals in the last week (w) of
+the prior month (t-1) for firm i and IVARi,t(cid:0) 1,d is the squared residual on
+the last trading day (d) in the prior month (t-1) for firm i. Thus, more
+recent information can differentially affect the conditional variance for
+the next month. The HAR model was initially developed for daily real-
+ized variance forecasting and the current formulation may not be
+optimal for monthly forecasting. However, the results in Bekaert and
+Hoerova (2014) for stock return variances at the market level, and for
+various asset classes in Ghysels et al. (2019) show that it performs
+reasonably well for monthly horizons. In essence, the HAR model is a
+MIDAS regression with step functions, see e.g. Ghysels et al. (2007) and
+the relevant discussion in Corsi (2009). If optimal at the daily level, the
+monthly forecast could also be viewed as a special case of a MIDAS
+forecast, putting different weights on the various daily realized vari-
+ances within the month. We consider a MIDAS framework directly in
+Section 3.3.
+
+In addition to the previous 4 models, we also estimate each of the last
+3 models including the sum of squared daily returns of the market during
+the prior month (i.e., the market realized variance) as an independent
+variable. While we have removed systematic components in returns,
+there is evidence of common factors in idiosyncratic firm variances (see
+Herskovic et al., 2016, for evidence in the US, and Bekaert et al., 2024,
+for evidence in 21 countries.) Allowing dependence on the market
+variance is a simple way to potentially capture such factors, which may
+improve the forecasting power of the model.11
+
+3.3. Additional predictive models for realized variances
+
+While the bulk of results focuses on the base models introduced in
+Section 3.2, we also estimate a wide set of alternative models. These
+models fall into four different categories: generalizations of the ARMA
+(1,1) model, alternative time-varying parameter models embedding
+quarticity, MIDAS models which generalize the HAR model, and the
+EGARCH model.
+
+3.3.1. Additional ARMA models
+
+While theory suggests that realized variances follow an ARMA(1,1)
+model, this assumes that the integrated variance is an AR(1) process.
+Chernov et al. (2003), among others, find that continuous time volatility
+models are best described by two-factor models, which would suggest an
+for realized variances. Component models of
+ARMA(2,2) model
+
+10 The model is also related to the quarticity correction proposed in Bollerslev
+et al. (2016), which models the persistence coefficient as a function of the
+degree of uncertainty with which the realized variance is measured, see Section
+3.3.
+11 Bartram et al. (2016) and Bekaert et al. (2012) find a strong link between
+the aggregate idiosyncratic variance and the conditional market variance.
+
+4 
+
+G. Bekaert et al.
+
+Journal of Financial Economics 167 (2025) 104023 
+
+volatility (e.g., the permanent and transitory components in Engle and
+Lee, 1999; or bad and good volatility components in Bekaert et al., 2015)
+also suggest richer ARMA processes. In fact, Barndorff-Nielsen and
+Shephard (2002) show theoretically that integrated and realized vari-
+ances are ARMA(p,p) processes when the spot variance is a linear
+combination of p independent continuous time autoregressive processes.
+An alternative literature, focusing on improving the measurement of
+realized variances, suggests using smoothing by incorporating lagged
+realized variances (see e.g. Ghysels et al., 2023 and Andreou and Ghy-
+sels, 2002). The Andreou-Ghysels paper suggests that for the S&P 500
+index, using up to two lags improves measurement of monthly realized
+variances. Such measurement schemes would also suggest more
+complicated ARMA models for the realized variance. We therefore
+consider an alternative forecasting model, where we estimate all (12)
+ARMA(p,q) models, with p in the (1,2,3) set and q in the (0,1,2,3) set.
+For each firm, in each month (t), we then use the forecast for month (t +
+1) from the model with the lowest Akaike information criterion (1974,
+AIC henceforth).
+
+While theory may favor more complicated models, it is well known
+that in out-of-sample forecasting, parsimonious models do well. We
+therefore also consider a simple autoregressive AR(1) model for realized
+variances:
+
+IVARi,t = ai + biIVARi,t(cid:0) 1 + ei,t
+
+(7)
+
+3.3.2. Quarticity models
+
+Ghysels et al. (2023) derive the optimal weight on current and past
+realized variances in the measurement of integrated variance, suggest-
+ing the weight on current realized variance should depend on the noise
+with which it is measured. This noise is proportional to the quarticity of
+realized variances, which depends on returns to the fourth power (see e.
+g. Barndorff-Nielsen and Shephard, 2002). Bollerslev et al. (2016) focus
+directly on forecasting future realized variances and suggest estimating
+an AR(1) model with the AR(1) coefficient interacted with realized
+quarticity, or an HAR model with some or all of the coefficients inter-
+acted with the relevant quarticity measure. Note that the intuition here
+is quite similar to the non-linear autoregressive model (ARNL) in the
+base set of models. We estimate a number of such models.
+
+3.3.2.1. Autoregressive quarticity model
+IVARi,t = αi,0 +
+
+̅̅̅̅̅̅̅̅̅̅̅̅̅̅
+RQi,t(cid:0) 1
+
+αi,1 + αi,1Q
+
+√
+
+(cid:0)
+
+)
+IVARi,t(cid:0) 1 + ei,t
+
+(8)
+
+∑
+
+M
+k=1 r4
+
+where RQ stands for realized quarticity, and RQ is generally estimated
+as: RQt,d = (M /3)
+t,k, where rt,k is the high frequency (e.g. 5 min)
+return, and M is the number of high frequency returns used per day,
+where we dropped the stock subscript. Of course, in our set up with daily
+returns, M = 1, so that daily quarticity is the daily idiosyncratic return
+to
+becomes RQt
+4th
+the
+= (1 /Nt)(1 /3)
+t,k where rt,k are now idiosyncratic daily returns
+within month t and Nt is the number of trading days within month t. The
+prediction is that α1Q is negative; when the noise in measuring RV is
+high, the persistence of realized variances decreases.
+
+power
+Nt
+k=1 r4
+
+and monthly
+
+quarticity
+
+∑
+
+3.3.2.2. HAR quarticity model. Here all coefficients in the HAR model
+interact with the relevant quarticity measure:
+
+IVARi,t = αi,0 +
+βi,1
+γi,1
+
+(cid:0)
++
+(cid:0)
++
+
+(cid:0)
+
+αi,1 + αi,1Q
++ βi,1Q
++ γi,1Q
+
+√
+√
+
+̅̅̅̅̅̅̅̅̅̅̅̅̅̅
+√
+)
+IVARi,t(cid:0) 1
+RQi,t(cid:0) 1
+̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅
+)
+IVARi,t(cid:0) 1,w
+RQi,t(cid:0) 1,w
+̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅
+)
+IVARi,t(cid:0) 1,d + ei,t
+RQi,t(cid:0) 1,d
+
+(9)
+
+where the adjustment for the weekly (5 days) and one day quarticity
+measures sums the daily returns to the 4th power over the recent 5 (1)
+days and divides by 5 times 3 for the weekly estimate or by 1 times 3 for
+the daily estimate.
+
+5 
+
+3.3.2.3. ARMA(1,1) quarticity model. In this model, both the AR and
+MA coefficients are a linear function of the quarticity measure.
+̅̅̅̅̅̅̅̅̅̅̅̅̅̅
+RQi,t(cid:0) 1
+)
+ei,t(cid:0) 1 + ei,t
+
+βi,1
+θi,1 + θi,1Q
+
+)
+IVARi,t(cid:0) 1
+
+IVARi,t = αi,0 +
+
+̅̅̅̅̅̅̅̅̅̅̅̅̅̅
+RQi,t(cid:0) 1
+
++ βi,1Q
+√
+
+(10)
+
+√
+
++
+
+(cid:0)
+
+(cid:0)
+
+For the above quarticity models, we set the starting values based on
+the median values from the “base” models, and we set the quarticity
+coefficients to 0. All quarticity models are estimated using PROC MODEL
+in SAS.
+
+3.3.2.4. MIDAS quarticity model. We defer the discussion of this model
+to the next section.
+
+In all these models, we follow Bollerslev et al. (2016) and do not use
+RQ itself in the estimation but RQ minus its sample mean so that βi, 1, for
+example,
+In our
+out-of-sample analysis, this averaging is done for each rolling sample
+over which we conduct the estimation.
+
+the unconditional autoregressive estimate.
+
+is
+
+3.3.3. MIDAS models
+
+As mentioned before, the HAR model is a special case of a MIDAS
+model. We therefore also consider MIDAS models explicitly: that is, we
+model the forecast as a function of all IVARi,t,d in the prior 22 days with a
+flexible weight function. We parametrize the weights with an (expo-
+nential) Almon lag specification as in Ghysels et al. (2019). Obviously,
+the monthly implied model of the daily HAR model would be a special
+case of this model. Specifically, this model can be written as follows:
+
+IVARi,t = αi + ϕi
+
+wi,j IVARi,t(cid:0) 1,d
+
+)
+
++ ei,t
+
+∑K
+
+(cid:0)
+
+j=0
+
+(11)
+
+where the t subscript is a month subscript and d indicates the day within
+the month, with j = 0 representing the last day in the month (the one
+that is nearest), and K the first day. We set K = 22. The weight function
+depends on two parameters, with the weights adding to one and always
+positive. Dropping the stock subscript i, the weight for day j is:
+
+(cid:0)
+wj = exp
+
+θ1j + θ2j2
+
+/
+)
+
+∑K
+
+j=0
+
+(cid:0)
+
+exp
+
+θ1j + θ2j2
+
+)
+
+Note that this specification has three parameters, two determining
+the weight function and one “autoregressive” parameter. This weight
+function can fit almost any pattern, for example, if θ2 < 0 weights
+decline to zero eventually. We estimate the model by non-linear least
+squares, just as we did for the nonlinear AR model. We use agnostic
+starting values, setting θ1 = θ2 = 0, which produces equal 1/K weights.
+For ϕ, we try different starting values in the set (11,9,7,5,3) and use the
+one that produces the smallest objective function value to start the
+iterative process. These starting values correspond to a wide, reasonable
+range of AR(1) coefficients. Note that for weights equal to 1/K, the usual
+autoregressive coefficient would correspond to ϕ/K.
+
+Running this non-linear estimation for our large set of stocks over a
+long historical period is not trivial, and we did experience convergence
+issues in about 8% of the cases. To improve the estimation performance,
+we also estimate simpler versions of the MIDAS model, namely a first
+order and second order Taylor approximation to the actual model.
+Internet Appendix 3 describes the derivation of these models. These
+models typically perform about as well as the original model and are
+more stable. Therefore, our estimation approach uses the quadratic
+model when the full model fails to converge, and the linear model when
+the quadratic model also fails to converge.
+
+We also estimate the quarticity version of this model:
+
+IVARi,t = αi +
+
+(cid:0)
+
+ϕi,0
+
++ ϕi,1
+
+√
+
+̅̅̅̅̅̅̅̅̅̅̅̅̅̅
+RQi,t(cid:0) 1
+
+) ∑K
+
+(cid:0)
+
+wi,j IVARi,t(cid:0) 1,d
+
+)
+
++ ei,t
+
+(12)
+
+j=0
+
+G. Bekaert et al.
+
+3.3.4. EGARCH models
+
+Finally, we also consider Nelson’s (1991) EGARCH model to predict
+future realized variances using monthly returns. In fact, this is one of the
+most popular models in the idiosyncratic volatility literature (See Fu,
+2009; Fink et al., 2012; and Guo et al., 2014). However, as shown by
+Bergbrant and Kassa (2021) the model is a poor fit for most firms, and
+consistent with this we find that its performance is by far the worst from
+all the models we consider. Internet Appendix 3 describes how, consis-
+tent with the literature, we estimate this model and we later briefly
+further comment on its performance.
+
+4. Forecast performance
+
+Section 4.1 describes the practical setup of our forecasting exercise.
+Section 4. 2 discusses the out-of-sample results for the base set of
+models, whereas Section 4.3 discusses the relative performance of the
+additional models considered and Section 4.4 presents robustness tests
+
+4.1. Forecasting set-up and in sample results
+
+All our predictive models are estimated using monthly data. We
+require at least 36 monthly observations to include a firm in our sample.
+While we conduct a thorough in sample analysis, its results are mostly
+confirmed by the out-of-sample analysis. We therefore relegate a
+detailed discussion of the in-sample tests to the Internet Appendix
+(Internet Appendix 1).
+
+For the out-of-sample exercise, we opt to use relatively long rolling
+samples of 10 years. This choice strikes a balance between having suf-
+ficient data to efficiently estimate model parameters and accommoda-
+ting varying volatility dynamics over a firm’s life cycle. This is feasible
+because our data go back to 1926 for many firms.12 Concretely, we use
+rolling regressions, allowing up to 120 months (10 years) of data to
+estimate the models. We fit the models with data up until time t-1, and
+use the forecast for time t as our out-of-sample forecast. As indicated
+above, we require a minimum of 36 observations to generate the forecast
+for the following month. (Hence, for firms within their first 10 years of
+listing, the forecasts use an expanding window). In total, we estimate 17
+out-of-sample models, and we only include a forecast for firm i at time t,
+when calculating statistics for each model, if we have forecasts from all
+our estimated models for the firm in that month. Our main performance
+criterion is the out-of-sample RMSE (the square root of the mean squared
+forecast errors).
+
+With samples sometimes being relatively short, some models pro-
+duce real outlier forecasts that any reasonable practitioner would reject.
+Although this does not impact the inferences regarding the best model,
+we winsorize all variance forecasts at 0 and 0.5 in our main tests. The 0.5
+maximum value is close to the 99.5th percentile of realized variances in
+our full sample. (In robustness exercises, presented in Panels E and F of
+Appendix A, we redo the main tables with no winsorization and win-
+sorization at the 2.5% and 97.5% levels and find qualitatively similar
+results.)
+
+To provide a formal statistical test that any model indeed performs
+better in the cross-section of US stocks, we conduct three paired sig-
+nificance tests. Each test produces a test statistic for the null hypothesis
+that the mean (or median) of the RMSE is equal across two models (i.e.
+the difference between them is equal to 0) against the two-sided alter-
+native that the mean or median is not equal. The first is the standard
+Student’s
+from an
+
+t-test, which is appropriate if
+
+the data is
+
+12 This long-term perspective makes it impossible to consider the use of option
+implied volatilities, which are only available since 1996, and only for a small
+subset of our stock universe.
+
+Journal of Financial Economics 167 (2025) 104023 
+
+approximately normal distribution. Our second and third tests conduct
+non-parametric tests of the differences in RMSEs between models, spe-
+cifically the Sign Test and the Wilcoxon Signed Rank Tests.13 Because
+these tests are quite standard, we relegate a brief description of them to
+Internet Appendix 1, where they are discussed together with the in-
+sample results.
+
+4.2. Out-of-Sample performance for base models
+
+We report the main out-of-sample performance results for the base
+models in Table 1, using the RMSE to measure forecast errors. The mean
+(median) RMSE is reported in the first (last) column. We produce
+average firm statistics in two ways: the first is to simply average the
+RMSE across firms and the second is to also weight the RMSE by the
+number of monthly observations available per firm. Although the
+weighted results show substantially lower average RMSEs, consistent
+with expectations that model performance improves with the number of
+observations used, the relative performance of the models are almost
+identical with the two methodologies, so we only report and discuss the
+simple arithmetic averages. The table shows that the martingale model
+is the worst model, but it is not too far off from the HAR model that uses
+the market variance. The best model is by far the simple ARMA(1,1)
+model both in terms of the mean and median RMSE.
+
+In columns 2 and 3, we report the fraction of times the model is the
+best model (lowest RMSE) and the average rank. That is, for each firm
+we rank the performance of all models (with 1 being best and 7 being
+worst) and record the average rank. The ARMA(1,1) model is also best in
+terms of average rank (2.63) and is the best model in 34.3% of the cases.
+Together, the ARMA model and the ARMA model appended with market
+variance are the best for 46.5% of the cases. Despite featuring a higher
+average and median RMSE than all other models, the martingale model
+is the best model in 13.8% of the cases, and only two additional models
+other than the ARMA(1,1) model are best in more than 10% of the cases
+(the simple ARNL model and the ARMA model with the market vari-
+ance). In terms of average rank, the second-best model is the ARNL
+model (3.38), followed closely by the ARMA model with the market
+
+Table 1
+Out-of-sample forecast performance for base models.
+
+Model
+
+Mean
+
+Best
+
+Rank
+
+Imp. to Worst
+
+Median
+
+Martingale
+ARMA(1,1)
+ARNL
+HAR
+ARMA(1,1) w/ Mkt
+ARNL w/ Mkt
+HAR w/ Mkt
+
+0.1031
+0.0989
+0.1005
+0.1021
+0.1002
+0.1013
+0.1030
+
+13.83%
+34.28%
+17.35%
+8.18%
+12.24%
+9.20%
+4.78%
+
+5.32
+2.63
+3.38
+4.37
+3.45
+3.95
+4.90
+
+29.41%
+81.80%
+70.15%
+57.11%
+72.15%
+63.82%
+50.20%
+
+0.0324
+0.0275
+0.0281
+0.0300
+0.0287
+0.0292
+0.0310
+
+This table shows out-of-sample statistics for the 7 models described in the data
+section, where the statistics presented are based on firm averages. To calculate
+the out-of-sample statistics, each model is fit every month for each firm to
+generate a forecast for the following month, using up to 10 years of data (when
+available) prior to the time of the forecast. Before using these forecasts to
+calculate the out-of-sample statistic for each firm, all monthly forecasts are
+winsorized at 0 and 0.5. In addition to the mean statistic, the table also shows the
+proportion of firms for which a model generates the best forecasts, as well as the
+average rank of the model. We also report the “improvement to worst”, defined
+as the average ratio of the difference between the worst RMSE and the model
+being examined relative to the RMSE difference between the worst and best. The
+final column reports the median RMSE. The sample period is from 1926 to 2022.
+
+13 Details about the estimation of the t-test, sign and Wilcoxon signed rank
+tests can be found here: Tests for Location : Base SAS(R) 9.4 Procedures Guide:
+Statistical Procedures, Third Edition.
+
+6 
+
+G. Bekaert et al.
+
+Journal of Financial Economics 167 (2025) 104023 
+
+variance (3.45). Taken together, these results clearly confirm the supe-
+riority of the ARMA(1,1) model with regard to forecasting idiosyncratic
+variances.
+
+Because the average RMSEs appear close to one another, it is
+important to verify that the improvement in fit is economically mean-
+ingful and different across models. We therefore report the “Improve-
+ment to worst statistic,” in column 4; that is, the average ratio of the
+difference between the worst RMSE and the RMSE of the model being
+examined, relative to the RMSE difference between the worst and the
+best model. If the model always has the lowest RMSE, the statistic is
+obviously one. The martingale model has a very low improvement to
+worst statistic of only 29.41%. The ARMA(1,1) model is by far the best,
+on average capturing 81.80% of the worst to best difference. The second
+
+to third best models are the ARMA model with the market variance, and
+the ARNL model, with ratios of around 70%.
+
+The superiority of the ARMA(1,1) model is not driven by the specific
+time period used in this sample, as it is robust across different sub-pe-
+riods. Internet Appendix 2 shows that it produces the best forecasts
+(when judging based on a combination of all criteria) in each decade of
+our study (from the 1930s to the 2020s).
+
+These results also hold up in the formal paired statistical tests, re-
+ported in Table 2, with Panel A reporting the t-test, Panel B the Sign test
+and Panel C the Signed Rank test. Note that because we have so many
+firms, the tests are extremely powerful and almost invariably reject the
+null of equality with very small p-values.14
+
+The ARMA(1,1) model produces significantly lower average RMSE
+
+Table 2
+Formal tests of Out-of-Sample (OOS) differences in RMSE.
+
+Panel A: T-Test
+
+ARMA(1,1)
+
+ARNL
+
+HAR
+
+ARMA(1,1) w/ Mkt
+
+ARNL w/ Mkt
+
+HAR w/ Mkt
+
+Panel B: Sign Test
+
+ARMA(1,1)
+
+ARNL
+
+HAR
+
+ARMA(1,1) w/ Mkt
+
+ARNL w/ Mkt
+
+HAR w/ Mkt
+
+Martingale
+
+ARMA
+
+(cid:0) 32.88
+(0.00)
+(cid:0) 16.18
+(0.00)
+(cid:0) 7.11
+(0.00)
+(cid:0) 19.58
+(0.00)
+(cid:0) 11.18
+(0.00)
+(cid:0) 0.72
+(0.47)
+
+Martingale
+
+(cid:0) 5932
+
+(0.00)
+
+(cid:0) 4729
+
+(0.00)
+
+(cid:0) 3470
+
+(0.00)
+
+(cid:0) 4836
+
+(0.00)
+
+(cid:0) 3936
+
+(0.00)
+
+(cid:0) 2622
+
+(0.00)
+
+16.40
+(0.00)
+28.99
+(0.00)
+17.47
+(0.00)
+22.33
+(0.00)
+34.47
+(0.00)
+
+ARMA
+
+2719
+
+(0.00)
+
+5136
+
+(0.00)
+
+3927
+
+(0.00)
+
+3525
+
+(0.00)
+
+5401
+
+(0.00)
+
+Panel C: Signed Rank Test
+
+Martingale
+
+ARMA
+
+ARMA(1,1)
+
+ARNL
+
+HAR
+
+ARMA(1,1) w/ Mkt
+
+ARNL w/ Mkt
+
+HAR w/ Mkt
+
+(cid:0) 57.47
+(0.00)
+(cid:0) 42.72
+(0.00)
+(cid:0) 28.43
+(0.00)
+(cid:0) 45.88
+(0.00)
+(cid:0) 34.69
+(0.00)
+(cid:0) 19.53
+(0.00)
+
+30.00
+(0.00)
+54.47
+(0.00)
+41.40
+(0.00)
+38.33
+(0.00)
+57.21
+(0.00)
+
+ARNL
+
+(cid:0) 16.40
+(0.00)
+
+13.16
+(0.00)
+(cid:0) 2.58
+(0.01)
+13.63
+(0.00)
+19.52
+(0.00)
+
+ARNL
+
+(cid:0) 2719
+
+(0.00)
+
+3455
+
+(0.00)
+
+(cid:0) 339
+
+(0.00)
+
+2843
+
+(0.00)
+
+4017
+
+(0.00)
+
+ARNL
+
+(cid:0) 30.00
+(0.00)
+
+34.95
+(0.00)
+(cid:0) 3.55
+(0.00)
+29.82
+(0.00)
+41.19
+(0.00)
+
+HAR
+
+(cid:0) 28.99
+(0.00)
+(cid:0) 13.16
+(0.00)
+
+(cid:0) 15.24
+(0.00)
+(cid:0) 6.17
+(0.00)
+14.85
+(0.00)
+
+HAR
+
+(cid:0) 5136
+
+(0.00)
+
+(cid:0) 3455
+
+(0.00)
+
+(cid:0) 2967
+
+(0.00)
+
+(cid:0) 1695
+
+(0.00)
+
+2636
+
+(0.00)
+
+HAR
+
+(cid:0) 54.47
+(0.00)
+(cid:0) 34.95
+(0.00)
+
+(cid:0) 31.28
+(0.00)
+(cid:0) 16.98
+(0.00)
+28.29
+(0.00)
+
+ARMA
+
+(cid:0) 17.47
+(0.00)
+2.58
+(0.01)
+15.24
+(0.00)
+
+10.58
+(0.00)
+25.95
+(0.00)
+
+ARMA
+
+(cid:0) 3927
+
+(0.00)
+
+339
+
+(0.00)
+
+2967
+
+(0.00)
+
+1858
+
+(0.00)
+
+4528
+
+(0.00)
+
+ARMA
+
+(cid:0) 41.40
+(0.00)
+3.55
+(0.00)
+31.28
+(0.00)
+
+20.47
+(0.00)
+48.01
+(0.00)
+
+w/ Mkt
+
+ARNL
+
+(cid:0) 22.33
+(0.00)
+(cid:0) 13.63
+(0.00)
+6.17
+(0.00)
+(cid:0) 10.58
+(0.00)
+
+14.72
+(0.00)
+
+w/ Mkt
+
+ARNL
+
+(cid:0) 3525
+
+(0.00)
+
+(cid:0) 2843
+
+(0.00)
+
+1695
+
+(0.00)
+
+(cid:0) 1858
+
+(0.00)
+
+3573
+
+(0.00)
+
+w/ Mkt
+
+ARNL
+
+(cid:0) 38.33
+(0.00)
+(cid:0) 29.82
+(0.00)
+16.98
+(0.00)
+(cid:0) 20.47
+(0.00)
+
+35.73
+(0.00)
+
+HAR
+
+(cid:0) 34.47
+(0.00)
+(cid:0) 19.52
+(0.00)
+(cid:0) 14.85
+(0.00)
+(cid:0) 25.95
+(0.00)
+(cid:0) 14.72
+(0.00)
+
+HAR
+
+(cid:0) 5401
+
+(0.00)
+
+(cid:0) 4017
+
+(0.00)
+
+(cid:0) 2636
+
+(0.00)
+
+(cid:0) 4528
+
+(0.00)
+
+(cid:0) 3573
+
+(0.00)
+
+HAR
+
+(cid:0) 57.21
+(0.00)
+(cid:0) 41.19
+(0.00)
+(cid:0) 28.29
+(0.00)
+(cid:0) 48.01
+(0.00)
+(cid:0) 35.73
+(0.00)
+
+Panels A shows Student’s t-test statistic and the associated p-value on the difference between the OOS RMSE (Panel A) for the model identified in column 1 minus that
+on the horizontal axis. For example, in the first cell is the t-stat for the difference in OOS RMSE betwee`n the ARMA(1,1) and Martingale model. Underneath the t-stat is
+the associated p-value. Panel B shows the Sign Test statistic and the associated p-value and Panel C shows the Signed Rank Test Statistics and the associated p-value. All
+Signed Rank Test statistics have been divided by 1 million to conserve space in the table.
+
+14 These tests assume that the firm values are uncorrelated across firms.
+Because the underlying observations represent a difference between test sta-
+tistics (such as the RMSE) of two different models for a firm, it is difficult to
+imagine they would exhibit strong cross-firm correlation, and it is not clear such
+correlation would even be positive.
+
+7 
+
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+G. Bekaert et al.
+
+Journal of Financial Economics 167 (2025) 104023 
+
+Table 3
+Comparison of performance and forecasts for base models.
+
+Panel A: Comparison to “best”:
+
+Martingale
+ARMA(1,1)
+ARNL
+HAR
+ARMA(1,1) w/ Mkt
+ARNL w/ Mkt
+HAR w/ Mkt
+
+Panel B: Forecast Correlation
+
+Martingale
+ARMA(1,1)
+ARNL
+HAR
+ARMA(1,1) w/ Mkt
+ARNL w/ Mkt
+HAR w/ Mkt
+
+P10
+
+0.00%
+0.00%
+0.00%
+0.17%
+0.00%
+0.04%
+0.59%
+
+P25
+
+6.08%
+0.00%
+0.54%
+2.32%
+0.65%
+1.19%
+3.01%
+
+P50
+
+19.76%
+1.06%
+3.43%
+6.89%
+3.04%
+4.80%
+8.60%
+
+P75
+
+30.86%
+5.49%
+9.66%
+16.09%
+9.70%
+13.07%
+20.03%
+
+w/ Mkt
+
+P90
+
+41.84%
+17.63%
+26.07%
+38.48%
+28.88%
+36.01%
+49.91%
+
+Martingale
+
+ARMA(1,1)
+
+ARNL
+
+HAR
+
+ARMA(1,1)
+
+ARNL
+
+HAR
+
+1
+0.82
+0.77
+0.79
+0.79
+0.76
+0.77
+
+1
+0.87
+0.86
+0.95
+0.85
+0.84
+
+1
+0.82
+0.84
+0.95
+0.80
+
+1
+0.84
+0.80
+0.95
+
+1
+0.87
+0.87
+
+1
+0.84
+
+1
+
+Panel A shows the percentiles (10th, 25th, 50th, 75th, and 90th) of the distribution of a statistic measuring how much worse a given model is compared to the “best”
+model, namely the percentage increase in RMSE compared to the “best” model. Panel B shows the Pearson correlation coefficients between the forecasts produced by
+the different models.
+
+compared to all other models; and the second-best model is the ARMA
+(1,1) model featuring the market variance, according to all three tests.
+The ARNL model is third best. It is striking that the results are very
+consistent across all three tests.
+
+In addition, it turns out that the performance of the ARMA(1,1)
+model is stellar for the large majority of the firms. That is, even for the
+firms for which it is not the best model, its relative performance is still
+very good. Table 3 (Panel A) shows how each model fares compared to
+the “best” model. For each firm, we calculate how much larger (in
+percent) the RMSE is for Model i compared to the “best” model for that
+firm. We then present percentiles of the distribution across firms of this
+statistic. For example, for the martingale model, almost 10% (90th
+percentile) of the firms have a 42% worse performance than the best
+model. As is apparent, the ARMA(1,1) model works great in forecasting
+IVAR even when not the best. In fact, for 50% (75%) of firms, it gen-
+erates forecasts with RMSEs that are less than 1.06% (5.49%) worse than
+the “best” model. The ARNL, ARNL plus market, and ARMA(1,1) plus
+market models also have median statistics less than 5%, with the ARMA
+(1,1) plus market model second-best at 3.04%. However, at the 90th
+percentile, the ARNL model is better than the ARMA(1,1) plus market
+model. The ARMA(1,1) model generates the lowest statistics across the
+whole distribution.
+
+To gain some intuition on the differences between the forecasts
+generated by the various models, Panel B of Table 3 reports panel cor-
+relations between the forecasts of the 7 models. The forecasts of all
+models do show substantial correlation. Most of these correlations are
+between 0.75 and 0.95 with the martingale model generally producing
+forecasts that are the least correlated with the other models (correlations
+varying between 0.76 and 0.82).
+
+Not surprisingly, the forecasts of the ARMA(1,1) model are most
+correlated with the forecasts from the ARMA model featuring the market
+variance (the correlation is 0.95). In fact, each model that includes the
+market variance has a correlation with its counterpart without the
+market variance that is 0.95.
+
+4.3. Out-of-Sample performance for additional models
+
+Here we cast a wider net and also discuss the performance of the
+additional models described in Section 3.3. The results are reported in
+several panels in Table 4. In Panel A, we compare the performance of
+more complicated ARMA models (where we select the best ARMA
+model), termed ARMA(AIC), and a simple AR(1) model with the four
+
+8 
+
+base models (martingale, ARMA(1,1), ARNL and HAR). We drop the
+models with the market variance as they are dominated by models
+without the market variance in out-of-sample exercises. Both new
+models are in fact quite competitive, with both beating the martingale
+and HAR models for most statistics (mean, median, rank, and
+improvement to worst). The simple AR(1) model is overall actually
+slightly better than the ARMA(AIC) model. It is also competitive with the
+ARNL model for most statistics, but the ARNL model is far superior in
+terms of the fraction of times it is the best model. The ARMA(1,1) model
+is by far the best model for all statistics.
+
+Panel B examines whether embedding quarticity improves fore-
+casting performance. We consider the AR(1), ARMA(1,1) and HAR
+models with their quarticity counterparts. It is very clear that incorpo-
+rating quarticity in the models is not helpful and invariably increases the
+average and median RMSE and worsens the rank and “improvement to
+worst statistics”. The only exception is that the AR(1) model with
+quarticity is best in 19.2% of the cases which is better than the simple AR
+(1) model. This is similar to the ARNL model being much better along
+this statistic than the AR(1) model in Panel A. Over all the statistics, the
+ARMA(1,1) model remains the best model.
+
+In Panel C, we report the results for the MIDAS model together with
+the 4 non-market variance base models. The performance of the MIDAS
+model is very close to that of the HAR model, and only improves on it in
+terms of the fraction of times it is the best model (at 10.89% versus
+9.36% for the HAR model). Again, the ARMA(1,1) model is by far the
+best model.
+
+Finally, in Panel D, we report results for all 17 models we estimate,
+including the EGARCH model. Because of the terrible performance of the
+EGARCH model, the improvement to worst statistics go up considerably
+for most models, including the martingale model. The dominance of the
+ARMA(1,1) model is, if anything, even more glaring. It is the best model
+in 21.74% of the cases and its improvement to worst statistic is over
+90%. The second-best model depends on the statistic considered: it is the
+AR(1) and ARMA(1,1) plus market variance models for the average
+RMSE, the martingale model for the best model fraction (at 9.24%), and
+the ARNL model for the average rank, the improvement to worst statistic
+and median RMSE.
+
+We conclude that the ARMA(1,1) model is by far the best forecasting
+
+model for idiosyncratic variances.
+
+​
+​
+​
+​
+​
+​
+G. Bekaert et al.
+
+Journal of Financial Economics 167 (2025) 104023 
+
+Table 4
+Out-of-sample forecast performance for additional models.
+
+Panel A:
+Model
+
+Martingale
+ARMA(1,1)
+ARNL
+HAR
+ARMA(AIC)
+AR(1)
+
+Panel B:
+Model
+
+ARMA(1,1)
+ARMA(1,1) Quart
+HAR
+HAR Quart
+AR(1)
+AR(1) Quart
+
+Panel C:
+Model
+
+Martingale
+ARMA(1,1)
+ARNL
+HAR
+MIDAS
+
+Panel D:
+Model
+
+Martingale
+ARMA(1,1)
+ARMA(AIC)
+ARMA(1,1) Quart
+ARNL
+HAR
+HAR Quart
+AR(1)
+AR(1) Quart
+AR(1) w/ Mkt
+ARNL w/ Mkt
+ARMA(1,1) w/ Mkt
+ARMA(AIC) w/ Mkt
+HAR w/ Mkt
+MIDAS
+MIDAS Quart
+EGARCH
+
+Mean
+
+0.1031
+0.0989
+0.1005
+0.1021
+0.1009
+0.1002
+
+Mean
+
+0.0989
+0.1113
+0.1021
+0.1088
+0.1002
+0.1017
+
+Mean
+
+0.1031
+0.0989
+0.1005
+0.1021
+0.1024
+
+Mean
+
+0.1031
+0.0989
+0.1009
+0.1113
+0.1005
+0.1021
+0.1088
+0.1002
+0.1017
+0.1012
+0.1013
+0.1002
+0.1023
+0.1030
+0.1024
+0.1046
+0.1397
+
+Best
+
+14.28%
+36.27%
+20.78%
+9.86%
+8.67%
+9.87%
+
+Best
+
+41.87%
+8.83%
+9.45%
+6.83%
+13.61%
+19.24%
+
+Best
+
+13.83%
+42.99%
+22.81%
+9.36%
+10.89%
+
+Best
+
+9.24%
+21.74%
+4.46%
+5.27%
+7.39%
+3.34%
+3.55%
+4.29%
+7.44%
+3.00%
+4.87%
+7.22%
+3.25%
+2.44%
+5.36%
+4.93%
+1.98%
+
+Rank
+
+4.72
+2.36
+3.16
+4.09
+3.51
+3.16
+
+Rank
+
+2.24
+4.69
+3.68
+4.57
+2.88
+2.94
+
+Rank
+
+3.89
+2.04
+2.54
+3.24
+3.30
+
+Rank
+
+11.19
+4.91
+7.55
+12.05
+6.54
+8.97
+11.67
+6.76
+7.19
+8.02
+7.75
+6.60
+9.15
+10.01
+9.20
+9.86
+15.58
+
+Imp. to Worst
+
+27.11%
+82.22%
+69.60%
+55.71%
+66.25%
+69.92%
+
+Imp. to Worst
+
+85.52%
+32.67%
+66.90%
+41.89%
+76.10%
+75.13%
+
+Imp. to Worst
+
+29.08%
+82.35%
+70.44%
+57.31%
+54.75%
+
+Imp. to Worst
+
+76.96%
+91.11%
+86.66%
+63.64%
+88.18%
+83.94%
+69.96%
+87.78%
+85.72%
+85.48%
+86.12%
+88.08%
+83.50%
+81.73%
+83.04%
+78.83%
+16.09%
+
+Median
+
+0.0324
+0.0275
+0.0281
+0.0300
+0.0285
+0.0284
+
+Median
+
+0.0275
+0.0403
+0.0300
+0.0372
+0.0284
+0.0294
+
+Median
+
+0.0324
+0.0275
+0.0281
+0.0300
+0.0302
+
+Median
+
+0.0324
+0.0275
+0.0285
+0.0403
+0.0281
+0.0300
+0.0372
+0.0284
+0.0294
+0.0295
+0.0292
+0.0287
+0.0299
+0.0310
+0.0302
+0.0326
+0.0718
+
+This table shows out-of-sample statistics for subsets of the 17 models described in the data section, where the statistics presented are based on firm averages. To
+calculate the out-of-sample statistics, each model is fit every month for each firm to generate a forecast for the following month, using up to 10 years of data (when
+available) prior to the time of the forecast. Before using these forecasts to calculate the out-of-sample statistic for each firm, all monthly forecasts are winsorized at
+0 and 0.5. In addition to the mean statistic, the table also shows the proportion of firms for which a model generates the best forecasts, as well as the average rank of the
+model. We also report the “improvement to worst”, defined as the average ratio of the difference between the worst RMSE and the model being examined relative to the
+RMSE difference between the worst and best. The final column reports the median RMSE. The sample period is from 1926 to 2022.
+
+4.4. Robustness
+
+In this section, we verify the robustness of our out-of-sample results
+to changing our definition of how idiosyncratic variance is calculated, to
+limiting our sample to liquid firms (those included in the S&P 500), and
+to the choice of winsorization of the forecasts.
+
+We estimate idiosyncratic variance in two alternative ways, designed
+to reduce the noise inherent in an estimation that uses relatively few
+observations (around 20 daily observations within the month) to obtain
+the parameters in Eq. (1). First, we estimate Eq. (1) without the HML and
+SMB factors, assuming a CAPM model. Second, we follow Welch (2022)
+and start by winsorizing daily firm returns to an interval of minus 2 to
+plus 4 times the contemporaneous market return and then estimate Eq.
+(1) using three months of data (but calculate IVAR using only the re-
+siduals in month t).
+
+The results, presented in Panels A-B of Appendix A, show that the
+specific factor model used to calculate idiosyncratic variances does not
+change the conclusion that the ARMA model performs best in fore-
+casting future IVAR. This is comforting, suggesting the results in this
+
+paper are not sensitive to the particular asset pricing model used to
+compute idiosyncratic variances.
+
+Our next set of robustness checks attempts to ensure that micro-
+structure noise, such as infrequent trading, does not drive our results.
+Given that prior literature has suggested microstructure noise may drive
+the relation between certain measures of idiosyncratic risk and returns
+(Bali and Cakici, 2008; Han and Lesmond, 2011; Bergbrant and Kassa,
+2021), this is an important consideration for any paper measuring
+idiosyncratic volatility. Our first approach to account for this noise is to
+correct for autocorrelation in the daily residuals using the French et al.
+(1987) correction. For these models, the IVAR is calculated by adding 2
+times the sum of the products of each daily return with the prior day’s
+return. Our second approach is to consider a sample which only includes
+firms in months when they were part of the S&P 500. The results for
+these tests are presented in Panels C and D of Appendix A. The
+martingale model now performs substantially worse with the percentage
+of firms for which it is the best model decreasing to less than 10%; and
+even decreasing below 6% for the S&P 500 firms (5.77%), which are
+arguably the firms with the least microstructure noise. Importantly, the
+
+9 
+
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+G. Bekaert et al.
+
+Journal of Financial Economics 167 (2025) 104023 
+
+ARMA(1,1) model continues to produce the best forecasts for the largest
+number of firms. In fact, for the most liquid (S&P 500) firms, the ARMA
+(1,1) produces the best forecast for over 40% of firms (42.37%).
+
+For the main out-of-sample results in the paper, we winsorize our
+monthly forecasts at 0 and 0.5. For robustness, we also estimate the main
+results without winsorization, as well as with monthly winsorization at
+2.5% and 97.5% of the cross-sectional distribution of the IVAR forecasts.
+The results are presented in Panels E and F of Appendix A. While the
+mean RMSE are much higher (extremely so for some models) without
+winsorization,15 the ARMA(1,1) model remains the best model for all
+statistics, and has the lowest RMSE for over 35% of firms. This remains
+true for the alternative (2.5%, 97.5%) winsorization scheme.
+
+5. The idiosyncratic volatility pricing puzzle
+
+In this section, we reconsider the IVOL puzzle with different models
+measuring expected idiosyncratic risk (Section 5.1). We then further
+analyze why the martingale model delivers different results than all
+other models, by focusing on forecasts for which the martingale per-
+forms the worst, as well as differences between the martingale and
+ARMA(1,1) forecasts (Section 5.2). Finally, we link extreme martingale
+forecasts, which render the relationship between idiosyncratic volatility
+and future returns negative, to explanatory variables from the IVOL
+literature (Section 5.3).
+
+5.1. Revisiting the IVOL puzzle
+
+Traditional asset pricing models such as the CAPM and APT predict
+that idiosyncratic volatility can be diversified away, and therefore
+should not be priced in equilibrium. However, subsequent studies argue
+that many investors might be poorly diversified (Blume and Friend
+1975; Goetzmann and Kumar, 2008) and thus might require a premium
+for bearing idiosyncratic risk (Levy 1978; Merton 1987; Malkiel and Xu
+2002).
+
+However, a large empirical literature documents a negative relation
+between high realized idiosyncratic volatility and subsequent returns
+(Ang et al. 2006, 2009). This negative relation is often referred to in the
+literature as the idiosyncratic volatility (IVOL) puzzle, under the implicit
+conjecture that IVOL follows a martingale process and past IVOL can be
+used as a proxy for expected volatility. Consequently, a voluminous
+literature on the determinants of the “IVOL puzzle” has developed. One
+strand argues that investors have a preference for lottery-like payoffs;
+IVOL then simply proxies for desired features of a stock, such as skew-
+ness (see, for example, Barberis and Huang, 2008; Chabi-Yo and Yang,
+2009; Boyer et. al. 2010; Bali et al., 2011.) Alternative explanations for
+the IVOL puzzle include bid-ask bounce (Fu, 2009; Huang et al., 2010),
+illiquidity (Han and Lesmond, 2011),
+fundamental uncertainty
+(Johnson, 2004; Jiang, et al., 2009), a missing risk factor (Chen and
+Petkova, 2012), and arbitrage asymmetry (Stambaugh et al., 2015). Hou
+and Loh (2016) provides an excellent survey of the extant literature.
+
+A small subsequent literature suggests that when an alternative
+volatility model is used, namely an EGARCH model, a positive (Fu,
+2009; Brockman et al., 2022), albeit fragile (Guo et al., 2014; Bergbrant
+and Kassa, 2021) relation between expected idiosyncratic volatility and
+returns emerges at the firm level.
+
+Given that IVOL forecasts from different models (EGARCH vs.
+martingale) generate opposite results, it is plausible that the relation is
+model specific and does not reflect the true relation between expected
+idiosyncratic risk and returns. The actual relation between expected
+idiosyncratic risk and returns should be present for an idiosyncratic risk
+
+forecast that most closely approximates the true expected idiosyncratic
+variance. Our analysis shows that neither the martingale model nor the
+EGARCH model is likely to accurately approximate true expected idio-
+syncratic risk, whereas the ARMA(1,1) model provides the best estimate.
+In Table 5, Panel A, we use the seven proxies we developed in this
+paper in a univariate Fama-MacBeth (1973) regression framework to
+investigate the empirical relation between expected idiosyncratic risk
+and returns.16 The table shows that the only proxy for expected idio-
+syncratic volatility that is statistically significantly related to returns is
+the one derived from the martingale model. While the coefficients are
+always negative, all the other proxies for expected idiosyncratic risk
+show no statistically significant relation with returns, and the t-stats are
+less than |1| in all cases. The failure to reject the null of no effect also
+holds for the best proxy for expected idiosyncratic variance identified in
+this paper, i.e., the ARMA(1,1) model. Note also that the martingale
+model generates the lowest adjusted R-square of all models.
+
+In Panel B of Table 5, we report multivariate tests controlling for
+typical predictors of the cross-section of stock returns including market
+beta, size, book-to-market, momentum, lagged returns (prior month’s
+return), turnover, and the coefficient of variation of turnover in our
+Fama-MacBeth (1973) regressions (see Huang et al., 2010 for a similar
+specification). Including an extensive set of independent variables is
+particularly important in our context as IVAR itself is estimated using
+only the Fama and French 3-factors,17 and hence could be related to
+returns due to its correlation with any omitted risk factor. Again, a
+significant relation between expected IVOL and returns only arises using
+the forecasts from the martingale model.
+
+We also acknowledge the possibility that different IVAR models
+might work better for different firms, or at different points in time.
+Results in the previous sections indicate that the ARMA(1,1), although
+best overall, is not the best for all firms. In the second to last columns of
+Panel A and B of Table 5, we allow the volatility model to differ across
+firms by using forecasts from the model with the overall lowest out-of-
+sample RMSE for each firm. Although all forecasts are out-of-sample,
+it is important to note that this approach has a look-ahead bias in the
+sense that the best IVAR model for each firm is determined ex-post. This
+exercise further corroborates our key result, as the IVOL coefficient re-
+mains insignificant.
+
+We also allow different IVAR models to be used in different periods
+and for different firms, by back testing our models each month. We do
+this by comparing the past out-of-sample RMSE forecasts generated by
+each model, for each firm, in the 10 years leading up to time t. We then
+use the best IVAR model to generate our realized variance expectation
+for the next month t+1. The results are presented in the last column of
+Table 5 (Min_RMSE), showing again an insignificant IVOL coefficient.
+
+Overall, our results suggest that the relation between idiosyncratic
+volatility and returns is flat, consistent with traditional asset pricing
+theory, and the negative relation documented in prior literature is likely
+an artifact of the proxy used for expected idiosyncratic volatility rather
+than reflecting the true underlying relation between expected idiosyn-
+cratic volatility and returns. However, it is important to note that for our
+tests, we do not know the magnitude of type II errors, so we cannot
+unambiguously conclude that no relation between idiosyncratic vola-
+tility and returns exists. It is possible that all our proxies contain suffi-
+cient noise to mask a true relation between expected idiosyncratic risk
+and returns.
+
+5.2. Why does the martingale model generate the IVOL puzzle?
+
+Although there is a voluminous literature trying to explain the
+
+15 Extreme forecasts for the non-linear AR models render the average statistics
+meaningless. These models sometimes generate very poor and unrealistic
+forecasts as a result of extreme and unrealistic parameter estimates. Note that
+for the ARMA(1,1) model, winsorizing makes little difference.
+
+16 To be consistent with the IVOL literature, we use the square root of the
+IVAR forecast, but using the IVAR forecast itself produces analogous results.
+17 Estimating IVAR using models with more risk factors is difficult because we
+use daily data within the month.
+
+10 
+
+G. Bekaert et al.
+
+Journal of Financial Economics 167 (2025) 104023 
+
+Table 5
+Is expected idiosyncratic volatility priced?
+
+Panel A: Univariate
+
+w/ Mkt
+
+Martingale
+
+ARMA(1,1)
+
+ARNL
+
+HAR
+
+ARMA(1,1)
+
+ARNL
+
+HAR
+
+Best_Overall
+
+Min_RMSE
+
+Intercept
+
+IVOL
+
+Adj R-Sq
+
+Panel B: Multivariate
+
+1.014***
+(5.79)
+(cid:0) 2.404**
+((cid:0) 2.24)
+0.020
+
+0.957***
+(5.74)
+(cid:0) 1.113
+((cid:0) 0.75)
+0.026
+
+0.936***
+(5.72)
+(cid:0) 0.941
+((cid:0) 0.65)
+0.024
+
+0.972***
+(5.76)
+(cid:0) 1.112
+((cid:0) 0.81)
+0.023
+
+0.943***
+(5.68)
+(cid:0) 0.926
+((cid:0) 0.63)
+0.025
+
+0.914***
+(5.64)
+(cid:0) 0.731
+((cid:0) 0.51)
+0.024
+
+w/ Mkt
+
+0.956***
+(5.72)
+(cid:0) 0.944
+((cid:0) 0.69)
+0.023
+
+0.877***
+(5.33)
+(cid:0) 0.541
+((cid:0) 0.37)
+0.025
+
+0.949***
+(5.76)
+(cid:0) 0.970
+((cid:0) 0.68)
+0.024
+
+Intercept
+
+IVOL
+
+BETA
+
+LN(ME)
+
+LN(BEME)
+
+MOM
+
+LAGRET
+
+LN(TURN)
+
+LN(CVTURN)
+
+Adj R-Sq
+
+Martingale
+
+ARMA(1,1)
+
+ARNL
+
+HAR
+
+ARMA(1,1)
+
+ARNL
+
+HAR
+
+Best_Overall
+
+Min_RMSE
+
+3.094***
+(8.67)
+(cid:0) 1.740***
+((cid:0) 2.64)
+0.198
+(1.27)
+(cid:0) 0.125***
+((cid:0) 4.33)
+
+0.189***
+(3.55)
+0.027**
+(2.42)
+(cid:0) 0.059***
+
+2.998***
+(8.70)
+(cid:0) 0.996
+((cid:0) 0.82)
+0.200
+(1.35)
+(cid:0) 0.122***
+((cid:0) 4.78)
+
+0.185***
+(3.49)
+0.028**
+(2.55)
+(cid:0) 0.061***
+
+3.013***
+(8.61)
+(cid:0) 0.163
+((cid:0) 0.15)
+0.182
+(1.21)
+(cid:0) 0.112***
+((cid:0) 4.28)
+
+0.192***
+(3.60)
+0.028**
+(2.50)
+(cid:0) 0.060***
+
+2.987***
+(8.53)
+(cid:0) 0.662
+((cid:0) 0.64)
+0.197
+(1.30)
+(cid:0) 0.118***
+((cid:0) 4.47)
+
+0.189***
+(3.56)
+0.027**
+(2.37)
+(cid:0) 0.061***
+
+2.961***
+(8.55)
+(cid:0) 0.894
+((cid:0) 0.76)
+0.207
+(1.39)
+(cid:0) 0.119***
+((cid:0) 4.59)
+
+0.189***
+(3.55)
+0.028**
+(2.55)
+(cid:0) 0.061***
+
+2.997***
+(8.56)
+0.027
+(0.02)
+0.185
+(1.23)
+(cid:0) 0.110***
+((cid:0) 4.17)
+
+0.194***
+(3.62)
+0.028**
+(2.49)
+(cid:0) 0.060***
+
+2.969***
+(8.46)
+(cid:0) 0.472
+((cid:0) 0.46)
+0.198
+(1.30)
+(cid:0) 0.116***
+((cid:0) 4.33)
+
+0.192***
+(3.60)
+0.027**
+(2.39)
+(cid:0) 0.060***
+
+2.973***
+(8.36)
+0.439
+(0.37)
+0.171
+(1.15)
+(cid:0) 0.100***
+((cid:0) 3.91)
+
+0.196***
+(3.68)
+0.028***
+(2.61)
+(cid:0) 0.061***
+
+3.048***
+(8.56)
+(cid:0) 0.860
+((cid:0) 0.84)
+0.188
+(1.24)
+(cid:0) 0.121***
+((cid:0) 4.63)
+
+0.189***
+(3.53)
+0.026**
+(2.34)
+(cid:0) 0.061***
+
+((cid:0) 13.92)
+
+((cid:0) 14.49)
+
+((cid:0) 14.45)
+
+((cid:0) 14.47)
+
+((cid:0) 14.46)
+
+((cid:0) 14.44)
+
+((cid:0) 14.45)
+
+((cid:0) 14.75)
+
+((cid:0) 14.40)
+
+(cid:0) 0.165***
+((cid:0) 2.92)
+(cid:0) 0.347***
+((cid:0) 6.01)
+0.064
+
+(cid:0) 0.155***
+((cid:0) 2.89)
+(cid:0) 0.339***
+((cid:0) 6.26)
+0.065
+
+(cid:0) 0.171***
+((cid:0) 3.13)
+(cid:0) 0.363***
+((cid:0) 6.66)
+0.065
+
+(cid:0) 0.162***
+((cid:0) 2.93)
+(cid:0) 0.343***
+((cid:0) 6.18)
+0.064
+
+(cid:0) 0.158***
+((cid:0) 2.91)
+(cid:0) 0.336***
+((cid:0) 6.11)
+0.065
+
+(cid:0) 0.175***
+((cid:0) 3.21)
+(cid:0) 0.365***
+((cid:0) 6.65)
+0.065
+
+(cid:0) 0.166***
+((cid:0) 3.00)
+(cid:0) 0.345***
+((cid:0) 6.13)
+0.064
+
+(cid:0) 0.183***
+((cid:0) 3.40)
+(cid:0) 0.379***
+((cid:0) 6.86)
+0.065
+
+(cid:0) 0.154***
+((cid:0) 2.85)
+(cid:0) 0.354***
+((cid:0) 6.15)
+0.065
+
+This table reports cross-sectional Fama and MacBeth (1973) regression results of forecasting one month ahead (time t) stock returns. IVOL is the square root of the
+out-of-sample forecast of IVAR for time t based on prior data (up until time t-1) using 7 different forecasting models and 2 selection models. Panel A shows univariate
+results, while Panel B presents the multivariate version. Newey and West (1987) corrected t-statistics with three lags are reported in parentheses, and *, **, and ***
+indicate statistical significance at the 10%, 5%, and 1% levels respectively. The data are from 1963:07 to 2022:12.
+
+negative relation between martingale IVOL and returns, a fully
+convincing explanation remains elusive (see, for example, the review in
+Hou and Loh, 2016 and the references therein). In this section, we link
+the puzzle to the fact that the martingale model generates poor forecasts
+for future idiosyncratic variances. Even for firms where it produces the
+“best” forecasts, the martingale forecasts are generally poor with large
+forecast errors. So, why do forecasts produced by the martingale model
+generate a negative relation to future returns, while all other models,
+forecasts, show an insignificant
+including the better ARMA(1,1)
+relation?
+
+To understand this, let’s first assume that there is no relation be-
+tween expected IVOL and returns (as suggested by all our models except
+for the martingale model). While there will still be some firm months
+with high expected IVOL and subsequently low returns, the impact of
+those observations would be offset by firm months with high expected
+IVOL and high returns, leading to an insignificant relation. The same
+would be true for firm months with low expected IVAR and subsequent
+(low/high) returns. Put differently, it should then be the case that in the
+data the four possible quadrants of current volatility forecasts (high vs
+low) and future returns (high vs low) cancel each other out.
+
+However, outliers (observations with extreme expected variances
+and subsequent extreme returns) can have a large impact on the esti-
+mated coefficients and could easily cause a spurious relation (negative
+or positive) between expected volatility and returns, especially if the
+outliers are more likely to occur in one of the four quadrants.
+
+The well-known fact that the realized variance distribution is skewed
+plays a key role in the martingale model generating a negative rela-
+tionship between current volatility forecasts and future returns. First,
+this skewness renders the martingale model particularly sensitive to
+outliers in the right tail. In fact, we find that the worst forecast errors
+(both over-predictions and under-predictions) are concentrated in the
+high realized variance quadrants.
+
+Second, it is well known that the contemporaneous relation between
+
+IVAR and equity returns is positive (limited liability is one source of such
+relationship). Thus, if the erroneous outliers over-predict future vari-
+ances (and hence, returns), the relationship between current IVOL and
+future returns could easily turn negative, as it associates, erroneously,
+low future return firm months with previously high realized variance
+months. In contrast, current relatively high IVAR observations that
+severely under-predict future realized variances, are associated with
+high returns in the future and cannot be the source of a negative rela-
+tionship between current IVOL and future returns.
+
+Outlying under-prediction observations associated with low realized
+variances could also turn the relationship negative, associating, erro-
+neously, high future returns with previously low realized variances.
+However, because there are few large forecast errors in this quadrant,
+the low current realized variance, high future returns quadrant is not
+likely responsible for the negative IVOL relation. Hence, it is likely the
+high volatility quadrant, which generates outliers potentially inducing a
+spurious positive or negative relation between volatility forecasts and
+returns.
+
+To test the conjecture that the negative relation between the
+martingale forecasts and returns is driven by a few outliers, we remove
+observations with the worst possible forecasts and verify how the rela-
+tion between idiosyncratic volatility and future returns changes. Note
+that if the negative relation between martingale IVAR and returns found
+in the data reflects investors actually “pricing” IVOL we would expect it to
+be stronger when poor forecasts (ex-post) are excluded and be robust to
+exclusions of subsets of firms.
+
+In Panel A of Table 6, we first eliminate 0%(cid:0) 1% of firms (in 0.2%
+increments) each month where the martingale forecasts overestimate
+(underestimate) realized IVAR the most. We then report the regression
+coefficients on IVOL for both the univariate and multivariate cross-
+sectional models (the multivariate model is the same as in Table 5, but
+we suppress the coefficients on the controls from brevity). As expected,
+removing firms where the martingale model overestimates IVAR the
+
+11 
+
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+G. Bekaert et al.
+
+Journal of Financial Economics 167 (2025) 104023 
+
+Table 6
+Forecast errors and the IVOL puzzle.
+
+Panel A: Drop highest Martingale IVOL forecast errors
+
+Delete top 0%
+
+Delete top 0.2%
+
+Delete top 0.4%
+
+Delete top 0.6%
+
+Delete top 0.8%
+
+Delete top 1.0%
+
+Overestimation of IVAR
+
+Underestimation of IVAR
+
+Univariate
+
+Multivariate
+
+Univariate
+
+Multivariate
+
+(cid:0) 2.404**
+((cid:0) 2.24)
+(cid:0) 1.924*
+((cid:0) 1.73)
+(cid:0) 1.281
+((cid:0) 1.11)
+(cid:0) 0.697
+((cid:0) 0.58)
+(cid:0) 0.207
+((cid:0) 0.17)
+0.255
+(0.20)
+
+(cid:0) 1.740***
+((cid:0) 2.64)
+(cid:0) 1.397**
+((cid:0) 2.03)
+(cid:0) 0.859
+((cid:0) 1.21)
+(cid:0) 0.356
+((cid:0) 0.48)
+0.152
+(0.20)
+0.628
+(0.79)
+
+(cid:0) 2.404**
+((cid:0) 2.24)
+(cid:0) 3.776***
+((cid:0) 3.57)
+(cid:0) 4.496***
+((cid:0) 4.33)
+(cid:0) 4.964***
+((cid:0) 4.83)
+(cid:0) 5.343***
+((cid:0) 5.26)
+(cid:0) 5.649***
+((cid:0) 5.61)
+
+(cid:0) 1.740***
+((cid:0) 2.64)
+(cid:0) 2.604***
+((cid:0) 4.03)
+(cid:0) 2.975***
+((cid:0) 4.70)
+(cid:0) 3.183***
+((cid:0) 5.06)
+(cid:0) 3.376***
+((cid:0) 5.38)
+(cid:0) 3.562***
+((cid:0) 5.71)
+
+Panel B:Drop highest Martingale-ARMA Forecasts
+
+Martingale Forecast
+
+ARMA(1,1) Forecast
+
+Univariate
+
+Multivariate
+
+Univariate
+
+Multivariate
+
+Delete top 0%
+
+Delete top 1%
+
+Delete top 2%
+
+Delete top 3%
+
+Delete top 4%
+
+Delete top 5%
+
+Delete top 6%
+
+Delete top 7%
+
+Delete top 8%
+
+Delete top 9%
+
+Delete top 10%
+
+(cid:0) 2.404**
+((cid:0) 2.24)
+(cid:0) 2.337*
+((cid:0) 1.94)
+(cid:0) 2.305*
+((cid:0) 1.79)
+(cid:0) 2.322*
+((cid:0) 1.74)
+(cid:0) 2.303*
+((cid:0) 1.66)
+(cid:0) 2.219
+((cid:0) 1.55)
+(cid:0) 2.087
+((cid:0) 1.43)
+(cid:0) 2.020
+((cid:0) 1.35)
+(cid:0) 1.810
+((cid:0) 1.19)
+(cid:0) 1.757
+((cid:0) 1.14)
+(cid:0) 1.680
+((cid:0) 1.07)
+
+(cid:0) 1.740***
+((cid:0) 2.64)
+(cid:0) 1.855**
+((cid:0) 2.47)
+(cid:0) 1.783**
+((cid:0) 2.21)
+(cid:0) 1.898**
+((cid:0) 2.25)
+(cid:0) 1.856**
+((cid:0) 2.12)
+(cid:0) 1.861**
+((cid:0) 2.13)
+(cid:0) 1.628*
+((cid:0) 1.79)
+(cid:0) 1.465
+((cid:0) 1.56)
+(cid:0) 1.269
+((cid:0) 1.35)
+(cid:0) 1.164
+((cid:0) 1.22)
+(cid:0) 1.207
+((cid:0) 1.25)
+
+(cid:0) 1.113
+((cid:0) 0.75)
+(cid:0) 0.741
+((cid:0) 0.49)
+(cid:0) 0.551
+((cid:0) 0.36)
+(cid:0) 0.452
+((cid:0) 0.29)
+(cid:0) 0.365
+((cid:0) 0.23)
+(cid:0) 0.258
+((cid:0) 0.17)
+(cid:0) 0.132
+((cid:0) 0.08)
+(cid:0) 0.066
+((cid:0) 0.04)
+0.058
+(0.04)
+0.091
+(0.06)
+0.146
+(0.09)
+
+(cid:0) 0.996
+((cid:0) 0.82)
+(cid:0) 0.913
+((cid:0) 0.73)
+(cid:0) 0.717
+((cid:0) 0.57)
+(cid:0) 0.754
+((cid:0) 0.59)
+(cid:0) 0.647
+((cid:0) 0.50)
+(cid:0) 0.676
+((cid:0) 0.54)
+(cid:0) 0.526
+((cid:0) 0.41)
+(cid:0) 0.400
+((cid:0) 0.31)
+(cid:0) 0.321
+((cid:0) 0.25)
+(cid:0) 0.261
+((cid:0) 0.20)
+(cid:0) 0.379
+((cid:0) 0.30)
+
+This table reports cross-sectional Fama and MacBeth (1973) regression results of
+forecasting one month ahead (time t) stock returns using the martingale IVOL
+forecast (Panel A) and martingale and ARMA forecasts (Panel B). In Panel A, we
+drop observations each month for which the martingale performs the worst in
+terms of overpredicting (Model 1 and 2) and underpredicting (Model 3 and 4)
+realized variances. While additional controls are included in Models 2 and 4,
+they are suppressed for brevity. In Panel B, we drop observations based on the
+difference between the martingale forecasts compared to the ARMA(1,1) fore-
+casts. Again, the additional controls in Models 2 and 4 are suppressed for brevity.
+Newey and West (1987) corrected t-statistics with three lags are reported in
+parentheses, and *, **, and *** indicate statistical significance at the 10%, 5%,
+and 1% levels respectively. The data are from 1963:07 to 2022:12.
+
+most leads to a less negative relation (i.e., the magnitude is smaller, in
+absolute value), whereas removing observations where the martingale
+model underestimates realized IVAR the most leads to a more negative
+relation (because we are removing observations from the high forecast,
+high future return quadrant which induces a positive relation). Inter-
+estingly, eliminating just the top 0.4% of firms with the largest over-
+estimation already renders the relationship statistically insignificant for
+the remaining firm-month observations. At a 1% (0.8%) cut, the rela-
+tionship even turns positive for the univariate (multivariate) models. It
+is important to note that these cuts are made ex-post, and we would
+expect that the relation between expected IVOL and returns would
+change in the direction observed if we excluded a large number of firm
+months with over- or underpredictions. However, these results indicate
+that the relation between the martingale IVOL forecast and returns is
+strongly influenced by a few firm months for which the martingale
+
+model does the worst job at forecasting and the negative relation can be
+overturned by eliminating the observations showing the worst over-
+prediction of realized variances.18
+
+We have previously shown that the ARMA(1,1) does a stellar job in
+forecasting IVAR, possibly because it allows the reversal of large shocks
+to variances. If the overpredictions from the martingale model occur
+because of firms with large past shocks to their IVAR which the
+martingale model fails to reverse, we would expect that eliminating
+firms where the martingale model has the highest IVAR predictions
+compared to the ARMA(1,1) model would also diminish the negative
+relation between martingale IVAR and returns. The benefit of this,
+compared to the prior results, is that the exclusions are made ex-ante
+(based solely on differences in expectations). Naturally, we would
+need to exclude more firm months as we do not know which observa-
+tions produce the greatest outliers. The results are presented in Panel B
+of Table 6 (left column). A similar pattern as before (in Panel A) is
+present when dropping these firm months. Dropping 5% (7%) of the
+firms each month for which the martingale fails to reverse large past
+IVAR (i.e. the martingale generates the highest forecast compared to the
+ARMA model) in the univariate (multivariate) regressions renders the
+relation insignificant. Note that the univariate regressions feature more
+negative coefficients and require fewer observations to be dropped to
+render the relationship insignificant.. Importantly, dropping the same
+firm months, the inference regarding the relationship between idio-
+syncratic volatility and returns does not change when ARMA(1,1)
+forecasts are used to measure idiosyncratic risk. (See right-hand side
+columns.)
+
+5.3. Martingale forecasts and firm characteristics
+
+Thus far, we have shown that the IVOL puzzle only obtains for the
+martingale forecasts, and that it is heavily influenced by observations for
+which the martingale model generates extremely poor, excessively high
+forecasts. For these outliers to drive the IVOL puzzle, purported expla-
+nations of the puzzle should be related to these extreme martingale
+forecast errors (outliers). While no article has yet claimed to fully ac-
+count for the IVOL puzzle, Hou and Loh (2016) provide a comprehensive
+examination of various explanations and attempt to quantify how much
+of the puzzle they explain. They organize these explanations into three
+groups: lottery preferences of investors (measured by skewness, cos-
+kewness, expected idiosyncratic skewness, maximum daily return, and
+retail trading proportion); market frictions (measured by one-month
+return reversal, a variable that is already included in our standard risk
+controls, the Amihud illiquidity measure, zero return proportion, and
+bid-ask spreads) and a third group that includes all other variables.19 In
+addition, we investigate variables that mimic the size screens that were
+shown to be important in Bali and Cakici (2008) (namely, dummies
+indicating stocks with prices lower than $5 and stocks with a market
+capitalization lower than the 5th percentile of the NYSE stocks ranked
+on market capitalization). All the variables are defined in the data
+section.
+
+Because the IVOL puzzle is driven by the observations for which the
+martingale model overestimates IVOL the most, we conjecture that
+candidate explanations for the IVOL puzzle more correlated with
+extreme martingale overestimations (compared to underestimations)
+should show stronger explanatory power of the puzzle. Such relation-
+ship is not likely captured well by linear regressions (recall that just
+dropping 0.4% of the extreme forecast error observations suffices to
+render the martingale IVOL-return relationship insignificant). We
+
+18 Note that our winsorizing of forecasts mitigates the outlier problem, but we
+observe the exact same phenomenon using the raw, non-winsorized forecasts.
+19 We exclude the variables in the last category as they substantially reduce
+our sample size, but confirm in unreported tests that including them has a
+negligible impact on the explanatory power of the models.
+
+12 
+
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+G. Bekaert et al.
+
+Journal of Financial Economics 167 (2025) 104023 
+
+therefore resort to several regression methodologies that measure re-
+lationships in the tail: a linear probability (LinProb) model where we
+create a dummy for the top decile of martingale over-predictions (i.e. the
+negative of the martingale forecast errors); a quantile regression (QREG)
+focusing on the top 10% over-predictions, and a weighed least squares
+(WLS) regression where the weights are proportional to the square root
+of the percentile rank of the (negative of the) forecast error. As inde-
+pendent variables, we use the usual risk controls that we employed in
+the return model (Model 1) and then add the various variables proposed
+in Hou and Loh (2016) in Model 2. When we add the size related vari-
+ables from Bali and Cakici (2008), we drop the size risk control to avoid
+multi-collinearity (See Internet Appendix 4, Table 3).
+
+In Table 7, for brevity, we only show the coefficients from the
+multivariate results for the WLS regressions (the coefficients from the
+other two models, the linear probability model and the quantile
+regression models, are relegated to Internet Appendix 4, Table 1). In
+these models, all continuous control variables are winsorized (at 0.5%
+and 99.5%) and all continuous variables are standardized with a mean of
+0 and a standard deviation of 1 to ease interpretation. Standard errors
+are clustered at both the firm and time (month) level (i.e. 2-way clus-
+tered standard errors). We also report a covariance decomposition,
+indicating the ratio of the covariance between the fitted value and the
+coefficient times the independent variable over the variance of the fitted
+value. These covariance contributions add to 100%, and use the average
+across the 3 models discussed above (WLS, linear probability, and
+quantile regression). Similarly, the “rank average” reports the relative
+importance (in terms of the absolute magnitude of the coefficient) of the
+
+variable in question across the three different specifications. We rank the
+independent variables based on the magnitude of the absolute co-
+efficients from largest (1) to smallest (total number of independent
+variables) and average across the specifications.
+
+We first focus on the multivariate regressions that exclude the
+maximum return variable (MAX) from Bali et al. (2011). According to
+Hou and Loh (2016), this variable is very highly correlated with IVOL
+and it is hard to see it as a proper measure of skewness or lottery pref-
+erences. The inclusion of MAX also has a huge impact on the other
+explanatory variables, as including it changes the sign of various co-
+efficients compared to when the base model 1 is augmented with one
+additional variable at a time (presented in Internet Appendix 4, Table
+2A). In contrast, no coefficients change sign from the specification where
+only that one variable was added to the risk controls compared to Model
+2, where all of them except for MAX are included. The sign consistency is
+also largely true when using the other econometric methodologies (not
+reported).
+
+For the multivariate regressions using only standard control vari-
+ables (Model 1), the economically most important coefficients (given
+standardization, this is measured immediately from the magnitude of
+the coefficients) are size (especially when the alternative size metrics are
+used in Internet Appendix 4, Table 3A), reversal (as measured by
+LAGRET) and liquidity. This is corroborated by the covariance decom-
+position, which shows that these variables rank as the most important
+across the models, and account for 36% (LNME), 27% (CVTURN), and
+23% (LAGRET) of the variation respectively. When the additional con-
+trol variables from Hou and Loh (2016) are added (Model 2), the results
+
+Table 7
+Negative martingale forecast error.
+
+(1)
+
+(2)
+
+(3)
+
+WLS
+
+Decompose Avg
+
+Rank Avg
+
+WLS
+
+Decompose Avg
+
+Rank Avg
+
+WLS
+
+Decompose Avg
+
+Rank Avg
+
+BETA
+
+LN(ME)
+
+LN(BEME)
+
+MOM
+
+(cid:0) 0.000
+((cid:0) 0.037)
+(cid:0) 0.034***
+
+((cid:0) 21.898)
+
+(cid:0) 0.006***
+((cid:0) 6.972)
+(cid:0) 0.017***
+
+((cid:0) 10.416)
+
+1.21%
+
+36.43%
+
+0.30%
+
+5.77%
+
+LAGRET
+
+0.031***
+
+23.11%
+
+(18.889)
+
+LN(TURN)
+
+0.028***
+
+6.59%
+
+LN(CVTURN)
+
+0.026***
+
+26.58%
+
+(20.344)
+
+(23.724)
+
+7.00
+
+1.00
+
+6.00
+
+5.00
+
+2.33
+
+3.33
+
+3.33
+
+SKEW
+
+COSKEW
+
+EXPIDIOSKEW
+
+AMILL
+
+ZERORET
+
+BIDASK
+
+MAX
+
+0.001
+(1.520)
+(cid:0) 0.004***
+((cid:0) 3.011)
+0.001
+(1.211)
+(cid:0) 0.009***
+((cid:0) 7.578)
+
+0.022***
+
+(14.690)
+
+0.015***
+
+(16.376)
+
+0.023***
+
+(29.701)
+
+0.022***
+
+(19.517)
+
+0.003***
+(3.948)
+0.007***
+(5.392)
+0.011***
+(9.921)
+(cid:0) 0.065***
+
+0.48%
+
+6.76%
+
+(cid:0) 0.04%
+
+1.08%
+
+6.62%
+
+0.95%
+
+8.49%
+
+5.15%
+
+0.28%
+
+2.47%
+
+4.94%
+
+(cid:0) 1.81%
+
+((cid:0) 28.276)
+
+0.077***
+
+64.64%
+
+(36.247)
+
+Adj R-Sq
+
+0.085
+
+0.174
+
+12.33
+
+8.00
+
+11.67
+
+8.67
+
+4.00
+
+6.67
+
+4.67
+
+6.33
+
+10.67
+
+8.00
+
+6.67
+
+2.33
+
+1.00
+
+(cid:0) 0.007***
+
+((cid:0) 19.651)
+
+0.019***
+
+(22.043)
+
+0.006***
+
+(14.346)
+(cid:0) 0.000
+((cid:0) 0.522)
+(cid:0) 0.002**
+((cid:0) 2.022)
+(cid:0) 0.009***
+
+((cid:0) 13.481)
+
+0.003***
+(6.423)
+(cid:0) 0.043***
+
+((cid:0) 61.189)
+
+(cid:0) 0.001***
+((cid:0) 2.911)
+(cid:0) 0.000
+((cid:0) 0.058)
+0.001
+(1.372)
+(cid:0) 0.011***
+((cid:0) 9.014)
+(cid:0) 0.004***
+((cid:0) 3.986)
+
+(cid:0) 0.83%
+
+(cid:0) 1.56%
+
+0.03%
+
+(cid:0) 0.03%
+
+(cid:0) 0.47%
+
+(cid:0) 0.30%
+
+0.62%
+
+(cid:0) 6.69%
+
+(cid:0) 0.03%
+
+(cid:0) 0.09%
+
+0.94%
+
+0.08%
+
+(cid:0) 2.79%
+
+0.147***
+
+111.11%
+
+(84.446)
+0.375
+
+7.00
+
+4.67
+
+10.00
+
+12.00
+
+9.00
+
+6.00
+
+10.33
+
+2.00
+
+11.33
+
+13.00
+
+6.00
+
+6.00
+
+6.67
+
+1.00
+
+The table reports coefficients from regressing standardized martingale (negative) forecast error as the dependent variable on standardized and winsorized (at 0.5% and
+99.5%) continuous independent variables using weighted least squares. All dependent and independent variables have been multiplied by the square root of the
+(
+where ̂yi,t is the predicted y for firms i
+martingale error percentile rank. “Decompose Avg” is the average of the decomposed covariance using cov
+
+)
+/var
+
+̂yi,t
+
+(
+
+)
+
+̂yi,t, βjXj,i,t
+
+in month t and Xj is a vector of independent variables used in the model, across the WLS model, a Linear Probability model, and a Quantile Regression model (where the
+latter two focus on extreme decile). “Rank Avg” is the average rank (highest=1) of the magnitude of the absolute coefficient in each model averaged across the 3
+models. Clustered standard errors by time and firm are reported in parentheses, and *, **, and *** indicate statistical significance at the 10%, 5%, and 1% levels
+respectively.
+
+13 
+
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+G. Bekaert et al.
+
+Journal of Financial Economics 167 (2025) 104023 
+
+Table 8
+Difference between martingale and ARMA(1,1) Forecasts.
+
+(1)
+
+(2)
+
+(3)
+
+WLS
+
+Decompose Avg
+
+Rank Avg
+
+WLS
+
+Decompose Avg
+
+Rank Avg
+
+WLS
+
+Decompose Avg
+
+Rank Avg
+
+BETA
+
+LN(ME)
+
+LN(BEME)
+
+MOM
+
+LAGRET
+
+LN(TURN)
+
+(cid:0) 0.016***
+((cid:0) 4.000)
+(cid:0) 0.181***
+
+((cid:0) 17.827)
+
+(cid:0) 0.045***
+((cid:0) 7.743)
+(cid:0) 0.167***
+
+((cid:0) 14.974)
+
+0.105***
+(8.446)
+0.151***
+
+(15.262)
+
+0.18%
+
+40.78%
+
+0.35%
+
+22.72%
+
+8.78%
+
+5.05%
+
+LN(CVTURN)
+
+0.156***
+
+22.14%
+
+(19.360)
+
+7.00
+
+1.00
+
+6.00
+
+2.00
+
+4.67
+
+3.67
+
+3.67
+
+SKEW
+
+COSKEW
+
+EXPIDIOSKEW
+
+AMILL
+
+ZERORET
+
+BIDASK
+
+MAX
+
+(cid:0) 0.011***
+((cid:0) 3.109)
+(cid:0) 0.001
+((cid:0) 0.056)
+0.006
+(1.138)
+(cid:0) 0.096***
+
+((cid:0) 11.132)
+
+0.059***
+(4.989)
+0.078***
+
+(11.279)
+
+0.148***
+
+(24.999)
+
+0.124***
+
+(18.069)
+
+0.013***
+(3.197)
+0.066***
+(5.783)
+(cid:0) 0.022***
+((cid:0) 2.618)
+(cid:0) 0.363***
+
+((cid:0) 24.211)
+
+(cid:0) 0.04%
+
+5.30%
+
+0.01%
+
+5.03%
+
+1.53%
+
+0.73%
+
+6.44%
+
+4.82%
+
+0.27%
+
+1.34%
+
+(cid:0) 2.43%
+
+(cid:0) 3.38%
+
+0.430***
+
+80.38%
+
+(34.435)
+
+Adj R-Sq
+
+0.107
+
+0.241
+
+10.33
+
+9.67
+
+12.00
+
+4.00
+
+6.67
+
+8.33
+
+5.00
+
+5.00
+
+9.33
+
+8.67
+
+9.00
+
+2.00
+
+1.00
+
+(cid:0) 0.064***
+
+((cid:0) 22.110)
+
+0.123***
+
+(20.702)
+
+0.038***
+
+(12.473)
+(cid:0) 0.032***
+((cid:0) 6.849)
+(cid:0) 0.071***
+
+((cid:0) 12.505)
+
+(cid:0) 0.101***
+
+((cid:0) 21.825)
+(cid:0) 0.002
+((cid:0) 0.490)
+(cid:0) 0.265***
+
+((cid:0) 48.579)
+
+(cid:0) 0.010***
+((cid:0) 3.550)
+(cid:0) 0.014**
+((cid:0) 1.993)
+(cid:0) 0.101***
+
+((cid:0) 13.632)
+
+(cid:0) 0.031***
+((cid:0) 5.242)
+(cid:0) 0.047***
+((cid:0) 5.885)
+
+(cid:0) 1.02%
+
+(cid:0) 2.34%
+
+0.06%
+
+1.09%
+
+(cid:0) 1.37%
+
+(cid:0) 0.37%
+
+(cid:0) 0.71%
+
+(cid:0) 6.24%
+
+(cid:0) 0.05%
+
+(cid:0) 0.95%
+
+(cid:0) 2.58%
+
+0.04%
+
+(cid:0) 1.58%
+
+0.867***
+
+116.01%
+
+(72.953)
+0.567
+
+7.00
+
+6.67
+
+9.00
+
+8.00
+
+4.33
+
+4.67
+
+11.00
+
+2.00
+
+13.67
+
+10.00
+
+6.67
+
+10.00
+
+11.00
+
+1.00
+
+The table reports results from regressing the standardized difference between the martingale and ARMA(1,1) forecasts of IVAR as the dependent variable on stan-
+dardized and winsorized (at 0.5% and 99.5%) continuous independent variables using weighted least squares. All dependent and independent variables have been
+)
+multiplied by the square root of the martingale error percentile rank. “Decompose Avg” is the average of the decomposed covariance using cov
+where ̂yi,t is the predicted y for firms i in month t and Xj is a vector of independent variables used in the model, across the WLS model, a Linear Probability model, and a
+Quantile Regression model (where the latter two focus on the 90th percentile). “Rank Avg” is the average rank (highest=1) of the magnitude of the absolute coefficient
+in each model averaged across the 3 models. Clustered standard errors by time and firm are reported in parentheses, and *, **, and *** indicate statistical significance
+at the 10%, 5%, and 1% levels respectively.
+
+̂yi,t , βjXj,i,t
+
+/var
+
+̂yi,t
+
+)
+
+(
+
+(
+
+continue to suggest a large role for liquidity, with zero returns and
+bid-ask spreads being most important (as judged by the magnitude of the
+coefficients). The coefficients for the important variables range between
+0.02 and 0.08, and we observe similar coefficients for the linear prob-
+ability model (Internet Appendix 4, Table 1).
+
+The MAX return variable is considered separately (Model 3) because it
+has a massive effect on the probability of observing a large forecast error.
+Its coefficient is of the order of 0.15 and its inclusion in the regression
+changes the sign of the coefficients on many variables, while also reducing
+them to smallish numbers. The R2 more than doubles. One exception is the
+skewness coefficient which now becomes negative, likely driven by its
+high correlation with the MAX variable which is an indirect indicator of the
+potential to positive skewness and reflects a realization of high skewness.
+In sum, the MAX return variable is a good proxy for martingale over-
+estimations of variances. Internet Appendix 4, Table 1 shows that alter-
+native estimation approaches (including the linear probability model, and
+quantile regressions) lead to similar conclusions.20 For the quantile re-
+gressions, the key variable, when excluding the maximum return variable,
+is, in a more dominant fashion than seen using other approaches, the bid-
+ask spread. Small, illiquid firms, which are prone to some extreme return
+behavior in particular firm months, appear to be the drivers of the large
+
+forecast errors for the martingale model and the IVOL puzzle.
+
+We perform the same analysis for the difference between the
+martingale and ARMA(1,1) forecasts. The results, using the WLS re-
+gressions, are reported in Table 8 (as well as Internet Appendix 4).
+Perhaps not surprisingly, we find that the same variables are associated
+with larger differences between the two forecasts. In particular, the most
+important variable is again the MAX variable, which renders other
+variables much less economically important or even changes the sign of
+the coefficients (e.g. for the bid-ask spread). When the MAX variable is
+not included in the regression, the most important variables, economi-
+cally, are the bid-ask spread and zero returns (the latter with a negative
+sign). Size indicators also play an important role, especially when
+measured by the alternative size dummies (Internet Appendix 4, Table
+3B).
+
+6. The cross-section of expected idiosyncratic volatility
+
+Given that the ARMA (1,1) model is clearly the best model, we
+analyze what drives the ARMA(1,1) parameters and use the model
+forecasts to characterize the cross-sectional and time series behavior of
+expected idiosyncratic volatility for US firms.
+
+20 While the standard errors for the WLS and Linear Probability Models use
+two-way clustered errors, the Quantile regression models use robust standard
+errors. For the latter, the standard errors are likely mis-specified, and we only
+rely on that model for interpreting the magnitude of the coefficients and for
+covariance decomposition.
+
+14 
+
+6.1. ARMA(1,1) expected idiosyncratic volatility
+
+We first provide further insights on how the ARMA model produces
+
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+G. Bekaert et al.
+
+Journal of Financial Economics 167 (2025) 104023 
+
+expected idiosyncratic variances from past information, in particular
+past realized variances through the autoregressive parameter, and past
+variance shocks through the moving average coefficient. Then we
+investigate how expected idiosyncratic volatility varies with firm
+characteristics.
+
+Models 1 and 2 of Table 9 reports coefficients from a panel regres-
+sion, regressing the estimated autoregressive and moving average pa-
+rameters on firm characteristics. Because the parameters result from our
+out-of-sample analysis with rolling estimations, we have a panel of such
+coefficients. To facilitate interpretation of the results, all independent
+variables are standardized to have zero mean and standard deviation of
+1.
+
+Focusing on the AR-coefficients (Model 1), because all independent
+variables are standardized, the constant in the regression represents the
+
+Table 9
+What drives variation in the ARMA(1,1) parameters and IVOL.
+
+Intercept
+
+BETA
+
+LN(ME)
+
+LN(BEME)
+
+MOM
+
+LAGRET
+
+LN(TURN)
+
+LN(CVTURN)
+
+(1)
+AR
+
+0.625***
+
+(173.820)
+0.004
+(1.478)
+0.041***
+(9.293)
+0.050***
+
+(19.969)
+(cid:0) 0.004***
+((cid:0) 2.877)
+0.002*
+(1.685)
+(cid:0) 0.018***
+((cid:0) 5.573)
+(cid:0) 0.037***
+
+((cid:0) 12.544)
+
+(2)
+MA
+
+(3)
+ARMA(1,1) IVOL
+
+0.412***
+
+(132.932)
+(cid:0) 0.002
+((cid:0) 0.954)
+
+0.036***
+(8.910)
+0.038***
+
+(15.656)
+(cid:0) 0.001
+((cid:0) 0.428)
+0.001
+(0.927)
+(cid:0) 0.010***
+((cid:0) 3.204)
+(cid:0) 0.036***
+
+((cid:0) 12.970)
+
+0.481***
+
+(133.344)
+
+0.022***
+
+(13.002)
+(cid:0) 0.159***
+
+((cid:0) 40.949)
+
+(cid:0) 0.034***
+
+((cid:0) 18.808)
+
+(cid:0) 0.018***
+((cid:0) 6.808)
+
+0.009***
+(4.036)
+0.097***
+
+(41.856)
+
+0.071***
+
+(34.314)
+
+The table shows a panel regression of the AR (MA) coefficient as well as the
+annualized volatility forecast (SQRT(Monthly VAR Forecast × 12)) of the ARMA
+(1,1) model on firm characteristics. All firm level explanatory variables have
+been winsorized at the 0.5% and 99.5% levels and all independent variables
+have been standardized with a mean of 0 and standard deviation of 1. Clustered
+standard errors by time and firm are reported in parentheses, and *, **, and ***
+indicate statistical significance at the 10%, 5%, and 1% levels respectively.
+
+average autoregressive coefficient, which is 0.63. This is quite very far
+away from the implied value of 1 imposed by the martingale model, and
+similarly far away from the average persistence coefficient in an AR(1)
+model, which is only 0.27 (not reported). The largest economic effects
+arise from the size and the book-to-market variables, with firms one
+standard deviation larger than the average featuring a 0.04 higher
+autoregressive coefficient, firms with book-to-market values one stan-
+dard deviation above the mean a 0.05 higher coefficient. These effects
+are highly statistically significant. The turnover variables (level and
+coefficient of variation) also generate statistically significant effects with
+higher turnover (variation) lowering the AR coefficients. All other ef-
+fects are economically very small.
+
+We also report similar results for the moving average coefficients in
+Model 2. The average moving average coefficient is 0.41, indicating that
+the best forecast typically involves reversing large shocks to realized
+idiosyncratic variances. This explains why economically neither a
+martingale model, nor a simple autoregressive model can fit the data
+well. When shocks are small, an autoregressive model with a coefficient
+of around 0.63 works well. When a large positive shock to the realized
+variance happens, the optimal ARMA forecast lowers the effective
+persistence considerably; when a negative shock happens, the forecast
+increases the effective persistence of the process. The importance of the
+MA coefficient can be gleaned from Fig. 1, where we rank firms in
+deciles based on their change in IVAR between time t-1 and t. We then
+show the average IVAR in subsequent time periods for the most extreme
+deciles. The blue line shows the average IVAR for firms with the largest
+increases in IVAR from t-1 to t (the graph shows this to represent a shift
+from about 0.04 to 0.14), and the red line shows the average IVAR for
+the decile with the largest decreases in IVAR between t-1 and t (repre-
+senting roughly the opposite switch). Clearly, we see strong mean-
+reversion in the IVAR levels, which the ARMA model accomplishes
+through the MA-coefficient.
+
+When looking at the impact on the MA coefficient, size and book-to-
+market again generate the largest positive coefficients, with large value
+firms having higher moving average coefficients (0.036, respectively
+0.038 per standard deviation away from the mean). The only other
+economically important effect is recorded for the coefficient of variation
+of turnover, with a (cid:0) 0.036 coefficient.
+
+Fig. 2 provides more intuition on the relative performance of the
+ARMA(1,1) model relative to simpler but nested models such as the
+martingale and the AR(1) model. We split the firms every month (at time
+t-1) based on the change in IVAR from the previous month (from t-2 to t-
+
+Fig. 1. This figure shows the firms with the largest changes in IVAR from time t-1 to time t organized in deciles, and the subsequent mean IVAR for the two extreme
+deciles. The blue line shows the average IVAR for firms with the largest increases in IVAR from t-1 to t, and the red line shows the average IVAR for the decile with the
+largest decreases in IVAR between t-1 and t.
+
+15 
+
+​
+​
+​
+​
+​
+​
+​
+​
+G. Bekaert et al.
+
+Journal of Financial Economics 167 (2025) 104023 
+
+Fig. 2. This figure shows the mean IVAR forecast, as well as actual IVAR, for month t where the forecasts are based on data up until t-1. The forecasts are generated
+separately for each decile of change in the forecast from time t-2 to time t-1. Hence, the lowest decile (1) shows the forecasts for the firms with the lowest (most
+negative) change in IVAR from time t-2 to time t-1, and the highest decile (10 - to the right on the graph), shows the forecasts for the decile with the largest changes in
+IVAR from time t-2 to time t-1.
+
+1) and organize them into 10 deciles. Hence, the firms in the first decile
+just experienced large negative shocks to the realized variance, whereas
+the firms in the 10th decile experienced large positive shocks to the
+realized variance. The figure plots the mean realized variance (IVAR) at
+time t and the average forecast, based on data up until t-1, for each of the
+10 deciles for the three aforementioned models. Thus, in the figure on
+the left, the lowest decile (indicated by 1) shows the forecasts for the
+firms with the lowest (most negative) change in IVAR from time t-2 to
+time t-1, and on the right, shows the forecasts for the decile with the
+largest changes in IVAR from time t-2 to time t-1, the highest decile
+(indicated by 10).
+
+As expected, the martingale model overpredicts IVAR for firms with
+recent large jumps in IVAR and underpredicts the IVAR for firms with
+recent large declines in IVAR (as the martingale model assumes that any
+change to IVAR is permanent). The predicted IVAR for firms with small
+changes to IVAR generally appears too low for this model, perhaps
+because it misses the skewness in variance. In contrast, the ARMA(1,1)
+model performs better at predicting IVAR after both positive and
+negative large changes in IVAR, suggesting that such shocks are partially
+reversed. Interestingly, the ARMA(1,1) model also produces better
+forecasts than the martingale model for firms with modest changes in
+IVAR. In comparison to the AR(1) model, its performance is most visibly
+better when there are large negative shocks to IVAR, and it is important
+to revise the predicted realized variance upwards which the AR(1)
+model fails to do. Because the AR(1) model typically imbues less
+persistence to the model than does the ARMA(1,1) model, it still per-
+forms well in cases where the realized variance is temporarily high.
+
+Next, we characterize how expected idiosyncratic volatility varies
+with firm characteristics more directly and report the results in Model 3
+of Table 9. We use the same panel regression framework as above, but
+the dependent variable now is the expected idiosyncratic volatility (in
+annualized terms) for each firm i, at time t using the ARMA(1,1) model.
+The average idiosyncratic volatility is around 48%. Most firm charac-
+teristics generate statistically significant deviations from the average,
+but
+few generate effects above 5% in absolute magnitude. The
+economically important effects are size and turnover, with firms one
+
+standard deviation above the average size (turnover) featuring 15.9%
+(9.7%) lower (higher) idiosyncratic volatility.
+
+6.2. Time series dynamics of expected idiosyncratic volatility
+
+In Fig. 3, we plot the time series behavior of idiosyncratic volatility
+over the full sample period. Panel B shows the median, 25% and 75%
+percentile of annualized expected idiosyncratic volatility using the
+ARMA(1,1) model, while Panel A shows the realized volatility for
+comparison. The 90% range, i.e. the 5th to 95th percentile, for median
+realized volatility over this long time period is [17.3%, 50.9%]. It is
+apparent that idiosyncratic volatility was extremely high in the early
+part of our sample (the 1930s) and then declined to much lower levels by
+1960. However, the median idiosyncratic volatility then increases again,
+showing several peaks reaching levels close to those observed in the late
+thirties. The most recent such peak in our sample occurred during the
+beginning of the Covid pandemic, which is also characterized by
+extreme dispersion in idiosyncratic volatility across the 25% and 75%
+percentiles. Given the very large literature on an alleged downward
+trend in aggregate idiosyncratic volatility (see e.g., Campbell et al.,
+2001), this may be surprising. The time series pattern seems more
+consistent with a stationary process with occasional regime switches
+into high volatility periods (see also Bekaert et al., 2012). The expected
+idiosyncratic volatility series are obviously much smoother than the
+realized volatility graphs but follow the same pattern.
+
+7. Summary and conclusion
+
+Evaluating the riskiness of a stock portfolio requires an estimate of its
+expected idiosyncratic variance (IVAR). Very little systematic research
+exists on how to construct such estimates. In this article, we compare the
+performance of a large suite of different models to forecast idiosyncratic
+realized variances. While the popular martingale model is only best for
+13.83% of firms in out-of-sample forecasts, the ARMA(1,1) model per-
+forms the best for 34.28% of firms (and if we include the ARMA(1,1)
+model incorporating a market variance term, it is best for 46.52% of
+
+16 
+
+G. Bekaert et al.
+
+Journal of Financial Economics 167 (2025) 104023 
+
+Fig. 3. Realized annual volatility.
+Figure A shows the 25th, 50th and 75th percentile of realized (annualized) volatility [SQRT(Monthly IVAR × 12)] by month. Figure B shows the same percentiles of
+the ARMA(1,1) firm volatility forecasts.
+
+firms). Moreover, the ARMA(1,1) model delivers lower average RMSEs
+than all other models in a statistically significant fashion, and also
+performs quite well when it is not the best model. The ARMA model
+produces different predictions from both a martingale model and an AR
+(1) model, as for a typical firm it generates persistent forecasts (with the
+autoregressive coefficient around 0.63, much lower than for a martin-
+gale, but much higher than observed for an AR(1) model) only when
+there are no large shocks to realized variance. When there are large
+shocks to realized variance, the forecast is adjusted in the opposite di-
+rection through a large MA coefficient (of about 0.41).
+
+We use our various proxies for expected idiosyncratic risk to revisit
+the relationship between idiosyncratic risk and returns. We find that the
+only proxy for which the Ang et al. (2006) result (a negative relation
+between expected idiosyncratic risk and returns) holds, is the martingale
+model. For all other models, including the best ARMA(1,1) model, and
+when using the best IVAR model for each firm in each month, there is no
+relation between expected idiosyncratic risk and returns. We show that
+the difference is driven by a very small percentage of firm months for
+
+which the martingale model generates poor, excessively high forecasts.
+That is, the model fails to reverse large shocks to IVAR and therefore
+overestimates IVAR for firms with subsequently low returns. Eliminating
+firm months with high differences between the martingale and ARMA(1,
+1) forecasts also renders the relationship insignificant. Not surprisingly,
+we find that proposed explanations for the IVOL puzzle, such as small
+size, skewness and poor liquidity are strongly associated with firm
+months featuring poor martingale forecasts, with the strongest effect
+associated with high bid-ask spreads. When the max return variable
+from Bali et al. (2011) is included, it dominates the regressions. Its
+explanatory power for the IVOL puzzle is highly associated with high
+maximum return months coinciding with firm months where the
+martingale model generates poor, excessively high volatility forecasts.
+in several
+alternative literatures, including option pricing for individual stock
+options and asset management, because expected idiosyncratic volatility
+is necessary to determine optimal active positions. In addition, there is
+little consensus in the macroeconomic literature on how to measure
+
+Our idiosyncratic volatility measures may be useful
+
+17 
+
+G. Bekaert et al.
+
+Journal of Financial Economics 167 (2025) 104023 
+
+uncertainty. Our firm-specific measure of expected idiosyncratic vari-
+ance provides a viable alternative to alternative stock market variance
+measures that have been used in the literature, including the aggregate
+market volatility (see Bloom, 2009), or cross-sectional stock market
+dispersion (Bloom, 2009; Christiano et al., 2014).
+
+CRediT authorship contribution statement
+
+Writing – review & editing, Writing – original draft, Visualization,
+Validation, Supervision, Software, Resources, Project administration,
+Methodology, Investigation, Funding acquisition, Formal analysis, Data
+curation, Conceptualization. Haimanot Kassa: Writing – review &
+editing, Writing – original draft, Visualization, Validation, Supervision,
+Software, Resources, Project administration, Methodology, Investiga-
+tion,
+curation,
+Formal
+Conceptualization.
+
+analysis, Data
+
+acquisition,
+
+Funding
+
+Geert Bekaert: Writing – review & editing, Writing – original draft,
+Visualization, Validation, Supervision, Software, Resources, Project
+administration, Methodology,
+Investigation, Funding acquisition,
+Formal analysis, Data curation, Conceptualization. Mikael Bergbrant:
+
+Declaration of competing interest
+
+None.
+
+Supplementary materials
+
+Supplementary material associated with this article can be found, in the online version, at doi:10.1016/j.jfineco.2025.104023.
+
+Appendix A. Out-of-sample Forecast Performance Robustness Checks
+
+This table presents robustness tests where the IVAR forecasted is that from a within month CAPM Model (Panel A), 3-month FF (Panel B),
+autocorrelation corrected IVAR (Panel C) and subset to only firms during which time they were included in the S&P 500 (Panel D). This table shows
+out-of-sample statistics for the 10 models described in the data section, where the statistics presented are based on firm averages. To calculate the out-
+of-sample statistics, each model is fit every month for each firm to generate a forecast for the following month, using up to 10 years of data (when
+available) prior to the time of the forecast. Before using these forecasts to calculate the out-of-sample statistic for each firm, all monthly forecasts are
+winsorized at 0 and 0.5. Panel E and F present the main results (from Table 1) with forecasts winsorized at 2.5% and 97.5% (Panel E) or not at all
+(Panel F). In addition to the mean statistic, the table also shows the proportion of firms for which a model generates the best forecasts, as well as the
+average rank of the model. We also report the “improvement to worst”, defined as the ratio of the difference between the worst RMSE and the model
+being examined relative to the RMSE difference between the worst and best, as well as the median. The sample period is from 1926 to 2022.
+
+Panel A: CAPM
+Model
+
+Martingale
+ARMA(1,1)
+ARNL
+HAR
+ARMA(1,1) w Mkt
+ARNL w Mkt
+HAR w Mkt
+
+Mean
+
+0.1154
+0.1111
+0.1128
+0.1144
+0.1124
+0.1136
+0.1153
+
+Best
+
+13.57%
+33.89%
+17.63%
+8.17%
+12.47%
+9.05%
+5.09%
+
+Panel B: Fama-French 3 Factors with 3-month estimation of parameters
+
+Model
+
+Martingale
+ARMA(1,1)
+ARNL
+HAR
+ARMA(1,1) w Mkt
+ARNL w Mkt
+HAR w Mkt
+
+Panel C: Autocorrelation Corrected
+
+Model
+
+Martingale
+ARMA(1,1)
+ARNL
+HAR
+ARMA(1,1) w Mkt
+ARNL w Mkt
+HAR w Mkt
+
+Panel D: S&P 500 Firms
+
+Model
+
+Martingale
+ARMA(1,1)
+ARNL
+HAR
+ARMA(1,1) w Mkt
+ARNL w Mkt
+
+Mean
+
+0.1258
+0.1214
+0.1230
+0.1248
+0.1226
+0.1238
+0.1256
+
+Mean
+
+0.0989
+0.0914
+0.0924
+0.0936
+0.0928
+0.0934
+0.0947
+
+Mean
+
+0.0124
+0.0105
+0.0109
+0.0117
+0.0108
+0.0111
+
+Best
+
+13.96%
+33.21%
+17.29%
+8.47%
+12.51%
+9.38%
+4.97%
+
+Best
+
+9.16%
+29.73%
+20.10%
+12.25%
+12.36%
+10.33%
+5.95%
+
+Best
+
+5.77%
+42.37%
+15.44%
+6.69%
+16.41%
+8.86%
+
+Rank
+
+5.31
+2.63
+3.37
+4.36
+3.47
+3.95
+4.92
+
+Rank
+
+5.28
+2.67
+3.41
+4.36
+3.46
+3.93
+4.88
+
+Rank
+
+5.84
+2.80
+3.25
+3.95
+3.62
+3.91
+4.63
+
+Rank
+
+6.01
+2.28
+3.31
+4.39
+3.13
+3.86
+
+Imp. to Worst
+
+29.72%
+81.70%
+70.26%
+56.87%
+71.81%
+63.72%
+49.80%
+
+Imp. to Worst
+
+30.12%
+81.06%
+69.66%
+56.70%
+71.95%
+63.76%
+50.22%
+
+Imp. to Worst
+
+20.64%
+82.74%
+76.26%
+68.61%
+74.71%
+69.73%
+61.67%
+
+Improvement to Worst
+
+17.89%
+89.85%
+76.37%
+64.25%
+79.72%
+69.57%
+
+Median
+
+0.0374
+0.0318
+0.0326
+0.0347
+0.0331
+0.0339
+0.0360
+
+Median
+
+0.0393
+0.0335
+0.0342
+0.0365
+0.0348
+0.0353
+0.0378
+
+Median
+
+0.0390
+0.0323
+0.0329
+0.0339
+0.0336
+0.0340
+0.0350
+
+Median
+
+0.008
+0.006
+0.006
+0.007
+0.006
+0.007
+
+18 
+
+(continued on next page)
+
+​
+​
+​
+​
+​
+G. Bekaert et al.
+
+(continued )
+
+HAR w Mkt
+
+0.0120
+
+4.46%
+
+Panel E: Winsorize at 2.5% and 97.5%
+
+Model
+
+Martingale
+ARMA(1,1)
+ARNL
+HAR
+ARMA(1,1) w Mkt
+ARNL w Mkt
+HAR w Mkt
+
+Panel F: No Winsorization
+
+Model
+
+Martingale
+ARMA(1,1)
+ARNL
+HAR
+ARMA(1,1) w Mkt
+ARNL w Mkt
+HAR w Mkt
+
+Mean
+
+0.1015
+0.0996
+0.1007
+0.1016
+0.1011
+0.1017
+0.1028
+
+Mean
+
+0.1181
+0.1041
+1.01E29
+0.3242
+0.1117
+1.04E25
+0.3571
+
+Best
+
+16.66%
+34.17%
+16.03%
+8.27%
+11.36%
+8.19%
+4.60%
+
+Best
+
+11.71%
+35.85%
+19.95%
+7.40%
+11.89%
+9.43%
+3.78%
+
+Journal of Financial Economics 167 (2025) 104023 
+
+5.03
+
+Rank
+
+4.94
+2.65
+3.44
+4.29
+3.60
+4.13
+4.97
+
+Rank
+
+5.38
+2.47
+3.20
+4.48
+3.44
+3.91
+5.13
+
+55.00%
+
+Imp. to Worst
+
+36.01%
+79.50%
+66.98%
+55.36%
+66.78%
+57.78%
+45.23%
+
+Improvement to Worst
+
+31.06%
+86.23%
+74.41%
+56.25%
+74.90%
+65.97%
+47.16%
+
+0.007
+
+Median
+
+0.0304
+0.0272
+0.0279
+0.0291
+0.0286
+0.0291
+0.0303
+
+Median
+
+0.0325
+0.0275
+0.0283
+0.0306
+0.0290
+0.0297
+0.0320
+
+Data availability
+
+Expected Idiosycratic Volatility (Reference data) (Mendeley Data)
+
+References
+
+Bergbrant, M., Kassa, H., 2021. Is idiosyncratic volatility related to returns? Evidence
+
+from a subset of firms with quality idiosyncratic volatility estimates. J. Bank. Finance
+127, 106126.
+
+Bloom, N., 2009. The impact of uncertainty shocks. Econometrica 77 (3), 623–685.
+Blume, M.E., Friend, I., 1975. The asset structure of individual portfolios and some
+
+implications for utility functions. J. Finance 30 (2), 585–603.
+
+Bollerslev, T., Patton, A.J., Quaedvlieg, R., 2016. Exploiting the errors: a simple
+approach for improved volatility forecasting. J. Econom. 192 (1), 1–18.
+
+Boyer, B., Mitton, T., Vorkink, K., 2010. Expected idiosyncratic skewness. Rev. Financ.
+
+Akaike, H., 1974. A new look at the statistical model identification. IEEE Trans. Automat.
+
+Stud. 23 (1), 169–202.
+
+Contr. 19 (6), 716–723.
+
+Amihud, Y., 2002. Illiquidity and stock returns: cross-section and time-series effects.
+
+J. Financ. Mark. 5 (1), 31–56.
+
+Amihud, Y., Mendelson, H., 1986. Liquidity and stock returns. Financ. Anal. J. 42 (3),
+
+43–48.
+
+Brockman, P., Guo, T., Vivero, M.G., Yu, W., 2022. Is idiosyncratic risk priced? The
+
+international evidence. J. Empir. Finance 66, 121–136.
+
+Campbell, J., Lettau, M., Malkiel, B., Xu, Y., 2001. Have individual stocks become more
+volatile? An empirical exploration of idiosyncratic risk. J. Finance 56 (1), 1–43.
+Chabi-Yo, F. and Yang, J. (2009). Idiosyncratic coskewness and equity returns, Working
+
+Andersen, T.G., Bollerslev, T., Diebold, F.X., Ebens, H., 2001. The distribution of realized
+
+Paper.
+
+stock return volatility. J. Financ. Econ. 61 (1), 43–76.
+
+Andersen, T.G., Bollerslev, T., Diebold, F.X., Labys, P., 2003. Measuring and forecasting
+
+realized volatility. Econometrica 71 (2), 579–625.
+
+Andreou, E., Ghysels, E., 2002. Rolling-sample volatility estimators: some new
+
+theoretical, simulation and empirical results. J. Bus. Econ. Stat. 20 (3), 363–376.
+
+Ang, A., Hodrick, R.J., Xing, Y., Zhang, X., 2006. The cross-section of volatility and
+
+expected returns. J. Finance 61 (1), 259–299.
+
+Ang, A., Hodrick, R.J., Xing, Y., Zhang, X., 2009. High idiosyncratic volatility and low
+returns: international and further US evidence. J. Financ. Econ. 91 (1), 1–23.
+Asparouhova, E., Bessembinder, H., Kalcheva, I., 2010. Liquidity biases in asset pricing
+
+tests. J. Financ. Econ. 96 (2), 215–237.
+
+Bakshi, G., Cao, C., Zhong, Z.K., 2021. Assessing models of individual equity option
+
+prices. Rev. Quant. Finance Account. 57 (1), 1–28.
+
+Bakshi, G., Kapadia, N., Madan, D., 2003. Stock return characteristics, skew laws, and the
+differential pricing of individual equity options. Rev. Financ. Stud. 16 (1), 101–143.
+
+Bali, T.G., Cakici, N., 2008. Idiosyncratic volatility and the cross section of expected
+
+returns. J. Financ. Quant. Anal. 43 (1), 29–58.
+
+Bali, T.G., Cakici, N., Whitelaw, R.F., 2011. Maxing out: stocks as lotteries and the cross-
+
+section of expected returns. J. Financ. Econ. 99 (2), 427–446.
+
+Bandi, F.M., Russell, J.R., 2006. Separating microstructure noise from volatility.
+
+J. Financ. Econ. 79 (3), 655–692.
+
+Barberis, N., Huang, M., 2008. Stocks as lotteries: the implications of probability
+
+weighting for security prices. Am. Econ. Rev. 98 (5), 2066–2100.
+
+Barndorff-Nielsen, O.E., Shephard, N., 2002. Econometric analysis of realized volatility
+and its use in estimating stochastic volatility models. J. R. Stat. Soc. Ser. B Stat.
+Methodol. 64 (2), 253–280.
+
+Bartram, S.M., Brown, G.W., Stulz, R.M., 2016. Why Does Idiosyncratic Risk Increase
+
+with Market Risk? NBER. Working Paper No. 22492.
+
+Bekaert, G., Engstrom, E., Ermolov, A., 2015. Bad environments, good environments: a
+
+non-Gaussian asymmetric volatility model. J. Econom. 186 (1), 258–275.
+
+Bekaert, G., Hodrick, R.J., Zhang, X., 2012. Aggregate idiosyncratic volatility. J. Financ.
+
+Quant. Anal. 47 (6), 1155–1185.
+
+Bekaert, G., Hoerova, M., 2014. The VIX, the variance premium and stock market
+
+volatility. J. Econom. 183 (2), 181–192.
+
+Bekaert, G., Hoerova, M., & Xu, N.R. (2024a). Risk, monetary policy and asset prices in a
+
+global world. Available At SSRN 3599583.
+
+Bekaert, G., Wang, X., Zhang, X., 2024b. The International Commonality of Idiosyncratic
+
+Variances. forthcoming Manag. Sci.
+
+Chen, Z., Petkova, R., 2012. Does idiosyncratic volatility proxy for risk exposure? Rev.
+
+Financ. Stud. 25 (9), 2745–2787.
+
+Chernov, M., Gallant, A.R., Ghysels, E., Tauchen, G., 2003. Alternative models for stock
+
+price dynamics. J. Econom. 116 (1–2), 225–257.
+
+Chordia, T., Subrahmanyam, A., Anshuman, V.R., 2001. Trading activity and expected
+
+stock returns. J. Financ. Econ. 59 (1), 3–32.
+
+Chordia, T., Subrahmanyam, A., 2004. Order imbalance and individual stock returns:
+
+theory and evidence. J. Financ. Econ. 72 (3), 485–518.
+
+Christiano, L.J., Motto, R., Rostagno, M., 2014. Risk shocks. Am. Econ. Rev. 104 (1),
+
+27–65.
+
+Corsi, F., 2009. A simple approximate long-memory model of realized volatility.
+
+J. Financ. Econom. 7 (2), 174–196.
+
+Corwin, S.A., Schultz, P., 2012. A simple way to estimate bid-ask spreads from daily high
+
+and low prices. J. Finance 67 (2), 719–760.
+
+Engle, R.F., Lee, G.G.J., 1999. A long-run and short-run component model of stock return
+
+volatility. In: Cointegration, Causality, and Forecasting, pp. 475–497.
+
+Fama, E.F., French, K.R., 1992. The cross-section of expected stock returns. J. Finance 47
+
+(2), 427–465.
+
+Fama, E.F., French, K.R., 1993. Common risk factors in the returns on stocks and bonds.
+
+J. Financ. Econ. 33 (1), 3–56.
+
+Fama, E.F., MacBeth, J.D., 1973. Risk, return, and equilibrium: empirical tests. J. Polit.
+
+Economy 81 (3), 607–636.
+
+Fink, J.D., Fink, K.E., He, H., 2012. Expected idiosyncratic volatility measures and
+
+expected returns. Financ. Manag. 41 (3), 519–553.
+
+French, K.R., Schwert, G.W., Stambaugh, R.F., 1987. Expected stock returns and
+
+volatility. J. Financ. Econ. 19 (1), 3–29.
+
+Fu, F., 2009. Idiosyncratic risk and the cross-section of expected stock returns. J. Financ.
+
+Econ. 91 (1), 24–37.
+
+Ghysels, E., Plazzi, A., Valkanov, R., Rubia, A., Dossani, A., 2019. Direct versus iterated
+
+multiperiod volatility forecasts. Annu. Rev. Financ. Econ. 11, 173–195.
+
+Ghysels, E., Sinko, A., Valkanov, R., 2007. MIDAS regressions: further results and new
+
+directions. Econom. Rev. 26 (1), 53–90.
+
+Ghysels, E., Mykland, P., Renault, E., 2023. In-sample asymptotic and across sample
+efficiency gains for high frequency data statistics. Econ. Theory 39 (1), 70–106.
+
+Goetzmann, W.N., Kumar, A., 2008. Equity Portfolio Diversification. Rev. Financ.
+
+433–463.
+
+Guo, H., Kassa, H., Ferguson, M.F., 2014. On the relation between EGARCH idiosyncratic
+volatility and expected stock returns. J. Financ. Quant. Anal. 49 (01), 271–296.
+
+Han, Y., Lesmond, D., 2011. Liquidity biases and the pricing of cross-sectional
+
+idiosyncratic volatility. Rev. Financ. Stud. 24 (5), 1590–1629.
+
+19 
+
+G. Bekaert et al.
+
+Journal of Financial Economics 167 (2025) 104023 
+
+Herskovic, B., Kelly, B., Lustig, H., Van Nieuwerburgh, S., 2016. The common factor in
+idiosyncratic volatility: quantitative asset pricing implications. J. Financ. Econ. 119
+(2), 249–283.
+
+Levy, H., 1978. Equilibrium in an imperfect market: a constraint on the number of
+
+securities in the portfolio. Am. Econ. Rev. 68 (4), 643–658.
+
+Malkiel, B.G., and Xu, Y. (2002). Idiosyncratic risk and security returns. University of
+
+Hou, K., Loh, R.K., 2016. Have we solved the idiosyncratic volatility puzzle? J. Financ.
+
+Texas at Dallas Working Paper.
+
+Econ. 121 (1), 167–194.
+
+Merton, R.C., 1987. A simple model of capital market equilibrium with incomplete
+
+Huang, W., Liu, Q., Rhee, S.G., Zhang, L., 2010. Return reversals, idiosyncratic risk, and
+
+information. J. Finance 42 (3), 483–510.
+
+expected returns. Rev. Financ. Stud. 23 (1), 147–168.
+
+Nelson, D.B., 1991. Conditional heteroskedasticity in asset returns: a new approach.
+
+Jacod, J., Li, Y., Mykland, P.A., Podolskij, M., Vetter, M., 2009. Microstructure noise in
+the continuous case: the pre-averaging approach. Stochastic processes and their
+applications 119 (7), 2249–2276.
+
+Econom. J. Econom. Soc. 347–370.
+
+Newey, W.K., West, K.D., 1987. Hypothesis testing with efficient method of moments
+
+estimation. International Economic Review, pp. 777–787.
+
+Jiang, G.J., Xu, D., Yao, T., 2009. The information content of idiosyncratic volatility.
+
+Pontiff, J., 2006. Costly arbitrage and the myth of idiosyncratic risk. J. Account. Econ. 42
+
+J. Financ. Quant. Anal. 44 (1), 1–28.
+
+(1–2), 35–52.
+
+Johnson, T.C., 2004. Forecast dispersion and the cross section of expected returns.
+
+Stambaugh, R.F., Yu, J., Yuan, Y., 2015. Arbitrage asymmetry and the idiosyncratic
+
+J. Finance 59 (5), 1957–1978.
+
+volatility puzzle. J. Finance 70 (5), 1903–1948.
+
+Kozeniauskas, N., Orlik, A., Veldkamp, L., 2018. What are uncertainty shocks? J. Monet.
+
+Treynor, J.L., Black, F., 1973. How to use security analysis to improve portfolio selection.
+
+Econ. 100, 1–15.
+
+J. Bus. 46 (1), 66–86.
+
+Welch, I., 2022. Simpler better market betas. Crit. Finance Rev. 11 (1), 37–64.
+
+20 
+
+

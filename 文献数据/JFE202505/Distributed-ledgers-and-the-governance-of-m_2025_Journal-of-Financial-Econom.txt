@@ -1,0 +1,2995 @@
+Journal of Financial Economics 167 (2025) 104026 
+
+Contents lists available at ScienceDirect
+
+Journal of Financial Economics
+
+journal homepage: www.elsevier.com/locate/finec
+
+Distributed ledgers and the governance of money✩
+Raphael Auer a, Cyril Monnet b
+a Bank for International Settlement, Switzerland
+b University of Bern and Study Center Gerzensee, Switzerland
+
+,∗, Hyun Song Shin a
+
+A R T I C L E I N F O
+
+A B S T R A C T
+
+Distributed ledgers promise to enable the classical vision of money as a universal transaction record. But is
+it ever optimal to update a ledger through decentralized consensus? Analyzing an exchange economy with
+credit, we show that centralized updating is optimal when long-term rewards are more valued, minimizing
+redundant validation costs and maximizing economic surplus. Decentralization becomes preferable under
+weaker intertemporal incentives and when validators are drawn from market participants. We show how
+competing ledgers – anonymous or identified, permissioned or permissionless – can achieve socially optimal
+outcomes even in low-trust environments. Our framework provides a foundation for designing robust and
+efficient ledger systems.
+
+JEL classification:
+C72
+C73
+D4
+E42
+G2
+L86
+
+Keywords:
+Market design
+Money
+Distributed ledger technology
+DLT blockchain
+Cryptocurrencies
+Decentralized finance (DeFi)
+Global game
+Consensus
+Stablecoins
+
+1.  Introduction
+
+Money, whether in the form of clay pots, metal coins, or banknotes,
+is a social convention that serves as a record of goods sold or services
+rendered  in  the  past.  In  seminal  contributions  to  monetary  theory,
+Kocherlakota (1998) and Kocherlakota and Wallace (1998) show that
+the social convention of money can replicate many of the allocations
+that are feasible in a universal ledger of all previous transactions in the
+economy.
+
+In practice, trusted intermediaries, such as central banks and com-
+mercial banks, sustain money by maintaining and transferring balances
+among  depositors.  This  centralized  record-keeping  system  has  been
+the  mainstay  of  today’s  monetary  system.  Recently,  the  advent  of
+blockchain technology suggests that the authority to update the ledger
+can  also  be  delegated  to  a  decentralized  network  of  validators  that
+can  function  ‘‘without  the  need  for  a  trusted  third  party’’  (e.g.  see
+Nakamoto, 2008, Buterin, 2014a or Auer et al., 2024). This raises the
+
+broader research question of whether and under what circumstances
+it is economically efficient to implement market designs in which the
+updating of the ledger is to some extent decentralized (i.e., there is
+more than one authority in charge of updating the ledger).
+
+We  address  these  questions  in  a  credit  economy  in  which  some
+agents produce early for some other agents and expect these benefi-
+ciaries to reciprocate at a later date. However, when the latter ‘‘late’’
+producers cannot commit to reciprocating, trade cannot be sustained
+in  equilibrium.  In  similar  contexts, Kocherlakota (1998)  shows  that
+trustless  exchange  can  be  sustained  as  an  equilibrium  when  agents
+can freely consult a record-keeping device tracking the default history
+of the beneficiaries, as long as the device automatically updates itself
+according to the behavior of the beneficiaries (see also Rocheteau and
+Nosal, 2017). However, Kocherlakota (1998) sidesteps the questions of
+who should be responsible for ensuring the legitimacy of the ledger
+and how to guarantee that the authorities in charge have the proper
+
+✩
+Philipp Schnabl was the editor for this article. We thank the editor, the referee, Joseph Abadi, Aleksander Berentsen, Aldar Chan, Francesca Carapella, Jon
+Frost, Rod Garratt, Piero Gottardi, Hans Gersbach, Hanna Halaburda, Ricardo Lagos, Jacob Leshno, Dirk Niepelt, Jean-Charles Rochet, Harald Uhlig, participants of
+the 2021 CBER Forum, CB&DC Virtual Seminar Series, 2020 CEBRA annual meeting, the 2020 Summer Workshop on Money and Payments, the 2020 ETH-Zurich
+Workshop on Future Money and seminar participants at the BIS, Yale University and the University of Zurich for comments. The views presented in this paper
+are those of the authors and not necessarily those of the Bank for International Settlements.
+
+∗ Corresponding author.
+
+E-mail addresses: raphael.auer@bis.org (R. Auer), cyril.monnet@unibe.ch (C. Monnet), hyunsong.shin@bis.org (H.S. Shin).
+
+https://doi.org/10.1016/j.jfineco.2025.104026
+Received 13 February 2023; Received in revised form 4 February 2025; Accepted 9 February 2025
+Available online 22 February 2025 
+0304-405X/© 2025 Elsevier B.V. All rights are reserved, including those for text and data mining, AI training, and similar technologies. 
+
+R. Auer et al.
+
+Journal of Financial Economics 167 (2025) 104026 
+
+incentives to ensure its integrity and consistency.
+
+Our contribution is to address these questions by focusing on the
+economic principles underlying the validation protocol. In doing so,
+we revisit Juvenal’s analysis of who – or what mechanism – should
+guard  the  guardians  of  the  ledger  in  such  a  setting1:  the  agents  in
+charge of managing the ledger – the ‘‘validators’’ – should accurately
+verify transactions and correctly update the ledger. The ledger could
+be  centrally  managed  by  a  single  authority,  by  committees  formed
+of  a  limited  number  of  privileged  agents,2 or  could  be  managed  by
+every  participant  of  a  decentralized  economy.3 There  are  two  basic
+frictions in our setup that determine the optimal number of validators.
+First, there is no technical way to force a validator to sign any given
+transaction. Validation may be costly, especially if this involves costly
+monitoring of off-chain events.4 Validators, therefore, need incentives
+to actively verify and take part in the validation of transactions. Second,
+nothing can technically prevent a validator from endorsing two or more
+ledgers  with  conflicting  histories.5 In  this  context,  we  analyze  how
+incentives for validators can address the two frictions that technology
+alone cannot solve.
+
+As  in Abadi  and  Brunnermeier (2018), Amoussou-Guénou  et  al.
+(2019), and Halaburda et al. (2021), ensuring the integrity and consis-
+tency of the ledger is a quintessential design issue because our economy
+cannot generate value without it. We examine theoretically how the
+optimal validation protocol deals with the frictions embedded in the
+consensus mechanism underlying the monetary system and derive the
+optimal number of validators, their compensation, and the optimal vot-
+ing rule among validators. In turn, we can determine how the optimal
+validation protocol impacts the level of trade and hence the realized
+surplus in the economy. We endogenize the validation of records on
+the ledger and how consensus on actual transactions is reached as an
+equilibrium outcome in a repeated game setting. We assume validators
+are  in  charge  of  reading  and  updating  the  ledger  of  trade  histories,
+and the consensus mechanism relies on supermajority voting.6 Since
+verification and communication are costly activities, validators must be
+compensated for their efforts. And since validators cannot be trusted to
+work, or to refuse bribes to falsify an entry, reaching consensus as an
+equilibrium actually requires that validators be compensated in excess
+of costs; i.e. they are paid rents.
+
+We analyze the optimal design of the trade and validation mecha-
+nisms as the solution to a fictitious planner’s problem, where optimality
+
+1 See also Hurwicz (2008) and Rahman (2012).
+2 Several  versions  of  so-called  ‘‘permissioned  distributed  ledgers’’  have
+been proposed as a way to implement decentralized consensus mechanisms
+for practical applications in settings with known users. Three permissioned
+distributed ledger systems currently in use are Corda, Hyperledger Fabric, and
+Quorum. Technically, Corda, like Bitcoin, follows a UTXO model in which
+verification of a transaction involves tracking a token all the way back to its
+origin. In contrast, Hyperledger Fabric and Quorum – similar to the Ethereum
+cryptocurrency – utilize an account-based system where transactions include
+updates on the balance of accounts. Tokens are not native units of Hyperledger
+Fabric or Quorum but can be constructed or emulated on them.
+
+3 Recently, a sizeable literature has examined the economics of Bitcoin and
+other anonymous  cryptocurrencies (see, e.g., Abadi and Brunnermeier, 2021,
+Biais et al. (2019), and Schilling and Uhlig, 2018). These are ‘‘permissionless’’,
+meaning  that  they  are  available  for  inspection  by  all  and  can  possibly  be
+updated by anybody. However, they are inherently limited in their economic
+efficiency, are energy intensive and slow (see, e.g., Budish (2025), Chiu and
+Koeppl (2022), Abadi and Brunnermeier (2018).
+
+4 The  underlying  difficulties  of  writing  real-world  information  into  the
+ledger is known as the ‘‘oracle problem’’ in the cryptocurrency industry. See
+Caldarelli (2020) and Xu et al. (2016) for an introduction to oracles.
+
+5 This  opens  up  the  possibility  of  a  ‘‘history-reversion  attack’’  (see
+
+i.e. Shanaev et al. (2019)).
+
+6 To be precise, we do not seek to model the technical subtleties of the
+ledger and remain general on these aspects. Nor do we analyze whether a
+universal ledger does better than fiat money.
+
+is defined in terms of maximizing the surplus from the trade net of
+the validation costs. The optimal mechanism chooses the number of
+validators, the supermajority threshold, the compensation of validators,
+and the trade allocation that maximize the gains from trade, subject
+to incentive compatibility conditions. We consider internal validation,
+where  validators  are  also  users  of  the  system,  as  well  as external
+validation, where they are not. We analyze variants of the technology,
+where users are identified or remain anonymous. We also examine how
+competing ledgers can implement the optimal design.
+
+We find that decentralizing record-keeping (i.e. having more than
+a single validator) can be more efficient than relying on a single inter-
+mediary. However, such improved governance does not come for free;
+ensuring incentives for the validators is costly and requires giving up
+unanimity and therefore possibly uses only a weaker form of consensus.
+Intertemporal incentives are key in determining the optimal solu-
+tion. Validators’ incentives are enhanced by the reward they receive for
+validating transactions, and that reward should be high enough to deter
+them from ever falsifying the ledger. When intertemporal incentives
+are  strong  in  the  sense  that  the  present  value  of  future  rewards  is
+high, validators would have much to lose from misbehaving. In this
+case, a single validator who earns a large rent can be entrusted with
+managing the ledger.7 But precisely when intertemporal incentives are
+weak, it becomes prohibitively costly to prevent a single validator from
+misbehaving. The optimal design increases the number of validators
+and reduces the size of each transaction to lower the incentives for
+bribing.
+
+The many validators play a consensus game that has attributes of
+a public good provision game – consensus is deemed to be reached if
+and only if a supermajority of validators agree – which we proceed to
+solve using global game methods (see Carlsson and van Damme (1993)
+and Morris and Shin (1998, 2003)). Validators reach a given level of
+consensus as a unique, dominance solvable equilibrium if and only if
+the reward they earn is above a certain threshold.8
+
+We also show that decentralization naturally leads to a ‘‘stakeholder
+economy’’ in which the participants of the system manage the record-
+keeping themselves: only internal validation can support trade as an
+equilibrium with more than one validator. There are hence economies
+of  scope  in  trading  and  validation.  Achieving  good  governance  and
+honest record-keeping is made easier by having validators who also
+participate in the market themselves and thus have an intrinsic interest
+in ensuring it goes smoothly.
+
+We consider both permissionless and permissioned variants of the
+technology, as well as identified and anonymous versions, focusing on
+the  economic  principles  underlying  the  validation  protocol.  We  also
+model  the  coexistence  of  multiple  ledgers.  In  the  model  presented
+in  the  main  section,  ledgers  are  set  up  with  a  fixed  one-time  cost.
+In  Online  Appendix  1,  we  consider  the  case  where  the  identity  of
+validators is known and there is no cost to be a validator.9 In both cases,
+the  mechanism  decides  whether  validation  should  be  permissioned
+or permissionless. Also on the side of the users, there can be either
+complete identification or complete (pseudo)anonymity. In all cases,
+users can switch between multiple ledgers.
+
+We show that competing ledgers can implement the social planner’s
+(constrained) optimal design. This is natural because competing ledgers
+will  seek  to  maximize  the  expected  utility  of  their  users,  and  they
+charge a non-distortive lump-sum fee to cover the setup cost.10
+
+7 This validator can be drawn from the participants of the credit system,
+
+and the size of each transaction is at the first-best level.
+
+8 Our  model  has  the  feature  that  consensus  cannot  be  reached  without
+
+validators earning rents (see also Abadi and Brunnermeier (2018)).
+
+9 For  an  analysis  of  why  it  is  important  to  distinguish  individuals  from
+
+accounts, see Li and Wang (2019).
+10 Brunnermeier  and  Payne (2023)  consider  the  problem  of  competing
+ledgers that bundle the functionalities of a ledger and a trading technology.
+
+2 
+
+R. Auer et al.
+
+We  examine  potentially  anonymous  settings  where  users  of  the
+ledger  (be  it  validators  or  normal  users)  open  accounts  at  a  cost.
+Only the account and its activities are recorded on the ledger, but the
+underlying identity of the account holder is not known. This implies
+that while an account can be closed (as punishment when the owner
+defaults),  it  is  not  possible  to  prevent  users  from  opening  another
+account  to  conduct  trades  in  the  future.  We  show  that  also  in  this
+setup, anonymous validators verify transactions and maintain ledger
+integrity to safeguard the value of their good standing on the ledger. For
+validators who earn rents, the cost of becoming a validator (by opening
+a validator’s account), which is part of the mechanism, needs to be high
+enough to remove their incentive to accepting a bribe. The underlying
+mechanism  shows  some  similarity  of  this  case  in  the  model  to  the
+literature  examining  the  set  of  consensus  mechanisms  based  on  so-
+called ‘‘proof of stake’’, the process of achieving agreement on the state
+of the ledger by pledging collateral on an outcome (see, e.g., Abadi and
+Brunnermeier, 2021 and Saleh, 2020). The cost to open a validator’s
+account is similar to the opportunity cost of staked coins.11
+
+In addition to studying the general question of the optimality of
+decentralized record-keeping, our approach also helps us understand
+the so-called ‘‘oracle problem’’, which relates to the challenge of in-
+corporating off-chain information onto a blockchain. Blockchains rely
+on  oracles  because  they  are  inherently  blind  to  the  outside  world,
+as emphasized in Caldarelli (2020). On platforms such as Ethereum,
+oracles serve as reference points for external information – such as asset
+prices, interest rate benchmarks, or other relevant variables such as
+the official inflation rate (see Xu et al. (2016) for an introduction to
+oracles). Such oracles – centralized and dependable third parties – act
+as a link between blockchain technology and the outside world.12 In
+one interpretation of our model, trade and production can be viewed as
+off-chain events, and validators function as the oracles who confirm the
+validity of these events. However, since validators provide information
+used as an input to calculate the payouts of self-executing (i.e. smart)
+financial contracts, as oracles, they are easy targets for manipulation.13
+These  oracles  must  be  compensated  for  integrating  off-chain  data,
+particularly  because  verifying  this  information  is  costly.  To  ensure
+the accuracy of the data they provide, it is crucial that oracles earn
+sufficient rent.
+
+Relation to the literature. A sizeable literature analyzes the incentives
+of  miners  in  Bitcoin  and  similar  cryptocurrencies  that  are  based  on
+a ‘‘proof-of-work’’ protocol.14 Kroll et al. (2013) and Prat and Walter
+(2018) examine free entry and the dynamics of the ‘‘mining’’ market,15
+while Easley et al. (2019) and Huberman et al. (2021) examine the
+economics of the transaction market. Budish (forthcoming) and Chiu
+and Koeppl (2022) show that ensuring the finality of transactions in
+Bitcoin  is  very  costly,  as  so-called  ‘‘majority’’  or  ‘‘history  reversion’’
+attacks are inherently profitable, while Auer (2019) examines whether
+
+11 A difference from proof of stake in our setup is that the funds used for
+purchasing new identities are redistributed to existing validators. Buterin et al.
+(2022) have argued that a one-time cost rather than staking coins could be
+used directly in a decentralized system.
+12 Garratt  and  Monnet (2023)  show  that,  without  oracles,  there  is  no
+decentralized  mechanism  that  can  always  onboard  the  correct  information
+onto a blockchain, thus pointing to a fundamental problem of decentralized
+systems.
+13 See, e.g., Luu et al. (2016) and Froewis and Boehme (2017).
+14 The  variant  that  requires  staking  cryptocurrency  holding  on  the  truth
+instead  of  costly  computation,  i.e.  proof  of  stake,  is  attracting  increased
+attention (see Abadi and Brunnermeier (2018), Saleh (2021), and Fanti et al.
+(2021)). However, proof of stake can also be attacked via so-called ‘‘long-run
+attacks’’ (see Deirmentzoglou et al. (2019) for a survey). Therefore, proof of
+stake implicitly assumes the existence of some overarching social coordination
+(see Buterin (2014a)).
+15 See also Cong et al. (2021) for an analysis of the concentration of mining
+and efficiency.
+
+Journal of Financial Economics 167 (2025) 104026 
+
+the transaction market can generate sufficient miner income to ensure
+finality.16 Further to this, even in the absence of incentives to reverse
+history, sunspot equilibria can arise in proof-of work-based blockchains
+(Biais et al., 2019).17
+
+The  literature  on  validator  incentives  and  the  design  of  permis-
+sioned  versions  of  distributed  ledgers  is  more  sparse.18 Townsend
+(2020) focuses on an economics-based approach to the issue of dis-
+tributed ledgers, exploring novel contracting possibilities enabled by
+DLT. Most closely related to our analysis are Abadi and Brunnermeier
+(2018), Halaburda et al. (2021), and Amoussou-Guénou et al. (2019).
+The latter authors first modeled the interaction between validators as
+a game entailing non-observable effort to check transactions and costly
+voting. They also analyzed this game in terms of moral hazard and
+public good provision. Closely related, Abadi and Brunnermeier (2018)
+and Halaburda et al. (2021) examine the incentives to reach consensus
+using communication games and their robustness if rational nodes can
+freely send messages to selected recipients only.
+
+Relative  to  their  analysis,  our  focus  is  not  on  the  specific  steps
+of the communication game needed to reach consensus. Rather, our
+contribution  is  to  link  the  ledger  validation  game  to  monetary  ex-
+change in a repeated game setting. We establish the uniqueness of the
+equilibrium via a global game approach, and characterize the optimal
+mechanism design, in particular in terms of the number of validators,
+size of transactions, and optimal supermajority voting threshold. In our
+work, all validators are profit-seeking, and the issue at heart is how
+the market can be designed so that profit-seeking validators actually
+verify  the  ledger  and  validate  only  correct  histories.19 The  focus  on
+dealing  with  free-riding  and  coordination  relates  to  several  classical
+strands of papers on the coordination with many actors. Reminiscent
+of Grossman and Stiglitz (1976), free-riding can prevail in the case of
+multiple validators. Consistent with Biais et al. (2019) and Amoussou-
+Guénou et al. (2019), we also derive a folk theorem in Online Appendix
+3: in this extension, validators have an incentive to pretend to verify
+without exerting the actual monitoring effort, which jeopardizes the
+legitimacy  of  the  whole  ledger.  As  validators  become  more  patient,
+the  free-rider  problem  has  no  bite  and  any  allocation  satisfying  the
+validators’ participation constraint can be implemented in our strategic
+setup.
+
+Our paper also has ramifications in the banking literature, starting
+with Diamond (1984)  or Williamson (1986, 1987)  where  banks  are
+modeled as a way to save on monitoring costs.20 Another approach,
+
+16 Such attacks are outlined in Nakamoto (2008). See Eyal and E.G. (2014)
+and Gervais et al. (2016) for other attacks. Boehme et al. (2015), Schilling
+and Uhlig (2019), Garratt and van Oordt (2020) and Leshno and Strack (2020)
+present more general analyses of the economics of Bitcoin.
+17 See Carlsten et al. (2016) for a related argument based on simulations
+and Pagnotta (2021) for an examination of multiple equilibria in the presence
+of a feedback loop between blockchain security and cryptocurrency valuation.
+Halaburda et al. (2021) recently examined possible equilibria and their ro-
+bustness if rational validators can send messages to selected recipients only or
+even send conflicting messages to different recipients.
+18 Applications  of  permissioned  distributed  ledger  technology  (DLT)  are
+being explored for securities settlement systems, trade finance solutions, ‘‘sta-
+blecoins’’, and central bank digital currencies. See also Baudet et al. (2020),
+Auer et al. (2020), and Chiu and Koeppl (2019).
+19 Note that Amoussou-Guénou et al. (2019) do not examine history rever-
+sion attacks; rather, byzantine attackers are assumed to attempt to bring the
+system to a halt for exogenous reasons. In a related context, Halaburda et al.
+(2021) examine the incentives to reach consensus using communication games
+and their robustness if rational nodes can freely send messages to selected
+recipients  only.  Consensus  can  be  reached  but  not  necessarily  on  the  true
+outcome.
+20 While it is costly to duplicate verification and communication across many
+validators, we find conditions under which many validators are better than
+one. To use Aymanns et al.’s (2020) terminology, we find conditions under
+which a (trading) ledger should be vertically disintegrated – a group of agents
+
+3 
+
+R. Auer et al.
+
+pioneered  by Leland  and  Pyle (1977)  and  developed  by Boyd  and
+Prescott (1986) models banks as information-sharing coalitions. Gu
+et  al. (2013)  show  that  higher  rents  can  discipline  intermediaries,
+while Huang (2019) uses that model to study the optimal number of
+intermediaries when they have an incentive to divert deposits. A related
+analysis that focuses on the optimal composition of the money stock
+between inside and outside money can be found in Monnet (2006),
+Cavalcanti and Wallace (1999a,b), and Wallace (2005). Global games
+techniques have also been introduced in the banking literature to study
+the probability of a bank run occurring, e.g. by Rochet and Vives (2004)
+and Goldstein and Pauzner (2005).
+
+The remainder of this paper is organized as follows. Section 2 lays
+down the basic setup and characterizes benchmark allocations absent
+a record-keeping device and a freely accessible one. Section 3 defines
+incentive-feasible  allocation  with  DLT  and  characterizes  the  optimal
+allocation including the optimal number of validators.
+
+2.  The model
+
+Our model builds on Gu et al. (2013).21 Time is discrete and infinite.
+The  discount  factor  is ̃𝛽 ∈  (0, 1).  Each  period  is  divided  into  two
+distinct production/consumption stages, early and late, with one good
+per stage, the ‘‘early good’’ and the ‘‘late good’’. Goods are non-storable
+across stages or across periods. There is a continuum of agents with two
+permanent types. There is a unit mass of early producers and another
+unit mass of late producers.22 Early producers can produce the early
+good that late producers like to consume. Late producers can produce
+the  late  good  that  early  producers  like  to  consume.  Early  and  late
+producers have a survival probability 𝜎 at the end of a period. They
+learn whether they survive at the very end of the period so that their
+effective discount factor is 𝛽 = 𝜎 ̃𝛽. Exiting agents are replaced by new
+agents of the same type so that the distribution of types is stationary.
+Preferences  of  early  and  late  producers  are  represented  by  the
+
+following utility functions, respectively:23
+𝑈𝑒(𝑥𝑒, 𝑦𝑒) = 𝑥𝑒 − 𝑦𝑒,
+𝑈𝓁(𝑥𝓁, 𝑦𝓁) = 𝑢(𝑥𝓁) − 𝑦𝓁,
+
+where 𝑥𝑒 (𝑥𝓁) is the consumption of early (late) producers, and 𝑦𝑒 (𝑦𝓁) is
+the production of early (late) producers. The function 𝑢(.) is continuous,
+increasing,  concave,  and 𝑢(0)  =  0.  We  assume  that  there  are  gains
+from trade between early and late producers: there exists 𝑥 such that
+𝑢(𝑥) > 𝑥. We denote by 𝑥∗ the efficient allocation that solves 𝑢′(𝑥∗) = 1.
+Early  and  late  producers  meet  pairwise  at  the  start  of  the  early
+production stage. The matching technology is such that nature selects
+a measure 𝛼 of early and late producers and matches one with another
+pairwise. All other producers remain unmatched for the period. There-
+fore, the probability of a match for any producer is 𝛼. The match is
+maintained across both stages, but it dissolves at the end of the later
+stage.
+
+Feasibility and efficiency require that production equals consump-
+tion, i.e. 𝑥𝑒 = 𝑦𝓁 and 𝑥𝓁 = 𝑦𝑒. Therefore, we can conveniently drop
+indices and use 𝑥 ≡ 𝑥𝓁 = 𝑦𝑒 and 𝑦 ≡ 𝑥𝑒 = 𝑦𝓁. Hence, an allocation is
+(𝑥, 𝑦) where 𝑥 denotes the production of early producers (consumption
+of  late  producers),  and 𝑦 denotes  the  production  of  late  producers
+(consumption of early producers). We concentrate on symmetric and
+stationary allocations. Fig. 1 sketches the timeline of our economy.
+
+should handle the interaction between users – rather than vertically integrated,
+when a single intermediary has the monopoly over managing the interaction
+of the ledger users.
+21 Gu et al. (2013) borrows methodological elements from Lagos and Wright
+(2005).  See  also Williamson  and  Wright (2011)  and Lagos  et  al. (2017).
+Berentsen  and  Schaer (2020)  presents  a  very  clear  exposition  of  the  link
+between monetary theory and ledgers.
+
+Journal of Financial Economics 167 (2025) 104026 
+
+We restrict trading mechanisms to be in the class of coordination
+games.  For  each  match  between  an  early  and  late  producer,  each
+producer announces a pair ( ̃𝑥, ̃𝑦) ∈ R2
++. If both announcements coincide,
+the  early  producer  produces 𝑥 = ̃𝑥 in  the  early  stage  and  the  late
+producer produces 𝑦 = ̃𝑦 in the late stage. In this case we say that the
+allocation (𝑥, 𝑦) can be implemented.
+
+We assume late producers have only a limited ability to commit.24
+Absent commitment and any record-keeping technology, it is routine to
+show that late producers will never produce for early producers, and
+the only implementable allocation is autarky (𝑥, 𝑦) = (0, 0).
+
+A ledger technology
+
+To discipline late producers it is necessary to record their history of
+trades in a ledger. Only then can late producers face the threat of losing
+future  consumption  if  they  do  not  produce  today  (see Kocherlakota
+(1998)). The ledger records ∅ if producers have no match. Histories
+of producers can be conveniently summarized using two labels: good
+(G)  or  bad  (B),  as  late  producers  can  be  in  good  or  bad  standing.
+Producers will be assigned label B whenever their actions differ from
+their announcements some time in the past, irrespective of how long
+ago this has happened. Otherwise, they will be assigned label G. Notice
+that label B is an absorbing label, and an agent carrying label B will
+never consume or produce.25
+
+Then, an allocation (𝑥, 𝑦) is implementable if it is incentive feasible
+(IF): it satisfies participation constraints and late producers produce for
+the early producer. The two participation constraints are 𝑢(𝑥) ≥ 𝑦 and
+𝑦 ≥ 𝑥, while late producers will have the incentive to produce for early
+producers if their ‘‘repayment constraint’’ holds,
+
+−𝑦 + 𝛽 𝛼
+
+𝑢(𝑥) − 𝑦
+1 − 𝛽
+
+≥ 0.
+
+If late producers do not produce, they are excluded from the economy,
+so the right-hand side of the constraint is zero. If they produce, they
+incur the production cost −𝑦 and are assigned a good label so they can
+trade in the future. The expected value of having a good label is equal to
+the discounted lifetime gains from trade times the probability of trading
+𝛼. Setting 𝑦 = 𝑥, the set of IF allocations is characterized by all 𝑥 that
+satisfy
+
+𝛽 𝛼 𝑢(𝑥) ≥ (1 − 𝛽(1 − 𝛼))𝑥.
+
+The efficient allocation 𝑥∗ is implementable if 𝛽 and 𝛼 are large enough.
+
+3.  Trustless ledgers
+
+So far, our analysis has been routine because we have taken the
+functioning of the ledger as a given. The objective of our paper is to
+endogenize the ledger updating process, without the help of a trusted
+central authority, and explain the incentive problem arising from the
+mechanism used to update the ledger.
+
+22 In Online Appendix 3 we also consider the case where a mass 𝑓 of late
+producers have a faulty production technology and can never produce, but
+they can mimic the productive late producers.
+23 A linear utility function for one of the agents (here early producers) allows
+us to get clean comparative statics, as would quasi-linear utility functions like
+𝑥𝑒 − 𝑣(𝑦𝑒).
+24 For the sake of symmetry, we can also assume that early producers are
+unable to commit, but their incentive problem is straightforward because, if
+they do not produce, the late producer will immediately retaliate and will not
+produce either.
+25 When  a  late  producer  has  label  B,  early  producers  rationally  expect
+that the late producer has defaulted in the past, and the late one therefore
+announces ( ̃𝑥, ̃𝑦) = (0, 0) in the coordination game. Anticipating that all agents
+in the future will announce ( ̃𝑥, ̃𝑦) = (0, 0), a late producer with label B will not
+produce.
+
+4 
+
+R. Auer et al.
+
+Journal of Financial Economics 167 (2025) 104026 
+
+Fig. 1. Timeline.
+
+To endogenize the updating process of the ledger, we assume the
+ledger  is  managed  by  a  measure 𝑉 of  ‘‘validators’’.  Validators  are
+rational agents who need incentives to verify transactions and update
+the ledger honestly. The resulting history should be trustworthy to all
+producers.
+
+We  consider  two  types  of  validators:  In  period  0,  a  measure 𝑉
+of validators can be selected from the set of late producers (internal
+validation)  or  from  a  set  of  agents  who  are  indifferent  as  to  which
+good they consume (external validation).26 Each period, all 𝑉 validators
+work on validating each of the 𝛼 matches.27 We assume a validator uses
+the same strategy across all matches, as described below. Therefore,
+a  validator  either  works  on  validating  all  matches  or  none.  Exiting
+validators are replaced by new validators in a way we specify below.
+For symmetry we assume that external validators are also subject to a
+survival shock.
+
+There is a private cost to opening an account on the ledger (we
+show below that this is optimal):28 Late producers pay 𝛾 to open an
+account,29 while the cost to open an account eligible for validation is 𝛾𝑣,
+where 𝑣 = 𝐼 𝑉 when there is internal validation and 𝑣 = 𝐸 𝑉 when there
+is external validation. Once an account is open, validators verify only
+the standing of that account, that is, whether the holder of an account
+defaulted in the past on the liabilities generated with that account.30
+If late producers default on an account, that account is assigned label
+𝐵 and trade is no longer possible with it. Since the full identity of the
+holder of the account is not known, he or she can open another account.
+Opening a new account does not give information as to the reasons why
+that account is opened because there are always new agents who seek
+
+26 The latter could include early producers. Internal validators can trade, but
+they cannot validate their own trades.
+27 When validators are selected from late producers, 𝑉 ≤ 1. Since there is a
+continuum of validators, there is also a measure 𝑉 that will work on validating
+the trade involving a validator. In this sense, all statements should be qualified
+with ‘‘almost surely’’.
+28 Below, we also allow for the possibility that there is a technological cost
+𝐾, 𝐾𝑣 to opening an account, but the planner may decide that the private
+costs 𝛾 , 𝛾𝑣 to producers and validators differ from that. The only assumption
+we implicitly make (and solve explicitly below) is that 𝐾 is low enough so
+that setting up a ledger is profitable.
+29 Only the account and its activities are recorded on the ledger, but the
+underlying identity of the person controlling the account is not known.
+30 See Schneider and Taudien (2023) for a model of reputation when agents
+use pseudonyms.
+
+to use the ledger.
+
+Each period, the ledger collects 𝑇𝓁 from new late producers who
+are  opening  accounts  and 𝑇𝑣 from  new  validators  who  are  opening
+accounts. These collections are redistributed in a lump sum to, respec-
+tively, (continuing) late producers and (continuing) validators.31 Since
+there is no reason for a producer to open more than one account at
+a time, and for brevity, we will sometimes refer to the ‘‘standing of
+producer 𝑖’’  when  referring  to  the  ‘‘standing  of  the  account  held  by
+producer 𝑖’’.
+
+To simplify the analysis, we assume early producers can read the
+account label of late producers in the ledger, but they cannot write the
+outcome of the match on the ledger. Therefore, the validation process
+takes place in the late stage only.32
+
+The validation process consists of validators (1) verifying that late
+producers  have  produced  according  to  plan,  i.e.
+̃𝑦 = 𝑦,33 and  (2)
+sending a message to the ledger — if production took place according
+to  plan  and  the  late  producer’s  account  has  label 𝐺,  validators  will
+communicate 𝐺, but 𝐵 otherwise. Consensus is reached on the new
+label,  which  is  recorded  on  the  ledger  whenever  at  least  a  fraction
+𝜏 ∈ [0, 1] of the 𝑉 validators communicate the same label, i.e. cast the
+same vote. We emphasize that 𝜏 is a choice variable when designing
+the consensus protocol.34
+
+Validators incur verification and communication costs. Validators
+≥ 0 to verify a late producer’s action and an
+incur a utility cost 𝑐𝑣
+idiosyncratic additional utility cost 𝑐𝑠,𝑖 to send a message to the ledger
+(or to enter their information on the ledger). Since it is costly to send
+messages, we assume validators send a message only when they want
+to communicate that the late producer’s label is 𝐺.35
+
+31 In equilibrium, 𝑇𝓁 = (1 − 𝜎)(1 − 𝑉 )𝛾 and 𝑇𝑣 = (1 − 𝜎)𝑉 𝛾𝑣. Therefore the
+𝜎(1 − 𝑉 ) late producers who do not exit the ledger will receive 𝑇𝓁∕(𝜎(1 − 𝑉 )) =
+(1 − 𝜎)𝛾∕𝜎, while the 𝜎 𝑉 validators who do not exit will receive (1 − 𝜎)𝛾𝑣∕𝜎.
+32 We also worked  out a version of the  model in which early producers
+cannot  read  the  ledger.  In  this  case,  validators  inform  the  early  producers
+about the late producer’s label. The changes are only cosmetic.
+33 In practice, this is when double-spending can happen.
+34 We assume the threshold 𝜏 is the same in the first and second stage, but
+our analysis extends to cases where it differs across the stages.
+35 For tractability, we allow the communication costs to be negative so that
+we can use symmetric distributions with no mass point. We would also obtain
+these results when using distributions with a mass point at zero. We assume
+validators do not incur costs in the second stage. It is straightforward to extend
+the model to analyze this case too.
+
+5 
+
+R. Auer et al.
+
+In order to model the possibility of computer glitches and opera-
+tional failures, we assume that the private cost of communicating a
+label 𝑐𝑠,𝑖 takes the form
+𝑐𝑠,𝑖 = 𝑐𝑠 + 𝜇𝑖,
+where 𝑐𝑠 is a common component to all validators uniformly distributed
+]
+, while 𝜇𝑖 is the idiosyncratic element for validator 𝑖 that
+over
+is uniformly distributed over the interval [−𝜀, 𝜀], where 𝜀 is a small
+positive number. For any two distinct validators 𝑖 ≠ 𝑗, 𝜇𝑖 is independent
+of 𝜇𝑗 . Validators learn their costs ahead of the verification game and so
+ahead of verifying the label.
+
+[𝑐𝑠, ̄𝑐𝑠
+
+(1)
+
+To induce agents to become validators, they must make a positive
+expected  profit  from  the  validation  process.  Sending  a  message  is
+verifiable, so validators who correctly sent message 𝐺 are entitled to 𝑧
+units of the late good whenever enough validators agree that the label
+is 𝐺. Validators receive nothing if they do not cast a vote. Validators
+value these transfers in an additive and linear way.36 When a fraction
+𝑤 ≥ 𝜏 of validators send label 𝐺 at the end of stage 2, the late producer
+has to produce 𝑤𝑉 𝑧 to compensate these validators. These validators
+then update the ledger.37
+
+Notice that validators play a game that is similar to a public good
+contribution  game:  they  get  a  reward  only  if  a  sufficient  number
+of  validators  confirm  a  trade.  Given  the  structure  of  the  validation
+costs,  we  solve  this  game  using  tools  from  the  literature  on  global
+games. As Morris and Shin (2003) show, the key to the analysis is the
+characterization of the strategic uncertainty faced by players. Even if
+the idiosyncratic component is small relative to the other payoff pa-
+rameters in the frame, the relative ranking of the costs injects strategic
+uncertainty in the coordination game. Although remote, the possibility
+of  computer  glitches  will  imply  that  validation  should  not  rely  on
+unanimous agreement when there are many validators. In particular,
+the equilibrium in the limiting case as 𝜀 → 0 gives rise to some degree
+of coordination failure and associated inefficiencies, in contrast to the
+(common knowledge) case when 𝜀 = 0, which is typically associated
+with multiple equilibria. Moving forward, we focus our attention to the
+limiting case of 𝜀 → 0.
+
+We  assume  late  producers  can  bribe  validators  to  send  a  false
+message. A late producer whose account has the label 𝐺 when starting
+the period may get away with not repaying the early producer while
+keeping the label by ‘‘bribing’’, i.e. making a side payment to 𝜏 𝑉 val-
+idators in the late stage (after consuming in the first stage).38 Validators
+who accept a bribe are caught with probability 𝜋, in which case their
+current account loses the privilege to trade and validate.39 However,
+those validators can open a new account, allowing them to trade and/or
+validate in the future.
+
+Finally, we assume late producers, including validators, have the
+option to switch to another ledger. We assume the benefit from trading
+
+36 A linear utility function allows us to abstract from a possible insurance
+mechanism among validators. Also, at the cost of simplicity, we could assume
+that the utility of validators is 𝑢(𝑥 + 𝑧). Finally, we could assume that only a
+share 𝜏 of validators receive a reward since only this number is necessary to
+reach an agreement.
+37 We do not explicitly model the updating process. An intuitive narrative
+is that each validator updates their own copy of the ledger and sends it to all
+other validators. Validators compare all copies and coordinate on adopting the
+copy that has been sent the most times and at least a number 𝜏 of times.
+38 A late producer who misbehaved at some time in the past and enters a
+period with a label 𝐵 can bribe validators so as to obtain label 𝐺 that enable
+them to consume. However, validators will not agree to a bribe in the early
+stage because they would have to trust the late producer to pay the bribe in
+the late stage. As well, if validators accept the bribe, the late producer has no
+incentive to make good on it. Bribing could be interpreted as the attempt to
+coordinate a sufficient mass of users on a fork or on restarting the ledger.
+39 We assume there is no cost for late producers to bribe validators because
+if the latter reject it, late producers can always revert to paying early producers
+as planned.
+
+Journal of Financial Economics 167 (2025) 104026 
+
+on the other ledger is a fraction 𝜂 ≤ 𝛽 of their current expected payoff.
+This is similar to assuming that it is costly or it takes time to switch
+to another ledger, and that the role of the agent on the new ledger
+is the same as the one on the current ledger.40 Conveniently, setting
+𝜂 =  0 takes us back to the baseline framework where agents cannot
+switch  ledgers.  We  assume  that  information  is  not  portable  across
+ledgers. As a result, agents who are switching ledgers cannot distinguish
+themselves from new agents. Allowing agents to share their histories
+would complicate the analysis because the ledger pricing policy could
+be history-dependent, possibly leading to a different equilibrium, with
+history  as  a  coordination  device  across  ledgers.  In  Online  Appendix
+6  we  consider  an  extension  where  the  outside  option  is  not  related
+to the current expected payoff, and agents can choose between being
+validators  or  just  late  producers.  These  changes  do  not  affect  the
+qualitative results.
+
+We proceed with analyzing the model as follows. First, we define the
+expected utility of early and late producers as well as of the validators,
+given  some  allocations  in  Section 3.1.  Then  we  characterize  the  set
+of stationary and symmetric allocations that satisfy the participation
+and incentive constraints of all agents, i.e. the incentive feasible allo-
+cations. These allocations must be such that late producers have the
+incentive to produce for early producers, which imposes a ‘‘repayment
+constraint’’. Further, late producers must not have an interest in bribing
+validators  to  record  a  false  entry  in  the  ledger,  which  imposes  a
+‘‘no-bribing  constraint’’.  Additionally,  these  allocations  should  make
+sure enough validators have the incentives to verify and validate the
+outcome in each match despite the private information regarding the
+communication  cost.  As  is  standard,  in  Section 3.2 we  characterize
+incentive feasible allocations when the private information vanishes.
+This  allows  us  to  consider  a  fictitious  planner’s  choice  of  the  best
+allocation among the set of incentive feasible allocations in Section 3.3.
+The planner’s objective function is to maximize the gains from trade
+between producers net of the validation costs. Therefore, this planner
+can be seen as a coalition of agents maximizing their expected utility
+under  the  veil  of  ignorance  regarding  their  (future)  type.  Our  main
+result is the characterization of the best incentive feasible allocation,
+i.e.  the  constrained  optimal  allocation.  Since  this  allocation  implies
+the  number  of  validators,  the  validation  threshold,  the  payment  to
+validators, the production/consumption, and the fees, it describes the
+best design for the ledger. In Section 4, we show that an economy with
+competing ledgers designed by early producers implements the same
+allocation (or design) as the one chosen by the planner.
+
+3.1.  Payoffs and incentive feasible allocations
+
+Given  a  threshold 𝜏 and  a  measure  of  validators 𝑉 assigned  to
+validate each match, a stationary allocation is a list of account fees
+and  production/consumption (𝛾 , 𝛾𝑣, 𝑥, 𝑦, 𝑧).  An  allocation  is  incentive
+feasible if it is feasible, it satisfies the incentive constraints of early
+and late consumers (given 𝜏), the labels of late producers’ accounts are
+correctly communicated to the ledger, and validators have no incentive
+to tamper with the record of labels.
+
+Given a stationary incentive feasible allocation (𝛾 , 𝛾𝑣, 𝑥, 𝑦, 𝑧), 𝑈𝑖 is
+the expected discounted lifetime utility of late producer 𝑖 with label 𝐺,
+satisfying
+𝑈𝑖 = 𝑇𝓁 + E
+
+[
+𝑢(𝑥) − 𝑦 + I
+
+−𝑤𝑖𝑉 𝑧 + 𝛽 𝑈𝑖
+
++ (1 − 𝛼)𝛽 𝑈𝑖
+
+}]
+
+{
+
+}
+
+{
+
+𝛼
+
+,
+
+𝑖
+
+𝑤𝑖≥𝜏
+
+where E
+𝑖 is the expectation operator of late producer 𝑖 over 𝑤𝑖, the
+share of working validators. The late producer is entitled to the transfer
+
+40 A validator remains a validator, maybe thanks to a prior technological
+investment. Setting 𝜂 = 0 means that the option to switch is not available. The
+fraction 𝜂 is similar to severance pay. Muthoo (1999) provides many other
+examples where the outside option is a fraction of the current players’ payoff
+or total output.
+
+6 
+
+R. Auer et al.
+
+Journal of Financial Economics 167 (2025) 104026 
+
+𝑇𝓁.  In  addition  they  gain 𝑢(𝑥) − 𝑦 from  trading  with  probability 𝛼.
+≥ 𝜏 validators
+The late producer’s account retains label 𝐺 only if 𝑤𝑖
+validate  the  trade.  In  this  case,  the  late  producer  pays 𝑤𝑖𝑉 𝑧 to  the
+working validators and can trade in the future. With probability 1 − 𝛼,
+the late producer does not trade but retains their label into next period.
+The expected discounted lifetime utility of an internal validator 𝑖 with
+private communication cost 𝑐𝑠,𝑖 is 𝑈𝐼 𝑉 (𝑐𝑠,𝑖) and satisfies
+{
+−𝑤𝑖𝑉 𝑧 + 𝛽E𝑈𝐼 𝑉
+𝑈𝐼 𝑉 (𝑐𝑠,𝑖) = 𝑇𝐼 𝑉 + E
+
+[
+𝑢(𝑥) − 𝑦 + I
+
+}]
+
+𝑤𝑖≥𝜏
+
+{
+
+𝛼
+
+𝑖
+
++(1 − 𝛼)𝛽E𝑈𝐼 𝑉 ∣ 𝑐𝑠,𝑖
+0; E
+−𝑐𝑣 +
++𝛼 max
+
+{
+
+[
+
+𝑖
+
+}
+
+(I
+
+𝑤≥𝜏 𝑧 − 𝑐𝑠,𝑖
+
+)
+
+]} ,
+
+∣ 𝑐𝑠,𝑖
+
+(2)
+
+(3)
+
+where E(⋅
+∣ 𝑐𝑠,𝑖) is the expectation operator over the common com-
+munication cost 𝑐𝑠 of validator 𝑖 conditional on receiving signal 𝑐𝑠,𝑖.41
+Internal validators receive transfer 𝑇𝐼 𝑉 . Since internal validators are
+selected from the set of late producers, they also obtain the expected
+payoff  of  late  producers.  In  addition  they  get  the  expected  payoff
+from  validating  trades.  Given  their  signal 𝑐𝑠,𝑖,  validators  can  choose
+to work or not. If they do not work, they get nothing. If they work,
+validators incur the verification cost 𝑐𝑣. If they communicate that late
+producers have produced according to their announcements, they incur
+the communication cost 𝑐𝑠,𝑖, and get the reward 𝑧, but only when the
+trade is validated (I
+𝑤≥𝜏 = 1). Otherwise they do not get the reward 𝑧.
+Similarly, the expected discounted lifetime utility of an external val-
+idator 𝑖 with private communication cost 𝑐𝑠,𝑖 is 𝑈𝐸 𝑉 (𝑐𝑠,𝑖) and satisfies,
++ 𝛽E𝑈𝐸 𝑉 , (4)
+𝑈𝐸 𝑉 (𝑐𝑠,𝑖) = 𝑇𝐸 𝑉 + 𝛼 max
+𝑤≥𝜏 𝑧 − 𝑐𝑠,𝑖
+where 𝑇𝐸 𝑉 is the transfer to external validators.
+
+Participation constraints. An allocation (𝛾 , 𝛾𝑣, 𝑥, 𝑦, 𝑧) satisfies the
+participation  constraints  of  validators  and  early  and  late  producers
+whenever,
+
+[
+−𝑐𝑣 +
+
+0; E
+𝑖
+
+∣ 𝑐𝑠,𝑖
+
+(I
+
+]}
+
+{
+
+)
+
+−𝛾 + 𝑈 ≥ 𝜂 𝑈 ,
+≥ 𝜂 𝑈𝑣,
+
+−𝛾𝑣 + 𝑈𝑣
+
+𝑦 − 𝑥 ≥ 0,
+≥ 0.
+
+(5)
+
+(6)
+
+(7)
+
+(8)
+
+𝑤≥𝜏∣𝑐𝑠,𝑖
+
+𝑧 − 𝑐𝑠,𝑖
+
+−𝑐𝑣 + E
+Constraints (5) and (6) require that late producers and validators are
+better off paying the account fee to use that ledger rather than using
+the competing ledger offering them 𝜂 𝑈 . Constraint (7) is the (simpli-
+fied) participation constraint of the early producers. Finally, since late
+producers can shirk from validation, (8) requires that validators expect
+to  make  a  positive  expected  profit  from  the  validation  process.  The
+expectation operator in (8) applies to the share of working validators
+𝑤.
+
+Repayment constraints. Using a ledger, in equilibrium late pro-
+ducers who do not produce the announced amount 𝑦 are detected by
+validators and their account is thus assigned a label 𝐵. As a conse-
+quence,  this  account  is  permanently  blocked  from  all  economic  ac-
+tivities.  Similarly,  an  internal  validator  whose  account  is  in  default
+loses their future right to validate and their account is also blocked.
+Agents whose account has been blocked can open a new late producer’s
+account at cost 𝛾 or a validator’s account at cost 𝛾𝑣, or obtain the payoff
+𝜂 𝑈 by using the competing ledger (or opening a different account on
+the  same  ledger).  Therefore,  given  the  share  of  working  validators
+is 𝑤 ≥ 𝜏,  the  repayment  constraint  of  late  producers  and  internal
+validators is, respectively,
+
+− (𝑦 + 𝑤𝑉 𝑧) + 𝛽 𝑈 ≥ 𝛽 max{−𝛾 + 𝑈 ; −𝛾𝑣 + E𝑈𝐼 𝑉 ; 𝜂 𝑈 },
+≥ 𝛽 max{−𝛾 + 𝑈 ; −𝛾𝑣 + E𝑈𝐼 𝑉 ; 𝜂 𝑈 }.
+
+− (𝑦 + 𝑤𝑉 𝑧) + 𝛽E𝑈𝐼 𝑉
+
+(9)
+
+(10)
+
+No bribe. If a validator accepts a bribe, we assume they are caught
+with probability 𝜋 ∈ [0, 1]. In this case they lose their right to validate
+future transactions and to consume as a late producer using their old
+account. Yet again, they can open a new account. A validator prefers
+recording the truth to a false record when the late producer offers ̄𝑧 iff
+
+41 Validators have more information concerning the fundamental communi-
+cation cost 𝑐𝑠, which they use to compute the probability that the trade be
+validated.
+
+7 
+
+𝛽E𝑈𝑠
+
+≥
+
+̄𝑧
+⏟⏟⏟
+𝑏𝑟𝑖𝑏𝑒
+
++(1 − 𝜋)𝛽E𝑈𝑠 + 𝜋 𝛽 max{I
+
+𝑠=𝐼 𝑉 (−𝛾 + 𝑈 ) ; −𝛾𝑠 + 𝑈𝑠; 𝜂 𝑈𝑠},
+
+where 𝑠 = 𝐼 𝑉 , 𝐸 𝑉 to denote internal of external validation, respec-
+tively. When a share 𝑤 of validators are working on a match, the late
+producer in this match is willing to pay at most a total of 𝑦+𝑤𝑉 𝑧 to get
+away with production. Given that the ledger requires the agreement of
+at least 𝜏 𝑉 validators to validate a (fake) transaction, the cheating late
+producer will pay ̄𝑧 = (𝑦 + 𝑤𝑉 𝑧)∕(𝜏 𝑉 ) to 𝜏 𝑉 validators. Therefore, a
+validator rejects the bribe whenever42
+𝜋 𝛽E𝑈𝑠
+
+𝑠=𝐼 𝑉 (−𝛾 + 𝑈 ) ; −𝛾𝑠 + 𝑈𝑠; 𝜂 𝑈𝑠}.
+
+(𝑦 + 𝑤𝑉 𝑧) + 𝜋 𝛽 max{I
+
+(11)
+
+≥ 1
+𝜏 𝑉
+
+Finally, we need to identify a condition such that, given a threshold 𝜏,
+the allocation allows for a truthful record of the ledger.
+
+Validation threshold. Suppose there is a positive measure of val-
+idators  in  charge  of  verifying  each  match.  Then  the  decision  of  an
+arbitrary validator to work or to shirk depends on the subjective prob-
+ability this validator assigns to other validators working or shirking.
+Therefore, there are many possible equilibria depending on the original
+beliefs of validators. In other words, the uncertainty about the cost to
+other validators of communicating a label to the ledger may reverberate
+throughout the system and may jeopardize the validation process.
+
+We assume the continuation payoff of validators is independent of
+the current validation results.43 Also if validators do not work, they do
+not send any messages, thus eliminating a possible free-rider problem.
+We relax these assumptions in Online Appendix 3, where we examine
+an extension that also specifies the voting game that validators play,
+and we state conditions under which validators do not send a message
+without working.
+
+Now suppose the validation process requires unanimity. As soon as
+validators expect a positive measure to abstain from validating, they
+will  also  abstain  even  though  they  may  have  received  a  signal  that
+the  communication  cost  is  small.  We  show  that,  as  a  consequence,
+validation occurs correctly only when the validation rule is based on a
+supermajority, unless payments to validators are arbitrarily large. The
+higher the supermajority threshold, the more rents should accrue to
+validators in order to guarantee the integrity of the ledger. We show
+the following result in Appendix A.
+
+Proposition 1. Given 𝜏, in the limit as 𝜀 → 0, there is a unique dominance-
+solvable equilibrium where validators work if and only if the allocation 𝑧
+satisfies
+
+𝑧 ≥
+
+𝑐𝑠 + 𝑐𝑣
+1 − 𝜏
+
+.
+
+(12)
+
+The  proof  follows  two  steps.  In  the  first  step,  we  characterize
+equilibria  when,  for  some  common  threshold 𝑐∗
+𝑠 ,  validators  employ
+switching strategies whereby they work if their cost 𝑐𝑠,𝑖 is below the
+𝑠 and they shirk otherwise. A validator receiving a cost at
+threshold 𝑐∗
+threshold level 𝑐∗
+
+𝑠 is indifferent to working and shirking.
+It is well known from the global game literature (e.g. Morris and
+Shin (2003)) that, for the marginal player whose cost is exactly equal
+to the threshold value 𝑐∗
+𝑠 , the density over the share of working agents
+is uniform over [0, 1]. Hence, the validator assigns a probability 𝑞 to the
+event that a fraction 𝑞 of the 𝑉 validators will work. Since this validator
+is indifferent between working or not, and her subjective beliefs of the
+share of working validators is uniform, i.e. 𝑔(𝜏 ∣ 𝑐∗
+
+𝑠 ) = 1, 𝑐∗
+
+𝑠 solves
+
+42 We assume validators act in unison: they either all accept the bribe, or
+they all reject it.
+43 For example, it is difficult to distinguish whether a validator shirked or
+their  message  technically  failed  to  reach  other  validators.  However, Green
+and Porter (1984) and Monnet and Quintin (2021) show how punishments
+followed by forgiveness may discipline agents who can hide behind the veil
+of ‘‘bad luck’’.
+
+R. Auer et al.
+
+−𝑐𝑣 +
+
+[
+
+(1 − 𝜏)
+
+(𝑧 − 𝑐∗
+
+𝑠
+
+)
+
++ 𝜏 (
+
+−𝑐∗
+𝑠
+
+)]
+
+= 0.
+
+When the noise vanishes, all individual costs necessarily converge to
+the common value 𝑐𝑠. Therefore, when 𝑐𝑠
+𝑠 , all validators will work
+to validate a trade and the ledger will record labels correctly, while
+𝑠 , none of them will. The allocation 𝑧 logically affects the
+when 𝑐𝑠 > 𝑐∗
+threshold value 𝑐∗
+𝑠 : by increasing the validators’ rents 𝑧, the validation
+protocol can ensure that validation happens for higher levels of the
+communication cost.
+
+≤ 𝑐∗
+
+Hence, the first step of the proof establishes that the validation game
+has a unique equilibrium in switching strategies. The second step of the
+proof establishes that this unique equilibrium in switching strategies is
+also the only strategy profile of the players that survives the iterated
+deletion of strictly dominated strategies. In other words, the game is
+dominance solvable.44
+
+As a corollary, notice that the payment 𝑧 to validators is positively
+linked  to  the  supermajority  level 𝜏 when  there  are  validation  costs.
+Therefore,  the  ledger  can  retain  integrity  only  when  unanimity  is
+required if payments to validators are arbitrarily large. Finally, given
+𝜏, the probability that the trade will go through when 𝑐𝑠 is uniformly
+distributed is the probability that
+
+𝑐𝑠
+
+≤ (1 − 𝜏)𝑧 − 𝑐𝑣
+
+≡ 𝑐∗
+𝑠 .
+
+If  the  ledger  is  required  to  allow all legitimate  trades  involving  a
+producer with label G to always go through, then 𝑧 should be set to
+𝑧 ≥ 𝑍(𝜏) ≡ 1
+1 − 𝜏
+
+( ̄𝑐𝑠 + 𝑐𝑣
+
+) ≡ 𝐶
+
+1 − 𝜏
+
+(13)
+
+,
+
+where ̄𝑐𝑠 is the maximum possible communication cost. In this case,
+and given 𝜏, validators will always work. Below, we assume this is the
+case. In Online Appendix 4, we relax this assumption and analyze the
+𝑠 , letting the designer
+optimal validation protocol for any thresholds 𝑐∗
+𝑠 should be. Also, we derive sufficient conditions under
+choose what 𝑐∗
+which 𝑐∗
+
+𝑠 = ̄𝑐𝑠 is optimal.
+
+We can now define incentive feasible allocations.
+
+Definition 2. Given 𝜏 and 𝑉 , an incentive feasible allocation is a list
+(𝛾 , 𝛾𝑣, 𝑥, 𝑦, 𝑧) that satisfies (5)–(11) and (13).
+
+In what follows we solve for the optimal design of the validation
+protocol and how it affects incentive feasible allocations. We simplify
+matters further by assuming that the distribution for the communica-
+tion cost 𝑐𝑠 converges to the degenerate distribution that gives all the
+mass to just one point ̄𝑐𝑠.
+
+3.2.  Limiting distribution of communication costs
+
+For  the  remainder  of  the  analysis  we  consider  the  global  game-
+limiting case where 𝜀 → 0, and (13) holds. In this limit, all validators
+face the same communication cost equal to ̄𝑐𝑠. So unless they are bribed,
+all  validators  always  verify  that  production  took  place  according  to
+plans, and they always cast the right vote to the ledger. Therefore, the
+share of working validators 𝑤 is equal to one and we can write (5)–(12)
+with 𝑤𝑖 = 1. We can further simplify the set of IF allocations by setting
+the participation constraint of early producers (7) at equality.
+
+In  this  section,  we  consider  the  incentives  of  a  late  producer  to
+make side payments to validators so that they record a false trade, and
+we analyze the incentives of validators to accept that bribe. Since the
+payment to validators should be minimized, (13) binds so validators
+earn 𝑍(𝜏) and the participation constraint of validators (8) is always
+
+44 Morris and Shin (2003) show that a sufficient condition for dominance
+solvability in our setting is that the payoffs satisfy strategic complementarity –
+that is, the payoff to working is weakly increasing in proportion to the number
+of other validators who work. Since this condition is satisfied in our game, we
+can apply the global game results in Morris and Shin (2003) to conclude that
+our game is dominance solvable.
+
+Journal of Financial Economics 167 (2025) 104026 
+
+satisfied. Also, the incentive constraints of late producers and validators
+are  relaxed  when  the  cost  of  opening  an  account  is  set  as  high  as
+possible, that is 𝛾 = (1 −𝜂)𝑈 and 𝛾𝑣 = (1 −𝜂)𝑈𝑣. Then denote the expected
+rent of validators as 𝑅(𝜏),
+
+𝑅(𝜏) = 𝜏 𝑍(𝜏).
+
+(14)
+
+Define the default factor as (recall that the effective discount factor is
+𝛽 = 𝜎 ̃𝛽)
+
+𝛿 ≡
+
+𝜋 𝜎 ̃𝛽(1 − 𝜂)𝛼
+1 − 𝜎 ̃𝛽 − (1 − 𝜂)(1 − 𝜎)∕𝜎
+
+,
+
+and  replace  the  expressions  for  the  transfers,  to  find  the  set  of  IF
+allocations characterized by45
+
+𝛿
+𝜋
+
+[𝑢(𝑥) − 𝑥 − 𝑉 𝑍(𝜏)] ≥ 𝑥 + 𝑉 𝑍(𝜏),
+
+𝛿 [𝑢(𝑥) − 𝑥 − 𝑉 𝑍(𝜏) + 𝑅(𝜏)] ≥ 1
+𝜏 𝑉
+
+(𝑥 + 𝑉 𝑍(𝜏)) .
+
+(15)
+
+(16)
+
+The higher 𝛿 is, the weaker the incentives of validators to accept a
+bribe are, because they would lose a lot of trading opportunities (as
+captured  by  a  large 𝛼),  they  would  very  likely  be  caught  cheating
+(as captured by a high 𝜋) or they care a lot about future income (as
+captured  by  a  high ̃𝛽),  or  because  the  outside  option  is  really  poor
+(𝜂 is low). Also, the default factor can be increasing or decreasing in
+the survival rate 𝜎. There are two counteracting effects from a higher
+survival  rate:  on  one  hand,  agents  effectively  become  more  patient,
+which improves incentives; but on the other hand, a higher survival rate
+decreases the transfer that surviving agents get from the ledger, which
+weakens discipline. Which effect dominates depends on the strength of
+the outside option: if 𝜂 is low enough, the default factor falls with a
+higher 𝜎.
+
+According to constraint (15), late producers are better off retaining
+their good label by repaying 𝑥 to early producers and 𝑉 𝑍(𝜏) to valida-
+tors than getting a bad label and losing the expected lifetime discounted
+payoff from trading net of the payment to validators. Constraint (16)
+states the condition for validators to reject a bribe: the payoff from
+accepting the maximum bribe a late producer offers, (𝑥 + 𝑉 𝑍(𝜏))∕𝜏 𝑉 ,
+must be lower than the expected loss of accepting such a bribe, given
+they are caught with probability 𝜋. In addition to losing the expected
+lifetime discounted payoff from trading net of compensating validators,
+validators  would  also  lose  the  expected  rents  they  earn 𝑅(𝜏).  With
+external validation, (16) simplifies to
+𝛿 𝑅(𝜏) ≥ 1
+𝜏 𝑉
+
+(𝑥 + 𝑉 𝑍(𝜏)) ,
+
+(17)
+
+Inequality (17) requires that losing future validation rents with proba-
+bility 𝜋 should be a larger cost to external validators than the benefit
+of accepting the largest bribe a late producer would offer.46
+
+We focus next on the number of validators 𝑉 . The more validators
+there are, the higher the overall payment for validation — this is the
+term 𝑉 𝑍(𝜏) on  the  left-hand  side  of (15).  However,  given 𝜏,  more
+validators also means a lower bribe for each validator, thus relaxing
+their incentive constraint as shown on the right-hand side of (16) or
+(17).  The  optimal  number  of  validators  will  trade  off  both  effects.
+When  the  measure  of  validators  is  large,  the  repayment  constraint
+of  late  producers  becomes  the  binding  one  when 𝜋 → 1,  so  that
+validators  never  accept  a  bribe.  This  is  intuitive:  when 𝑉 is  large,
+
+45 Since  we  set  the  participation  constraint  for  early  producers (7) at
+equality, we can use 𝑦 = 𝑥. Also, since validators earn a rent, 𝑈𝐼 𝑉
+≥ 𝑈 and
+(10) is satisfied whenever (9) is.
+46 Our  mechanism  that  requires  a  supermajority 𝜏 of all validators  im-
+plies that producers can offer a smaller bribe relative to a mechanism that
+would base consensus on a supermajority of voting validators (instead of all
+validators). Also, using a mechanism relying only on voting validators may
+be  problematic  because  validators  cannot  be  induced  to  vote  when  some
+producers are faulty, as we consider in Online Appendix 3, because then they
+do not expect any rewards.
+
+8 
+
+R. Auer et al.
+
+no validator gets a very large bribe; but when the mechanism almost
+surely observes when they accept a bribe, they almost certainly lose
+the expected lifetime payoff from trading. Then, only the incentives of
+the late producer matter. However, note that if (15) is binding while
+(16) is slack, 𝑉 can be reduced up to the point where (16) binds. We
+summarize the discussion above in the following result.
+
+Lemma 3.
+bribe.
+
+If 𝜋 and 𝑉 are large enough, validators will never accept a
+
+3.3.  Optimal design
+
+The objective of a planner is to maximize the gains from trade net
+of the validation costs. A planner chooses the costs to open accounts 𝛾
+and 𝛾𝑣, the trading size 𝑥, the type of validation (internal or external),
+the number of validators, and the threshold 𝜏 to solve
+
+𝛼
+
+max
+𝛾 ,𝑥,𝑉 ≥0,𝜏∈[0,1]
+
+{𝑢(𝑥) − 𝑥 − 𝑉 𝐶} ,
+
+(18)
+
+subject  to (15) and (16) for  internal  validation  or (17) for  external
+validation. These constraints have been simplified by using 𝛾 = (1 −𝜂)𝑈
+and 𝛾𝑣 = (1 −𝜂)𝑈𝑣. But this is without loss of generality: the cost to open
+the account is the redistributed lump sum to all agents in the same
+period it is levied on late producers. Since this is a mere redistribution,
+it does not affect the objective of the planner. Also the higher the lump
+sum transferred to agents, the more relaxed their incentive constraints.
+Therefore, as we guessed above, the cost to open an account can be set
+as high as possible, that is as high as the lifetime benefit of trading
+on  the  ledger  net  of  the  available  outside  option.  Conveniently,  the
+size  of  the  payment  to  validators 𝑍(𝜏) only  matters  for  incentives
+but has no impact on the objective function because it is a transfer
+between producers and validators. Also note that whether validation
+is  internal  or  external  does  not  affect  the  social  planner’s  objective
+function (18). However, comparing (16) and (17) shows that as long as
+trade is sufficiently beneficial, or 𝑢(𝑥) > (𝑥 + 𝑉 𝑍), then (16) is always
+satisfied whenever (17) is. In other words, the set of incentive feasible
+allocations is larger with internal validation, and internal validation
+weakly dominates external validation. But not only this. As we show
+below, whenever trade can be supported, centralization is optimal with
+external validation. Next, we start by considering the optimal design
+with external validation.
+
+Optimal  design  with  external  validation. With  external  validation,  the
+only  relevant  constraints  are (15) and (17),  which  we  can  write,
+respectively, as
+
+𝛿 𝑢(𝑥) ≥ (𝛿 + 𝜋)
+(1 − 𝜏)𝑥 ≤ (𝛿 𝜏2 − 1
+
+[
+𝑥 + 𝑉
+) 𝑉 𝐶 .
+
+]
+
+,
+
+𝐶
+1 − 𝜏
+
+(19)
+
+(20)
+
+It is easy to show that the validators’ incentive constraint (20) always
+binds,47 so  we  can  use  it  to  replace  for  the  total  cost  of  validation,
+𝑉 𝐶, in the late producer’s repayment constraint (19) and the objective
+function. The problem of the planner then becomes
+
+{
+
+𝛼 max
+𝑥,𝜏∈[ ̄𝜏 ,1]
+
+𝑢(𝑥) −
+
+(𝛿 𝜏2 − 𝜏)
+) 𝑥
+(𝛿 𝜏2 − 1
+
+}
+
+,
+
+subject to
+
+𝛿 𝑢(𝑥) ≥ (𝛿 + 𝜋)
+
+𝛿 𝜏2
+(𝛿 𝜏2 − 1
+
+) 𝑥.
+
+Inspecting (20),  notice  that  a  necessary  and  sufficient  condition  for
+the existence of external validation is that intertemporal incentives are
+
+47 Suppose it does not bind at the solution ( ̃𝑥, ̃𝜏 , ̃𝑉 ). Then reduce 𝑉 until it
+does. This increases the objective function (18), while relaxing the participa-
+tion constraint of late producers. So ( ̃𝑥, ̃𝜏 , ̃𝑉 ) could not be the solution, showing
+a contradiction.
+
+9 
+
+Journal of Financial Economics 167 (2025) 104026 
+
+strong enough, in the sense that 𝛿 ≥ 1. Otherwise, the only incentive
+feasible allocation is autarky with 𝑉 = 0. With 𝛿 > 1, it is straightfor-
+ward to verify that the constraint is relaxed when 𝜏 is highest. Also, the
+objective function is maximized when 𝜏 = 1. Therefore, with external
+validation, the solution is 𝜏 = 1 and 𝑉 → 0, and the optimal trading
+size ̃𝑥(𝛿) ≤ 𝑥∗, where ̃𝑥(𝛿) = 𝑥∗ if 𝛿 ≥ 𝛿∗ > 1, so that the constraint is not
+binding or it is defined as the solution to 𝑢( ̃𝑥) = ̃𝑥(𝛿+𝜋)∕(𝛿− 1) otherwise,
+with ̃𝑥(𝛿) → 0 as 𝛿 decreases to 1. The payment to the validator is
+𝑉 𝑍 → ̃𝑥(𝛿)∕(𝛿 − 1).
+
+Optimal design with internal validation. Next, consider the optimal de-
+sign with internal validation. As we show in the Appendix, the social
+planner’s objective function (18) is decreasing in 𝑉 , and so we obtain
+the following.
+
+Lemma 4. With internal validation, the incentive constraint of validators
+(16) always  binds,  while  the  incentive  constraint  of  late  producers (15)
+never binds.
+
+Replacing the expression for the validation rent (14) in (16), and
+
+rearranging, we obtain:
+𝐶
+𝛿 [𝑢(𝑥) − 𝑥] ≥ 𝑥
+1 − 𝜏
+𝜏 𝑉
+
++
+
+[1 − 𝛿(1 − 𝑉 )𝜏] + 𝛿 𝐶 .
+
+(21)
+
+Since  the  objective  function (18) is  independent  of 𝜏,  the  planner
+chooses 𝜏 to minimize the right-hand side of (21). Two forces are at
+play. On one hand, increasing 𝜏 reduces the maximum bribe size per
+validator. On the other hand, increasing 𝜏 increases the payment to
+validators 𝑍(𝜏) to ensure that validators indeed verify and validate.
+When intertemporal incentives are strong, so that 1 ≤ 𝛿 (1 − 𝑉 ), this
+second effect reduces the right-hand side of (21): validators have much
+to lose by accepting a bribe. In this case, as with external validation,
+it is optimal to set 𝜏 =  1, even if 𝑍(𝜏) → ∞. Alternatively, suppose
+intertemporal  incentives  are  weak, 1 >  𝛿 (1 − 𝑉 ),  then  the  optimal
+̂𝜏 trades  off  the  smaller  bribe  size  with  the  higher  payment  to  the
+validator, and it solves48
+1 − ̂𝜏
+̂𝜏
+
+[1 − 𝛿 (1 − 𝑉 )] 𝑉 𝐶
+𝑥 + 𝑉 𝐶
+
+(22)
+
+√
+
+=
+
+.
+
+The optimal threshold ̂𝜏 is decreasing in 𝑉 but increasing in 𝑥. ̂𝜏 is also
+increasing in 𝜋, 𝛽, or 𝛼, as captured by 𝛿. The intuition is apparent from
+(15): when 𝜋, 𝛽, or 𝛼 increase, the net rent 𝑅(𝜏) −𝑉 𝑍(𝜏) > 0 of validators
+becomes more important for the incentives of validators relative to the
+bribe size (𝑥 + 𝑉 𝑍)∕𝜏 𝑉 , either because they have a higher chance of
+losing it – when 𝜋 increases – or because they have a higher lifetime
+discounted value – when 𝛽 or 𝛼 increases. So following an increase in 𝛿,
+the planner gives more net rent to validators by increasing 𝜏. So unlike
+in traditional models of limited commitment, higher trustworthiness as
+captured by a higher 𝛿 implies more rents to validators.
+
+Importantly,  while  external  validation  implements  autarky  only
+when  intertemporal  incentives  are  weak,  internal  validation  can  do
+much more. This is intuitive: with internal validation, the planner can
+use  the  value  of  trading  in  the  future  to  discipline  validators,  thus
+allowing  the  planner  to  choose  lower  rents  (and  therefore  a  lower
+feasible bribe) that validators obtain from being able to manage the
+ledger.
+
+The optimal choice of 𝑥 and 𝑉 trades off several effects. First, in-
+creasing 𝑥 toward 𝑥∗ brings additional gains from trade, but at the cost
+of increasing the bribe size per validator, which tightens their incentive
+constraint.  Second,  increasing 𝑉 relaxes  the  incentive  constraint  of
+validators, but increases the cost of validation. We can now summarize
+these considerations in our main result.
+
+48 It is easy to verify that when 1 > 𝛿 (1 − 𝑉 ), the second order condition for
+a minimum is satisfied.
+
+R. Auer et al.
+
+Journal of Financial Economics 167 (2025) 104026 
+
+𝛿−1
+
+. Welfare is higher with internal validation.
+
+Proposition 5. The constrained optimal solution ( ̂𝑥, ̂𝑉 , ̂𝜏) solves (21) at
+equality and (22)–(26) and is characterized by four regions:
+1a. [centralized system - efficient trade size] If 𝛿 ≥ 𝛿∗ > 1, external
+and internal validations are characterized by ̂𝑉 → 0, ̂𝜏 → 1 and ̂𝑥 →
+𝑥∗. Validation requires arbitrarily large payments, i.e. 𝑍( ̂𝜏) → ∞, while
+lim ̂𝜏→1 𝑉 ( ̂𝜏)𝑍( ̂𝜏) = 𝑥∗
+1b. [centralized system - inefficient trade size] If 1 ≤ 𝛿 ≤ 𝛿∗, external
+validation is characterized by ̂𝑉 → 0, ̂𝜏 → 1 and ̂𝑥 → ̃𝑥(𝛿) ≤ 𝑥∗. Internal
+validation is characterized by ̂𝑉  > 0, ̂𝜏 < 1 and ̂𝑥 < 𝑥∗. Welfare is higher
+with internal validation.
+2. [partially distributed system] If ̄𝛿 < 𝛿 ≤ 1, only internal validation can
+decentralize trade. The constrained optimal number of validators is ̂𝑉  > 0,
+and only a supermajority ̂𝜏 < 1 is optimal. Each validator receives a finite
+payment 𝑍( ̂𝜏) < ∞. The constrained optimal allocation is ̂𝑥 < 𝑥∗.
+3.  [fully  distributed  system] If 𝛿0 <  𝛿 ≤ ̄𝛿,  only  internal  validation
+can decentralize trade. All late producers are validators ̂𝑉 = 1, and ̂𝜏 =
+(
+
+)−1
+
+. The constrained optimal allocation is ̂𝑥 < 𝑥∗.
+
+1 +
+
+√ 𝐶
+𝑥+𝐶
+
+4. [no trade] If 𝛿 ≤ 𝛿0, there is no validation protocol that can decentralize
+trade.
+
+Proposition 5 states that the optimal design of the ledger requires
+centralized validation by a single validator only when validators are
+sufficiently trustworthy. However, moving toward centrality necessar-
+ily imposes a move toward unanimity. In the limit, an arbitrarily large
+payment must be made to the single authority managing the ledger. In
+reality, feasible payments may be limited and, in such a case, a single
+validator will never be optimal. Still, the single validator case offers a
+useful benchmark that illustrates the forces driving the solution toward
+centrality.  When  intertemporal  incentives  become  weak,  the  single
+authority can be more easily convinced to do wrong and the optimal
+validation protocol moves away from centrality. The centrifugal forces
+also manifest themselves in a reduction in trade size and a departure
+from unanimity or a high supermajority rule. Both margins reduce the
+feasible bribe to validators and therefore their incentives to do wrong.49
+Underlying the results in Proposition 5 are the following compar-
+ative statistics (details of the calculations are in the Appendix): 𝑥 and
+𝜏 are (weakly) increasing with 𝛿 (i.e. 𝛽, 𝜋, and 𝛼) but decreasing with
+validation costs 𝐶. 𝑉 is (weakly) decreasing with 𝛿 but increasing with
+validation costs 𝐶.
+
+As the level of patience or frequency of trading among validators
+increases (represented by a higher 𝛿), the optimal number of validators
+(𝑉 ) decreases while the optimal trade size (𝑥) increases. This is intuitive
+because when validators are more patient or trade more frequently,
+they have more to lose from any misdeeds. Therefore, as 𝛿 increases
+the planner can increase the size of each trade and reduce the number
+of validators needed. This choice of 𝑉 and 𝑥 indirectly affects 𝜏 and
+reinforces the planner’s decision to increase the net rent for validators
+by choosing a larger threshold, as we already explained above. All in
+all, these effects work together to increase the threshold 𝜏 with 𝛿.50
+
+Centrifugal forces also include the cost of validation 𝐶. This may
+be surprising, as increasing the number of validators also increases du-
+plication costs to the detriment of welfare. However, higher validation
+costs reduce the overall lifetime discounted surplus of validators, who
+as a result are more easily convinced to do wrong. To control this effect,
+the planner reduces the feasible bribe (given 𝑥) that a later producer
+
+can pay by increasing the number of validators.
+
+Reaching consensus with a higher number of validators however
+does not come for free: as validation cost 𝐶 is higher, validators are
+more likely to believe that fewer other validators will work. Hence,
+maintaining the same level of consensus requires that each validator
+receives a larger rent, as Proposition 1 shows. Therefore, to maintain
+the legitimacy of the ledger while keeping costs in check, the threshold
+𝜏 should fall.
+
+Fig. 2 illustrates Proposition 5 setting 𝜂 = 0 so that the value of the
+outside option is zero. Given some 𝑥 ≤ 𝑥∗ and the default factor 𝛿, Fig. 2
+shows the set of (𝑉 , 𝜏) for which the IC of validators (21) is satisfied.
+When 𝛿 is relatively high, 𝑥 = 𝑥∗ and (𝑉 , 𝜏) = (0, 1) satisfy (21) and this
+is the best design for the system. In this case, the solution is given by
+the black dot in the lower right corner of Fig. 2(a). In contrast, Fig. 2(b)
+shows incentive feasible allocations when 𝛿 is relatively smaller: then
+the allocation 𝑥 = 𝑥∗ and (𝑉 , 𝜏) = (0, 1) is no longer incentive feasible.
+The figure shows that implementing 𝑥 = 𝑥∗ is feasible for some (𝑉 , 𝜏),
+but only for relatively large 𝑉 . This is costly and the planner does better
+by choosing a lower 𝑥 which decreases the bribe size and allows it to
+select fewer validators (lower the number of validators 𝑉 ), as shown
+by the red area in Fig. 2(b). Reducing 𝑥 slightly below 𝑥∗, the planner
+only makes a second order loss, but realizes a first order gain as 𝑉
+decreases, thus reducing the overall validation costs. Therefore, as 𝛿
+decreases, 𝑥 declines and (𝑉 , 𝜏) moves up along the black curve, as
+shown in Fig. 2(c). As 𝛿 falls below the threshold ̄𝛿 toward 𝛿0, 𝑉 = 1
+and 𝜏 moves westward on the black line until it reaches 1∕2 and 𝑥 = 0.
+For levels of 𝛿 below 𝛿0, there is no equilibrium with trade. Finally, as
+we move to the left along the black curve, the trade size 𝑥 decreases
+toward zero.
+
+4.  Implementation with competing ledgers
+
+In this section we show that competing ledgers can implement the
+
+planner’s allocation analyzed above.51
+
+One issue when considering competing ledgers is that, to be prof-
+itable, the ledgers must attract both early and late producers. This is
+a  typical  two-sided  market  problem,  where  the  participation  of  one
+side (early producers) encourages the participation of the other side
+(late  producers).  The  pricing  can  be  complex,  as  one  side  could  be
+subsidized at the cost of the other (see Rochet and Tirole, 2006). We
+sidestep this issue by assuming that coalitions of early producers are
+setting up ledgers. We also do not take a stand on how these coalitions
+are formed. Instead, we show that competing ledgers can implement
+the social planner’s optimal design for any number of ledgers. Suppose
+there are 𝑁 coalitions consisting of a measure 1∕𝑁 of early producers,
+competing for the membership of late producers. We assume that each
+coalition can set up only one ledger so that there are 𝑁 possible ledgers
+indexed by 𝑛 = 1, … , 𝑁. We suppose it costs 𝐾 to set up any account
+on any of the ledgers.52
+
+To compensate for the cost of setting up an account on a ledger,
+the coalition charges a fee to late producers. Late producers apply to a
+ledger before knowing if they will be selected as validators. If they are
+selected as validators, they pay 𝛾𝑣 to the ledger; if they are not, they
+pay 𝛾. As before, we use 𝑉 to denote the fraction of late producers
+selected to be validators (for any measure of producers) on a particular
+ledger. Notice that competing on account fees is not the only thing that
+
+49 Put another way, the safeguards necessary for the ledger’s integrity make
+decentralized consensus expensive and reduce trade size. In short, the ledger
+is hard to scale. This conundrum introduces trade-offs sometimes known as
+the ledger’s ‘‘scalability trilemma’’ (see i.e. Buterin (2021)). The trilemma is
+posed in terms of the challenge of attaining a ledger that is simultaneously
+decentralized, secure, and scalable.
+50 It is also worth noting that as the system becomes fully distributed with
+only one validator (𝑉 = 1), the supermajority threshold will converge to simple
+majority (𝜏 approaching 1∕2) as the trade size approaches zero, even though
+there is no constraint requiring 𝜏 to be greater than or equal to 1∕2.
+
+51 We thank the referee for requesting this material.
+52 Another way to model competition is using contestable markets. Suppose
+there is one ledger operating, but there is ‘‘free’’ entry with a cost of entry 𝐾,
+so that a ledger enters only if the profit is greater than 𝐾. This means that a
+ledger is not created if the lifetime discounted expected profit of doing so is
+less that 𝐾, that is (1 − 𝜂)[𝑢(𝑥) − 𝑥 − 𝑉 𝑍 + 𝑉 (𝑍 − 𝐶)] ≤ (1 − 𝛽)𝐾. Therefore,
+the ledger sets 𝜂 (which determines the surplus of ‘‘members’’) such that this
+holds with equality. Making the market contestable disciplines the ledger such
+that it will not extract all the surplus from users.
+
+10 
+
+R. Auer et al.
+
+Journal of Financial Economics 167 (2025) 104026 
+
+Fig. 2. Incentive feasible choice of (𝑉 , 𝜏).
+
+ledgers do because, depending on their design, ledgers offer different
+lifetime utility to their users. However, below we show that there is a
+clear relationship between account fees and the utility of users.
+
+Ledgers are competing as follows. Suppose the design of ledger 𝑛
+offers expected lifetime utility 𝑈 to a late producer and 𝑈𝑣 to a validator
+and charges the respective fees 𝛾 and 𝛾𝑣. Then, after a late producer
+learns his role on ledger 𝑛 but before he pays the fee to ledger 𝑛, he
+receives an offer from ledger 𝑖 ≠ 𝑛 that gives him 𝜂𝑖𝑈 as a late producer
+and 𝜂𝑖𝑈𝑣 as a validator. We require that the offer 𝜂𝑖 be feasible given
+the design of ledger 𝑖: if ledger 𝑖 offers a fee 𝛾𝑖 and an expected utility
+𝑈𝑖, then 𝜂𝑖𝑈 ≤ 𝑈𝑖 − 𝛾𝑖. Let ̄𝜂𝑛 = max𝑖≠𝑛 𝜂𝑖 be the highest competing offer
+faced by users of ledger 𝑛.
+
+Then the objective of ledger 𝑛 is to choose 𝛾, 𝛾𝑣, and 𝑉 to maximize
+
+the lifetime discounted value of these transfers,53
+[
+
+1 +
+
+𝛽
+1 − 𝛽
+
+]
+(1 − 𝜎)
+
+[
+(1 − 𝑉 )𝛾 + 𝑉 𝛾𝑣
+
+] ,
+
+subject to the account setup costs (1 − 𝑉 )𝛾 + 𝑉 𝛾𝑣
+participation constraints of producers and validators are satisfied,
+
+≥ 𝐾 and where the
+
+−𝛾 + 𝑈 ≥ ̄𝜂𝑛𝑈 ,
+
+53 The ledger collects (1 − 𝑉 )𝛾 + 𝑉 𝛾𝑣 in the first period. Since 1 − 𝜎 agents
+]
+[
+exit and are replaced by new agents, the ledger collects (1 − 𝜎)
+(1 − 𝑉 )𝛾 + 𝑉 𝛾𝑣
+in all subsequent periods.
+
+11 
+
+R. Auer et al.
+
+−𝛾𝑣 + 𝑈𝑣
+
+≥ ̄𝜂𝑛𝑈𝑣,
+
+where, as before, 𝑈 and 𝑈𝑣 are the expected lifetime utility of a late
+producer and a validator. Notice that if ledger 𝑛 chooses 𝑉 validators
+and  a  design  that  guarantees  utility 𝑈 to  late  producers  and 𝑈𝑣 to
+validators, with costs 𝛾 and 𝛾𝑣, then the net expected utility of a late
+]
+producer applying to ledger 𝑛 is 𝑈𝑛
+.
+Inspecting the ledger’s problem, it should be clear that the participation
+constraints will hold with equality, so the objective function of ledger 𝑛
+is proportional to (1 − 𝑉 )𝑈 + 𝑉 𝑈𝑣. Therefore, the objective of the ledger
+is proportional to
+
+≡ (1 − 𝑉 ) [−𝛾 + 𝑈 ] + 𝑉 [
+
+−𝛾𝑣 + 𝑈𝑣
+
+(1 − 𝑉 )(𝑢(𝑥) − 𝑥 − 𝑉 𝑍) + 𝑉 [(𝑢(𝑥) − 𝑥 − 𝑉 𝑍) + (𝑍 − 𝐶)] =
+
+𝑢(𝑥) − 𝑥 − 𝑉 𝐶 ,
+
+where we have used the same steps as in the main text to simplify
+the expected utilities. Therefore, the objective function of any ledger
+is the same as the planner’s. This implies that all ledgers always adopt
+the planner’s optimal design (𝑥, 𝑉 , 𝑍) that maximizes the net trading
+surplus given ̄𝜂𝑛.
+
+Next we specify how ledgers compete over the promised expected
+utility to late producers, 𝑈𝑛 for all 𝑛. The game is as follows: Ledgers 𝑛 =
+1, … , 𝑁 simultaneously announce an expected utility ̄𝑈𝑛 and a factor
+{𝜂𝑖}𝑖≠𝑛. Following the announcement, late producers select the ledger
+that offers the highest expected utility. If late producers are indifferent
+between 𝑛 ledgers,  we  assume  that  each  of  the 𝑛 ledgers  serves  a
+fraction 1∕𝑛 of them. A symmetric Nash equilibrium of this game is
+( ̄𝑈 , ̄𝜂)
+defined as a pair
+given
+. The promise ̄𝑈 has to
+they expect all other ledgers to announce
+≥ 𝐾
+be feasible, that is, there are fees 𝛾 and 𝛾𝑣 such that (1 − 𝑉 )𝛾 + 𝑉 𝛾𝑣
+as well as −𝛾 + 𝑈 ≥ ̄𝜂 𝑈 and −𝛾𝑣 + 𝑈𝑣
+≥ ̄𝜂 𝑈𝑣, where 𝑈 and 𝑈𝑣 are the
+expected utility of late producers and validators given ̄𝜂.
+
+such that all ledgers announce
+
+( ̄𝑈 , ̄𝜂)
+
+( ̄𝑈 , ̄𝜂)
+
+In a symmetric Nash equilibrium, ̄𝑈𝑛 = ̄𝑈 for all 𝑛, all ledgers choose
+the  optimal  design (𝑥, 𝑉 , 𝑍) and  therefore  offer  the  same  expected
+utility to late producers (𝑈 ) and to validators (𝑈𝑣). Given this, we show
+that a Nash equilibrium is characterized by ̄𝑈 = (1 − 𝑉 )𝑈 + 𝑉 𝑈𝑣 − 𝐴𝐾.
+The fees 𝛾 and 𝛾𝑣 are set such that 𝛾 = (1 − ̄𝜂)𝑈 , 𝛾𝑣 = (1 − ̄𝜂)𝑈𝑣, and ̄𝜂
+= 𝐾 (where 𝑉 , 𝑈 , and 𝑈𝑣 are functions
+solves (1 − ̄𝜂)
+of ̄𝜂).
+
+[
+(1 − 𝑉 )𝑈 + 𝑉 𝑈𝑣
+
+]
+
+[
+
++ 𝑉 [
+
+( ̄𝑈 , ̄𝜂)
+
+−𝛾1 + 𝑈 ]
+
+To show this result, consider the strategy of ledger 1, given all other
+. If 𝑈1 < ̄𝑈 , ledger 1 does not get any late
+ledgers are posting
+producers, which cannot be optimal. Can 𝑈1 > ̄𝑈 ? If it was, there would
+] > (1 − 𝑉 )𝑈 +
+be fees (𝛾1, 𝛾𝑣,1) such that (1 − 𝑉 )
+𝑉 𝑈𝑣 − 𝐾, which is not feasible, as this implies 𝐾 > (1 − 𝑉 )𝛾1 + 𝑉 𝛾𝑣,1.
+Therefore, the only feasible/optimal choice is 𝑈1 = ̄𝑈 . Next, consider
+the choice of ̄𝜂. If ledger 1 sets 𝜂 < ̄𝜂, then it is not competing because
+all other ledgers offer the higher share ̄𝜂. Now consider ledger 1 offering
+𝜂 > ̄𝜂. Given that all other ledgers offer ̄𝜂, ledger 1’s optimal design is
+(𝑈 , 𝛾) and (𝑈𝑣, 𝛾𝑣) such that
+−𝛾 + 𝑈 = ̄𝜂 𝑈 , −𝛾𝑣 + 𝑈𝑣 = ̄𝜂 𝑈𝑣.
+
+−𝛾𝑣,1 + 𝑈𝑣
+
+Therefore, 𝜂 > ̄𝜂 is not consistent with the design of ledger 1.54
+
+Journal of Financial Economics 167 (2025) 104026 
+
+and  characterizes  the  optimal  supermajority  voting  rule,  number  of
+validators, and size of transactions.
+
+We believe our analysis is timely, as DLT is rapidly becoming an
+industry standard for digital currencies and in other applications. In
+particular, our results can shed light on the burgeoning literature on
+central bank digital currency (CBDC) and stablecoins insofar as it gives
+conditions under which a central authority should manage the ledger
+of transactions.55 The discussion of technology and the economics of
+central bank digital money has thus far centered on the balance sheet
+effects  and  related  systemic  implications.56 Here,  we  focus  not  on
+balance sheets and the issue of how the value of a currency can be
+guaranteed (central backing is of the essence for a CBDC irrespective
+of our analysis), but on the governance of a societal record-keeping
+device used as a substitute for money.
+
+Of course, we have made simplifying assumptions in order to better
+grasp the basic economics of money as memory. Future work should
+relax  some  of  these.  For  instance  –  to  simplify  the  analysis  –  we
+have assumed that validators all agree to accept bribes in unison. It
+would  be  interesting  to  also  study  the  cooperative  games  between
+validators  in  more  detail.  We  have  also  taken  as  given  that  agents
+use  a  private  ledger,  as  they  want  to  preserve  their  anonymity  in
+trades. Tirole (2020) and Chiu and Koeppl (2020) make progress on this
+front. In order to better compare the different types of ledger, future
+work should also include the benefit from preserving anonymity. Also
+our mechanism design approach implies that we have ignored every
+industrial organization aspect of DLT, which might be significant if this
+technology were to be widely adopted in the future.
+
+CRediT authorship contribution statement
+
+Raphael Auer: Writing – review & editing, Writing – original draft,
+Formal analysis, Conceptualization. Cyril Monnet: Writing – review
+& editing, Writing – original draft, Formal analysis, Conceptualization.
+Hyun Song Shin: Writing – review & editing, Writing – original draft,
+Formal analysis, Conceptualization.
+
+Declaration of competing interest
+
+The  authors  declare  that  they  have  no  known  competing  finan-
+cial  interests  or  personal  relationships  that  could  have  appeared  to
+influence the work reported in this paper.
+
+Appendix A
+
+In this Appendix containing all proofs, we assume that there is a
+fraction 𝑓 of late producers who do not have the ability to produce
+any goods. We refer to these producers as ‘‘faulty’’ producers. They are
+only necessary to eliminate the free-rider problem facing validators that
+we consider in section 3. Otherwise, all other results go through with
+𝑓 = 0. For completeness we have written the proof with 𝑓 > 0.
+
+5.  Conclusion
+
+A.1.  Proof of Proposition 1
+
+In this paper, we have presented an economic analysis of decentral-
+ized ledger technology in an economy where money is essential. To our
+knowledge, our analysis is the first economic analysis of DLT in such a
+context. It links a ledger validation game to monetary exchange, estab-
+lishes the uniqueness of the equilibrium via a global game approach,
+
+Proposition (Proposition 1). Given 𝜏, in the limit as 𝜀 → 0, there is a
+unique dominance-solvable equilibrium where validators work if and only if
+the allocation 𝑧 satisfies
+𝑐𝑠 + 𝑐𝑣∕(1 − 𝑓 )
+𝑧
+
+1 − 𝜏 ≥
+
+(23)
+
+.
+
+54 The maximum ̄𝜂 that ledgers can offer is such that the feasibility constraint
+binds, so that
+[
+(1 − 𝑉 )𝑈 + 𝑉 𝑈𝑣
+𝐾 = (1 − ̄𝜂)
+
+] .
+
+Since
+
+(𝑉 , 𝑈 , 𝑈𝑣
+
+)
+
+are all function of ̄𝜂, this equation gives the maximum ̄𝜂.
+
+55 See the stock-taking exercise of pursued technological designs in Auer
+et al. (2020).
+56 See, among others, Andolfatto (2020), Brunnermeier and Niepelt (2019),
+Fernandez-Villaverde et al. (2020), Keister and Monnet (2020).
+
+12 
+
+R. Auer et al.
+
+Journal of Financial Economics 167 (2025) 104026 
+
+Assume that each validator receives private cost
+
+𝑐𝑠,𝑖 = 𝑐𝑠 + 𝜀𝑖
+
+where 𝜀𝑖 is independently and uniformly distributed over [−𝜀, 𝜀]. Given
+a validation threshold 𝜏, the expected payoff of validator 𝑖 is
+)
+
+{
+
+(1 − 𝑓 )
+(1 − 𝑓 )
+
+(
+−𝑐𝑠,𝑖 + 𝑧 + 𝛽 𝑈𝑉
+(
+−𝑐𝑠,𝑖
+
++ 𝛽 𝑈𝑉
+
+)
+
++ 𝑓 𝛽 𝑈𝑉 ,
+
+I
+
+if ∫ 𝑉
+𝑖=1 𝑚𝑖
+otherwise,
+
+𝑚𝑖≠∅𝑑 𝑖 > 𝜏 𝑉
+
+−𝑐𝑣 +
+
+where 𝑚𝑖 = 1 if validator 𝑖 sends label 𝐺 (recall that validators do not
+send a message when the account label is 𝐵). The expected payoff of a
+validator is given by Eq. (6) when the measure of validators sending a
+message is higher than 𝜏 𝑉 . We can rewrite the expected payoff as
+
+𝛽 𝑈𝑉 + (1 − 𝑓 )𝑧 ×
+
+̃𝑐1
+𝑣
+1−𝑓
+̃𝑐1
+𝑣
+1−𝑓
+
+− ̃𝑐𝑠,𝑖 + 1,
+
+− ̃𝑐𝑠,𝑖
+
+I
+
+if ∫ 𝑉
+
+𝑖=1 𝑚𝑖
+otherwise,
+
+𝑚𝑖≠∅𝑑 𝑖 > 𝜏 𝑉
+
+(24)
+
+−
+
+−
+
+⎧
+⎪
+⎨
+⎪
+⎩
+
+I
+
+I
+
+where we have normalized the cost by the validator’s rent, as ̃𝑐⋅,𝑖 =
+𝑐⋅,𝑖∕𝑧. This normalized cost is necessarily lower than 1, and it is uni-
+formly distributed since the common cost component 𝑐𝑠 is uniformly
+distributed. Note that if a validator expects ∫ 𝑉
+𝑚𝑖≠∅𝑑 𝑖  <  𝜏 𝑉 , this
+validator will not verify the label in the first place. The structure of the
+above payoff is the same as the one in the public good game analyzed
+in Morris and Shin (2002) and their results extend almost directly. We
+repeat their argument here for completeness.
+
+𝑖=1 𝑚𝑖
+
+𝑖=1 𝑚𝑖
+
+Let 𝑤 be the random variable ∫ 𝑉
+
+𝑚𝑖≠∅𝑑 𝑖∕𝑉 measuring the frac-
+tion  of  working  validators.  This  is  a  random  variable  because  the
+communication strategy 𝑚𝑖 of each validator 𝑖 depends on their com-
+munication cost. Also this random variable belongs to the interval [0, 1].
+The distribution of 𝑤 gives the probability that a trader with label 𝐺
+is able to trade and compensate validators and of whether it is worth
+it  in  expected  terms  for  a  validator  to  verify  and  communicate  the
+label  to  the  ledger.  Let 𝑔(𝑤 ∣
+̃𝑐𝑠,𝑖) be  the  subjective  density  over 𝑤
+for a validator with private information ̃𝑐𝑠,𝑖 and the total verification
+and  communication  cost − ̃𝑐𝑣
+− ̃𝑐𝑠,𝑖.  We  conjecture  that  validators
+1−𝑓
+adopt  a  switching  strategy  whereby  they  work  whenever  their  total
+cost is lower than some level 𝐶 ∗ ≡ ̃𝑐𝑣
+𝑠 . Since the normalized
++ ̃𝑐∗
+1−𝑓
+, 𝛾𝑠+𝜀
+cost ̃𝑐𝑠 is uniformly distributed over the interval
+, the total
+𝑧
+
+]
+
+cost is also uniformly distributed over
+
+. Since all
+
+[ 𝛾𝑠−𝜀
+𝑧
+𝑐1
+𝑣
+1−𝑓 +𝛾𝑠+𝜀
+𝑧
+
+,
+
+⎤
+⎥
+⎥
+⎦
+
+𝑐1
+𝑣
+1−𝑓 +𝛾𝑠−𝜀
+𝑧
+
+⎡
+⎢
+⎢
+⎣
+
+validators with 𝐶𝑖 < 𝐶 ∗ are working, the measure of working validators
+is
+
+𝑐1
+𝑣
+(1−𝑓 )
+
++𝑐𝑠−𝜀
+𝑧
+
+̃𝑐1
+𝑣
+1−𝑓
+
+𝑤 =
+
++ ̃𝑐∗
+
+𝑠 −
+2 𝜀
+𝑧
+
+𝑐∗
+𝑠 −
+
+=
+
+(𝑐𝑠 − 𝜀)
+2𝜀
+
+.
+
+So for some 𝑞 ∈ [0, 1], there is a value for the common communication
+cost 𝑐𝑠(𝑞) such that 𝑤 = 𝑞. This is
+𝑐𝑠(𝑞) = 𝑐∗
+
+𝑠 + 𝜀 − 2𝜀𝑞 .
+
+Hence, 𝑤 < 𝑞 iff 𝑐𝑠 > 𝑐𝑠(𝑞). We now need to find the probability that 𝑐𝑠 >
+𝑐𝑠(𝑞). Considering the validator with total cost 𝐶 ∗, the posterior density
+over 𝑐𝑠 conditional on his communication cost being 𝑐∗
+𝑠 is uniform over
+the interval
+𝑐∗
+𝑠 + 𝜀 − 𝑐𝑠(𝑞)
+2𝜀
+
+𝑠 + 𝜀]
+. Hence, the probability that 𝑐𝑠 > 𝑐𝑠(𝑞) is
+(𝑐∗
+𝑠 + 𝜀 − 2𝜀𝑞)
+2𝜀
+
+𝑠 − 𝜀, 𝑐∗
+𝑐∗
+𝑠 + 𝜀 −
+
+= 𝑞 .
+
+[𝑐∗
+
+=
+
+Therefore,
+
+𝐺(𝑤 < 𝑞 ∣ 𝑐∗
+
+𝑠 ) = 𝑞 ,
+
+so that by differentiation, for all 𝑤
+
+𝑔(𝑤 ∣ 𝑐∗
+
+𝑠 ) = 1,
+
+and the density over 𝑤 is uniform at the switching point ̃𝑐∗
+probability that the validation process will fail is
+
+𝑠 . Hence, the
+
+13 
+
+𝜏
+
+𝐺(𝜏) = ∫
+
+0
+
+𝑔(𝑤 ∣ ̃𝑐∗
+
+𝑠 )𝑑 𝑤 = 𝜏 .
+
+The validator with private cost 𝑐∗
+shirking. Therefore, the switching point ̃𝑐∗
+𝑠 solves
+(
+− ̃𝑐∗
+𝑠
+
+) 𝑔(𝜏 ∣ ̃𝑐∗
+
+(
+1 − ̃𝑐∗
+𝑠
+
+𝑠 )𝑑 𝜏 + ∫
+
++ ∫
+
+−
+
+𝑐𝑣
+(1 − 𝑓 )𝑧
+
+1
+
+𝜏
+
+𝜏
+
+0
+
+) 𝑔(𝜏 ∣ ̃𝑐∗
+
+𝑠 )𝑑 𝜏 = 0,
+
+𝑠 is indifferent between working and
+
+𝑐∗
+𝑠
+𝑧
+
+.
+
+𝑠 =
+
+= ̃𝑐∗
+
+1 − 𝜏 −
+
+𝑐𝑣
+(1 − 𝑓 )𝑧
+Hence,  as 𝜀 → 0,  all  validators  with  private  signal 𝑐𝑠,𝑖
+𝑠 will
+work  while  all  other  validators  will  shirk.  The  probability  that  the
+validation  process  succeeds  is 1 − 𝜏.  Then,  as 𝜀 → 0,  all  validators
+𝑠 and  they  will  all  shirk  whenever 𝑐𝑠 >
+will  work  whenever 𝑐𝑠
+𝑠 .  The  argument  to  show  uniqueness  is  standard  from Morris  and
+𝑐∗
+Shin (2003) given the payoff of any validators (24) to communicating
+with  the  ledger  increases  with  the  measure  of  validators  who  also
+communicate with the ledger. Therefore, the probability that a trade
+validation process goes through is the probability that 𝑐𝑠
+
+≤ 𝑐∗
+
+≤ 𝑐∗
+
+≤ 𝑐∗
+
+𝑠 , or
+
+∫
+
+𝑐∗
+𝑠
+
+𝑑 𝑐𝑠
+̄𝑐𝑠 − 𝑐𝑠
+
+(1 − 𝜏)𝑧 − 𝑐𝑣
+(1−𝑓 )
+̄𝑐𝑠 − 𝑐𝑠
+𝑐𝑠
+and validation will always go through whenever
+
+− 𝑐𝑠
+
+=
+
+,
+
+1 − 𝜏 ≥
+
+̄𝑐𝑠 + 𝑐𝑣∕(1 − 𝑓 )
+𝑧
+
+.
+
+A.2.  Proof of Lemma 4
+
+Proof. We first show that (16) must bind. Suppose it does not. The
+objective function is decreasing in 𝑉 and (15) is relaxed with lower 𝑉 .
+So if (16) does not bind, it is optimal to set 𝑉 = 0, and the solution
+is ̃𝑥 > 0, which is the solution to max [𝑢(𝑥) − 𝑥] subject to 𝛿 [𝑢(𝑥) − 𝑥] ≥
+𝜋 𝑥+ (1−𝛽)
+𝛿 ̄𝑈 . However, since ̃𝑥 > 0 and 𝜏 ≤ 1, it is clear that (16) cannot
+be satisfied when 𝑉 = 0. Therefore, (16) must bind. Suppose now both
+(15) and (16) bind. Then, given 𝜏, the solution is given by
+
+𝛼
+
+𝛽 𝛼
+1 − 𝛽
+
+𝜏 𝑉 𝜋
+
+𝛽 𝛼
+1 − 𝛽
+
+[𝑢(𝑥) − (𝑥 + 𝑉 𝑍(𝜏))] = (𝑥 + 𝑉 𝑍(𝜏)) ,
+
+[𝑢(𝑥) − (𝑥 + 𝑉 𝑍(𝜏)) + 𝑅(𝜏)] = (𝑥 + 𝑉 𝑍(𝜏)) .
+
+Using these two equations we can write the objective function of the
+planner, as
+
+𝛼 {𝑢(𝑥) − 𝑥 − 𝑉 (𝑍(𝜏) − 𝑅(𝜏))} = 𝛼
+
+{
+
+𝜋
+
+𝜏
+1 − 𝜏 𝑉
+
+}
+
++ 1
+
+𝑉 𝜏
+
+( ̄𝑐𝑠 + 𝑐𝑣
+1 − 𝜏
+
+)
+
+.
+
+This  is  strictly  increasing  in  both 𝑉 and 𝜏.  Hence,  the  solution  is
+𝑉 =  1 and 𝜏 =  1. However, this implies 𝑢(𝑥) → ∞ and 𝑥 → ±∞. If
+𝑥 → −∞, we get a contradiction. If 𝑥 → +∞, the planner’s objective
+function is 𝛼 {𝑢(𝑥) − 𝑥 − 𝑉 ( ̄𝑐𝑠 + 𝑐𝑣
+)}
+→ −∞, which cannot be optimal.
+Therefore, both (15) and (16) cannot be binding. This shows that only
+(16) binds. □
+
+A.3.  Proof of Proposition 5
+
+Proof. First we show that internal validation does at least as well as
+external validation. Both problems have the same objective function.
+The constraints for external validation are
+𝛿 [𝑢(𝑥) − 𝑥 − 𝑉 𝑧] ≥ 𝜋 (𝑥 + 𝑉 𝑧) ,
+𝛿 𝑅(𝜏) ≥ 1
+𝜏 𝑉
+
+(𝑥 + 𝑉 𝑧) ,
+
+while the constraint for internal validation is
+𝛿 [𝑢(𝑥) − (𝑥 + 𝑉 𝑧) + 𝑅(𝜏)] ≥ 1
+𝜏 𝑉
+
+(𝑥 + 𝑉 𝑧) ,
+
+since 𝑢(𝑥) − (𝑥 + 𝑉 𝑧) ≥ 0, and 𝜋 < 1∕(𝜏 𝑉 ), the constraint set for internal
+validation is weaker than the one for external validation. This shows
+the claim.
+
+R. Auer et al.
+
+Journal of Financial Economics 167 (2025) 104026 
+
+Next we concentrate on the results for internal validation (the one
+for external validation is in the text). The first order conditions with
+respect to 𝑥 (25) and the one with respect to 𝑉 (26) are
+]
+[𝑢′(𝑥) − 1
+
+(1 + 𝛿 𝜆) − 𝜆
+
+= 0,
+
+(25)
+
+1
+̂𝜏 𝑉
+
+[ 𝑅( ̂𝜏)
+1 − 𝑓
+
+]
+− 𝑍( ̂𝜏)
+
++ 𝜆
+
+𝑥
+̂𝜏 𝑉 2
+
+− 𝛿 𝜆𝑍( ̂𝜏) + 𝜆0 − 𝜆1−𝑓 = 0,
+
+(26)
+
+where 𝜆 is the Lagrange multiplier on the validators’ IC constraint, and
+𝜆1−𝑓 is the one on 𝑉 ≤ 1 − 𝑓 and 𝜆0 is the one on 𝑉 ≥ 0.
+
+We first consider the solution when ̂𝜏 → 1. Then 𝑍( ̂𝜏) → +∞ and
+
+)
+
+−
+
+𝑐𝑣.
+
+𝑓
+1 − 𝑓
+
+( ̄𝑐𝑠 + 𝑐𝑣
+
+− 𝑍( ̂𝜏) = −
+
+𝑅( ̂𝜏)
+1 − 𝑓
+We now show that 𝜆 and 𝑉 both converge to zero. To the contrary,
+suppose 𝑉  > 0 (𝜆0 = 0) and 𝜆 > 0. Since 𝑍( ̂𝜏) → +∞ as ̂𝜏 → 1, the left-
+hand side of (26) is necessarily negative as ̂𝜏 → 1. Hence 𝜆0 > 0 and/or
+either 𝜆 → 0 to re-establish the equality, which contradicts 𝑉  > 0 and
+𝜆 > 0. Hence, either 𝑉 = 0 or 𝜆 = 0 or both. Starting with 𝑉 ∈ (0, 1 − 𝑓 ),
+we can rewrite (26) as
+( ̄𝑐𝑠 + 𝑐𝑣
++ 𝑓
+1−𝑓
+[ 𝑥
+̂𝜏 𝑉 2 − 𝛿 𝑍( ̂𝜏)
+
+𝑐𝑣
+] = 𝜆.
+
+)
+
+Since 𝜆 ≥ 0, we obtain 𝑥 ≥ 𝜏 𝛿 𝑉 2𝑍( ̂𝜏). Since 𝑥 is bounded from above
+but 𝑍( ̂𝜏) → ∞, we must have 𝑉 → 0 as ̂𝜏 → 1. Further, since (15) never
+binds, it must be that 𝑉 𝑍( ̂𝜏) converges to a positive constant, so that
+𝑉 2𝑍( ̂𝜏) → 0. Therefore,
+𝑐𝑣
+] 𝑉
+
++ 𝑓
+1−𝑓
+
+̂𝜏→1
+→ 0,
+
+=
+
+)
+
+𝜆
+𝑉
+
+( ̄𝑐𝑠 + 𝑐𝑣
+[ 𝑥
+̂𝜏
+
+− 𝛿 𝑉 2𝑍( ̂𝜏)
+
+[𝑢(𝑥∗) − 𝑥∗ − 𝑉 𝑧] ≥ 𝑥∗ + 𝑉 𝑍(𝜏),
+
+so that 𝜆 → 0. Then (25) implies 𝑥 → 𝑥∗. The positive constant 𝑉 𝑍 is
+such that the incentive constraint of late producers is satisfied, that is
+𝛿
+𝜋
+and using 𝑧 = 𝑍(𝜏), this is
+𝑢(𝑥∗) − 𝑥∗ ≥ 𝑉 𝑍(𝜏).
+
+𝛿
+𝛿 + 𝜋
+
+solves (25) and (26) when (21) holds with equality. ̂𝜏 is given by (22).
+Consider the case where 𝑉 = 1 − 𝑓 . Using (22), it is easy to check
+. Also, when 𝑉 = 1 − 𝑓 so that 𝜆1−𝑓 > 0,
+
+√ (1−𝛿 𝑓 )(1−𝑓 )𝐶
+𝑥+(1−𝑓 )𝐶
+
+(
+1 +
+
+)−1
+
+that 𝜏 =
+the first order condition gives
+
+]
+[𝑢′(𝑥) − 1
+]
+− 𝑍( ̂𝜏)
+
++ 𝜆
+
+(1 + 𝛿 𝜆) − 𝜆
+
+= 0,
+
+1
+̂𝜏 𝑉
+− 𝛿 𝜆𝑍( ̂𝜏) > 0.
+
+𝑥
+̂𝜏 𝑉 2
+
+[ 𝑅( ̂𝜏)
+1 − 𝑓
+
+(27)
+
+(28)
+
+Using (27) to eliminate 𝜆, the definition of 𝑅(𝜏)  =  (1 − 𝑓 )𝜏 𝑍(𝜏) and
+𝑍(𝜏) = 𝐶∕(1 − 𝜏), as well as the expression for 𝜏, (28) becomes
+√ (1−𝛿 𝑓 )(1−𝑓 )𝐶
+𝑥+(1−𝑓 )𝐶
+
+1 +
+
+√
+
+[
+
+]
+
+(1 − 𝑓 )
+
+𝑥
+(1 − 𝑓 )𝐶
+
+−
+
+1
+[𝑢′(𝑥) − 1]
+
+> 𝛿 ,
+
+(1 − 𝛿 𝑓 )(1 − 𝑓 )𝐶
+𝑥 + (1 − 𝑓 )𝐶
+
+⎛
+⎜
+⎜
+⎝
+
+⎞
+⎟
+⎟
+⎠
+
+⎧
+⎪
+⎨
+⎪
+⎩
+
+⎫
+⎪
+⎬
+⎪
+⎭
+
+where 𝑥 is given by the incentive constraint of validators holding at
+equality, which we can write as
+
+(29)
+
+𝛿 [𝑢(𝑥) − 𝑥 − (1 − 𝑓 )𝐶] =𝐶
+
+√
+
+⎛
+1 +
+⎜
+⎜
+⎝
+
+(1 − 𝛿 𝑓 )(1 − 𝑓 )𝐶
+𝑥 + (1 − 𝑓 )𝐶
+
+(
+
+1 − 𝛿 𝑓 +
+
+⎞
+⎟
+⎟
+⎠
+√ (1−𝛿 𝑓 )(1−𝑓 )𝐶
+𝑥+(1−𝑓 )𝐶
+
+√ (1−𝛿 𝑓 )(1−𝑓 )𝐶
+𝑥+(1−𝑓 )𝐶
+
+)
+
+⎤
+⎥
+⎥
+⎥
+⎦
+
+𝑥
+(1 − 𝑓 )𝐶
+
+×
+
+⎡
+⎢
+⎢
+⎢
+⎣
+≡𝐻(𝑥).
+
++
+
+It is tedious to check that 𝐻 ′(𝑥) > 0 and, using the implicit function
+theorem, that 𝑑 𝑥∕𝑑 𝛿 > 0 (when 𝑓 → 0). The left-hand side of (29) is
+decreasing in 𝑥 if
+
+√ 𝜌
+
++
+
+𝑥𝑢′(𝑥)
+
+(1 − 𝑓 )𝐶 < 1,
+
+1
+𝑢′(𝑥)
+where 𝜌 = −𝑢′′(𝑥)𝑥∕𝑢′(𝑥). This will hold if 𝐶 and 𝑥 are small enough
+and 𝜌 ≥ 1 so that 𝑥𝑢′(𝑥) is decreasing in 𝑥. Assuming this is the case,
+since 𝑑 𝑥∕𝑑 𝛿 > 0, 𝑥 declines as 𝛿 decreases. So the left-hand side of (29)
+increases when 𝛿 decreases and the condition will be satisfied for 𝛿 low
+enough and below some ̄𝛿. □
+
+Also, the positive constant 𝑉 𝑍 is such that the incentive constraint
+
+of validators is satisfied, that is
+𝛿 [𝑢(𝑥) − 𝑥 − 𝑉 𝑍 + 𝜏 𝑍] ≥ 1
+𝜏 𝑉
+
+(𝑥 + 𝑉 𝑍(𝜏)) ,
+
+or
+
+𝛿 𝜏 𝑉 [𝑢(𝑥) − 𝑥] − 𝛿 𝜏 𝑉 2𝑍 + 𝛿 𝜏2𝑉 𝑍 ≥ (𝑥 + 𝑉 𝑍(𝜏)) .
+
+Appendix B.  Supplementary data
+
+Supplementary material related to this article can be found online
+
+at https://doi.org/10.1016/j.jfineco.2025.104026.
+
+References
+
+As 𝜏 → 1, 𝑉 → 0 and 𝑉 𝑍 → 𝑐 𝑜𝑛𝑠𝑡𝑎𝑛𝑡, therefore the inequality above
+tends to
+𝛿 𝑉 𝑍 ≥ 𝑥∗ + 𝑉 𝑍 ,
+which requires 𝛿 > 1, and we obtain in the limit 𝑉 𝑍 ≥ 𝑥∗
+𝛿−1
+that last restriction on 𝑉 𝑍 with the IC of late producers, we find
+𝛿 ≥ 𝑢(𝑥∗) + 𝜋 𝑥∗
+𝑢(𝑥∗) − 𝑥∗
+
+. Combining
+
+> 1.
+
+]
+
+When the solution for ̂𝑉 is interior, we can simplify (25) and (26) to
+obtain
+[
+𝑍( ̂𝜏) − 𝑅( ̂𝜏)
+1−𝑓
+[ 𝑥
+̂𝜏 𝑉 2 − 𝛿 𝑍( ̂𝜏)
+and
+
+] = 𝜆,
+
+𝑢′(𝑥) − 1 =
+
+𝜆
+1 + 𝛿 𝜆
+
+1
+̂𝜏 𝑉
+
+,
+
+or
+
+𝑢′(𝑥) = 1 +
+
+𝑉 𝑍( ̂𝜏)
+𝑥
+
+−
+
+𝑅( ̂𝜏)𝑉
+𝑥(1 − 𝑓 ) (1 + 𝛿 𝜆)
+
+.
+
+The right-hand side of the above equation is always higher than 1, so
+that generically 𝑥 ≤ 𝑥∗. The constrained optimal solution is ( ̂𝑥, ̂𝑉 ) that
+
+14 
+
+Abadi,  Joseph,  Brunnermeier,  Markus,  2018.  Blockchain  economics.  NBER  Working
+
+Papers 25407.
+
+Amoussou-Guénou,  Yackolley,  Biais,  Bruno,  Potop-Butucaru,  Maria,  Tucci-
+Piergiovanni, Sara, 2019. Rationals Vs Byzantines in Concensus-Based Blockchains.
+Research report, HAL ID: hal-02043331.
+
+Andolfatto,  David,  2020.  Assessing  the  impact  of  central  bank  digital  currency  on
+
+private banks. Econ. J. ueaa073.
+
+Auer,  Raphael,  2019.  Beyond  the  doomsday  economics  of  ‘proof-of-work’  in
+
+cryptocurrencies. BIS Working Papers, no. 765 January.
+
+Auer,  Raphael,  Cornelli,  Giulio,  Frost,  Jon,  2020.  Rise  of  the  central  bank  digital
+currencies:  drivers,  approaches  and  technologies.  BIS  Working  Papers,  no.  880,
+August.
+
+Auer, R., Haslhofer, B., Kitzler, S., Saggese, P., Victor, F., 2024. The technology of
+
+decentralized finance (DeFi). Digit. Financ. 6 (1), 55–95.
+
+Aymanns, Christoph, Dewatripont, Mathias, Roukny, Tarik, 2020. Vertically disinte-
+
+grated platforms SSRN, February.
+
+Baudet, Mathieu, Danezis, George, Sonnino, Alberto, 2020. FastPay: High-performance
+
+Byzantine fault tolerant settlement. arXiv:2003.11506v2 [cs.CR].
+
+Berentsen, Aleksander, Schaer, Fabian, 2020. Bitcoin, Blockchain, and Cryptoassets: A
+
+Comprehensive Introduction. MIT-Press, Cambridge, Massachusetts.
+
+Biais, Bruno, Bisière, Christophe, Bouvard, Matthieu, Casamatta, Catherine, 2019. The
+
+blockchain folk theorem. Rev. Financ. Stud. 32 (5), 1662–1715, 2019.
+
+Boehme, R., Christin, N., Edelman, B., Moore, T., 2015. Bitcoin: Economics. Technol.
+
+Gov. J. Econ. Perspect. 29 (2), 213–238.
+
+Boyd,  John,  Prescott,  Edward,  1986.  Financial  intermediary  coalitions.  J.  Econom.
+
+Theory 38, 211–232.
+
+R. Auer et al.
+
+Journal of Financial Economics 167 (2025) 104026 
+
+Carlsson, Hans, van Damme, Eric E., 1993. Global games and equilibrium selection.
+
+policy analysis. J. Political Econ. 113, 463–484.
+
+Brunnermeier, Markus, Niepelt, Dirk, 2019. On the equivalence of private and public
+
+Brunnermeier,  Markus,  Payne,  Jonathan,  2023.  Strategic  money  and  credit  ledgers.
+
+Budish,  Eric,  2025.  Trust  at  scale:  The  economic  limits  of  cryptocurrencies  and
+
+money. J. Monet. Econ. 106, 27–41.
+
+NBER Working Paper 31561.
+
+blockchains. Q. J. Econ. 140, 1–62.
+
+blog.ethereum.org, 25 November.
+
+Buterin,  V.,  2014a.  Proof  of  stake:  how  I  learned  to  love  weak  subjectivity.
+
+Buterin, Vitalik, 2021. Why sharding is great: demystifying the technical properties.
+
+available at https://vitalik.ca/general/2021/04/07/sharding.html.
+
+Buterin, Vitalik, Weyl, Eric Glen, Ohlhaver, Puja, 2022. Decentralized society: Finding
+web3’s soul. https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4105763.
+Caldarelli, Giulio, 2020. Understanding the blockchain oracle problem: A call for action.
+
+Information 11 (509), http://dx.doi.org/10.3390/info11110509.
+
+Econometrica 61, 989–1018.
+
+Carlsten, M., Kalodner, H., Weinberg, S.M., Narayanan, A., 2016. On the instability
+of bitcoin without the block reward. In: Proceedings of the 2016 ACM SIGSAC
+Conference on Computer and Communications Security. pp. 154–167.
+
+Cavalcanti, Ricardo, Wallace, Neil, 1999a. A model of private bank note issue. Rev.
+
+Econ. Dyn. 2, 104–136.
+
+Cavalcanti,  Ricardo,  Wallace,  Neil,  1999b.  Inside  and  outside  money  as  alternative
+
+media of exchange. J. Money, Credit. Bank. 31, 443–457.
+
+Chiu, Jonathan, Koeppl, Thorsten, 2019. Blockchain-based settlement for asset trading.
+
+Rev. Financ. Stud. 32, 1716–1753.
+
+Chiu, Jonathan, Koeppl, Thorsten, 2020. Payments and the D(ata) N(etwork) A(ctivities)
+
+of BigTech Platforms. Mimeo Queen’s University.
+
+Chiu, Jonathan, Koeppl, Thorsten, 2022. The economics of cryptocurrencies - Bitcoin
+and  beyond.  Can.  J.  Econ.  55  (4),  1762–1798. http://dx.doi.org/10.1111/caje.
+12625.
+
+Cong,  Lin  William,  He,  Zhiguo,  Li,  Jiasun,  2021.  Decentralized  mining  in  central-
+ized pools. Rev. Financ. Stud. 34 (3), 1191–1235. http://dx.doi.org/10.1093/rfs/
+hhaa040, hhaa040.
+
+Deirmentzoglou, E., Papakyriakopoulos, G., Patsakis, C., 2019. A survey on long-range
+
+attacks for proof of stake protocols. IEEE Access 7, 28712–28725.
+
+Diamond, Doug, 1984. Financial intermediation and delegated monitoring. Rev. Econ.
+
+Stud. 51, 393–414.
+
+Easley, D., O’Hara, M., Basu, S., 2019. From mining to markets: the evolution of bitcoin
+
+transaction fees. J. Financ. Econ. 134 (1), 91–109.
+
+Eyal,  I.,  E.G.,  Sirer,  2014.  Majority  is  not  enough:  Bitcoin  mining  is  vulnerable.
+In: R., Christin N. Safavi-Naini (Ed.), Financial Cryptography and Data Security.
+FC  2014.  In:  Lecture  Notes  in  Computer  Science,  vol.  8437,  Springer,  Berlin,
+Heidelberg.
+
+Fanti, Giulia, Kogan, Leonid, Viswanath, Pramod, 2021. Economics of proof-of-stake
+
+payment systems. MIT Sloan Research Paper No. 5845-19.
+
+Fernandez-Villaverde,  Jesus,  Sanches,  Daniel,  Schilling,  Linda,  Uhlig,  Harald,  2020.
+Central  bank  digital  currency:  Central  banking  for  all?  NBER  Working  Papers
+26753.
+
+Froewis, Michael, Boehme, Rainer, 2017. In code we trust? Measuring the control flow
+immutability of all smart contracts deployed in ethereum. In: Garcia-Alfaro, J.,
+Navarro-Arribas, G., Hartenstein, H., Herrera-Joancomarti, J. (Eds.), Data Privacy
+Management. In: Cryptocurrency and Blockchain Technology, vol. 35, Springer, pp.
+7–72.
+
+Garratt, Rodney, Monnet, Cyril, 2023. An impossibility theorem on truth-telling in fully
+decentralized systems. Bank for International Settlements Working Paper 1117.
+Garratt,  Rodney,  van  Oordt,  Maarten  R.C.,  2020.  Why  fixed  costs  matter  for
+proof-of-work based cryptocurrencies. Bank of Canada Working Paper 2020-27.
+Gervais, Arthur, Karame, Ghassan O., Wuest, Karl, Glykantzis, Vasileios, Ritzdorf, Hu-
+bert, Capkun, Srdjan, 2016. On the security and performance of proof of work
+blockchains,  CCS.  In:  Proceedings  of  the  2016  ACM  SIGSAC  Conference  on
+Computer and Communications Security, October.
+
+Goldstein, Itay, Pauzner, Ady, 2005. Demand–deposit contracts and the probability of
+
+Huberman,  Gur,  Leshno,  Jacob,  Moallemi,  Ciamac  C.,  2021.  Monopoly  without  a
+monopolist: An economic analysis of the bitcoin payment system. Rev. Econ. Stud.
+88, 3011–3040.
+
+Hurwicz, Leonid, 2008. But who will guard the guardians? Am. Econ. Rev. 98, 577–585.
+Keister,  Todd,  Monnet,  Cyril,  2020.  Central  bank  digital  currency:  Stability  and
+
+information. Mimeo, Rutgers University.
+
+Kocherlakota, Narayana, 1998. Money is memory. J. Econom. Theory 81, 232–251.
+Kocherlakota, Narayana, Wallace, Neil, 1998. Incomplete record-keeping and optimal
+
+payment arrangements. J. Econom. Theory 81 (2), 272–289.
+
+Kroll, Joshua A., Davey, Ian C., Felten, Edward W., 2013. The economics of bitcoin
+mining, or bitcoin in the presence of adversaries. In: ÊProceedings of WEIS. 2013.
+Lagos,  Ricardo,  Rocheteau,  Guillaume,  Wright,  Randall,  2017.  Liquidity:  A  new
+
+monetarist perspective. J. Econ. Lit. 55, 371–440.
+
+Lagos, Ricardo, Wright, Randall, 2005. A unified framework for monetary theory and
+
+Leland,  H.E,  Pyle,  D.H.,  1977.  Informational  asymmetries,  financial  structure  and
+
+financial intermediation. J. Financ. 32, 371–387.
+
+Leshno,  Jacob,  Strack,  Philipp,  2020.  Bitcoin:  An  axiomatic  approach  and  an
+
+impossibility theorem. Am. Econ. Review: Insights 2, 269–286.
+
+Li,  Yiting,  Wang,  Chien-Chiang,  2019.  Cryptocurrency,  imperfect  information,  and
+
+fraud. Munich Personal RePEc Archive (MPRA) Paper No. 94309.
+
+Luu, Loi, Chu, Duc-Hiep, Olickel, Hrishi, Saxena, Prateek, Hobor, Aquinas, 2016. Mak-
+ing smart contracts smarter. In: Proceedings of the 2016 ACM SIGSAC Conference
+on Computer and Communications Security. pp. 254–269.
+
+Monnet, Cyril, 2006. Private vs public money. Internat. Econom. Rev. 47 (3), 951–960.
+Monnet, Cyril, Quintin, Erwan, 2021. Optimal financial exclusion. Am. Econ. Journal:
+
+Microeconomics 13, 101–134.
+
+Morris, Stephen, Shin, Hyun Song, 1998. Unique equilibrium in a model of self-fulfilling
+
+currency attacks. Am. Econ. Rev. 88, 587–597.
+
+Morris, Stephen, Shin, Hyun Song, 2002. Measuring strategic uncertainty. manuscript
+
+London School of Economics.
+
+Morris, Stephen, Shin, Hyun Song, 2003. Global games: Theory and applications. In:
+Dewatripont, Matthias, Hansen, Lars P., Turnovsky, Stephen J. (Eds.), In: Advances
+in Economics and Econometrics: Proceedings of the Eighth World Congress of the
+Econometric Society, vol. 1, Cambridge University Press, pp. 56–114, chap 3.
+Muthoo, Abhinay, 1999. Bargaining Theory with Applications. Cambridge University
+
+Press, http://dx.doi.org/10.1017/CBO9780511607950.
+
+Nakamoto, Satoshi, 2008. Bitcoin: A peer-to-peer electronic cash system. https://bitcoin.
+
+Pagnotta, Emiliano, 2021. Decentralizing money: bitcoin prices and blockchain security.
+
+org/bitcoin.pdf.
+
+Rev. Financ. Stud. 35, 866–907.
+
+Prat, Julien, Walter, Benjamin, 2018. An equilibrium model of the market for bitcoin
+
+mining. CESifo Group Munich No. 6865.
+
+Rahman,  David,  2012.  But  who  will  monitor  the  monitor?  Am.  Econ.  Rev.  102,
+
+2767–2797.
+
+J. Econ. 37, 645–667.
+
+Rochet, Jean-Charles, Tirole, Jean, 2006. Two-sided markets: a progress report. RAND
+
+Rochet, Jean-Charles, Vives, Xavier, 2004. Coordination failures and the lender of last
+
+resort. J. Eur. Econ. Assoc. 2, 1116–1147.
+
+Rocheteau, Guillaume, Nosal, Ed, 2017. Money, Payments, and Liquidity. MIT Press.
+Saleh,  Fahad,  2021.  Blockchain  without  waste:  Proof-of-stake.  Rev.  Financ.  Stud.
+
+(forthcoming).
+
+106, 16–26.
+
+Schilling, Linda, Uhlig, Harald, 2019. Some simple bitcoin economics. J. Monet. Econ.
+
+Shanaev, Savva Arina Shuraeva, Vasenin, Mikhail, Kuznetsov, Maksim, 2019. Cryptocur-
+rency value and 51% attacks: Evidence from event studies. J. Altern. Investments
+22, 65–77.
+
+Tirole, Jean, 2020. Public and private spheres and the authentic self. Mimeo, Toulouse
+
+School of Economics.
+
+Townsend,  Robert  M.,  2020.  Distributed  Ledgers:  Design  and  Regulation  of  Fi-
+nancial  Infrastructure  and  Payment  Systems.  MIT  Press,  2020.  ISBN  electronic:
+9780262361194.
+
+Williamson, Stephen, 1986. Costly monitoring, financial intermediation and equilibrium
+
+Williamson, Stephen, 1987. Financial intermediation. Financial Intermediation, Business
+
+Williamson, Stephen, Wright, Randall, 2011. New monetarist economics: models. In:
+Friedman, B., Woodford, M. (Eds.), In: Handbook of Monetary Economics, vol. 3A,
+Elsevier, pp. 25–96.
+
+Xu, Xiwei, Pautasso, Cesare, Zhu, Liming, Gramoli, Vincent, Ponomarev, Alexander,
+Tran, An.Binh, Chen, Shiping, 2016. The blockchain as a software connector. In:
+Proceedings of the 13th Working IEEE/IFIP Conference on Software Architecture.
+WICSA, pp. 182–191.
+
+15 
+
+Green, Edward, Porter, Robert, 1984. Noncooperative collusion under imperfect price
+
+credit rationing. J. Monet. Econ. 18, 159–179.
+
+Grossman,  Sanford  J.,  Stiglitz,  Joseph  E.,  1976.  Information  and  competitive  price
+
+Failures, and Real Business Cycles 95, 1196–1216.
+
+bank runs. J. Financ. 60, 1293–1327.
+
+information. Econometrica 52, 87–100.
+
+systems. Am. Econ. Rev. 66, 246–253.
+
+Gu, Chao, Mattesini, Fabrizio, Monnet, Cyril, Wright, Randall, 2013. Banking: A new
+
+monetarist approach. Rev. Econ. Stud. 80, 636–662.
+
+Halaburda, Hanna, He, Zhiguo, Li, Jiasun, 2021. An economic model of consensus on
+
+distributed ledgers. mimeo University of Chicago.
+
+Huang, Angela, 2019. On the number and size of banks: Efficiency and equilibrium.
+
+Mimeo, National University of Singapore.
+
+

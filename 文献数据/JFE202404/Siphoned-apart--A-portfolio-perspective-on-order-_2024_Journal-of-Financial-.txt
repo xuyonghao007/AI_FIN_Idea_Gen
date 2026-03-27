@@ -1,0 +1,8896 @@
+Contents lists available at ScienceDirect
+
+Journal of Financial Economics
+
+journal homepage: www.elsevier.com/locate/jfec
+
+Siphoned apart: A portfolio perspective on order ﬂow segmentation ✩
+Markus Baldauf a,∗, Joshua Mollner b, Bart Zhou Yueshen c
+a University of British Columbia, Sauder School of Business, 2053 Main Mall, Vancouver, BC, V6T 1Z2, Canada
+b Northwestern University, Kellogg School of Management, 2211 Campus Drive, Evanston, IL, 60657, USA
+c Singapore Management University, Lee Kong Chian School of Business, 50 Stamford Road, Singapore, 178899, Singapore
+
+A  R  T  I  C  L  E 
+
+I  N  F  O
+
+A  B  S  T  R  A  C  T
+
+We  study  liquidity  supply  in  fragmented  markets.  Market  makers  intermediate  heterogeneous  order  ﬂows, 
+trading oﬀ spread revenue against inventory costs. Applying our model to payment for order ﬂow (PFOF), we 
+demonstrate that portfolio-based considerations of inventory management incentivize market makers to segment 
+retail orders by siphoning them oﬀ-exchange. Banning order ﬂow segmentation reduces total welfare, can make 
+trading more costly for all investors, and can resolve a prisoner’s dilemma among market makers. These results 
+diﬀerentiate our inventory-based model from the existing information-based theories of PFOF.
+
+Dataset link: https://
+data .mendeley .com /datasets /x44cvwpw9h /1
+
+JEL classiﬁcation:
+D47
+G12
+G18
+G24
+
+Keywords:
+Order ﬂow segmentation
+Payment for order ﬂow
+Inventory management
+Market making
+Retail trading
+
+1.  Introduction
+
+Trade in modern ﬁnancial markets is spread across many venues. 
+Creation of the National Market System in the U.S. in 1975 marked the 
+start of a sustained regulatory eﬀort to create a reliable, integrated ex-
+change trading environment. Yet, an enormous amount of trading still 
+happens oﬀ-exchange—in recent months, nearly half of all equity vol-
+ume. In part, this reﬂects diﬀerences in intermediation costs: investors 
+who tend to be less costly for market makers to intermediate can be of-
+fered better prices if they are segmented into separate venues. But what 
+does this order ﬂow segmentation imply for welfare and liquidity? This 
+
+paper argues that the implications may be nuanced and may depend on 
+why certain investors are less costly to intermediate than others.
+
+There are two reasons for why investors may diﬀer in their inter-
+mediation costs, each relating to one of the two classic frictions in the 
+market microstructure literature: asymmetric information (Glosten and 
+Milgrom, 1985; Kyle, 1985) and inventory costs (Stoll, 1978; Amihud 
+and Mendelson, 1980; Ho and Stoll, 1981, 1983). On the one hand, cer-
+tain orders may be less costly to intermediate because they are less in-
+formed about fundamentals. And several existing studies have analyzed 
+order ﬂow segmentation through this lens. What has so far received 
+less attention in the literature—despite its empirical importance—is the 
+
+✩ Nikolai Roussanov was the editor for this article. This paper beneﬁts tremendously from helpful comments by Robert Battalio (discussant), Eric Budish, Isaías 
+Chaves, Darrell Duﬃe, Naveen Gondhi, Zhiguo He, Shiyang Huang, Vincent van Kervel, Ralph Koijen, John Kuong, Katya Malinova (discussant), Robert McDonald, 
+Maureen O’Hara, Christine Parlour (discussant), Ioanid Ro¸su (discussant), Gideon Saar, Alvaro Sandroni, John Shim, Konstantin Sokolov (discussant), Viktor Todorov, 
+and the seminar and conference participants at AFA, INSEAD, KU Leuven, Maastricht University, Monash University, Nanyang Technological University, NFA, 
+SAFE Market Microstructure Conference, Singapore Management University, Texas Finance Festival, and Tilburg University. We also appreciate greatly insightful 
+conversations with industry participants. Markus Baldauf gratefully acknowledges support by the Social Sciences and Humanities Research Council of Canada (Insight 
+Grant #435-2021-1142), and he would like to thank the University of Chicago, Booth School of Business, where he was visiting when large parts of this paper were 
+written. We have no competing ﬁnancial interests.
+* Corresponding author.
+
+E-mail addresses: baldauf@mail.ubc.ca (M. Baldauf), joshua.mollner@kellogg.northwestern.edu (J. Mollner), b@yueshen.me (B.Z. Yueshen).
+
+https://doi.org/10.1016/j.jﬁneco.2024.103807
+Received 24 August 2022; Received in revised form 1 February 2024; Accepted 7 February 2024
+
+JournalofFinancialEconomics154(2024)103807Availableonline21February20240304-405X/©2024TheAuthor(s).PublishedbyElsevierB.V.ThisisanopenaccessarticleundertheCCBY-NC-NDlicense(http://creativecommons.org/licenses/by-nc-nd/4.0/).M. Baldauf, J. Mollner and B.Z. Yueshen
+
+other possibility: that certain orders may be less costly to intermediate 
+because they tend to be less correlated in direction with the other or-
+ders in a market maker’s portfolio.1 This paper aims to ﬁll that gap. 
+The analysis introduces a portfolio perspective on order ﬂow manage-
+ment, which underlies an inventory-based incentive to segment orders. 
+We obtain additional predictions regarding liquidity and welfare. We 
+also discuss implications for the potential consequences of regulatory 
+intervention.
+
+We ﬁrst study a baseline model in Section 2, where order ﬂow seg-
+mentation  is  taken  as  given:  order  ﬂows  from  various  sources  (e.g., 
+retail  investors  or  institutions)  are  exogenously  split  across  market-
+places. These various marketplaces can represent exchanges, “upstairs” 
+block trading, or many other forms of segmentation. Yet another form 
+of order ﬂow segmentation is payment for order ﬂow (PFOF), a com-
+mon order-handling practice in which retail orders are routed directly 
+to market makers, who typically execute them against their own bal-
+ance sheets. In Sections 3 and 4, we specialize the model to the setting 
+of PFOF, where we show how considerations of inventory cost can cause 
+this practice to arise endogenously.
+
+Baseline model. A single asset is traded on a ﬁxed number of market-
+places,  where  the  volume  of  liquidity-demanding  orders  arriving  to 
+each marketplace is price-elastic (i.e., elastic with respect to the bid-
+ask  spread).  A  key  characteristic  of  a  marketplace  is  its  order  ﬂow 
+directionality, which determines the probability with which each or-
+der arriving there is a buy or a sell. These directionalities are modeled 
+as random variables with an arbitrary joint distribution, and they cap-
+ture order correlation within and across marketplaces. Such correlation 
+can arise, for example, from the splitting of large institutional parent 
+orders into child orders or from sentiment-driven trading by retail in-
+vestors. A continuum of market makers choose liquidity supplies—the 
+expected numbers of orders that they will receive in each marketplace—
+balancing expected revenues from bid-ask spreads against quadratic in-
+ventory costs. An equilibrium consists of liquidity supplies and spreads 
+for each marketplace such that (i) each market maker’s liquidity sup-
+plies are optimal given the spreads, and (ii) each spread clears liquidity 
+demand and supply in its marketplace.
+
+A key insight from the baseline model is that market makers must 
+consider their liquidity-supply decisions across marketplaces as a port-
+folio: the correlation structure of directionalities determines the extent 
+to which order ﬂows will oﬀset, hence the expected inventory cost of 
+marginal  orders.  In  fact,  the  market  maker’s  problem  is  tightly  con-
+nected to the optimization problem in standard portfolio theory. Our 
+analysis highlights that portfolio considerations matter even for inven-
+tory management of a single asset.
+
+The  importance  of  inventory  considerations  in  general—and  of  a 
+portfolio  perspective  in  particular—is  consistent  with  recent  empiri-
+cal evidence. Daures-Lescourret and Moinas (2023) show that after a 
+shock to her inventory from an execution on one venue, a market mak-
+er’s liquidity supply on the same (opposite) side becomes less (more) 
+aggressive on all venues. Barardehi et al. (2024) argue that market mak-
+ers treat retail orders diﬀerently, depending on institutional liquidity 
+demand imbalances. Portfolio-based inventory considerations also ex-
+plain two other facts: (i) Eaton et al. (2022) ﬁnd that outage-induced 
+reductions in Robinhood retail activity improve on-exchange liquidity 
+supply (while outages of other brokers harm liquidity), and (ii) Schwarz 
+et al. (2023) experimentally document that Robinhood clients receive 
+less price improvement than clients of other retail brokers (E*Trade, 
+Fidelity, TD Ameritrade). An explanation for both ﬁndings is that Robin-
+hood order ﬂow tends to exacerbate inventory imbalances: compared 
+with order ﬂows from other retail brokerages, Robinhood orders are 
+
+more concentrated (Barber et al., 2022) and more correlated with past 
+returns (Eaton et al., 2022).
+
+Application  to  PFOF. Whereas  order  ﬂow  segmentation  is  exogenous 
+in the baseline model, we next investigate how it might endogenously
+arise, for example, in the form of PFOF.2 Section 3 considers a setting 
+with two marketplaces, on-exchange and oﬀ-exchange, and two order 
+sources, 𝑅 and 𝐼 , for retail and institutional. 𝐼 -orders must clear on-
+exchange,  but  an  endogenous  fraction  of  𝑅-orders  may  be  siphoned 
+oﬀ-exchange. This siphoning endogenously aﬀects both the characteris-
+tics of on-exchange order ﬂow and the correlation between on-exchange 
+and oﬀ-exchange order directionalities—and in turn, equilibrium vol-
+umes and bid-ask spreads as well.
+
+Depending on parameters, the equilibrium entails either (i) both 𝑅-
+and 𝐼 -orders clearing on-exchange (i.e., a “no-siphoning” equilibrium) 
+or (ii) all  𝑅-orders siphoned oﬀ-exchange, leaving only  𝐼 -orders on-
+exchange (i.e., a “with-siphoning” equilibrium). To see how siphoning 
+arises, conjecture an equilibrium in which all orders clear on-exchange. 
+This implies a speciﬁc portfolio of 𝑅- and 𝐼 -orders for market mak-
+ers.  A  market  maker  might,  however,  beneﬁt  if  she  could  alter  the 
+composition  of  𝑅- and  𝐼 -orders  in  her  portfolio—due  to  diﬀerences 
+in the orders’ characteristics, like their arrival rates and directionali-
+ties. In particular, if it is beneﬁcial to obtain more 𝑅-orders, they can 
+be siphoned oﬀ-exchange with the promise of a slightly smaller spread. 
+Doing so destroys the conjectured no-siphoning equilibrium, yielding a 
+with-siphoning equilibrium instead.
+
+We characterize the exact condition that separates the two regions 
+of parameters. In words, the with-siphoning region is precisely where 
+𝑅-orders  contribute  less  to  inventory  costs  (at  the  margin)  than  𝐼 -
+orders do. For example, this happens when 𝑅-order ﬂow tends to be 
+suﬃciently well balanced between buys and sells. In this case, market 
+makers ﬁnd 𝑅-orders more attractive and siphon them oﬀ-exchange as 
+a result. We argue in Section 3.3 that the realistic parameter values 
+lie in this with-siphoning region, which is consistent with the fact that 
+“in the equity markets right now, if you place a [retail] market order, 
+90–95 percent do not go to the lit exchanges, do not go to Nasdaq or 
+New York Stock Exchange; they go to wholesalers” (Gensler, 2022).
+
+Most existing models of PFOF analyze it through the lens of asym-
+metric information, as in Easley et al. (1996) and Battalio and Holden 
+(2001). These models view retail orders as less informed than institu-
+tional orders, meaning that they create less adverse selection and can 
+therefore be cleared at a smaller spread if siphoned oﬀ-exchange. Our 
+model proposes an entirely diﬀerent mechanism: retail orders may con-
+tribute less to—and may even reduce—market makers’ inventory risk. 
+As we discuss below, this diﬀering mechanism implies diﬀerent predic-
+tions and diﬀerent policy implications.
+
+One set of predictions concerns the consequences of banning oﬀ-
+exchange retail trading (hereafter, a “segmentation ban”) on spreads, 
+market maker proﬁts, and total welfare. Our analysis adds to the ongo-
+ing policy debate regarding PFOF. While the practice is widely preva-
+lent in the U.S., it would be aﬀected by new rules that the SEC has 
+recently proposed (SEC, 2022). In Europe, the issue remains contentious 
+(Reuters, 2023).
+
+When a segmentation ban has an eﬀect (i.e., in the with-siphoning 
+region of the parameter space), the model predicts that it harms  𝑅-
+investors, in the sense that it leads them to pay a larger spread. One 
+might  think  such  a  ban  would  entail  a  countervailing  beneﬁt  for  𝐼 -
+investors—however, this is not necessarily so. Rather, for certain pa-
+rameters, 𝐼 -investors are also harmed. When segmentation is banned 
+and 𝑅-investors face a larger spread, fewer 𝑅-investors opt to trade. If 
+
+1 Indeed, the staﬀ report of SEC (2021) states that “[retail] orders are more 
+likely to be small, uncorrelated with one another, and thus ‘one and done’ (i.e., 
+not the ﬁrst in a series of orders intended to transact a large amount of stock), 
+which also allows for a tighter spread.”
+
+2 In practice, PFOF may refer to either (i) the practice whereby retail orders 
+are routed directly to market makers and executed oﬀ-exchange, or (ii) the 
+payment transferred from market makers to retail brokers for such a purpose. 
+In this paper, PFOF refers primarily to (i). We do not model the payment (ii) 
+both for parsimony and because it tends to be very small (Schwarz et al., 2023).
+
+JournalofFinancialEconomics154(2024)1038072M. Baldauf, J. Mollner and B.Z. Yueshen
+
+𝑅-orders are suﬃciently eﬀective for hedging 𝐼 -orders, this leads mar-
+ket makers to anticipate ending with a larger net inventory imbalance, 
+and  they  set  a  larger  on-exchange  spread  to  compensate.  Moreover, 
+there is reason to think that this is not only a theoretical possibility, 
+but  in  fact  the  empirically-relevant  case:  Evidence  from  Jones  et  al. 
+(2023) suggests that retail order imbalances negatively correlate with 
+institutional imbalances, hence are eﬀective for hedging against them.
+
+These predictions reveal an interesting comparison with the existing 
+information-based models of PFOF. These models posit that 𝑅-investors 
+pay  a  smaller  spread  when  siphoned  oﬀ-exchange  because  they  are 
+less informed than 𝐼 -investors (i.e., create less adverse selection). By 
+pooling both investor types, a segmentation ban would lead to an inter-
+mediate spread, harming 𝑅-investors while unambiguously beneﬁting
+𝐼 -investors. In contrast, our theory makes a more nuanced prediction 
+for 𝐼 -investors. And although our theory makes the same prediction for 
+𝑅-investors, it is for an entirely diﬀerent reason: not because their or-
+ders are less informed but rather because they contribute less inventory 
+risk.
+
+Turning to market maker proﬁtability, the model reveals that PFOF 
+can sometimes function as a prisoner’s dilemma: although each market 
+maker has a unilateral incentive to siphon 𝑅-orders oﬀ-exchange, their 
+collective siphoning creates a pecuniary externality, which may lead 
+them to be worse oﬀ in equilibrium than if the practice were banned. In 
+this way, our theory rationalizes market makers’ seeming ambivalence 
+toward regulatory discussions of bans on PFOF (and the order ﬂow seg-
+mentation that PFOF entails).3
+
+A  segmentation  ban  unambiguously  reduces  total  welfare  in  our 
+model. This is because, absent a segmentation ban, the equilibrium in 
+fact  leads  to  the  welfare-maximizing  quantities  of  𝑅- and  𝐼 -investor 
+volume, essentially by the First Welfare Theorem. By constraining mar-
+ket makers’ liquidity-supply decisions, a segmentation ban distorts out-
+comes and necessarily reduces welfare. This analysis identiﬁes a novel 
+channel through which regulatory restrictions on PFOF might harm wel-
+fare, via market makers’ inventory considerations.
+
+Related  literature. Our  paper  contributes  to  two  strands  of  literature. 
+First,  a  theoretical  literature  has  studied  market  fragmentation  from 
+various angles: investors’ venue choices (Pagano, 1989, Chowdhry and 
+Nanda, 1991, Babus and Parlatore, 2022); competition among venue 
+operators (Pagnotta and Philippon, 2018, Chao et al., 2019, Baldauf 
+and Mollner, 2020, Cespa and Vives, 2022); information and price dis-
+covery  (Ye  and  Zhu,  2020,  Zhu,  2014);  speed  and  latency  arbitrage 
+(Foucault and Menkveld, 2008; Kervel, 2015); and price impact (Chen 
+and Duﬃe, 2021). In the work closest to ours, Daures-Lescourret and 
+Moinas (2023), as we do, speak to liquidity supply across exogenously 
+fragmented exchanges in a setting with inventory frictions. Diﬀerent 
+from their paper, our model highlights that such inventory concerns, in 
+fact, endogenously incentivize market makers to siphon certain orders 
+oﬀ-exchange.
+
+Second, our application to PFOF contributes to the theoretical liter-
+ature on the practice. Battalio and Holden (2001) argue that PFOF and 
+internalization can arise when orders’ veriﬁable characteristics are cor-
+related with informedness. This is consistent with evidence from Easley 
+et al. (1996), who estimate that orders on the main exchange (NYSE) are 
+more likely to be informed than those diverted to the regional exchange 
+(Cincinnati).  More  recently,  Yang  and  Zhu  (2020) show  that  “back-
+runners” like high-frequency trading ﬁrms may be willing to pay for 
+retail ﬂows because doing so enables them to learn about institutional 
+ﬂows, infer the information driving those ﬂows, and earn subsequent 
+trading proﬁts. The above explanations share a common feature: they 
+all analyze PFOF through information-based channels, like adverse se-
+
+3 For example, Ken Griﬃn (CEO of Citadel) has said, “Payment for order ﬂow 
+is a cost to me. So if you’re going to tell me that by regulatory ﬁat one of my 
+major items of expense disappears, I’m OK with that” (Financial Times, 2021).
+
+lection and learning. Our model departs from this focus on information, 
+turning instead to inventory risk as the key friction.
+
+Various other dimensions of PFOF have also been explored theo-
+retically.  Chordia  and  Subrahmanyam  (1995) show  that  order  ﬂows 
+migrate from exchange (NYSE) to oﬀ-exchange (non-NYSE) via PFOF 
+when  discrete  ticks  constrain  market  makers’  price  competition. 
+Hagerty and McDonald (1996) analyze a broker’s optimal portfolio of 
+informed and uninformed clientele. Kandel and Marx (1999) explicitly 
+study brokers’ order-handling decisions: sending to the exchange (via 
+Nasdaq’s Small Order Execution System), selling to market makers via 
+PFOF, or internalizing (vertical integration). Parlour and Rajan (2003)
+argue that PFOF can serve as an anticompetitive device, raising market 
+maker proﬁts. Glode and Opp (2016) argue that pre-trading order ﬂow 
+agreements, like PFOF, can sustain intermediation chains that reduce 
+information asymmetry and improve eﬃciency.
+
+On the empirical side, our model connects to the recent, growing lit-
+erature studying new developments in retail trading. Jain et al. (2023)
+document how the rise of zero-commission retail brokers changed var-
+ious volume shares, for example, across brokers or between exchanges 
+and wholesale market makers. Adams and Kasten (2021) study the ex-
+ecution quality of small orders in the zero-commission regime. Ernst 
+and Spatt (2022) ﬁnd that retail brokers receive larger PFOF payments 
+in options than equities, meaning that they have an incentive to sway 
+retail investors to the options market.
+
+Our model also relates to the economics literature on price discrim-
+ination  in  competitive  environments,  surveyed  by  Stole  (2007).  One 
+interesting  feature  of  our  model  is  that  it  is  possible  for  price  dis-
+crimination to lower spreads for all investors. This cannot happen in 
+the classic model of third-degree oligopolistic price discrimination of 
+Holmes (1989), which features two ﬁrms and two consumer groups (the 
+“weak”  and  “strong”  markets).  However,  Corts  (1998) demonstrates 
+that if the competing ﬁrms diﬀer in which markets they consider strong 
+versus weak, then it is possible for price discrimination to lower prices 
+in both markets, a phenomenon he calls “all-out competition.”
+
+2.  A model of liquidity supply
+
+2.1.  Setup
+
+Overview. A  single  asset  is  traded  on  multiple  marketplaces.  Its  fair 
+value—the  common  component  of  its  value—is  constant  and  known 
+to all. Liquidity-taking orders arriving at these marketplaces are met by 
+liquidity-supplying market makers, at bid-ask spreads that clear each 
+market. We assume away information asymmetry so as to mute chan-
+nels already analyzed by previous literature. That is, all liquidity-taking 
+orders are submitted for non-fundamental, private-value reasons.
+
+Marketplaces and order ﬂows. Marketplaces are indexed 𝑗 ∈ {1, … , 𝐽 }. 
+For  simplicity,  we  model  these  marketplaces  as  clearing  simultane-
+ously,  at  a  single  point  in  time.4 Appendix C considers  dynamics, 
+showing that our main conclusions carry over to a two-period version 
+of  the  model.  For  each  marketplace 𝑗,  let  𝑠𝑗 ≥ 0 be  its  half  bid-ask 
+spread, which will be determined endogenously in equilibrium.5 We 
+write 𝒔 ∶= (𝑠
+.  As  a  convention,  bold  letters  denote  vectors 
+(always columns) or matrices. A continuum of liquidity-demanding or-
+ders with measure 𝜆𝑗 (𝑠𝑗 ) arrives at marketplace 𝑗, with 𝜆𝑗 (⋅) decreasing 
+and nonnegative.
+
+, … , 𝑠𝐽 )⊤
+
+1
+
+4 An alternative but equivalent way to think about our model is that trading 
+occurs over a continuous interval, with prices held ﬁxed over that interval. 
+Hendershott and Mendelson (2000) adopt a similar approach.
+5 Because our primary focus will be on symmetric settings, in which order 
+directionality is not predictable ex ante and market makers have zero initial 
+inventory, each marketplace’s midpoint (if we were to endogenize it) would be 
+naturally at the fair value of the asset, leaving only the spread to be determined. 
+This is why our analysis can focus only on the spreads.
+
+JournalofFinancialEconomics154(2024)1038073M. Baldauf, J. Mollner and B.Z. Yueshen
+
+Remark 1. For example, a model of PFOF might entail 𝐽 = 2 market-
+places, with one as the exchange and the other as oﬀ-exchange execu-
+tion on market makers’ own balance sheets. In general, a marketplace 
+can represent any trading venue where prices are determined by market 
+clearing—including limit order books, periodic auctions, exchanges’ re-
+tail liquidity programs, and the market for block trading. On the other 
+hand, the marketplaces of our model are less appropriate for capturing 
+venues where prices are determined in other ways—including midpoint 
+dark pools and workup sessions.
+
+(1 + 𝐷𝑗 ) and 1
+2
+
+Order directions. Each order arriving on marketplace 𝑗 is independently 
+either  a  one-unit  buy  or  a  one-unit  sell,  with  respective  probabili-
+ties 1
+(1 − 𝐷𝑗 ), where 𝐷𝑗 ∈ [−1, 1] captures the average 
+2
+direction of the marketplace’s order ﬂow. The vector of directionalities 
+𝑫 ∶= (𝐷
+is  random,  with  mean  and  variance  denoted 
+𝝁 = 𝔼[𝑫] and  𝚺 = var[𝑫],  respectively.  We  assume 𝚺 is  positive-
+deﬁnite.
+
+, … , 𝐷𝐽 )⊤
+
+, 𝐷
+
+1
+
+2
+
+Remark 2. Directionalities capture the possibility of correlation among 
+orders. In reality, orders may be correlated due to several mechanisms. 
+One is trading on private information about fundamentals. Yet, given 
+our focus on inventory frictions, our model better ﬁts correlation driven 
+by forces other than private information. For example, correlation can 
+arise from the splitting of large institutional parent orders placed for 
+non-informational reasons like portfolio rebalancing, portfolio transi-
+tion, and fund ﬂows. Several datapoints help quantify the importance of 
+large, non-informational institutional trades. Index additions and dele-
+tions are a source of such trades, because they cause index funds and 
+other investors to adjust their holdings for mechanical reasons, and they 
+lead to a signiﬁcant increase in trading volume (e.g., Harris and Gurel, 
+1986; Greenwood, 2005). In the data of Kyle and Obizhaeva (2016), an 
+average portfolio transition accounts for 4.20% of corresponding stocks’ 
+daily trading volume, and this number increases to 16.23% for small 
+stocks. Coval and Staﬀord (2007) ﬁnd that ﬂows out of (or into) mutual 
+funds can result in severe uninformed ﬁre selling (or purchasing), and 
+such fund ﬂows amount to as much as 13.9% (Israeli data, Ben-Rephael 
+et al., 2011) or 19.19% (U.S. data, Ben-Rephael et al., 2012) of total 
+trading volume in the market. Furthermore, non-informational correla-
+tion can also arise when retail investors coordinate on online platforms 
+(e.g., “WallStreetBets” on Reddit) or herd on the same market senti-
+ment.
+
+Microfoundation. The downward-sloping liquidity demand 𝜆𝑗 (⋅) can be 
+microfounded  as  follows.  Assume  that  order  ﬂow  on  marketplace 𝑗
+originates  from  a  continuum  of  investors  with  measure 𝜅𝑗 .  Each  in-
+vestor submits a one-unit immediate-or-cancel (IOC) order with a limit 
+price reﬂecting her private value for the asset—this order will be mar-
+ketable only if the private value is extreme enough, exceeding the half 
+spread 𝑠𝑗 . Her private value is positive with probability 1
+(1 + 𝐷𝑗 ) (and 
+2
+negative otherwise) and its magnitude is drawn i.i.d. from c.d.f. 𝐹𝑗(⋅). 
+We then obtain the decreasing aggregate liquidity demand 𝜆𝑗 (𝑠𝑗 ) ∶=
+𝜅𝑗 ⋅
+
+)
+1 − 𝐹𝑗 (𝑠𝑗 )
+
+(
+
+.
+
+Liquidity supply. A continuum of market makers, indexed 𝑚 ∈ [0, 𝑀], 
+compete to provide liquidity on all 𝐽 marketplaces.6 Before 𝑫 realizes, 
+each market maker 𝑚 chooses her liquidity supply 𝑥𝑚𝑗 for each market-
+place 𝑗, taking as given the half spreads 𝒔, to maximize her expected 
+proﬁt described below. The number of randomly-assigned orders that 
+market maker 𝑚 will receive on marketplace 𝑗 is a Poisson-distributed 
+, … , 𝑥𝑚𝐽 )⊤
+random variable with expectation 𝑥𝑚𝑗 . We write 𝒙𝑚 ∶= (𝑥𝑚1
+.
+
+6 While in reality the market making sector is composed of a handful of large 
+wholesale market makers (Citadel, Virtu, etc.), we model them as a continuum 
+to simplify the analysis by ensuring price-taking behavior.
+
+Remark  3. The  interpretation  of 𝑥𝑚𝑗 may  depend  on  what  market-
+place 𝑗 represents. For example, if 𝑗 refers to an exchange, then 𝑥𝑚𝑗
+can represent a market maker’s posted limit orders. Alternatively, 𝑥𝑚𝑗
+can reﬂect the “groundwork” that a market maker needs to lay before 
+trading starts, like the allocation of computational power, bandwidth, 
+and staﬃng, data subscription fees, regulatory and compliance costs, 
+etc. If 𝑗 refers to market makers’ siphoning of retail orders, then 𝑥𝑚𝑗
+can refer to market maker 𝑚’s negotiations with brokers over the terms 
+at which retail orders will be processed. In each of these situations, the 
+number of orders that a market maker would in practice receive is ran-
+dom, determined by how many liquidity-demanding investors happen 
+to arrive over the relevant interval of time. This is why we model 𝑥𝑚𝑗
+as determining a random (rather than deterministic) number of orders 
+that market maker 𝑚 receives from marketplace 𝑗. In fact, the Pois-
+son distribution that we assume would be exactly correct if the market 
+maker were to receive liquidity-demanding orders at a constant rate 
+over a ﬁxed time interval. By letting market makers choose liquidity 
+supplies 𝒙𝑚, we eﬀectively base our model of liquidity supply on quan-
+tity competition rather than price competition. Empirical evidence, e.g., 
+from Brogaard and Garriott (2019), supports such a view.
+
+Market  maker  proﬁts. A  market  maker’s  proﬁt  has  two  components: 
+spread revenue and inventory cost.7 Let 𝑄𝑚𝑗 and 𝑍𝑚𝑗 denote, respec-
+tively, market maker 𝑚’s realized volume and realized net inventory 
+from supplying liquidity to marketplace 𝑗. For example, 2 buy and 3 sell 
+orders would yield volume 𝑄𝑚𝑗 = 2 + 3 and net inventory 𝑍𝑚𝑗 = −2 + 3. 
+Each unit of volume earns her the half-spread 𝑠𝑗 . We assume the inven-
+tory cost is quadratic, with 𝛾 > 0 as a common scaling parameter. Ex 
+ante both 𝑄𝑚𝑗 and 𝑍𝑚𝑗 are random, with distributions depending on 
+her liquidity supply 𝑥𝑚𝑗 . Therefore, her expected proﬁt
+[
+
+]
+
+𝑍𝑚𝑗
+
+(1)
+
+( 𝐽∑
+
+)
+2
+
+𝔼
+
+𝐽∑
+
+𝑗=1
+
+𝑄𝑚𝑗 𝑠𝑗 −
+
+𝛾
+
+2
+
+𝑗=1
+
+is an endogenous function of the liquidity supply choices 𝒙𝑚.
+
+Equilibrium deﬁnition. An equilibrium consists of liquidity supplies 𝒙𝑚
+for  each  market  maker 𝑚 and  a  half  spread  𝑠𝑗
+for  each  market-
+place 𝑗, such that (i) each market maker 𝑚’s 𝒙𝑚 maximizes her expected 
+proﬁt (1), and (ii) market clearing holds for each marketplace 𝑗:8
+
+𝑀
+
+∫
+0
+
+𝑥𝑚𝑗 d𝑚 = 𝜆𝑗 (𝑠𝑗 ), ∀𝑗 ∈ {1, … , 𝐽 }.
+
+(2)
+
+2.2.  Equilibrium characterization
+
+We ﬁrst express a market maker’s expected proﬁt (1) as a function 
+of her liquidity supplies 𝒙𝑚. Suppose she has chosen 𝑥𝑚𝑗 , meaning that 
+her volume 𝑄𝑚𝑗 is Poisson distributed with mean 𝑥𝑚𝑗 . She therefore 
+]
+[
+expects spread revenue of 𝔼 
+= 𝑥𝑚𝑗 𝑠𝑗 from marketplace 𝑗. Her 
+𝑄𝑚𝑗 𝑠𝑗
+net inventory from marketplace 𝑗 can be written
+
+𝑍𝑚𝑗 =
+
+𝑄𝑚𝑗∑
+
+𝑖=1
+
+(−1)
+
+𝐵𝑖𝑚𝑗 ,
+
+(3)
+
+7 Market makers’ inventory costs can arise from risk aversion, price impact 
+in portfolio rebalancing, capital pledged to clearing houses, or a moral haz-
+ard problem between market makers and their ﬁnanciers (Bruche and Kuong, 
+2021).
+8 In formulating this market-clearing condition, we follow convention in as-
+suming an exact law of large numbers over a continuum of independent random 
+variables. See Duﬃe et al. (2023) for a rigorous formulation.
+
+JournalofFinancialEconomics154(2024)1038074M. Baldauf, J. Mollner and B.Z. Yueshen
+
+(
+
+)
+
+𝐵𝑖𝑚𝑗
+
+are i.i.d. Bernoulli draws with success rate 1
+(1 + 𝐷𝑗 ). 
+where
+2
+𝑍𝑚𝑗 , where, to eval-
+Total net inventory across all marketplaces is 
+uate her quadratic inventory cost, we need the expectation of its square.
+
+∑𝐽
+
+𝑗=1
+
+Lemma 1. A market maker 𝑚’s expected squared inventory is
+
+(
+⎡
+⎢
+⎢
+⎣
+
+𝐽∑
+
+𝑗=1
+
+𝔼
+
+)2⎤
+⎥
+⎥
+⎦
+
+𝑍𝑚𝑗
+
+= 𝒙⊤
+
+𝑚𝟏 + 𝒙⊤
+𝑚
+
+(
+
+𝚺 + 𝝁𝝁⊤
+
+)
+
+𝒙𝑚,
+
+where 𝟏 is a length-𝐽 column vector of ones.
+
+]
+
+[
+
+]
+
+To understand Lemma 1, consider the special case with only one 
+marketplace 𝑗 and only sell orders (i.e., 𝜎𝑗 = 0 and 𝜇𝑗 = −1). Because 
+all orders are to sell, a market maker’s realized inventory 𝑍𝑚𝑗 equals 
+her volume 𝑄𝑚𝑗 , which is a Poisson random variable with mean 𝑥𝑚𝑗 . 
+[
+𝑍2
+Hence, expected squared inventory is 𝔼 
+=
+𝑚𝑗
+𝑥𝑚𝑗 + 𝑥2
+𝑚𝑗 , consistent with Lemma 1. For general values of 𝜎𝑗 and 𝜇𝑗 , 
+[
+𝑍2
+we derive in the proof that 𝔼 
+𝑚𝑗 . Intuitively, 
+𝑚𝑗
+potential  for  both  buying  and  selling,  on  the  one  hand,  allows  cer-
+tain oﬀsetting in the net inventory 𝑍𝑚𝑗 , thus lowering the 𝑥2
+𝑚𝑗 term 
+to 𝑥2
+𝑗 ; but on the other hand, randomness in the composition of buys 
+versus sells creates additional variation, thus adding the term 𝑥2
+𝑚𝑗 𝜎2
+𝑗 . 
+With multiple marketplaces, the expectation of the square of total in-
+ventory is as stated in Lemma 1.
+
+= 𝑥𝑚𝑗 + (𝜎2
+
+[
++ 𝔼 
+
+𝑗 + 𝜇2
+
+𝑚𝑗 𝜇2
+
+𝑗 )𝑥2
+
+= var
+
+𝑍𝑚𝑗
+
+𝑍𝑚𝑗
+
+]
+
+]
+
+2
+
+Using Lemma 1, therefore, we can write the market maker’s opti-
+
+mization problem as9
+𝛾
+
+)
+
+𝛾
+
+(
+𝒔 −
+
+𝒙⊤
+𝑚
+
+max
+𝒙𝑚
+
+𝟏
+
+2
+
+−
+
+2
+
+(
+𝚺 + 𝝁𝝁⊤
+
+)
+
+𝒙𝑚.
+
+𝒙⊤
+𝑚
+
+(4)
+
+Because the optimization problem (4) is quadratic, ﬁrst-order condi-
+tions yield the market maker’s optimal liquidity supplies
+𝛾
+
+)
+
+(
+𝚺 + 𝝁𝝁⊤
+
+)−1
+
+(
+𝒔 −
+
+𝒙𝑚 =
+
+1
+𝛾
+
+𝟏
+
+.
+
+2
+
+(5)
+
+The equilibrium half spreads 𝒔 can then be pinned down via the market-
+clearing condition (2).
+
+Proposition 1 (Equilibrium liquidity supply). There exists a unique equilib-
+𝒔
+rium,  where 
+the  unique  solution  of
+)
+(
+𝑀
+𝚺 + 𝝁𝝁⊤
+; and where each mar-
+𝛾
+ket maker 𝑚’s liquidity supply 𝒙𝑚 is given by (5), which moreover satis-
+ﬁes 𝒙𝑚 ≥ 𝟎.
+
+the  half  spreads
+(
+)
+𝒔 −
+1(𝑠
+𝟏
+
+are 
+1), … , 𝜆𝐽 (𝑠𝐽 )
+
+)⊤
+
+=
+
+−1
+
+𝜆
+
+(
+
+2
+
+𝛾
+
+2.3.  Connections to portfolio theory
+
+The objective (4) resembles the optimization problem in standard 
+
+portfolio theory:
+)
+(
+
+𝒘⊤
+
+𝒓 − 𝑟
+f
+
+𝟏
+
+𝑎
+
+𝒘⊤𝚺𝑟𝒘,
+
+2
+
+−
+
+max
+𝒘
+where,  ﬁxing  the  risk-free  rate 𝑟
+f,  an  investor  with  risk-aversion  co-
+eﬃcient 𝑎 chooses a weight vector 𝒘 over risky assets with expected 
+returns 𝒓 and  variances 𝚺𝑟.  Analogously,  our  market  makers  choose 
+liquidity-supply portfolios 𝒙𝑚 for a single asset.
+
+)
+
+𝚺𝑟
+
+𝒓 − 𝑟
+f
+
+The  solution  to  this  standard  portfolio  problem  is  𝒘∗ =
+(
+1
+. Naturally, our expression for the optimal supply (5) re-
+𝑎
+sembles  it.  Portfolio  theory,  therefore,  also  suggests  an  intuition  for 
+equation (5). In choosing her optimal portfolio, an investor trades oﬀ 
+
+𝟏
+
+9 We do not require the liquidity supplies 𝒙𝑚 to be nonnegative, although 
+they always are in the unique equilibrium characterized by Proposition 1. For 
+example, 𝑥𝑚𝑗 < 0 might be interpreted as the market maker demanding liquidity 
+on marketplace 𝑗 by crossing the spread.
+
+𝒘⊤
+√
+
+f
+
+𝒓−𝑟
+𝟏
+𝒘⊤𝚺𝑟𝒘
+
+the beneﬁt from the assets’ expected returns 𝒘⊤𝒓 against two sources 
+of  cost:  (i)  the  opportunity  cost  of  not  investing  in  the  risk-free  as-
+𝒘⊤𝚺𝑟𝒘. In optimizing 
+set 𝒘⊤𝑟
+f
+(
+
+𝟏 and (ii) the portfolio’s return risk
+
+𝑎
+2
+
+)
+
+𝛾
+
+2
+
+2
+
+)
+
+(
+
+𝟏)
+
+√
+
+𝟏 +
+
+𝚺 + 𝝁𝝁⊤
+
+her portfolio, the investor maximizes the Sharpe ratio 
+then 
+scales according to her risk aversion 𝑎. In our setup, a market maker 
+trades oﬀ the beneﬁt from the spread revenues 𝒙⊤
+𝑚𝒔 against the expected 
+𝛾
+𝒙⊤
+inventory cost 𝒙⊤
+𝒙𝑚 (see Lemma 1). To obtain her 
+𝑚
+𝑚
+optimal liquidity supply (5), a market maker maximizes a similar ratio 
+then scales according to the inventory cost parameter 𝛾.
+
+𝛾
+𝒙⊤
+𝑚(𝒔−
+2
+𝒙⊤
+𝑚(𝚺+𝝁𝝁⊤)𝒙𝑚
+As  another  connection,  our  equilibrium  half  spreads 𝒔 are  deter-
+mined via market clearing (as in (2)), similar to how equilibrium ex-
+pected returns 𝒓 are determined in, e.g., CAPM. One key diﬀerence is 
+that, in our model, market makers face spread-elastic liquidity demand 
+(𝜆𝑗 (⋅) is downward-sloping), while in CAPM, the assets are in inelas-
+tic ﬁxed supplies. This is because whereas every agent in CAPM faces 
+a portfolio problem, in our model, only the liquidity-supplying market 
+makers do (the liquidity-demanding investors do not).10
+
+3.  Endogenous order ﬂow segmentation
+
+We next adapt our general model of liquidity supply to the setting of 
+PFOF, highlighting how the economic forces that we model can cause 
+order ﬂow segmentation to arise endogenously.
+
+3.1.  Setup
+
+To capture PFOF, we model two types of investors: institutional and 
+retail. In particular, retail orders can be executed either on-exchange 
+or oﬀ-exchange (albeit at a spread no worse than that on-exchange). 
+This  corresponds  to  a  version  of  the  model  described  in  Section 2.1
+with 𝐽 = 2 marketplaces whose order ﬂows are an endogenous mixture 
+of retail and institutional orders.
+
+Investors and their liquidity demand. The two types of liquidity-demand-
+ing  investors  are  labeled  𝑘 ∈ {𝑅, 𝐼}.  The  measure  of  type-𝑘 orders 
+is 𝜆𝑘(𝑠), where for tractability we assume
+
+𝜆𝑘(𝑠) = max{0, (𝜁 − 𝑠)𝜔𝑘},
+where 𝜔𝑘 > 0 measures the magnitude of the type-𝑘 demand, and 𝜁 > 0
+reﬂects the maximum acceptable trading cost—demand falls to zero if 
+the half-spread 𝑠 exceeds 𝜁 . We also assume 𝜁 > 𝛾
+to guarantee trading 
+2
+in equilibrium.11
+
+As  before,  we  assume  every  order  from  a  type-𝑘 investor  is  in-
+dependently either a one-unit buy or a one-unit sell, with respective 
+probabilities 1
+(1 − 𝐷𝑘),  where 𝐷𝑘 ∈ [−1, 1] captures 
+[
+2
+the average direction of type-𝑘 orders. For simplicity, we let 𝔼 
+=
+[
+𝜌𝜎𝐼 𝜎𝑅
+𝜎2
+𝑅
+
+= 0.12 We write 𝚺◦ = var
+
+(1 + 𝐷𝑘) and 1
+2
+
+𝜎2
+𝐼
+𝜌𝜎𝐼 𝜎𝑅
+
+(𝐷𝐼 , 𝐷𝑅)⊤
+
+and 
+
+𝐷𝐼
+)
+
+(
+
+=
+
+]
+
+]
+
+]
+
+𝐷𝑅
+
+[
+𝔼 
+assume that 𝚺
+
+0 is positive-deﬁnite.
+
+10 Another distinction applies to the version of the model that we subsequently 
+consider in Sections 3–4. There, market makers are allowed to endogenously 
+siphon order ﬂows, which endogenizes the demand 𝜆𝑗 (⋅) in each marketplace, 
+as well as the corresponding directionality characteristics 𝝁 and 𝚺.
+11 Indeed, (i) liquidity demand vanishes on all marketplaces 𝑗 where 𝑠𝑗 > 𝜁 ; 
+(ii) hence, market clearing requires zero liquidity supply (𝑥𝑚𝑗 = 0) for such 
+marketplaces and nonnegative liquidity supply (𝑥𝑚𝑗 ≥ 0) elsewhere; (iii) if 𝜁 ≤
+, then we have 𝑠𝑗 ≤ 𝛾
+𝛾
+for these other marketplaces; (iv) hence, according 
+2
+to (4), any such 𝒙𝑚 ≠ 𝟎 leads to negative proﬁt, so that market makers optimally 
+choose 𝒙𝑚 = 𝟎.
+12 Setting 𝔼[𝐷𝐼 ] = 𝔼[𝐷𝑅] = 0 is with little loss of generality: as seen from 
+Section 2.2 and Proposition 1, the mean vector 𝝁 enters the analysis only via 
+the matrix 𝚺 + 𝝁𝝁⊤, so that its eﬀects can be equivalently attributed to 𝚺.
+
+2
+
+JournalofFinancialEconomics154(2024)1038075M. Baldauf, J. Mollner and B.Z. Yueshen
+
+Remark  4. The  linear  demand  can  be  microfounded,  following  the 
+discussion on p. 4, by assuming that the investors’ private value mag-
+nitudes  are  uniformly  distributed  on  [0, 𝜁].  Setting  the  same 𝜁 for 
+both 𝑘 ∈ {𝑅, 𝐼} amounts to assuming that each investor type exhibits 
+the same price elasticity,  d𝜆𝑘∕𝜆𝑘
+𝜁−𝑠 , which is a natural benchmark 
+case.
+
+d𝑠∕𝑠 = −
+
+𝑠
+
+Marketplaces  and  routing. Aside  from  diﬀerences  in  the  parameters 
+(𝜔𝑅, 𝜎𝑅) and (𝜔𝐼 , 𝜎𝐼 ), the other diﬀerence between the two investor 
+types is that 𝑅-investors’ orders can be siphoned oﬀ-exchange, while 𝐼 -
+investors’ orders must remain on-exchange.13 Formally, we deﬁne 𝐽 = 2
+marketplaces, labeled as 1 and 2, where 1 refers to on-exchange and 2 to 
+oﬀ-exchange execution of retail orders. All 𝐼 -orders are routed to mar-
+ketplace 1. For 𝑅-orders, an endogenous fraction 𝛼 ∈ [0, 1] are routed 
+to marketplace 2, and the remaining 1 − 𝛼 to marketplace 1. The mea-
+sure of liquidity-demanding orders on each of the two marketplaces is 
+therefore
+
+𝜆
+
+1) and 𝜆
+
+1) = 𝜆𝐼 (𝑠
+
+1) + (1 − 𝛼)𝜆𝑅(𝑠
+
+1(𝑠
+Order ﬂow on marketplace 1 is a mixture of 𝐼 -orders with weight 𝜔𝐼
+and 𝑅-orders with weight (1 − 𝛼)𝜔𝑅. Order ﬂow on marketplace 2 is 
+purely type-𝑅. Letting the weighting matrix be
+
+2) = 𝛼𝜆𝑅(𝑠
+
+2(𝑠
+
+2).
+
+(
+
+𝑭 (𝛼) =
+
+)
+
+𝜔𝐼
+𝜔𝐼 +(1−𝛼)𝜔𝑅
+0
+
+(1−𝛼)𝜔𝑅
+𝜔𝐼 +(1−𝛼)𝜔𝑅
+1
+
+,
+
+𝜋𝑚 =
+
+(6)
+
+is 
+the  order  ﬂow  directionality  vector 
+a  function  of  𝛼 and  therefore  endogenous.  We  also  compute  𝚺 =
+var
+
+= 𝑭 (𝛼)𝚺◦𝑭 (𝛼)⊤
+
+𝐷𝐼 , 𝐷𝑅
+
+(𝐷
+
+, 𝐷
+
+, 𝐷
+
+𝐷
+
+[
+
+]
+
+1
+
+2
+
+.
+
+2)⊤
+
+1
+
+(
+
+)⊤
+
+(
+= 𝑭 (𝛼) 
+
+)⊤
+
+Liquidity supply. Market makers, their liquidity supplies, and their ob-
+jective functions are modeled precisely as in Section 2.1.
+
+Equilibrium  deﬁnition. An  equilibrium  consists  of  liquidity  supplies 
+, 𝑥𝑚2) for each market maker 𝑚, the fraction 𝛼 ∈ [0, 1] of 𝑅-orders 
+(𝑥𝑚1
+that are siphoned oﬀ-exchange, and half spreads 𝑠
+2, such that 
+(i) each market maker 𝑚’s (𝑥𝑚1
+, 𝑥𝑚2) maximizes her expected proﬁt (1), 
+(ii) market clearing holds for each marketplace 𝑗, which, following (2)
+can be written
+𝑀
+
+1 and 𝑠
+
+(
+1)
+
+𝜔𝐼 + (1 − 𝛼)𝜔𝑅
+
+and
+
+)
+
+𝑥𝑚1d𝑚 = (𝜁 − 𝑠
+
+∫
+0
+𝑀
+
+𝑥𝑚2d𝑚 = (𝜁 − 𝑠
+
+2)𝛼𝜔𝑅,
+
+∫
+0
+and (iii) the spreads satisfy both of the following conditions:
+
+(7a)
+
+(7b)
+
+𝑠
+
+1
+𝑠
+
+≤ 𝑠
+
+≥ 𝑠
+
+2 if 𝛼 < 1;
+2 if 𝛼 > 0.
+
+1
+Conditions (7a) and (7b) represent the ﬁduciary duty of (unmodeled) 
+retail brokers to their clients. For example, they together imply that if 
+𝛼 ∈ (0, 1), then 𝑠
+2. The intuition is that 𝛼 ∈ (0, 1) means 𝑅-orders 
+are routed both oﬀ- and on-exchange. This mixing behavior conforms 
+with best-execution obligations only if both outlets oﬀer identical exe-
+cution quality, in the sense that 𝑠
+2. Similarly, if 𝛼 = 1 (𝛼 = 0), so 
+1 = 𝑠
+that all 𝑅-orders are routed oﬀ-exchange (on-exchange), then 𝑠
+2
+1
+(𝑠
+
+1 = 𝑠
+
+≥ 𝑠
+
+≤ 𝑠
+
+1
+
+2).14
+
+13 Not modeled are oﬀ-exchange venues that cater to 𝐼 -investors. For exam-
+ple, many dark pools cross institutional buy and sell orders at the midpoint. 
+Appendix B extends our model by introducing a midpoint dark pool accessible 
+to 𝐼 -investors. Our results are robust to this extension.
+14 The access rule of Reg NMS (Rule 610) prohibits exchanges from diﬀerential 
+treatment of orders based on the identity of the trader. Our model captures 
+
+1 − 𝑠
+
+Remark 5. In practice, when executing retail orders oﬀ-exchange, mar-
+ket  makers  typically  charge  a  spread  lower  than  the  one  prevailing 
+on-exchange. The diﬀerence is called price improvement, which endoge-
+nously arises in our model whenever 𝑠
+> 0. Furthermore, when 
+a retail order is siphoned oﬀ-exchange in practice, the retail investor’s 
+broker may receive an additional payment, known as payment for or-
+der ﬂow, from the market maker who handles the order. Schwarz et 
+al. (2023) show that this payment is small, ranging “from $0.001 to 
+$0.03 per share [. . . ] an order of magnitude smaller than [. . . ] price 
+improvement, which ranges from $0.03 to $0.08.” Nor is it central to 
+the economic mechanism we analyze. We therefore opt to simplify the 
+model by omitting brokers and ignoring payments they would receive.
+
+2
+
+3.2.  The incentive to siphon retail orders oﬀ-exchange
+
+Before  characterizing  equilibrium,  we  pause  to  examine  market 
+makers’ incentives to siphon retail orders oﬀ-exchange in our model. 
+To do so, we conjecture an equilibrium in which all 𝑅-orders are routed 
+on-exchange (i.e., 𝛼 = 0), and we seek conditions under which such a 
+no-siphoning equilibrium exists.
+
+With 𝐽 = 2 marketplaces, a market maker’s expected proﬁt (1) can 
+
+in general be written
+
+)
+
+𝛾
+
+(
+𝑠
+
+−
+
+1 −
+(
+𝛾
+
+2
+𝜎
+1
+
+(
+
+𝑥𝑚1 +
+
+𝑠
+
+2 −
+
+𝑥𝑚2
+
+)
+
+𝛾
+
+2
+𝑥𝑚1
+
+)
+
+,
+
+(8)
+
+2𝑥2
+
+𝑚1 + 2𝑟𝜎
+
+1
+
+𝜎
+2
+
+𝑥𝑚2 + 𝜎
+2
+
+2𝑥2
+
+𝑚2
+
+2 and  𝜎
+2
+
+2 are the diagonal elements of 𝚺 and 𝑟𝜎
+1
+
+2
+where 𝜎
+𝜎
+2 is the 
+1
+oﬀ-diagonal covariance, with 𝑟 ∈ [−1, 1] as the correlation. Note that 
+1 and 𝑟 are  functions  of 𝛼 via  the  weighting  matrix 𝑭 (𝛼), 
+both 𝜎
+2 = 𝜎𝑅 regardless of 𝛼 (as marketplace 2 contains only 𝑅-
+whereas 𝜎
+1(𝛼) and 𝑟(𝛼) to emphasize this dependence.
+orders). Below, we write 𝜎
+Suppose we are in an equilibrium with 𝛼 = 0. Market clearing there-
+fore requires that 𝑥𝑚2 = 0. Because the assumption 𝜁 > 𝛾
+rules out a 
+no-trade equilibrium (cf. Footnote 11), we therefore have 𝑥𝑚1
+> 0. To 
+sustain  the  conjectured  equilibrium,  the  proﬁt  from  a  marginal  unit 
+of 𝑥𝑚2 must be weakly negative:
+(
+𝜕𝜋𝑚
+𝑠
+𝜕𝑥𝑚2
+and the ﬁrst-order condition with respect to 𝑥𝑚1 must hold:
+𝜕𝜋𝑚
+𝜕𝑥𝑚1
+Therefore,  a  no-siphoning  equilibrium  can  obtain  only  if  both (9)
+≥ 𝑠
+and (10) hold. Following (7a), 𝑠
+1, so that both can hold only if 
+𝛾𝑟(0)𝜎
+1(0), 𝜎𝑅, and 𝑥𝑚1 are all 
+≥ 𝛾𝜎
+strictly positive, this requires 𝑟(0) ≥ 𝜎
+
+2
+1(0)2𝑥𝑚1. Because 𝛾, 𝜎
+
+1(0)2𝑥𝑚1 = 0.
+
+|
+|
+|𝑥𝑚2=0
+
+|
+|
+|𝑥𝑚2=0
+
+1(0)𝜎𝑅𝑥𝑚1
+
+1(0)𝜎𝑅𝑥𝑚1
+
+− 𝛾𝑟(0)𝜎
+
+− 𝛾𝜎
+
+≤ 0;
+
+(10)
+
+2 −
+
+1 −
+
+.15
+
+(9)
+
+=
+
+=
+
+)
+
+)
+
+(
+
+2
+
+2
+
+𝑠
+
+𝛾
+
+𝛾
+
+2
+
+Evaluating 𝑟(0) and 𝜎
+[
+𝜎
+1(0)
+ﬁnd that sign
+𝜎𝑅
+)
+(
+𝑅𝜔𝑅 + 𝜌𝜎𝐼 𝜎𝑅𝜔𝐼
+𝜎2
+
+𝑟(0) −
+
+Δ ∶=
+
+1(0) in terms of the primitive parameters, we 
+]
+
+matches the sign of the quantity
+(
+
+)
+
+−
+
+𝜎2
+𝐼 𝜔𝐼 + 𝜌𝜎𝐼 𝜎𝑅𝜔𝑅
+
+,
+
+(11)
+
+1(0)
+𝜎𝑅
+
+which summarizes the diﬀerences between the two investor types that 
+are relevant for siphoning decisions. To understand this expression, note 
+
+1
+
+< 𝑠
+
+this through (7b): if 𝑠
+2, then all 𝑅-investors would prefer to trade on the 
+exchange; by the access rule, they must be allowed to do so; we therefore obtain 
+𝛼 = 0. In contrast, oﬀ-exchange execution is not subject to the access rule, which 
+is why 𝐼 -investors trade on-exchange, even if 𝑠
+2
+15 This condition becomes less likely to hold if 𝑅-orders become more attrac-
+tive: either by virtue of becoming relatively less likely to exhibit signiﬁcant 
+directionality (i.e., small 𝜎𝑅 relative to 𝜎
+1(0)) or by better diversifying inven-
+tory risk from on-exchange orders (i.e., small 𝑟(0)). When 𝑅-orders become so 
+attractive that the condition fails, market makers have an incentive to siphon 
+them oﬀ-exchange, destroying the putative no-siphoning equilibrium.
+
+< 𝑠
+
+1.
+
+JournalofFinancialEconomics154(2024)1038076M. Baldauf, J. Mollner and B.Z. Yueshen
+
+that the ﬁrst bracketed term represents the covariance of the market 
+maker’s existing portfolio with a marginal 𝑅-order: 𝜎2
+𝑅 is the covari-
+ance with another 𝑅-order, 𝜌𝜎𝐼 𝜎𝑅 is the covariance with an 𝐼 -order, 
+and these are respectively weighted by 𝜔𝑅 and 𝜔𝐼 . The second term 
+is the analogue for a marginal 𝐼 -order. If the diﬀerence Δ is negative, 
+a marginal 𝑅-order ampliﬁes inventory risk by less (or mitigates it by 
+more) than a marginal 𝐼 -order, so that market makers have incentive 
+to siphon them.16 In fact, Δ is the key determinant of the equilibrium:
+
+)
+
+(
+𝒙𝑚
+
+Proposition 2 (The PFOF equilibrium). The three equilibrium objects—the 
+𝑚∈[0,𝑀], the fraction 𝛼 of oﬀ-exchange 𝑅-orders, and 
+liquidity supplies
+the half spreads 𝒔—are determined as follows.
+(i) If Δ < 0, then there is a unique equilibrium in which 𝛼 = 1.
+(ii) If Δ > 0, then there is a unique equilibrium in which 𝛼 = 0.
+(iii) If Δ = 0, then there is an equilibrium for any 𝛼 ∈ [0, 1].
+
+)
+(
+𝑚∈[0,𝑀] and 𝒔 follow Proposition 1, with 𝜆
+𝒙𝑚
+In all cases, 
+2(𝑠) = 𝛼𝜆𝑅(𝑠), 𝝁 = 𝟎, and 𝚺 = 𝑭 (𝛼)𝚺◦𝑭 (𝛼)⊤
+(1 − 𝛼)𝜆𝑅(𝑠), 𝜆
+
+1(𝑠) = 𝜆𝐼 (𝑠) +
+.
+
+Surprisingly, the equilibrium fraction of oﬀ-exchange 𝑅-orders is a 
+boundary value 𝛼 ∈ {0, 1} (except when Δ = 0). An intuition is the fol-
+lowing. If Δ < 0, then by previous analysis, each market maker wants 
+to siphon at least some 𝑅-orders oﬀ-exchange. Once all market makers 
+do this, however, on-exchange ﬂow becomes more heavily composed 
+of 𝐼 -orders, so that each market maker can achieve her targeted mix-
+ture  of  𝑅- and  𝐼 -order  ﬂow  only  by  siphoning  even  more  𝑅-orders 
+oﬀ-exchange. This reinforcing logic repeats itself until all 𝑅-orders have 
+been siphoned oﬀ-exchange in equilibrium.17
+
+Depending  on  parameters,  the  equilibrium  might  not  feature  on-
+exchange  trading.  This  can  happen  because  of  oﬀ-exchange  trading: 
+When Δ < 0, market makers siphon 𝑅-orders oﬀ-exchange and take on 
+the resulting inventories. If 𝜌 > 0, this raises the marginal inventory cost 
+of 𝐼 -orders, potentially to the point at which it is no longer proﬁtable 
+for market makers to provide liquidity on-exchange. Equilibria without 
+on-exchange trading are, of course, inconsistent with the current real-
+ity. The following proposition characterizes the parametric conditions 
+that ensure both on- and oﬀ-exchange trading in equilibrium. Our sub-
+sequent analysis focuses on the case in which these conditions hold.
+
+Proposition  3  (Equilibrium  with  positive  volume  both  on- and  oﬀ-
+exchange). There  is  a  unique  equilibrium  with  both  ∫ 𝑀
+𝑥𝑚1d𝑚 > 0 and 
+∫ 𝑀
+0
+
+𝑥𝑚2d𝑚 > 0 if and only if both Δ < 0 and
+(
+
+)
+
+0
+
+𝑀 >
+
+𝜌𝜎𝐼 𝜎𝑅 − 𝜎2
+𝑅
+
+𝜔𝑅𝛾
+
+(12)
+
+hold.18
+
+.
+
+(1 − 𝛼)𝜆𝑅(𝑠
+1) + (1 − 𝛼)𝜆𝑅(𝑠
+
+16 Conversely, if Δ > 0, market makers would want to siphon 𝐼 -orders—if they 
+could—leaving only 𝑅-orders on the exchange.
+17 Indeed when Δ < 0, market makers always feel they have too few 𝑅-orders 
+in the putative equilibrium corresponding to any 𝛼 < 1. To see this, note that by 
+market clearing, the equilibrium weight of 𝑅-orders in market makers’ portfolio 
+of order ﬂows can in general be written
+1) + 𝛼𝜆𝑅(𝑠
+
+2)
+
+2)
+
+1 = 𝑠
+
+1) + 𝛼𝜆𝑅(𝑠
+
+𝜆𝐼 (𝑠
+For all 𝛼 ∈ [0, 1), the above remains constant at 𝜔𝑅∕(𝜔𝐼 + 𝜔𝑅), because 𝑠
+for 𝛼 ∈ (0, 1) following (7a) and (7b) and because 𝑠
+2 does not enter when 𝛼 = 0. 
+Focusing on the case of 𝛼 = 0, the in-text analysis showed that if Δ < 0, this 
+exposure to 𝑅-orders is too low: market makers want to siphon 𝑅-orders to 
+increase their exposure. We have just shown that any 𝛼 ∈ (0, 1) leads to the 
+same exposure, hence the same incentive to siphon further. As this discussion 
+suggests, one model change that might lead to an interior equilibrium value for 
+𝛼 would be if 𝑅- and 𝐼 -investors exhibited diﬀerent elasticities of demand (cf.
+Remark 4).
+18 By Proposition 2, insisting on equilibrium uniqueness merely rules out the 
+non-generic case of Δ = 0. In this knife-edge case of Δ = 0, there is an equi-
+
+2
+
+In summary, the two conditions Δ < 0 and (12) jointly characterize 
+where market makers supply liquidity in equilibrium. First, the sign of 
+Δ determines whether they supply liquidity oﬀ-exchange by siphoning 
+> 0). Second, if they do provide liquidity oﬀ-exchange, 
+𝑅-orders (𝑥𝑚2
+do they still provide liquidity on-exchange (𝑥𝑚1
+> 0)? The necessary and 
+suﬃcient condition for the latter is (12). One intuitive interpretation 
+of this condition is that it requires suﬃciently many market makers, 
+so that none takes on enough inventory risk via oﬀ-exchange liquidity 
+supply to fully deter on-exchange liquidity supply.
+
+3.3.  Discussion of parameters
+
+Reality features positive volume both on- and oﬀ-exchange. Accord-
+ing to Proposition 3, this realistic outcome arises in the model when 
+both Δ < 0 and (12) hold. Thus, a test of the model is to see whether 
+realistic  parameter  values  are  consistent  with  those  conditions.  This 
+subsection argues that this is the case.
+
+The ﬂuctuation of order directionality, 𝜎𝑅 and 𝜎𝐼 . Order ﬂow of either 
+type, 𝑘 ∈ {𝑅, 𝐼}, can be viewed as a mixture of independent and coor-
+dinated trades, with the parameter 𝜎𝑘 capturing the composition of this 
+mixture. For example, the extreme in which each 𝑘-order is indepen-
+dently either to buy or to sell (each with equal probability) is captured 
+by 𝜎𝑘 = 0. And the extreme in which all 𝑘-orders are children of the 
+same parent order (which is either to buy or to sell, each with equal 
+probability) is captured by 𝜎𝑘 = 1. Consistent with 𝜎𝑅 < 𝜎𝐼 , indepen-
+dent trades empirically feature much more heavily in retail order ﬂow. 
+Indeed, the SEC report quoted in Footnote 1 makes exactly this point. 
+Likewise, Ken Griﬃn (CEO of Citadel) said in his 2021 Congressional 
+testimony:
+
+the average retail order is much smaller in totality than the average 
+order that goes onto an exchange [. . . ] Because it’s a small order, 
+the amount of risk that we need to assume in managing that order 
+is relatively small, as compared to an order that we have to manage 
+from our on exchange trading. (Griﬃn, 2021)
+
+Yet  another  economic  force  operates  through  midpoint  dark  pools, 
+which allow institutional investors to ﬁrst cross their buy and sell or-
+ders, so that only the remaining imbalance is subsequently passed along 
+to the exchange, to be absorbed by market makers. Because order imbal-
+ance is necessarily more extremely directional than the original order 
+ﬂow, these dark pools eﬀectively enlarge 𝜎𝐼 , and thereby make, all else 
+equal, 𝜎𝑅 < 𝜎𝐼 more likely. Appendix B provides a model extension that 
+demonstrates this mechanism.
+
+More direct evidence is available from Jones et al. (2023), who use 
+comprehensive account-level data from the Chinese stock market to di-
+rectly  compute  signed  order  imbalance  measures  for  both  retail  and 
+institutional investors at the daily level.19 According to Panel C of their 
+Table I, order imbalances are more tightly clustered around zero for 
+retail than for institutional, consistent with 𝜎𝑅 < 𝜎𝐼 . The standard de-
+viation of imbalances is 0.455 for institutional accounts, and it ranges 
+from 0.171 to 0.352 for retail, depending on account size.
+
+The correlation of order directionality, 𝜌. The aforementioned evidence 
+from Jones et al. (2023) also speaks to the correlation of signed order 
+ﬂow imbalances. According to Panel C of their Table I, retail and in-
+stitutional imbalances are negatively correlated, consistent with 𝜌 < 0. 
+
+0
+
+𝑥𝑚1d𝑚 > 0 and ∫ 𝑀
+
+librium for each 𝛼 ∈ [0, 1], all of which—with the exception of 𝛼 = 0—entail 
+∫ 𝑀
+𝑥𝑚2d𝑚 > 0 simultaneously holding.
+0
+19 It is diﬃcult to perform a similar exercise using standard, nonproprietary 
+datasets—like TAQ and Reﬁnitiv—because they lack retail or institutional trade 
+identiﬁers. It remains possible to imperfectly classify these trades, e.g., using 
+the algorithm proposed by Boehmer et al. (2021). However, inexactness in this 
+algorithm (Schwarz et al., 2023) could bias estimates.
+
+JournalofFinancialEconomics154(2024)1038077M. Baldauf, J. Mollner and B.Z. Yueshen
+
+The precise correlation ranges from −0.380 to −0.188, depending on 
+retail account size. This empirically-documented negative correlation 
+can arise for many reasons.20 For simplicity, we assume it is exoge-
+nous, yet we conjecture that the eﬀects we study would also arise in a 
+model where (negative) correlation arises endogenously. In fact, some 
+other models go as far as assuming perfect negative correlation between 
+shocks that drive retail and institutional trades, as in Hendershott et al. 
+(2022). Similar assumptions are made by, e.g., Grossman and Miller 
+(1988); Lo et al. (2004).
+
+The magnitude of liquidity demand, 𝜔𝑅 and 𝜔𝐼 . Despite recent growth, 
+retail trading remains small in comparison to institutional trading vol-
+umes. For example, Bloomberg (2022) reports that retail trading ac-
+counts for 17.5% of total trading volume in the second quarter of 2022, 
+while non-bank buy-side institutions account for 34.8%. This suggests a 
+ratio of 𝜔𝑅∕𝜔𝐼 ≈ 1∕2.
+
+Summary. Overall,  the  evidence  suggests  that  𝜎𝑅 < 𝜎𝐼 ,  𝜌 < 0,  and 
+𝜔𝑅 < 𝜔𝐼 . These are suﬃcient to guarantee Δ < 0 in our model, implying 
+positive oﬀ-exchange volume (i.e., siphoning of 𝑅-orders) in equilib-
+rium. Further, 𝜌 < 0 is by itself suﬃcient for (12) to hold, implying also 
+positive on-exchange volume. As such, our model yields realistic trad-
+ing patterns under realistic parametrizations.
+
+4.  Predictions
+
+Continuing the application to PFOF, we now explore the model’s 
+predictions. We study three equilibrium objects: bid-ask spreads in Sec-
+tion 4.1, market maker proﬁtability in Section 4.2, and total welfare 
+in Section 4.3. We also address policy debates over the oﬀ-exchange 
+segmentation  of  retail  orders.  A  ban  on  this  practice  (henceforth,  a 
+“segmentation ban”) would consolidate both 𝑅- and 𝐼 -orders on the 
+exchange (marketplace 1), yielding an equilibrium characterized by the 
+following corollary.
+
+Corollary  1  (Equilibrium  under  a  segmentation  ban). Under  an  exoge-
+)
+nous 𝛼 = 0,  the  equilibrium  liquidity  supplies 
+𝑚∈[0,𝑀] and  the  half 
+spreads 𝒔 follow Proposition 1, with 𝜆
+2(𝑠) = 0, 𝝁 = 𝟎, 
+and 𝚺 = 𝑭 (0)𝚺◦𝑭 (0)⊤
+
+1(𝑠) = 𝜆𝐼 (𝑠) + 𝜆𝑅(𝑠), 𝜆
+
+(
+𝒙𝑚
+
+.
+
+For the analysis below, we denote the equilibrium objects under the 
+ban with a subscript 𝑏. For example, under the ban, all trades happen 
+on-exchange and there is only one spread, 𝑠𝑏.
+
+A no-siphoning equilibrium (𝛼 = 0) can endogenously arise under 
+certain parameter values and, of course, a segmentation ban has no ef-
+fect in this case. More interesting are parameter values leading to a 
+with-siphoning equilibrium (𝛼 = 1), meaning that a segmentation ban 
+would bite. As discussed earlier, these parameter values are also more 
+relevant.  For  our  analysis  in  this  section,  we  therefore  specialize  to 
+the set of relevant parameters, for which equilibrium features positive 
+volume both on- and oﬀ-exchange. Using the characterization of Propo-
+sition 3, we therefore maintain the following assumption:
+
+20 For example, Linnainmaa (2010) shows empirically that informed institu-
+tions  adversely  select  retail  investors,  so  that  institutional  trades  and  retail 
+trades are, respectively, positively and negatively correlated with contempo-
+raneous returns, hence negatively correlated with each other. In addition, retail 
+and institutional investors may trade against each other for non-informational 
+reasons: Kaniel et al. (2008) show that retail traders pursue contrarian trading 
+strategies, whereby they proﬁt from providing liquidity to institutions’ tempo-
+rary price impacts; reversely, 𝐼 -investors may crawl online platforms so as to 
+monitor and trade against 𝑅-investors’ sentiment; ﬁnally, 𝑅-investors may co-
+ordinate via online platforms to trade against 𝐼 -investors’ bets, as in how they 
+attempted to short squeeze institutions in GameStop and other “meme stocks” 
+in early 2021.
+
+Fig. 1. Bid-ask spreads: the eﬀect of a segmentation ban. This ﬁgure shows 
+how various (half) bid-ask spreads change when a segmentation ban is imposed. 
+The order ﬂow direction correlation 𝜌 varies on the horizontal axis. The other 
+parameters are set at 𝑀 = 3, 𝛾 = 𝜁 = 1, 𝜔𝐼 = 100, 𝜔𝑅 = 50, 𝜎𝐼 = 0.5, 𝜎𝑅 = 0.2, 
+and 𝜇𝐼 = 𝜇𝑅 = 0. In particular, 𝑠
+1
+
+> 𝑠𝑏 if and only if 𝜌 < − 1
+2
+
+.
+
+Assumption (Relevant parameter values). Δ < 0 and condition (12) both 
+hold.
+
+4.1.  Bid-ask spreads: trading costs
+
+This subsection studies equilibrium spreads. Without a segmentation 
+2 for the oﬀ-exchange, and ̄𝑠
+
+ban, we examine 𝑠
+1 for the on-exchange, 𝑠
+for the volume-weighted average half spread, deﬁned as21
+
+2
+
+̄𝑠 =
+
+𝜆𝐼 (𝑠
+
+2)𝑠
+2)
+
+1)𝑠
+𝜆𝐼 (𝑠
+
+1 + 𝜆𝑅(𝑠
+1) + 𝜆𝑅(𝑠
+as well as price improvement 𝑠
+spread is 𝑠𝑏.
+
+,
+
+1 − 𝑠
+
+2. With a segmentation ban, the 
+
+(13)
+
+4.1.1.  Segmentation ban
+
+We ﬁnd that 𝑅-investors are unambiguously harmed by a segmen-
+tation  ban,  in  the  sense  that  it  causes  them  to  pay  a  larger  spread 
+(𝑠𝑏 > 𝑠
+2).  In  contrast,  𝐼 -investors  often  beneﬁt  from  a  segmentation 
+ban—although not always. In particular, a segmentation ban harms not 
+only 𝑅-investors but also 𝐼 -investors if and only if 𝜌 is suﬃciently neg-
+ative  (in  a  way  made  precise  by  Proposition 4 and  as  illustrated  by 
+Fig. 1).  Additionally,  such  a  ban  unambiguously  causes  the  volume-
+weighted average spread to increase (𝑠𝑏 > ̄𝑠).
+
+Proposition 4 (Segmentation ban and spreads). 𝑠
+< 𝑠𝑏 if and only if 𝜌 < −(𝑀 + 𝜎2
+over, 𝑠
+𝑅
+
+2
+𝜔𝑅𝛾)∕(𝜎𝐼 𝜎𝑅𝜔𝐼 ).
+
+1
+
+< 𝑠𝑏 and ̄𝑠 < 𝑠𝑏. More-
+
+Comparison with information-based theories of PFOF. We pause here to 
+compare and contrast Proposition 4 with predictions from information-
+based theories of PFOF (e.g., Battalio and Holden, 2001). Under the 
+natural assumption that 𝑅-orders are less informed than 𝐼 -orders, those 
+theories predict that 𝑅-investors would be harmed by a segmentation 
+ban,  while  𝐼 -investors  would  beneﬁt.  Our  model  predicts  the  same 
+for 𝑅-investors, but for an entirely diﬀerent reason: 𝑅-investors pay a 
+smaller spread when segmentation is allowed not because their orders 
+are less informed but rather because their orders generate less inven-
+tory risk for market makers. In contrast to those theories, however, our 
+
+21 The volume weights for 𝑠
+2) respectively 
+because, under the maintained assumption that Δ < 0, without a segmentation 
+ban all 𝑅-orders are siphoned oﬀ-exchange (i.e., 𝛼 = 1) in equilibrium, meaning 
+that all 𝐼 -investors pay 𝑠
+
+1 and all 𝑅-investors 𝑠
+2.
+
+2 in (13) are 𝜆𝐼 (𝑠
+
+1) and 𝜆𝑅(𝑠
+
+1 and 𝑠
+
+JournalofFinancialEconomics154(2024)1038078M. Baldauf, J. Mollner and B.Z. Yueshen
+
+2
+
+2
+
+model predicts that 𝐼 -investors might also pay a smaller spread when 
+segmentation is allowed.
+< 𝑠𝑏. The  intuition  follows  Proposition 2:  Given 
+Intuition  for  why 𝑠
+the maintained assumption that Δ < 0, 𝑅-investors are less costly for 
+market makers to intermediate than 𝐼 -investors. When segmentation is 
+allowed, 𝑅-investors therefore pay a smaller spread. That is, 𝑠
+1, 
+2
+implying 𝑠
+< ̄𝑠. Combined with ̄𝑠 < 𝑠𝑏 (which we explain next), we 
+therefore have 𝑠
+Intuition for why  ̄𝑠 < 𝑠𝑏. Let 𝑓𝑅 denote the fraction of volume due to 
+𝑅-orders.  When  segmentation  is  banned,  volume  is  proportional  to 
+demand magnitude, so that 𝑓 ban
+in equilibrium. When seg-
+mentation is allowed, and given Δ < 0, market makers siphon 𝑅-orders 
+oﬀ-exchange, meaning that 𝑓 no-ban
+𝑅 . In either case, the volume-
+weighted  average  spread ̄𝑠 is  determined  by  the  intersection  of  an 
+average liquidity demand curve and an average liquidity supply curve:
+
+𝜔𝑅
+𝜔𝑅+𝜔𝐼
+
+> 𝑓 ban
+
+𝑅 =
+
+< 𝑠𝑏.
+
+< 𝑠
+
+𝑅
+
+2
+
+Lemma 2 (Average liquidity demand and supply curves). Investors’ average 
+liquidity demand and market makers’ average liquidity supply curves are 
+given, respectively, by
+
+̄𝑠(𝑥; 𝑓𝑅) = 𝜁 − 𝑣(𝑓𝑅)𝑥 and ̄𝑠(𝑥; 𝑓𝑅) =
+
++ 𝑐(𝑓𝑅)𝑥,
+
+2
+where 𝑥 is the aggregate volume, and 𝑣(⋅) and 𝑐(⋅) are the respective curves’ 
+slopes:
+
+𝛾
+
+𝑣(𝑓𝑅) =
+
+𝑐(𝑓𝑅) =
+
+(1 − 𝑓𝑅)2
+𝜔𝐼
+
+[
+𝛾
+𝑀 var
+
+𝑓 2
+𝑅
+𝜔𝑅
+
++
+
+and
+
+(1 − 𝑓𝑅)𝐷𝐼 + 𝑓𝑅𝐷𝑅
+
+]
+.
+
+The conclusion ̄𝑠 < 𝑠𝑏 follows because demand is steeper and supply 
+
+is ﬂatter when segmentation is allowed than when it is banned.
+
+𝑅 =
+
+𝜔𝑅
+𝜔𝑅+𝜔𝐼
+
+• Demand is at its ﬂattest when both investor types face the same 
+pricing,  as  under  a  segmentation  ban.  Mathematically,  𝑣(𝑓𝑅) is 
+minimized at 𝑓 ban
+. To understand the intuition, compare 
+𝜔𝑅
+the following two extremes. On the one hand, a value 𝑓𝑅 =
+𝜔𝑅+𝜔𝐼
+obtains when both investor types face the same spread 𝑠. In that 
+case, total quantity demanded is 𝜆𝑅(𝑠) + 𝜆𝐼 (𝑠) = (𝜁 − 𝑠)(𝜔𝑅 + 𝜔𝐼 ), 
+(
+implying a demand curve with slope 𝑣 
+. On the 
+other hand, a value 𝑓𝑅 = 1 obtains when all 𝐼 -investors are priced 
+out  of  the  market.  In  that  case,  total  quantity  demanded  is  en-
+tirely determined by the 𝑅-investors: 𝜆𝑅(𝑠) = (𝜁 − 𝑠)𝜔𝑅, implying 
+𝑣(1) = 1
+. Being at its ﬂattest when segmentation is banned, de-
+𝜔𝑅
+mand must be steeper when segmentation is allowed.
+
+𝜔𝑅
+𝜔𝑅+𝜔𝐼
+
+1
+𝜔𝑅+𝜔𝐼
+
+=
+
+)
+
+𝑅
+
+) < 𝑐(𝑓 ban
+
+• Furthermore,  supply  is  ﬂatter  when  segmentation  is  allowed,  in 
+the  sense  that  the  ensuing  increase  in  𝑓𝑅 causes  a  decrease  in 
+𝑐(𝑓𝑅). The intuition is that when segmentation is allowed, mar-
+ket  makers  siphon  𝑅-orders,  precisely  because  doing  so  reduces 
+their inventory costs. Formally, 𝑐(𝑓 no-ban
+𝑅 ) follows from 
+two  facts.  First,  𝑐(⋅) is  quadratic  and  convex.  Indeed,  we  can 
+]
+[
+compute  𝑐(𝑓𝑅) =
+. 
+𝑐(𝑓𝑅).  We  have  already  seen 
+Second,  𝑓 ban
+𝑐(𝑓𝑅),  consider  a 
+≤ arg min𝑓𝑅
+that  𝑓 ban
+benchmark  in  which  𝑅- and  𝐼 -orders  could  be  procured  at  the 
+same  spread.  In  that  benchmark,  a  market  maker  would  opti-
+mally procure a portfolio in which the fraction of 𝑅-orders was 
+1 in the no-ban 
+arg min𝑓𝑅
+equilibrium, rendering 𝑅-orders (weakly) less attractive to market 
+makers than they would be in the aforementioned benchmark. As 
+a result, 𝑓 no-ban
+
+(1 − 𝑓𝑅)2𝜎2
+≤ arg min𝑓𝑅
+.  To  see  𝑓 no-ban
+𝑅
+
+𝛾
+𝑀
+< 𝑓 no-ban
+𝑅
+𝑅
+< 𝑓 no-ban
+𝑅
+
+𝑐(𝑓𝑅). But because Δ < 0, we have 𝑠
+
+𝐼 + 2𝑓𝑅(1 − 𝑓𝑅)𝜌𝜎𝐼 𝜎𝑅 + 𝑓 2
+𝑅
+
+𝑐(𝑓𝑅).
+
+𝜎2
+𝑅
+
+≤ 𝑠
+
+≤ arg min𝑓𝑅
+
+𝑅
+
+𝑅
+
+2
+
+Intuition  for  why  𝑠
+< 𝑠𝑏 is  possible. Recall  the  maintained  assump-
+tion Δ < 0,  which,  following  the  discussion  after (11),  implies  that 
+
+1
+
+𝑅-orders exert a lower marginal inventory cost on market makers than 
+𝐼 -orders. Under a segmentation ban, both types are pooled together and 
+are priced at the volume-weighted average of their marginal costs. Once 
+segmentation is allowed, each type is charged a spread equal to its own 
+marginal cost, creating two eﬀects:
+
+• The  ﬁrst  eﬀect  can  be  understood  through  what  would  happen 
+if liquidity demand were perfectly inelastic. In that case, the less 
+< 𝑠𝑏), and the more 
+costly 𝑅-investors would be charged less (𝑠
+> 𝑠𝑏).
+costly 𝐼 -investors would be charged more (𝑠
+1
+
+• Crucially, however, liquidity demand is not perfectly inelastic. If 𝑅-
+investors are charged less, then 𝑅-investor volume increases. How 
+this aﬀects the marginal inventory cost of 𝐼 -orders depends on 𝜌. 
+If 𝜌 > 0 (𝜌 < 0), additional 𝑅-investor volume raises (lowers) the 
+marginal cost of 𝐼 -orders, reinforcing (counteracting) the ﬁrst ef-
+fect.
+
+2
+
+1
+
+It follows that 𝑠
+< 𝑠𝑏 if and only if 𝜌 is suﬃciently negative. Propo-
+sition 4 provides  the  exact  condition.  The  economic  force  discussed 
+above echoes a concern raised by the SEC in its recently-proposed Or-
+der Competition Rule (p. 298, SEC, 2022): “a reduction in the volume 
+of individual investor order ﬂow internalized by wholesalers could in-
+crease wholesaler inventory risk, which in turn could cause wholesalers 
+to reduce the liquidity they supply as exchange market makers.”
+
+Relation  to  the  empirical  literature. Proposition 4 speaks  to  how  oﬀ-
+exchange siphoning aﬀects on-exchange liquidity. Much empirical lit-
+erature  has  examined  this  question.  On  the  one  hand,  on-exchange 
+liquidity does not seem to have been harmed by oﬀ-exchange siphon-
+ing in certain settings (e.g., Battalio, 1997; Battalio et al., 1997; Gar-
+riott and Walton, 2018; Elsas et al., 2022), which is consistent with 
+our inventory-based theory but inconsistent with the information-based 
+theories mentioned earlier. On the other hand, on-exchange liquidity 
+does  seem  to  have  deteriorated  in  response  to  oﬀ-exchange  siphon-
+ing in other settings (e.g., Degryse et al., 2015; Hatheway et al., 2017; 
+Comerton-Forde et al., 2018; Hu and Murphy, 2022), which is consis-
+tent both with our inventory-based theory and with the information-
+based ones.
+
+1
+
+Discussion of Fig. 1. Fig. 1 illustrates bid-ask spreads as a function of the 
+correlation parameter 𝜌, under parameters consistent with the discus-
+sion in Section 3.3: we set 𝜎𝑅 = 0.2 and 𝜎𝐼 = 0.5 to be consistent with 
+the estimates of Jones et al. (2023), and we also set 𝜔𝑅∕𝜔𝐼 = 1∕2. As 
+Proposition 4 states: (i) 𝑠𝑏 > 𝑠
+2 and 𝑠𝑏 > ̄𝑠 in the ﬁgure, regardless of 𝜌, 
+1 if and only if 𝜌 is suﬃciently negative, where for these 
+and (ii) 𝑠𝑏 > 𝑠
+parameters, the precise cutoﬀ is 𝜌 = −1∕2. The estimates of Jones et 
+al. (2023) indicate correlations not far from this cutoﬀ, suggesting that 
+𝑠
+
+< 𝑠𝑏 is in fact a realistic possibility.
+The ﬁgure also indicates how spreads vary with 𝜌. Roughly speak-
+ing, there are two eﬀects. First, as 𝜌 increases, 𝑅- and 𝐼 -orders become 
+less likely to oﬀset. A given order portfolio therefore creates greater 
+inventory risk, so market makers require larger spreads to compensate. 
+This eﬀect drives the initial increase of all spreads seen in Fig. 1. Second, 
+as spreads change, investors’ participation decisions may change, and a 
+market maker’s order portfolio changes as well. For the parametrization 
+of Fig. 1, in the limit as 𝜌 → 1, 𝑠
+→ 𝜁 , implying that 𝐼 -investors stop 
+participating altogether, which reduces the marginal cost of 𝑅-orders, 
+driving the subsequent decrease of 𝑠
+2.
+
+1
+
+4.1.2.  The rise of retail trading
+
+Recent years have seen a rapid growth in retail trading activity. In 
+the U.S. equity market, retail trading volume doubled from about $15 
+billion per day before 2017 to about $30 billion in 2022 (Mackintosh, 
+2022). This trend can be modeled as an increase in the parameter 𝜔𝑅.
+
+JournalofFinancialEconomics154(2024)1038079M. Baldauf, J. Mollner and B.Z. Yueshen
+
+Fig. 2. Bid-ask spreads: the rise of retail trading. This ﬁgure shows how various (half) bid-ask spreads change as retail trading demand increases. Panels (a) 
+and (b) illustrate the cases of negative and positive order ﬂow correlations (𝜌 = −0.5 and 𝜌 = 0.5, respectively) between retail and institutional order ﬂows. In both 
+2 is decreasing in 𝜔𝑅; Panel (c) illustrates an example with increasing price improvement (with 𝜌 = 0.95). The magnitude 
+Panels (a) and (b), price improvement 𝑠
+of retail demand 𝜔𝑅 varies on the horizontal axes. The other parameters are set at 𝑀 = 3, 𝛾 = 𝜁 = 1, 𝜔𝐼 = 100, 𝜎𝐼 = 0.5, 𝜎𝑅 = 0.2, and 𝜇𝐼 = 𝜇𝑅 = 0. The vertical 
+dotted line in (c) indicates the upper bound on 𝜔𝑅 implied by (12): when 𝜔𝑅 exceeds that bound, no trading occurs on-exchange.
+
+1 − 𝑠
+
+Proposition 5 (Rise of retail trading and spreads). As the magnitude of 
+retail demand 𝜔𝑅 increases,
+
+• the oﬀ-exchange half spread, 𝑠
+• the on-exchange half spread, 𝑠
+
+2, monotonically increases;
+1, monotonically increases (decreases) 
+
+if 𝜌 > 0 (< 0); and
+• price improvement, 𝑠
+
+2, monotonically decreases (increases) if 𝜌 < ̂𝜌
+(> ̂𝜌), where the threshold ̂𝜌 is a function of other parameters (given in 
+equation (D.5) in the proof) and is strictly positive.
+
+1 −𝑠
+
+Fig. 2 illustrates  these  eﬀects.  The  oﬀ-exchange  spread  𝑠
+
+2 (the 
+dashed line) rises with 𝜔𝑅. This is intuitive: the increase in 𝑅-investor 
+liquidity  demand  requires  market  makers  to  handle  larger  volumes, 
+hence also higher inventory costs.
+
+As can be seen by comparing Panels (a) and (b), the eﬀect of 𝜔𝑅 on 
+the on-exchange spread 𝑠
+1 (the solid line) depends on the order ﬂow 
+correlation 𝜌. If 𝜌 > 0 (< 0), the increase in 𝑅-orders worsens (allevi-
+ates) the market makers’ overall inventory costs through its correlation 
+with the 𝐼 -orders. In other words, as the “retail army” rises, it exerts a 
+negative (positive) externality on other investors who on average trade 
+in the same (opposite) direction.
+
+The same force underlies how 𝜔𝑅 aﬀects the price improvement 𝑠
+
+1 −
+1 decreases 
+2 increases. If 𝜌 > 0 instead, then the eﬀect depends on the relative 
+
+2. Clearly, when 𝜌 < 0, 𝑠
+𝑠
+and 𝑠
+
+2 decreases with 𝜔𝑅, because 𝑠
+
+1 − 𝑠
+
+1 and in 𝑠
+
+speed of the increases in 𝑠
+1 is 
+faster only if 𝜌 is suﬃciently positive. Intuitively, this is exactly the case 
+where, as 𝜔𝑅 increases, 𝑅-investors’ negative externality on 𝐼 -investors 
+is particularly strong, thus pushing up 𝑠
+1 very quickly. Fig. 2(c) depicts 
+such an example.
+
+2. As Proposition 5 states, 𝑠
+
+Our predictions regarding how retail trading activity aﬀects spreads 
+and price improvement can be empirically tested. In particular, Propo-
+sition 5 predicts that 𝜔𝑅 aﬀects the on-exchange spread 𝑠
+1, and more-
+over that the direction of the eﬀect depends on the sign of the order 
+ﬂow  correlation 𝜌.  These  are  novel  predictions.  To  compare,  under 
+the  information-based  theories  of  PFOF,  as  long  as  all  (uninformed) 
+𝑅-orders are siphoned oﬀ-exchange, the adverse-selection risk of the 
+on-exchange 𝐼 -orders is unaﬀected by 𝜔𝑅, and so is the on-exchange 
+spread 𝑠
+
+1.
+
+4.1.3.  The size of the market making sector
+
+Another focal point in debates over PFOF is the concentration of the 
+market making sector (e.g., Hu and Murphy, 2022). Would entry of ad-
+ditional market makers drive down investors’ trading costs? Our model 
+generates predictions along this line via comparative statics with re-
+spect to the size of the market-making sector, 𝑀 . Perhaps surprisingly, 
+the implications of a change in 𝑀 are nuanced.
+
+JournalofFinancialEconomics154(2024)10380710M. Baldauf, J. Mollner and B.Z. Yueshen
+
+Fig. 3. Bid-ask spreads: the size of the market making sector. This ﬁgure shows how various (half) bid-ask spreads change as the market making sector grows. 
+Panels (a) and (b) illustrate the cases of moderate and negative order ﬂow correlations, 𝜌 = 0 and 𝜌 = −0.95, respectively. The size of the market making sector 𝑀
+varies from 0.1 to 1,000 on the horizontal axes. The other parameters are set at 𝛾 = 𝜁 = 1, 𝜔𝐼 = 100, 𝜔𝑅 = 50, 𝜎𝐼 = 0.5, 𝜎𝑅 = 0.2, and 𝜇𝐼 = 𝜇𝑅 = 0.
+
+Fig. 3 plots the various spreads against 𝑀 . In the limit of 𝑀 → ∞, 
+in both panels, the spreads converge to  𝛾
+, which is 0.5 in the numerical 
+2
+illustration. This is because, in the limit, an inﬁnite measure of market 
+makers  compete  for  a  ﬁnite  measure  of  orders,  and,  therefore,  each 
+market maker expects to receive at most one order. Hence, the limiting 
+spread equals the marginal cost of one unit of inventory, which is
+
+.
+
+𝛾
+
+However,  the  convergence  to
+
+is  not  always  monotone.  In  par-
+2
+ticular,  if  the  order  ﬂow  correlation 𝜌 is  suﬃciently  negative,  as  in 
+Panel (b),  the  oﬀ-exchange  spread 𝑠
+2 is  U-shaped.  Accordingly,  the 
+volume-weighted average spread ̄𝑠 is also non-monotone. This implies 
+that a larger market making sector might actually raise investors’ trad-
+ing costs.
+
+2
+
+𝛾
+
+Proposition 6 (Size of the market making sector and spreads). As the size 
+of the market making sector 𝑀 increases,
+
+• the on-exchange half spread, 𝑠
+• the oﬀ-exchange half spread, 𝑠
+
+creases (i.e., is U-shaped in 𝑀 ) if 𝜌 < −
+decreases otherwise.
+
+1, monotonically decreases;
+2, initially decreases but eventually in-
+, and it monotonically 
+
+𝜎𝑅𝜔𝑅
+𝜎𝐼 𝜔𝐼
+
+𝛾
+
+2
+
+To see how this happens, note that the oﬀ-exchange spread 𝑠
+
+2 may, 
+in fact, drop below
+under the parameterization of Fig. 3(b). Were 
+it not for 𝐼 -orders, market makers would lose money when providing 
+liquidity to 𝑅-investors at such a spread, following (4). Why are they 
+willing to provide liquidity to 𝑅-orders at such a small spread? This is 
+because the acquired 𝑅-orders aid in hedging 𝐼 -orders, thanks to the 
+negative order ﬂow correlation 𝜌. In other words, the inventory cost 
+savings from hedging 𝐼 -orders subsidizes losses in providing liquidity to 
+𝑅-orders. Mapping to the real world, this “subsidy” eﬀect helps explain 
+why market makers are willing to provide signiﬁcant price improve-
+ments to their purchased retail orders (cf. Remark 5).
+
+The U-shape of 𝑠
+
+2 is riven by two countervailing eﬀects of 𝑀 . First 
+is an intuitive “supply eﬀect:” As 𝑀 increases, the total liquidity sup-
+ply  curve 𝑀𝑥𝑚2(𝒔) to  𝑅-investors  increases,  and  the  market  makers 
+eﬀectively walk down the decreasing demand curve given by 𝜆𝑅(𝑠
+2). 
+Second, as explained in the previous paragraph, 𝑠
+2 may decrease be-
+when 𝜌 is suﬃciently negative. In that case, 𝑠
+2 must be eventually 
+low
+increasing in 𝑀 , because, as we have previously observed, 𝑠
+2 converges 
+to
+
+(the marginal cost of the ﬁrst unit of inventory) as 𝑀 → ∞.
+
+2
+
+𝛾
+
+𝛾
+
+2
+
+Fig. 4. Market maker proﬁts. This ﬁgure shows how the size of the market 
+making sector 𝑀 aﬀects a market maker’s expected proﬁt 𝜋 with versus without 
+a segmentation ban. The other parameters are set at 𝛾 = 𝜁 = 1, 𝜔𝐼 = 100, 𝜔𝑅 =
+50, 𝜎𝐼 = 0.5, 𝜎𝑅 = 0.2, 𝜌 = −0.3, and 𝜇𝐼 = 𝜇𝑅 = 0.
+
+4.2.  Market maker proﬁtability
+
+We now turn to market maker proﬁtability, denoted 𝜋 with segmen-
+tation and 𝜋𝑏 under the ban. An insight from the model is that market 
+makers might face a “prisoner’s dilemma” in which each unilaterally 
+wants to siphon 𝑅-orders oﬀ-exchange and yet, collectively they would 
+be better oﬀ if they all refrained from doing so. In such cases, a segmen-
+tation ban actually beneﬁts market makers. Such a prisoner’s dilemma 
+can be seen in Fig. 4 where the solid line falls below the dashed line—
+with suﬃciently many market makers.
+
+Proposition  7  (Market  maker  proﬁts). Market  maker  proﬁts  are  higher 
+under the segmentation ban, i.e., 𝜋 > 𝜋𝑏, if and only if 𝑀 < ̂𝑀 , where ̂𝑀
+denotes the unique strictly positive root of a cubic polynomial given by equa-
+tion (D.6) in the proof.
+
+How does the prisoner’s dilemma arise in this context? As we have 
+seen in Section 3.2, under the maintained assumption that Δ < 0, each 
+market maker individually beneﬁts from siphoning, as it provides ﬂex-
+ibility for tailoring exposure to 𝑅- and 𝐼 -order ﬂows. However, when 
+all market makers collectively siphon, that changes the order ﬂow com-
+position (i.e., the 𝑭 (𝛼) matrix) as well as the liquidity demands 𝜆
+1(⋅)
+2(⋅). Equilibrium spreads then also change—potentially in a way 
+and 𝜆
+
+JournalofFinancialEconomics154(2024)10380711M. Baldauf, J. Mollner and B.Z. Yueshen
+
+Fig. 5. Welfare. This ﬁgure shows how total welfare is aﬀected by the magnitude of retail liquidity demand 𝜔𝑅 in Panel (a) and the order ﬂow correlation 𝜌 in 
+Panel (b). For Panel (a), 𝜌 = −0.3; for Panel (b), 𝜔𝑅 = 50. The other parameters are set at 𝑀 = 3, 𝛾 = 𝜁 = 1, 𝜔𝐼 = 100, 𝜎𝐼 = 0.5, 𝜎𝑅 = 0.2, and 𝜇𝐼 = 𝜇𝑅 = 0.
+
+that harms market makers. Indeed, Proposition 4 has established that 
+the volume-weighted average spread is lower when segmentation is al-
+lowed (i.e., ̄𝑠 < 𝑠𝑏).
+
+A prisoner’s dilemma emerges when the negative pecuniary exter-
+nality (lowered spread revenues) outweighs the individual beneﬁt of 
+segmentation (ﬂexibility for tailoring order ﬂow exposures). External-
+ities often loom large when more parties are involved, so that as in-
+dicated by the proposition, the prisoner’s dilemma arises when 𝑀 is 
+suﬃciently large.
+
+A puzzle is why some market makers (e.g., Citadel as quoted in Foot-
+note 3) have been quite open to a potential segmentation ban—after 
+all, such a ban would undermine a core aspect of their current busi-
+ness model. Our analysis highlights a novel explanation for this puzzle: 
+a segmentation ban might actually beneﬁt market makers by resolving 
+a prisoner’s dilemma among them.
+
+Comparison with information-based theories of PFOF. Inventory costs are 
+central to this prisoner’s dilemma. To see this, compare our model to 
+Easley et al. (1996) and other existing models of PFOF, which do not 
+feature inventory costs (but asymmetric information instead). In these 
+models, market makers earn zero proﬁts—both in the equilibrium with 
+segmentation and in the equilibrium segmentation is banned—so that 
+this type of prisoner’s dilemma cannot arise.
+
+4.3.  Welfare
+
+Finally, we turn to welfare. We ﬁrst derive a general expression for 
+total welfare—the sum of the investors’ and the market makers’ surplus. 
+To do so, note that each individual market maker expects to receive 
+Poisson-distributed numbers of 𝑅- and 𝐼 -orders. Deﬁne 𝑥𝐼 and 𝑥𝑅 as 
+the  respective  expectations  of  these  Poisson  random  variables.  Simi-
+larly,  deﬁne  𝑠𝐼 and  𝑠𝑅 as  the  respective  spreads  charged  to  𝑅- and 
+𝐼 -orders.
+
+Now we consider investor surplus. Under the maintained assumption
+of this section (p. 8), 𝑠𝑘 ≤ 𝜁 for 𝑘 ∈ {𝐼, 𝑅} holds in equilibrium both 
+with and without the segmentation ban. Then the 𝑘-investors’ inverse 
+demand curve is 𝑠(𝑞) = 𝜁 −
+
+and their surplus can be computed as
+
+𝑞
+𝜔𝑘
+
+𝑀𝑥𝑘
+
+(
+
+)
+
+𝑞
+𝜔𝑘
+
+𝜁 −
+
+− 𝑠𝑘
+
+d𝑞 = (𝑀𝑥𝑘)𝜁 −
+
+∫
+0
+An individual market maker’s surplus is given by
+
+(𝑀𝑥𝑘)2
+2𝜔𝑘
+
+− (𝑀𝑥𝑘)𝑠𝑘.
+
+𝑥𝐼 𝑠𝐼 + 𝑥𝑅𝑠𝑅 −
+
+𝛾
+
+2
+
+(𝑥𝐼 + 𝑥𝑅) −
+
+𝛾
+
+2
+
+(𝑥2
+
+𝐼 𝜎2
+
+𝐼 + 2𝜌𝜎𝐼 𝜎𝑅𝑥𝐼 𝑥𝑅 + 𝑥2
+
+𝑅𝜎2
+
+𝑅).
+
+Summing the above, noting that there is a measure of 𝑀 market makers 
+in total, we obtain the welfare expression:
+[
+
+]
+
+𝑤(𝑥𝐼 , 𝑥𝑅) =
+
+(𝑀𝑥𝑘)
+
+(
+𝜁 −
+
+)
+
+𝛾
+
+2
+
+−
+
+(𝑀𝑥𝑘)2
+2𝜔𝑘
+
+(
+
+𝐼 𝜎2
+𝑥2
+
+𝐼 + 2𝜌𝜎𝐼 𝜎𝑅𝑥𝐼 𝑥𝑅 + 𝑥2
+
+𝑅𝜎2
+𝑅
+
+)
+
+.
+
+(14)
+
+∑
+
+𝑘∈{𝐼,𝑅}
+𝑀𝛾
+
+−
+
+2
+
+By substituting the corresponding equilibrium supplies 𝑥𝑘, this welfare 
+expression applies generally to any equilibrium. Let 𝑤 and 𝑤𝑏 respec-
+tively denote equilibrium welfare with segmentation and under the ban. 
+In the model, a segmentation ban can only reduce welfare (i.e., 𝑤𝑏 < 𝑤). 
+This follows from a stronger result—that the equilibrium without a seg-
+mentation ban in fact leads to the welfare-maximizing (𝑥𝐼 , 𝑥𝑅). Fig. 5
+illustrates.
+
+Proposition  8  (Segmentation  ban  and  welfare). Absent  a  segmentation 
+ban, the equilibrium outcome maximizes total welfare, hence, 𝑤 > 𝑤𝑏.
+
+That  the  equilibrium  without  a  segmentation  ban  leads  to  the 
+welfare-maximizing outcome essentially follows from the First Welfare 
+Theorem. For example, our model features competitive pricing, no ex-
+ternalities (aside from pecuniary ones), and separate “prices” (spreads 
+𝑠
+2) for each and every diﬀerent “good” (liquidity to 𝑅- and 𝐼 -
+1 and 𝑠
+orders). With a segmentation ban in place, the First Welfare Theorem 
+no longer applies, for we then have only a single “price” (𝑠𝑏) for the two 
+“goods.” The reason for strict (rather than weak) inequality in Propo-
+sition 8 is the maintained assumption Δ < 0, which implies that the 
+segmentation ban bites.
+
+Our result adds to recent policy discussions about PFOF. Both in 
+the U.S. and in Europe, ﬁnancial market regulators have expressed con-
+cerns regarding PFOF as well as intentions to ban it.22 Their arguments 
+largely refer to negative eﬀects of PFOF that are not captured by our 
+model. For example, some have argued that the practice poses conﬂicts 
+of interest, as a broker would “choose the [market maker] oﬀering the 
+highest payment, rather than the best possible outcome for its clients” 
+(ESMA, 2021). The SEC chair, Gary Gensler, also warns that via PFOF, 
+“[market makers] get the data, they get the ﬁrst look, they get to match 
+
+22 Following the discussion in Footnote 2, what precisely would be banned 
+often varies: (i) some have discussed banning the practice whereby retail orders 
+are routed directly to market makers and executed oﬀ-exchange—what we have 
+called a “segmentation ban,” while (ii) others have discussed banning only the 
+accompanying payments that are often transferred from market makers to retail 
+brokers. Our analysis speaks only to the implications of (i).
+
+JournalofFinancialEconomics154(2024)10380712M. Baldauf, J. Mollner and B.Z. Yueshen
+
+oﬀ  buyers  and  sellers  out  of  that  order  ﬂow”  (Barron’s,  2021).  Our 
+welfare result, as stated in Proposition 8 above, cuts in the opposite 
+direction. We contribute to these discussions by highlighting the ben-
+eﬁt of order ﬂow segmentation, in a stylized setting featuring market 
+makers’ inventory concerns.
+
+Comparison  with  information-based  theories  of  PFOF. The  ﬁrst  part  of 
+Proposition 8 says that, without a segmentation ban, the equilibrium 
+outcome  maximizes  welfare.  No  analogous  result  typically  holds  in 
+information-based theories of PFOF, for the reason that adverse selec-
+tion generally invalidates the First Welfare Theorem. The second part 
+of Proposition 8 says that a segmentation ban would reduce welfare. No 
+analogous welfare comparison is made in many information-based mod-
+els of PFOF (e.g., Easley et al., 1996; Battalio and Holden, 2001), for the 
+reason that uninformed investors are assumed to be price-inelastic in 
+those models, so that a segmentation ban has no eﬀect on total welfare. 
+Incorporating an elasticity into those models could, however, permit an 
+analogous result in certain cases.
+
+5.  Conclusion
+
+This paper studies order ﬂow segmentation from the novel perspec-
+tive  of  market  makers’  inventory  management.  In  isolation,  a  given 
+source of orders is riskier for market makers to intermediate if it is more 
+likely to exhibit signiﬁcant directionality. Yet, market makers typically 
+intermediate order ﬂow from several sources, whose directionalities are 
+potentially correlated. These considerations incentivize market makers 
+to  form  portfolios  of  liquidity  supply  to  diﬀerent  order  ﬂows,  so  as 
+to optimally balance spread revenues against overall inventory costs. 
+While the portfolio perspective on inventory management across assets
+has  been  previously  examined  in  the  literature  (Stoll,  1978;  Ho  and 
+Stoll, 1983), our portfolio perspective on inventory management across 
+order ﬂows of the same asset is new.
+
+In  a  setting  tailored  to  PFOF,  we  show  that  siphoning  speciﬁc 
+types of orders oﬀ-exchange may be a part of portfolio-based inventory 
+management by market makers. That is, order ﬂow segmentation can 
+endogenously emerge out of inventory considerations. Our inventory 
+perspective on PFOF moreover makes novel predictions about conse-
+quences of regulations that ban order ﬂow segmentation.
+
+As we have pointed out, there are a variety of empirical facts, which 
+our  inventory-based  theory  can  explain,  but  which  an  information-
+based theory of PFOF would struggle to explain on its own. See, for 
+example, our discussion of the empirical literature on how oﬀ-exchange 
+siphoning aﬀects on-exchange liquidity (on p. 9). It follows that infor-
+mation cannot constitute the entire explanation for why retail orders 
+have  been  siphoned  oﬀ-exchange—considerations  of  inventory,  like 
+those we model, play a role also. A more challenging question, which 
+could be addressed in future work, concerns the relative importance of 
+information versus inventory in driving this siphoning. One way to ad-
+dress this question would be by assembling and estimating a structural 
+model that is rich enough to encompass both frictions.
+
+CRediT authorship contribution statement
+
+Markus  Baldauf: Conceptualization,  Data  curation,  Formal  anal-
+ysis, Funding acquisition, Investigation, Methodology, Project admin-
+istration,  Resources,  Software,  Supervision,  Validation,  Visualization, 
+Writing  –  original  draft,  Writing  –  review  &  editing. Joshua  Moll-
+ner: Conceptualization, Data curation, Formal analysis, Funding acqui-
+sition, Investigation, Methodology, Project administration, Resources, 
+Software,  Supervision,  Validation,  Visualization,  Writing  –  original 
+draft, Writing – review & editing. Bart Zhou Yueshen: Conceptualiza-
+tion, Data curation, Formal analysis, Funding acquisition, Investigation, 
+Methodology, Project administration, Resources, Software, Supervision, 
+Validation, Visualization, Writing – original draft, Writing – review & 
+editing.
+
+Declaration of competing interest
+
+The authors declare that they have no known competing ﬁnancial 
+interests or personal relationships that could have appeared to inﬂuence 
+the work reported in this paper.
+
+Data availability
+
+The  codes  and  data  of  the  article  can  be  found  at  https://data .
+
+mendeley .com /datasets /x44cvwpw9h /1.
+
+Appendix A.  Notation
+
+Notation used in Section 2
+Exogenous parameters
+
+𝐽
+𝜆𝑗 (⋅)
+𝐷𝑗
+
+𝝁
+𝚺
+𝑀
+𝛾
+
+number of marketplaces
+measure of liquidity-demanding orders on marketplace 𝑗
+(random) directionality of liquidity-demanding orders on⎫
+⎪
+marketplace 𝑗
+⎬
+𝔼[(𝐷
+, 𝐷
+⎪
+1
+⎭
+var[(𝐷
+measure of market makers
+parametrization of market maker inventory costs
+
+, … , 𝐷𝐽 )⊤]
+
+, … , 𝐷𝐽 )⊤]
+
+2
+, 𝐷
+
+1
+
+2
+
+Endogenized
+in Section 3
+
+Endogenous variables
+
+𝑠𝑗
+𝑥𝑚𝑗
+𝑄𝑚𝑗
+𝑍𝑚𝑗
+𝜋𝑚
+
+half bid-ask spread of marketplace 𝑗
+Poisson intensity of liquidity supply for market maker 𝑚 on marketplace 𝑗
+(random) volume of market maker 𝑚 on marketplace 𝑗
+(random) net inventory of market maker 𝑚 on marketplace 𝑗
+expected proﬁt of market maker 𝑚
+
+Additional notation used in Sections 3–4
+Exogenous parameters
+
+𝜆𝑘(⋅)
+𝜁
+𝜔𝑘
+𝐷𝑘
+𝚺◦
+𝜎𝑘
+𝜌
+Δ
+
+[
+
+measure of type-𝑘 liquidity-demanding orders
+maximum acceptable half spread
+magnitude of type-𝑘 liquidity demand
+(random) directionality of type-𝑘 liquidity demand
+var
+sd(𝐷𝑘)
+corr(𝐷𝐼 , 𝐷𝑅)
+(
+𝜎2
+𝑅
+
+𝜔𝐼 + 𝜌𝜎𝐼 𝜎𝑅𝜔𝑅
+
+𝜔𝑅 + 𝜌𝜎𝐼 𝜎𝑅𝜔𝐼
+
+(𝐷𝐼 , 𝐷𝑅)⊤
+
+(
+𝜎2
+𝐼
+
+−
+
+)
+
+)
+
+]
+
+Endogenous variables
+
+𝛼
+𝑭 (𝛼)
+̄𝑠
+𝜋
+𝑤
+𝑏
+
+fraction of 𝑅-orders routed oﬀ-exchange (i.e., to marketplace 2)
+order ﬂow weighting matrix
+volume-weighted average half spread
+market maker proﬁtability
+total welfare
+subscript to indicate that segmentation is banned, as in 𝑠𝑏, 𝜋𝑏, and 𝑤𝑏
+
+Additional notation used in Appendix B
+Exogenous parameters
+
+𝐷◦
+𝐼
+
+(random) 𝐼-directionality, before crossing in the midpoint dark pool
+
+Additional notation used in Appendix C
+Exogenous parameters
+
+𝑡
+𝜙𝑘
+
+time period (𝑡 ∈ {1, 2}); superscripted on other variables as “(𝑡)”
+autocorrelation of type-𝑘 order ﬂow
+
+Endogenous variables
+
+𝜋(𝑡)
+𝑚
+𝑧(𝑡)
+𝑚
+̄𝑧(𝑡)
+(1)
+𝑚
+Δ(2)
+
+a market maker 𝑚’s expected proﬁt, before period 𝑡 trading
+a market maker 𝑚’s inventory after period 𝑡 trading
+market makers’ average inventory after period 𝑡 trading
+𝑚 , 𝐷(1)
+, ̄𝑧(1)}
+{𝑧(1)
+)
+(
+𝐼
+𝜙𝐼 𝐷(1)
+𝑀 ̄𝑧(1)
+𝐼
+
+− 𝜎2
+𝐼
+
+(
+∕
+
+𝜁 −
+
+𝜔𝐼
+
+)
+
+𝛾
+
+2
+
+Appendix B.  Extension: adding a midpoint dark pool
+
+In  Section 3,  we  assume  that  𝐼 -investors  can  trade  on-exchange 
+only. Yet, in reality, institutional investors do occasionally trade oﬀ-
+exchange. Nevertheless, the oﬀ-exchange venues on which institutional 
+investors tend to trade diﬀer in crucial ways from oﬀ-exchange execu-
+tion of retail orders, which we have modeled. For example, institutional 
+investors often trade in midpoint dark pools. In these venues, the spread 
+is not determined by market clearing (as it is for oﬀ-exchange retail ex-
+ecution); rather the spread is zero by construction. Accordingly, these 
+
+JournalofFinancialEconomics154(2024)10380713M. Baldauf, J. Mollner and B.Z. Yueshen
+
+markets may fail to clear, in the sense that an order routed to a mid-
+point dark pool might fail to execute, if it cannot be crossed against a 
+corresponding order in the other direction.
+
+We study in this appendix a model extension that additionally fea-
+tures a midpoint dark pool, in which 𝐼 -investors can ﬁrst cross their 
+liquidity demand. Our formulation of this dark pool is standard, follow-
+ing, for example, Hendershott and Mendelson (2000) and Zhu (2014).23
+The extension also suggests an additional microfoundation for why it is 
+likely that 𝜎𝑅 < 𝜎𝐼 , complementing the empirical evidence discussed in 
+Section 3.3.
+𝐼 -investor characteristics. We follow the discussion on microfoundation 
+in Section 2.1 to model 𝐼 -orders: There is a continuum of measure 𝜅𝐼 of 
+𝐼 -investors, each of whom wants to trade one unit of the asset. Each of 
+them has an i.i.d. private value for the asset: it is positive with probabil-
+ity 1
+𝐼 ) (and negative otherwise), and its magnitude is distributed 
+2
+according to the c.d.f. 𝐹𝐼 (⋅).
+Note that we use 𝐷◦
+
+𝐼 to denote the “original” directionality of 𝐼 -
+investors’ trading needs. It is randomly distributed on [−1, 1], where we 
+assume that 𝐷◦
+≠ 0 almost surely and that the distribution is symmetric 
+𝐼
+around 0. As in the main text, we use 𝐷𝐼 to denote the directionality 
+of  the  𝐼 -ﬂow  that  enters  the  exchange.  Below  we  shall  see  how 𝐷◦
+𝐼
+endogenously aﬀects—hence also diﬀers from—𝐷𝐼 .
+Trading. In aggregate, a fraction 1
+2
+to buy and the rest 1
+2
+seeks liquidity according to the following pecking order:
+
+𝐼 ) of these 𝐼 -investors want 
+𝐼 ) want to sell. Upon arrival, an 𝐼 -investor 
+
+(1 + 𝐷◦
+
+(1 − 𝐷◦
+
+(1 + 𝐷◦
+
+• First, she sends an order, in the direction of her private value, to 
+the midpoint dark pool, on which oﬀsetting orders are randomly 
+matched. If her order is on the short side, it is always matched; if it 
+is on the long side, it is matched only with probability  1−|𝐷◦
+|
+𝐼
+| .24
+1+|𝐷◦
+𝐼
+Once  matched,  the  order  trades  at  the  “midpoint,”  i.e.,  at  zero 
+spread. Midpoint dark pool volume is then publicly observed.
+
+• Second, only if unmatched in the midpoint dark pool, she sends 
+an IOC order with a limit price reﬂecting her private value to the 
+exchange, where market makers provide liquidity according to the 
+setup in Section 2.1.
+
+Compared to Section 2.1, the key diﬀerence is the added possibility 
+of crossing in the midpoint dark pool. In particular, we have assumed 
+that 𝐼 -investors always ﬁrst attempt crossing at the midpoint dark pool 
+before turning to the exchange. Although we take this pecking order 
+as exogenous, it would in fact arise endogenously: if an 𝐼 -investor suc-
+ceeds in her attempt to trade at the dark pool, then she will have traded 
+at a spread of zero, leaving her better oﬀ than if she had instead traded 
+at a positive spread on the exchange; and if she fails in her attempt to 
+trade at the dark pool, then she is no worse oﬀ for having tried.
+
+Midpoint dark pool volume is therefore
+{
+
+}
+
+(
+
+1
+2
+
+(1 + 𝐷◦
+
+𝐼 )𝜅𝐼 , 1
+2
+
+(1 − 𝐷◦
+
+𝐼 )𝜅𝐼
+
+=
+
+1
+2
+
+)
+|
+|
+|
+
+|
+𝐷◦
+|
+|
+𝐼
+
+𝜅𝐼 ,
+
+1 −
+
+min
+
+and,  therefore,  IOC  orders  sent  by  unmatched  𝐼 -investors  to  the  ex-
+change have measure
+|
+|
+|
+
+1
+2
+Further, these on-exchange IOC orders will all have the same sign. For-
+mally,
+
+|
+𝜅𝐼 =∶ 𝜔𝐼 .
+|
+|
+
+(1 + 𝐷◦
+
+(1 − 𝐷◦
+
+𝐼 )𝜅𝐼 −
+
+|
+𝐷◦
+|
+|
+𝐼
+
+|
+|
+| =
+
+𝐼 )𝜅𝐼
+
+1
+2
+
+23 There are many diﬀerent forms of dark pools, as detailed in Menkveld et 
+al. (2017). In this extension, we consider a midpoint dark pool because it is the 
+most common form of dark trading in practice. For example, Nimalendran and 
+Ray (2014) document that about 57% dark transactions are within 0.01% of the 
+price around the midpoint.
+24 An 𝐼 -buyer is on the short side (long side) if 𝐷◦
+𝐼
+𝐼 -seller is on the short side (long side) if 𝐷◦
+> 0 (< 0).
+𝐼
+
+< 0 (> 0). Vice versa, an 
+
+𝐷𝐼 = sign
+
+[
+
+1
+2
+
+(1 + 𝐷◦
+
+𝐼 ) −
+
+1
+2
+
+]
+(1 − 𝐷◦
+𝐼 )
+
+[
+= sign
+
+]
+
+.
+
+𝐷◦
+𝐼
+
+That is, the on-exchange 𝐼 -order directionality 𝐷𝐼 has a two-point dis-
+tribution, with ℙ[𝐷𝐼 = 1] = ℙ[𝐷◦
+<
+𝐼
+(recall  that 𝐷◦
+0] = 1
+𝐼 is  assumed  to  be  symmetrically  distributed 
+2
+around 0).  The  analysis  in  Sections 3.1 and 3.2 can  then  be  carried 
+out with the above 𝜔𝐼 and 𝐷𝐼 .
+
+and ℙ[𝐷𝐼 = −1] = ℙ[𝐷◦
+𝐼
+
+> 0] = 1
+2
+
+How the midpoint dark pool exacerbates the directionality of 𝐼 -orders. As 
+seen above, because 𝐼 -investors naturally ﬁrst turn to the cheaper mid-
+point dark pool to cross their orders, the residual on-exchange orders 
+become more extreme, with |𝐷𝐼 | = 1. (Instead, in reality retail orders 
+typically do not go through midpoint dark pools.) We argue this is one 
+realistic mechanism through which 𝐼 -orders are more likely to be di-
+rectional than 𝑅-orders, i.e., why 𝜎𝑅 < 𝜎𝐼 . Indeed, 𝜎2
+𝐼 = var[𝐷𝐼 ] = 1
+≤ 1.
+following the above analysis, while by deﬁnition 𝜎2
+𝑅
+
+Appendix C.  Extension: dynamics
+
+In the model, market makers’ liquidity-supply decisions can be in-
+terpreted as their limit orders, their ex-ante allocation of groundwork, 
+or their negotiations with brokers (see Remark 3). In Sections 2 and 3, 
+we assume that these decisions are made once, before trading starts. In 
+this section, we relax this assumption and examine how market makers 
+supply liquidity dynamically.
+
+In C.1, we describe the model setup. To keep the analysis tractable 
+and to highlight the main insights, we also introduce a few simplifying 
+assumptions. We then characterize the equilibrium in C.2, showing that 
+market makers’ incentive to siphon 𝑅-orders remains intact. In fact, this 
+dynamic  extension  highlights  a  novel  eﬀect  that  further  incentivizes 
+siphoning. This new mechanism arises from two unique features of the 
+dynamic extension: (1) market makers inherit inventories accumulated 
+in previous periods, and (2) these inventories can be correlated with 
+future orders because of autocorrelation in order ﬂows.
+
+C.1.  Setup
+
+)⊤
+
+, 𝑠(𝑡)
+2
+
+, 𝑥(𝑡)
+𝑚2
+)⊤
+
+Timing. There are two trading periods 𝑡 ∈ {1, 2}. As in Section 3, there 
+are  two  marketplaces  𝑗 ∈ {1, 2},  where  1 denotes  on-exchange  and 
+2 oﬀ-exchange  trading.  In  each  period 𝑡,  each  market  maker 𝑚 ∈
+[0, 𝑀] chooses  her  liquidity  supply  for  the  two  marketplaces  𝒙(𝑡)
+𝑚 =
+(
+𝑥(𝑡)
+,  where  the  superscript “(𝑡)”  indicates  the  period.  The 
+𝑚1
+period-𝑡 half  spreads  for  these  two  marketplaces  are  denoted 𝒔(𝑡) =
+(
+𝑠(𝑡)
+and will be determined endogenously in equilibrium. A mar-
+1
+ket maker’s proﬁt is her spread revenue (across both marketplaces and 
+both time periods) minus  𝛾
+times the square of her terminal inventory.
+2
+Liquidity demand. As in Section 3, there are two types of investors, 𝑘 ∈
+{𝑅, 𝐼}. For simplicity, their liquidity demands are assumed to be time-
+invariant, i.e., 𝜆(𝑡)
+𝑘 (𝑠) = 𝜆𝑘(𝑠) = max{0, (𝜁 − 𝑠)𝜔𝑘}, for both 𝑡 ∈ {1, 2}. 
+Whereas we permitted an arbitrary joint distribution for directionali-
+ties in previous sections, we impose additional structure here so as to 
+introduce autocorrelation in a tractable way. Formally, we model direc-
+tionalities as follows:
+
+𝑌 (1)
+𝐼 𝜎𝐼 , 𝐷(2)
+𝑅 = 0,
+, 𝑌 (2)
+𝐼
+{
+1
+2
+
+, 𝑋𝐼
+, 1
+2
+
+𝐷(1)
+
+𝐼 = (−1)
+
+𝐼 = 𝑋𝐼 𝐷(1)
+
+𝐼 + (1 − 𝑋𝐼 )(−1)
+
+𝑌 (2)
+𝐼 𝜎𝐼 ,
+
+}
+
+, 𝜙𝐼
+
+(C.1)
+
+and 𝐷(1)
+𝑅 = 𝐷(2)
+{
+𝑌 (1)
+are independent Bernoulli draws with respective 
+where 
+𝐼
+}
+with 𝜙𝐼 ∈ [0, 1) and 𝜎𝐼 ∈ (0, 1]. In words, for 
+success rates 
+each period 𝑡, 𝐼 -orders will realize a directionality 𝐷(𝑡)
+𝐼 of either ±𝜎𝐼 , 
+[
+𝐷(𝑡)
+yet  are  unconditionally  balanced,  with  𝔼
+= 0.  The  period-2  di-
+𝐼
+rectionality 𝐷(2)
+𝐼 with 
+𝐼
+probability 𝜙𝐼 and is an i.i.d. new draw with probability 1 − 𝜙𝐼 . In 
+contrast, we assume that 𝑅-orders lack directionality altogether, which 
+
+remains equal to the period-1 directionality 𝐷(1)
+
+]
+
+JournalofFinancialEconomics154(2024)10380714M. Baldauf, J. Mollner and B.Z. Yueshen
+
+lends  tractability  while  simultaneously  encoding  the  realistic  feature 
+that 𝑅-orders are less directional than 𝐼 -orders (as discussed in Sec-
+tion 3.3).25
+
+Siphoning. In  each  period 𝑡 ∈ {1, 2},  a  fraction 𝛼(𝑡) ∈ [0, 1] of  the  𝑅-
+orders is endogenously siphoned oﬀ-exchange, so that the marketplace-
+(
+level directionalities are 𝑫(𝑡) = 𝑭
+𝛼(𝑡)
+, where the weight-
+ing  matrix 𝑭 (⋅) remains  as  in (6).  As  in  Section 3,  brokers  honor 
+the  best-execution  requirement,  so  that  𝑠(𝑡)
+if  𝛼(𝑡) < 1(> 0); 
+1
+see (7a)–(7b) and Remark 5.
+
+≤(≥)𝑠(𝑡)
+2
+
+, 𝐷(𝑡)
+𝑅
+
+𝐷(𝑡)
+𝐼
+
+)⊤
+
+)(
+
+{
+
+}
+
+𝑚 =
+
+, ̄𝑧(1)
+
+Trading outcomes from 𝑡 = 1. After the 𝑡 = 1 trading, a market maker 𝑚
+𝑚 , 𝐷(1)
+𝑧(1)
+observes (1)
+𝑚 is the market maker’s own 
+𝐼
+𝑧(1)
+inventory at that time, and  ̄𝑧(1) ∶= 1
+𝑚 d𝑚 is the average inven-
+𝑀
+tory across all market makers. Naturally, the market maker knows her 
+own 𝑧(1)
+𝐼 and ̄𝑧(1), for example, from a public 
+data feed.26
+
+𝑚 . She can further infer 𝐷(1)
+
+, where 𝑧(1)
+∫ 𝑀
+0
+
+Equilibrium deﬁnition. Analogous to Section 3.1, an equilibrium consists 
+of, for both 𝑡 ∈ {1, 2}, liquidity supplies 𝒙(𝑡)
+𝑚 for each market maker 𝑚, 
+siphoning fractions 𝛼(𝑡), and half spreads 𝒔(𝑡). In particular, for 𝑡 = 2, 
+a  market  maker 𝑚’s  supply 𝒙(2)
+𝑚 can  depend  on  her  own  informa-
+tion (1)
+𝑚 ,  while  the  market-wide  variables,  𝛼(2) and 𝒔(2) can  depend 
+(1)
+𝑚 . The equilibrium conditions determining these endoge-
+on ∪𝑚∈[0,𝑀]
+nous  variables  are:  (i)  each  market  maker 𝑚 chooses  her  liquidity-
+supply strategy 
+to maximize her expected proﬁt—not only 
+in the entire game but also in each 𝑡 = 2 subgame (as in the spirit of 
+subgame perfection); (ii) market clearing holds for each marketplace 𝑗
+(in every subgame), and (iii) the best-execution requirement is satisﬁed 
+(in every subgame).
+
+𝑚 , 𝒙(2)
+𝒙(1)
+𝑚
+
+}
+
+{
+
+Comparison with existing literature. A key feature of our analysis is that 
+we consider an environment with two marketplaces, so as to highlight 
+endogenous  order  ﬂow  segmentation—the  oﬀ-exchange  siphoning  of 
+retail orders. In contrast, existing inventory-based models of dynamic 
+liquidity supply typically consider only a single venue; see, e.g., Amihud 
+and Mendelson (1980), Ho and Stoll (1981, 1983), and Hendershott and 
+Menkveld (2014).27
+
+Diﬀerent from the above literature, we maintain the standing as-
+sumption that each marketplace’s midpoint is ﬁxed at the asset’s fair 
+value throughout the two periods (so that only the spreads 𝒔(𝑡) remain 
+to be determined in equilibrium). Hendershott and Mendelson (2000)
+
+)
+
+)
+
+(
+
+)
+
+)
+(
+
++
+𝑠(1)
+1
+
+𝜆𝑅
+(
+𝑠(1)
+1
+
+(
+𝑠(1)
+)
+1
+𝜆𝑅
+
+𝑅 = 𝑋𝑅𝐷(1)
+
+𝑠(1)
+)
+1
+𝐷(1)
+𝐼
+
+𝑅 = (−1)𝑌 (1)
+
+{
+, 𝑌 (2)
+𝑌 (1)
+𝑅
+𝑅
+{
+, 𝜙𝑅
+, 1
+1
+2
+2
+
+(
+1 − 𝛼(1)
+∶= 𝜆𝐼
+(
+)
+1 − 𝛼(1)
+𝐷(1)
+𝑅 = 𝜆𝐼
+𝑅 = 0).  Each  market  maker  can  infer 𝐷(1)
+
+25 Our  analysis  can  be  generalized  to  the  case  where  𝑅-order  directional-
+ities  take  the  same  functional  form  as  for 𝐼 -orders:  𝐷(1)
+𝑅 𝜎𝑅,  and 
+}
+𝐼 + (1 − 𝑋𝑅)(−1)𝑌 (2)
+, 𝑋𝑅
+are independent 
+𝑅 𝜎𝑅, where 
+𝐷(2)
+}
+Bernoulli draws with respective success rates 
+with 𝜙𝑅 ∈ [0, 1) and 
+𝜎𝑅 ∈ [0, 1]. In particular, the same key result (that retail orders are all siphoned 
+oﬀ-exchange) will be obtained for suﬃciently small 𝜎𝑅 > 0.
+26 For example, such a data feed may contain the on-exchange half spread 𝑠(1)
+1 , 
+,  and  order  imbalance 
+trading  volume  𝑉 (1)
+(
+1
+(where the last equal-
+𝐼 (1)
+𝑠(1)
+𝐷(1)
+1 ∶= 𝜆𝐼
+𝐼 +
+1
+ity  holds  because  𝐷(1)
+by  solving 
+𝐼 and 𝛼(1). The average inven-
+those two equations for the two unknowns 𝐷(1)
+tory also follows ̄𝑧(1) = − 1
+2 ∶=
+𝑀
+)
+𝐷(1)
+𝛼(1)𝜆𝑅
+27 In addition to considerations related to inventory management, the liter-
+ature has also highlighted several other dimensions of strategic behavior in 
+dynamic liquidity supply. For example, Glosten and Milgrom (1985) and Kyle 
+(1985) analyze how competitive market makers dynamically supply liquidity 
+in view of information asymmetry. Bernhardt et al. (2004) show that dealers 
+provide better liquidity to frequent customers to secure future business. Des-
+granges and Foucault (2005) show that repeated trading relationships can shield 
+a dealer from being adversely selected by a possibly-informed investor. Barbon 
+et al. (2019) ﬁnd evidence consistent with brokers leaking information about 
+some of their clients’ ﬁre-selling orders to other clients.
+
+𝑅 is zero and hence does not aﬀect ̄𝑧(1)).
+
+(note that the oﬀ-exchange imbalance 𝐼 (2)
+
+(
+𝑠(1)
+2
+
+𝐼 (1)
+1
+
+𝐼
+
+make a similar assumption. Nevertheless, we acknowledge that this as-
+sumption is a substantive one, as market makers would have incentives 
+to skew their quotes against their inventories. For example, if a mar-
+ket maker becomes long, then she would set the midquote below the 
+fair value, so as to encourage buyers and discourage sellers. Such “price 
+pressure” is a key insight from the above literature.
+
+By ﬁxing the midpoint, we eﬀectively ignore how market makers 
+might use price pressures to manage their inventories over time. In re-
+turn, we obtain the tractability necessary to demonstrate the robustness 
+of our main result—that even in a dynamic framework, market mak-
+ers’ incentive to segment orders persists. In other words, our analysis 
+highlights that order ﬂow segmentation can serve as a further tool—
+in addition to price pressure—with which market makers can manage 
+their inventories. We leave it as an open question for future research 
+how these two tools might interact with each other.
+
+C.2.  Equilibrium
+
+The equilibrium is solved backwards: We ﬁrst derive the 𝑡 = 2 equi-
+librium objects for any given 𝑡 = 1 trading outcomes. This gives market 
+makers’ continuation values, with which we then solve for the 𝑡 = 1
+equilibrium objects.
+
+C.2.1.  Period 2
+
+The  analysis  for  period 2  is  similar  to  that  for  the  single-period 
+model,  with  two  key  diﬀerences.  First,  given  her  observation  (1)
+𝑚
+from 𝑡 = 1, each market maker 𝑚 possesses information about the 𝑡 = 2
+directionality of 𝐼 -orders, 𝐷(2)
+𝐼 . In particular, all market makers observe 
+the realized 𝑡 = 1 directionality 𝐷(1)
+𝐼 , which following (C.1) is a suﬃ-
+cient statistic. For notational simplicity, we write 𝔼
+and 
+[
+|
+𝐷(1)
+var1[⋅] = var
+|
+. Therefore, by Bayes’ rule, every market maker ob-
+|
+𝐼
+tains the same posterior moments: 𝔼
+= (1 −
+1
+𝐼 , and we of course also have 𝔼
+𝐼 )𝜎2
+𝜙2
+= 0. We 
+1
+)⊤
+, 𝐷(2)
+write the posterior mean and variance of 𝑫(2) = 𝑭
+𝑅
+as  𝝁(2|1) and 𝚺(2|1),  respectively,  and  derive  their  expressions  in  the 
+proof of Lemma 3.
+
+= 𝜙𝐼 𝐷(1)
+= 0 and var1
+(
+)
+𝛼(2)
+
+𝐷(2)
+𝐼
+]
+𝐷(2)
+𝑅
+(
+𝐷(2)
+𝐼
+
+𝐷(2)
+𝐼
+[
+𝐷(2)
+𝑅
+
+𝐼 , var1
+[
+
+1[⋅] = 𝔼
+
+|
+𝐷(1)
+|
+|
+𝐼
+
+[
+
+]
+
+[
+
+]
+
+]
+
+]
+
+[
+
+]
+
+⋅
+
+⋅
+
+⋅
+
+Second, in the single-period model, all market makers begin with 
+zero inventory, whereas now in 𝑡 = 2, each market maker 𝑚 inherits 
+from her trading at 𝑡 = 1 the inventory 𝑧(1)
+𝑚 . We show in the proof of 
+Lemma 3 that her objective now becomes:
+
+(
+
+)
+
+= 𝒙(2)
+𝑚
+
+𝑚 , 𝐷(1)
+𝑚 ; 𝑧(1)
+𝒙(2)
+𝐼
+[
+(
+𝚺(2|1) + 𝝁(2|1)𝝁(2|1)
+
+𝒙(2)
+𝑚
+
+⊤
+
+⊤
+
+(
+𝒔(2) −
+)
+
+⊤
+
+)
+
+𝟏
+
+𝛾
+
+2
+
+𝒙(2)
+𝑚 − 2𝒙(2)
+𝑚
+
+𝜋(2)
+𝑚
+
+−
+
+𝛾
+
+2
+
+⊤
+
+𝝁(2|1)𝑧(1)
+
+𝑚 +
+
+]
+
+)2
+
+,
+
+(
+
+𝑧(1)
+𝑚
+
+(C.2)
+
+(
+
+)2
+
+𝑧(1)
+𝑚
+
+where she takes as given the half spreads 𝒔(2) and the siphoning frac-
+tion 𝛼(2) (which determines 𝚺(2|1) and 𝝁(2|1)). Compared with the objec-
+tive (4) in the single-period model, the last two terms in the squared-
+brackets are new. They arise from the market maker’s existing inven-
+tory 𝑧(1)
+𝑚 : The expected inventory cost created by that existing inventory 
+, and that created by its covariance with 
+itself is proportional to
+her 𝑡 = 2 trading is proportional to −𝒙(2)
+𝑚
+We show in the proof of Lemma 3 that the objective (C.2) is strictly 
+concave  in 𝑥(2)
+𝑚1 but  linear  in 𝑥(2)
+𝑚2.  Therefore,  the  ﬁrst-order  condi-
+tion  determines  the  optimal 𝑥(2)
+𝑚1 (as  a  function  of  the  on-exchange 
+half spread 𝑠(2)
+2 . Market clear-
+ing then determines the on-exchange half spread 𝑠(2)
+1 and the aggregate
+oﬀ-exchange liquidity supply. The equilibrium siphoning fraction 𝛼(2)
+is determined by the best-execution requirement. The following lemma 
+summarizes the results:
+
+1 ) and the oﬀ-exchange half spread 𝑠(2)
+
+𝝁(2|1)𝑧(1)
+𝑚 .
+
+⊤
+
+JournalofFinancialEconomics154(2024)10380715M. Baldauf, J. Mollner and B.Z. Yueshen
+
+Lemma 3 (Period 𝟐). Given period-1 outcomes 𝐷(1)
+𝐼 and ̄𝑧(1), the period-2 
+continuation game always has an equilibrium. All equilibria are character-
+ized as follows. Deﬁne
+
+Δ(2) ∶=
+
+𝜙𝐼 𝐷(1)
+𝐼
+𝜁 −
+
+𝑀 ̄𝑧(1)
+𝛾
+
+2
+
+− 𝜎2
+
+𝐼 𝜔𝐼 .
+
+(C.3)
+
+C.2.2.  Period 1
+
+(i) If Δ(2) < 0, then 𝛼(2) = 1.
+(ii) If Δ(2) > 0, then 𝛼(2) = 0.
+(iii) If Δ(2) = 0, then 𝛼(2) can take any value in [0,1].
+
+and 𝑠(2)
+2
+
+In  all  cases,  the  equilibrium  half  spreads 𝑠(2)
+are  deﬁned  by 
+1
+equations (D.9)–(D.10);  equilibrium  on-exchange  liquidity  supply 𝑥(2)
+𝑚1 is 
+given  by (D.11);  and  equilibrium  oﬀ-exchange  aggregate  liquidity  sup-
+ply ∫ 𝑀
+𝑥(2)
+𝑚2d𝑚 is given by (D.12) (but may be allocated arbitrarily among 
+the individual market makers). Furthermore, when the market clears at 𝑡 = 1
+(as it would in equilibrium of the full game), we have 𝛼(2) = 1 (i.e., all 𝑅-
+orders are siphoned oﬀ-exchange in 𝑡 = 2).
+
+0
+
+According to the last part of the lemma, in (the full game) equilib-
+rium, all 𝑅-orders are siphoned oﬀ-exchange in 𝑡 = 2. Two eﬀects drive 
+this equilibrium feature.
+
+• First, suppose (contrary to the equilibrium) that all market makers 
+were to enter period 2 without any inventory. This would imply 
+that  ̄𝑧(1) = 0, leading to Δ(2) = −𝜔𝐼 𝜎2
+< 0 by equation (C.3). Thus, 
+𝐼
+even absent the inventories inherited from 𝑡 = 1, 𝑅-orders would 
+be siphoned oﬀ-exchange. The intuition is that 𝑅-orders, being bal-
+anced, would be cheaper than 𝐼 -orders, being imbalanced, in terms 
+of market makers’ inventory costs. In fact, this ﬁrst eﬀect is im-
+plied by the analysis in Section 3, where 𝑅-orders are siphoned 
+oﬀ-exchange if Δ < 0.28 In other words, the siphoning incentive 
+identiﬁed in the single-period case remains robust in the dynamic 
+extension.
+
+𝛾
+
+)
+
+)
+
+(
+
+)
+
+𝑠(1)
+1
+
+• Second, the inventory that market makers bring into period 2 leads 
+to an extra term in the expression for Δ(2), namely 𝜙𝐼 𝐷(1)
+𝑀 ̄𝑧(1)∕
+(
+𝐼
+.  Equilibrium  requires  market  clearing  at  𝑡 = 1 so  that 
+𝜁 −
+2
+𝐷(1)
+𝑠(1)
+𝑀 ̄𝑧(1) = −𝜆𝐼
+𝐼 . Plugging this in, the extra term becomes 
+(
+)
+(
+1
+𝛾
+−𝜙𝐼 𝜆𝐼
+𝜁 −
+𝜎2
+,  which  makes  Δ(2) even  more  negative. 
+𝐼 ∕
+The intuition is that autocorrelation in 𝐼 -investor order ﬂow im-
+plies that 𝐼 -orders in 𝑡 = 2 are on average expected to exacerbate 
+market  makers’  inventories  inherited  from 𝑡 = 1:  𝐼 -investors  are 
+expected to buy (sell) in 𝑡 = 2 precisely when market makers are 
+short (long) on average, owing to 𝐼 -orders from 𝑡 = 1. This makes 
+𝐼 -orders even less attractive relative to 𝑅-orders, further incentiviz-
+ing market makers to siphon 𝑅-orders oﬀ-exchange.
+
+2
+
+)
+
+𝑅]𝜔𝑅 + 𝔼[𝐷𝑅𝐷𝐼 ]𝜔𝐼
+
+28 In  Section 3,  to  simplify  notation,  we  assumed 𝔼[𝐷𝐼 ] = 𝔼[𝐷𝑅] = 0 (cf.
+Footnote 12), so that 𝚺 + 𝝁𝝁⊤ reduces to 𝚺. Without such a simpliﬁcation, 
+it  can  be  shown  that  the  deﬁnition  of Δ generalizes  from (11) to  Δ ∶=
+(
+𝑘 = var[𝐷𝑘] is 
+𝔼[𝐷2
+replaced by 𝔼[𝐷2
+𝑘] and 𝜌𝜎𝑅𝜎𝐼 = cov[𝐷𝑅, 𝐷𝐼 ] by 𝔼[𝐷𝑅𝐷𝐼 ]. To adapt this gener-
+alized deﬁnition of Δ to the second-period phase of our dynamic model (for the 
+case of ̄𝑧(1) = 0), we simply use the conditional expectation 𝔼
+1[⋅] and set 𝜎𝑅 = 0
+to obtain
+(
+
+𝐼 ]𝜔𝐼 + 𝔼[𝐷𝑅𝐷𝐼 ]𝜔𝑅
+
+; that is, 𝜎2
+
+𝔼[𝐷2
+
+)
+
+−
+
+(
+
+)
+
+[
+
+]
+
+[(
+
+]
+
+)2
+
+Δ =
+
+1
+
+𝐷(2)
+𝔼
+𝑅
+⏟⏞⏞⏞⏞⏟⏞⏞⏞⏞⏟
+
+𝜔𝑅 + 𝔼
+
+1
+
+𝐷(2)
+𝑅
+⏟⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏟
+
+𝐷(2)
+𝐼
+
+𝜔𝐼
+
+(
+
+−
+
+=0
+[(
+
+)2
+
+]
+
+=0
+[
+
+]
+
+)
+
+1
+
+𝐷(2)
+𝔼
+𝐼
+⏟⏞⏞⏞⏞⏟⏞⏞⏞⏞⏟
+
+𝜔𝐼 + 𝔼
+
+1
+
+𝐷(2)
+𝑅
+⏟⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏟
+
+𝐷(2)
+𝐼
+
+𝜔𝑅
+
+= −𝜔𝐼 𝜎2
+𝐼
+
+< 0,
+
+=𝜎2
+𝐼
+
+=0
+
+which exactly coincides with the result of setting  ̄𝑧(1) = 0 in the expression for 
+Δ(2) given in (C.3).
+
+The second eﬀect above is new in the dynamic model. It arises only if 
+𝐼 -orders are autocorrelated. Indeed, if 𝜙𝐼 = 0, then in expectation, the 
+average market maker’s inventory ̄𝑧(1) is no longer exacerbated by the 
+period-2 𝐼 -orders.
+
+The equilibrium analysis for period 1 proceeds similarly. We sketch 
+the steps below and defer details to the proof of Proposition 9. First, 
+taking the spreads 𝒔(1) and siphoning 𝛼(1) as given, a market maker 𝑚
+chooses her optimal liquidity supply 𝒙(1)
+
+)
+
+(
+
+𝒙(1)
+𝑚
+
+𝜋(1)
+𝑚
+
+⊤
+
+= 𝒙(1)
+𝑚
+
+𝒔(1) + 𝔼
+
+[
+𝜋(2)
+𝑚
+
+(
+𝒙(2)
+𝑚 ; 𝑧(1)
+
+𝑚 , 𝐷(1)
+𝐼
+
+,
+
+𝑚 to maximize
+)]
+
+which is the sum of her expected spread revenue from 𝑡 = 1 and her ex-
+pected continuation value 𝜋(2)
+𝑚 (⋅) as given in (C.2). Note that the choice 
+]
+[
+variable 𝒙(1)
+𝜋(2)
+𝑚 (⋅)
+𝑚 aﬀects the continuation value 𝔼
+for it aﬀects the 
+distribution of 𝑧(1)
+𝑚 , the inventory that the market maker will acquire 
+in 𝑡 = 1. We derive the expression of 𝜋(1)
+𝑚 in the proof of Proposition 9
+and show that, analogous to 𝜋(2)
+𝑚1 but lin-
+ear in 𝑥(1)
+𝑚2. We then proceed exactly as in C.2.1 for 𝑡 = 2. The following 
+proposition summarizes the equilibrium.
+
+𝑚 , it is strictly concave in 𝑥(1)
+
+Proposition 9 (Equilibrium). An equilibrium for the full game always ex-
+ists. All equilibria are characterized as follows. In period 1, all 𝑅-orders are 
+siphoned oﬀ-exchange, i.e., 𝛼(1) = 1; the equilibrium half spreads 𝑠(1)
+1 and 
+𝑠(1)
+2 are deﬁned by (D.23) and (D.21); equilibrium on-exchange liquidity 
+supply 𝑥(1)
+𝑚1 is given by (D.22); and equilibrium oﬀ-exchange aggregate liq-
+uidity supply ∫ 𝑀
+𝑥(2)
+𝑚2d𝑚 is given by (D.24) (but may be allocated arbitrarily 
+among the individual market makers). The period-2 equilibrium objects are 
+as described in Lemma 3.
+
+0
+
+Although equilibrium (for the full game) is not unique, equilibrium 
+does make a unique prediction regarding the spreads.29 For period 1, 
+these unique spreads entail 𝑠(1)
+> 𝑠(1)
+2 , consistent with how, according 
+1
+to the proposition, all 𝑅-orders are siphoned oﬀ-exchange in 𝑡 = 1. This 
+is because, as before, the 𝑅-orders are balanced and, thus, are relatively 
+cheaper than the directional 𝐼 -orders in terms of inventory costs. And as 
+previously discussed, on the equilibrium path, all 𝑅-orders are also si-
+phoned oﬀ-exchange in 𝑡 = 2. Therefore, we conclude that the economic 
+forces that drive siphoning are robust to the dynamic considerations we 
+have modeled here.30
+
+Appendix D.  Proofs
+
+Proof of Lemma 1. Consider ﬁrst 𝑍𝑚𝑗 , market maker 𝑚’s net inven-
+tory from marketplace 𝑗. Conditional on the realizations of (𝑄𝑚𝑗 )𝐽
+𝑗=1, 
+we have
+
+[
+
+]
+
+𝔼
+
+𝑍2
+
+𝑚𝑗 | 𝑄𝑚𝑗
+
+= 𝔼
+
+⎡
+𝑄𝑚𝑗∑
+⎢
+⎢
+⎣
+
+𝑖=1
+
+(−1)2𝐵𝑚𝑗𝑖 + 2
+
+∑
+
+(−1)
+
+𝐵𝑚𝑗𝑖 (−1)
+
+𝐵𝑚𝑗𝑖′
+
+𝑖≠𝑖′
+
+⎤
+⎥
+⎥
+⎦
+
+29 The  (full  game)  equilibrium  is  unique  up  to  (i)  how  the  aggregate  oﬀ-
+exchange liquidity supply is allocated across market makers in each period, and 
+(ii) how 𝛼(2) is speciﬁed for the oﬀ-path period-2 subgames in which Δ(2) = 0.
+30 Interestingly, our model also entails a prediction on spread dynamics: It can 
+be shown that for both marketplaces 𝑗, 𝑠(1)
+. Intuitively, this is because the 
+dynamic model allows market makers to ﬂexibly adjust their liquidity supply 
+over time. In fact, they have an incentive to frontload their liquidity supplies, 
+because doing so resolves uncertainty while they still have time to react, which 
+permits them to reduce the variance of their terminal inventory. For example, 
+if a market maker received positive inventory after 𝑡 = 1 and if she expects 
+the 𝑡 = 2 order ﬂow to be buying (selling), then she can scale up (down) her 
+liquidity supply in 𝑡 = 2. As liquidity supply is frontloaded, spreads are narrower 
+in 𝑡 = 1 than in 𝑡 = 2.
+
+𝑗 < 𝑠(2)
+𝑗
+
+JournalofFinancialEconomics154(2024)10380716M. Baldauf, J. Mollner and B.Z. Yueshen
+
+= 𝑄𝑚𝑗 + (𝑄𝑚𝑗 − 1)𝑄𝑚𝑗 𝔼
+
+= 𝑄𝑚𝑗 + (𝑄𝑚𝑗 − 1)𝑄𝑚𝑗 𝔼
+
+= 𝑄𝑚𝑗 + (𝑄𝑚𝑗 − 1)𝑄𝑚𝑗 ⋅ (𝜎2
+
+[
+
+(−1)
+]
+
+[
+𝔼
+[
+𝐷2
+𝑗
+𝑗 ),
+𝑗 + 𝜇2
+
+𝐵𝑚𝑗𝑖 (−1)
+
+𝐵𝑚𝑗𝑖′ | 𝐷𝑗
+
+]]
+
+range  of  𝑮(𝒔) is  a  linear  transformation  of  that  set,  so  is  also  com-
+pact and convex. Moreover, 𝑮 is continuous. It therefore follows from 
+Brouwer’s  ﬁxed-point  theorem  that  𝑮 has  a  ﬁxed  point,  and  hence 
+that (D.1) has a solution.
+
+where (𝐵𝑚𝑗𝑖) are i.i.d. Bernoulli draws with success rate  1
+2
+is the 𝑗-th element of 𝝁, and 𝜎2
+for 𝑗 ≠ 𝑗′,
+
+(1 + 𝐷𝑗 ), 𝜇𝑗
+𝑗 is the 𝑗-th diagonal element of 𝚺; and, 
+
+[
+
+𝔼
+
+=
+
+]
+
+𝑍𝑚𝑗 𝑍𝑚𝑗′ | 𝑄𝑚𝑗 , 𝑄𝑚𝑗′
+𝑄𝑚𝑗∑
+[
+
+𝑄𝑚𝑗′∑
+
+𝔼
+
+(−1)
+
+𝐵𝑚𝑗𝑖 (−1)
+
+𝐵𝑚𝑗𝑖′
+
+]
+
+𝑖=1
+
+𝑖′=1
+= 𝑄𝑚𝑗 𝑄𝑚𝑗′ 𝔼
+
+[
+
+𝔼
+
+[
+
+[
+(−1)
+]
+
+]]
+
+𝐵𝑚𝑗𝑖 (−1)
+= 𝑄𝑚𝑗 𝑄𝑚𝑗′ ⋅
+
+𝐵𝑚𝑗𝑖′ |
+𝐷𝑗 , 𝐷𝑗′
+|
+|
+(
+𝜌𝑗𝑗′ 𝜎𝑗 𝜎𝑗′ + 𝜇𝑗 𝜇𝑗′
+
+)
+
+𝐷𝑗 𝐷𝑗′
+
+= 𝑄𝑚𝑗 𝑄𝑚𝑗′ 𝔼
+where 𝜌𝑗𝑗′ is the correlation between 𝐷𝑗 and 𝐷𝑗′ . The market maker’s 
+total net inventory is 𝑍𝑚 ∶=
+
+𝑍𝑚𝑗 , and
+
+∑𝐽
+
+,
+
+𝑗=1
+
+[
+
+𝔼
+
+]
+
+𝑍2
+
+𝐽∑
+
+𝑚| 𝑄𝑚1
+[
+𝑍2
+
+𝔼
+
+, … , 𝑄𝑚𝐽
+]
+
+𝑚𝑗 | 𝑄𝑚𝑗
+
++
+
+=
+
+=
+
+𝑗=1
+𝐽∑
+
+(
+𝑄𝑚𝑗 + (𝑄𝑚𝑗 − 1)𝑄𝑚𝑗 (𝜎2
+
+𝑗 + 𝜇2
+𝑗 )
+
+)
+
+∑
+
+[
+
+𝔼
+
+𝑗≠𝑗′
+
+𝑍𝑚𝑗 𝑍𝑖𝑗′ | 𝑄𝑚𝑗 , 𝑄𝑚𝑗′
+
+]
+
+𝑗=1
+
+∑
+
++
+
+𝑗≠𝑗′
+
+𝑄𝑚𝑗 𝑄𝑚𝑗′
+
+(
+𝜌𝑗𝑗′ 𝜎𝑗 𝜎𝑗′ + 𝜇𝑗 𝜇𝑗′
+
+)
+
+𝐽∑
+
+=
+
+𝑄𝑚𝑗 +
+
+𝐽∑
+
+(𝑄2
+
+𝑚𝑗 − 𝑄𝑚𝑗 )(𝜎2
+
+𝑗 + 𝜇2
+𝑗 )
+
+𝑗=1
+
+∑
+
++
+
+𝑗=1
+𝑄𝑚𝑗 𝑄𝑚𝑗′
+
+𝑗≠𝑗′
+
+(
+𝜌𝑗𝑗′ 𝜎𝑗 𝜎𝑗′ + 𝜇𝑗 𝜇𝑗′
+
+)
+
+.
+
+Finally, take the unconditional expectation to get
+
+𝐽∑
+
+]
+
+[
+
+𝔼
+
+𝑍2
+𝑚
+
+=
+
+𝑥𝑚𝑗 +
+
+𝐽∑
+
+(𝑥2
+
+𝑚𝑗 + 𝑥𝑚𝑗 − 𝑥𝑚𝑗 )(𝜎2
+
+𝑗 + 𝜇2
+𝑗 )
+
+𝑗=1
+
+∑
+
++
+
+𝑗=1
+𝑥𝑚𝑗 𝑥𝑚𝑗′
+
+(
+
+𝜌𝑗𝑗′ 𝜎𝑗 𝜎𝑗′ + 𝜇𝑗 𝜇𝑗′
+
+)
+
+𝑗≠𝑗′
+
+𝐽∑
+
+=
+
+𝑥𝑚𝑗
+
+𝑗=1
+⏟⏟⏟
+=𝒙⊤
+𝑚𝟏
+𝐽∑
+
++
+
+(
+
+)
+
+𝜎2
+𝑗 + 𝜇2
+𝑗
+
++
+
+∑
+
+(
+
+𝑥𝑚𝑗 𝑥𝑚𝑗′
+
+𝜌𝑗𝑗′ 𝜎𝑗 𝜎𝑗′ + 𝜇𝑗 𝜇𝑗′
+
+)
+
+. □
+
+𝑥2
+𝑚𝑗
+
+𝑗=1
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+𝚺+𝝁𝝁⊤
+
+)
+𝒙𝑚
+
+=𝒙⊤
+𝑚
+
+𝑗≠𝑗′
+
+(
+
+(
+
+Proof of Proposition 1. Given  the  optimal  supply (5),  the  market-
+clearing conditions (2) become
+(
+)−1
+𝑀
+𝜆
+𝛾
+We now show the existence and the uniqueness of a solution 𝒔 to (D.1).
+
+1), … , 𝜆𝐽 (𝑠𝐽 )
+
+𝚺 + 𝝁𝝁⊤
+
+)⊤ .
+
+(D.1)
+
+1(𝑠
+
+𝒔 −
+
+=
+
+)
+
+(
+
+2
+
+𝟏
+
+𝛾
+
+Existence: Notice that a solution to (D.1) is equivalent to a ﬁxed point 
+of the function
+
+𝑮(𝒔) =
+
+(
+
+𝛾
+𝑀
+
+𝚺 + 𝝁𝝁⊤
+
+) (
+
+𝜆
+
+1(𝑠
+
+1), … , 𝜆𝐽 (𝑠𝐽 )
+
+)⊤
+
++
+
+𝟏.
+
+𝛾
+
+2
+
+Because  each  𝜆𝑗 (⋅) is  nonincreasing  and  nonnegative,  the  range  of 
+(
+𝜆
+𝑗=1[0, 𝜆𝑗 (0)].  The 
+is  the  compact,  convex  set 
+
+1), … , 𝜆𝐽 (𝑠𝐽 )
+
+1(𝑠
+
+∏𝐽
+
+)⊤
+
+Uniqueness: Suppose  there  are  two  solutions  to (D.1),  denoted  by 𝒔
+and 𝒔′ = 𝒔 + 𝜹, where the vector 𝜹 = (𝛿
+is the diﬀerence of the 
+1
+two solutions. For notational simplicity, write 𝝀 as the right-hand side 
+of (D.1) under 𝒔 and 𝝀′ for that under 𝒔′. Diﬀerence the two market-
+clearing conditions and then left-multiply both sides with 𝜹⊤
+(
+𝝀′ − 𝝀
+
+, … , 𝛿𝐽 )⊤
+
+𝚺 + 𝝁𝝁⊤
+
+𝜹 = 𝜹⊤
+
+to get
+
+)−1
+
+𝜹⊤
+
+(
+
+)
+
+(
+
+)
+
+,
+
+𝑀
+𝛾
+
+where if 𝜹 ≠ 𝟎, the left-hand side is positive, because 
+is 
+positive-deﬁnite. Suppose 𝛿𝑗 > 0 (< 0). Then, since the demand func-
+tions are monotonically weakly decreasing, 𝜆𝑗 (𝑠𝑗 +𝛿𝑗 ) −𝜆𝑗 (𝑠𝑗 ) ≤ 0 (≥ 0), 
+and the right-hand side above is weakly negative. Therefore, the two so-
+lutions 𝒔 and 𝒔′ must collapse with 𝜹 = 𝟎. □
+
+(
+𝚺 + 𝝁𝝁⊤
+
+)
+
+−1
+
+Proof of Proposition 2. We consider the three cases of 𝛼 = 1, 𝛼 = 0, 
+and 𝛼 ∈ (0, 1) separately, following conditions (7a)–(7b).
+
+2(𝑠
+
+1), 𝜆
+
+2) = 𝜆𝑅(𝑠
+
+Consider ﬁrst the case of 𝛼 = 1. Then Proposition 1 applies with 𝜆
+1) =
+𝜆𝐼 (𝑠
+2), and weighting matrix 𝑭 (1). To verify that this 
+outcome satisﬁes the notion of equilibrium deﬁned in Section 3.1, it 
+remains  only  to  check (7b),  which  requires  𝑠
+2.  Recall  that  the 
+demand 𝜆𝑘(𝑠) exhibits a kink at 𝑠 = 𝜁 . We then have three subcases 
+depending on the ranking of 𝑠
+
+1(𝑠
+
+≥ 𝑠
+
+1
+
+1, 𝑠
+
+2, and 𝜁 .
+
+1
+
+≥ 𝑠
+
+• If 𝜁 > 𝑠
+
+2, then 𝜆
+
+1) = (𝜁 − 𝑠
+2)𝜔𝑅. 
+Jointly solving the two market-clearing conditions 𝑀𝑥𝑚𝑗 = 𝜆𝑗 (𝑠𝑗 )
+(
+for 𝑠
+
+1)𝜔𝐼 and 𝜆
+)
+
+2) = (𝜁 − 𝑠
+
+2, we obtain 𝑠𝑗 =
+
+𝛽𝑗 , where
+
+1 and 𝑠
+
+𝜁 −
+
+2(𝑠
+
+1(𝑠
+
++
+
+𝛾
+
+𝛾
+
+2
+
+2
+
+𝛽
+2 =
+
+𝛽
+1 =
+
+𝜔𝐼 + 𝜎2
+𝑅
+
+; and (D.2)
+
+(𝜎2
+𝐼
+𝑀 2 + (𝜎2
+𝐼
+(𝜎2
+𝑅
+𝑀 2 + (𝜎2
+𝐼
+It can be seen that 𝜁 > 𝑠
+only if (12) holds. In addition, 𝑠
+satisﬁed if and only if Δ ≤ 0.
+
+𝜔𝐼 + 𝜌𝜎𝐼 𝜎𝑅𝜔𝑅)𝛾𝑀 + (1 − 𝜌2)𝜎2
+𝐼
+𝜔𝑅)𝛾𝑀 + (1 − 𝜌2)𝜎2
+𝐼
+𝜎2
+𝜔𝑅 + 𝜌𝜎𝐼 𝜎𝑅𝜔𝐼 )𝛾𝑀 + (1 − 𝜌2)𝜎2
+𝑅
+𝐼
+𝜎2
+𝜔𝑅)𝛾𝑀 + (1 − 𝜌2)𝜎2
+𝑅
+𝐼
+1 (equivalently, 1 > 𝛽
+≥ 𝑠
+1
+
+𝛾 2𝜔𝐼 𝜔𝑅
+𝜎2
+𝑅
+𝛾 2𝜔𝐼 𝜔𝑅
+𝜎2
+𝑅
+𝛾 2𝜔𝐼 𝜔𝑅
+𝛾 2𝜔𝐼 𝜔𝑅
+1) is satisﬁed if and 
+2 (equivalently, 𝛽
+2) is 
+1
+
+𝜔𝐼 + 𝜎2
+𝑅
+
+(D.3)
+
+≥ 𝛽
+
+.
+
+1
+
+• If 𝑠
+
+≥ 𝜁 > 𝑠
+
+1) = 0 and 𝜆
+2, then 𝜆
+clearing conditions then yield 𝑠𝑗 =
+
+1(𝑠
+
+2) = (𝜁 − 𝑠
+2(𝑠
+)
+(
+𝛾
+𝜁 −
++
+
+2)𝜔𝑅. The market-
+𝛽𝑗 , where
+
+𝛾
+
+2
+
+2
+
+.
+
+)
+
+)
+
+(
+
+)
+
+)
+
+−
+
+2 =
+
+𝜔𝑅𝛾
+
+𝛽
+1 =
+
+and 𝛽
+
+(
+𝜎2
+𝐼
+
+(
+𝜎2
+𝑅
+
+𝜔𝐼 + 𝜌𝜎𝐼 𝜎𝑅𝜔𝑅
+
+2 (equivalently, 𝛽
+1
+
+𝜎2
+𝑅
+𝑀 + 𝜎2
+𝜔𝑅𝛾
+𝑅
+≥ 𝜁 > 𝑠
+
+𝜌𝜎𝐼 𝜎𝑅𝜔𝑅𝛾
+𝜔𝑅𝛾
+𝑀 + 𝜎2
+𝑅
+This solution is consistent with 𝑠
+≥ 1 >
+1
+𝛽
+2) if and only if (12) fails. We also note that the failure of (12)
+necessarily implies Δ < 0. To see this, suppose the opposite is true, 
+𝜔𝑅 + 𝜌𝜎𝐼 𝜎𝑅𝜔𝐼
+≥
+i.e., (12) fails and that
+0, the latter implying
+(
+−𝜎2
+
+𝜔𝐼 ≥
+𝐼 + 𝜌𝜎𝐼 𝜎𝑅
+(
+𝜌𝜎𝐼 − 𝜎𝑅
+𝜎𝐼 𝜔𝐼
+
+𝜎𝑅𝜔𝑅
+𝜎𝐼
+𝜎𝑅
+Note that for (12) to fail, we must have 𝜌𝜎𝐼 > 𝜎𝑅, for otherwise 
+the right-hand side of (12) is weakly negative, which would mean 
+that (12) must hold, because 𝑀 > 0. It then follows that 𝜌𝜎𝐼 − 𝜎𝑅 >
+0 and 𝜎𝑅 < 𝜌𝜎𝐼 < 𝜎𝐼 ⟹ 𝜎𝐼
+> 1. Therefore, we obtain from the 
+𝜎𝑅
+above inequality that 𝜌 > 1, a contradiction.
+2(𝑠
+
+≥ 𝜁 ,  then  𝜆
+the optimal demand (5), market clearing requires 𝑠
+Hence, this cannot be an equilibrium.
+
+2) = 0.  But  then  using 
+< 𝜁 . 
+1 = 𝑠
+
+𝜌𝜎𝐼 − 𝜎𝑅
+)
+𝜔𝑅
+
+1) = 𝜆
+
+⟹ 𝜌 ≥
+
+1(𝑠
+
+2 =
+
+≥ 𝑠
+
++
+
+1
+
+2
+
+2
+
+.
+
+𝛾
+
+• Finally,  if  𝑠
+
+JournalofFinancialEconomics154(2024)10380717M. Baldauf, J. Mollner and B.Z. Yueshen
+
+Hence, there is an equilibrium with 𝛼 = 1 if and only if Δ ≤ 0. Fur-
+thermore, this equilibrium is such that 𝑠
+< 𝜁 if and only if (12) also 
+holds.
+
+1
+
+2(𝑠
+
+1), 𝜆
+
+Next, suppose 𝛼 = 0. Then Proposition 1 applies with 𝜆
+1) +
+𝜆𝑅(𝑠
+2) = 0, and weighting matrix 𝑭 (0). To verify that this out-
+come satisﬁes the notion of equilibrium deﬁned in Section 3.1, it re-
+mains only to check (7a), which requires 𝑠
+2. Because there is no 
+demand in 𝑗 = 2 in this case, we only need to discuss two subcases.
+
+1) = 𝜆𝐼 (𝑠
+
+1(𝑠
+
+≤ 𝑠
+
+1
+
+• If 𝑠
+
+1
+
+< 𝜁 , then 𝜆
+
+1(𝑠
+
+clearing, we obtain 𝑠𝑗 =
+
+1) = (𝜁 − 𝑠
+𝛾
++
+
+1)(𝜔𝐼 + 𝜔𝑅) and 𝜆
+)
+(
+𝛽𝑗 , where
+𝜁 −
+
+𝛾
+
+2
+
+2
+
+2(𝑠
+
+2) = 0. By market 
+
+𝛽
+1 =
+
+𝛽
+2 =
+
+𝑅)𝛾
+𝜔2
+
+𝐼 + 2𝜌𝜎𝐼 𝜎𝑅𝜔𝐼 𝜔𝑅 + 𝜎2
+𝜔2
+𝑅
+
+(𝜎2
+𝐼
+𝑀(𝜔𝐼 + 𝜔𝑅) + (𝜎2
+𝐼
+(𝜌𝜎𝐼 𝜔𝐼 𝜎𝑅 + 𝜎𝑅𝜔2
+
+𝐼 + 2𝜌𝜎𝐼 𝜎𝑅𝜔𝐼 𝜔𝑅 + 𝜎2
+𝜔2
+𝑅
+𝑅)(𝜔𝐼 + 𝜔𝑅)𝛾
+𝐼 + 2𝜌𝜎𝐼 𝜎𝑅𝜔𝐼 𝜔𝑅 + 𝜎2
+𝜔2
+𝑅
+< 1 must hold, which guarantees 𝑠
+
+𝑀(𝜔𝐼 + 𝜔𝑅) + (𝜎2
+𝐼
+
+; and
+
+(D.4)
+
+𝑅)𝛾
+𝜔2
+
+.
+
+𝑅)𝛾
+𝜔2
+< 𝜁 . Also, 𝑠
+
+1
+
+≤ 𝑠
+
+2
+
+1
+
+2) is satisﬁed if and only if Δ ≥ 0.
+1) = 𝜆
+
+≤ 𝛽
+1(𝑠
+< 𝜁 . Hence, this cannot be an equilibrium.
+
+2) = 0.  But  then  market  clearing  re-
+
+2(𝑠
+
+Note that 𝛽
+1
+(equivalently, 𝛽
+1
+≥ 𝜁 ,  then  𝜆
+𝛾
+1 = 𝑠
+
+1
+quires 𝑠
+
+2 =
+
+• If 𝑠
+
+2
+
+Hence, there is an equilibrium with 𝛼 = 0 if and only if Δ ≥ 0.
+
+)
+
+(
+0, 1
+1), 𝜆
+
+1(𝑠
+
+2) = 𝛼𝜆𝑅(𝑠
+
+Finally,  suppose 𝛼 ∈
+1) =
+𝜆𝐼 (𝑠
+2), and weighting matrix 𝑭 (𝛼). 
+1) + (1 − 𝛼)𝜆𝑅(𝑠
+To verify that this outcome satisﬁes the notion of equilibrium deﬁned 
+in Section 3.1, it remains only to check (7a) and (7b), which jointly 
+require 𝑠
+
+. Then  Proposition 1 applies  with  𝜆
+2(𝑠
+
+2 = 𝑠. There are then two subcases.
+)
+(
+2(𝑠) = (𝜁 −𝑠)𝛼𝜔𝑅. 
+𝜔𝐼 +(1 −𝛼)𝜔𝑅
+1(𝑠) = (𝜁 −𝑠)
+The  two  remaining  unknowns 𝑠 and 𝛼 are  pinned  down  by  the 
+market-clearing conditions, which yield 𝑠 =
+
+• If 𝑠 < 𝜁 , then 𝜆
+
+)𝛽 with
+
++ (𝜁 −
+
+and 𝜆
+
+1 = 𝑠
+
+𝛾
+
+𝛾
+
+2
+
+2
+
+2
+
+if both 𝛼 > 0 and 𝑠
+< 𝜁 . According to Proposition 2, there is a unique 
+equilibrium involving 𝛼 > 0 if and only if Δ < 0. The proof of Propo-
+sition 2 establishes that when Δ < 0, the equilibrium is guaranteed to 
+< 𝜁 . Finally, the proof of Proposition 2 additionally estab-
+feature 𝑠
+lishes that this equilibrium also features 𝑠
+< 𝜁 if and only if (12) also 
+holds. □
+
+2
+
+1
+
+Proof of Lemma 2. Consider the average demand curve. With segmen-
+tation, ̄𝑠 as deﬁned in (13) can be rewritten as
+
+̄𝑠 = 𝜁 −
+
+= 𝜁 −
+
+= 𝜁 −
+
+𝜆𝐼 (𝑠
+
+2)2∕𝜔𝑅
+2)
+
+1)2∕𝜔𝐼 + 𝜆𝑅(𝑠
+1) + 𝜆𝑅(𝑠
+𝜆𝐼 (𝑠
+(𝑀𝑥𝑚1)2∕𝜔𝐼 + (𝑀𝑥𝑚2)2∕𝜔𝑅
+𝑀𝑥𝑚1 + 𝑀𝑥𝑚2
+𝑓 2
+𝑅
+𝜔𝑅
+
+(1 − 𝑓𝑅)2
+𝜔𝐼
+
+)
+
+𝑥,
+
++
+
+(
+
+where the ﬁrst equality follows from the individual liquidity demand 
+curves of the two investor types: 𝜆𝐼 (𝑠
+2) = (𝜁 −
+𝑠
+2)𝜔𝑅; the second equality follows from market clearing; and the third 
+and 𝑥 ∶= (𝑥𝑚1 + 𝑥𝑚2)𝑀 . The expression 
+equality uses 𝑓𝑅 ∶=
+also applies when segmentation is banned, in which case 𝑓𝑅 =
+, 
+implying 𝑠𝑏 = ̄𝑠 = 𝜁 − 𝑥∕(𝜔𝐼 + 𝜔𝑅).
+
+1)𝜔𝐼 and 𝜆𝑅(𝑠
+
+𝑥𝑚2
+𝑥𝑚2+𝑥𝑚1
+
+1) = (𝜁 − 𝑠
+
+𝜔𝑅
+𝜔𝐼 +𝜔𝑅
+
+Consider next the average supply curve. With segmentation, market 
+makers’ equilibrium supply quantities satisfy the ﬁrst-order conditions 
+to (8):
+𝛾
+
+)
+
+− 𝛾 ⋅
+
+− 𝛾 ⋅
+
+(
+𝜎2
+𝐼 𝑥𝑚1 + 𝜌𝜎𝐼 𝜎𝑅𝑥𝑚2
+(
+𝑅𝑥𝑚2 + 𝜌𝜎𝐼 𝜎𝑅𝑥𝑚1
+𝜎2
+
+= 0; and
+
+)
+
+= 0.
+
+𝑠
+
+1 −
+
+𝑠
+
+2 −
+
+2
+𝛾
+
+2
+
+Multiply the ﬁrst with 𝑥𝑚1 and the second with 𝑥𝑚2, add them up, and 
+ﬁnally divide the sum by 𝑥𝑚1 + 𝑥𝑚2 to get
+
+𝑅(𝜔𝐼 + 𝜔𝑅)𝛾
+(1 − 𝜌2)𝜎2
+𝜎2
+𝐼
+𝑅(𝜔𝐼 + 𝜔𝑅)𝛾
+𝜎2
+𝑅) + (1 − 𝜌2)𝜎2
+𝐼 − 2𝜌𝜎𝐼 𝜎𝑅 + 𝜎2
+𝐼
+
+𝛽 =
+
+𝑀(𝜎2
+and for 𝛼:
+
+(𝜔𝐼 + 𝜔𝑅 − 𝛼𝜔𝑅)
+
+[ (
+
+×
+
+(
+𝐼 𝜔𝐼 + 𝜌𝜎𝐼 𝜎𝑅𝜔𝑅
+𝑅𝜔𝑅 + 𝜌𝜎𝐼 𝜎𝑅𝜔𝐼
+𝜎2
+𝜎2
+−
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+
+)
+
+)
+
+]
+
+= 0,
+
+=Δ
+
+̄𝑠 =
+
+;
+
+𝑥𝑚2 + 𝜎2
+𝑅
+
+𝑥𝑚1
+
+2
+
+𝑠
+
+𝑠
+1 + 𝑥𝑚2
+𝑥𝑚1 + 𝑥𝑚2
+𝜎2
+𝑚1 + 2𝜌𝜎𝐼 𝜎𝑅𝑥𝑚1
+𝑥2
+𝐼
+𝑥𝑚1 + 𝑥𝑚2
+𝐷𝑅
+
+𝐷𝐼 + 𝑥𝑚2
+
+𝛾var
+
++
+
+[
+
+]
+
+𝑥𝑚1
+𝑥𝑚1 + 𝑥𝑚2
+[
+
++
+
++
+
+( 𝛾
+
+𝑀 var
+
+=
+
+=
+
+=
+
+𝛾
+
+2
+
+𝛾
+
+2
+𝛾
+
+2
+
+(1 − 𝑓𝑅)𝐷𝐼 + 𝑓𝑅𝐷𝑅
+
+𝑥2
+
+𝑚2
+
+𝛾
+
+])
+
+𝑥,
+
+which, for any 𝛼 ∈ (0, 1), holds if and only if Δ = 0. Note that 𝛽 < 1
+must hold, which guarantees 𝑠 < 𝜁 .
+
+• If 𝑠 ≥ 𝜁 , then 𝜆
+
+1(𝑠) = 𝜆
+
+2(𝑠) = 0. But then market clearing requires 
+
+𝑠 =
+
+< 𝜁 . Hence, this cannot be an equilibrium.
+
+𝛾
+
+2
+
+Hence, for any 𝛼 ∈ (0, 1), there is a corresponding equilibrium if and 
+only if Δ = 0. □
+
+1(𝑠𝑏) = 𝜆𝐼 (𝑠𝑏) + 𝜆𝑅(𝑠𝑏),  𝜆
+
+Proof of Corollary 1. A segmentation ban exogenously forces 𝛼 = 0. 
+Then  Proposition 1 applies,  with 𝜆
+2(𝑠) = 0, 
+and  weighting  matrix 𝑭 (0).  Although  this  completes  the  proof,  it  is 
+useful for subsequent proofs to derive an expression for 𝑠𝑏, the spread 
+prevailing in this equilibrium. We conjecture (and subsequently verify) 
+1(𝑠𝑏) = (𝜁 −
+that  𝑠𝑏 < 𝜁 . Under this conjecture, liquidity demand is  𝜆
+)
+(
+𝛾
+𝛽𝑏, where 
+𝑠𝑏)(𝜔𝐼 +𝜔𝑅), so that market-clearing implies 𝑠𝑏 =
+𝜁 −
+𝛽𝑏 has the same expression as (D.4). Note that 𝛽𝑏 < 1 must hold, which 
+guarantees 𝑠𝑏 < 𝜁 . □
+
++
+
+2
+
+2
+
+𝛾
+
+Proof of Proposition 3. Equilibrium  involves  positive  volume  on-
+exchange, i.e., ∫ 𝑀
+< 𝜁 . And equilibrium 
+𝑥𝑚1d𝑚 > 0, if and only if 𝑠
+1
+involves positive volume oﬀ-exchange, i.e., ∫ 𝑀
+𝑥𝑚2d𝑚 > 0, if and only 
+
+0
+
+0
+
+where the last equality uses 𝑓𝑅 ∶=
+and 𝑥 ∶= (𝑥𝑚1 + 𝑥𝑚2)𝑀 . 
+When segmentation is banned, the above expression also applies, with 
+𝑓𝑅 =
+
+. □
+
+𝑥𝑚2
+𝑥𝑚2+𝑥𝑚1
+
+𝜔𝑅
+𝜔𝐼 +𝜔𝑅
+
+𝛾
+
+𝛾
+
+2
+
+2
+
+)
+
++
+
+(
+𝜁 −
+
+Proof of Proposition 4. Under Δ < 0 and under (12), the equilibrium 
+features  both  on-exchange  and  oﬀ-exchange  volume.  Hence,  follow-
+𝛽𝑗
+ing the proofs of Proposition 2 and Corollary 1, 𝑠𝑗 =
+2,  and 𝛽𝑏 are  given  by (D.2),  (D.3), 
+for  𝑗 ∈ {1, 2, 𝑏},  where 𝛽
+1,  𝛽
+and (D.4),  respectively.  Compare  ﬁrst 𝑠𝑏 and 𝑠
+2.  Direct  calculation 
+[
+2 − 𝛽𝑏] = sign
+2 − 𝑠𝑏] = sign[𝛽
+shows  that  sign[𝑠
+𝜔𝑅 + 𝜌𝜎𝐼 𝜎𝑅𝜔𝐼 ) −
+(𝜎2
+]
+𝑅
+(𝜎2
+𝜔𝐼 + 𝛾𝜌𝜎𝐼 𝜎𝑅𝜔𝑅]. The ﬁrst factor is 
+sign[𝑀 + 𝛾𝜎2
+𝜔𝐼 + 𝜌𝜎𝐼 𝜎𝑅𝜔𝑅)
+𝐼
+𝐼
+exactly sign[Δ], which is negative, as assumed. For the second factor, 
+note  that  𝑀 + 𝛾𝜎2
+𝜔𝐼 + 𝛾𝜌𝜎𝐼 𝜎𝑅𝜔𝑅 is  increasing  in 𝜌.  We  therefore 
+𝐼
+examine  this  factor  at  the  minimum  value  of 𝜌 that  is  jointly  per-
+mitted  by  the  assumptions Δ < 0 and (12).  To  begin, (12) implies 
+no  lower  bound  for  𝜌 (only  the  upper  bound  𝜌 < 𝜎𝑅
+),  so 
+𝜎𝐼
+it  suﬃces  to  consider  only  the  implications  of Δ < 0.  On  the  one 
+hand, suppose Δ < 0 implies no lower bound for 𝜌, meaning that 0 ≥
+lim𝜌→−1 Δ(𝜌) = (𝜎𝐼 + 𝜎𝑅)(𝜎𝐼 𝜔𝐼 − 𝜎𝑅𝜔𝑅), and hence 𝜎𝐼 𝜔𝐼 − 𝜎𝑅𝜔𝑅 ≥ 0. 
+Then 𝑀 + 𝛾𝜎2
+𝜔𝐼 + 𝛾𝜌𝜎𝐼 𝜎𝑅𝜔𝑅 > 𝑀 + 𝛾𝜎𝐼 (𝜎𝐼 𝜔𝐼 − 𝜎𝑅𝜔𝑅) > 0, so that 
+𝐼
+the second factor is positive. On the other hand, suppose Δ < 0 does 
+
+𝑀
+𝛾𝜎𝐼 𝜎𝑅𝜔𝑅
+
++
+
+JournalofFinancialEconomics154(2024)10380718M. Baldauf, J. Mollner and B.Z. Yueshen
+
+2
+
+𝜔𝐼 −𝜎2
+𝜎2
+𝜔𝑅
+imply a lower bound for 𝜌: 𝜌 ≥
+≥ −1. Note that this can be 
+𝑅
+𝐼
+(𝜔𝐼 −𝜔𝑅)𝜎𝐼 𝜎𝑅
+the case only if both 𝜔𝐼 < 𝜔𝑅 and 𝜎𝑅𝜔𝑅 > 𝜎𝐼 𝜔𝐼 . At this constrained 
+𝜔𝐼 + 𝛾𝜌𝜎𝐼 𝜎𝑅𝜔𝑅 = 𝑀 + 𝛾(𝜎𝐼 𝜔𝐼 + 𝜎𝑅𝜔𝑅)(𝜎𝐼 𝜔𝐼 −
+lower bound, 𝑀 + 𝛾𝜎2
+𝐼
+𝜎𝑅𝜔𝑅)∕(𝜔𝐼 − 𝜔𝑅) > 0, so that the second factor is positive. In either 
+case, we conclude 𝑠
+
+< 𝑠𝑏.
+
+Next, compare 𝑠𝑏 and 𝑠
+
+1. Direct calculation shows that  sign[𝑠
+
+1 −
+𝑠𝑏] = sign[𝛽
+𝜔𝑅 + 𝛾𝜌𝜎𝐼 𝜎𝑅𝜔𝐼 ]. Since Δ <
+0, it remains to sign the second part. It is negative if and only if 𝜌 <
+−(𝑀 + 𝛾𝜎2
+𝑅
+
+1 − 𝛽𝑏] = sign[−Δ]sign[𝑀 + 𝛾𝜎2
+𝑅
+
+𝜔𝑅)∕(𝜎𝑅𝜎𝐼 𝜔𝐼 ).
+
+Finally, we compare 𝑠𝑏 and ̄𝑠. To do so, we ﬁrst deﬁne 𝑓𝑅 ∈ [0, 1] as 
+the fraction of 𝑅-orders in a market maker’s portfolio of orders. When 
+segmentation is banned, both investor types pay the same spread, so 
+denote the equilibrium value for 𝑓𝑅
+we have 𝑓 ban
+when segmentation is allowed. Given that Δ < 0, market makers want 
+to siphon 𝑅-orders oﬀ-exchange, so that 𝑓 no-ban
+. Speciﬁcally, 
+𝑓 no-ban
+
+, which, following (D.2) and (D.3), becomes
+
+. Let 𝑓 no-ban
+𝑅
+
+𝜔𝑅
+𝜔𝑅+𝜔𝐼
+
+> 𝜔𝑅
+
+𝑅 =
+
+𝜔𝑅+𝜔𝐼
+
+=
+
+𝑅
+
+(𝜁−𝑠
+2)𝜔𝑅
+2)𝜔𝑅+(𝜁−𝑠
+
+1)𝜔𝐼
+
+(𝜁−𝑠
+
+𝑅
+
+𝑓 no-ban
+
+𝑅
+
+=
+
+𝜔𝑅 + (𝜎2
+(𝜔𝐼 + 𝜔𝑅) + (𝜎2
+
+𝐼 − 𝜌𝜎𝐼 𝜎𝑅)𝜔𝐼 𝜔𝑅𝛾∕𝑀
+𝐼 − 2𝜌𝜎𝐼 𝜎𝑅 + 𝜎2
+
+𝑅)𝜔𝐼 𝜔𝑅𝛾∕𝑀
+
+.
+
+Let  ̄𝑠(𝑓𝑅) denote  the  volume-weighted  average  spread  as  a  function 
+of 𝑓𝑅, deﬁned as the intersection of the two curves from Lemma 2: 
+the average liquidity demand curve  ̄𝑠(𝑓𝑅) = 𝜁 − 𝑣(𝑓𝑅)𝑥 and the aver-
+𝛾
+age liquidity supply curve  ̄𝑠(𝑓𝑅) =
++ 𝑐(𝑓𝑅)𝑥. Thus,  ̄𝑠 < 𝑠𝑏 will follow 
+2
+if we show that  ̄𝑠(𝑓 ban
+). To do so, we solve for  ̄𝑠(𝑓𝑅), by 
+𝑅 ) > ̄𝑠(𝑓 no-ban
+eliminating the aggregate volume 𝑥:
+
+𝑅
+
+̄𝑠(𝑓𝑅) =
+
+=
+
+𝛾
+
+2
+
+𝛾
+
+2
+
+𝛾
+
+=
+
++
+
+(
+𝜁 −
+
+𝑣(𝑓𝑅) + 𝜁𝑐(𝑓𝑅)
+𝑣(𝑓𝑅) + 𝑐(𝑓𝑅)
+
+(
+
++
+
+𝜁 −
+
+2
+1
+1 + 𝑣(𝑓𝑅)∕𝑐(𝑓𝑅)
+
+)
+
+𝛾
+
+2
+
+𝑐(𝑓𝑅)
+𝑣(𝑓𝑅) + 𝑐(𝑓𝑅)
+
+)
+
+𝛾
+
+2
+
+.
+
+As observed in the text (in the two bullet points following Lemma 2), we 
+) and 𝑐(𝑓 ban
+have both 𝑣(𝑓 ban
+), which together 
+𝑅
+), as desired. □
+𝑅 ) > ̄𝑠(𝑓 no-ban
+imply ̄𝑠(𝑓 ban
+
+𝑅 ) < 𝑣(𝑓 no-ban
+𝑅
+
+𝑅 ) > 𝑐(𝑓 no-ban
+
+𝑅
+
+Proof of Proposition 5. Under Δ < 0 and under (12), the equilibrium 
+features both on-exchange and oﬀ-exchange volume. Hence, following 
+(
+𝜁 −
+the proof of Proposition 2, 𝑠𝑗 =
++
+
+2
+2 are given by (D.2) and (D.3), respectively. Hence, sign
+d𝛽
+2
+d𝜔𝑅
+
+𝐼 − 𝜌𝜎𝐼 𝜎𝑅)𝛾𝜔𝐼 ]. Using (12), we have sign[𝑀 +
+𝜔𝑅] = sign[−Δ] >
+
+𝜔𝐼 − (𝜔𝐼 − 𝜔𝑅)𝜎𝐼 𝜎𝑅𝜌 − 𝜎2
+𝑅
+
+= sign[𝑀 + (𝜎2
+𝐼 − 𝜌𝜎𝐼 𝜎𝑅)𝛾𝜔𝐼 ] ≥ sign[𝜎2
+𝐼
+
+𝛽𝑗 for 𝑗 ∈ {1, 2}, where 𝛽
+1
+]
+
+and 𝛽
+[
+
+d𝑠
+2
+d𝜔𝑅
+
+=
+
+)
+
+]
+
+[
+
+2
+
+𝛾
+
+𝛾
+
+sign
+(𝜎2
+0. Therefore,  d𝑠
+2
+d𝜔𝑅
+Likewise,
+]
+[
+d𝑠
+1
+d𝜔𝑅
+
+sign
+
+= sign
+
+> 0.
+
+]
+
+[
+
+d𝛽
+1
+d𝜔𝑅
+
+= sign[𝜌]sign[𝑀 + (𝜎2
+
+𝐼 − 𝜌𝜎𝐼 𝜎𝑅)𝛾𝜔𝑅].
+[
+
+]
+
+=
+
+d𝑠
+1
+d𝜔𝑅
+
+[
+
+]
+
+[
+
+2)
+
+d(𝑠
+
+1−𝑠
+d𝜔𝑅
+
+The second factor was shown to be positive above. Hence, sign
+sign[𝜌].
+
+Finally, sign
+𝜔𝐼 )𝜎𝑅
+
+[
+𝜎𝑅𝜔𝐼 𝜌2 +𝑀𝜎𝐼 𝜌 −
+= sign
+(𝑀 + 𝛾𝜎2
+. This quadratic expression in 𝜌 ∈ [−1, 1] is convex, is 
+𝐼
+strictly negative at 𝜌 = 0, and is strictly increasing at 𝜌 = 0. Note also 
+that at 𝜌 = −1, it becomes −(𝜎𝐼 + 𝜎𝑅)𝑀 < 0, implying that  d(𝑠
+1−𝑠
+< 0
+d𝜔𝑅
+for all 𝜌 ∈ [−1, 0]. Therefore, there exists a unique threshold  ̂𝜌 > 0,
+
+1−𝛽
+d𝜔𝑅
+
+= sign
+
+𝛾𝜎2
+𝐼
+
+d(𝛽
+
+2)
+
+2)
+
+]
+
+]
+
+(
+
+√
+
+)
+
+−𝑀 +
+
+𝑀 2 + 4𝑀𝛾𝜎2
+𝑅
+
+𝜔𝐼 + 4𝛾 2𝜎2
+𝐼
+
+𝜎2
+𝑅
+
+𝜔2
+𝐼
+
+,
+
+(D.5)
+
+̂𝜌 =
+
+1
+2𝛾𝜎𝐼 𝜎𝑅𝜔𝐼
+
+2)
+
+1−𝑠
+d𝜔𝑅
+
+which is the positive root of the above quadratic expression, such that 
+d(𝑠
+> 0 for 𝜌 > ̂𝜌. (Note that the threshold ̂𝜌 may or may not lie 
+within the domain of 𝜌, i.e.,  ̂𝜌 can be ≶ 1.) In summary, the necessary 
+and suﬃcient condition for
+
+< 0 is 𝜌 < ̂𝜌. □
+
+d(𝑠
+
+2)
+
+1−𝑠
+d𝜔𝑅
+
+𝛾
+
+(
+
+)
+
+Proof of Proposition 6. Under Δ < 0 and under (12), the equilibrium 
+features  both  on-exchange  and  oﬀ-exchange  volume.  Hence,  follow-
+for  𝑗 ∈ {1, 2}, 
+ing  the  proof  of  Proposition 2,  𝑠𝑗 =
++
+where 𝛽
+2 are  given  by (D.2) and (D.3),  respectively.  Hence, 
+[
+[
+[
+d𝑠
+(1 − 𝜌2)(𝜌𝜎𝐼 − 𝜎𝑅)𝜎𝐼 𝜎3
+𝛾 2 − 2(1 −
+1
+sign
+𝑅
+d𝑀
+]
+𝜌2)𝑀𝛾𝜎𝐼 𝜎2
+. That is, we need to evalu-
+𝑅
+ate the sign of this quadratic expression in 𝑀 . There are two cases, 
+depending on whether 𝑀 is constrained by (12).
+
+𝜔𝐼 𝜔𝑅 − (𝜎𝐼 𝜔𝐼 + 𝜌𝜎𝑅𝜔𝑅)𝑀 2
+
+1 and 𝛽
+]
+= sign
+
+𝜔𝐼 𝜔2
+𝑅
+
+= sign
+
+d𝛽
+1
+d𝑀
+
+𝜁 −
+
+𝛽𝑗
+
+]
+
+2
+
+2
+
+𝛾
+
+• Suppose (12) is not binding, i.e., 𝜌𝜎𝐼 𝜎𝑅 − 𝜎2
+𝑅
+
+≤ 0. First, we note 
+that this implies that the intercept of the quadratic expression is 
+negative. Second, we show that the quadratic expression in 𝑀 must 
+be (weakly) concave. To do so, we assume the opposite, i.e., the 
+coeﬃcient on 𝑀 2 is positive, i.e., 𝜎𝐼 𝜔𝐼 + 𝜌𝜎𝑅𝜔𝑅 < 0. Next, Δ < 0
+implies, after some rearranging, that (𝜎𝑅𝜔𝑅 + 𝜌𝜎𝐼 𝜔𝐼 )𝜎𝑅 < (𝜎𝐼 𝜔𝐼 +
+𝜌𝜎𝑅𝜔𝑅)𝜎𝐼 . Hence, 𝜎𝑅𝜔𝑅 + 𝜌𝜎𝐼 𝜔𝐼 < 0. Summing 𝜎𝐼 𝜔𝐼 + 𝜌𝜎𝑅𝜔𝑅 <
+0 and 𝜎𝑅𝜔𝑅 + 𝜌𝜎𝐼 𝜔𝐼 < 0 implies that (1 + 𝜌)(𝜎𝐼 𝜔𝐼 + 𝜎𝑅𝜔𝑅) < 0, 
+which is a contradiction because 𝜌 > −1. Third, in the limit of 𝑀 →
+0, the slope of the quadratic expression is negative.
+
+• Suppose (12) is binding, i.e., 𝜌𝜎𝐼 𝜎𝑅 − 𝜎2
+𝑅
+
+> 0. First, we note that 
+this implies 𝜌 > 0 and, hence, the coeﬃcient on 𝑀 2 in the above 
+quadratic  expression  is  strictly  negative.  Second,  just  as  in  the 
+previous  case,  the  slope  of  the  quadratic  expression  is  negative 
+at 𝑀 = 0. Note, however, that the relevant domain for 𝑀 is now 
+𝑅)𝜔𝑅𝛾. 
+bounded away from 0; rather, (12) implies 𝑀 > (𝜌𝜎𝐼 𝜎𝑅 − 𝜎2
+𝑅)𝜔𝑅𝛾, the quadratic expres-
+Third, in the limit as 𝑀 → (𝜌𝜎𝐼 𝜎𝑅 − 𝜎2
+𝑅)𝜔2
+sion evaluates to 𝛾 3𝜌𝜎𝐼 𝜎𝑅(𝜌𝜎𝐼 𝜎𝑅 − 𝜎2
+
+𝑅Δ < 0.
+
+Summing up, in either case, the quadratic expression above is negative 
+for all 𝑀 on the relevant domain. Therefore, 𝛽
+1) is always 
+decreasing in 𝑀 .
+]
+Likewise,  sign
+
+.  We  ﬁrst  show  that  𝛽
+
+1 (hence also 𝑠
+
+= sign
+
+2 is  quasi-
+
+[
+
+[
+
+]
+
+d𝑠
+2
+d𝑀
+
+d𝛽
+2
+d𝑀
+
+convex in 𝑀 . Direct evaluation shows
+d𝛽
+2
+d𝑀 =
+
+− (1 − 𝜌2)(𝜎𝐼 − 𝜌𝜎𝑅)𝜎3
+
+𝛾𝜎𝑅
+ℎ(𝑀)
+
+(
+
+𝐼 𝜎𝑅𝜔2
+
+𝐼 𝜔𝑅𝛾 2
+
+− 2(1 − 𝜌2)𝛾𝜎2
+
+𝐼 𝜎𝑅𝜔𝐼 𝜔𝑅𝑀 − (𝜌𝜎𝐼 𝜔𝐼 + 𝜎𝑅𝜔𝑅)𝑀 2
+where ℎ(𝑀) is some strictly positive 4th-order polynomial in 𝑀 , not 
+d𝛽
+d𝑀 . Consider a stationary point denoted by 𝑀 ∗. 
+aﬀecting the sign of
+We have
+
+,
+
+2
+
+d2𝛽
+2
+d𝑀 2
+
+|
+|
+|𝑀=𝑀 ∗
+(
+
+=
+
+2𝛾𝜎𝑅
+ℎ(𝑀 ∗)
+2𝛾 2(1 − 𝜌2)
+ℎ(𝑀 ∗)𝑀 ∗
+> 2𝛾 2(1 − 𝜌2)
+ℎ(𝑀 ∗)𝑀 ∗
+
+=
+
+−(1 − 𝜌2)𝛾𝜎2
+
+𝐼 𝜎𝑅𝜔𝐼 𝜔𝑅 − (𝜌𝜎𝐼 𝜔𝐼 + 𝜎𝑅𝜔𝑅)𝑀 ∗
+
+𝐼 𝜎2
+𝜎2
+
+𝑅𝜔𝐼 𝜔𝑅
+
+(
+𝑀 ∗ + 𝛾(𝜎2
+
+𝐼 − 𝜌𝜎𝐼 𝜎𝑅)𝜔𝐼
+
+)
+
+𝐼 𝜎2
+𝜎2
+
+𝑅𝜔𝐼 𝜔𝑅 ⋅ (−𝛾Δ) > 0,
+
+|
+where  the  last  equality  follows  from  d𝛽
+|
+= 0 by  substituting 
+2
+|𝑀=𝑀 ∗
+d𝑀
+(𝜌𝜎𝐼 𝜔𝐼 + 𝜎𝑅𝜔𝑅)𝑀 ∗ = − 1
+𝜔𝑅𝛾 2 − 2(1 −
+𝜎𝑅𝜔2
+𝑀 ∗ (1 − 𝜌2)(𝜎𝐼 − 𝜌𝜎𝑅)𝜎3
+𝐼
+𝐼
+𝜌2)𝛾𝜎2
+𝜎𝑅𝜔𝐼 𝜔𝑅, the ﬁrst inequality follows from (12), and the second 
+𝐼
+inequality follows from Δ < 0. That is, at all stationary points (if any 
+exist), 𝛽
+2 is strictly convex, and, hence, 𝛽
+2 is quasi-convex on the do-
+main 𝑀 > 0.  We  then  examine  the  limits  of 𝛽
+2.  Direct  computation 
+2 = 1; that if 𝑀
+𝛽
+shows that if 𝑀 is not constrained by (12), lim𝑀↓0
+𝜎𝑅
+(note  that 𝜌 > 0
+is  constrained  by (12),  lim𝑀↓(𝜌𝜎𝐼 𝜎𝑅−𝜎2
+𝜌𝜎𝐼
+2 = 0. That is, the left limit of 𝛽
+𝛽
+in this case); and that lim𝑀→∞
+2, ir-
+respective of whether 𝑀 is constrained, is always strictly larger than 
+its  right  limit.  Together  with  the  quasi-convexity,  it  follows  that 𝛽
+2
+2) is either monotonically decreasing or U-shaped in 𝑀 , 
+(hence also 𝑠
+
+𝑅)𝜔𝑅𝛾 𝛽
+
+2 =
+
+)
+
+)
+
+JournalofFinancialEconomics154(2024)10380719M. Baldauf, J. Mollner and B.Z. Yueshen
+
+[
+
+]
+
+[
+
+]
+
+[
+
+]
+
+d𝛽
+. Since sign
+depending on lim𝑀→∞ sign
+2
+d𝑀
+]
+[
+𝑀 2 d𝛽
+directly compute lim𝑀→∞ sign
+, re-
+2
+d𝑀
+calling that ℎ(𝑀) is a 4th-order polynomial in 𝑀 . Therefore, if 𝜌 <
+2 is 
+−
+also monotonically decreasing in 𝑀 . □
+
+𝑀 2 d𝛽
+, we 
+2
+d𝑀
+]
+−(𝜌𝜎𝐼 𝜔𝐼 + 𝜎𝑅𝜔𝑅)
+
+2 is U-shaped in 𝑀 ; or else, 𝑠
+
+, then the oﬀ-exchange spread 𝑠
+
+𝜎𝑅𝜔𝑅
+𝜎𝐼 𝜔𝐼
+
+d𝛽
+2
+d𝑀
+[
+
+= sign
+
+= sign
+
+Proof of Proposition 7. We ﬁrst derive a market maker’s equilibrium 
+expected proﬁt 𝜋 without the ban and 𝜋𝑏 with the ban. To do so, we 
+calculate  market  makers’  aggregate  surplus  as  the  area  of  the  trian-
+gle,  in  a  supply-demand  graph,  formed  by  the  vertical  (price)  axis, 
+the aggregate supply in marketplace 𝑗, and the horizontal line at 𝑠𝑗 . 
+The per capita surplus, therefore, amounts to  1
+(𝜁 − 𝑠𝑗 )𝜔𝑗 , 
+2𝑀
+where 𝜔𝑗 = 𝜔𝐼 if 𝑗 = 1, 𝜔𝑗 = 𝜔𝑅 if 𝑗 = 2, and 𝜔𝑗 = (𝜔𝐼 + 𝜔𝑅) if 𝑗 = 𝑏. We 
+𝛾
+then further plug in 𝑠𝑗 =
+)𝛽𝑗 for 𝑗 ∈ {1, 2, 𝑏}, where the equi-
+2
+2, and 𝛽𝑏 are given by (D.2), (D.3), and (D.4), 
+1, 𝛽
+librium values for 𝛽
+respectively. This gives 𝜋 = (𝜁−𝛾∕2)2
+(1 − 𝛽
+; and 
+𝜋𝑏 = (𝜁−𝛾∕2)2
+2𝑀 (𝜔𝐼 + 𝜔𝑅)(1 − 𝛽𝑏)𝛽𝑏. Directly evaluating 𝜋 − 𝜋𝑏 yields that 
+sign[𝜋 − 𝜋𝑏] is equivalent to the sign of the following cubic polynomial 
+in 𝑀 :
+
+𝜔𝐼 + (1 − 𝛽
+
++ (𝜁 −
+
+2)𝛽
+2
+
+1)𝛽
+1
+
+𝑠𝑗 −
+
+𝜔𝑅
+
+2𝑀
+
+)
+
+(
+
+)
+
+(
+
+2
+
+2
+
+𝛾
+
+𝛾
+
+[
+
+]
+
+𝐼 , var1
+
+]
+
+[
+
+𝐷(2)
+𝐼
+
+= (1 − 𝜙2
+
+𝐼 )𝜎2
+𝐼 , 
+
+]
+
+[
+𝐷(2)
+𝑅
+
+= 𝜙𝐼 𝐷(1)
+orders on-exchange. Given 𝔼
+1
+]
+𝔼
+= 0, we obtain31
+= 0, and var1
+( (
+(
+)
+)2
+
+𝐷(2)
+𝐼
+
+𝐷(2)
+𝑅
+
+[
+
+1
+
+and 𝚺(2|1) =
+
+𝑤(2)
+𝐼
+
+𝝁(2|1) =
+
+𝑤(2)
+𝐼
+
+𝜙𝐼 𝐷(1)
+𝐼
+0
+
+𝐼 )𝜎2
+𝐼
+
+(1 − 𝜙2
+0
+
+)
+
+.
+
+0
+0
+
+(D.7)
+
+𝑚 =
+
+, 𝑥(2)
+𝑚2
+
+(
+𝑥(2)
+𝑚1
+
+Next, we derive the objective function (C.2) of a market maker 𝑚, 
+who enters period 2 with inventory 𝑧(1)
+𝑚 . Suppose her liquidity supply 
+)⊤
+is 𝒙(2)
+.  Then  her  number  of  trades 𝑄(2)
+𝑚𝑗 in  each  mar-
+ketplace 𝑗 is Poisson distributed with expectation 𝑥(2)
+𝑚𝑗 . Her expected 
+𝑚𝑗 𝑠(2)
+𝑚𝑗 𝑠(2)
+= 𝑥(2)
+spread revenue from marketplace 𝑗 remains 𝔼
+. De-
+𝑗
+𝑗
+1
+note  her  inventory  from  marketplace 𝑗 by  𝑧(2)
+𝑚𝑗 .  At  the  beginning  of 
+𝑧(1)
+period 2, her expectation of her terminal squared inventory is 𝔼
+𝑚 +
+1
+)2
+∑
+2
+𝑗=1
+
++ 2𝑧(1)
+
+.  The 
+
+[( ∑
+
++ 𝔼
+
+𝑧(2)
+𝑚𝑗
+
+𝑧(2)
+𝑚𝑗
+
+𝑧(2)
+𝑚𝑗
+
+2
+𝑗=1
+
+2
+𝑗=1
+
+𝑚 𝔼
+
+𝑧(1)
+𝑚
+
+𝑄(2)
+
+[ ∑
+
+[(
+
+)2
+
+)2
+
+=
+
+(
+
+]
+
+]
+
+[
+
+]
+
+]
+
+1
+
+1
+third term, following Lemma 1, is
+]
+
+[( 2∑
+
+)
+2
+
+𝔼
+
+1
+
+𝑧(2)
+𝑚𝑗
+
+𝑗=1
+
+⊤
+
+= 𝒙(2)
+𝑚
+
+𝟏 + 𝒙(2)
+𝑚
+
+⊤
+
+(
+𝚺(2|1) + 𝝁(2|1)𝝁(2|1)
+
+)
+
+⊤
+
+𝒙(2)
+𝑚 .
+
+Directly evaluating the expectation in the second term yields
+
+𝑀 3
+
+−2(𝜔𝐼 + 𝜔𝑅)
+⏟⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏟
+<0
+
+(
+
++
+
+𝛾
+𝐼 𝜔𝐼 (2𝜔𝐼 + 𝜔𝑅) + 𝜎2
+2𝜌𝜎𝐼 𝜎𝑅𝜔𝐼 𝜔𝑅 + 𝜎2
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+>0
+
+)
+𝑅𝜔𝑅(𝜔𝐼 + 2𝜔𝑅)
+
+(
+
+)
+
+(
+
++ 𝛾 3
+
+1 − 𝜌2
+
+𝐼 𝜎2
+𝜎2
+
+𝑅𝜔𝐼 𝜔𝑅
+
+2𝜌𝜎𝐼 𝜎𝑅𝜔𝐼 𝜔𝑅 + 𝜎2
+
+𝐼 𝜔2
+
+𝐼 + 𝜎2
+
+𝑅𝜔2
+𝑅
+
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+>0
+
+)
+
+[
+
+𝔼
+
+1
+
+2∑
+
+𝑗=1
+
+]
+
+𝑧(2)
+𝑚𝑗
+
+=
+
+=
+
+2∑
+
+𝑗=1
+
+2∑
+
+𝑗=1
+
+𝑀 2
+
+(D.6)
+
+[
+
+[
+𝔼
+
+1
+
+𝔼
+
+1
+
+𝑚𝑗 | 𝑄(2)
+𝑧(2)
+𝑚𝑗
+
+]]
+
+[
+
+𝔼
+
+1
+
+𝔼
+
+1
+
+[ 𝑄(2)
+𝑚𝑗∑
+
+𝐵𝑚𝑗𝑖
+
+(−1)
+
+]]
+
+.
+
+= −
+
+[
+𝔼
+
+1
+
+𝔼
+
+1
+
+2∑
+
+𝑗=1
+
+𝑖=1
+[
+
+]]
+
+𝑄(2)
+
+𝑚𝑗 𝐷(2)
+𝑗
+
+= −
+
+2∑
+
+𝑗=1
+
+𝑚𝑗 𝜇(2|1)
+𝑥(2)
+
+Clearly, its derivative is a concave quadratic function of 𝑀 , with one 
+strictly negative root and the other root at zero. That is, for all 𝑀 > 0, 
+the cubic expression is strictly decreasing in 𝑀 . Since the intercept is 
+̂𝑀 >
+positive, the cubic polynomial always has a unique positive root
+0. □
+
+Proof of Proposition 8. Under Δ < 0 and  under (12),  the  equilib-
+rium without a segmentation ban involves all 𝑅-orders being siphoned 
+oﬀ-exchange,  as  well  as  positive  volume  both  on-exchange  and  oﬀ-
+exchange. Hence, (𝑥𝐼 , 𝑥𝑅, 𝑠𝐼 , 𝑠𝑅) are characterized by the following two 
+conditions, which respectively capture market maker optimization (fol-
+lowing (5)) and market-clearing:
+(
+(
+
+(
+
+)
+
+(
+
+)
+
+)
+
+)
+
+𝑥𝐼
+𝑥𝑅
+
+=
+
+1
+𝛾
+
+𝚺−1
+0
+
+𝛾
+
+𝑠𝐼 −
+𝑠𝑅 −
+
+2
+𝛾
+
+2
+
+𝑀
+
+𝑥𝐼
+𝑥𝑅
+
+=
+
+(𝜁 − 𝑠𝐼 )𝜔𝐼
+(𝜁 − 𝑠𝑅)𝜔𝑅
+
+.
+
+Eliminating (𝑠𝐼 , 𝑠𝑅), we obtain a condition involving 𝑥𝐼 and 𝑥𝑅 only:
+
+(
+
+𝑥𝐼
+𝑥𝑅
+
+𝛾𝚺
+0
+
+)
+
+(
+
+=
+
+𝜁 −
+𝜁 −
+
+𝛾
+
+2
+𝛾
+
+2
+
+−
+
+−
+
+𝑀
+𝜔𝐼
+𝑀
+𝜔𝑅
+
+𝑥𝐼
+𝑥𝑅
+
+)
+
+.
+
+It  is  straightforward  to  verify  that  this  condition  coincides  with  the 
+ﬁrst-order conditions of the expression for welfare given by (14). Be-
+cause (14) is concave, it follows that, as claimed in the text, the equi-
+librium without a segmentation ban leads to the welfare-maximizing 
+choices of (𝑥𝐼 , 𝑥𝑅). It follows trivially that 𝑤𝑏 < 𝑤. □
+
+Proof of Lemma 3. We ﬁrst derive the posterior order ﬂow character-
+istics in each marketplace 𝑗. In equilibrium, a fraction 𝛼(2) ∈ [0, 1] of 
+2 = 𝐷(2)
+𝑅-orders are siphoned oﬀ-exchange. Hence, 𝐷(2)
+𝑅 = 0 as all oﬀ-
+(
+)
+exchange  orders  are  𝑅-type,  and  𝐷(2)
+1 − 𝑤(2)
+𝐷(2)
+𝑅 =
+𝐼 +
+𝐼
+𝑤(2)
+is  the  relative  weight  of  𝐼 -
+𝐼
+
+𝐼 ,  where  𝑤(2)
+
+1 = 𝑤(2)
+
+𝐼 ∶=
+
+𝐷(2)
+
+𝐷(2)
+
+𝜔𝐼
+𝜔𝐼 +(1−𝛼(2))𝜔𝑅
+
+𝐼
+
+= − 𝒙(2)
+𝑚
+
+⊤
+
+𝝁(2|1),
+
+(
+𝐵𝑚𝑗𝑖
+
+)𝑄(2)
+𝑚𝑗
+𝑖=1 are i.i.d. Bernoulli draws with success rate 1
+where
+Combining the above results, we obtain the objective 𝜋(2)
+(C.2).
+
+(
+
+1 +𝐷(2)
+. 
+𝑗
+𝑚 as given in 
+
+2
+
+)
+
+The  ﬁrst-order  condition  regarding 𝑥(2)
+
+𝑚1 uniquely  solves  the  opti-
+
+mal 𝑥(2)
+
+𝑚1 (and the second-order condition clearly holds):
+
+d𝜋(2)
+𝑚
+d𝑥(2)
+𝑚1
+
+= 𝑠(2)
+
+1 −
+
+𝛾
+
+2
+
++ 𝑤(2)
+𝐼
+
+𝛾𝜙𝐼 𝐷(1)
+𝐼
+
+𝑚 − 𝛾
+𝑧(1)
+
+(
+𝑤(2)
+𝐼
+
+𝜎𝐼
+
+)2𝑥(2)
+
+𝑚1 = 0
+
+𝑠(2)
+1 −
+
+𝛾
+
+2
+
+⟹ 𝑥(2)
+
+𝑚1 =
+
++ 𝑤(2)
+𝐼
+(
+𝑤(2)
+𝐼
+
+𝛾
+
+𝛾𝜙𝐼 𝐷(1)
+𝐼
+)2
+
+𝜎𝐼
+
+𝑧(1)
+𝑚
+
+.
+
+(D.8)
+
+𝛾
+
+= 𝑠(2)
+
+However,  d𝜋(2)
+𝑚
+2 −
+d𝑥(2)
+𝑚2
+𝑚 is linear in 𝑥(2)
+objective 𝜋(2)
+dition  d𝜋(2)
+𝑚
+d𝑥(2)
+𝑚2
+
+2
+
+does not depend on 𝒙(2)
+
+𝑚 ; in other words, the 
+
+𝑚2. Therefore, to satisfy the ﬁrst-order con-
+
+= 0, the equilibrium oﬀ-exchange half spread must be
+
+𝛾
+
+.
+
+𝑠(2)
+2 =
+
+2
+The 
+𝑥(2)
+𝑚1d𝑚 = 𝜆𝐼
+
+on-exchange 
+)
+(
+𝑠(2)
+1
+
+∫ 𝑀
+0
+
+market-clearing 
+)
+
+(
+
++ (1 − 𝛼(2))𝜆𝑅
+
+𝑠(2)
+1
+
+, or
+
+(D.9)
+
+condition 
+
+is
+
+[
+
+]
+
+= 0, and 
+𝑅 = 0 is a constant, var
+31 Note that, because we assume 𝐷(2)
+)
+(
+⊤
+𝚺(2|1) + 𝝁(2|1)𝝁(2|1)
+is no longer invertible. Hence, unlike in (5), for example, 
+an individual market maker’s optimal liquidity supply 𝒙(2)
+𝑚 cannot be uniquely 
+determined. Nevertheless, as the proof shows below, the on-exchange liquidity 
+supply, the aggregate oﬀ-exchange liquidity supply, and the half spreads 𝒔(2) all 
+remain unique in equilibrium.
+
+𝐷(2)
+𝑅
+
+JournalofFinancialEconomics154(2024)10380720M. Baldauf, J. Mollner and B.Z. Yueshen
+
+𝑀
+
+𝑤(2)
+𝐼
+
+𝜎𝐼
+
+(
+
+𝛾
+
+(
+
+)2
+
+𝑠(2)
+1 −
+
+𝛾
+
+2
+
+)
+
++ 𝑤(2)
+𝐼
+
+𝛾𝜙𝐼 𝐷(1)
+𝐼
+
+̄𝑧(1)
+
+= max
+
+{
+0, 𝜁 − 𝑠(2)
+1
+
+} 𝜔𝐼
+𝑤(2)
+𝐼
+
+,
+
+using (D.8) and 𝜆𝑘(𝑠) = max{0, 𝜁 − 𝑠}𝜔𝑘. Deﬁne
+
+𝜏(2) ∶= 𝜁 −
+
+𝛾
+
+2
+
++ 𝛾𝑤(2)
+𝐼
+
+𝜙𝐼 𝐷(1)
+𝐼
+
+̄𝑧(1).
+
+We then obtain the equilibrium on-exchange half spread
+
+𝑠(2)
+1 =
+
+⎧
+⎪
+⎨
+⎪
+⎩
+
+𝛾
+
+2
+𝛾
+
+2
+
+(
+
+̄𝑧(1)𝑀
+
+𝑀+2𝑤(2)
+𝐼
+
+𝜁𝜔𝐼 𝜎2
+𝑀+𝑤(2)
+𝐼
+
+𝐼 −𝜙𝐼 𝐷(1)
+𝐼
+𝛾𝜔𝐼 𝜎2
+𝐼
+𝜙𝐼 𝐷(1)
+̄𝑧(1)
+𝐼
+
+(
+1 − 2𝑤(2)
+𝐼
+
+)
+
+)
+
+if 𝜏(2) > 0;
+
+if 𝜏(2) ≤ 0.
+
+(D.10)
+
+Plugging (D.10) into (D.8), an individual market maker 𝑚’s equilibrium 
+on-exchange supply is
+
+𝑥(2)
+𝑚1 =
+
+⎧
+⎪
+⎨
+⎪
+⎩
+
+(
+𝑧(1)
+𝑚 − ̄𝑧(1)
+
+)
+
+(
+𝐼 +
+
+𝑀𝜙𝐼 𝐷(1)
+
+𝛾
+𝜁−
+(
+2
+𝑀𝑤(2)
+𝑤(2)
+𝜎2
+𝜎2
+𝐼 +𝛾
+)
+𝐼
+𝐼
+𝐼
+𝜙𝐼 𝐷(1)
+𝑧(1)
+𝑚 − ̄𝑧(1)
+𝐼
+
+(
+
+1
+𝑤(2)
+𝐼
+
+𝜎2
+𝐼
+
+)
+
++𝑤(2)
+𝛾𝜙𝐼 𝐷(1)
+𝐼
+𝐼
+)2
+
+𝑧(1)
+𝑚
+
+𝜔𝐼
+
+𝜎2
+𝐼
+
+𝜔𝐼
+
+if 𝜏(2) > 0;
+
+(D.11)
+
+if 𝜏(2) ≤ 0.
+
+(
+
+Similarly, the oﬀ-exchange market-clearing condition is ∫ 𝑀
+𝛼(2)𝜆𝑅
+exchange liquidity supply
+
+𝑥(2)
+𝑚2d𝑚 =
+.  Using (D.9),  we  obtain  the  equilibrium  aggregate oﬀ-
+
+𝑠(2)
+2
+
+)
+
+0
+
+(
+
+𝑥(2)
+𝑚2d𝑚 = 𝛼(2)
+
+𝜁 −
+
+)
+
+𝛾
+
+2
+
+𝜔𝑅.
+
+𝑀
+
+∫
+0
+
+(D.12)
+
+The best-execution requirement says that if 𝑠(2)
+2
+
+1 , then all 
+(no) 𝑅-orders are siphoned oﬀ-exchange, i.e., 𝛼(2) = 1 (= 0). If 𝑠(2)
+2 =
+𝑠(2)
+1 , then 𝛼(2) can take any value in [0, 1]. Recall the deﬁnition of Δ(2)
+from (C.3). On the one hand, if 𝜏(2) > 0, then using the spread expres-
+sions (D.9) and (D.10) (the 𝜏(2) > 0 case), we have
+
+< (>)𝑠(2)
+
+𝜏(2) > 0 ⟹
+
+⎧
+⎪
+⎪
+⎨
+⎪
+⎪
+⎩
+
+𝑠(2)
+2
+
+𝑠(2)
+2
+
+< 𝑠(2)
+1
+< 2𝑤(2)
+𝐼
+> 𝑠(2)
+1
+> 2𝑤(2)
+𝐼
+
+⟺ 𝑤(2)
+(
+𝐼
+𝜁𝜔𝐼 𝜎2
+⟺ 𝑤(2)
+(
+𝐼
+𝜁𝜔𝐼 𝜎2
+
+𝛾𝜔𝐼 𝜎2
+𝐼
+𝐼 − 𝜙𝐼 𝐷(1)
+𝐼
+𝛾𝜔𝐼 𝜎2
+𝐼
+𝐼 − 𝜙𝐼 𝐷(1)
+𝐼
+
+̄𝑧(1)𝑀
+
+)
+
+)
+
+⟺ Δ(2) < 0;
+
+̄𝑧(1)𝑀
+
+⟺ Δ(2) > 0.
+
+(D.13)
+
+)
+
+̄𝑧(1) ≤
+
+(Note that 𝑤(2)
+is strictly positive and, hence, can be canceled out with-
+𝐼
+out  aﬀecting  the  inequalities  above.)  On  the  other  hand,  if 𝜏(2) ≤ 0, 
+then 𝐷(1)
+< 0. Using the spread expressions (D.9)
+𝐼
+
+2
+and (D.10) (the 𝜏(2) ≤ 0 case), this inequality implies 𝑠(2)
+1 . Recall-
+2
+ing (C.3), the same inequality also implies Δ(2) < 0. It follows that we 
+have also the following (with the second case holding vacuously)
+
+(
+𝜁 −
+
+1
+𝛾𝑤(2)
+𝐼
+
+< 𝑠(2)
+
+𝜙𝐼
+
+𝛾
+
+{
+
+𝜏(2) ≤ 0 ⟹
+
+𝑠(2)
+2
+𝑠(2)
+2
+
+< 𝑠(2)
+1
+> 𝑠(2)
+1
+
+⟺ Δ(2) < 0;
+⟺ Δ(2) > 0.
+
+(D.14)
+
+Combining (D.13) and (D.14) with the best-execution requirement, the 
+relationship between Δ(2) and 𝛼(2) is precisely as stated in the lemma.
+̄𝑧(1) =
+𝐼 . Plugging this into (C.3), the expression for Δ(2) be-
+
+Finally,  assume  market  clearing  from 𝑡  = 1.  Then 
+− 1
+𝜆𝐼
+𝑀
+comes
+
+𝑠(1)
+1
+
+𝐷(1)
+
+(
+
+)
+
+Δ(2) = −
+
+− 𝜎2
+
+𝐼 𝜔𝐼 ,
+
+𝜙𝐼 𝜆𝐼
+
+)
+𝜎2
+𝐼
+
+(
+
+𝑠(1)
+1
+𝛾
+
+2
+
+𝜁 −
+
+which  is  negative.  Following  the  previous  paragraph,  best-execution 
+therefore requires 𝛼(2) = 1, and, hence, 𝑤(2)
+
+𝐼 = 1. □
+
+Proof of Proposition 9. The ﬁrst step is to characterize the order ﬂow 
+characteristics in each marketplace 𝑗. Similar to 𝑡 = 2, deﬁning 𝑤(1)
+𝐼 =
+
+as the on-exchange weight of 𝐼 -orders, we have
+
+𝜔𝐼
+𝜔𝐼 +(1−𝛼(1))𝜔𝑅
+
+[
+
+𝝁(1) = 𝔼
+
+𝚺(1) = var
+
+𝐷(1)
+1
+𝐷(1)
+2
+[
+
+𝐷(1)
+1
+𝐷(1)
+2
+
+]
+
+(
+
+)
+
+0
+0
+( (
+
+=
+
+]
+
+=
+
+and
+
+)2𝜎2
+𝑤(1)
+𝐼
+0
+
+𝐼
+
+)
+
+.
+
+0
+0
+
+⊤
+
+[
+
+𝑚 = 𝒙(1)
+𝑚
+
+The second step is to derive the objective function 𝜋(1)
+]
+𝜋(2)
+𝑚 (⋅)
+
+𝒔(1)
+1 +
+𝔼
+.  In  particular,  we  are  only  interested  in  how  it  is  aﬀected 
+by the supply 𝒙(1)
+𝑚 . To do so, we ﬁrst evaluate 𝜋(2)
+𝑚 (⋅) using the 𝑡 = 2
+solution  derived  above.  In  particular,  recall  that  under  𝑡 = 1 market 
+clearing, Δ(2) < 0 and so 𝑤(2)
+𝐼 = 1. Then plug into (C.2) the half spread 
+𝑠(2)
+2 as given by (D.9) and the posterior moments (D.7) to get
+)2
+)2
+
+((
+
+)
+
+)
+
+(
+
+(
+
+𝛾
+
+𝛾
+
+𝑧(1)
+𝑚
+
+− 2𝜙𝐼 𝐷(1)
+𝐼
+
+𝑚 𝑥(2)
+𝑧(1)
+
+𝑚1 +
+
+𝑥(2)
+𝑚1
+
+.
+
+𝜋(2)
+𝑚 =
+
+𝑠(2)
+1 −
+
+2
+
+To substitute in 𝑠(2)
+
+𝑚1, we need to discuss two cases.32
+
+𝑥(2)
+𝑚1 −
+2
+1 and 𝑥(2)
+
+Case 1: Conjecture 𝜁 −
+2
+it follows that 𝜏(2) ≤ 0:
+
+𝛾
+
+≤
+
+𝛾𝜙𝐼 𝜎2
+𝐼
+𝑀
+
+𝜆𝐼
+
+)
+
+(
+𝑠(1)
+1
+
+. Given market clearing at 𝑡 = 1, 
+
+𝛾
+
+𝛾
+
+−
+
+𝛾𝜙𝐼 𝜎2
+𝐼
+𝑀
+
+(
+
+)
+
+𝜆𝐼
+
+𝑠(1)
+1
+
+≤ 0,
+
+𝜏(2) = 𝜁 −
+
++ 𝛾𝑤(2)
+𝐼
+
+𝜙𝐼 𝐷(1)
+𝐼
+
+̄𝑧(1) = 𝜁 −
+
+2
+
+2
+where the ﬁrst equality is the deﬁnition of 𝜏(2), and the second equality 
+uses that, as discussed in the proof of Lemma 3, 𝑡 = 1 market clear-
+)
+𝐷(1)
+ing  implies  (i)  ̄𝑧(1) = − 1
+𝐼 = 1.  Substituting 
+𝐼
+𝑀
+the 𝜏(2) ≤ 0 cases of (D.10) and (D.11) into 𝜋(2)
+𝑚 and then also, by market 
+into 𝜋(2)
+clearing, substituting  ̄𝑧(1) = − 1
+𝑀
+𝛾
+𝑀
+
+)
+𝐼 𝐷(1)
+𝜙2
+𝐼
+
+and  (ii)  𝑤(2)
+
+𝑚 , we get
+
+)
+𝐷(1)
+𝐼
+
+(1 − 𝜙𝐼 )2
+
+𝜋(2)
+𝑚 = −
+
+𝑠(1)
+1
+
+𝑠(1)
+1
+
+𝑠(1)
+1
+
+𝑧(1)
+𝑚
+
+𝑧(1)
+𝑚
+
+)2
+
+𝜆𝐼
+
+𝜆𝐼
+
++
+
+(
+
+(
+
+(
+
+(
+
+𝛾
+
+2
+[
+terms unaﬀected by 𝒙(1)
+𝑚
+
++
+
+𝜆𝐼
+]
+
+.
+
+[(
+
+𝐼 . Recall that 𝑧(1)
+
+From the market maker’s point of view in 𝑡 = 1, the above involves 
+𝑚 and 𝐷(1)
+two random variables: 𝑧(1)
+𝑚1 + 𝑧(1)
+𝑚2 and, 
+)
+𝒙(1)
+𝟏 + 𝒙(1)
+= 𝒙(1)
+𝑧(1)
+hence, by Lemma 1, 𝔼
+𝑚 =
+𝑚
+𝑚
+𝑚
+. Note that 𝑧(1)
+𝑥(1)
+𝑚 and 𝐷(1)
+𝑚1 + 𝑥(1)
+are correlated: 
+𝑚2 +
+𝐼
+]
+[
+𝑧(1)
+𝐷(1)
+𝜎2
+𝔼
+𝐼 . Therefore, taking the uncondi-
+𝑚
+𝐼
+𝒔(1), 
+
+𝑧(1)
+= 𝔼
+𝑚1
+tional expectation of 𝜋(2)
+𝑚 and adding the 𝑡 = 1 spread revenues 𝒙(1)
+𝑚
+we obtain
+
+)2(
+𝑥(1)
+𝑚1
+]
+= −𝑤(1)
+𝐼
+
+𝑚 = 𝑧(1)
+𝚺(1) + 𝝁(1)𝝁(1)
+
+𝑤(1)
+𝜎𝐼
+𝐼
+[
+𝐷(1)
+𝐼
+
+)2]
+)2
+
+𝑥(1)
+𝑚1
+
+(
+
+(
+
+⊤
+
+⊤
+
+⊤
+
+⊤
+
+)
+
+(1 − 𝜙2
+𝐼 )
+
+𝑥(1)
+𝑚1
+)
+
+𝜋(1)
+𝑚 =
+
+(
+
+𝑠(1)
+1 −
+(
+
+𝛾
+
+2
+
++
+
+−
+
+𝑠(1)
+2 −
+𝜙2
+𝐼
+
+𝛾𝜎2
+𝐼
+𝑀
+
+𝛾
+
+2
+
+(1 − 𝜙2
+𝐼 )
+
+𝑥(1)
+𝑚2 −
+
+(
+(1 − 𝜙2
+𝐼 )
+
+𝑤(1)
+𝐼
+
+𝑥(1)
+𝑚1
+
+𝜎𝐼
+
+)2
+
+)
+
+(
+𝑠(1)
+1
+
+𝜆𝐼
+
+𝑤(1)
+𝐼
+
+𝑥(1)
+𝑚1 +
+
+terms unaﬀected by 𝒙(1)
+𝑚
+
+]
+
+.
+
+𝛾
+
+2
+[
+
+As in the case of 𝑡 = 2, the ﬁrst-order conditions with respect to 𝑥(1)
+𝑚1
+and 𝑥(1)
+𝑚2 determine
+(
+
+(
+
+𝑠(1)
+1 −
+
+𝛾
+
+2
+
+𝑥(1)
+𝑚1 =
+
+)
+(1 − 𝜙2
+𝐼 )
+
+𝑀 − 𝜆𝐼
+(
+(1 − 𝜙2
+𝐼 )
+
+𝑤(1)
+𝐼
+
+𝜎𝐼
+
+𝑠(1)
+1
+)2𝑀𝛾
+
+)
+𝑤(1)
+𝐼
+
+𝛾𝜎2
+𝐼
+
+𝜙2
+𝐼
+
+; and
+
+(D.15)
+
+𝛾
+
+2
+
+𝐼 ).
+
+(1 − 𝜙2
+
+𝑠(1)
+2 =
+On-exchange  market  clearing  requires  ∫ 𝑀
+𝛼(1))𝜆𝑅
+
+, i.e.,
+
+(
+
+)
+
+0
+
+𝑠(2)
+1
+
+𝑥(1)
+𝑚1d𝑚 = 𝜆𝐼
+
+)
+
+(
+𝑠(2)
+1
+
+(D.16)
+
++ (1 −
+
+𝑚2 is not needed: Recall from the proof 
+32 The oﬀ-exchange liquidity supply 𝑥(2)
+of Lemma 3 that the equilibrium oﬀ-exchange half spread 𝑠(2)
+2 as given in (D.9)
+𝑚2 is irrelevant for 𝜋(2)
+ensures that the oﬀ-exchange supply 𝑥(2)
+𝑚 .
+
+JournalofFinancialEconomics154(2024)10380721M. Baldauf, J. Mollner and B.Z. Yueshen
+)
+(
+
+𝑠(1)
+1 −
+
+𝛾
+
+2
+
+)
+(1 − 𝜙2
+𝐼 )
+
+𝑀 − 𝜆𝐼
+(
+
+(
+𝑠(1)
+1
+)2
+𝜎𝐼
+
+(1 − 𝜙2
+
+𝐼 )𝛾
+
+𝑤(1)
+𝐼
+
+𝑤(1)
+𝐼
+
+𝛾𝜎2
+𝐼
+
+𝜙2
+𝐼
+
+{
+
+= max
+
+0, 𝜁 − 𝑠(1)
+1
+
+} 𝜔𝐼
+𝑤(1)
+𝐼
+
+.
+
+(
+
+)
+
+𝛾
+
+(1 − 𝜙2
+
+≤ 0, then 𝜆𝐼
+
+Assuming 𝜁 − 𝑠(1)
+1
+𝑠(1)
+1 =
+clude that 𝜁 > 𝑠(1)
+market-clearing condition yields
+
+𝐼 ) ≤ 𝛾
+1 , in which case 𝜆𝐼
+
+= 0, and the above equation gives 
+< 𝜁 , which contradicts the assumption. We con-
+𝜔𝐼 and the above 
+
+𝜁 − 𝑠(1)
+1
+
+𝑠(1)
+1
+
+𝑠(1)
+1
+
+=
+
+)
+
+(
+
+(
+
+)
+
+2
+
+2
+
+(
+
+𝑠(1)
+1
+
+−
+
+𝛾
+2
+
+𝑀 ⋅
+
+(1−𝜙2
+𝐼 )
+
+)(
+
+𝑀+𝛾𝜎2
+𝐼
+
+𝜔𝐼
+(
+(1−𝜙2
+𝐼 )
+
+(
+
+)
+−𝜆𝐼
+
+𝑤(1)
+𝐼
+
+𝜎𝐼
+
+𝑠(1)
+1
+)2
+
+)
+𝑤(1)
+𝐼
+
+(
+𝐼 −
+
+𝜙2
+
+𝛾𝜎2
+𝐼
+
+)
+
+𝑤(1)
+𝐼
+
+𝜁−
+
+𝛾
+2
+
+𝜙𝐼 𝛾𝜎2
+𝐼
+
+𝜔𝐼
+
+(𝑀+𝛾𝜎2
+𝐼
+
+𝜔𝐼 )𝛾
+
+{
+
+= max
+
+0, 𝜁 − 𝑠(1)
+1
+
+} 𝜔𝐼
+𝑤(1)
+𝐼
+
+.
+
+Assuming 𝜁 − 𝑠(1)
+1
+gives
+
+≤ 0, then 𝜆𝐼
+
+)
+
+(
+
+𝑠(1)
+1
+
+= 0, and the above equation then 
+
+(D.17)
+
+𝑠(1)
+1 − 𝜁
+
+(1 − 𝜙2
+
+𝐼 ) ⋅ 𝑀 +
+
+𝛾
+
+2
+
+=
+
+(
+
+𝛾
+
+2
+
+(1 − 𝜙2
+
+𝐼 ) +
+
+(
+𝜁 −
+
+)
+
+𝛾
+
+2
+
+)
+
+𝜙𝐼 𝑤(1)
+𝐼
+
+𝛾𝜎2
+𝐼
+
+𝜔𝐼
+
+𝑀 + 𝛾𝜎2
+𝐼
+
+𝜔𝐼
+
+− 𝜁,
+
+𝑠(1)
+1 =
+
+𝛾
+
+2
+
+(1 − 𝜙2
+
+𝐼 )𝑀 + 2𝑤(1)
+𝐼
+𝑀 + 𝑤(1)
+𝛾𝜔𝐼 𝜎2
+𝐼
+𝐼
+
+𝜔𝐼 𝜎2
+𝐼
+
+𝜁
+
+.
+
+Direct computation gives
+
+1 − 𝑠(1)
+𝑠(1)
+
+2 =
+
+𝑤(1)
+𝐼
+𝑀 + 𝑤(1)
+𝐼
+
+𝛾𝜔𝐼 𝜎2
+𝐼
+𝛾𝜔𝐼 𝜎2
+𝐼
+
+(
+𝜁 −
+
+𝛾
+
+2
+
+)
+
+(1 − 𝜙2
+𝐼 )
+
+> 0.
+
+Therefore,  best-execution  requires  all  𝑅-orders  to  be  siphoned  oﬀ-
+exchange in period 1, yielding 𝛼(1)
+𝐼 = 1. Finally, we need to 
+verify the initial conjecture. Using (D.17) (with 𝑤(1)
+
+1 = 1 and 𝑤(1)
+
+𝜁 −
+
+≤
+
+𝛾𝜙𝐼 𝜎2
+𝐼
+𝑀
+
+(
+
+𝜆𝐼
+
+𝑠(1)
+1
+
+)
+
+𝛾
+
+2
+
+⟺ 𝜁 ≤
+
+𝛾
+
+2
+
+𝐼 = 1),
+)
+
+(
+
+𝑀 +
+
+1 − 𝜙𝐼 + 𝜙3
+𝐼
+(
+)
+𝛾𝜔𝐼 𝜎2
+1 − 𝜙𝐼
+𝐼
+
+𝛾𝜔𝐼 𝜎2
+𝐼
+
+,
+
+𝑀 +
+
+that is, this case applies if and only if the last inequality holds.
+
+Case 2: Conjecture 𝜁 −
+2
+it follows that 𝜏(2) > 0:
+
+𝛾
+
+>
+
+𝛾𝜙𝐼 𝜎2
+𝐼
+𝑀
+
+𝜆𝐼
+
+)
+
+(
+𝑠(1)
+1
+
+. Given market clearing at 𝑡 = 1, 
+
+𝛾
+
+𝛾
+
+−
+
+𝛾𝜙𝐼 𝜎2
+𝐼
+𝑀
+
+(
+
+)
+
+𝜆𝐼
+
+𝑠(1)
+1
+
+> 0,
+
+𝜏(2) = 𝜁 −
+
++ 𝛾𝑤(2)
+𝐼
+
+𝜙𝐼 𝐷(1)
+𝐼
+
+̄𝑧(1) = 𝜁 −
+
+2
+
+2
+where the ﬁrst equality is the deﬁnition of 𝜏(2), and the second equality 
+uses that, as discussed in the proof of Lemma 3, 𝑡 = 1 market clear-
+)
+𝐷(1)
+ing  implies  (i)  ̄𝑧(1) = − 1
+𝐼 = 1.  Substituting 
+𝐼
+𝑀
+the 𝜏(2) > 0 cases of (D.10) and (D.11) into 𝜋(2)
+𝑚 and then also, by market 
+into 𝜋(2)
+clearing, substituting  ̄𝑧(1) = − 1
+𝑀
+
+and  (ii)  𝑤(2)
+
+𝑚 , we get
+
+)
+𝐷(1)
+𝐼
+
+𝑠(1)
+1
+
+𝜆𝐼
+
+𝜆𝐼
+
+(
+
+(
+
+𝑠(1)
+1
+
+𝜋(2)
+𝑚 = −
+
+𝛾
+
+2
+(
+
+(
+(1 − 𝜙2
+𝐼 )
+)
+
+)2
+
+𝑧(1)
+𝑚
+
+𝜁 −
+
+𝛾
+
+2
+
+𝜔𝐼 + 𝜙𝐼 𝜆𝐼
+
+𝑀 + 𝛾𝜔𝐼 𝜎2
+𝐼
+
+)
+
+(
+
+𝑠(1)
+1
+
+𝛾𝜙𝐼 𝐷(1)
+𝐼
+
+𝑧(1)
+𝑚
+
+terms unaﬀected by 𝒙(1)
+𝑚
+
++
+
++
+
+[
+
+]
+
+.
+
+]
+
+.
+
+As in the previous case, taking the unconditional expectation of 𝜋(2)
+adding the 𝑡 = 1 spread revenues 𝒙(1)
+𝑚
+
+𝒔(1), we obtain
+
+⊤
+
+𝑚 and 
+
+𝜋(1)
+𝑚 =
+
+(
+
+𝑠(1)
+1 −
+(
+
+𝛾
+
+2
+
+)
+
+(1 − 𝜙2
+𝐼 )
+
+𝑥(1)
+𝑚1
+)
+
+𝑥(1)
+𝑚2 −
+)
+
+(1 − 𝜙2
+𝐼 )
+
+((
+
+𝜁 −
+
+𝜔𝐼
+
+𝛾
+
+2
+
+(
+(1 − 𝜙2
+𝐼 )
+
+𝛾
+
+2
+
+𝑤(1)
+𝐼
+))
+
+(
+𝑠(1)
+1
+
+)2
+
+𝜎𝐼
+
+𝑥(1)
+𝑚1
+
+𝑤(1)
+𝐼
+
+𝑥(1)
+𝑚1
+
+𝜔𝐼 + 𝜙𝐼 𝜆𝐼
+
+𝛾
+
+𝑠(1)
+2 −
+2
+𝜙𝐼
+𝛾𝜎2
+𝐼
+𝑀 + 𝛾𝜎2
+𝐼
+[
+
++
+
+−
+
++
+
+terms unaﬀected by 𝒙(1)
+𝑚
+
+Then, as before, the ﬁrst-order conditions pin down
+
+(
+
+𝑠(1)
+1
+
+−
+
+𝛾
+2
+
+𝑥(1)
+𝑚1 =
+
+(1−𝜙2
+𝐼 )
+
+)(
+
+(
+
+)
+−𝜆𝐼
+
+𝑀+𝛾𝜎2
+𝐼
+
+𝜔𝐼
+(
+𝑤(1)
+(1−𝜙2
+𝐼 )
+𝐼
+
+𝜎𝐼
+
+𝑠(1)
+1
+)2
+
+)
+𝑤(1)
+𝐼
+
+(
+𝜁−
+𝐼 −
+
+𝜙2
+
+𝛾
+2
+
+𝛾𝜎2
+𝐼
+
+)
+
+𝑤(1)
+𝐼
+
+𝜙𝐼 𝛾𝜎2
+𝐼
+
+𝜔𝐼
+
+(𝑀+𝛾𝜎2
+𝐼
+
+𝜔𝐼 )𝛾
+
+(
+
+𝛾
+
+)
+.
+
+2
+
+1 − 𝜙2
+𝐼
+
+𝑠(1)
+2 =
+On-exchange  market  clearing  requires  ∫ 𝑀
+𝛼(1))𝜆𝑅
+
+, i.e.,
+
+(
+
+)
+
+0
+
+𝑠(2)
+1
+
+𝑥(1)
+𝑚1d𝑚 = 𝜆𝐼
+
+)
+
+(
+𝑠(2)
+1
+
++ (1 −
+
+; and
+
+(D.18)
+
+(D.19)
+
+𝛾
+
+𝜙2
+𝐼
+
+, reaches its maximum of 
+< 0, thus rejecting the assumption. We conclude that 𝜁 > 𝑠(1)
+1 , 
+𝜔𝐼 and the above market-clearing 
+
+which decreases in 𝜁 and, hence, when 𝜁 ↓ 𝛾
+2
+−
+in which case 𝜆𝐼
+condition yields
+
+𝜁 − 𝑠(1)
+1
+
+𝑠(1)
+1
+
+=
+
+(
+
+)
+
+(
+
+)
+
+2
+
+(1−𝜙2
+
+𝑠(1)
+1 =
+
+𝛾
+
+2
+
+(
+𝑀+2𝜁𝑤(1)
+𝐼 )(𝑀+𝛾𝜔𝐼 𝜎2
+𝜔𝐼 𝜎2
+𝐼 )
+(
+𝐼
+𝐼
+𝑀+𝛾𝑤(1)
+𝜔𝐼 𝜎2
+(𝑀+𝛾𝜔𝐼 𝜎2
+𝐼 )
+𝐼
+𝐼
+
+(
+)
+2(𝜙𝐼 +𝜙2
++
+)
+−𝑤(1)
+𝐼
+
+𝐼 )𝜁−𝜙𝐼 𝛾
+𝜎4
+𝛾2𝜔2
+𝜙2
+𝐼
+𝐼
+𝐼
+
+)
+
+𝑀𝑤(1)
+𝐼
+
+𝜔𝐼 𝜎2
+𝐼
+
+.
+
+(D.20)
+
+Directly comparing the two half spreads in this case yields
+
+1 − 𝑠(2)
+𝑠(1)
+[
+𝛾
+
+2
+2(1 + 𝜙𝐼 )𝜁 − 𝛾
+
+=
+
+2
+
+𝑀 2 + (1 + 𝑤(1)
+
+]
+𝜙𝐼 𝑀𝑤(1)
+𝐼
+𝐼 )𝑀𝛾𝜔𝐼 𝜎2
+
+𝜔𝐼 𝜎2
+
+𝐼 + (1 − 𝜙2
+𝐼 + (1 − 𝜙2
+
+𝐼 )𝑤(1)
+𝜙2
+𝐼
+𝐼
+𝐼 )𝑤(1)
+𝛾 2𝜔2
+𝐼
+𝐼
+
+𝜎4
+𝐼
+
+𝛾 2𝜔2
+𝐼
+
+𝜎4
+𝐼
+
+> 0,
+where  the  last  inequality  is  guaranteed  by 𝜁 > 𝛾
+.  Therefore,  best-
+2
+execution requires all 𝑅-orders to be routed oﬀ-exchange in period 1, 
+yielding 𝛼(1) = 1 and 𝑤(1)
+𝐼 = 1. Finally, we need to verify the initial con-
+jecture. Using (D.20) (with 𝑤(1)
+
+𝐼 = 1),
+
+𝜁 −
+
+>
+
+𝛾𝜙𝐼 𝜎2
+𝐼
+𝑀
+
+(
+
+𝜆𝐼
+
+𝑠(1)
+1
+
+)
+
+𝛾
+
+2
+
+⟺ 𝜁 >
+
+𝛾
+
+2
+
+(
+
+)
+
+𝑀 +
+
+1 − 𝜙𝐼 + 𝜙3
+𝐼
+)
+(
+𝛾𝜔𝐼 𝜎2
+1 − 𝜙𝐼
+𝐼
+
+𝛾𝜔𝐼 𝜎2
+𝐼
+
+.
+
+𝑀 +
+
+Summary: As seen above, in either case, 𝛼(1) = 1 (and, hence, 𝑤(1)
+Deﬁne
+
+𝐼 = 1). 
+
+(
+
+)
+
+𝛾
+
+𝑀 +
+
+𝛾𝜔𝐼 𝜎2
+𝐼
+
+𝜏(1) ∶= 𝜁 −
+
+1 − 𝜙𝐼 + 𝜙3
+𝐼
+)
+(
+𝛾𝜔𝐼 𝜎2
+1 − 𝜙𝐼
+𝐼
+Then,  combining (D.17) and (D.20),  we  obtain  the  equilibrium  on-
+exchange half spread as
+
+𝑀 +
+
+2
+
+.
+
+𝑠(1)
+1 =
+
+⎧
+⎪
+⎪
+⎨
+⎪
+⎪
+⎩
+
+𝛾
+
+2
+
+𝛾
+
+2
+
+(1−𝜙2
+
+(
+𝐼 )(𝑀+𝛾𝜔𝐼 𝜎2
+𝐼 )
+(
+
+(1−𝜙2
+
+𝐼 )𝑀+2𝜔𝐼 𝜎2
+𝐼
+𝑀+𝛾𝜔𝐼 𝜎2
+𝐼
+
+𝜁
+
+)
+
+(
++
+
+)
+
+2(𝜙𝐼 +𝜙2
+
+𝐼 )𝜁−𝜙𝐼 𝛾
+
+𝑀𝜔𝐼 𝜎2
+𝐼
+
+𝑀+2𝜁𝜔𝐼 𝜎2
+𝐼
+)2
+
+𝑀+𝛾𝜔𝐼 𝜎2
+𝐼
+
+−𝜙2
+𝐼
+
+𝛾2𝜔2
+𝐼
+
+𝜎4
+𝐼
+
+if 𝜏(1) > 0;
+
+if 𝜏(1) ≤ 0.
+
+(D.21)
+
+Combining (D.15) and (D.18), then plugging in (D.21), we obtain an 
+individual market maker 𝑚’s on-exchange equilibrium liquidity supply 
+as
+
+𝑥(1)
+𝑚1 =
+
+⎧
+⎪
+⎪
+⎨
+⎪
+⎪
+⎩
+
+(
+𝜁−
+
+(
+𝜁−
+
+𝛾
+2
+
+(
+)
+(1−𝜙2
+𝑀𝜔𝐼 +
+(1−𝜙𝐼 )𝜁−
+𝐼 )
+)
+(
+2
+𝑀+𝛾𝜔𝐼 𝜎2
+𝐼
+)
+𝛾
+(1−𝜙2
+𝜔𝐼
+𝐼 )
+2
+𝑀+𝛾𝜔𝐼 𝜎2
+𝐼
+
+−𝜙2
+𝐼
+
+)
+(1−𝜙𝐼 −𝜙2
+𝐼 )
+
+𝛾
+2
+
+𝛾𝜔2
+𝐼
+
+𝜎2
+𝐼
+
+𝛾2𝜔2
+𝐼
+
+𝜎4
+𝐼
+
+if 𝜏(1) > 0;
+
+if 𝜏(1) ≤ 0.
+
+(D.22)
+
+Combining (D.16) and (D.19), we obtain the equilibrium oﬀ-exchange 
+half spread as
+𝛾
+
+(
+
+)
+
+(D.23)
+
+𝑠(1)
+2 =
+
+2
+
+1 − 𝜙2
+𝐼
+
+.
+
+JournalofFinancialEconomics154(2024)10380722M. Baldauf, J. Mollner and B.Z. Yueshen
+
+Using (D.23), by market clearing, we obtain the equilibrium aggregate
+oﬀ-exchange liquidity supply
+
+(
+
+𝑥(1)
+𝑚2d𝑚 =
+
+𝜁 −
+
+(
+
+1 − 𝜙2
+𝐼
+
+)
+
+) 𝛾
+
+2
+
+𝜔𝑅. □
+
+𝑀
+
+∫
+0
+
+References
+
+(D.24)
+
+Adams, S., Kasten, C., 2021. Retail order execution quality under zero commissions. Work-
+
+ing paper.
+
+Financ. Econ. 8, 31–53.
+
+Amihud, Y., Mendelson, H., 1980. Dealership markets: market making with inventory. J. 
+
+Babus,  A.,  Parlatore,  C.,  2022.  Strategic  fragmented  markets.  J.  Financ.  Econ. 145, 
+
+876–908.
+
+Baldauf, M., Mollner, J., 2020. Trading in fragmented markets. J. Financ. Quant. Anal. 56, 
+
+93–121.
+
+Barardehi, Y.H., Bernhardt, D., Da, Z., Warachka, M., 2024. Uncovering the liquidity 
+
+premium in stock returns using sub-penny trade executions. Working paper.
+
+Barber, B.M., Huang, X., Odean, T., Schwarz, C., 2022. Attention-induced trading and 
+
+returns: evidence from Robinhood users. J. Finance 77, 3141–3190.
+
+Barbon, A., Di Maggio, M., Franzoni, F., Landier, A., 2019. Brokers and order ﬂow leakage: 
+
+evidence from ﬁre sales. J. Finance 74, 2707–2749.
+
+Barron’s, 2021. SEC chairman says banning payment for order ﬂow is ‘on the table’. 
+
+https://bit .ly /3VfvCS6.
+
+Battalio, R., Greene, J., Jennings, R., 1997. Do competing specialists and preferencing 
+
+dealers aﬀect market quality? Rev. Financ. Stud. 10, 969–993.
+
+Battalio, R., Holden, C.W., 2001. A simple model of payment for order ﬂow, internaliza-
+
+tion, and total trading cost. J. Financ. Mark. 4, 33–71.
+
+Battalio, R.H., 1997. Third market broker-dealers: cost competitors or cream skimmers? 
+
+J. Finance 52, 341–352.
+
+Ben-Rephael, A., Kandel, S., Wohl, A., 2011. The price pressure of aggregate mutual fund 
+
+Ben-Rephael, A., Kandel, S., Wohl, A., 2012. Measuring investor sentiment with mutual 
+
+ﬂows. J. Financ. Quant. Anal. 46, 585–603.
+
+fund ﬂows. J. Financ. Econ. 104, 363–382.
+
+Bernhardt, D., Dvoracek, V., Hughson, E., Werner, I.M., 2004. Why do larger orders re-
+ceive discounts on the London Stock Exchange? Rev. Financ. Stud. 18, 1343–1368.
+Bloomberg, 2022. Retail trading army is seeing power wane in stock market it once ruled. 
+
+Boehmer, E., Jones, C.M., Zhang, X., Zhang, X., 2021. Tracking retail investor activity. J. 
+
+Brogaard, J., Garriott, C., 2019. High-frequency trading competition. J. Financ. Quant. 
+
+Bruche, M., Kuong, J.C., 2021. Dealer funding and market liquidity. Working paper.
+Cespa,  G.,  Vives,  X.,  2022.  Exchange  competition,  entry,  and  welfare.  Rev.  Financ. 
+
+https://bloom .bg /3O4OmBs.
+
+Finance 76, 2249–2305.
+
+Anal. 54, 1469–1497.
+
+Stud. 35, 2570–2624.
+
+Chao, Y., Yao, C., Ye, M., 2019. Why discrete price fragments U.S. stock exchanges and 
+
+disperses their fee structures. Rev. Financ. Stud. 32, 1068–1101.
+
+Chen, D., Duﬃe, D., 2021. Market fragmentation. Am. Econ. Rev. 111, 2247–2274.
+Chordia, T., Subrahmanyam, A., 1995. Market making, the tick size, and payment-for-
+
+order ﬂow: theory and evidence. J. Bus. 68, 543–575.
+
+Chowdhry, B., Nanda, V., 1991. Multimarket trading and market liquidity. Rev. Financ. 
+
+Stud. 4, 483–511.
+
+Comerton-Forde, C., Malinova, K., Park, A., 2018. Regulating dark trading: order ﬂow 
+
+segmentation and market quality. J. Financ. Econ. 130, 347–366.
+
+Corts, K.S., 1998. Third-degree price discrimination in oligopoly: all-out competition and 
+
+strategic commitment. Rand J. Econ. 29, 306–323.
+
+Coval, J., Staﬀord, E., 2007. Asset ﬁre sales (and purchases) in equity markets. J. Financ. 
+
+Econ. 86, 479–512.
+
+Daures-Lescourret, L., Moinas, S., 2023. Fragmentation and strategic market-making. J. 
+
+Financ. Quant. Anal. 58, 1675–1700.
+
+Degryse, H., de Jong, F., Kervel, V., 2015. The impact of dark trading and visible frag-
+
+mentation on market quality. Rev. Finance 19, 1587–1622.
+
+Desgranges, G., Foucault, T., 2005. Reputation-based pricing and price improvements. J. 
+
+Econ. Bus. 57, 493–527.
+
+Duﬃe, D., Qiao, L., Sun, Y., 2023. Continuous-time random matching. Working paper.
+Easley, D., Kiefer, N.M., O’Hara, M., 1996. Cream-skimming or proﬁt-sharing? The curious 
+
+role of purchased order ﬂow. J. Finance 51, 811–833.
+
+Eaton,  G.W.,  Green,  T.C.,  Roseman,  B.S.,  Wu,  Y.,  2022.  Retail  trader  sophistication 
+and stock market quality: evidence from brokerage outages. J. Financ. Econ. 146, 
+502–528.
+
+Elsas, R., Johanning, L., Theissen, E., 2022. Payment for order ﬂow and market quality: a 
+
+ﬁeld experiment. Working paper.
+
+Ernst, T., Spatt, C., 2022. Payment for order ﬂow and asset choice. Working paper.
+ESMA, 2021. ESMA warns ﬁrms and investors about risks arising from payment for order 
+
+Financial Times, 2021. Citadel Securities founder ‘quite ﬁne’ with ending payment for 
+
+Foucault, T., Menkveld, A.J., 2008. Competition for order ﬂow and smart order routing 
+
+ﬂow. https://bit .ly /3XihWrA.
+
+order ﬂow. https://on .ft .com /3OxLj3y.
+
+systems. J. Finance 63, 119–158.
+
+Garriott, C., Walton, A., 2018. Retail order ﬂow segmentation. J. Trading 13, 13–23.
+Gensler, G., 2022. SEC’s meme stock response coming next week, Gensler says. https://
+
+bloom .bg /3UKA7EK.
+
+Rev. 106, 2699–2721.
+
+Glode, V., Opp, C., 2016. Asymmetric information and intermediation chains. Am. Econ. 
+
+Glosten, L.R., Milgrom, P.R., 1985. Bid, ask, and transaction prices in a specialist market 
+
+with heterogeneously informed agents. J. Financ. Econ. 42, 71–100.
+
+Greenwood, R., 2005. Short- and long-term demand curves for stocks: theory and evidence 
+
+on the dynamics of arbitrage. J. Financ. Econ. 75, 607–649.
+
+Griﬃn, K., 2021. Testimony of Kenneth C. Griﬃn, founder and CEO of Citadel and founder 
+and principal shareholder of Citadel Securities, before the Committee on Financial 
+Services, United States House of Representatives. Report.
+
+Grossman,  S.J.,  Miller,  M.H.,  1988.  Liquidity  and  market  structure.  J.  Finance 43, 
+
+617–633.
+
+Hagerty, K., McDonald, R.L., 1996. Brokerage, market fragmentation, and securities mar-
+ket regulation. In: The Industrial Organization and Regulation of the Securities Indus-
+try. University of Chicago Press, pp. 35–62.
+
+Harris, L., Gurel, E., 1986. Price and volume eﬀects associated with changes in the S&P 
+500 list: new evidence for the existence of price pressures. J. Finance 41, 815–829.
+Hatheway, F., Kwan, A., Zheng, H., 2017. An empirical analysis of market segmentation 
+
+on U.S. equity markets. J. Financ. Quant. Anal. 52, 2399–2427.
+
+Hendershott, T., Mendelson, H., 2000. Crossing networks and dealer markets: competition 
+
+and performance. J. Finance 55, 2071–2115.
+
+Hendershott, T., Menkveld, A.J., 2014. Price pressures. J. Financ. Econ. 114, 405–423.
+Hendershott, T., Menkveld, A.J., Praz, R., Seasholes, M., 2022. Asset price dynamics with 
+
+limited attention. Rev. Financ. Stud. 35, 962–1008.
+
+Ho, T., Stoll, H.R., 1981. Optimal dealer pricing under transaction cost and return uncer-
+
+tainty. J. Financ. Econ. 9, 47–73.
+
+Ho, T., Stoll, H.R., 1983. The dynamics of dealer markets under competition. J. Fi-
+
+Holmes, T.J., 1989. The eﬀects of third-degree price discrimination in oligopoly. Am. 
+
+Hu, E., Murphy, D., 2022. Competition for retail order ﬂow and market quality. Working 
+
+nance 38, 1053–1074.
+
+Econ. Rev. 79, 244–250.
+
+paper.
+
+Jain, P.K., Suchismita, Mishra, O’Donoghue, S., 2023. Trading volume shares and market 
+
+quality: Pre- and post-zero commissions. Working paper.
+
+Jones, C.M., Shi, D., Zhang, X., Zhang, X., 2023. Retail trading and return predictabil-
+ity in China. J. Financ. Quant. Anal. https://doi .org /10 .1017 /S0022109024000085. 
+Forthcoming.
+
+Kandel, E., Marx, L.M., 1999. Payments for order ﬂow on Nasdaq. J. Finance 54, 35–66.
+Kaniel, R., Saar, G., Titman, S., 2008. Individual investor trading and stock returns. J. 
+
+Kervel, V., 2015. Competition for order ﬂow with fast and slow traders. Rev. Financ. 
+
+Finance 63, 273–310.
+
+Stud. 28, 2094–2127.
+
+Kyle, A.S., 1985. Continuous auctions and insider trading. Econometrica 53, 1315–1336.
+Kyle, A.S., Obizhaeva, A., 2016. Market microstructure invariance: empirical hypotheses. 
+
+Linnainmaa, J.T., 2010. Do limit orders alter inferences about investor performance and 
+
+Econometrica 84, 1345–1404.
+
+behavior? J. Finance 65, 1473–1506.
+
+Lo, A.W., Mamaysky, H., Wang, J., 2004. Asset prices and trading volume under ﬁxed 
+
+transaction costs. J. Polit. Econ. 112, 1054–1090.
+
+Mackintosh, P., 2022. Retail activity remains strong in U.S. markets. Trad. Mag. https://
+
+bit .ly /3YQXk9k.
+
+Menkveld, A.J., Yueshen, B.Z., Zhu, H., 2017. Shades of darkness: a pecking order of 
+
+trading venues. J. Financ. Econ. 124, 503–534.
+
+Nimalendran, M., Ray, S., 2014. Informational linkages between dark and lit trading 
+
+venues. J. Financ. Mark. 17, 230–261.
+
+Pagano, M., 1989. Trading volume and asset liquidity. Q. J. Econ. 104, 255–274.
+Pagnotta, E., Philippon, T., 2018. Competing on speed. Econometrica 86, 1067–1115.
+Parlour, C., Rajan, U., 2003. Payment for order ﬂow. J. Financ. Econ. 68, 379–411.
+Reuters, 2023. EU agrees deals on securities rules that includes ban on broker commission. 
+
+Schwarz, C., Barber, B.M., Huang, X., Jorion, P., Odean, T., 2023. The ‘actual retail price’ 
+
+https://reut .rs /42py4uf.
+
+of equity trades. Working paper.
+
+SEC,  2021.  Staﬀ  report  on  equity  and  options  market  structure  conditions  in 
+early  2021.  Report.  https://www .sec .gov /ﬁles /staﬀ -report -equity -options -market -
+struction -conditions -early -2021 .pdf.
+
+SEC, 2022. Order competition rule (proposed, release no. 34-96495). https://www .sec .
+
+gov /rules /proposed /2022 /34 -96495 .pdf.
+
+Stole, L.A., 2007. Price discrimination and competition. In: Armstrong, M., Porter, R. 
+(Eds.), Handbook of Industrial Organization, vol. 3. Elsevier, pp. 2221–2299. Chapter 
+34.
+
+Stoll, H.R., 1978. The supply of dealer services in securities markets. J. Finance 33, 
+
+1133–1151.
+
+Yang, L., Zhu, H., 2020. Back-running: seeking and hiding fundamental information in 
+
+order ﬂows. Rev. Financ. Stud. 33, 1484–1533.
+
+Ye, M., Zhu, W., 2020. Strategic informed trading and dark pools. Working paper.
+Zhu, H., 2014. Do dark pools harm price discovery? Rev. Financ. Stud. 27, 747–789.
+
+JournalofFinancialEconomics154(2024)10380723

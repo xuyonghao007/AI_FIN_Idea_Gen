@@ -1,0 +1,6685 @@
+Journal of Financial Economics 172 (2025) 104148 
+
+Contents lists available at ScienceDirect
+
+Journal of Financial Economics
+
+journal homepage: www.elsevier.com/locate/jfec
+
+When do short sellers trade? Evidence from intraday data and implications 
+for informed trading models
+
+, Charles M. Jones b, Xiaoyan Zhang c, Xinran Zhang d
+
+Danqi Hu a,*
+a Guanghua School of Management, Peking University, Beijing, China
+b Columbia Business School, New York, United States of America
+c PBC School of Finance, Tsinghua University, Beijing, China
+d School of Finance, Central University of Finance and Economics, Beijing, China
+
+A R T I C L E  I N F O
+
+A B S T R A C T
+
+Using 2015–2019 intraday short sale data from CBOE, we show that shorting flows near the open, middle, and 
+close all negatively predict future returns, but the shorting flows near the open and middle have stronger pre-
+dictive power than shorting flows near the close. We relate our findings to three informed trading models with 
+different predictions on the timing of the trades. The long term predictive power of shorting flows near the open 
+and midday is consistent with Kyle’s (1985) model of steady trading; the intraday variation in shorting flows’ 
+predictive power is more consistent with Holden and Subrahmanyam’s (1992) aggressive trading model, in the 
+sense that predictive power of shorting flows is stronger when there is greater urgency to trade at open and when 
+the securities lending market is more competitive; and the liquidity timing hypothesis from Collin-Dufresne and 
+Fos (2016) is also supported by the finding that opening shorting flows increase for firms with better liquidity 
+conditions.
+
+Dataset link:  When Do Short Sellers Trade? 
+Evidence from Intraday Data and Implications 
+for Informed Trading Models (Original data)
+
+JEL classification:
+G11
+G12
+G14
+G23 
+
+Keywords:
+Short selling
+Intraday trading
+Information content
+Off-exchange trading
+Dynamic informed trading models
+
+1. Introduction
+
+Previous literature provides several competing models of informed 
+trading.  The  dynamic  version  of  the  Kyle  (1985) predicts  steady 
+informed  trading,  as  monopolist  informed  traders  trade  steadily  over 
+
+time and gradually benefit from the long-lived information they possess 
+(steady  trading  hypothesis).  Other  models,  such  as  Holden  and  Sub-
+rahmanyam  (1992),  introduce  competition  and  soon-to-become  stale 
+information to Kyle model and predict aggressive trading when trading 
+session initially opens and when there is more competition (aggressive 
+
+Nikolai Roussanov was the editor for this article. We thank the editor and the anonymous referee for their constructive feedback. This work is dedicated to the 
+memory of Prof. Charles M. Jones, whose intellectual curiosity, integrity, and generosity profoundly shaped this work and the lives of all who had the privilege to 
+know  him.  Danqi  Hu  acknowledges  financial  support  from  the  National  Natural  Science  Foundation  of  China.  Charles  M.  Jones  thanks  the  Norwegian  Finance 
+Initiative at Norges Bank for helpful funding. Xiaoyan Zhang acknowledges financial support from the National Natural Science Foundation of China (Grant No. 
+72350710220) and Beijing Natural Science Foundation (Grant No. IS23127). Xinran Zhang acknowledges the financial support from the National Natural Science 
+Foundation of China (Grant No. 72303268) and Central University of Finance and Economics Jingying Scholar Project (Grant No. JYXZ2501). We thank Jonathan 
+Sokobin at FINRA for helpful comments and for pointing us to their time-stamped off-exchange (Trade Reporting Facility) short sale data. We also received helpful 
+comments from AFA, CICF, NBER Big Data and High-Performance Computing for Financial Economics, Columbia Microstructure Conference, Microstructure Online 
+Seminars  Asia  Pacific,  and  from  workshop  participants  at  Columbia  Business  School,  Baruch  College,  Fordham  University,  Johns  Hopkins  University,  Shanghai 
+Jiaotong University, Tsinghua University, Renmin University, and Chinese University of Hong Kong (Shen Zhen). All authors contributed equally to this work and 
+share first authorship. The author list is in alphabetical order. Corresponding author is Danqi Hu, and the corresponding author address is Office 458, Guanghua 
+School of Management Building No 2, Peking University,100871.
+
+* Corresponding author.
+
+E-mail addresses: danqi.hu@gsm.pku.edu.cn (D. Hu), cj88@gsb.columbia.edu (C.M. Jones), zhangxiaoyan@pbcsf.tsinghua.edu.cn (X. Zhang), zhangxinran@cufe. 
+
+edu.cn (X. Zhang). 
+
+https://doi.org/10.1016/j.jfineco.2025.104148
+Received 24 December 2022; Received in revised form 16 July 2025; Accepted 22 July 2025  
+Available online 1 August 2025 
+0304-405X/© 2025 Elsevier B.V. All rights are reserved, including those for text and data mining, AI training, and similar technologies. 
+
+D. Hu et al.                                                                                                                                                                                                                                      
+
+Journal of Financial Economics 172 (2025) 104148 
+
+trading  hypothesis).  More  recently,  Collin-Dufresne  and  Fos  (2016)
+show that when noise trading is stochastic, informed traders respond to 
+liquidity  and  noise  trading  conditions  and  trade  more  when  there  is 
+better liquidity and when there is more noise trading (liquidity-timing 
+hypothesis). While these models provide testable hypotheses for trading 
+dynamics  throughout  the  day,  few  if  any  existing  studies  carefully 
+examine  whether  any  of  the  existing  models  describes  the  actual 
+intraday  trading  behaviors  of  informed  investors,  especially  short 
+sellers.
+
+In  this  study,  we  use  the  CBOE  time-stamped  short  sale  data  to 
+investigate the intraday trading patterns of short-sellers and relate them 
+to the above hypotheses. We first separate intraday shorting into three 
+intervals: near the open (before 11:30 am), midday (between 11:30 am 
+and 2 pm), and near the close (after 2 pm). Next, we use shorting flows to 
+predict  one-day  ahead  returns,  and  find  that  shorting  from  all  three 
+intraday  intervals  has  negative  and  significant  coefficients,  with  the 
+magnitude being the highest for the shorting from the opening hours. 
+When we extend the prediction windows to 12 weeks, shorting near the 
+open and midday hours both negatively and significantly predict returns 
+for the next 12 weeks, but shorting near the close doesn’t.
+
+One  possible  explanation  for  the  negative  relations  between  short 
+selling  and  future  returns  is  that  short  sellers  are  informed.  Another 
+possibility is that other informed traders respond to uninformed short 
+selling,  and  these  trading  actions  are  behind  the  negative  return  pre-
+dictability of shorting flows. To study whether shorting flows contain 
+information,  we  first  connect  short  selling  with  news  releases.  Our 
+empirical results show that short sellers near the open quickly respond to 
+news  releases  from  previous  overnight,  and  significantly  predict  the 
+arrivals of future negative news for the next 12 weeks. Neither midday 
+nor closing shorting flows react to past negative news, but the former 
+predict  future  arrivals  of  negative  news.  These  results  suggest  that 
+opening shorting flows might contain information over both short- and 
+long-run.  To  further  address  the  alternative  mechanism  that  other 
+informed investors might be behind shorting flows’ predictive power for 
+future returns, we focus on one of the most important types of informed 
+traders in the literature: corporate insiders. According to Cohen et al. 
+(2012), insider sales are informed trades and negatively predict future 
+stock returns. We find that insider sales co-move with the open short 
+sales on the same day, and open short sales predict future insider sales, 
+consistent with the notion that some informed traders might respond to 
+short-selling  activity.  More  importantly,  when  we  include  both  short 
+sales and insider sales to predict returns, they are both significant and 
+negative,  implying  that  they  possess  distinct  information,  and  shorts 
+return predictive power cannot be explained away by the presence of 
+insider sales.1
+
+We take the negative relation between returns and short selling as 
+suggestive  evidence  of  informed  trading,  and  differentiate  the  three 
+types  of  informed  trading  models  (i.e.,  steady  trading,  aggressive 
+trading, and liquidity-timing hypotheses) by examining how well each 
+type describes intraday short selling patterns.
+
+First, the stable long-term return predictive power from both open 
+and midday shorting flows supports the steady trading predictions from 
+Kyle (1985), in the sense that short-sellers gradually incorporate infor-
+mation into prices, and the resulting shorting flows can predict returns 
+over the long run.
+
+Second, the decline in return predictability from open to midday and 
+then to close is consistent with the aggressive informed trading model in 
+Holden and Subrahmanyam (1992). We study the public news release 
+time and find that most of them are released outside of trading hours. As 
+the  aggressive  trading  hypothesis  suggests,  when  information  arrives 
+while the market is closed, competing informed investors trade aggres-
+sively right after the market reopens for trading, and thus the shorting 
+
+1 Our empirical investigation also considers Schedule 13D filers as alternative 
+
+informed traders. Results are quite similar to those using corporate insiders.
+
+2 
+
+near the open is the most informative. In addition, we use a borrowing 
+concentration measure to construct a proxy for competition among short 
+sellers, which is lower when there are more short sellers and they might 
+trade more aggressively with greater competition. Our empirical results 
+show that the short-term predictive power of all intraday shorting flows 
+is stronger for stocks with lower borrower concentrations, or firms with 
+more  competitions,  which  further  supports  the  aggressive  informed 
+trading model.
+
+Third,  the  variation  in  intraday  shorting  flow’s  predictive  power 
+could reflect an equilibrium response of informed short selling to vari-
+ations in  liquidity  and noise  trading  conditions,  as in  Collin-Dufresne 
+and Fos (2016). Following their study, we construct multiple intraday 
+liquidity  and  noise  trading  measures.  There  is  strong  evidence  that 
+opening shorts are positively correlated with liquidity and noise trading 
+measures  during  the  opening  period,  consistent  with  Collin-Dufresne 
+and  Fos  (2015) that informed  traders  time the  liquidity  and  select to 
+trade when liquidity provision and noise trading are greater. We further 
+confirm the liquidity timing hypothesis for opening shorts by using a tick 
+size pilot program that exogenously changes the liquidity level of pilot 
+stocks. These results are much weaker or non-existent for midday and 
+close shorting flows.
+
+Finally, we differentiate the aggressive trading hypothesis and the 
+liquidity timing hypothesis by studying whether and how the urgency 
+around news releases affects short sellers’  trading behaviors and their 
+relations  to  liquidity  measures.  We  find  that  opening  shorts  are  less 
+likely to time liquidity upon the releases of public news, suggesting that 
+when information is soon to become stale, short sellers are less patient 
+and less capable of timing the liquidity, which supports the aggressive 
+trading  hypothesis.  While  during  other  times,  there  is  more  evidence 
+supporting the liquidity timing hypothesis.2
+
+To  summarize,  when  we  relate  the  intraday  trading  dynamics  of 
+short-sellers to informed trading theories, we find supportive evidence 
+for all three models, but under different circumstances. This might not 
+be  surprising,  because  these  models  carry  different  assumptions,  sug-
+gesting  that  they  might  work  when  these  assumptions  are  met,  and 
+might  not  work  in  other  situations.  Our  empirical  results  offer  many 
+different  and  useful  perspectives  in  understanding  and  testing  these 
+models.
+
+Our  study  is  related  to  two  strands  of  literature.  The  first  is  the 
+literature of informed trading. We already briefly introduce three types 
+of  theoretical  models,  and  their representative  models  including  Kyle 
+(1985),  Holden  and  Subrahmanyam  (1992),  and  Collin-Dufresne  and 
+Fos (2016). There are also multiple empirical studies in examining these 
+models.  For  instance,  Koudijs  (2015) find  strategic  informed  trading 
+consistent with Kyle (1985) using the information travel delays caused 
+by infrequent (i.e., twice a week) sailboat services between London and 
+Amsterdam in the eighteenth century. Kim, Lin, and Slovin (1997) use 
+the  tiered  release  arrangement  of  analyst  recommendations in  earlier 
+days  and  find  that  almost  all  of  the  private  information  based  on 
+pre-released recommendations is impounded in stock prices within 15 
+min of the opening trade, consistent with Holden and Subrahmanyam’s 
+(1992) prediction. Collin-Dufresne and Fos (2015) study how activists 
+who are informed of the upcoming proposal trade and find that informed 
+activists trade more when uninformed volume is higher and price impact 
+
+2 Our empirical results stay robust for off-exchange intraday shorting flows 
+from  FINRA,  suggesting  that  the  intraday  short  sellers’  trading  patterns  are 
+generally consistent across different trading venues. We also consider different 
+intraday  intervals  and  different  forecast  horizons,  and  the  results  remain 
+similar. Besides, we also find intraday shorting flows significantly enhance the 
+information efficiency of prices throughout the day, but the effect is larger near 
+the  open  than  near  the  closes,  suggesting  that  opening  shorts  play  a  more 
+important role in enhancing price efficiency than closing shorts.
+
+D. Hu et al.                                                                                                                                                                                                                                      
+
+Journal of Financial Economics 172 (2025) 104148 
+
+is lower, supporting Collin-Dufresne and Fos (2016).3
+
+2. Hypothesis development
+
+The  second  strand  is  the  literature  on  intraday  trading  patterns, 
+including  those  of  short-sellers.  Earlier  studies,  such  as  Wood  et  al. 
+(1985),  Lee  et  al.  (1993),  Ahn,  Bae,  and  Chan  (2001),  Heston  et  al. 
+(2010) examine intraday trading patterns of returns, volume (u-shaped), 
+and adverse selection measures such as spread (u-shaped) and quoted 
+depth (inverse u-shaped). More recently, Bogousslavsky (2021) studies 
+the sharp contrast between intraday and overnight returns and finds that 
+overpriced  stocks  experience  less  short  selling  at  the  end  of  day; 
+Yueshen, Zamojski, and Zhang (2022) propose a structural model and 
+find structure-based trade informativeness declines throughout the day, 
+and Jiang et al. (2024) find short sales migrate toward the close as the 
+recent rise of index-tracking funds enhances liquidity near the close, but 
+their price informativeness deteriorates.4
+
+In comparison with previous studies, we make the following three 
+unique contributions to the literature. First, existing empirical studies of 
+informed  trading  models  mostly  focus  on  the  variations  of  informed 
+trading  across  different  days,  while  we  examine  how  well  different 
+informed  trading  models  describe  the  intraday  patterns  of  informed 
+traders, especially short sellers, which is not done in previous studies.5
+Second, existing literature on intraday trading patterns has mainly relied 
+on adverse selection measures to infer about intraday informed trading 
+patterns,  while  direct  evidence  on  how  informed  traders  trade  at  the 
+intraday level is rare. Our large-scale high-frequency shorting data offers 
+a unique opportunity to more directly investigate the intraday trading 
+patterns  of  informed  traders  and  observe  how  they  respond  to  news, 
+competitions,  liquidity  conditions  at  the  intraday  level.  Finally,  our 
+paper contributes to the understanding of how short sellers time their 
+trades throughout the day rather than at a particular time of the day, 
+such as the closing hours. One novel insight we generate is that shorting 
+flow near the open is the most informative for next day return, and its 
+behavior can be consistent with the aggressive trading hypothesis or the 
+liquidity timing hypothesis, depending on time urgency of trading and 
+informed traders’ ability to time liquidity. In contrast, shorting near the 
+close does not have much predictive power for future returns beyond 
+one day, and it responds positively to increases in illiquidity measures, 
+suggesting that shorting near the close may be driven by liquidity pro-
+vision reasons.
+
+The rest of the paper is structured as follows. Section 2 discusses the 
+existing dynamic informed trading models and develops hypotheses for 
+empirical study. We introduce the intraday shorting data and empirical 
+methodology in Section 3. The main empirical results are provided in 
+Section  4.  Section  5 provides  additional  analyses  and  Section  6
+concludes.
+
+3 In addition, Boulatov, Hendershott, and Livdan (2013) obtain proprietary 
+daily institutional order flows from NYSE and provide empirical support for a 
+multi-period  Kyle  model  in  multiple  assets  with  positively  correlated  funda-
+mental values. Using a dataset of illegal insider trades based on SEC enforce-
+ment  actions,  Kacperczyk  and  Pagnotta  (2019) also  provide  support  for 
+Collin-Dufresne and Fos (2016) and confirm that adverse selection measures fail 
+to  detect the present of  informed traders. By contrast,  using hacked earnings 
+news,  Akey  et  al.  (2022) find  that  liquidity  providers  respond  to  the  sudden 
+increases  in  potential  informed  order  flows  by  adjusting  spreads  when  the 
+ability of informed traders to time their trades is low and urgency is high.
+
+4 More papers using intraday short sale data include Jain et al. (2012) and 
+Florindo et al. (2023), which use intraday short data to evaluate the impact of 
+the SEC Rule 201; and Comerton-Forde, Jones, and Putnins (2016), which use 
+intraday  short  data  to  classify  short  sales  into  liquidity-demanding  and 
+liquidity-supplying ones.
+
+5 Hu  et  al.  (2017),  Rogers  et  al.  (2017) and  Bolandnazar  et  al.  (2020) use 
+high-frequency intraday data to examine trading patterns around information 
+releases, where subsets of investors enjoy early peak advantage and gain access 
+to material information a few seconds earlier than other market participants. 
+They mainly focus on a very short period around each information release and 
+do not study intraday variations of informed trading.
+
+Many papers show that shorts negatively predict future stock returns 
+(e.g., Asquith et al. 2005; Boehmer et al. 2008). One explanation for the 
+negative relation is that short sellers are informed, by processing public 
+information or possessing private information. An alternative explana-
+tion is that other informed traders respond to short selling, and the re-
+turn predictability is a result of the actions from other informed traders.6
+For example, they may provide liquidity to other informed traders and 
+receive a liquidity premium. Before assuming short sellers are informed 
+and  testing  the  different  theoretical  informed  trading  models,  we 
+examine  whether  short  sellers  are  indeed  informed.  Therefore,  we 
+formalize our first hypothesis as the following:
+
+H1.  (hypothesis  of  informed  short  selling) 
+The  negative  relation  be-
+tween short selling and future returns might be related to short-sellers’ 
+ability of processing and predicting public news, or it can be explained 
+by  other  informed  traders  trading  responding  to  uninformed  short 
+selling.
+
+If we find supportive evidence for Hypothesis 1 that short sellers are 
+informed, we then go ahead and examine whether the trading patterns 
+of intraday short sellers are consistent with existing informed trading 
+models.  The  first  informed  trading  model  dates  back  to  Kyle  (1985). 
+There  are  three  key  assumptions:  (1)  the  informed  traders  possess 
+long-lived information; (2) they have monopolistic power over the in-
+formation they possess; and (3) noise trading is constant. Under these 
+assumptions,  this  dynamic  model  with  sequential  equilibria  implies 
+steady  trading  by  the  informed  trader  over  time,  until  the  long-lived 
+information is released at a known time T. Following Kyle (1985), we 
+have our second hypothesis:
+
+The trading of short-sellers and the 
+H2. (hypothesis of steady trading) 
+informativeness  of  these  trades  are  stable  throughout  time  till  the 
+expiration of the long-lived information.
+
+Compared to the patient informed trading based on Kyle (1985), the 
+second type of models predicts more aggressive informed trading, either 
+by introducing short-spanned or time-decayed information rather than 
+long-lived  information,  and/or  by  introducing  competition  among 
+informed  traders.  In  Holden  and  Subrahmanyam  (1992),  the  timing, 
+nature,  and  duration  of  private  information  are  the  same  as  in  Kyle 
+(1985), but they relax assumption (2) to introduce competition among 
+informed  traders  who  receive  the  same  private  signal  of  value.  As  a 
+result, the informed traders trade aggressively in the first few rounds of 
+trading, leaving little remaining information for later rounds before the 
+information is publicly released. Similarly, in Foster and Viswanathan 
+(1990), an informative public signal is released at intermediate times 
+when the market is closed, and this leads informed traders to trade more 
+aggressively early on, carrying less private information forward to future 
+trading sessions. Bernhardt and Miao (2004) examine the related case 
+where private information gradually becomes stale, either because it is 
+publicly released over time or because other traders get correlated sig-
+nals. They generally find that this leads to more rapid trading on private 
+
+6 We thank our referee for pointing out this mechanism.
+
+3 
+
+D. Hu et al.                                                                                                                                                                                                                                      
+
+Journal of Financial Economics 172 (2025) 104148 
+
+information  initially,  with  more  subdued  informed  trading  later  on.7
+Therefore, we have our third hypothesis:
+
+The informativeness of shorting 
+H3. (hypothesis of aggressive trading) 
+flows  is  higher  when  there  is  more urgency  in  trading  the  news, and 
+when competition among short-sellers is higher.
+
+The third type of models are liquidity timing models, including Back 
+and Pedersen (1998) and Collin-Dufresne and Fos (2016).8 They keep 
+the monopolistic  and long-lived nature of information in Kyle (1985)
+and  relax assumption  (3)  by  allowing  variation  in  noise  trading.  Col-
+lin-Dufresne  and  Fos  (2016) state  that  informed  traders  trade  more 
+aggressively when uninformed volume is higher and when price impact, 
+a form of illiquidity, is lower. The intuition is that if informed traders 
+have monopolistic power over long-lived information, they may be able 
+to trade patiently and time their trades according to the liquidity con-
+ditions.  In  other  words,  variations  in  the  trading  of  short-sellers  may 
+reflect an equilibrium response to variations in noise trading.9 This leads 
+to our fourth hypothesis:
+
+H4. (hypothesis of liquidity timing) 
+active when there is more noise trading and when liquidity is higher.
+
+The trading of short-sellers is more 
+
+As far as we know, none of the previous empirical studies in short 
+selling  directly  examine  these  hypotheses.  We  next  carry  these  four 
+hypotheses to the data and examine which dynamic models of informed 
+trading  are  supported.  Notice  that  all  the  models  have  specific  as-
+sumptions, and it is likely that we find supportive evidence for different 
+models under different circumstances.
+
+3. Data and empirical methodology
+
+3.1. Data on short selling
+
+We  focus  on  a  recent  sample  period  from  January  2,  2015  to 
+December 31, 2019, and obtain publicly available short-selling intraday 
+data from exchange and off-exchange venues. Since exchange data from 
+NYSE  and  NASDAQ  are  proprietary  and  not  available  to  public,  we 
+collect  on-exchange,  time-stamped  shorting  data  from  the  3rd  largest 
+exchange group, CBOE, which releases shorting data for all four of its 
+exchanges (BYX, BZX, EDGA, and EDGX), every night on its website, htt 
+ps://markets.cboe.com/us/equities/market_statistics/short_sale.  The 
+CBOE short sale dataset is similar to the consolidated tape of all U.S. 
+equity transactions, and includes the ticker symbol, trade price, size, and 
+other sale conditions, along with a time stamp to the nearest second. We 
+
+7 Slezak (1994) introduces a noisy rational expectations model with periodic 
+exchange closures and examines informed trading before and after the closure. 
+He finds that informed trading is always lower pre-closure and greater after the 
+market reopens, mainly because the informed traders receive more information 
+during  the closure,  and risk-averse  uninformed  traders  who  provide liquidity 
+are less willing to do so before the closure. Recently, Coles, Heath and Ring-
+genberg (2022) and Haddad, Huebner and Loualiche (2021) provide additional 
+theoretical and empirical evidence on the equilibrium behaviors of competitive 
+informed investors, when information environment changes. For instance, with 
+more index investing, competitive informed traders endogenously choose level 
+of information production, and the overall price informativeness stays the same.
+
+8 We thank our referee for suggesting liquidity timing models.
+9 In  particular,  Collin-Dufresne  and  Fos  (2016) introduce  stochastic  noise 
+trading into the model and obtain better model features (especially regarding 
+the patterns of price impacts) than Back and Pedersen (1998) that allow noise 
+trading  to  only  change  deterministically.  Admati  and  Pfleiderer  (1988) also 
+predict  that  informed  trading  varies  with  noise  trading,  but  under  a  very 
+different  setup  of  short-lived  information.  Because  information  acquired  will 
+expire at the end of each trading session, the information acquired will be used 
+in the same session. Since information is of higher value when noise trading is 
+high, insiders optimally acquire and use more information (i.e., trade more) in 
+times of high noise trading volatility.
+
+obtain similar data items from FINRA, which provides the time-stamped 
+off-exchange shorting data to the public.10
+
+If  we  combine  all  on-exchange  and  off-exchange  trading  venues, 
+short sales on CBOE and FINRA account for about 9.69 % and 13.63 % of 
+total trading volumes, respectively, which represents ample coverage of 
+overall shorting for our study’s purpose. In terms of the choice between 
+exchange  and  off-exchange  venues,  existing  studies  such  as  Reed, 
+Samadi, and Sokobin (2020) find that informed shorts with short-lived 
+information  trade  urgently  on  exchanges  to  ensure  execution,  while 
+Menkveld, Yueshen, and Zhu (2017) argue that informed institutional 
+traders,  who  try  to  execute  relatively  large  parent  orders,  tend  to 
+disproportionately use dark pools and crossing networks (at least at first) 
+as venues for child orders in order to pay less for immediacy and also 
+perhaps  to  reveal  as  little  as  possible  about  their  underlying  trading 
+intentions. In our case, we consider the on-exchange results as the main 
+results, and examine off-exchange trading dynamics in the robustness 
+section to obtain additional insights.
+
+We obtain stock prices and characteristics data from CRSP. There are 
+three filters for an observation to be included in our sample: 1) we retain 
+only common stocks (those with a CRSP share code of 10 or 11) and 
+exclude  securities  such  as  warrants,  preferred  shares,  American  De-
+positary Receipts, closed-end funds, and REITs; 2) we require a mini-
+mum  share  price  of  $1  for  the  stock  ;11 and  3)  we  exclude  from  the 
+sample a small number of trading days just before major holidays, which 
+have an early 1:00 pm stock market close. Finally, we cross-match the 
+trade-by-trade short sale data to CRSP using CUSIPs and ticker symbols.
+
+3.2. Intraday shorting measures
+
+Following previous studies on shorting flows (Boehmer, Jones, and 
+Zhang,  2008,  and  Wang,  Yan,  and  Zheng,  2020),  we  compute  daily 
+proportional shorting flow over total volume for stock i on day t as, 
+
+SSit =
+
+Shares Shortedit
+Total Daily Share Volumeit
+
+(1) 
+
+To be more specific, for CBOE shorting flows, the numerators are the 
+total shares shorted at CBOE exchanges, and the denominators are share 
+volumes on CBOE exchanges.
+
+To examine intraday trading patterns, we partition each trading day 
+into three relatively even time buckets: the opening hours between 9:30 
+and  11:30  (open),  the  last  two  hours  of  continuous  trading  between 
+14:00 and 16:00 (close) and the interval from 11:30 to 14:00 (middle).12
+The intraday shorting flow measures are defined for each stock i and day 
+t as: 
+SSOPENit = Shares Shorted over [9 : 30, 11 : 30)
+
+,
+
+it
+
+Total Daily Share Volumeit
+
+SSMIDDLEit = Shares Shorted over [11 : 30, 14 : 00)
+
+it
+
+,
+
+Total Daily Share Volumeit
+
+10 Details of FINRA data are discussed in Internet Appendix A to save space.
+11 We also consider an alternative filter of $5 minimum price, and the results 
+are qualitatively similar. Since many shorting flows are on stocks with prices 
+between $1 and $5, we lose around 20% of our observations if we adopt the $5 
+filter. Therefore, our main results use the $1 minimum price filter to maximize 
+sample size.
+12 We  split  the  day  into  three  relatively  even  2-hour  periods  to  make  the 
+duration of intraday shorting flows more comparable. We consider two alter-
+natives  to  the  above  three  buckets  of  partition.  First,  we  define  the  opening 
+bucket to cover only the first 30 minutes, closing bucket to cover the last 30 
+minutes, and middle bucket to cover the rest 5.5 hours. Second, we consider 
+thirteen 30-minute trading buckets. The results using these two alternatives are 
+quite similar to the main results reported in the text, and are reported in the 
+Internet Appendix Table 1 Panel A and B.
+
+4 
+
+D. Hu et al.                                                                                                                                                                                                                                      
+
+Journal of Financial Economics 172 (2025) 104148 
+
+SSCLOSEit = Shares Shorted over [14 : 00, 16 : 00)
+
+it
+
+Total Daily Share Volumeit
+
+(2) 
+
+Here  we  keep  the  denominator  the  same  for  all  intraday  shorting 
+measures to ensure that we capture only the intraday variation in short- 
+selling activities.
+
+than 
+
+trading  on 
+
+information, 
+
+Empirically  speaking,  the  opening  hour  is  the  first  opportunity  to 
+trade overnight news, and thus may capture short sales that are driven 
+by  information  that  will  soon  become  stale  (Foster  and  Viswanathan 
+1990).  Other 
+there  are  also 
+liquidity-related  short  sells,  which  are  short  sale  positions  taken  to 
+provide liquidity to the market; hedging-related short sells, which are 
+short sale positions carried to hedge against the future payoffs of existing 
+positions; and inventory-related short sells, which are short sale posi-
+tions due to market makers’  needs to manage inventory and to fulfill 
+their market making responsibility. As pointed out by Hua et al. (2024), 
+Jegadeesh  and  Wu  (2022),  Jiang  et  al.  (2024),  and  Chen  and  Wang 
+(2025), the closing hour features higher index trading, and thus ample 
+liquidity  and  lower  transaction  costs  (also  illustrated  in  the  Internet 
+Appendix Fig. 1). It is possible that the better liquidity conditions might 
+attract various short-sellers to trade near the close.
+
+Table 1 provides summary statistics on CBOE shorting flows during 
+different parts of the trading day. All the statistics are computed over a 
+pooled sample across days and stocks, and overall there are 3,570,989 
+observations for the CBOE sample. From Panel A, shorts during the open, 
+middle and close account for 15.86 %, 14.94 % and 26.03 % of CBOE 
+trading volume, respectively. Panel B reports autocorrelations and cor-
+relations among the shorting variables. Two interesting patterns emerge. 
+First, the intraday shorting measures have positive autocorrelation AR 
+(1) coefficients, ranging between 0.03 and 0.18, indicating persistence 
+to some extent. Second, all three shorting flow measures are negatively 
+correlated  with  each  other.  For  example,  opening  shorting  flow  is 
+negatively correlated with midday shorting flow (coefficient (cid:0) 0.09) and 
+closing shorting flow (coefficient (cid:0) 0.22). These statistics indicate that 
+the  information  contained  in  the  three  measures  is  mostly  not  over-
+lapping, and there is a slight reversal in shorting flows over the day.
+
+We also present the intraday shorting patterns for each 30-minute 
+interval in Fig. 1 Panel A. The on-exchange shorting follows a J-shape 
+over  the  course  of  the  trading  day,  with  the  opening  half  hour  ac-
+counting for about 4 % of the daily trading volume, the closing half hour 
+accounting  for  about  15  %,  while  the  middle  part  is  below  4  %  on 
+average. In Panel B, we plot the time series of average short selling of 
+daily total, opening, middle, and closing buckets over our sample period. 
+The daily total CBOE short-sale market share is around 55 % of CBOE 
+trading volume. Consistent with the summary statistics in Table 1, both 
+open and middle buckets account for around 15 % of daily total volume, 
+while the close bucket accounts for around 25 %. There are no strong 
+time trends in our sample period.
+
+3.3. Baseline empirical method
+
+To  examine  the  informativeness  of  shorting  flow  during  our 
+2015–2019  sample  period  for  future  returns,  we  begin  with  a  simple 
+Fama-MacBeth (1973) regression similar to the one in Boehmer et al. 
+(2008). That is, for each day t, we estimate the following cross-sectional 
+specification: 
+
+ʹ
+2tControlit + ϵi,t+1.
+Reti,t+1 = b0t + b1tShortingit + b
+
+(3) 
+
+Here the dependent variable Reti,t+1  is the future return for stock i on 
+day t + 1 (close to close), computed using corresponding bid-ask average       
+
+5 
+
+prices  to  avoid  bid-ask  bounce.13 In  the  original  Boehmer,  Jones  and 
+Zhang (2008) specification, the shorting measure Shortingit  is the daily 
+SS variable defined in Eq. (1). To mitigate potential effects of any time 
+trend in shorting prevalence and to reduce the effects of outliers in the 
+cross section, we adopt a rank transformation for the original shorting 
+measures,  as  in  Cao  and  Narayanamoorthy  (2012) and  Livnat  and 
+Mendenhall (2006). Take SSOPEN as an example. For day t, we first rank 
+the  intraday  shorting  variable,  SSOPENit,  cross-sectionally  into  100 
+groups, from the lowest to the highest. Then we use the rank variable 
+divided by 100 as a new shorting flow variable, RSSOPENit  for firm i on 
+day t. The regression coefficient on this rank variable can be intuitively 
+interpreted as the effect of changing the shorting variable from the 1st 
+percentile  to  the  100th  percentile,  and  it  is  comparable  for  different 
+shorting flow variables we examine.14 For our main results, the inde-
+pendent variables are RSSOPEN, RSSMIDDLE and RSSCLOSE on day t. 
+From Table 1 Panel B, the rank variables all have correlations above 80 
+% with  the  raw  shorting measures,  indicating that the  rank  variables 
+capture most of the information in the raw shorting variables.15
+
+After we obtain the time-series of daily coefficients {b0t, b1t, b2t}, we 
+calculate the time-series average coefficients {b0, b1, b2}, and conduct 
+inference using Newey-West (1987) standard errors with eight lags.16 A 
+significant  and  negative  coefficient  of  b1  indicates  that  the  shorting 
+flows at t predict future returns Reti,t+1  negatively, or higher shorting 
+flows mean lower future returns.
+
+To understand whether shorts can predict returns over longer hori-
+zons, we also examine the predictive patterns for the next 12 weeks. In 
+the  format  of  Eq.  (3),  the  independent  variables  are  still  RSSOPEN, 
+RSSMIDDLE and RSSCLOSE on day t, while the dependent variables are 
+changed to the average daily returns for week 1 (day t + 1 to t + 5), week 
+2 (day t + 6 to t + 10), and up through week 12 (day t + 56 to t + 60).
+Following  previous  literature,  our  Controlit  variables  include  the 
+following variables measured for stock i on day t: previous day’s return, 
+Ret [(cid:0) 1]; the return over the past six months Ret [(cid:0) 120,(cid:0) 21]; the return 
+over the past month Ret [(cid:0) 20,(cid:0) 2]; the log market capitalization at the 
+most  recent  quarter  end,  Lsize;  log  book-to-market  ratio  at  the  most 
+recent  quarter  end,  Lbm;  the  previous  month’s  daily  return  volatility 
+following  Ang  et  al.  (2006),  Volatility;  and  last  month’s  consolidated 
+trading volume as a fraction of outstanding shares, Turnover. The sum-
+mary  statistics  of  the  control  variables  are  presented  in  Panel  A  of 
+Table 1, and the numbers are mostly consistent with previous findings.
+
+13 Here “close-to-close” means from the close of the market today at 16:00 pm 
+to  the  close  of  the  next  trading  day  at  16:00  pm.  For  our  main  result,  we 
+examine  and  compare  open,  middle,  close  short  sales’  predictive  powers  for 
+close-to-close returns, in order to keep the return prediction task constant and 
+to directly compare the predictive power of short sales from different times of 
+the day. Alternatively, we also consider returns over next 24-hours immediately 
+following the end of each intraday shorting flow interval. The results using the 
+alternatives are quite similar to the main results reported in the text, and are 
+reported in the Internet Appendix Table 1 Panel C.
+14 Similarly, 0.5* the regression coefficient of the rank variable captures the 
+effect  of  moving  the  shorting  variable  from  the  25th  percentile  to  the  75th 
+percentile.
+15 Our main empirical results are similar when we use original shorting flow 
+variables. For future sections, we use the rank variables for return predictions, 
+in  order  to  easily  compare  the  economic  magnitudes  over  time  and  in  cross 
+section; and we use original shorting variables to relate to all other non-return 
+variables,  to  capture the  direct  relation between  short-selling  and other  vari-
+ables of interest.
+16 Following Andrews (1991), we use 0.75*T 1/3 to calculate the optimal lag. 
+With  number  of  days  in  our  sample  T  = 1247,  our  optimal  lag  is  8.07.  Our 
+results are robust if we use one lag in daily and intraday regressions, and five 
+lags  in  weekly  regressions.  The  results  are  also  robust  if  we  use  four  lags 
+throughout the paper.
+
+D. Hu et al.                                                                                                                                                                                                                                      
+
+Journal of Financial Economics 172 (2025) 104148 
+
+Fig. 1. Intraday shorting patterns. 
+Panel A presents the average CBOE short volume during each half hour of the trading day for all sample firms. Panel B presents the average intraday shorting flows on 
+CBOE  exchanges  on  each  date  in  our  sample.  Short  includes  all  trades  with  a  short  seller.  SSOPEN  (SSMIDDLE/SSCLOSE)  indicates  the  shorting  flow  over 
+[9:30,11:30), [11:30,14:00), and [14:00,16:00), respectively. All CBOE short volumes are scaled by the total CBOE trading volume of the day.
+
+4. Main empirical results
+
+4.1. Intraday shorting flows and future returns in the cross section
+
+In  this  subsection,  we  examine the  predictive  patterns  of  intraday 
+shorting  flows  for  future  stock  returns.  We  start  with  short-term  pre-
+dictions using daily returns, and we move on to long-term predictions 
+using weekly returns. All results are presented in Table 2.
+
+We report the estimation results using CBOE intraday shorting flow 
+variables to predict next day returns in Panel A. For the first three re-
+gressions, we include only one intraday shorting measure at a time, and 
+in the last regression, we include all three of them together. In regression 
+I, the b1 coefficient for RSSOPEN is (cid:0) 8.20 basis points, with a significant 
+t-statistic of (cid:0) 7.91. Economically speaking, this coefficient means that 
+moving through the cross-sectional shorting distribution near the open 
+from the 25th percentile to the 75th percentile increases the normalized 
+shorting variable by 0.5 and reduces next-day return by (cid:0) 8.20 * 0.5 =
+4.1 basis points (about 10 % annualized). That is, shorting flow near the 
+open  negatively  and  significantly  predicts  next  day  returns.  The 
+RSSMIDDLE and RSSCLOSE also significantly predict next-day returns, 
+with  coefficients  of  (cid:0) 0.0584  (t-stat  = (cid:0) 5.75),  and  (cid:0) 0.0397  (t-stat  =
+(cid:0) 3.88), respectively. In the last regression, when included together, all 
+three  shorting  variables  maintain  their  negative  signs  and  statistical 
+significance, and the coefficient of RSSOPEN is still the largest. It seems 
+that all CBOE intraday shorting flows can predict next-day returns, with 
+
+the  strongest  results  for  short  sales  near  the  open.  To  make  sure  the 
+results are not driven by outliers in the time-series, we present the time- 
+series of Fama-MacBeth (1973) regression coefficients in Fig. 2, which 
+presents no obvious outliers or clear trends over time.
+
+For the control variables, the coefficients in Panel A on previous-day 
+and previous-month returns are both negative and strongly significant. 
+For example, in regression I, the coefficient on the previous-day return is 
+(cid:0) 0.3438, indicating an estimated reversal of around half of the previous 
+day’s return. This is even more notable, given that we use closing bid-ask 
+average prices throughout the paper to calculate returns, which should 
+limit or eliminate reversals from microstructure sources such as bid-ask 
+bounce.  The  coefficient  on  the  previous-month  return  is  a  smaller 
+(cid:0) 0.1448,  indicating  a  smaller  reversal  magnitude,  but the  coefficient 
+has a significant t-stat of (cid:0) 2.53. Most of the other control variables are 
+insignificant, except for lagged turnover, which is negative and some-
+times borderline significant. In later tables, we omit the estimates for the 
+control variables to save space.
+
+The evidence for next-day returns indicates that all three intraday 
+shorting  flow  variables  can  predict  returns  for  the  next  day,  but  the 
+predictive  power  is  strongest  for  shorting  near  the  open,17 consistent 
+
+17 When  we  test  the  differences  in  coefficients,  the  coefficient  differences 
+between RSSOPEN and RSSCLOSE and between RSSOPEN and RSSMIDDLE are 
+both statistically significant at 1% (t-stat=2.92 and t-stat=2.31, respectively).
+
+6 
+
+D. Hu et al.                                                                                                                                                                                                                                      
+
+Journal of Financial Economics 172 (2025) 104148 
+
+Table 1 
+Summary statistics for CBOE shorting flows.
+This table presents summary statistics for short sale trading volume at different times of the day, along with our control variables. Our sample period is January 2015 to 
+December 2019, and our sample firms are common stocks listed on the NYSE, NYSE MKT, or Nasdaq with a share price of at least $1. Panel A presents the summary 
+statistics of shorting and control variables. Panel B shows the autocorrelations, correlations with rank variables, and cross-correlations of shorting variables. The 
+shorting variable SSOPEN is short volume over [9:30,11:30) divided by CBOE total trading volume in that stock on that day. Similarly, SSCLOSE is short volume over 
+[14:00,16:00) and SSMIDDLE is short volume during the rest of the trading day. For the rank variables in Panel B, we sort all stocks by shorting flow variables into 100 
+groups, and assign the rank number to the variable. The rank variables are then computed as rank variables divided by 100. For the control variables, Ret [(cid:0) 1] is the 
+return on the previous day using closing bid-ask averages. Ret [(cid:0) 20, (cid:0) 2] is the cumulative daily return in the [(cid:0) 20, (cid:0) 2] window. Ret [(cid:0) 120, (cid:0) 21] is the cumulative 
+daily return over the [(cid:0) 120, (cid:0) 21] window. Turnover is the monthly average of daily turnover measured at the most recent month end. Volatility is the monthly 
+volatility of daily return at the most recent month end. Lsize is log of market capitalization and Lbm is the log of book to market ratio, both at the most recent quarter 
+end.
+
+Panel A. Summary statistics
+
+SSOPEN
+SSMIDDLE
+SSCLOSE
+Ret [(cid:0) 1]
+Ret [(cid:0) 20,(cid:0) 2]
+Ret [(cid:0) 120,(cid:0) 21]
+Lsize
+Lbm
+Volatility
+Turnover
+
+Panel B. Correlations
+
+N
+
+3570,989
+3570,989
+3570,989
+3570,989
+3570,989
+3570,989
+3570,989
+3570,989
+3570,989
+3570,989
+
+Mean
+
+0.1586
+0.1494
+0.2603
+0.0005
+0.0088
+0.0366
+6.9323
+(cid:0) 0.9452
+0.0249
+0.0099
+
+Std
+
+0.1181
+0.1109
+0.1471
+0.0343
+0.1459
+0.3108
+2.0148
+1.0156
+0.0225
+0.0322
+
+P25
+
+0.0875
+0.0881
+0.1711
+(cid:0) 0.0112
+(cid:0) 0.0514
+(cid:0) 0.1162
+5.5323
+(cid:0) 1.4919
+0.0138
+0.0035
+
+P50
+
+0.1437
+0.1360
+0.2497
+0.0000
+0.0050
+0.0214
+6.9152
+(cid:0) 0.8268
+0.0198
+0.0063
+
+P75
+
+0.2062
+0.1881
+0.3333
+0.0115
+0.0598
+0.1557
+8.2476
+(cid:0) 0.3037
+0.0298
+0.0107
+
+AR(1)
+
+Correl(.,rank)
+
+Correlations
+
+SSOPEN
+SSMIDDLE
+SSCLOSE
+
+0.1750
+0.0967
+0.0317
+
+0.8528
+0.8213
+0.8990
+
+SSOPEN
+
+1
+(cid:0) 0.0929
+(cid:0) 0.2248
+
+SSMIDDLE
+
+SSCLOSE
+
+1
+(cid:0) 0.1231
+
+1
+
+with the aggressive trading hypothesis from the Foster and Viswanathan 
+(1990),  Holden  and  Subrahmanyam  (1992),  and  Bernhardt  and  Miao 
+(2004) models. The greater predictability of opening shorts versus the 
+weaker predictability of shorts near the close also provides support for 
+Slezak (1994).
+
+To understand whether the predictive power of shorting continues or 
+reverses over longer horizons, we also examine shorts’ predictive power 
+over longer horizons up to 12 weeks. The results are reported in Panel B 
+of Table 2. Two patterns emerge from the long-term prediction results. 
+First, both RSSOPEN and RSSMIDDLE remain negative and mostly sig-
+nificant  for  long-term  future  returns  up  to  12  weeks,  with  RSSOPEN 
+significant for 9 weeks and RSSMIDDLE significant for 8 of them, out of 
+12 weeks. The magnitude of coefficients on RSSOPEN is relatively stable 
+within a range between (cid:0) 0.0063 and (cid:0) 0.0308, while the RSSMIDDLE 
+coefficients have slightly smaller magnitudes. Second, none of the co-
+efficients of RSSCLOSE is significant over any of the 12 weeks, indicating 
+that the shorting flow around the market close does not have predictive 
+power for future long-term returns. The long-term predictive power of 
+the shorting near the open and in the middle of the day is consistent with 
+the Kyle (1985) model, in the sense that the informed investors gradu-
+ally trade on long-lived information, which leads to long-term predictive 
+power. These findings can also be consistent with Collin-Dufresne and 
+Fos  (2016),  which  reflects  an  equilibrium  response  of  informed  short 
+selling  to  variations  in  noise  trading  and  liquidity  conditions,  in  the 
+sense  that  the  informed  short  selling  chooses  to  trade  more  when 
+liquidity is higher, and it may gradually trade and have long-term pre-
+dictive power.18
+
+18 As mentioned earlier, in Internet Appendix Table 1, we consider alternative 
+specifications of short-flows and returns over different intraday intervals. There 
+are two patterns. First, the predictive power of intraday shorts stays strong and 
+significant  for  future  returns.  Second,  the  shorting  flows’  predictive  power 
+decreases gradually throughout the day. These patterns are consistent with the 
+main results in the text.
+
+7 
+
+4.2. Short sellers and informed trading
+
+In the previous subsection, we establish that short selling throughout 
+the day, especially short sales near the open, negatively predict future 
+intraday returns and returns in the next 12 weeks. One explanation for 
+the negative relation is that short sellers are informed about short- and 
+long-  term  firm  level  information.  An  alternative  explanation  is  that 
+other informed traders respond to or move together with shorting flows, 
+and  the  other  informed  traders’  return  predictability  is  behind  the 
+negative return predictive power of short sellers. In this subsection, we 
+first investigate how short-seller’s intraday trading behavior is related to 
+firm-level news events in Section 4.2.1, and then examine whether other 
+informed  traders  are  behind  the  negative  return  predictive  power  of 
+short sellers in Section 4.2.2.
+
+4.2.1. Short-sellers’ information advantage and news events
+
+We obtain data on all public news events over year 2015–2019 from 
+RavenPack Equity Module database. Three filters are applied to the data. 
+First, to include the most relevant news events related to a stock, we 
+require  the  relevance  score  to  be  100,  which  means  that  the  stock  is 
+prominent in the news story. Second, to filter out news related to public 
+price and return data, which doesn’t contain much new information, we 
+restrict the subject or theme of events to be “business”, and exclude three 
+groups  of  events  “stock-prices”,  “order-imbalances”,  and  “technical- 
+analysis”,  which  are  usually  press  releases  summarizing  recent  price 
+movements and past returns. Third, given that our aim is novel infor-
+mation and not stale news, we require the Event Similarity Days (SIM) to 
+be >90 days, meaning that the news is a novel and has no proceeding 
+similar reporting in the previous 90 days. In total, we have 3,570,989 
+intraday  firm  news  releases.  Since  short-sellers  are  sensitive  towards 
+negative  news,  we  focus  on  the  public  negative  news  releases.  To  be 
+specific, we define a news to be negative news if the ESS (event senti-
+ment  score)  is  negative,  where  ESS  is  a  stock-event  sentiment  score 
+between (cid:0) 1 and +1, computed by Ravenpack using its proprietary al-
+gorithm.  Similarly,  ESS  is  0  for  neutral  news,  and  ESS  is  positive  for 
+
+​
+​
+​
+​
+​
+​
+D. Hu et al.                                                                                                                                                                                                                                      
+
+Journal of Financial Economics 172 (2025) 104148 
+
+Table 2 
+Predicting future returns using total intraday shorting flows from CBOE exchanges.
+This table presents Fama-MacBeth (1973) regression coefficients of future returns on previous day shorting flow variables. Panel A reports the results on predicting the 
+cross-section of next-day returns, and Panel B reports results predicting returns over the next 12 weeks. RSSOPEN (RSSMIDDLE/RSSCLOSE) is a rank variable for the 
+corresponding shorting flow variable SSOPEN (SSMIDDLE/SSCLOSE), computed as shares shorted on CBOE exchanges over the first two hours of the trading day 
+(middle 2.5 h/last two hours) over total daily CBOE share volume. To compute the ranks, we sort all stocks by shorting flow variables into 100 groups and assign the 
+rank number to the variable. The RSS variables are then computed as rank variables divided by 100. For the control variables, Ret [(cid:0) 1] is the return on the previous day 
+using closing bid-ask averages. Ret [(cid:0) 20, (cid:0) 2] is the cumulative daily return in the [(cid:0) 20, (cid:0) 2] window. Ret [(cid:0) 120, (cid:0) 21] is the cumulative daily return over the [(cid:0) 120, 
+(cid:0) 21] window. Lsize is log of market capitalization and Lbm is the log of book to market ratio, both at the most recent quarter end. Volatility is the monthly volatility of 
+daily return at the most recent month end. Turnover is the monthly average of daily turnover measured at the most recent month end. To account for potential serial 
+correlation in the coefficients, the standard errors of the time-series are adjusted using Newey-West (1987) with eight lags. All regression coefficients are multiplied by 
+100 for presentation purposes.
+
+Panel A. Predicting next-day returns
+
+Intercept
+RSSOPEN
+RSSMIDDLE
+RSSCLOSE
+Ret [(cid:0) 1]
+Ret [(cid:0) 20,(cid:0) 2]
+Ret [(cid:0) 120,(cid:0) 21]
+Lsize
+Lbm
+Volatility
+Turnover
+Adj.R2
+
+I
+Coef.
+
+0.0469
+(cid:0) 0.0820
+
+(cid:0) 0.3438
+(cid:0) 0.1448
+0.0066
+0.0042
+0.0053
+0.2219
+(cid:0) 0.6021
+0.0362
+
+Panel B. Predicting future weekly returns
+
+RSSOPEN
+
+Coef.
+
+(cid:0) 0.0308
+(cid:0) 0.0063
+(cid:0) 0.0135
+(cid:0) 0.0181
+(cid:0) 0.0216
+(cid:0) 0.0216
+(cid:0) 0.0207
+(cid:0) 0.0227
+(cid:0) 0.0212
+(cid:0) 0.0228
+(cid:0) 0.0247
+(cid:0) 0.0133
+
+Week 1
+Week 2
+Week 3
+Week 4
+Week 5
+Week 6
+Week 7
+Week 8
+Week 9
+Week 10
+Week 11
+Week 12
+
+t-stat
+
+1.54
+(cid:0) 7.91
+
+(cid:0) 1.84
+(cid:0) 2.53
+0.28
+1.28
+0.74
+0.50
+(cid:0) 2.27
+
+t-stat
+
+(cid:0) 3.66
+(cid:0) 0.75
+(cid:0) 1.62
+(cid:0) 2.06
+(cid:0) 2.46
+(cid:0) 2.48
+(cid:0) 2.44
+(cid:0) 2.55
+(cid:0) 2.48
+(cid:0) 2.56
+(cid:0) 2.62
+(cid:0) 1.44
+
+II
+Coef.
+
+0.0474
+
+(cid:0) 0.0584
+
+(cid:0) 0.3685
+(cid:0) 0.1500
+0.0063
+0.0028
+0.0057
+0.1514
+(cid:0) 0.6573
+0.0358
+
+t-stat
+
+1.54
+
+(cid:0) 5.75
+
+(cid:0) 1.97
+(cid:0) 2.62
+0.26
+0.89
+0.78
+0.34
+(cid:0) 2.45
+
+III
+Coef.
+
+0.0465
+
+(cid:0) 0.0397
+(cid:0) 0.3771
+(cid:0) 0.1497
+0.0077
+0.0021
+0.0065
+0.0620
+(cid:0) 0.7145
+0.0359
+
+t-stat
+
+1.49
+
+(cid:0) 3.88
+(cid:0) 2.02
+(cid:0) 2.62
+0.32
+0.67
+0.90
+0.14
+(cid:0) 2.66
+
+IV
+Coef.
+
+0.0794
+(cid:0) 0.0860
+(cid:0) 0.0526
+(cid:0) 0.0493
+(cid:0) 0.3230
+(cid:0) 0.1435
+0.0041
+0.0071
+0.0052
+0.2068
+(cid:0) 0.5350
+0.0374
+
+t-stat
+
+2.64
+(cid:0) 8.29
+(cid:0) 5.38
+(cid:0) 4.76
+(cid:0) 1.73
+(cid:0) 2.52
+0.17
+2.22
+0.73
+0.47
+(cid:0) 2.01
+
+RSSMIDDLE
+
+RSSCLOSE
+
+Coef.
+
+(cid:0) 0.0242
+(cid:0) 0.0043
+(cid:0) 0.0130
+(cid:0) 0.0149
+(cid:0) 0.0156
+(cid:0) 0.0110
+(cid:0) 0.0148
+(cid:0) 0.0178
+(cid:0) 0.0142
+(cid:0) 0.0121
+(cid:0) 0.0117
+(cid:0) 0.0178
+
+t-stat
+
+(cid:0) 3.76
+(cid:0) 0.68
+(cid:0) 2.03
+(cid:0) 2.39
+(cid:0) 2.52
+(cid:0) 1.76
+(cid:0) 2.23
+(cid:0) 2.83
+(cid:0) 2.18
+(cid:0) 1.79
+(cid:0) 1.62
+(cid:0) 2.59
+
+Coef.
+
+(cid:0) 0.0106
+(cid:0) 0.0066
+(cid:0) 0.0076
+(cid:0) 0.0096
+(cid:0) 0.0079
+(cid:0) 0.0060
+(cid:0) 0.0039
+(cid:0) 0.0007
+(cid:0) 0.0027
+(cid:0) 0.0043
+0.0015
+(cid:0) 0.0064
+
+t-stat
+
+(cid:0) 1.48
+(cid:0) 0.97
+(cid:0) 1.12
+(cid:0) 1.49
+(cid:0) 1.30
+(cid:0) 0.93
+(cid:0) 0.61
+(cid:0) 0.11
+(cid:0) 0.41
+(cid:0) 0.68
+0.21
+(cid:0) 0.91
+
+Fig. 2. Time-series of Fama-MacBeth (1973) regression coefficients. 
+This figure presents daily CBOE Fama-MacBeth (1973) regression coefficients (multiplied by 100 for presentation) for next-day predictive regressions during our 
+sample period. The variable of interest RSSOPEN, RSSMIDDLE or RSSCLOSE indicates the ranked shorting flow over [9:30,11:30), [11:30,14:00), and [14:00,16:00), 
+respectively. To smooth the time-series, here we report the 20-day moving average of the coefficients.
+
+8 
+
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+D. Hu et al.                                                                                                                                                                                                                                      
+
+Journal of Financial Economics 172 (2025) 104148 
+
+positive news.
+
+We  first  present  the  distribution  of  company  public  news  arrival 
+times over the 24 h of the day in Fig. 3. In Panel A, we present the arrival 
+times of all public news from the Raven Pack Equity Module. The highest 
+hourly arrival intensity occurs between 4 pm and 5 pm ET (right after 
+the stock market closes), accounting for 18 % of all news over the day; 
+and the second highest arrival intensity occurs between 7 am and 8 am 
+(right before the U.S. stock market opens), accounting for 9 % of total 
+news  arrivals.  About  22  %  of  news  is  released  during  trading  hours, 
+while 78 % is released outside of trading hours. Among all firm-level 
+news,  the  most  important  information  events  for  stock  returns  are 
+earnings announcements and analyst recommendation changes. There-
+fore, we also obtain data from I/B/E/S and Compustat and present the 
+distribution of these news arrival times in Panel B. Similar to Panel A, 
+most of the news arrives between 4 pm and 5 pm, accounting for 44 % 
+and 11 % of total earnings news and analyst news; while the morning 
+period between 6 am and 9 am is another information intensive period, 
+accounting for over 30 % of total earnings and analyst news.19 Overall, 
+Fig. 3 shows that most of the public news arrives either in the morning 
+before the market opens or in the afternoon after the market closes. In 
+other words, firm-specific news mostly arrives when the stock market is 
+closed.
+
+Next we establish the relation between the intraday shorting flows 
+and firm-level news, either in the sense of processing public news re-
+leases  from  the  previous  day  or  predicting  future  news  releases.  In 
+particular, we follow Engelberg et al. (2012) and Reed et al. (2020) and 
+use the following specification to examine how shorting flows respond to 
+recently released negative public news: 
+
+Shortingit = b0t + b1tPreviousNegNewsit + b
+
+’
+
+2tControlsit + ϵit
+
+(4) 
+
+The independent variable, PreviousNegNewsit  equals 1, if and only if 
+there is a negative news release for firm i after the market closes on day t- 
+1, but before the market opens on day t. If short-sellers can effectively 
+process the negative news released before market opens on day t and 
+trade on it, we expect the coefficient b1  (average of time-series of b1t) to 
+be positive, because negative news should lead to more short-selling as 
+short-sellers  process  and  respond  to  the  negative  news.  Among  open, 
+middle and close intervals, following predictions from Foster and Vis-
+wanathan  (1990),  the  open  is  the  closest  in  time to the  previous  day 
+after-hour  news  releases,  and  would  be  the  most  related  intraday 
+shorting flow measure.
+
+In parallel, to examine whether short selling predicts arrivals of future 
+
+negative news, we estimate the following specification: 
+
+’
+FutureNegNewsi,t+1 = b0t + b1tShortingit + b
+
+2tControlsit + ϵi,t+1
+
+(5) 
+
+The independent variable, FutureNegNewsi,t+1, equals 1, if and only if 
+there is a negative news release for firm i between market closes on day t 
+and day t + 1.20 If short sellers can predict the forthcoming negative 
+news, we expect the coefficient b1  (average of time-series of b1t) to be 
+positive.  Given  our  prior  findings  that  the  open  and  middle  intraday 
+shorting flows predict long-term returns up to future 12 weeks, we also 
+investigate whether the opening and midday shorting flows predict the 
+arrival of future negative news up to 12 weeks using Eq. (5), while the 
+dependent variable becomes FutureNegNewsi,w+k, which equals 1, if and 
+only if there is a negative news release within the kth-week after market 
+
+19 Our statistics are consistent with prior literature that documents a gradual 
+shift in earnings announcement timing from regular trading hours to outside of 
+regular trading hours. Patell and Wolfson (1984) find 67% of their sample in 
+1976/1977  announce during  regular  hours,  while  Lyle,  Rigsby,  Stephan,  and 
+Yohn  (2018) document  >95%  of  firms  announce  outside  of  regular  trading 
+hours from 2006 to 2015.
+20 Our results are robust if we use shorting flows as the dependent variable 
+and future news as the independent variable as in Engelberg et al. (2012) and 
+Reed et al. (2020).
+
+9 
+
+close on day t. We estimate Eq. (4) and (5) using Fama-MacBeth (1973)
+regressions and adjust standard errors using Newey-West (1987) with 
+eight lags.
+
+The estimation results are presented in Table 3. Panel A presents the 
+estimation results for past news (PreviousNegNewsit). The results show 
+that opening shorting flows are positively and significantly related to 
+previous  overnight  negative  news  releases,  while  the  coefficients  on 
+shorting flows at the midday and close are both negative and significant, 
+possibly indicating a short-term reversal after opening. These patterns 
+suggest  that  the  opening  flows  react  to  the  previous  negative  news, 
+which is consistent with the aggressive trading hypothesis that informed 
+investors  trade  early  during  the  day  in  response  to  previous  released 
+news.  Panel  B  reports  the  results  for  predicting  future  negative  news 
+releases (FutureNegNewsit). The open shorting flows have positive and 
+significant coefficients for the next 12 weeks in predicting future nega-
+tive  news  arrivals.  The  coefficients  for  midday  shorting  are  mostly 
+positively significant over long run, but with smaller magnitudes than 
+open  shorting,  and  the  coefficients  for  the  closing  shorts  are  mostly 
+insignificant. These findings on open and midday shorts are consistent 
+with Kyle (1985)’s model, in the sense that informed traders who have 
+monopoly over private information trade gradually and steadily release 
+information every day.
+
+To examine whether arrivals of negative news actually boost short 
+sellers’  predictive power for future returns, we interact intraday com-
+ponents  of  shorting  flows  with  news  events  indicators  in  our  return 
+prediction regressions. Table 3 Panel C shows that the predictive power 
+for  next-day  returns  of  all  three  intraday  shorting  flow  variables  is 
+stronger when there are arrivals of negative news before the open. Short 
+sellers’  significant  long-term  return  predictive  power  is  however  not 
+affected by the interaction terms, suggesting that short sellers’ interac-
+tion  with  negative  public  news  released  previous  overnight  cannot 
+explain their long-term return predictive power.
+
+To summarize, we find open shorting flows react strongly to public 
+information from previous night, and predict future short-term and long- 
+term negative news releases, suggesting that open shorting flows might 
+contain relevant short-term and long-term information. Midday shorts 
+positively predict long-term negative news with smaller magnitude, and 
+the coefficients for the closing shorts are mostly insignificant, indicating 
+they are less informed than open shorting flows. Given that some short- 
+sellers trade prior to public news releases, they might have private in-
+formation. Meanwhile, some short-sellers trade right after public news 
+releases,  suggesting  that  they  might  be  capable  of  processing  news 
+quickly.
+
+4.2.2. Short sellers and other informed traders
+
+Many previous papers interpret shorting’s negative predictive power 
+for  future  returns  as  that  short  sellers  are  informed  traders.  Alterna-
+tively,  the  negative  return  relation  between  short  selling  and  returns 
+could be driven by other informed traders reacting to the actions of short 
+sellers. To better understand this alternative mechanism, we focus on 
+one of the most important types of informed traders in the literature: the 
+insiders. A few studies, such as Cohen et al. (2012) and Bogousslavsky 
+et al. (2024), point out that insiders are informed investors and insider 
+sales negatively predict future stock returns.
+
+According  to  the  SEC  definition,  insiders  consist  of  directors  and 
+officers of the company, as well as any shareholders, owning 10 % or 
+more of the company’s outstanding stocks. We obtain the insider sales 
+data from Thomson Reuters Insider Form 4, which is a document that is 
+required  to  be  filed  to  SEC  and  becomes  public  whenever  there  is  a 
+material change in the holdings of company insiders. In fact, Form 4 is 
+required to be filed within two business days from the end of the day the 
+material transaction occurs. To align with short sales, here we follow 
+Massa et al. (2015) and focus on insiders’ open market sales, excluding 
+the  open  market  purchases  and  private  transactions.  Since  the  filing 
+happens at the end of the day, the insider sales data are daily. There are 
+136,022  insider  sales  events,  which  account  for  3.81  %  of  our  total 
+
+D. Hu et al.                                                                                                                                                                                                                                      
+
+Journal of Financial Economics 172 (2025) 104148 
+
+Fig. 3. News arrival time. 
+This figure presents the percentage of public news items that arrive in each hour of a 24-hour day. Panel A includes all public news from the RavenPack Equity 
+Module and shows the number of news items in each time bucket across all sample firms and all days and calculate the percentage of items in each bucket relative to 
+all  news.  Panel  B  presents  the  percentage  of  earnings-related  public  news  that  arrives  in  each  hour  of  a  24-hour  day.  We  obtain  earnings  announcements  and 
+management guidance (EA news) as well as analyst recommendations (REC news) from I\B\E\S.
+
+sample.
+
+We first examine the dynamic relation between insider sale and short 
+selling, by estimating the contemporaneous relation between them as 
+follows: 
+
+’
+Shortingit = b0t + b1tDInsiderSaleit + b
+
+2tControlsit + ϵit
+
+(6) 
+
+The dependent shorting variables Shortingit  is the intraday showing 
+flows defined in Eq. (2).21 Following Bogousslavsky et al. (2024) and 
+Collin-Dufresne and Fos (2015), the independent variable, DInsiderSaleit, 
+equals to one if insiders sell on firm i on day t, and zero otherwise. Be-
+sides  the  control  variables  in  the  baseline  specification  (3),  we  also 
+include  the  previous  day’s  intraday  shorting  flows  to  control  for  the 
+persistence  of  shorting  flows.  If  insiders  sell  contemporaneously  as 
+shorting happens, coefficient of b1 should be positive. For the question as 
+
+21 We  use  the  raw  shorting  data  instead  of  cross-sectionally  rank  trans-
+formation, because the insider events are unevenly distributed across different 
+day, and using raw shorting data better captures the trading dynamics between 
+insider  sales  and  short  selling.  The  results  are  robust  to  using  rank  trans-
+formation shorting flow variables and are available upon request.
+
+10 
+
+whether insiders respond to today’s short selling in their future selling 
+activity, we investigate whether the intraday shorting flows predict in-
+sider sales for future: 
+
+’
+DInsiderSalei,t+1 = b0 + b1tShortingit + b
+
+2tControlsit + ϵi,t+1
+
+(7) 
+
+t  + 1.  We 
+
+Here DInsiderSalei,t+1  is set to 1, if and only if there is an insider sales 
+event  on  day 
+later  replace  DInsiderSalei,t+1  with 
+DInsiderSalei,w+k, which is set to 1, if and only if there is an insider sales 
+event within the next k-th week. If insiders respond to current short sales 
+in their future sales, we expect the coefficient b1  to be positive.
+
+The results are reported in Table 4. Panel A presents the estimation 
+results for the relation of contemporaneous insider sales and intraday 
+shorting  flows.  Only  the  shorting  flows  near  the  open  are  positively 
+related to contemporaneous insider sales with a coefficient of 0.0018 (t- 
+stat  = 5.38), while  the  coefficients  on short  flows at  the  midday and 
+close are both negative and significant, indicating that insider sales only 
+trade in the same direction of shorting near the open. Panel B reports the 
+results for predicting future insider sales. The opening short sales exhibit 
+steady positive relation with future insider sales up to next three weeks, 
+indicating that insider sales likely respond to opening short sales, which 
+is consistent with Massa et al. (2015) that insider sells respond to short 
+
+D. Hu et al.                                                                                                                                                                                                                                      
+
+Journal of Financial Economics 172 (2025) 104148 
+
+Table 3 
+Intraday shorting flows and RavenPack news events.
+This table presents the trading dynamics and return predictability of the intraday shorting flows and Ravenpack negative news. Firm-level news is obtained from 
+RavenPack and negative news is defined as news with ESS (event sentiment score) <0. We require the relevance score to be 100 to keep the most relevant news and 
+event similarity days (SIM) > 90 days to exclude the stale news. For intraday shoring flows respond to previous overnight negative news, the independent variable, 
+PreviousNegNewsi,t, is equal to 1 if and only if there is a negative news that is released to the public after the market close on day t-1 but before the market opens on day t, 
+and zero otherwise. The results are presented in Panel A as specified by the following Fama-MacBeth (1973) regression:
+ʹ
+Shortingit = b0t + b1tPreviousNegNewsit + b
+2tControlsit + ϵit ,
+The control variables are the same as in Table 2, and we also control for previous day’s short selling to control the persistence. For intraday shorting flows predict future 
+negative news, the dependent variable, FutureNegNewsi,t+k, is equal to 1 if and only if there is a negative news that is released to the public after the market close on day 
+t + k and before the market closes on day t + k + 1, and zero otherwise. The results are reported in Panel B as specified by the following Fama-MacBeth (1973)
+regression:
+ʹ
+FutureNegNewsi,t+k = b0t + b1tShoringit + b
+2tControlsit + ϵi,t+k.
+The control variables are the same as in Table 2, and we also control for previous overnight negative news to control the persistence. Panel C examine the return 
+predictability of intraday shorting flows interacted with the previous overnight negative news, as specified by the following Fama-MacBeth (1973) regression:
+ʹ
+Reti,t+k = b0t + b1tRSSit + b2tRSSit × PreviousNegNewsit + b
+3tControlsit + ϵi,t+k.
+Controls are included and omitted from presentation. To account for potential serial correlation in the coefficients, the standard errors of the time-series are adjusted 
+using Newey-West (1987) with eight lags. The regression coefficients of ranking shorting variables RSSit  in Panel C are multiplied by 100 for presentation purposes.
+
+Panel A. Intraday shorting flows respond to previous negative news
+
+I
+SSOPEN
+Coef.
+
+0.0099
+Yes
+0.0535
+
+t-stat
+
+20.89
+
+II
+SSMIDDLE
+Coef.
+
+(cid:0) 0.0021
+Yes
+0.0213
+
+t-stat
+
+(cid:0) 5.36
+
+III
+SSCLOSE
+Coef.
+
+(cid:0) 0.0119
+Yes
+0.0849
+
+t-stat
+
+(cid:0) 18.33
+
+PreviousNegNews
+Control
+Adj.R2
+
+Panel B. Predicting future negative news using intraday shorting flows
+
+FutureNegNews next day
+FutureNegNews Week 1
+FutureNegNews Week 2
+FutureNegNews Week 3
+FutureNegNews Week 4
+FutureNegNews Week 5
+FutureNegNews Week 6
+FutureNegNews Week 7
+FutureNegNews Week 8
+FutureNegNews Week 9
+FutureNegNews Week 10
+FutureNegNews Week 11
+FutureNegNews Week 12
+
+SSOPEN
+Coef.
+
+0.0051
+0.0202
+0.0162
+0.0160
+0.0152
+0.0151
+0.0140
+0.0149
+0.0159
+0.0152
+0.0143
+0.0156
+0.0147
+
+t-stat
+
+7.78
+12.90
+10.93
+10.04
+8.57
+9.38
+9.77
+9.50
+9.20
+10.26
+8.71
+10.17
+9.68
+
+SSMIDDLE
+Coef.
+
+(cid:0) 0.0015
+0.0052
+0.0109
+0.0110
+0.0125
+0.0106
+0.0119
+0.0098
+0.0114
+0.0107
+0.0104
+0.0119
+0.0113
+
+t-stat
+
+(cid:0) 2.37
+3.29
+6.93
+7.09
+7.87
+6.63
+7.86
+6.47
+7.74
+7.34
+6.93
+7.77
+7.08
+
+SSCLOSE
+Coef.
+
+0.0016
+(cid:0) 0.0058
+0.0238
+0.0097
+0.0203
+0.0005
+0.0149
+0.0164
+(cid:0) 0.0039
+0.0168
+(cid:0) 0.0030
+0.0071
+0.0205
+
+t-stat
+
+0.19
+(cid:0) 0.39
+1.48
+0.67
+0.73
+0.04
+1.41
+1.23
+(cid:0) 0.61
+1.06
+(cid:0) 0.30
+0.73
+0.77
+
+Panel C. Predicting future returns using intraday shorting flows, interacted with previous overnight negative news
+
+I
+RSSOPEN
+
+Coef.
+
+(cid:0) 0.0808
+(cid:0) 0.0305
+(cid:0) 0.0068
+(cid:0) 0.0135
+(cid:0) 0.0186
+(cid:0) 0.0220
+(cid:0) 0.0222
+(cid:0) 0.0201
+(cid:0) 0.0231
+(cid:0) 0.0210
+(cid:0) 0.0229
+(cid:0) 0.0239
+(cid:0) 0.0143
+
+II
+RSSOPEN 
+*PreviousNegNews
+
+III
+RSSMIDDLE
+
+IV
+RSSMIDDLE 
+*PreviousNegNews
+
+V
+RSSCLOSE
+
+VI
+RSSCLOSE 
+*PreviousNegNews
+
+t-stat
+
+(cid:0) 7.75
+(cid:0) 3.64
+(cid:0) 0.81
+(cid:0) 1.62
+(cid:0) 2.12
+(cid:0) 2.51
+(cid:0) 2.56
+(cid:0) 2.38
+(cid:0) 2.62
+(cid:0) 2.47
+(cid:0) 2.59
+(cid:0) 2.55
+(cid:0) 1.55
+
+Coef.
+
+(cid:0) 0.1052
+(cid:0) 0.0141
+0.0038
+0.0156
+0.0066
+0.0227
+0.0115
+0.0201
+0.0086
+0.0004
+0.0151
+(cid:0) 0.0071
+0.0034
+
+t-stat
+
+(cid:0) 4.68
+(cid:0) 1.43
+0.51
+1.87
+0.73
+2.38
+1.31
+2.15
+0.87
+0.05
+1.40
+(cid:0) 0.74
+0.33
+
+Coef.
+
+(cid:0) 0.0568
+(cid:0) 0.0242
+(cid:0) 0.0050
+(cid:0) 0.0131
+(cid:0) 0.0148
+(cid:0) 0.0165
+(cid:0) 0.0111
+(cid:0) 0.0145
+(cid:0) 0.0178
+(cid:0) 0.0142
+(cid:0) 0.0124
+(cid:0) 0.0113
+(cid:0) 0.0178
+
+t-stat
+
+(cid:0) 5.61
+(cid:0) 3.78
+(cid:0) 0.81
+(cid:0) 2.08
+(cid:0) 2.40
+(cid:0) 2.70
+(cid:0) 1.81
+(cid:0) 2.22
+(cid:0) 2.88
+(cid:0) 2.21
+(cid:0) 1.84
+(cid:0) 1.56
+(cid:0) 2.61
+
+Coef.
+
+(cid:0) 0.1302
+(cid:0) 0.0229
+0.0000
+0.0166
+0.0035
+0.0259
+0.0124
+0.0037
+0.0073
+0.0001
+0.0157
+(cid:0) 0.0114
+0.0015
+
+t-stat
+
+(cid:0) 5.74
+(cid:0) 2.12
+0.00
+1.97
+0.41
+2.77
+1.35
+0.36
+0.78
+0.01
+1.48
+(cid:0) 1.01
+0.14
+
+Coef.
+
+(cid:0) 0.0351
+(cid:0) 0.0084
+(cid:0) 0.0049
+(cid:0) 0.0108
+(cid:0) 0.0091
+(cid:0) 0.0065
+(cid:0) 0.0066
+(cid:0) 0.0039
+(cid:0) 0.0006
+(cid:0) 0.0018
+(cid:0) 0.0045
+0.0019
+(cid:0) 0.0064
+
+t-stat
+
+(cid:0) 3.35
+(cid:0) 1.18
+(cid:0) 0.74
+(cid:0) 1.59
+(cid:0) 1.44
+(cid:0) 1.10
+(cid:0) 1.03
+(cid:0) 0.61
+(cid:0) 0.09
+(cid:0) 0.28
+(cid:0) 0.73
+0.28
+(cid:0) 0.87
+
+Coef.
+
+(cid:0) 0.1473
+(cid:0) 0.0247
+(cid:0) 0.0072
+0.0153
+0.0020
+0.0174
+0.0081
+0.0084
+0.0067
+0.0036
+0.0086
+0.0000
+(cid:0) 0.0040
+
+t-stat
+
+(cid:0) 6.40
+(cid:0) 2.61
+(cid:0) 0.84
+1.84
+0.26
+1.94
+0.96
+0.88
+0.65
+0.39
+0.84
+0.00
+(cid:0) 0.41
+
+Next day
+Week 1
+Week 2
+Week 3
+Week 4
+Week 5
+Week 6
+Week 7
+Week 8
+Week 9
+Week 10
+Week 11
+Week 12
+
+sales with monthly short sale data. The coefficients for midday and close 
+shorting  have  mixed  signs  and  are  mostly  insignificant.  Overall,  our 
+empirical evidence suggests that future insider sales might respond to 
+current short sales at the opening hours.
+
+Next,  we  investigate  whether  intraday  shorting  flows’  return  pre-
+dictive power is driven or related to insider sales. That is, we include 
+DInsiderSaleit  together with open, middle, and close short sales on day t 
+to predict future returns: 
+
+’
+Reti,t+k = b0t + b1tRSSOPENit + b2tRSSMIDDLEit + b3tRSSCLOSEit + b4tDInsiderSaleit + b
+
+5tControlsit + ϵi,t+k
+
+(8) 
+
+11 
+
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+D. Hu et al.                                                                                                                                                                                                                                      
+
+Journal of Financial Economics 172 (2025) 104148 
+
+Table 4 
+Intraday shorting flows and informed trades.
+This table examines the trading dynamics and return predictability of intraday shorting flows and the insider sales and Schedule 13D trades. The insider sale data is 
+from Thomson Reuters Insider Filings (Form 4) and we choose the insider sales transaction date as the event day. DInsiderSale, is a dummy equal to one if the insider 
+sells on firm i on day t, and zero otherwise. Panel A examines intraday shorting flows and insider sales by estimating the following Fama-MacBeth (1973) regression:
+ʹ
+Shortingit = b0t + b1tDInsiderSaleit + b
+2tControlsit + ϵit.
+The control variables are the same as in Table 2, and we also control for previous day’s short selling to control the persistence. Panel B examines whether intraday 
+shorting flows could predict future insider sales, as specified by the following Fama-MacBeth (1973) regression:
+ʹ
+2tControlsit + ϵi,t+k.
+DInsiderSalei,t+k = b0t + b1tShortingit + b
+The control variables are the same as in Table 2, and we also control for previous day’s insider sales to control its persistence. Panel C examines the return predictability 
+of intraday shorting flows, and insider sales as specified in the following Fama-MacBeth (1973) regression:
+ʹ
+Reti,t+k = b0t + b1tRSSOPENit + b2tRSSMIDDLEit + b3tRSSCLOSEit + b4tDInsiderSaleit + b
+5tControlsit + ϵi,t+k,
+The control variables are the same as in Table 2 and omitted from presentation. To account for potential serial correlation in the coefficients, the standard errors of the 
+time-series are adjusted using Newey-West (1987) with eight lags. The regression coefficients of Panel C are multiplied by 100 for presentation purposes. Panel D 
+examines the return predictability of intraday shorting flows, and informed trading intensity (ITI) learned from Schedule 13D trading as specified in the following 
+Fama-MacBeth (1973) regression:
+ʹ
+Reti,t+k = b0t + b1tRSSOPENit + b2tRSSMIDDLEit + b3tRSSCLOSEit + b4tITIit + b
+5tControlsit + ϵi,t+k.
+The stock-day informed trading intensity (ITI) is from Bogousslavsky, Fos, and Muravyev (2024). The control variables are the same as in Table 2 and omitted from 
+presentation. To account for potential serial correlation in the coefficients, the standard errors of the time-series are adjusted using Newey-West (1987) with eight lags. 
+The regression coefficients of Panel D are multiplied by 100 for presentation purposes.
+
+Panel A. Intraday shorting flows and insider sales
+
+I
+SSOPEN
+Coef.
+
+0.0018
+Yes
+0.0533
+
+t-stat
+
+5.38
+
+II
+SSMIDDLE
+Coef.
+
+(cid:0) 0.0012
+Yes
+0.0212
+
+t-stat
+
+(cid:0) 4.32
+
+III
+SSCLOSE
+Coef.
+
+(cid:0) 0.0113
+Yes
+0.0860
+
+DInsiderSale
+Control
+Adj.R2
+
+Panel B. Predicting insider sales over next 12 weeks using intraday shorting flows
+
+DInsiderSale next day
+DInsiderSale Week 1
+DInsiderSale Week 2
+DInsiderSale Week 3
+DInsiderSale Week 4
+DInsiderSale Week 5
+DInsiderSale Week 6
+DInsiderSale Week 7
+DInsiderSale Week 8
+DInsiderSale Week 9
+DInsiderSale Week 10
+DInsiderSale Week 11
+DInsiderSale Week 12
+
+SSOPEN
+Coef.
+
+0.0010
+0.0081
+0.0063
+0.0035
+0.0029
+0.0034
+0.0024
+0.0009
+0.0028
+0.0025
+0.0016
+(cid:0) 0.0017
+(cid:0) 0.0035
+
+t-stat
+
+1.29
+5.13
+3.79
+2.13
+1.76
+1.82
+1.28
+0.47
+1.52
+1.30
+0.85
+(cid:0) 0.93
+(cid:0) 1.96
+
+SSMIDDLE
+Coef.
+
+(cid:0) 0.0010
+(cid:0) 0.0003
+(cid:0) 0.0016
+0.0007
+0.0028
+0.0000
+0.0009
+0.0007
+0.0004
+(cid:0) 0.0010
+(cid:0) 0.0010
+(cid:0) 0.0004
+(cid:0) 0.0007
+
+t-stat
+
+(cid:0) 1.35
+(cid:0) 0.23
+(cid:0) 1.03
+0.50
+1.79
+(cid:0) 0.02
+0.56
+0.41
+0.21
+(cid:0) 0.63
+(cid:0) 0.59
+(cid:0) 0.25
+(cid:0) 0.44
+
+SSCLOSE
+Coef.
+
+(cid:0) 0.0090
+(cid:0) 0.0104
+(cid:0) 0.0058
+(cid:0) 0.0031
+(cid:0) 0.0014
+(cid:0) 0.0022
+(cid:0) 0.0009
+0.0001
+(cid:0) 0.0014
+(cid:0) 0.0033
+(cid:0) 0.0034
+(cid:0) 0.0020
+(cid:0) 0.0043
+
+t-stat
+
+(cid:0) 25.73
+
+t-stat
+
+(cid:0) 12.36
+(cid:0) 6.40
+(cid:0) 3.24
+(cid:0) 1.70
+(cid:0) 0.74
+(cid:0) 1.09
+(cid:0) 0.42
+0.04
+(cid:0) 0.63
+(cid:0) 1.52
+(cid:0) 1.54
+(cid:0) 1.03
+(cid:0) 2.37
+
+Panel C. Predicting future returns using intraday shorting flows and insider sales
+
+RSSOPEN
+Coef.
+
+(cid:0) 0.0862
+(cid:0) 0.0314
+(cid:0) 0.0071
+(cid:0) 0.0139
+(cid:0) 0.0189
+(cid:0) 0.0218
+(cid:0) 0.0225
+(cid:0) 0.0206
+(cid:0) 0.0219
+(cid:0) 0.0211
+(cid:0) 0.0241
+(cid:0) 0.0248
+(cid:0) 0.0145
+
+t-stat
+
+(cid:0) 8.31
+(cid:0) 3.77
+(cid:0) 0.85
+(cid:0) 1.70
+(cid:0) 2.19
+(cid:0) 2.52
+(cid:0) 2.66
+(cid:0) 2.45
+(cid:0) 2.48
+(cid:0) 2.50
+(cid:0) 2.76
+(cid:0) 2.65
+(cid:0) 1.59
+
+RSSMIDDLE
+Coef.
+
+(cid:0) 0.0525
+(cid:0) 0.0221
+(cid:0) 0.0037
+(cid:0) 0.0118
+(cid:0) 0.0132
+(cid:0) 0.0140
+(cid:0) 0.0093
+(cid:0) 0.0130
+(cid:0) 0.0157
+(cid:0) 0.0122
+(cid:0) 0.0107
+(cid:0) 0.0104
+(cid:0) 0.0169
+
+t-stat
+
+(cid:0) 5.36
+(cid:0) 3.65
+(cid:0) 0.63
+(cid:0) 1.98
+(cid:0) 2.24
+(cid:0) 2.40
+(cid:0) 1.57
+(cid:0) 2.08
+(cid:0) 2.68
+(cid:0) 2.00
+(cid:0) 1.70
+(cid:0) 1.55
+(cid:0) 2.64
+
+RSSCLOSE
+Coef.
+
+(cid:0) 0.0496
+(cid:0) 0.0145
+(cid:0) 0.0068
+(cid:0) 0.0090
+(cid:0) 0.0123
+(cid:0) 0.0106
+(cid:0) 0.0090
+(cid:0) 0.0053
+(cid:0) 0.0023
+(cid:0) 0.0045
+(cid:0) 0.0073
+(cid:0) 0.0020
+(cid:0) 0.0084
+
+t-stat
+
+(cid:0) 4.81
+(cid:0) 2.03
+(cid:0) 1.00
+(cid:0) 1.34
+(cid:0) 1.91
+(cid:0) 1.76
+(cid:0) 1.42
+(cid:0) 0.81
+(cid:0) 0.36
+(cid:0) 0.68
+(cid:0) 1.15
+(cid:0) 0.27
+(cid:0) 1.19
+
+Next day
+Week 1
+Week 2
+Week 3
+Week 4
+Week 5
+Week 6
+Week 7
+Week 8
+Week 9
+Week 10
+Week 11
+Week 12
+
+Panel D. Predicting future returns using intraday shorting flows and informed trading intensity learned from Schedule 13D trading
+
+RSSOPEN
+Coef.
+
+(cid:0) 0.0776
+(cid:0) 0.0255
+(cid:0) 0.0103
+(cid:0) 0.0181
+(cid:0) 0.0186
+(cid:0) 0.0192
+(cid:0) 0.0235
+(cid:0) 0.0209
+
+t-stat
+
+(cid:0) 9.49
+(cid:0) 4.12
+(cid:0) 1.69
+(cid:0) 2.82
+(cid:0) 2.76
+(cid:0) 3.10
+(cid:0) 3.56
+(cid:0) 3.52
+
+RSSMIDDLE
+Coef.
+
+(cid:0) 0.0741
+(cid:0) 0.0263
+(cid:0) 0.0053
+(cid:0) 0.0108
+(cid:0) 0.0094
+(cid:0) 0.0135
+(cid:0) 0.0079
+(cid:0) 0.0111
+
+t-stat
+
+(cid:0) 9.10
+(cid:0) 5.52
+(cid:0) 1.14
+(cid:0) 2.26
+(cid:0) 2.02
+(cid:0) 3.01
+(cid:0) 1.67
+(cid:0) 2.13
+
+RSSCLOSE
+Coef.
+
+(cid:0) 0.0564
+(cid:0) 0.0139
+(cid:0) 0.0089
+(cid:0) 0.0114
+(cid:0) 0.0053
+(cid:0) 0.0052
+(cid:0) 0.0059
+(cid:0) 0.0039
+
+t-stat
+
+(cid:0) 6.65
+(cid:0) 2.35
+(cid:0) 1.71
+(cid:0) 2.01
+(cid:0) 0.96
+(cid:0) 0.95
+(cid:0) 1.11
+(cid:0) 0.71
+
+ITI
+Coef.
+
+0.0842
+0.0304
+0.0117
+0.0027
+0.0001
+0.0022
+0.0004
+(cid:0) 0.0045
+
+Next day
+Week1
+Week2
+Week3
+Week4
+Week5
+Week6
+Week7
+
+DInsiderSale
+Coef.
+
+(cid:0) 0.0297
+(cid:0) 0.0365
+0.0048
+0.0079
+0.0001
+0.0014
+0.0099
+0.0118
+0.0084
+0.0071
+0.0096
+0.0118
+0.0109
+
+t-stat
+
+6.73
+3.93
+1.99
+0.41
+0.01
+0.37
+0.08
+(cid:0) 0.70
+
+t-stat
+
+(cid:0) 3.24
+(cid:0) 5.74
+0.90
+1.29
+0.02
+0.26
+1.90
+1.95
+1.53
+1.23
+1.27
+1.56
+1.30
+
+12 
+
+(continued on next page)
+
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+D. Hu et al.                                                                                                                                                                                                                                      
+
+Journal of Financial Economics 172 (2025) 104148 
+
+Table 4 (continued )
+
+Panel D. Predicting future returns using intraday shorting flows and informed trading intensity learned from Schedule 13D trading
+
+RSSOPEN  
+Coef. 
+
+(cid:0) 0.0173
+(cid:0) 0.0277
+(cid:0) 0.0159
+(cid:0) 0.0157
+(cid:0) 0.0156
+
+t-stat 
+
+(cid:0) 2.50
+(cid:0) 4.20
+(cid:0) 2.37
+(cid:0) 2.18
+(cid:0) 2.34
+
+RSSMIDDLE  
+Coef. 
+
+(cid:0) 0.0120
+(cid:0) 0.0083
+(cid:0) 0.0129
+(cid:0) 0.0138
+(cid:0) 0.0114
+
+t-stat 
+
+(cid:0) 2.33
+(cid:0) 1.69
+(cid:0) 2.55
+(cid:0) 2.71
+(cid:0) 2.40
+
+RSSCLOSE  
+Coef. 
+
+0.0007
+0.0010
+(cid:0) 0.0034
+(cid:0) 0.0011
+(cid:0) 0.0060
+
+t-stat 
+
+0.14
+0.18
+(cid:0) 0.61
+(cid:0) 0.19
+(cid:0) 1.05
+
+ITI 
+Coef. 
+
+(cid:0) 0.0033
+(cid:0) 0.0028
+0.0035
+0.0068
+0.0030
+
+t-stat
+
+(cid:0) 0.48
+(cid:0) 0.43
+0.53
+1.00
+0.47
+
+Week8
+Week9
+Week10
+Week11
+Week12
+
+If  shorting  flows’  predictive  power  is  driven  by  or  affected  by 
+contemporaneous  insider  sales,  coefficient  b4  should  be  negative  and 
+significant, while coefficients b1, b2  and b3  should cease to be negative 
+and significant.
+
+Table 4 Panel C presents the estimation results. The coefficients b4 on 
+insider sales are significantly negative for future one day and one week 
+returns, indicating that insider sales can predict future returns for the 
+next one week. More interestingly, after controlling for the insider sales, 
+the coefficients b1, b2 and b3 are still negative and significant for the next 
+day  and  next  one  week  returns,  and  the  economic  magnitudes  of 
+shorting flows’  predictive power for future returns remain largely un-
+changed. For instance, the coefficient of RSSOPEN is (cid:0) 0.0860 in Table 2
+Panel A regression IV, indicating that moving through the shorting near 
+the  open  from  the  25th  percentile  to  the  75th  percentile  reduces  the 
+next-day  returns  by  4.3  basis  points,  without  including  insider  sales 
+trading. When we include insider sales trading, the coefficient becomes 
+(cid:0) 0.0862  in  Table  4 Panel  C,  which  is  comparable  to  the  coefficient 
+without insider sales trading. This finding suggests that controlling for 
+insider  sales  trading  minimally  affects  the  predictive  power  of  short 
+selling,  and  insider  sales  may  have  different  information  for  future 
+returns  than  shorting  flows.  The  negative  predictive  power  of  open 
+shorts and midday shorts also stays intact for the next 12 weeks returns, 
+in the presence of insider sales.
+
+As an alternative to corporate insiders as informed traders, we also 
+look into Schedule 13D filers, as discussed in Collin-Dufresne and Fos 
+(2015). To be specific, Rule 13D-1(a) of the 1934 Securities Exchange 
+Act requires investors to file with the SEC within 10 days of acquiring >5 
+% of the stock, if they have an interest in influencing the management of 
+the company. Collin-Dufresne and Fos (2015) show that Schedule 13D 
+filers’ actions and ownership contain positive private information, and 
+Schedule  13D  filers  are  likely  informed  traders.  A  recent  study  by 
+Bogousslavsky  et  al.  (2024) directly  provides  a  stock-day  informed 
+trading  intensity  measure,  ITI,  for  Schedule  13D  trades,  based  on 
+machine-learning  techniques.  The  ITI  measure  is  a  strong  detector  of 
+Schedule 13D trading and has a high signal-to-noise ratio. We include 
+both the ITI measure and our intraday short measures, to separate the 
+predictive  power  of  short-selling  and  the  ITI  measure.  Our  empirical 
+results, reported in Table 4 Panel D, show that they both have significant 
+predictive power for future returns, while the economic magnitudes of 
+the  coefficients  of  short  selling  are  almost  the  same  as  before.  These 
+results suggest the ITI measure and intraday short-selling have distinct 
+information for future returns.
+
+Overall, while we cannot exhaust all informed trades given that they 
+are generally unobservable, our results using insider sales and Schedule 
+13D trades suggest that these informed trades co-move and respond to 
+the shorting flows at open, but it is unlikely that shorts predictive power 
+for future returns are due to these informed traders’ responding to un-
+informed  short  sellers.  Therefore,  results  in  this  subsection  support 
+Hypothesis 1 that the negative relation between short selling and future 
+returns  is  related to short-sellers’  ability of  processing and  predicting 
+public  news,  and  cannot  be  explained  by  trading  of  other  informed 
+traders, such as insiders and Schedule 13D investors.
+
+4.3. The steady trading hypothesis
+
+The  steady  trading  hypothesis  is  based  on  Kyle  (1985) model.  By 
+assuming  the  informed  traders  being  monopolistic  and  holding 
+long-lived  information,  the  model  implies  that  the  trading  and  infor-
+mativeness of short-sellers to be steady and long-lasting till the expira-
+tion  of  the  long-lived  information.  As  discussed  earlier,  Panel  B  of 
+Table 2 provides strong evidence for this hypothesis, in the sense that 
+the shorting-flows close to open and midday have strong and negative 
+predictive power for future returns for at least up to 12 weeks. Mean-
+while,  Panel  B  of  Table  3 provides  further  evidence  that  open  and 
+midday shorting flows can predict arrivals of future negative news for 
+the next 12 weeks, which echoes the finding in Table 2 Panel B.
+
+To  reconcile  the  various  trading  patterns  from  same  intraday  in-
+tervals but over different days, and from different intraday intervals over 
+same days,  we  study whether  particular short sellers  tend  to trade  at 
+certain times of a trading day, or they participate indifferently across all 
+hours  of  a  trading  day.  Following  Heston  et  al.  (2010),  we  project 
+changes in shorting volumes for each 30-minute interval on its lags over 
+past 5 days using Fama-MacBeth (1973) regression, as follows: 
+
+(
+
+)
+
+log
+
+shortingi,j
+shortingi,j(cid:0) 1
+
+= b0,t + bk,jlog
+
+(
+
+)
+
+shortingi,j(cid:0) k
+shortingi,j(cid:0) k(cid:0) 1
+
++ εi,t.
+
+(9) 
+
+shortingi,j
+shortingi,j(cid:0) 1 
+
+Here 
+
+represents  the  changes in  shorting  volumes  of  firm i 
+over the j-th 30-minute interval, and k = 1, 2, 3, …, 65 (65 intervals for 5 
+days, 13 intervals each day). If there are seasonal patterns of shorting 
+flows in the same time interval of consecutive days, then coefficient b13,
+b26, b39, b52, b65  would  share  similar  patterns,  while  the  other  co-
+efficients would not.
+
+Fig. 4 provides clear evidence of large and positive relations between 
+changes in half-hour shorting flow with its 13th lag (same interval from 
+previous trading day), 26th lag (same interval from two trading days 
+ago),  39th  lag  (same  interval  from  three  trading  days  ago),  52nd  lag 
+(same interval from four trading days ago), and 65th lag (same interval 
+from five trading days ago). In other words, there are strong seasonal 
+patterns in shorting flows at half-hour intervals that are exact multiples 
+of trading days, similar to the 13-hour seasonality patterns in returns 
+and  volumes  documented  in  prior  literature  (Heston  et  al.  2010; 
+Bogousslavsky  2016).  This  evidence  suggests  that  some  short  sellers 
+might prefer to trade at particular time of the trading day rather than 
+participate in all hours of a trading day. In the light of Kyle (1985) steady 
+trading hypothesis, this pattern might suggest that the short-sellers with 
+long-lived information prefer to trade at particular times, which might 
+be related to the long-term predictive power of shorting flows at open 
+and midday.
+
+Given  ample  evidence  in  support  of  the  steady  trading  hypothesis 
+using shorting flow at open and middle, here we don’t provide further 
+empirical evidence for Hypothesis 2.
+
+4.4. The aggressive trading hypothesis
+
+Other than long term predictions of shorting-flows for future returns 
+and future negative news, we also find in Table 2 that the intraday short 
+
+13 
+
+D. Hu et al.                                                                                                                                                                                                                                      
+
+Journal of Financial Economics 172 (2025) 104148 
+
+Fig. 4. Seasonality of intraday shorting flows. 
+This figure plots the seasonality of half-hour shorting flows that are at exact multiples of a trading day. We regress changes in shorting volume in each half an hour on 
+its lags (over past 5 days covering 65 lagged half-an-hour intervals) and plot the cross-sectional coefficients.
+
+flows’ predictive power for next day returns decays from open to middle 
+and then to close, supporting the aggressive trading hypothesis, which is 
+based on time urgency and competition. That is, given that most public 
+news  is  released  overnight  outside  of  the  trading  hours,  the  stronger 
+predictive of shorting flows at the open than middle and close might be a 
+result of the time urgency of trading on public news after the release. 
+With multiple pieces of supportive evidence on time urgency in previous 
+sections, in this subsection we focus on the competition aspect among 
+short-sellers.
+
+To  better  understand  how  short-sellers  trade  in  the  presence  of 
+competition,  we  obtain  a  firm  level  borrower  concentration  variable 
+from Markit. This is an Herfindahl index based on the market shares of 
+different borrowers’ demands and reflects the level of concentration of 
+borrower demands on the securities lending market. To be precise, as-
+sume  there  are  N  borrowers  for  stock  i  on  day  t,  with  borrower  n’s 
+borrower share being s(i,t,n), then the total borrower shares are S(i,t) =
+∑
+N
+n=1s(i,t,n). Markit’s borrower concentration variable is calculated as, 
+
+BCit =
+
+]
+2
+
+[
+
+∑N
+
+n=1
+
+s(i, t, n)
+S(i, t)
+
+(10) 
+
+Variable  BCit  takes  a  value  between  0  and  1.  If  there  is  only  1 
+borrower in the market and no competition, BCit = 1. If there is a large 
+number of borrowers and presumably more competitions, BCit  decreases 
+and approaches zero. Table 5 Panel A presents the summary statistics of 
+borrower concentrations. The median borrower concentration is 0.3028 
+in our sample. If we assume that each borrower borrows similar shares, a 
+value of 0.3028 would indicate around 3 borrowers for the stock.22 We 
+find borrower concentration is lower for firms with lower shorting fees, 
+suggesting that short sellers face lower fees when the securities lending 
+market is more competitive.
+
+We investigate how the competition is related to shorting flows and 
+its informativeness in two steps. In the first step, we examine whether 
+competition  status  is  related  to  shorting  flows  by  estimating  the 
+following Fama-MacBeth (1973) regression: 
+
+Shortingit = b0t + b1tBCit + b
+
+’
+
+2tControlsit + ϵit.
+
+(11) 
+
+If  short-sellers  prefer  the  lower  fees  in  the  more  competitive 
+
+22 We  consider  the  cases  where  BC  = 1,  indicating  monopoly,  to  examine 
+Kyle’s model with monopolistic informed trader. However, there are only <1% 
+of  firms  with  BC  = 1,  which  is  not  enough  for  a  reliable  cross-sectional 
+estimation.
+
+14 
+
+securities  lending  market,  then  there  should  be  more  shorting  flows 
+when there are more competitions (less borrower concentration), and 
+we expect coefficient b1 to be negative. From results presented in Table 5
+Panel B, the coefficient for SSOPEN is (cid:0) 0.0390 (t-stat = (cid:0) 50.79), indi-
+cating  that  there  are  more  open  shorting  flows  for  stocks  with  lower 
+borrower concentration. Similar patterns also hold for shorting flows at 
+midday and close, suggesting more shorting flows for stocks with more 
+competitions.
+
+For  the  second  step,  we  interact  intraday  shorting  flows  with 
+borrower concentration dummies and examine how they affect shorts’ 
+predictive power for future returns, as follows: 
+
+Reti,t+k = b0t + b1tRSSit + b2tRSSit × DHighBCit + b
+
+’
+
+3tControlsit + ϵi,t+k
+
+(12) 
+
+The dummy variable, DHighBCit, takes a value of 1 if the firm’s BC is 
+higher than the cross-sectional median of BC, and zero otherwise. Co-
+efficient b1  captures short’s predictive power for future returns for firms 
+with  lower  borrower  concentration,  while  coefficient  b2  captures  the 
+additional  predictive  power  of  shorting  flows  for  firms  with  higher 
+borrower  concentration.  If  the  aggressive  trading  hypothesis  is  true, 
+then short’s predictive power is stronger for firms with more competi-
+tions (lower borrower concentration), and is weaker for firms with less 
+competitions  (higher  borrower  concentration).  That  is,  coefficient  b1 
+should be negative, while coefficient b2  should be positive.
+
+Estimation  results  are  reported  in  Table  5 Panel  C.  If  we  take 
+RSSOPEN as an example, the coefficient b1  is negative for both next day 
+and next 12 weeks, while coefficient b2  is positive for next day and next 
+12 weeks. These results are consistent with the aggressive trading hy-
+pothesis,  in  the  sense  that  RSSOPEN  negatively  predicts  future  short- 
+term  and  long-term  returns,  with  the  predictive  power  weaker  for 
+firms with lower competitions (higher borrow concentrations). Similar 
+patterns are observed for RSSMIDDLE and RSSCLOSE, both supporting 
+the aggressive trading hypothesis.
+
+To  summarize,  we  construct  a  proxy  for  competition  using  a 
+borrower concentration measure, which is lower when there are more 
+competitions in the securities lending market, and vice versa. We find 
+that  there  are  more  intraday  shorting  flows  for  stocks  with  more 
+competitive  securities  lending  market,  and  the  short-  and  long-term 
+predictive  power  of  all  intraday  shorting  flows  are  stronger  in  stocks 
+with lower borrower concentrations, or firms with more competitions, 
+which supports the aggressive informed trading hypothesis.
+
+D. Hu et al.                                                                                                                                                                                                                                      
+
+Journal of Financial Economics 172 (2025) 104148 
+
+Table 5 
+Borrower concentration of short sellers.
+This table presents the borrower concentration of short sellers. We obtain the daily borrower concentration from Markit, which measures the level of concentration of 
+borrower demand on the securities lending market by calculating the Herfindahl index based on the market share of different borrowers’ demand. To be specific, 
+assume stock i on day t, there are N borrowers borrow shares in, borrower n’s borrower share is s(i,t,n), and the total borrower shares are S(i,t) =
+s(i,t,n), then 
+
+∑
+
+N
+n=1
+
+the borrower concentration is measured as BC =
+
+∑
+N
+n=1
+
+]
+2
+
+[
+s(i, t, n)
+S(i, t)
+
+. This daily stock level variable is a value between 0 and 1. A very small number indicates a large 
+
+number of borrowers with low borrowed values and 1 indicates a single borrower with all the broker demand. Panel A presents the summary statistics of BC. We also 
+present the summary statistics of BC in low and high shorting fee firms, divided by the cross-sectional median. Panel B examines the intraday shorting flows and 
+contemporaneous daily borrower concentration, as specified by the following Fama-MacBeth (1973) regression:
+ʹ
+Shortingit = b0t + b1tBCit + b
+2tControlsit + ϵit .
+The control variables are the same as in Table 2, and we also control for previous day’s short selling to control the persistence. Panel C examines the return pre-
+dictability of intraday shorting flows after controlling borrower concentration, as specified by the following Fama-MacBeth (1973) regression:
+Reti,t+k = b0t + b1tRSSit + b2tRSSit × DHighBCit + b3t
+On each day, we group stocks into low and high borrower concentration (BC) groups by median, if BC is above the cross-sectional median, then DHighBCit  equals to 1, 
+and zero otherwise. The control variables are the same as in Table 2 and omitted from presentation. To account for potential serial correlation in the coefficients, the 
+standard errors of the time-series are adjusted using Newey-West (1987) with eight lags. The regression coefficients of Panel C are multiplied by 100 for presentation 
+purposes.
+
+ʹ
+Controlsit + ϵi,t+k.
+
+Panel A. Summary statistics of borrower concentration
+
+Mean
+
+Std
+
+P25
+
+P50
+
+P75
+
+Borrower concentration
+Borrower concentration for low shorting fee firms
+Borrower concentration for high shorting fee firms
+
+0.3028
+0.2901
+0.3196
+
+0.1907
+0.1735
+0.2095
+
+0.1692
+0.1680
+0.1709
+
+0.2437
+0.2395
+0.2503
+
+0.3729
+0.3574
+0.3983
+
+Panel B. Intraday shorting flows and daily borrower concentration
+
+Borrower Concentration
+Control
+Adj.R2
+
+I
+SSOPEN
+Coef.
+
+(cid:0) 0.0390
+Yes
+0.0579
+
+t-stat
+
+(cid:0) 50.79
+
+II
+SSMIDDLE
+Coef.
+
+(cid:0) 0.0401
+Yes
+0.0265
+
+t-stat
+
+(cid:0) 50.06
+
+III
+SSCLOSE
+Coef.
+
+(cid:0) 0.0710
+Yes
+0.0946
+
+t-stat
+
+(cid:0) 52.95
+
+Panel C. Predicting future returns using intraday shorting flows, interacted with high borrower concentration dummy
+
+I
+RSSOPEN
+
+Coef.
+
+t-stat
+
+II
+RSSOPEN 
+*DHighBC
+Coef.
+
+III
+RSSMIDDLE
+
+IV
+RSSMIDDLE*DHighBC
+
+V
+RSSCLOSE
+
+VI
+RSSCLOSE*DHighBC
+
+Coef.
+
+t-stat
+
+Coef.
+
+t- 
+stat
+
+Coef.
+
+t-stat
+
+Coef.
+
+t- 
+stat
+
+(cid:0) 0.0975
+
+(cid:0) 7.68
+
+0.0321
+
+3.59
+
+(cid:0) 0.0746
+
+(cid:0) 6.15
+
+0.0361
+
+4.12
+
+(cid:0) 0.0537
+
+(cid:0) 4.83
+
+0.0335
+
+(cid:0) 0.0440
+(cid:0) 0.0184
+(cid:0) 0.0245
+(cid:0) 0.0262
+(cid:0) 0.0307
+(cid:0) 0.0298
+(cid:0) 0.0303
+(cid:0) 0.0344
+(cid:0) 0.0364
+(cid:0) 0.0354
+
+(cid:0) 4.00
+(cid:0) 1.72
+(cid:0) 2.29
+(cid:0) 2.33
+(cid:0) 2.74
+(cid:0) 2.65
+(cid:0) 2.68
+(cid:0) 2.95
+(cid:0) 3.21
+(cid:0) 3.01
+
+0.0279
+0.0269
+0.0236
+0.0184
+0.0209
+0.0176
+0.0209
+0.0247
+0.0300
+0.0284
+
+3.44
+3.43
+3.07
+2.35
+2.67
+2.25
+2.54
+3.04
+3.74
+3.54
+
+(cid:0) 0.0385
+(cid:0) 0.0163
+(cid:0) 0.0247
+(cid:0) 0.0242
+(cid:0) 0.0267
+(cid:0) 0.0216
+(cid:0) 0.0254
+(cid:0) 0.0291
+(cid:0) 0.0272
+(cid:0) 0.0263
+
+(cid:0) 4.21
+(cid:0) 1.82
+(cid:0) 2.74
+(cid:0) 2.70
+(cid:0) 3.02
+(cid:0) 2.43
+(cid:0) 2.68
+(cid:0) 3.23
+(cid:0) 2.92
+(cid:0) 2.73
+
+0.0305
+0.0267
+0.0255
+0.0210
+0.0245
+0.0231
+0.0223
+0.0247
+0.0288
+0.0303
+
+3.90
+3.44
+3.33
+2.75
+3.29
+3.05
+2.81
+3.20
+3.64
+3.83
+
+(cid:0) 0.0226
+(cid:0) 0.0169
+(cid:0) 0.0175
+(cid:0) 0.0179
+(cid:0) 0.0182
+(cid:0) 0.0145
+(cid:0) 0.0135
+(cid:0) 0.0123
+(cid:0) 0.0133
+(cid:0) 0.0149
+
+(cid:0) 2.68
+(cid:0) 2.16
+(cid:0) 2.21
+(cid:0) 2.38
+(cid:0) 2.59
+(cid:0) 2.01
+(cid:0) 1.82
+(cid:0) 1.64
+(cid:0) 1.76
+(cid:0) 2.04
+
+0.0286
+0.0241
+0.0236
+0.0201
+0.0229
+0.0189
+0.0216
+0.0261
+0.0249
+0.0242
+
+(cid:0) 0.0368
+
+(cid:0) 3.04
+
+0.0258
+
+3.31
+
+(cid:0) 0.0251
+
+(cid:0) 2.50
+
+0.0307
+
+3.96
+
+(cid:0) 0.0090
+
+(cid:0) 1.09
+
+0.0253
+
+(cid:0) 0.0258
+
+(cid:0) 2.15
+
+0.0286
+
+3.57
+
+(cid:0) 0.0300
+
+(cid:0) 3.16
+
+0.0280
+
+3.59
+
+(cid:0) 0.0188
+
+(cid:0) 2.36
+
+0.0286
+
+t- 
+stat
+
+4.01
+
+3.94
+3.36
+3.34
+2.84
+3.20
+2.53
+2.97
+3.64
+3.40
+3.29
+
+3.40
+
+3.92
+
+Next 
+day
+Week 1
+Week 2
+Week 3
+Week 4
+Week 5
+Week 6
+Week 7
+Week 8
+Week 9
+Week 
+10
+Week 
+11
+Week 
+12
+
+4.5. The liquidity timing hypothesis
+
+4.5.1. The liquidity timing hypothesis in the cross section
+
+In this subsection, we investigate whether informed short sellers vary 
+their trading decisions according to liquidity and noise trading condi-
+tions, as proposed by Collin-Dufresne and Fos (2016). We first construct 
+multiple proxies for the intraday liquidity and noise trading conditions.
+For  intraday  liquidity,  we  use  two  commonly-used  stock  liquidity 
+measures: the effective spread (ES), and the lambda (LA). For a given 
+stock i and day t, the effective spread for trade m is measured as ESitm  =
+2 ×BuySellm(Pitm(cid:0) Mitm)
+, where Pitm  is the price of the m-th trade of stock i on 
+Mitm
+day t, Mitm  is the midpoint of the consolidated BBO (best bid and offer) 
+prevailing at the time of the m-th trade of stock i on day t, and BuySellm is 
+
+15 
+
+the buy-sell indicator (+1 for buys, (cid:0) 1 for sells). We then compute the 
+intraday effective spreads (ESOPENit, ESMIDDLEit  and ESCLOSEit) as the 
+share-weighted  average  of  the  ESitm  of  all  trades  for  the  stock  over 
+respective  time  intervals.  Higher  effective  spreads  indicate  lower 
+liquidity.
+
+The lambda is designed to capture the adverse selection costs, which 
+is the cost of demanding a certain amount of liquidity over a given time 
+period.  We  follow  Hasbrouck  (2009) and  Goyenko,  Holden,  Trzcinka 
+(2009) and  calculate the slope  coefficient  λit  in the regression  retith =
+δith + λitSith + ϵith, where retith  is the h-th five-minute period on day t and 
+stock  i,  and  Sith  is  the  sum  of  the  signed  square-root  dollar  volume, 
+BuySellitm
+, over all transactions in that five minute interval. 
+The intraday lambdas (LAOPENit, LAMIDDLEit  and LACLOSEit) are the 
+slope estimates for corresponding time intervals. The lambda captures 
+
+̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅
+DollarVolitm
+
+√
+
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+D. Hu et al.                                                                                                                                                                                                                                      
+
+Journal of Financial Economics 172 (2025) 104148 
+
+illiquidity from the perspective of return-volume relation, and a higher 
+lambda indicates lower liquidity.
+
+Many  prior  studies,  such  as  Collin-Dufresne  and  Fos  (2015) and 
+Kacperczyk  and  Pagnotta  (2019),  argue  that  retail  investors  are  less 
+informed than institutional investors and short sellers, and are natural 
+candidates  for  noise  traders.  We  first  identify  retail  order  flows  and 
+compute the retail proxy for intraday noise trading using Boehmer et al. 
+(2021) algorithm and the Barber et al. (2024) modification. To be spe-
+cific,  for  stock  i  on  day  t,  the  intraday  retail  measures  (NoiseOPENit, 
+NoiseMIDDLEit  and NoiseCLOSEit) are defined as retail buys volume plus 
+sells  volume  scaled  by  total  trading  volume  for  each  corresponding 
+intraday  intervals.  Previous  literature  argues  that  higher  retail  order 
+flows suggest higher level of noise trading.23
+
+We present the summary statistics of the liquidity and noise trading 
+measures in Panel A of Table 6. For intraday effective spread, its sample 
+average for the open, middle and close buckets are 70 bps, 33 bps and 31 
+bps, respectively, indicating that the liquidity conditions are the worst 
+during  the  open.  We  observe  similar  patterns  for  intraday  lambda 
+measures. As for the intraday noise trading, the open, middle and close 
+retail  trading  account  for  3.33  %,  2.83  %,  and  3.06  %  of  stock  daily 
+trading volume, respectively, suggesting that noise traders trade more 
+during the open period than the rest of the day.
+
+We take two steps to examine the liquidity timing hypothesis. First, 
+we study whether the intraday shorting flows are correlated with the 
+contemporaneous liquidity and noise trading conditions, by estimating 
+the following Fama-MacBeth (1973) regression: 
+/
+’
+Noiseit + b
+
+Shortingit = b0t + b1tLIQit
+
+2tControlsit + ϵit
+
+(13) 
+
+Here  the  dependent  shorting  variables  Shortingit  is  the  intraday 
+shorting flows defined in Eq. (2). The independent variables are liquidity 
+and noise measures ESit, LAit, and Noiseit, in the same time interval of the 
+shorting variables. Besides the control variables in the baseline specifi-
+cation as in Eq. (3), we also include the previous day’s Shortingi,t(cid:0) 1  to 
+control  for  the  persistence  of  short  selling.  If  the  liquidity  timing  hy-
+pothesis is true, short sellers should trade more for stocks with better 
+liquidity conditions and stocks with more noise trading, which indicates 
+a negative coefficient for illiquidity measures, and a positive coefficient 
+for noise trading.
+
+We present the estimation results in Table 6. For the effective spreads 
+in Panel B, the coefficient for SSOPEN is (cid:0) 0.4481, with a significant t- 
+statistic  of  (cid:0) 22.37. The finding  suggests that there are  more opening 
+shorting flows for stocks with better liquidity, which is consistent with 
+the liquidity timing hypothesis. However, the coefficient for SSMIDDLE 
+is positive and significant, suggesting that there are more shorting flows 
+in the midday for illiquid stocks, which is at odds with liquidity timing 
+hypothesis. The coefficient for SSCLOSE is insignificant. From Panel C 
+using  lambdas,  the  coefficients  on  SSOPEN  and  SSCLOSE  are  both 
+negative  and  significant,  supporting  the  liquidity  timing  hypothesis, 
+while the coefficient on SSMIDDLE is positive and significant. For the 
+noise trading results in Panel D, all coefficients are positive and signif-
+icant, implying there are more shorting flows for stocks with more noise 
+trading,  despite  of  trading  time,  which  supports  the  liquidity  timing 
+hypothesis.
+
+For the second step, we study how the informativeness of intraday 
+shorting  flows  varies  with  retail  trading  and  liquidity  conditions  by 
+interacting the liquidity and noise trading measures with the intraday 
+short sales as follows: 
+
+23 Boehmer  et  al. (2021) actually  find that  retail  order  flows positively  and 
+significantly  predict  future  short-  and  long-run  returns,  which  suggests  that 
+retail investors might not all be noise traders. The separation of retail investors 
+between informed and noise traders is beyond the scope of this study. Here we 
+follow  the  logic  from  Collin-Dufresne  and  Fos  (2015),  and  Kacperczyk  and 
+Pagnotta (2019) to be comparable.
+
+16 
+
+Table 6 
+Intraday shorting flows, intraday stock liquidity, and noise trading.
+This  table  examines  the  trading  dynamics  of  the  intraday  shorting  flows, 
+intraday  stock  liquidity  and  noise  trading.  For  liquidity  measures,  effective 
+spread is the share-weighted effective spread, and lambda is the slope coefficient 
+of  retith = δit + λitSith + ϵith.  ESOPEN  (ESMIDDLE/ESCLOSE)  is  the  effective 
+spread calculated over the first two hours of the trading day (middle 2.5 h/last 
+two hours). LAOPEN (LAMIDDLE/LACLOSE) is the lambda estimated over the 
+first  two  hours  of  the  trading  day  (middle  2.5  h/last  two  hours).  Liquidity 
+measures are 1 % and 99 % winsorized. We use retail trading to proxy for noise 
+trading and identify the retail buy and sell volumes following the Boehmer et al. 
+(2021) algorithm,  modified  by  Barber  et  al.  (2024).  The  NoiseOPEN  (Noise-
+MIDDLE/NoiseCLOSE) are the retail buy volumes plus retail sell volumes over 
+the first two hours of the trading day (middle 2.5 h/last two hours) divided by 
+the daily stock total trading volumes. Panel A presents the summary statistics of 
+intraday liquidity and noise trading measures. Panel B to Panel D present the 
+trading  dynamics  of  intraday  shorting  flows  and  contemporaneous  intraday 
+illiquidity and noise trading, as specified in the following Fama-MacBeth (1973)
+equation,
+ʹ
+Shortingit = b0t + b1tLIQ/Noiseit + b
+2tControlsit + ϵit ,
+The control variables are the same as in Table 2 and omitted from presentation. 
+We also control for previous day t-1 SSOPEN (SSMIDDLE/SSCLOSE) to control 
+the persistence of shorting flows. To account for potential serial correlation in 
+the coefficients, the standard errors of the time-series are adjusted using New-
+ey-West (1987) with eight lags.
+
+Panel A. Intraday patterns of liquidity and noise trading measures
+
+Mean
+
+Std
+
+P25
+
+P50
+
+P75
+
+ESOPEN
+ESMIDDLE
+ESCLOSE
+LAOPEN
+LAMIDDLE
+LACLOSE
+NoiseOPEN
+NoiseMIDDLE
+NoiseECLOSE
+
+0.0070
+0.0033
+0.0031
+0.0578
+0.0286
+0.0204
+0.0333
+0.0283
+0.0306
+
+0.0128
+0.0059
+0.0057
+0.1547
+0.0649
+0.0547
+0.0547
+0.0483
+0.0486
+
+0.0010
+0.0005
+0.0004
+0.0034
+0.0025
+0.0012
+0.0076
+0.0075
+0.0099
+
+0.0025
+0.0012
+0.0010
+0.0148
+0.0095
+0.0048
+0.0160
+0.0145
+0.0175
+
+0.0069
+0.0033
+0.0030
+0.0523
+0.0301
+0.0175
+0.0343
+0.0284
+0.0310
+
+Panel B. Intraday shorting flows from CBOE and contemporaneous intraday liquidity 
+proxied by effective spread
+
+I
+SSOPEN
+Coef.
+
+t-stat
+
+II
+SSMIDDLE
+Coef.
+
+t-stat
+
+III
+SSCLOSE
+Coef.
+
+(cid:0) 0.4481
+
+(cid:0) 22.37
+
+0.6499
+
+13.12
+
+Yes
+0.0558
+
+Yes
+0.0243
+
+0.0172
+Yes
+0.0883
+
+t-stat
+
+0.24
+
+ESOPEN
+ESMIDDLE
+ESCLOSE
+Control
+Adj.R2
+
+Panel C. Intraday shorting flows from CBOE and contemporaneous intraday liquidity 
+proxied by lambda
+
+I
+SSOPEN
+Coef.
+
+t-stat
+
+II
+SSMIDDLE
+Coef.
+
+t-stat
+
+III
+SSCLOSE
+Coef.
+
+t-stat
+
+LAOPEN
+LAMIDDLE
+LACLOSE
+Control
+Adj.R2
+
+(cid:0) 0.0213
+
+(cid:0) 18.74
+
+0.0267
+
+8.79
+
+Yes
+0.0748
+
+Yes
+0.0358
+
+(cid:0) 19.02
+
+(cid:0) 0.0557
+Yes
+0.1188
+
+Panel D. Intraday shorting flows from CBOE and contemporaneous intraday noise 
+trading proxied by retail trading identified from Barber et al. (2024)
+
+I
+SSOPEN
+Coef.
+
+t-stat
+
+II
+SSMIDDLE
+Coef.
+
+t-stat
+
+III
+SSCLOSE
+Coef.
+
+0.5193
+
+84.19
+
+0.4126
+
+66.19
+
+Yes
+0.1055
+
+Yes
+0.0525
+
+0.2603
+Yes
+0.0990
+
+t-stat
+
+43.43
+
+NoiseOPEN
+NoiseMIDDLE
+NoiseCLOSE
+Control
+Adj.R2
+
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+D. Hu et al.                                                                                                                                                                                                                                      
+
+Journal of Financial Economics 172 (2025) 104148 
+
+Reti,t+k = b0t + b1tRSSit + b2tRSSit × (LIQit/Noiseit)
+ʹ
+it + ϵi,t+k
++b3tControls
+
+(14) 
+
+If informed short sellers time the liquidity, then the coefficient b2  for 
+firm illiquidity measures interact with shorting flows’ predictive power 
+should be positive, and the coefficient b2 for firm noise trading measures 
+interact with shorting flows’ predictive power should be negative.
+
+The  estimation  results  are  provided  in  Table  7.  Panel  A  provides 
+results  on  interaction  of  shorting  flows  and  effective  spread.  Take 
+RSSOPEN as an example, the coefficient b2 is positive and significant for 
+predicting the next day return. The positive coefficient on the interac-
+tion term indicates that open shorting flows’ predictive power for next 
+day  return  is  stronger  for  stocks  with  lower  effective  spreads  (higher 
+liquidity).  Relating  to  the  liquidity  timing  hypothesis,  the  informed 
+short-sellers might prefer to trade in stocks with better liquidity condi-
+tions, and their shorts contain more information about future returns. 
+Similar patterns are observed for RSSMIDDLE and RSSCLOSE, support-
+ing the liquidity timing hypothesis. For long-term predictions, the co-
+efficients  on  the  interactive  terms  are  all  positive  but  mostly 
+insignificant.  Results  are  similar  but  weaker  when  interacting  with 
+lambda in Panel B, and when interacting with noise trading in Panel C.
+To summarize, we find strong evidence that shorts near the open are 
+negatively correlated with illiquidity measures and positively correlated 
+with noise trading measures, supporting the liquidity timing hypothesis 
+in  Collin-Dufresne  and  Fos  (2016).  The  high  liquidity  and  high  noise 
+trading  conditions  strengthen  the  opening  shorting  flows’  predictive 
+power for future returns, but the effects are weaker for midday and close 
+shorting flows.
+
+4.5.2. Exogenous liquidity shocks: the tick size pilot program
+
+In the previous subsection, we estimate the contemporaneous rela-
+tion between liquidity conditions and shorting flows to test the liquidity 
+timing hypothesis. One concern for this approach is that the liquidity 
+measures  and  the  shorting  flows  happen  at  the  same  time,  and  their 
+relation can be endogenous. Therefore, in this subsection, we leverage 
+on the tick size pilot program (TSP) to further examine how intraday 
+shorting  flows respond  to exogenous  changes in  the  liquidity level  of 
+pilot stocks.
+
+The SEC launched the TSP program on October 3, 2016, and termi-
+nated it on September 30, 2018. The regulation change provides a nat-
+ural experiment for investigating the effects of tick sizes on liquidity, 
+intraday shorting flows and their predictive power for future returns. We 
+obtain the list of the TSP pilot stocks from the FINRA website. The TSP 
+program divided stocks into three test groups and one control group. All 
+stocks in the three test groups are subject to the Quote (Q) rule (quoted 
+in $0.05 increments) and the stocks in the control group are quoted and 
+traded in $0.01 increments or smaller. We adopt the filters in Chung, 
+Lee, and Rosch (2020), and obtain the names of 986 pilot stocks and 987 
+control stocks.
+
+We first examine whether the TSP brings significant changes in the 
+intraday  liquidity  and  noise  trading  for  the  pilot  stocks,  as  in  the 
+following diff-in-diff regression: 
+
+LIQit = b0 + b1Piloti × TSPt + b2Piloti + b3TSPt + b
+
+’
+
+4Controlsit + ϵit
+
+(15) 
+
+Here the LIQit  represents the intraday effective spreads and lambda, 
+and  we  later  replace  it  with  Noiseit  or  shorting  flows  Shortingit.  Firm 
+variable Piloti is equal to one for the test stocks, and zero otherwise. Time 
+variable TSPt  is equal to one between October 3 of 2016 and September 
+30 of 2018, and zero otherwise. The control variables are the same as in 
+Table 2. We also control for previous day liquidity, noise trading, and 
+shorting variables to control for potential persistence in these measures. 
+Standard errors are clustered by both firm and day. Given that the tick 
+size becomes larger for pilot firms during the TSP period, if larger tick 
+size hurts the liquidity of the pilot firms, the coefficient of b1  should be 
+positive  for  illiquidity  measures.  If  the  retail  investors  reduce  their 
+trading  because  of  higher  tick  size,  the  coefficient  of  b1  should  be 
+
+negative for noise trading measures. If the liquidity timing hypothesis is 
+true that short-sellers prefer to trade when liquidity is high and when 
+there is more noise trading, and if liquidity worsens and noise trading 
+drops  during  TSP,  then  the  coefficient  of  b1  should  be  negative  for 
+shorting flows.
+
+Table 8 presents the estimation results for the diff-in-diff analysis. 
+For brevity, we only report the b1 coefficient on the interaction terms. In 
+Panel  A,  the  b1  coefficient  is  0.0009  (t-stat  = 5.63)  for  the  effective 
+spread measure, suggesting that the effective spread near the open in-
+creases by 0.0009 for the pilot stocks. The b1 coefficients for midday and 
+close  effective  spreads  are  also  positive  and  highly  significant.  We 
+observe  similar  results  for  lambda  measures.  All  the  above  empirical 
+results  suggest  that  the  liquidity  conditions  are  significantly  worse 
+during the TSP period for the pilot stocks. Regarding the results for noise 
+trading in Table 8 Panel B, the b1  coefficient for open, middle and close 
+periods are all negative and significant, suggesting that the noise trading 
+significantly decreases throughout the day for pilot stocks over the TSP 
+period.
+
+Table  8 Panel  C  presents  the  results  for  intraday  shorting.  The  b1 
+coefficient for SSOPEN is (cid:0) 0.0061 (t-stat = (cid:0) 6.07), the midday shorting 
+flows is (cid:0) 0.0022 (t-stat = (cid:0) 2.54), and for close is 0.0212 (t-stat =15.32). 
+These results imply that short sales near the open and midday signifi-
+cantly decrease for pilot stocks over the TSP period, which supports the 
+liquidity  timing  hypothesis  in  the  sense  that  shorting  flows  likely 
+decrease for pilot stocks over TSP because the liquidity and noise trading 
+conditions significantly deteriorate for these stocks over this period. In 
+contrast,  closing  short  selling  significantly  increases  when  liquidity 
+conditions become worse for pilot stocks over TSP period. This result, 
+combined with the fact that closing shorts are not predictive of future 
+returns beyond one day, is consistent with shorting near the close is less 
+likely to be driven by information and maybe related to liquidity pro-
+visions.  Thus,  the  higher  the  spread  is,  the  greater  the  closing  short 
+selling is.
+
+We then examine whether and how the return predictive power of 
+intraday shorting flows varies between the TSP and non-TSP periods. For 
+each  day  t,  we  estimate  the  cross-sectional  regression  of  Eq.  (3),  and 
+obtain the time series of coefficients b1t. We then compare the average of 
+b1t  over the TSP period and the non-TSP period, with the standard errors 
+estimated using Newey-West (1987) standard errors with eight lags. If 
+the  liquidity  timing  hypothesis  is  true,  then  the  predictive  power  of 
+shorting  flows  should  be  higher  during  non-TSP  period  than  the  TSP 
+period.
+
+Our results in Table 8 Panel D show that during the TSP period when 
+liquidity  condition  is  worse,  the  next  day  return  predictive  power  of 
+opening short flow  decreases and  the difference  in  the coefficients  of 
+RSSOPEN  between  the  TSP  period  and  non-TSP  period  is  statistically 
+significant at 1 % (t-stat = (cid:0) 5.31), supporting the liquidity timing hy-
+pothesis. However, the predictive power of midday and closing shorting 
+flows actually increases, but not statistically significant.
+
+To summarize, we find supportive evidence for the liquidity timing 
+hypothesis  in  the  sense  that  opening  shorting  flows  are  higher  when 
+liquidity is better and where this is more noise trading. We also study the 
+TSP program, which exogenously deteriorates liquidity conditions for 
+pilot stocks, and find that open shorting flows are significantly lower for 
+pilot stocks during TSP period, and its predictive power becomes weaker 
+during TSP period, both supporting the liquidity timing hypothesis from 
+Collin-Dufresne and Fos (2016).
+
+4.6. Further evidence on aggressive trading hypothesis and liquidity timing 
+hypothesis
+
+So far, our evidence suggests that the aggressive trading hypothesis 
+and  liquidity  timing  hypothesis  can  both  be  consistent  with  varying 
+(rather than steady) return predictive power of shorting over different 
+intraday intervals. We seek to further differentiate between these two 
+hypotheses in this section. In the previous sections, we mainly test the 
+
+17 
+
+D. Hu et al.                                                                                                                                                                                                                                      
+
+Journal of Financial Economics 172 (2025) 104148 
+
+Table 7 
+Predicting future returns using intraday shorting flows from CBOE interacted with intraday stock liquidity, and noise trading.
+This table examines the return predictability of the intraday shorting flows, interacted with intraday stock liquidity and noise trading. For liquidity measures, effective 
+spread is the share-weighted effective spread, and lambda is the slope coefficient of retith = δit + λit Sith + ϵith. ESOPEN (ESMIDDLE/ESCLOSE) is the effective spread 
+calculated over the first two hours of the trading day (middle 2.5 h/last two hours). LAOPEN (LAMIDDLE/LACLOSE) is the lambda estimated over the first two hours of 
+the trading day (middle 2.5 h/last two hours). Liquidity measures are 1 % and 99 % winsorized. We use retail trading to proxy for noise trading and identify the retail 
+buy and sell volumes following the Boehmer et al. (2021) algorithm, modified by Barber et al. (2024). The NoiseOPEN (NoiseMIDDLE/NoiseCLOSE) are the retail buy 
+volumes plus retail sell volumes over the first two hours of the trading day (middle 2.5 h/last two hours) divided by the daily stock total trading volumes. Panel A to 
+Panel C examine the return predictability of intraday shorting flows, interacted with intraday liquidity and noise trading as specified in the following Fama-MacBeth 
+(1973) regression
+Reti,t+k = b0t + b1tRSSit + b2tRSSit × (LIQit /Noiseit ) + b3tControls’
+it
+The control variables are the same as in Table 2 and omitted from presentation. To account for potential serial correlation in the coefficients, the standard errors of the 
+time-series are adjusted using Newey-West (1987) with eight lags. The regression coefficients of ranking shorting variables are multiplied by 100 for presentation 
+purposes.
+
++ ϵi,t+k,
+
+Panel A. Predicting future returns using intraday shorting flows, interacted with intraday liquidity proxied by effective spread
+
+I
+RSSOPEN
+
+Coef.
+
+t-stat
+
+II
+RSSOPEN 
+*ESOPEN
+Coef.
+
+III
+RSS 
+MIDDLE
+Coef.
+
+IV
+RSSMIDDLE 
+*ESMIDDLE
+Coef.
+
+t-stat
+
+t- 
+stat
+
+V
+RSSCLOSE
+
+Coef.
+
+t-stat
+
+t- 
+stat
+
+VI
+RSSCLOSE 
+*ESCLOSE
+Coef.
+
+(cid:0) 0.0949
+
+(cid:0) 7.03
+
+1.5123
+
+2.09
+
+(cid:0) 0.0802
+
+(cid:0) 6.39
+
+4.7212
+
+3.63
+
+(cid:0) 0.0586
+
+(cid:0) 4.70
+
+4.0635
+
+(cid:0) 0.0355
+(cid:0) 0.0103
+(cid:0) 0.0188
+(cid:0) 0.0201
+(cid:0) 0.0266
+(cid:0) 0.0291
+(cid:0) 0.0250
+(cid:0) 0.0301
+(cid:0) 0.0309
+(cid:0) 0.0313
+
+(cid:0) 3.21
+(cid:0) 0.96
+(cid:0) 1.73
+(cid:0) 1.80
+(cid:0) 2.36
+(cid:0) 2.60
+(cid:0) 2.23
+(cid:0) 2.57
+(cid:0) 2.72
+(cid:0) 2.60
+
+0.6746
+0.5928
+0.6009
+0.2826
+0.5513
+0.9135
+0.5348
+0.8865
+1.0683
+1.0716
+
+1.43
+1.27
+1.24
+0.63
+1.13
+1.93
+1.10
+1.79
+2.06
+1.88
+
+(cid:0) 0.0294
+(cid:0) 0.0101
+(cid:0) 0.0182
+(cid:0) 0.0175
+(cid:0) 0.0203
+(cid:0) 0.0171
+(cid:0) 0.0209
+(cid:0) 0.0245
+(cid:0) 0.0230
+(cid:0) 0.0230
+
+(cid:0) 3.00
+(cid:0) 1.08
+(cid:0) 1.88
+(cid:0) 1.82
+(cid:0) 2.23
+(cid:0) 1.86
+(cid:0) 2.17
+(cid:0) 2.58
+(cid:0) 2.32
+(cid:0) 2.16
+
+1.2317
+1.3522
+1.1357
+0.9222
+1.1739
+1.3690
+1.3903
+1.5722
+2.0057
+2.4201
+
+1.26
+1.35
+1.18
+0.92
+1.14
+1.36
+1.41
+1.61
+1.82
+2.07
+
+(cid:0) 0.0154
+(cid:0) 0.0100
+(cid:0) 0.0094
+(cid:0) 0.0130
+(cid:0) 0.0120
+(cid:0) 0.0114
+(cid:0) 0.0112
+(cid:0) 0.0118
+(cid:0) 0.0093
+(cid:0) 0.0088
+
+(cid:0) 1.61
+(cid:0) 1.06
+(cid:0) 0.99
+(cid:0) 1.43
+(cid:0) 1.42
+(cid:0) 1.31
+(cid:0) 1.24
+(cid:0) 1.31
+(cid:0) 1.00
+(cid:0) 0.97
+
+1.1421
+0.7255
+0.4675
+0.8701
+1.0951
+1.1184
+1.6035
+2.4620
+1.7283
+1.5633
+
+(cid:0) 0.0365
+
+(cid:0) 2.92
+
+1.5083
+
+2.73
+
+(cid:0) 0.0240
+
+(cid:0) 2.25
+
+2.9024
+
+2.55
+
+(cid:0) 0.0087
+
+(cid:0) 0.91
+
+2.6687
+
+(cid:0) 0.0260
+
+(cid:0) 2.10
+
+1.6490
+
+2.94
+
+(cid:0) 0.0287
+
+(cid:0) 2.70
+
+2.5323
+
+2.06
+
+(cid:0) 0.0156
+
+(cid:0) 1.62
+
+2.2613
+
+Next 
+Day
+Week 1
+Week 2
+Week 3
+Week 4
+Week 5
+Week 6
+Week 7
+Week 8
+Week 9
+Week 
+10
+Week 
+11
+Week 
+12
+
+Panel B. Predicting future returns using intraday shorting flows, interacted with intraday liquidity proxied by lambda
+
+I
+RSSOPEN
+
+Coef.
+
+(cid:0) 0.1027
+
+(cid:0) 0.0347
+(cid:0) 0.0084
+(cid:0) 0.0166
+(cid:0) 0.0163
+(cid:0) 0.0234
+(cid:0) 0.0242
+(cid:0) 0.0205
+(cid:0) 0.0238
+(cid:0) 0.0250
+(cid:0) 0.0193
+
+II
+RSSOPEN 
+*LAOPEN
+Coef.
+
+0.0004
+
+0.0000
+0.0003
+0.0002
+(cid:0) 0.0001
+0.0001
+0.0001
+0.0000
+0.0001
+0.0002
+0.0000
+
+t-stat
+
+(cid:0) 9.80
+
+(cid:0) 4.29
+(cid:0) 1.04
+(cid:0) 2.03
+(cid:0) 1.84
+(cid:0) 2.79
+(cid:0) 2.96
+(cid:0) 2.47
+(cid:0) 2.64
+(cid:0) 2.99
+(cid:0) 2.19
+
+(cid:0) 0.0212
+
+(cid:0) 2.34
+
+0.0001
+
+(cid:0) 0.0124
+
+(cid:0) 1.35
+
+0.0002
+
+Next 
+Day
+Week 1
+Week 2
+Week 3
+Week 4
+Week 5
+Week 6
+Week 7
+Week 8
+Week 9
+Week 
+10
+Week 
+11
+Week 
+12
+
+III
+RSSMIDDLE
+
+t-stat
+
+Coef.
+
+0.99
+
+(cid:0) 0.0772
+
+(cid:0) 0.0293
+(cid:0) 0.0032
+(cid:0) 0.0140
+(cid:0) 0.0118
+(cid:0) 0.0135
+(cid:0) 0.0078
+(cid:0) 0.0121
+(cid:0) 0.0160
+(cid:0) 0.0074
+(cid:0) 0.0104
+
+(cid:0) 0.17
+0.85
+0.74
+(cid:0) 0.49
+0.32
+0.22
+0.11
+0.18
+0.67
+(cid:0) 0.12
+
+0.50
+
+0.74
+
+IV
+RSSMIDDLE 
+*LAMIDDLE
+Coef.
+
+0.0011
+
+0.0001
+(cid:0) 0.0001
+0.0006
+(cid:0) 0.0001
+0.0004
+(cid:0) 0.0007
+(cid:0) 0.0011
+0.0002
+(cid:0) 0.0009
+0.0000
+
+t-stat
+
+(cid:0) 7.47
+
+(cid:0) 4.66
+(cid:0) 0.54
+(cid:0) 2.23
+(cid:0) 1.96
+(cid:0) 2.49
+(cid:0) 1.35
+(cid:0) 1.94
+(cid:0) 2.67
+(cid:0) 1.22
+(cid:0) 1.75
+
+V
+RSSCLOSE
+
+t-stat
+
+Coef.
+
+1.06
+
+(cid:0) 0.0456
+
+0.21
+(cid:0) 0.22
+0.87
+(cid:0) 0.25
+0.51
+(cid:0) 1.09
+(cid:0) 1.79
+0.39
+(cid:0) 1.45
+(cid:0) 0.02
+
+(cid:0) 0.0103
+(cid:0) 0.0052
+(cid:0) 0.0065
+(cid:0) 0.0059
+(cid:0) 0.0063
+(cid:0) 0.0057
+(cid:0) 0.0003
+0.0015
+0.0028
+0.0015
+
+VI
+RSSCLOSE 
+*LACLOSE
+Coef.
+
+0.0005
+
+(cid:0) 0.0002
+(cid:0) 0.0010
+0.0008
+(cid:0) 0.0014
+(cid:0) 0.0003
+(cid:0) 0.0001
+(cid:0) 0.0007
+(cid:0) 0.0010
+(cid:0) 0.0014
+0.0001
+
+t-stat
+
+(cid:0) 4.17
+
+(cid:0) 1.25
+(cid:0) 0.66
+(cid:0) 0.81
+(cid:0) 0.74
+(cid:0) 0.85
+(cid:0) 0.74
+(cid:0) 0.04
+0.19
+0.36
+0.20
+
+(cid:0) 0.0080
+
+(cid:0) 1.20
+
+(cid:0) 0.0005
+
+(cid:0) 0.79
+
+0.0060
+
+0.71
+
+(cid:0) 0.0007
+
+(cid:0) 0.0161
+
+(cid:0) 2.49
+
+(cid:0) 0.0004
+
+(cid:0) 0.77
+
+(cid:0) 0.0039
+
+(cid:0) 0.46
+
+(cid:0) 0.0003
+
+Panel C. Predicting future returns using intraday shorting flows, interacted with intraday noise trading proxied by retail trading identified from Barber et al. (2024)
+
+I
+RSSOPEN
+
+Coef.
+
+t-stat
+
+II
+RSSOPEN 
+*NoiseOPEN
+Coef.
+
+III
+RSSMIDDLE
+
+t-stat
+
+Coef.
+
+(cid:0) 0.0655
+
+(cid:0) 5.53
+
+(cid:0) 0.2426
+
+(cid:0) 2.10
+
+(cid:0) 0.0745
+
+(cid:0) 0.0216
+(cid:0) 0.0035
+(cid:0) 0.0126
+(cid:0) 0.0144
+(cid:0) 0.0211
+(cid:0) 0.0164
+
+(cid:0) 2.48
+(cid:0) 0.39
+(cid:0) 1.43
+(cid:0) 1.58
+(cid:0) 2.24
+(cid:0) 1.75
+
+(cid:0) 0.1401
+(cid:0) 0.0384
+0.0008
+(cid:0) 0.0512
+(cid:0) 0.0191
+(cid:0) 0.0753
+
+(cid:0) 1.97
+(cid:0) 0.50
+0.01
+(cid:0) 0.71
+(cid:0) 0.24
+(cid:0) 1.07
+
+(cid:0) 0.0271
+(cid:0) 0.0036
+(cid:0) 0.0125
+(cid:0) 0.0162
+(cid:0) 0.0138
+(cid:0) 0.0101
+
+IV
+RSSMIDDLE 
+*NoiseMIDDLE
+Coef.
+
+0.3348
+
+0.0641
+0.0147
+0.0112
+0.0524
+(cid:0) 0.0186
+(cid:0) 0.0131
+
+t-stat
+
+(cid:0) 6.47
+
+(cid:0) 3.45
+(cid:0) 0.46
+(cid:0) 1.57
+(cid:0) 2.10
+(cid:0) 1.90
+(cid:0) 1.34
+
+Next 
+Day
+Week 1
+Week 2
+Week 3
+Week 4
+Week 5
+Week 6
+
+V
+RSSCLOSE
+
+t-stat
+
+Coef.
+
+3.13
+
+(cid:0) 0.0482
+
+0.94
+0.20
+0.16
+0.76
+(cid:0) 0.25
+(cid:0) 0.18
+
+(cid:0) 0.0119
+(cid:0) 0.0053
+(cid:0) 0.0085
+(cid:0) 0.0107
+(cid:0) 0.0103
+(cid:0) 0.0071
+
+t-stat
+
+(cid:0) 4.15
+
+(cid:0) 1.35
+(cid:0) 0.62
+(cid:0) 0.99
+(cid:0) 1.29
+(cid:0) 1.29
+(cid:0) 0.87
+
+VI
+RSSCLOSE 
+*NoiseCLOSE
+Coef.
+
+0.1571
+
+0.0190
+(cid:0) 0.0267
+0.0290
+0.0242
+0.0631
+(cid:0) 0.0077
+
+t- 
+stat
+
+2.85
+
+1.22
+0.76
+0.50
+0.89
+1.16
+1.18
+1.70
+2.54
+1.77
+1.50
+
+2.34
+
+2.13
+
+t-stat
+
+0.46
+
+(cid:0) 0.27
+(cid:0) 1.36
+1.05
+(cid:0) 2.11
+(cid:0) 0.45
+(cid:0) 0.12
+(cid:0) 1.09
+(cid:0) 1.34
+(cid:0) 2.07
+0.17
+
+(cid:0) 0.92
+
+(cid:0) 0.39
+
+t-stat
+
+1.62
+
+0.32
+(cid:0) 0.44
+0.45
+0.39
+0.91
+(cid:0) 0.11
+
+18 
+
+(continued on next page)
+
+D. Hu et al.                                                                                                                                                                                                                                      
+
+Journal of Financial Economics 172 (2025) 104148 
+
+Table 7 (continued )
+
+Panel C. Predicting future returns using intraday shorting flows, interacted with intraday noise trading proxied by retail trading identified from Barber et al. (2024)
+
+I  
+RSSOPEN  
+
+Coef. 
+
+(cid:0) 0.0117
+(cid:0) 0.0179
+(cid:0) 0.0181
+(cid:0) 0.0186
+
+t-stat 
+
+(cid:0) 1.28
+(cid:0) 1.88
+(cid:0) 1.92
+(cid:0) 1.85
+
+II  
+RSSOPEN 
+*NoiseOPEN  
+Coef. 
+
+(cid:0) 0.1516
+(cid:0) 0.0826
+(cid:0) 0.0570
+(cid:0) 0.0687
+
+III  
+RSSMIDDLE  
+
+t-stat 
+
+Coef. 
+
+(cid:0) 2.08
+(cid:0) 1.21
+(cid:0) 0.84
+(cid:0) 0.94
+
+(cid:0) 0.0160
+(cid:0) 0.0145
+(cid:0) 0.0115
+(cid:0) 0.0154
+
+t-stat 
+
+(cid:0) 1.94
+(cid:0) 1.85
+(cid:0) 1.48
+(cid:0) 1.81
+
+IV  
+RSSMIDDLE 
+*NoiseMIDDLE  
+Coef. 
+
+0.0444
+(cid:0) 0.0620
+(cid:0) 0.0407
+0.0829
+
+V  
+RSSCLOSE  
+
+t-stat 
+
+Coef. 
+
+0.59
+(cid:0) 0.91
+(cid:0) 0.57
+1.06
+
+(cid:0) 0.0021
+(cid:0) 0.0013
+(cid:0) 0.0033
+(cid:0) 0.0048
+
+t-stat 
+
+(cid:0) 0.24
+(cid:0) 0.16
+(cid:0) 0.39
+(cid:0) 0.59
+
+VI 
+RSSCLOSE 
+*NoiseCLOSE 
+Coef. 
+
+(cid:0) 0.0468
+(cid:0) 0.0139
+0.0119
+0.0132
+
+(cid:0) 0.0226
+
+(cid:0) 2.14
+
+(cid:0) 0.0246
+
+(cid:0) 0.35
+
+(cid:0) 0.0143
+
+(cid:0) 1.67
+
+0.0602
+
+0.89
+
+(cid:0) 0.0002
+
+(cid:0) 0.02
+
+0.0337
+
+(cid:0) 0.0142
+
+(cid:0) 1.37
+
+0.0252
+
+0.33
+
+(cid:0) 0.0170
+
+(cid:0) 2.06
+
+(cid:0) 0.0004
+
+(cid:0) 0.01
+
+(cid:0) 0.0071
+
+(cid:0) 0.78
+
+(cid:0) 0.0041
+
+t-stat
+
+(cid:0) 0.69
+(cid:0) 0.20
+0.18
+0.21
+
+0.48
+
+(cid:0) 0.06
+
+Week 7
+Week 8
+Week 9
+Week 
+10
+Week 
+11
+Week 
+12
+
+Table 8 
+Intraday shorting flows, price impact, and liquidity around tick size pilot.
+This table examines the intraday shorting flows and intraday stock liquidity during the Tick Size Pilot (TSP) period. The SEC launched the TSP program on October 3, 
+2016, and terminated it on September 30, 2018. The TSP program divided stocks into test groups and control group, and the test groups are all subjected to the Quote 
+rule (quoted in $0.05 increments). Panel A to Panel C examines the intraday liquidity around the TSP events as specified in the following panel regression:
+LIQit/Noiseit/Shortingit = b0 + b1Piloti × TSPt + b2Piloti + b3TSPt + b’
+LIQitrepresents the intraday liquidity measures effective spreads and lambda, Noiseit  represents the intraday noise trading, Shoringit  represents the intraday showing 
+flows. Firm variable Piloti  is equal to one for the test stocks, and zero otherwise. Time variable TSPt  is equal to one between October 3 of 2016 and September 30 of 
+2018, and zero otherwise. The control variables are the same as in Table 2. We also control for previous day t-1 variables to control the persistence of liquidity and 
+shorting flows. Standard errors are double clustered by both firm and day. Panel D report the Fama-MacBeth (1973) regression coefficients of the return prediction of 
+intraday shorting flows over the TSP period and other period, with the standard errors are estimated using Newey-West (1987) standard errors with eight lags.
+
+4Controlsit + ϵit,
+
+Panel A. Intraday stock liquidity around Tick Size Pilot
+
+ESOPEN
+Coef.
+
+0.0009
+Yes
+0.292
+
+t-stat
+
+5.63
+
+ESMIDDLE
+Coef.
+
+0.0008
+Yes
+0.514
+
+t-stat
+
+11.20
+
+Pilot*TSP
+Control
+Adj.R2
+
+Panel B. Intraday noise trading around Tick Size Pilot
+
+NoiseOPEN
+Coef.
+
+(cid:0) 0.0073
+Yes
+0.17
+
+t-stat
+
+(cid:0) 14.13
+
+NoiseMIDDLE
+Coef.
+
+(cid:0) 0.0059
+Yes
+0.144
+
+Pilot*TSP
+Control
+Adj.R2
+
+Panel C. Intraday shorting flows around Tick Size Pilot
+
+SSOPEN
+Coef.
+
+(cid:0) 0.0061
+Yes
+0.027
+
+t-stat
+
+(cid:0) 6.07
+
+SSMIDDLE
+Coef.
+
+(cid:0) 0.0022
+Yes
+0.015
+
+Pilot*TSP
+Control
+Adj.R2
+
+ESCLOSE
+Coef.
+
+0.0009
+Yes
+0.552
+
+t-stat
+
+(cid:0) 13.66
+
+t-stat
+
+(cid:0) 2.54
+
+t-stat
+
+11.68
+
+LAOPEN
+Coef.
+
+0.0129
+Yes
+0.010
+
+t-stat
+
+4.30
+
+LAMIDDLE
+Coef.
+
+0.0051
+Yes
+0.007
+
+t-stat
+
+5.61
+
+LACLOSE
+Coef.
+
+0.0038
+Yes
+0.005
+
+t-stat
+
+4.44
+
+NoiseCLOSE
+Coef.
+
+(cid:0) 0.0073
+Yes
+0.135
+
+t-stat
+
+(cid:0) 16.17
+
+SSCLOSE
+Coef.
+
+0.0212
+Yes
+0.091
+
+t-stat
+
+15.32
+
+Panel D. Predicting next day returns using intraday shorting flows in TSP and Non-TSP period
+
+Oct2016-Sep2018 (TSP period)
+NonTSP period
+
+RSSOPEN
+Coef.
+
+(cid:0) 0.0757
+(cid:0) 0.0862
+
+t-stat
+
+(cid:0) 4.93
+(cid:0) 6.20
+
+RSSMIDDLE
+Coef.
+
+(cid:0) 0.0697
+(cid:0) 0.0508
+
+t-stat
+
+(cid:0) 4.70
+(cid:0) 3.72
+
+RSSCLOSE
+Coef.
+
+(cid:0) 0.0616
+(cid:0) 0.0251
+
+t-stat
+
+(cid:0) 3.86
+(cid:0) 1.92
+
+two hypotheses using the cross-sectional analysis, which may not cap-
+ture the short sellers’ aggressive trading and liquidity timing behavior 
+across  different  days  around  a  firm  news  event.  In  this  section,  we 
+further  study  these  two  hypotheses  using  Ravenpack’s  negative  news 
+
+released on day 0, we include the 60 days before and 60 days after day 
+0 as the event period, and examine the dynamics of shorting flows in the 
+event window using the following specification:  
+
+Shortingitk = b0 + b1D
+
+(cid:0) 60,(cid:0) 21
+itk
+
++ b2D
+
+(cid:0) 20,(cid:0) 6
+itk
+
++ b3D
+
+(cid:0) 5,(cid:0) 1
+itk
+
++ b4D0
+itk
+
++ b5D1,5
+
+itk
+
+’
++ b
+
+6Controlsitk + ηk
+
++ ϵitk
+
+(16) 
+
+events, which provide an ideal situation to examine how short sellers 
+trade before and after public news releases.
+
+Following Collin-Dufresne and Fos (2015), for each negative news 
+
+Here D
+
+(cid:0) 60,(cid:0) 21
+itk 
+
+equals to one if firm i on day t is within the [(cid:0) 60, (cid:0) 21] 
+
+19 
+
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+D. Hu et al.                                                                                                                                                                                                                                      
+
+Journal of Financial Economics 172 (2025) 104148 
+
+Table 9 
+Intraday shorting flows and liquidity around RavenPack news events.
+This table examines the intraday shorting flows, and their relations with liquidity around Ravenpack News Events. Firm-level news is obtained from RavenPack and 
+negative news is defined as news with ESS (event sentiment score) <0. We require the relevance score to be 100 to keep the most relevant news and event similarity 
+days (SIM) > 90 days to exclude the stale news. The analysis is from 60 days before the negative news and 60 days after the negative news, we require each event has at 
+least 100 days to be included. Panel A examines the intraday shorting flows around the negative news event k as specified by the following panel regression:
+Shortingitk = b0 + b1D
++ b5D1,5
+
+(cid:0) 60,(cid:0) 21
++ b2D
+itk
+ʹ
+6Controlsitk + ηk
++ b
+
+(cid:0) 5,(cid:0) 1
++ b3D
+itk
++ ϵitk.
+
+(cid:0) 20,(cid:0) 6
+itk
+
+b4D0
+itk
+
++
+
+itk
+
+(cid:0) 20,(cid:0) 6
+itk 
+
+Here Shortingit  represents the intraday showing flows, D
+
+equals to one for firm i on day t within the [(cid:0) 20,(cid:0) 6] days before the negative news event, and zero otherwise. D
+
+otherwise. D
+within the [(cid:0) 5,(cid:0) 1] days before the negative news event, and zero otherwise. D0
+itk  equals to one for 
+firm i on day t within the [1,5] days after the negative news event, and zero otherwise. Panel B and Panel C examine the relation of intraday shorting flows with 
+intraday liquidity measures, as specified by the following panel regression:
+]
++ b6D1,5
++ b3D
+Shortingitk = b0 +
+
+itk  equals to one if firm i on day t is the negative news event day. D1,5
+
+equals to one for firm i on day t within the [(cid:0) 60,(cid:0) 21] days before the negative news event, and zero 
+equals one for firm i on day t 
+
+[
+b1 + b2D
+
+(cid:0) 5,(cid:0) 1
+itk 
+
++ b4D
+
++ b5D0
+itk
+
+(cid:0) 60,(cid:0) 21
+itk
+
+(cid:0) 20,(cid:0) 6
+itk
+
+itk
+
+(cid:0) 60,(cid:0) 21
+itk 
+
+×LIQitk + b7’Controlsitk + ηk
+
+(cid:0) 5,(cid:0) 1
+itk
++ ϵitk,
+
+where LIQitk  represents the intraday liquidity measures effective spreads and Kyle lambda. The control variables are the same as in Table 2. ηk  is the event fixed effect, 
+standard error clustered at the event level.
+
+t-stat
+
+46.63
+(cid:0) 4.71
+(cid:0) 5.23
+(cid:0) 9.87
+(cid:0) 23.82
+(cid:0) 10.65
+
+Panel A. Intraday shorting flows around the negative news events
+
+Constant
+D [(cid:0) 60,(cid:0) 21]
+D [(cid:0) 20,(cid:0) 6]
+D [(cid:0) 5,(cid:0) 1]
+D [0]
+D [1,5]
+Control
+Event FE
+Adj.R2
+
+SSOPEN
+Coef.
+
+0.1634
+0.0001
+0.0006
+0.0011
+0.0069
+0.0011
+Yes
+Yes
+0.155
+
+t-stat
+
+35.63
+0.83
+4.37
+5.69
+19.21
+5.85
+
+SSMIDDLE
+Coef.
+
+0.1294
+(cid:0) 0.0007
+(cid:0) 0.0002
+(cid:0) 0.0011
+(cid:0) 0.0032
+(cid:0) 0.0001
+Yes
+Yes
+0.087
+
+t-stat
+
+32.47
+(cid:0) 6.11
+(cid:0) 1.40
+(cid:0) 6.40
+(cid:0) 9.88
+(cid:0) 0.58
+
+Panel B. Intraday shorting flows and intraday liquidity proxied by effective spread around the negative news events
+
+SSOPEN
+ESOPEN
+Coef.
+
+(cid:0) 0.8264
+(cid:0) 0.0169
+0.0309
+0.0224
+0.4234
+0.0561
+Yes
+Yes
+0.160
+
+t-stat
+
+(cid:0) 59.72
+(cid:0) 0.88
+1.26
+0.62
+6.02
+1.63
+
+SSMIDDLE
+ESMIDDLE
+Coef.
+
+1.2179
+(cid:0) 0.2349
+(cid:0) 0.0281
+(cid:0) 0.2600
+(cid:0) 0.9956
+(cid:0) 0.1526
+Yes
+Yes
+0.090
+
+t-stat
+
+25.40
+(cid:0) 4.94
+(cid:0) 0.42
+(cid:0) 2.78
+(cid:0) 5.21
+(cid:0) 1.63
+
+SSCLOSE
+ESCLOSE
+Coef.
+
+0.5113
+0.0344
+(cid:0) 0.0491
+(cid:0) 0.0676
+(cid:0) 1.5077
+(cid:0) 0.3583
+Yes
+Yes
+0.208
+
+ES
+ES*D [(cid:0) 60,(cid:0) 21]
+ES*D [(cid:0) 20,(cid:0) 6]
+ES*D [(cid:0) 5,(cid:0) 1]
+ES*D [0]
+ES*D [1,5]
+Control
+Event FE
+Adj.R2
+
+Panel C. Intraday shorting flows and intraday liquidity proxied by lambda around the negative news events
+
+SSCLOSE
+Coef.
+
+0.2721
+(cid:0) 0.0009
+(cid:0) 0.0010
+(cid:0) 0.0025
+(cid:0) 0.0105
+(cid:0) 0.0026
+Yes
+Yes
+0.198
+
+t-stat
+
+8.02
+0.51
+(cid:0) 0.56
+(cid:0) 0.55
+(cid:0) 6.24
+(cid:0) 2.91
+
+LA
+LA*D [(cid:0) 60,(cid:0) 21]
+LA*D [(cid:0) 20,(cid:0) 6]
+LA*D [(cid:0) 5,(cid:0) 1]
+LA*D [0]
+LA*D [1,5]
+Control
+Event FE
+Adj.R2
+
+SSOPEN
+LAOPEN
+Coef.
+
+(cid:0) 0.0333
+(cid:0) 0.0034
+(cid:0) 0.0005
+(cid:0) 0.0044
+0.0296
+0.0035
+Yes
+Yes
+0.186
+
+t-stat
+
+(cid:0) 41.71
+(cid:0) 3.12
+(cid:0) 0.34
+(cid:0) 2.04
+5.84
+1.52
+
+SSMIDDLE
+LAMIDDLE
+Coef.
+
+0.0261
+(cid:0) 0.0144
+(cid:0) 0.0036
+(cid:0) 0.0094
+(cid:0) 0.0495
+0.0049
+Yes
+Yes
+0.108
+
+t-stat
+
+12.01
+(cid:0) 5.09
+(cid:0) 0.98
+(cid:0) 1.69
+(cid:0) 4.74
+0.89
+
+SSCLOSE
+LACLOSE
+Coef.
+
+0.0759
+(cid:0) 0.0119
+(cid:0) 0.0125
+(cid:0) 0.0142
+(cid:0) 0.1153
+(cid:0) 0.0359
+Yes
+Yes
+0.240
+
+t-stat
+
+24.41
+(cid:0) 2.62
+(cid:0) 2.11
+(cid:0) 1.64
+(cid:0) 7.10
+(cid:0) 4.29
+
+, D
+
+, D0
+
+(cid:0) 5,(cid:0) 1
+itk
+
+itk, and D1,5
+
+window before the negative news event k, and zero otherwise. Variables 
+(cid:0) 20,(cid:0) 6
+itk  are all defined similarly. The control var-
+D
+itk
+iables are the same as in Table 2. Variable ηk is the event fixed effect. The 
+standard errors are clustered at the event level. If the aggressive trading 
+hypothesis is true, we expect to see the coefficient of D0
+itk  to be positive 
+because shorting flows would react to the overnight news release, and it 
+should also be larger in magnitude and more significant than other co-
+efficients, because day 0 is when the time-urgency is the highest.
+
+Table 9 Panel A presents the results. For the open short selling, the 
+(cid:0) 5,(cid:0) 1
+itk  are  0.0001,  0.0006, 
+itk 
+
+and  D1,5
+
+(cid:0) 60,(cid:0) 21
+itk
+
+(cid:0) 20,(cid:0) 6
+itk
+
+coefficients  for  D
+
+,  D
+
+,  D
+
+0.0011,  0.0011  respectively,  indicating  that  shorting  flows  increase 
+when time is closer to the negative news release. The coefficient for D0
+itk 
+at 0.0069 is the largest and highly significant. The patterns of the five 
+coefficients are consistent with the aggressive trading hypothesis, in the 
+sense that short sellers trade more aggressively when there is more time 
+urgency in trading the news, which is right after the news release on day 
+0. The five coefficients for SSMIDDLE and SSCLOSE are negative, which 
+means less midday and close shorting during the event period compared 
+to normal period.
+
+We then examine the dynamics relation between intraday shorting 
+
+20 
+
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+D. Hu et al.                                                                                                                                                                                                                                      
+
+Journal of Financial Economics 172 (2025) 104148 
+
+flows and liquidity measures over different horizons, as follows: 
+
+generally consistent across different trading venues.24
+
+Shortingitk = b0 +
+
+[
+b1 + b2D
+ʹ
+×LIQitk + b
+
+(cid:0) 60,(cid:0) 21
+itk
+
++ b3D
+7Controlsitk + ηk
+
+(cid:0) 20,(cid:0) 6
+itk
++ ϵitk,
+
++ b4D
+
+(cid:0) 5,(cid:0) 1
+itk
+
++ b5D0
+itk
+
++ b6D1,5
+
+itk
+
+]
+
+(17) 
+
+(cid:0) 5,(cid:0) 1
+itk 
+
+(cid:0) 20,(cid:0) 6
+itk
+
+(cid:0) 60,(cid:0) 21
+itk
+
+× LIQitk,  D
+
+× LIQitk,  and  D
+
+The  coefficient  b1  reflects  the  relation  between  intraday  shorting 
+flows  and  liquidity  conditions  during  regular  time  outside  the  event 
+window. If the liquidity timing hypothesis is true that short sellers trade 
+more when illiquidity measures are lower, b1  should be negative. The 
+×LIQitk 
+coefficients  on  D
+measure  how  the  relations  between  intraday  shorting  flows  and  illi-
+quidity  measures  change prior  to the  news  release relative to  regular 
+time, as we move closer to the release date. If short sellers are not only 
+informed of future negative news but also its arrival time, then as Col-
+lin-Dufresne and Fos (2015, 2016) suggest, they may become less pa-
+tient and less capable of timing the liquidity as the news release date is 
+× LIQitk, and 
+approaching, and coefficients on D
+(cid:0) 5,(cid:0) 1
+×
+D
+itk
+LIQitk  and  D1,5
+× LIQitk  reflect  how  the  relations  between  intraday 
+shorting flows and liquidity conditions change on the day of news re-
+leases,  and  immediately  after  news  releases,  relative  to  regular 
+non-event period. Upon the public release of negative news on day 0 and 
+immediately  afterwards,  short sellers  face time  urgency and  competi-
+tion. If the aggressive trading hypothesis dominates the liquidity timing 
+hypothesis during this period, short sellers might trade aggressively and 
+×LIQitk 
+care less about the liquidity timing, then the coefficients on D0
+itk 
+and D1,5
+
+(cid:0) 60,(cid:0) 21
+itk
+× LIQitk  should  be  positive.  Similarly,  the  coefficients  on  D0
+itk 
+
+× LIQitk  should be positive.
+
+× LIQitk, D
+
+(cid:0) 20,(cid:0) 6
+itk 
+
+itk
+
+itk
+
+(cid:0) 5,(cid:0) 1
+itk
+
+(cid:0) 20,(cid:0) 6
+itk
+
+(cid:0) 60,(cid:0) 21
+itk
+
+× LIQitk,  D
+
+Table 9 Panel B presents the results. For the open short selling, the 
+coefficient  b1  is  significantly  negative,  suggesting  that  opening  short 
+sellers time liquidity during the regular non-event period. Coefficients 
+× LIQitk  have  mixed 
+× LIQitk,  and  D
+on  D
+× LIQitkis 
+signs,  but  none  of  them  is  significant.  Coefficient  on  D0
+itk 
+positive and highly significant, suggesting that the opening short sellers’ 
+tendency to time liquidity significantly drops on day 0, possibly because 
+time urgency outweighs the higher effective spreads. For the middle and 
+(cid:0) 60,(cid:0) 21
+× LIQitk, 
+itk
+× LIQitk  are negative  and  mostly 
+D
+itk
+significant, indicating that shorting flows at middle and close exhibit a 
+higher  tendency  to  time  liquidity  during  event  period  than  regular 
+period. We find similar results for lambda in Panel C.
+
+close short selling, all coefficients on D
+
+× LIQitk  and  D1,5
+
+× LIQitk,  D0
+itk
+
+× LIQitk, D
+
+(cid:0) 20,(cid:0) 6
+itk 
+
+(cid:0) 5,(cid:0) 1
+itk
+
+To summarize, using the Ravenpack negative news events analyses, 
+we find that when there is greater urgency to trade on the news, the 
+aggressive trading hypothesis dominates the liquidity timing hypothesis 
+for  short  sellers  near  the  open,  in  the  sense  that  they  trade  more 
+aggressively and reduce their liquidity timing practice.
+
+5. Additional analyses
+
+5.1. FINRA intraday shorting flows
+
+Can our results be extended to off-exchange short sales? To answer 
+this question, we obtain data from FINRA. From the summary statistics 
+of  intraday shorting flows from FINRA reported in  Internet Appendix 
+Table 2 Panel A, both shorting during the opening and middle buckets 
+account for around 13 % of daily FINRA trading volume, similar to the 
+15 % of daily CBOE trading volume for opening and middle short flows 
+from CBOE. Shorts in the close bucket account for 18 % of daily FINRA 
+trading  volume,  significantly  smaller  than  the  26  %  of  daily  CBOE 
+trading volume for closing bucket in CBOE.
+
+Internet  Appendix  Table  2  Panel  B  presents  the  Fama-MacBeth 
+(1973) regression  coefficients  of  future  returns  on  FINRA  intraday 
+shorting flows. The evidence of short-and long-term predictive power 
+using FINRA data is mostly consistent with those in Table 2 using CBOE 
+data.  That  is,  overall  intraday  short  sellers’  predictive  patterns  are 
+
+21 
+
+5.2. Intraday shorting flows spikes
+
+Is  the relation between  short selling  and  future returns  linear? To 
+answer this question, we create indicators for large spikes and examine 
+whether intraday short selling’s future return predictive power varies 
+with the spike indicators. We start by compiling a pooled panel of our 
+intraday shorting flows to identify spikes. Since open and close periods 
+both have 2 h, while middle period has 2.5 h, we first compute hourly 
+average shorting flows for our three different intervals so they can be 
+comparable.  Next,  we  compute  the  95  %  threshold  value  using  the 
+pooled panel. If the shorting flow for a particular day*stock*interval is 
+above this threshold, then we define it as a “spike”. Table 10 Panel A 
+shows that spikes are more likely to happen at close, accounting for 3.64 
+%  of  the  pooled  panel,  while  the  likelihood  of  spikes  for  open  and 
+midday are 0.92 % and 0.45 %, respectively. Interestingly, many of the 
+spikes at close are on the quadruple witching days or the last trading 
+days of each month, suggesting that the spikes near the close are likely 
+related to liquidity, hedging or inventory management purposes.
+
+We examine the non-linearity in the relation between short selling 
+and  future  returns  by  including  an  interaction  term  between  short- 
+selling and indicators for large spikes. The indicator for a large spike 
+for  a  given  interval,  DSpikei,t,  is  equal  to  one  if  the  average  hourly 
+shorting flow during that interval is above the 95 % threshold defined in 
+panel  A,  and  zero  otherwise.  If  the  spikes  have  different  predictive 
+power than non-spikes, the coefficient on the interaction term would be 
+significant. We present the empirical results in Table 10 Panel B. For 
+shorting flows near the open, after we add in the interaction term, the 
+original RSSOPEN stays negative and mostly significant, same as in the 
+main results. The interaction terms range between 0.0129 and 0.0389, 
+but most are statistically insignificant. These positive coefficients show 
+that  the  spikes  don’t  improve  shorts’  predictive  power  in  general, 
+possibly because spiky observations may contain noise rather than in-
+formation. Results for the middle and close are similar but stronger than 
+the  open,  especially  for  the  close.  This  is  consistent  with  our  earlier 
+observation that spikes at close are possibly more related to liquidity, 
+hedging and inventory management purposes.
+
+5.3. Intraday shorting flows and price efficiency
+
+The predictive power of shorts for future returns demonstrates shorts 
+relation with price discovery. It is also natural to ask how short-sales are 
+related to market efficiency measures. Boehmer and Wu (2013) connect 
+daily  short-sales  with  daily  information  efficiency  measures  and  find 
+that  the  information  efficiency  of  prices  improves  with  greater  daily 
+shorting flows in a large panel of NYSE-listed stocks from January 2005 
+through  June  2007.  Following  their  methodology,  we  estimate  their 
+efficiency  measures  (pricing  errors  and  absolute  correlations)  for  our 
+intraday  time  buckets,  where  lower  pricing  errors  and  absolute  auto-
+correlations indicate higher information efficiency.25
+
+When  we  connect  contemporaneous  and  next  day  intraday  price 
+efficiency  measures  with  intraday  shorting  flows,  as  reported  in 
+Table  11,  we  find  that  SSOPEN,  SSMIDDLE,  and  SSCLOSE  are  all 
+significantly and negatively associated with contemporaneous and next 
+day intraday pricing errors, but the magnitudes of coefficients gradually 
+decrease  throughout  the  day.  That  is,  intraday  shorting  flows  signifi-
+cantly enhance the information efficiency of prices throughout the day, 
+
+24 To  save  space,  results  for  the  four  hypotheses  using  FINRA  data  are  not 
+reported here. They are qualitatively similar to our findings using CBOE data, 
+and they are available on request.
+25 We thank the authors of Boehmer and Wu (2013) for providing us the code 
+of  calculating  price  efficiency  measures.  Internet  Appendix  B  provides  a 
+detailed introduction of the construction of intraday price efficiency measures.
+
+D. Hu et al.                                                                                                                                                                                                                                      
+
+Journal of Financial Economics 172 (2025) 104148 
+
+Table 10 
+Large spikes in short selling.
+This table examines the large spikes in short selling. Our sample period is January 2015 to December 2019, and our sample firms are common stocks with a share price 
+of at least $1. Since open and close periods both have 2 h, while middle period has 2.5 h, we first compute hourly average shorting flows for our three different intervals 
+so they can be comparable. Next, we compute the 95 % threshold value using the pooled panel. If the shorting flow for a particular day*stock*interval is above this 
+threshold, then we define it as a large spike. Panel A presents the number of large spikes. Panel B examines the non-linearity in the relation between short selling and 
+future returns by including interactions with indicators for large spikes. The indicator for a large spike for a given interval, DSPIKE, is equal to one if the average hourly 
+shorting flow during that interval is above the 95 % threshold defined in panel A, and zero otherwise. The control variables are the same as in Table 2. To account for 
+potential serial correlation in the coefficients, the standard errors of the time-series are adjusted using Newey-West (1987) with eight lags. The regression coefficients 
+are multiplied by 100 for presentation purposes.
+
+Panel A. Large spikes of shorting flows in open, middle and close period
+
+Nobs
+
+# Large Spikes
+
+% Large Spikes
+
+Open Period
+Middle Period
+Close Period
+Total
+
+3570,989
+3570,989
+3570,989
+10,712,967
+
+98,262
+47,737
+389,649
+535,648
+
+0.92 %
+0.45 %
+3.64 %
+5.00 %
+
+Panel B. Predicting future returns using intraday shorting flows, interacted with indicators for large spikes
+
+RSSOPEN
+
+Coef.
+
+t-stat
+
+RSSOPEN 
+*DSPIKE
+Coef.
+
+(cid:0) 0.0853
+
+(cid:0) 6.93
+
+0.0146
+
+(cid:0) 0.0332
+(cid:0) 0.0102
+(cid:0) 0.0190
+(cid:0) 0.0207
+(cid:0) 0.0285
+(cid:0) 0.0246
+(cid:0) 0.0254
+(cid:0) 0.0289
+(cid:0) 0.0288
+(cid:0) 0.0276
+(cid:0) 0.0310
+(cid:0) 0.0192
+
+(cid:0) 3.24
+(cid:0) 1.01
+(cid:0) 1.90
+(cid:0) 1.99
+(cid:0) 2.69
+(cid:0) 2.31
+(cid:0) 2.43
+(cid:0) 2.61
+(cid:0) 2.77
+(cid:0) 2.46
+(cid:0) 2.66
+(cid:0) 1.66
+
+0.0129
+0.0214
+0.0294
+0.0140
+0.0389
+0.0157
+0.0232
+0.0328
+0.0380
+0.0250
+0.0303
+0.0304
+
+Next 
+day
+Week 1
+Week 2
+Week 3
+Week 4
+Week 5
+Week 6
+Week 7
+Week 8
+Week 9
+Week 10
+Week 11
+Week 12
+
+RSSMIDDLE
+
+Coef.
+
+t-stat
+
+RSSMIDDLE 
+*DSPIKE
+Coef.
+
+(cid:0) 0.0616
+
+(cid:0) 5.47
+
+0.0381
+
+(cid:0) 0.0264
+(cid:0) 0.0064
+(cid:0) 0.0149
+(cid:0) 0.0187
+(cid:0) 0.0176
+(cid:0) 0.0134
+(cid:0) 0.0179
+(cid:0) 0.0214
+(cid:0) 0.0206
+(cid:0) 0.0169
+(cid:0) 0.0157
+(cid:0) 0.0199
+
+(cid:0) 3.50
+(cid:0) 0.88
+(cid:0) 1.98
+(cid:0) 2.53
+(cid:0) 2.41
+(cid:0) 1.83
+(cid:0) 2.30
+(cid:0) 2.90
+(cid:0) 2.68
+(cid:0) 2.12
+(cid:0) 1.85
+(cid:0) 2.47
+
+0.0236
+0.0269
+0.0200
+0.0380
+0.0303
+0.0244
+0.0329
+0.0411
+0.0664
+0.0505
+0.0395
+0.0204
+
+t- 
+stat
+
+0.70
+
+0.96
+1.59
+2.25
+1.17
+2.85
+1.14
+1.63
+2.30
+2.70
+1.66
+2.05
+2.04
+
+RSSCLOSE
+
+Coef.
+
+t-stat
+
+RSSCLOSE 
+*DSPIKE
+Coef.
+
+(cid:0) 0.0539
+
+(cid:0) 4.28
+
+0.0272
+
+(cid:0) 0.0175
+(cid:0) 0.0091
+(cid:0) 0.0105
+(cid:0) 0.0145
+(cid:0) 0.0143
+(cid:0) 0.0113
+(cid:0) 0.0103
+(cid:0) 0.0089
+(cid:0) 0.0100
+(cid:0) 0.0143
+(cid:0) 0.0120
+(cid:0) 0.0178
+
+(cid:0) 1.95
+(cid:0) 1.09
+(cid:0) 1.21
+(cid:0) 1.73
+(cid:0) 1.87
+(cid:0) 1.42
+(cid:0) 1.25
+(cid:0) 1.08
+(cid:0) 1.16
+(cid:0) 1.69
+(cid:0) 1.37
+(cid:0) 2.04
+
+0.0127
+0.0060
+0.0067
+0.0076
+0.0118
+0.0102
+0.0136
+0.0152
+0.0148
+0.0177
+0.0234
+0.0210
+
+t- 
+stat
+
+1.62
+
+1.48
+1.63
+1.22
+2.30
+1.82
+1.48
+1.74
+2.53
+3.70
+2.75
+2.25
+1.08
+
+t- 
+stat
+
+2.79
+
+1.94
+0.97
+1.00
+1.09
+1.73
+1.55
+2.16
+2.33
+2.12
+2.35
+3.07
+2.69
+
+Table 11 
+Intraday short selling and price efficiency.
+This table examines intraday shorting flows and price efficiency. Our sample period is January 2015 to December 2019, and our sample firms are common stocks with a 
+
+share price of at least $1. Internet Appendix B provides details about the construction of intraday price efficiency measures: pricing errors 
+
+σ(s)
+σ(p) and absolute auto-
+correlations |AR5|. Panel A and Panel B present Fama-MacBeth (1973) regression coefficients of contemporaneous and next day intraday price efficiency measures on 
+the shorting flow variables of the same interval. Control variables are the same as in Table 2. To account for the potential serial correlation in the coefficients, the 
+standard errors of the time-series are adjusted using Newey-West (1987) with eight lags.
+
+Panel A. Intraday shorting flows and contemporaneous price efficiency
+
+I
+σ(s)
+σ(p)
+OPEN(t)
+Coef.
+
+t-stat
+
+(cid:0) 0.1514
+
+(cid:0) 41.60
+
+II
+σ(s)
+σ(p)
+MIDDLE(t)
+Coef.
+
+t-stat
+
+(cid:0) 0.0926
+
+(cid:0) 24.46
+
+Yes
+0.1867
+
+Yes
+0.1874
+
+SSOPEN(t)
+SSMIDDLE(t)
+SSCLOSE(t)
+Control
+Adj.R2
+
+Panel B. Intraday shorting flows and next day price efficiency
+
+I
+σ(s)
+σ(p)
+OPEN(t +
+1)
+Coef.
+
+t-stat
+
+II
+σ(s)
+σ(p)
+MIDDLE(t +
+1)
+Coef.
+
+t-stat
+
+III
+σ(s)
+σ(p)
+CLOSE(t)
+Coef.
+
+(cid:0) 0.0768
+Yes
+0.1942
+
+III
+σ(s)
+σ(p)
+CLOSE(t +
+1)
+Coef.
+
+IV
+|AR5| 
+OPEN(t)
+
+V
+|AR5| 
+MIDDLE(t)
+
+VI
+|AR5| 
+CLOSE(t)
+
+t-stat
+
+Coef.
+
+t-stat
+
+Coef.
+
+t-stat
+
+Coef.
+
+t-stat
+
+(cid:0) 0.0488
+
+(cid:0) 32.78
+
+(cid:0) 0.0318
+
+(cid:0) 15.50
+
+(cid:0) 37.61
+
+Yes
+0.0170
+
+IV
+|AR5| 
+OPEN(t +
+1)
+
+Yes
+0.0307
+
+V
+|AR5| 
+MIDDLE(t +
+1)
+
+(cid:0) 0.15
+
+(cid:0) 0.0003
+Yes
+0.0246
+
+VI
+|AR5| 
+CLOSE(t +
+1)
+
+t-stat
+
+Coef.
+
+t-stat
+
+Coef.
+
+t-stat
+
+Coef.
+
+SSOPEN(t)
+SSMIDDLE 
+
+(t)
+
+SSCLOSE(t)
+Control
+Adj.R2
+
+(cid:0) 0.0856
+
+(cid:0) 23.17
+
+(cid:0) 0.0368
+
+(cid:0) 26.12
+
+(cid:0) 0.0438
+
+(cid:0) 15.66
+
+(cid:0) 0.0214
+
+(cid:0) 12.50
+
+Yes
+0.1796
+
+Yes
+0.1830
+
+(cid:0) 0.0572
+Yes
+0.1898
+
+(cid:0) 27.95
+
+Yes
+0.0165
+
+Yes
+0.0305
+
+0.0094
+Yes
+0.0245
+
+22 
+
+t- 
+stat
+
+5.64
+
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+​
+D. Hu et al.                                                                                                                                                                                                                                      
+
+Journal of Financial Economics 172 (2025) 104148 
+
+but the effect is larger near the open than near the close, suggesting that 
+opening shorts play a more important role in enhancing price efficiency.
+
+6. Conclusions
+
+In  this  study,  we  consider  a  recent  five-year  sample  of  U.S.  on- 
+exchange  and  off-exchange  trading  by  short  sellers  throughout  the 
+trading day to examine how short-sellers time their trades. We divide 
+daily shorts into three time buckets: open, midday and close, and use all 
+three  components  to  predict  short-term  returns  as  well  as  long-term 
+returns.  There  is a  decreasing trend in the  predictive power for next- 
+day and next 12-week returns as we move short sales from the open-
+ing hours to the closing hours, suggesting the opening shorts have the 
+strongest predictive power for future returns.
+
+By  relating  intraday  short  sales  to  the  release  of  public  news  and 
+other informed sales, we first show that short flows near the open are 
+likely  informed.  Then  we  propose  three  hypotheses  (steady  trading, 
+aggressive  trading,  and  liquidity-timing)  based  on  theoretical  models 
+and carefully examine which models describe the intraday trading be-
+haviors of short sellers. Overall, we find supportive evidence for all three 
+theoretical models, while under different circumstances. This might not 
+be  surprising,  because  these  models  have  different  assumptions,  sug-
+gesting that they might work in some situations but not in others. Still, 
+by utilizing the high-frequency short sale data as more direct measures 
+of intraday informed trading than adverse selection proxies, our paper 
+offers many unique insights about the three classes of informed trading 
+models at the intraday level.
+
+There are two caveats of our study. First, all theory models consid-
+ered here are symmetric, in the sense that positive and negative signals 
+of value should have similar effect magnitudes. However, our short sale 
+measures  are  limited  to  negative  signals.  Going  forward,  we  think  it 
+would  be  productive  to  identify  similar  measures  of  positive  private 
+information to gauge whether the empirical results line up symmetri-
+cally behind these theory models. Second, albeit the advantage of being 
+large scale and available at intraday frequency, our data are aggregate 
+intraday shorting flows, and we don’t directly observe individual short- 
+sellers’ trading activities. We leave the pursue of direct and observable 
+measures of individual short-seller’s trading to future research.
+
+CRediT authorship contribution statement
+
+Danqi  Hu:  Writing  –  review  &  editing,  Writing  –  original  draft, 
+Visualization,  Validation,  Supervision,  Software,  Resources,  Project 
+administration,  Methodology, 
+Investigation,  Funding  acquisition, 
+Formal analysis, Data curation, Conceptualization. Charles M. Jones: 
+Writing  –  review  &  editing,  Writing  –  original  draft,  Visualization, 
+Validation,  Supervision,  Software,  Resources,  Project  administration, 
+Methodology, Investigation, Formal analysis, Data curation, Conceptu-
+alization. Xiaoyan Zhang: Writing – review & editing, Writing – orig-
+inal draft, Visualization, Validation, Supervision, Software, Resources, 
+Project  administration,  Methodology,  Investigation,  Funding  acquisi-
+tion, Formal analysis, Data curation, Conceptualization. Xinran Zhang: 
+Writing  –  review  &  editing,  Writing  –  original  draft,  Visualization, 
+Validation,  Supervision,  Software,  Resources,  Project  administration, 
+Methodology, Investigation, Funding acquisition, Formal analysis, Data 
+curation, Conceptualization.
+
+Declaration of competing interest
+
+The  authors  declare  the  following  financial  interests/personal  re-
+lationships which may be considered as potential competing interests:
+
+Danqi Hu reports financial support was provided by National Natural 
+Science  Foundation  of  China.  Charles  Jones  reports  financial  support 
+was provided by Norwegian Finance Initiative at Norges Bank. Xiaoyan 
+Zhang reports financial support was provided by National Natural Sci-
+ence Foundation of China. Xinran Zhang reports financial support was 
+
+provided by National Natural Science Foundation of China. If there are 
+other authors, they declare that they have no known competing financial 
+interests or personal relationships that could have appeared to influence 
+the work reported in this paper.
+
+Supplementary materials
+
+Supplementary material associated with this article can be found, in 
+
+the online version, at doi:10.1016/j.jfineco.2025.104148.
+
+Data availability
+
+When  Do  Short  Sellers  Trade?  Evidence  from  Intraday  Data  and 
+Implications  for  Informed  Trading  Models  (Original  data) (Mendeley 
+Data)
+
+References
+
+Admati, A.R., Pfleiderer, P., 1988. Selling and trading on information in financial 
+
+markets. Am. Econ. Rev. 78 (2), 96–103.
+
+Ahn, H.J., Bae, K.H., Chan, K., 2001. Limit orders, depth, and volatility: evidence from 
+
+the Stock Exchange of Hong Kong. J. Finance 56 (2), 767–788.
+
+Akey, P., Gr´egoire, V., Martineau, C., 2022. Price revelation from insider trading: 
+evidence from hacked earnings news. J. Financ. Econ. 143 (3), 1162–1184.
+Andrews, D.W.K., 1991. Heteroskedasticity and autocorrelation consistent covariance 
+
+matrix estimation. Econometrica 59, 817–858.
+
+Ang, A., Hodrick, R., Xing, Y., Zhang, X., 2006. The cross-section of volatility and 
+
+expected returns. J. Finance 61, 259–299.
+
+Asquith, P., Pathak, P., Ritter, J.R., 2005. Short interest, institutional ownership, and 
+
+stock returns. J. Financ. Econ. 78, 243–276.
+
+Back, K., Pedersen, H., 1998. Long-lived information and intraday patterns. J. Financ. 
+
+Markets 1 (3–4), 385–402.
+
+Barber, B.M., Huang, X., Jorion, P., Odean, T., Schwarz, C., 2024. A (sub) penny for your 
+thoughts: tracking retail investor activity in TAQ. J. Finance 79 (4), 2403–2427.
+
+Bernhardt, D., Miao, J., 2004. Informed trading when information becomes stale. 
+
+J. Finance 59, 339–390.
+
+Boehmer, E., Jones, C.M., Zhang, X., 2008. Which shorts are informed? J. Finance 63, 
+
+491–527.
+
+Boehmer, E., Jones, C.M., Zhang, X., Zhang, X., 2021. Tracking retail investor activity. 
+
+J. Finance 76 (5), 2249–2305.
+
+Boehmer, E., Wu, J., 2013. Short selling and the price discovery process. Rev. Financ. 
+
+Stud. 26 (2), 287–322.
+
+Bogousslavsky, V., 2016. Infrequent rebalancing, return autocorrelation, and seasonality. 
+
+J. Finance 71 (6), 2967–3006.
+
+Bogousslavsky, V., 2021. The cross-section of intraday and overnight returns. J. Financ. 
+
+Econ. 141 (1), 172–194.
+
+Bogousslavsky, V., Fos, V., Muravyev, D., 2024. Informed trading intensity. J. Finance 79 
+
+(2), 903–948.
+
+Bolandnazar, M., Jackson Jr, R.J., Jiang, W., Mitts, J., 2020. Trading against the random 
+expiration of private information: a natural experiment. J. Finance 75 (1), 5–44.
+Boulatov, A., Hendershott, T., Livdan, D., 2013. Informed trading and portfolio returns. 
+
+Rev. Econ. Stud. 80 (1), 35–72.
+
+Cao, S.S., Narayanamoorthy, G.S., 2012. Earnings volatility, post–earnings 
+announcement drift, and trading frictions. J. Account. Res. 50, 41–74.
+
+Chen, W., Wang, Y., 2025. Dynamic market making with asymmetric information and 
+
+market power. Rev. Financ. Stud. 38 (1), 235–293.
+
+Chung, K.H., Lee, A.J., R¨osch, D., 2020. Tick size, liquidity for small and large orders, 
+and price informativeness: evidence from the Tick Size Pilot Program. J. Financ. 
+Econ. 136 (3), 879–899.
+
+Cohen, L., Mallo, C., Pomorski, L., 2012. Decoding inside information. J. Finance 67 (3), 
+
+1009–1043.
+
+Coles, J.L., Heath, D., Ringgenberg, M.C., 2022. On index investing. J. Financ. Econ. 145 
+
+(3), 665–683.
+
+Collin-Dufresne, P., Fos, V., 2015. Do prices reveal the presence of informed trading? 
+
+J. Finance 70 (4), 1555–1582.
+
+Collin-Dufresne, P., Fos, V., 2016. Insider trading, stochastic liquidity, and equilibrium 
+
+prices. Econometrica 84 (4), 1441–1475.
+
+Comerton-Forde, C., Jones, C.M., Putnin¸ ˇs, T.J., 2016. A tale of two types: shorting at 
+
+close range. J. Financ. Econ. 121, 546–568.
+
+Engelberg, J., Reed, A.V., Ringgenberg, M., 2012. How are shorts informed? Short 
+sellers, news, and information processing. J. Financ. Econ. 105, 260–278.
+
+Fama, E.F., MacBeth, J.D., 1973. Risk, return, and equilibrium: empirical tests. J. Polit. 
+
+Economy 81 (3), 607–636.
+
+Florindo, O.H., Penalva, J., Tapia, M., 2023. Working Paper.
+Foster, F.D., Viswanathan, S., 1990. A theory of the interday variations in volume, 
+variance, and trading costs in securities markets. Rev. Financ. Stud. 3, 593–624.
+Goyenko, R.Y., Holden, C.W., Trzcinka, C.A., 2009. Do liquidity measures measure 
+
+liquidity? J. Financ. Econ. 92 (2), 153–181.
+
+Haddad, V., Huebner, P., Loualiche, E., 2021. Working Paper.
+
+23 
+
+D. Hu et al.                                                                                                                                                                                                                                      
+
+Journal of Financial Economics 172 (2025) 104148 
+
+Hasbrouck, J., 2009. Trading costs and returns for US equities: estimating effective costs 
+
+from daily data. J. Finance 64 (3), 1445–1477.
+
+Heston, S.L., Korajczyk, R.A., Sadka, R., 2010. Intraday patterns in the cross-section of 
+
+stock returns. J. Finance 65 (4), 1369–1407.
+
+Hu, G.X., Pan, J., Wang, J., 2017. Early peek advantage? Efficient price discovery with 
+
+tiered information disclosure. J. Financ. Econ. 126 (2), 399–421.
+
+Hua, J., Kong, L., Wang, Y., 2024. Working Paper.
+Holden, C.W., Subrahmanyam, A., 1992. Long-lived private information and imperfect 
+
+competition. J. Finance 47, 247–270.
+
+Livnat, J., Mendenhall, R.R., 2006. Comparing the post-earnings announcement drift for 
+surprises calculated from analyst and time series forecasts. J. Account. Res. 44, 
+177–205.
+
+Lyle, M.R., Rigsby, C., Stephan, A., Yohn, T.L., 2018. Working Paper.
+Massa, M., Qian, W., Xu, W., Zhang, H., 2015. Competition of the informed: does the 
+presence of short sellers affect insider selling? J. Financ. Econ. 118 (2), 268–288.
+Menkveld, A.J., Yueshen, B.Z., Zhu, H., 2017. Shades of darkness: a pecking order of 
+
+trading venues. J. Financ. Econ. 124, 503–534.
+
+Newey, W.K., West, K.D., 1987. Hypothesis testing with efficient method of moments 
+
+Jain, C., Jain, P., McInish, T.H., 2012. Short selling: the impact of SEC rule 201 of 2010. 
+
+estimation. Int. Econ. Rev 28, 777–787.
+
+Financial Review 47 (1), 37–64.
+
+Jegadeesh, N., Wu, Y., 2022. Closing auctions: nasdaq versus NYSE. J. Financ. Econ. 143 
+
+(3), 1120–1139.
+
+Jiang, W., Wu, S., Yao, C., 2024. Working Paper.
+Kacperczyk, M., Pagnotta, E.S., 2019. Chasing private information. Rev. Financ. Stud. 32 
+
+(12), 4997–5047.
+
+Patell, J.M., Wolfson, M.A., 1984. The intraday speed of adjustment of stock prices to 
+
+earnings and dividend announcements. J. Financ. Econ. 13 (2), 223–252.
+
+Reed, A.V., Samadi, M., Sokobin, J.S., 2020. Shorting in broad daylight: short sales and 
+
+venue choice. J. Financ. Quantit. Anal. 55, 2246–2269.
+
+Rogers, J.L., Skinner, D.J., Zechman, S.L., 2017. Run EDGAR run: SEC dissemination in a 
+
+high-frequency world. J. Account. Res. 55 (2), 459–505.
+
+Kim, S.T., Lin, J.C., Slovin, M.B., 1997. Market structure, informed trading, and analysts’ 
+
+Slezak, S.L., 1994. A theory of the dynamics of security returns around market closures. 
+
+recommendations. J. Financ. Quant. Anal. 32 (4), 507–524.
+
+J. Finance 49, 1163–1211.
+
+Koudijs, P., 2015. Those who know most: insider trading in eighteenth-century 
+
+Wang, X., Yan, X.S., Zheng, L., 2020. Shorting flows, public disclosure, and market 
+
+Amsterdam. J. Polit. Economy 123 (6), 1356–1409.
+
+Kyle, A.S., 1985. Continuous auctions and insider trading. Econometrica 53, 1315–1335.
+Lee, C.M.C., Mucklow, B., Ready, M.J., 1993. Spreads, depths, and the impact of earnings 
+
+information: an intraday analysis. Rev. Financ. Stud. 6 (2), 345–374.
+
+efficiency. J. Financ. Econ. 135, 191–212.
+
+Wood, R.A., McInish, T.H., Ord, J.K., 1985. An investigation of transactions data for 
+
+NYSE stocks. J. Finance 40 (3), 723–739.
+
+Yueshen, B.Z., Zamojski, M., Zhang, J., 2022. Working Paper.
+
+24 
+
+

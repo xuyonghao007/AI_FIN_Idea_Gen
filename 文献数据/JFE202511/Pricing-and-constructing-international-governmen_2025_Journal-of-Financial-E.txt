@@ -1,0 +1,4688 @@
+Journal of Financial Economics 173 (2025) 104152 
+
+Contents lists available at ScienceDirect
+
+Journal of Financial Economics
+
+journal homepage: www.elsevier.com/locate/finec
+
+Pricing and constructing international government bond portfolios
+
+, Giorgia Simion , Josef Zechner
+
+Otto Randl
+WU Vienna University of Economics and Business, Welthandelsplatz 1, Vienna, 1020, Austria
+Vienna Graduate School of Finance (VGSF), Welthandelsplatz 1, Vienna, 1020, Austria
+
+∗
+
+A R T I C L E   I N F O
+
+A B S T R A C T
+
+Dataset link: Pricing and Constructing Internati
+onal Bond Portfolios (Original data)
+
+Keywords:
+International government bond portfolios
+Bond risk premia
+Stochastic discount factor
+
+This paper derives a stochastic discount factor for currency-hedged government bonds of developed markets 
+by  projecting  returns  onto  the  unconditional  mean–variance  efficient  (UMVE)  portfolio.  Priced  risks  of 
+international bonds differ fundamentally from those of currencies. The UMVE portfolio achieves a Sharpe 
+ratio over twice the average of individual markets, with the market price of risk peaking during crises and 
+periods with high inflation dispersion. While bond returns exhibit a strong factor structure, common sources of 
+variation are only weakly connected to priced risks. Hedging unpriced risks in naive or factor-based strategies 
+significantly improves Sharpe ratios, even under portfolio weight constraints.
+
+1. Introduction
+
+Sovereign bond markets represent one of the largest and most liquid 
+asset classes globally, second only to public equity markets. Yet, little 
+existing academic research exists on how internationally diversified 
+government bond portfolios are priced, their risk-return characteris-
+tics, or the efficiency of alternative portfolio construction and trading 
+strategies. In fact, sovereign bond pricing models are almost exclu-
+sively developed in single-country settings. Similarly, the literature on 
+active government bond portfolio management primarily focuses on 
+optimal duration choices or relative mispricing within a fixed-income 
+market, with little discussion of allocation across bond markets (see, 
+for example, the relevant chapters in Bodie et al. (2024)).
+
+In contrast to the single-country focus of academic research, the 
+availability of globally diversified government bond funds and exch-
+ange-traded funds (ETFs) has increased over the past years and the 
+demand for these products is on the rise.1
+
+In this paper, we depart from the traditional single-country focus 
+and take an asset class perspective to investigate the risk factors driving 
+multi-country bond portfolios. We hereby assume that the positions 
+in  the  different  bond  markets  are  financed  in  the  respective  local 
+currencies, i.e. via short positions in the local money markets. Since 
+this strategy is equivalent to the widely observed practice of managing 
+foreign exchange (FX) risk by hedging via a FX-forward contract, we 
+
+will refer to these portfolios as FX-risk-hedged.2 We derive several key 
+results. To our knowledge, we are first to provide stylized facts on 
+internationally diversified developed markets government bond port-
+folios.  Our  main  sample  comprises  ten  major  developed  sovereign 
+debt markets, denoted as G10∗, collectively representing approximately 
+70%  of  the  global  market  capitalization  for  local-currency  debt.  In 
+particular, we show that substantial diversification benefits arise even 
+from naive diversification strategies, such as GDP-weighted portfolios, 
+simply due to imperfectly correlated term-structure movements in the 
+different markets.
+
+Second,  we  construct  the  unconditional  mean–variance  efficient 
+(UMVE) portfolio from the G10∗ markets, thus providing a stochastic 
+discount factor (SDF). We find that the UMVE portfolio can be ob-
+tained using expected return forecasts based on forward spreads and 
+real  yields  and  a  time-varying  covariance  matrix,  estimated  with  a 
+shrinkage method. The resulting SDF successfully prices all individual 
+G10∗ bond markets as well as a range of dynamic trading strategies.
+
+Third, we analyze the properties of the UMVE portfolio. We find 
+that switching from single-country bond markets to the UMVE portfolio 
+improves the Sharpe ratio substantially, from an average of 0.46 for 
+individual markets to a value that exceeds 1. We also show that the 
+expected Sharpe ratio of the UMVE exhibits substantial time-variation. 
+Specifically, it increases around the Global Financial Crisis (GFC) in 
+
+∗ Corresponding author at: WU Vienna University of Economics and Business, Welthandelsplatz 1, Vienna, 1020, Austria.
+
+E-mail addresses:  otto.randl@wu.ac.at (O. Randl), giorgia.simion@wu.ac.at (G. Simion), josef.zechner@wu.ac.at (J. Zechner).
+
+1 The ratio of total net assets of global versus domestic fixed-income funds in the U.S. has approximately doubled over the past three decades. Using data 
+from Morningstar, Figure A1 in the appendix plots this ratio and shows this ratio increasing from about 7.5% in 1995 to almost 15% in 2022. This number likely 
+underestimates the actual international diversification of U.S. bond investors, as they may also achieve diversification by combining domestic bond funds from 
+different countries within their portfolios.
+
+2 Throughout this paper, we use the terms ‘‘FX-risk-hedged’’ and ‘‘currency-hedged’’ interchangeably. The precise definition of bond excess returns is provided 
+
+in Section 3.1.
+
+https://doi.org/10.1016/j.jfineco.2025.104152
+Received 15 March 2025; Received in revised form 21 July 2025; Accepted 28 July 2025
+Available online 8 September 2025 
+0304-405X/© 2025 The Authors. Published by Elsevier B.V. This is an open access article under the CC BY license ( http://creativecommons.org/licenses/by/4.0/ ). 
+
+ 
+ 
+ 
+O. Randl et al.
+
+2008, during the European sovereign debt crisis between 2010 and 
+2012 and during the COVID-19 crisis. The highest expected Sharpe 
+ratio  is  observed  in  the  fourth  quarter  of  2022,  a  period  marked 
+by inflation shocks, tightening monetary policies, and declining asset 
+market valuations, which likely increased investors’ marginal utility 
+of  wealth.  Furthermore,  we  find  that  the  expected  Sharpe  ratio  of 
+the UMVE portfolio is significantly related to inflation and that this 
+relationship changes over time. Before the GFC, higher average trend 
+inflation is associated with lower expected Sharpe ratios whereas the 
+opposite is the case afterwards. In the post-GFC sample, we also observe 
+a  strong  positive  relation  between  the  dispersion  of  inflation  rates 
+across markets and the UMVE’s expected Sharpe ratio.
+
+Fourth, the analysis reveals that there is very little relation between 
+common sources of variation in international bond market returns and 
+priced  risks.  A  principal  component  analysis  (PCA)  shows  that  the 
+G10∗ government bond returns exhibit a strong factor structure, with 
+the  first  3  principal  components  (PCs)  explaining  86%  of  the  total 
+variance. However, these common sources of variation represent mostly 
+unpriced risks, since all PCs combined account for only about 30% of 
+the variation in UMVE returns.
+
+We  demonstrate  that  the  UMVE  portfolio’s  exposure  to  FX  risk 
+is economically negligible. Consistent with this, the UMVE portfolio 
+returns are largely uncorrelated with an SDF that prices currencies. 
+Notably,  the  component  of  the  UMVE  return  that  is  orthogonal  to 
+the currency SDF prices international bond portfolios as well as the 
+original UMVE portfolio. These results indicate that the priced risks of 
+international bond portfolios are fundamentally distinct from those of 
+currency portfolios.
+
+Finally, we offer valuable insights for bond investors. Our analysis 
+reveals  that  strategies  such  as  naive  diversification  or  factor-based 
+approaches like carry, value, and momentum exhibit large amounts of 
+unpriced risk. By constructing portfolios that hedge out these unpriced 
+components,  Sharpe  ratios  improve  markedly.  For  instance,  apply-
+ing such a hedging strategy to a naively diversified (1∕𝑁) portfolio 
+nearly doubles its Sharpe ratio. Substantial improvements are observed 
+for other popular bond portfolio strategies, such as carry or value. 
+Moreover, we find that, for practical implementation, accurately esti-
+mating expected returns is crucial, while estimation of variances plays 
+a comparatively lesser role.
+
+Implementing bond portfolio strategies that hedge unpriced risks 
+often involves large absolute portfolio weights across different markets. 
+To assess the feasibility of such strategies, we conduct sensitivity analy-
+ses and impose restrictions on the absolute values of portfolio weights. 
+Our  results  indicate  that  portfolio  performance  remains  remarkably 
+robust under such constraints. Significant drops in performance are 
+observed only when long-only restrictions are applied. However, such 
+constraints appear excessively restrictive, as bond futures are available 
+in  all  but  one  market  in  the  sample,  allowing  professional  market 
+participants to easily short specific markets.
+
+Our paper contributes to several strands of literature. First, it relates 
+to research on return prediction in single domestic government bond 
+markets. This literature has grown substantially since Fama and Bliss 
+(1987), who document the empirical failure of the expectations hy-
+pothesis, showing that returns can be predicted using maturity-specific 
+forward spreads. Cochrane and Piazzesi (2005) make fuller use of the 
+forward  curve  for  return  prediction.  They  provide  evidence  that  a 
+common risk factor prices bonds of various maturities. Ludvigson and 
+Ng (2009) show that macroeconomic and financial variables substan-
+tially improve the predictability of bond risk premia. Similarly, Cieslak 
+and Povala (2015) highlight the critical role of inflation in predicting 
+government bond returns, showing that deviations of bond yields from 
+trend inflation carry valuable information about future returns.
+
+Second, a limited number of papers examine international bond 
+return predictability and yield curve fluctuation across different mar-
+kets (e.g., Jotikasthira et al., 2015; Bekaert and Ermolov, 2023). Ilma-
+nen (1995) analyzes bond predictability in six countries, finding that 
+
+2 
+
+Journal of Financial Economics 173 (2025) 104152 
+
+expected bond returns tend to be high when the term spread and the 
+real bond yield are elevated. Dahlquist and Hasseltoft (2013) extend 
+the  Cochrane–Piazzesi  framework  by  constructing  local  and  global 
+factors,  demonstrating  that  both  predict  international  bond  returns 
+well. Brooks and Moskowitz (2019) instead find that carry and value 
+predict excess returns on government bonds. Furthermore, Lustig et al. 
+(2019) demonstrate that the predictability of unhedged foreign bond 
+returns of developed countries decreases as their maturity increases. 
+They attribute this to the offsetting movements of local currency term 
+premia and currency premia at the long end of the yield curve.
+
+Third,  our  paper  contributes  to  the  literature  on  SDFs  derived 
+from mean–variance efficient portfolios, as developed by Hansen and 
+Richard (1987), Ferson and Siegel (2001), Ferson and Siegel (2003), Fer-
+son and Siegel (2009), and, more recently, Chernov et al. (2022), Mau-
+rer et al. (2022) and Chernov et al. (2023). Our analysis also derives 
+the unconditional mean–variance efficient portfolio, but we analyze 
+a  previously  unexplored  yet  important  class  of  assets:  international 
+government bonds.
+
+In summary, the existing related literature primarily adopts a single-
+market perspective on government bonds or focuses on entirely other 
+asset classes, such as the stock market or currency markets. Our ap-
+proach differs, as we analyze the pricing of developed countries’ gov-
+ernment bonds as a distinct asset class. We derive the UMVE portfolio 
+out-of-sample, provide insights about its ability to price bond markets 
+and strategies, about its average realized Sharpe ratio, the time series 
+properties of the resulting expected risk premia, and on how common 
+sources of return variation in international bond portfolios are related 
+to priced risks.
+
+The paper proceeds as follows. Section 2 outlines the theoretical 
+foundations. Section 3 describes the empirical strategy and presents 
+stylized evidence. Section 4 presents the main empirical findings. The 
+role of exchange rates is analyzed in Section 5. Section 6 explores 
+the implications for bond portfolio strategies, and Section 7 provides 
+robustness checks. Section 8 concludes.
+
+2. A linear factor model
+
+This section derives the theoretical foundations for the empirical 
+strategy  that  will  be  implemented  in  the  remainder  of  the  paper. 
+Specifically, we derive an SDF that prices international bond markets 
+as well as dynamic trading strategies both conditionally and uncon-
+ditionally via the UMVE portfolio. The foundations for this approach 
+have been developed by Hansen and Richard (1987), Ferson and Siegel 
+(2001), and, more recently, by Chernov et al. (2022). The following 
+presentation builds on this literature.
+
+The UMVE portfolio is defined by a dynamic trading strategy in the 
+𝑁 assets with excess returns 𝑟𝑥𝑈
+𝑡+1 = (𝐰𝑈
+𝑡  are a 
+function of the time-𝑡 covariance matrix V
+𝑡(𝐫𝐱𝑡+1) and expected excess 
+returns E
+
+𝑡 )⊤𝐫𝐱𝑡+1. Its weights 𝐰𝑈
+
+.
+
+𝐰𝑈
+
+𝑡 =
+
+(𝐫𝐱𝑡+1)E
+𝑡(𝐫𝐱𝑡+1)⊤V−1
+𝑡
+
+𝑡(𝐫𝐱𝑡+1)
+(𝐫𝐱𝑡+1)E
+While a portfolio with weights proportional to V−1
+𝑡
+
+𝑡(𝐫𝐱𝑡+1)
+
+1 + E
+
+𝑡(𝐫𝐱𝑡+1) is 
+always conditionally mean–variance efficient, this is not true uncondi-
+tionally. Obtaining the UMVE portfolio requires scaling the portfolio 
+(𝐫𝐱𝑡+1)E
+weights by (1 + E
+𝑡(𝐫𝐱𝑡+1))−1. As has been shown 
+by Hansen and Richard (1987), the unconditionally efficient portfolio 
+must be conditionally efficient, while the converse is not true.
+
+𝑡(𝐫𝐱𝑡+1)⊤V−1
+𝑡
+
+(𝐫𝐱𝑡+1)E
+
+(1)
+
+The UMVE prices all individual assets and any combination of them, 
+including dynamic trading strategies. Specifically, we can write both 
+conditional and unconditional linear factor pricing models in terms of 
+the UMVE. The unconditional relationship for any portfolio 𝑝 is: 
+E(𝑟𝑥𝑝
+
+(2)
+
+𝑡+1) = 𝛽𝑝E(𝑟𝑥𝑈
+
+𝑡+1) ,
+
+where the unconditional beta 𝛽𝑝 = 𝐶𝑜𝑣(𝑟𝑥𝑝
+relationship holds for any asset or portfolio strategy 𝑝.
+
+, 𝑟𝑥𝑈
+
+𝑡+1
+
+𝑡+1)V−1(𝑟𝑥𝑈
+
+𝑡+1). This 
+
+𝑡(𝐫𝐱𝑡+1): 
+V−1
+𝑡
+
+O. Randl et al.
+
+Similarly, the conditional version of the asset pricing model is given 
+
+E
+
+by 
+𝑡(𝑟𝑥𝑝
+𝑡
+with a conditional beta 𝛽𝑝
+
+𝑡+1) = 𝛽𝑝
+
+𝑡(𝑟𝑥𝑈
+E
+
+𝑡+1) ,
+
+𝑡 = 𝐶𝑜𝑣𝑡(𝑟𝑥𝑝
+𝑡+1
+Finally, the UMVE-implied SDF is 
+𝑡+1 − E(𝑟𝑥𝑈
+
+(𝑟𝑥𝑈
+
+𝑡+1)
+
+) ,
+
+𝑀𝑡+1 = 1 −
+
+, 𝑟𝑥𝑈
+
+𝑡+1)V−1
+
+𝑡
+
+(𝑟𝑥𝑈
+
+𝑡+1).
+
+(3)
+
+(4)
+
+E
+
+𝑡+1) = 0
+
+and it satisfies 
+𝑡(𝑀𝑡+1𝑟𝑥𝑝
+for all portfolios and dynamic trading strategies 𝑝 in the basis assets. 
+It is important to point out that this SDF 𝑀𝑡+1, defined in Eq.  (4), is 
+estimated from the UMVE portfolio returns. Thus, it can be interpreted 
+as an unconditional linear projection of the true SDF onto the payoff 
+space of all possible trading strategies that can be constructed from the 
+𝑁 basis assets.
+
+(5)
+
+3. Empirical strategy and stylized facts
+
+Empirical implementation of the approach described in Section 2 to 
+construct the UMVE portfolio requires the estimation of (i) expected re-
+turns and (ii) the conditional variance. To determine the weights of the 
+UMVE portfolio at any time 𝑡, we will use only information available 
+at that point in time, while returns are observed out-of-sample, in the 
+subsequent period.
+
+The estimation of conditional covariances faces substantial chal-
+lenges in a high-dimensional asset space, such as in the equity market. 
+Indeed, the estimated covariance matrix might not have full rank or 
+even exhibit negative eigenvalues. Therefore, the low-dimensional asset 
+space  resulting  from  our  focus  on  a  small  cross-section  of  10  ma-
+jor government bond markets provides an important advantage when 
+estimating the variance–covariance matrix.
+
+The remainder of this section explains how bond excess returns 
+are  defined  and  presents  stylized  evidence  for  the  markets  in  our 
+sample. Furthermore, it describes how expected excess returns and their 
+conditional covariances are estimated and reports the data sources.
+
+3.1. Bond excess returns
+
+To analyze the pricing of internationally diversified bond portfolios, 
+we  consider  a  portfolio  strategy  where  each  month  investments  in 
+local currency bonds are financed via short-term local-currency loans. 
+Each country’s bond market is represented by a synthetic 10-year zero-
+coupon bond, obtained from the appropriate zero-coupon bond curve.3 
+The  corresponding  holding  period  excess  return,  𝑟𝑥𝑖
+𝑡+1,  is  therefore 
+given by 
+
+𝑟𝑥𝑖
+
+𝑡+1 ∶= 𝑟𝑥(10𝑌 )
+
+𝑖,𝑡→𝑡+1𝑀 =
+
+𝑃 (10𝑌 −1𝑀)
+𝑖,𝑡+1𝑀
+𝑃 (10𝑌 )
+𝑖,𝑡
+
+⎛
+⎜
+⎜
+⎝
+ and 𝑃 (1𝑀)
+
+−
+
+1
+𝑃 (1𝑀)
+𝑖,𝑡
+
+⎞
+⎟
+⎟
+⎠
+
+𝑆𝑖,𝑡+1𝑀
+𝑆𝑖,𝑡
+
+,
+
+(6)
+
+𝑖,𝑡
+
+𝑖,𝑡
+
+where 𝑃 (10𝑌 )
+ are the local currency prices of a 10-year gov-
+ernment bond and of a 1-month government bill at time 𝑡 for country 𝑖, 
+respectively, and 𝑆𝑖,𝑡 is the exchange rate of country 𝑖, expressed as the 
+price of the foreign currency in units of the home currency, which we 
+interpret to be the U.S. dollar. Time series of excess returns, as defined 
+in Eq.  (6), are calculated at monthly frequency, using data from the last 
+day of each month. The expression in Eq.  (6) defines an FX-risk-hedged 
+bond excess return, as it results from a long position in the foreign 
+currency bond that is financed by a short position in a 1-month local 
+currency money market instrument. Equivalently, it can be interpreted 
+
+3 This maturity is frequently used by practitioners and in the academic 
+literature to represent government bond markets (see, e.g., Jordà et al., 2019; 
+Lustig et al., 2019).
+
+3 
+
+Journal of Financial Economics 173 (2025) 104152 
+
+as a long position in the foreign currency bond that is funded via a short 
+position in a 1-month money market instrument in the home currency 
+and an appropriate short position in a 1-month currency forward. In 
+contrast, an outright position in the foreign currency bond would be 
+fully exposed to FX risk, as the second term in the bracket would not 
+be subtracted.4
+
+The  return  definition  in  Eq.   (6)  matches  the  one  used  in  other 
+studies, such as in Koijen et al. (2018), which the authors refer to as 
+‘‘hedged dollar return’’. While this form of FX management is common 
+among bond investors, it does not completely eliminate FX risk, as is 
+apparent from Eq.  (6).5 Section 5 therefore provides a detailed analysis 
+of the remaining FX risk in bond returns defined in Eq.  (6) and to what 
+extent any remaining FX risk is priced.
+
+In our main empirical analysis we focus on government bond mar-
+kets of the following countries, which we refer to as G10∗: Australia, 
+Canada, Germany, Japan, New Zealand, Norway, Sweden, Switzerland, 
+the United Kingdom, and the United States. The currencies of these 
+countries are the ones which are frequently considered in the foreign 
+exchange literature, which refers to them as ‘‘G10 currencies’’ (see, for 
+example, Lustig et al. (2019) and Chernov et al. (2023)).
+
+Government bonds of these countries are typically issued in local 
+markets and denominated in local currencies (Chen et al., 2019). In 
+fact, 99.8% of the outstanding long-term central government debt of 
+the countries in our main sample is denominated in domestic currency, 
+according to the Bank for International Settlements (BIS).6 The analysis 
+in this study is therefore based on local currency bonds. The Eurozone 
+is represented by German government bonds, arguably the safest and 
+most liquid ones.
+
+The countries in the main sample represent about 70% of the global 
+local-currency long-term debt in the BIS statistic, as of the end of 2022. 
+As we use only German bonds to represent the Eurozone, and since 
+Euro area government bonds tend to be highly correlated, our implicit 
+coverage of world government bond markets is plausibly even larger. 
+Finally, the issuing countries in the sample are very unlikely to default, 
+such  that  their  government  bonds  can  be  considered  as  practically 
+default-risk free assets.
+
+3.2. Data
+
+To calculate bond excess returns, as defined in Eq.  (6), we collect 
+daily data from Bloomberg on long-term and short-term zero-coupon 
+yields for the period from January 1995 to December 2022 for the 
+G10∗ countries.7 For some analyses, we expand the set of countries 
+and thus we also obtain data on zero-coupon yields and exchange rates 
+for additional markets. For this extended sample, we select all OECD 
+member countries which do not belong to the G10∗ and for which data 
+availability for the zero-yield curve from Bloomberg is adequate. This 
+process defines a sample of 20 countries. In addition we consider Hong 
+Kong and Singapore for which sufficiently long time series of zero yield 
+curves are also available and which have liquid and sizable government 
+
+4 For a detailed exposition of the equivalence of the returns defined above 
+
+and FX forward-hedged returns, we refer to Appendix B.
+
+5 Campbell et al. (2010) find that the risk-minimizing strategy for a global 
+bond investor is indeed close to a full currency hedge, which corresponds 
+to return defined in Eq.  (6). Consistent with this finding, Sialm and Zhu 
+(2024) provide empirical evidence that around 90% of U.S. international fixed-
+income mutual funds use currency forwards to manage their foreign exchange 
+exposure (although they tend to hedge only partially). They also show that 
+hedging foreign exchange risk does not decrease the funds’ abnormal returns, 
+but reduces their return variability.
+
+6 Data  source:  BIS,  http://www.bis.org/statistics/c4.pdf.  The  percentage 
+does not include New Zealand, where data are unavailable in the BIS statistic.
+7 Since  Bloomberg  does  not  provide  data  on  the  1-month  yield  for  all 
+countries in our sample, we approximate it using the 3-month yield, which 
+is consistently available.
+
+O. Randl et al.
+
+Table 1
+Descriptive statistics of bond returns.
+
+Mean
+
+Median
+
+3.906
+4.364
+4.105
+3.646
+2.791
+
+3.501
+3.240
+6.814
+2.796
+4.571
+
+Std. Dev.
+9.007
+7.498
+6.861
+5.103
+8.515
+
+SR
+0.434 
+  Australia
+0.582 
+  Canada
+0.598 
+  Germany
+0.715 
+  Japan
+0.328 
+  New Zealand
+0.439 
+  Norway
+0.656 
+  Sweden
+0.610 
+  Switzerland
+0.418 
+  United Kingdom
+  United States
+0.478 
+This table shows descriptive statistics of monthly 10-year government bond excess 
+returns (in % p.a.) and annualized Sharpe ratios (SR) by country of issuance. Statistics 
+refer to the G10∗ countries. Bond returns are in monthly frequency. Data are from 
+January 1995 to December 2022 and measured in USD.
+
+3.135
+5.612
+4.521
+3.158
+2.214
+
+3.226
+5.313
+3.486
+3.401
+4.310
+
+7.352
+8.100
+5.717
+8.136
+9.013
+
+bond and foreign exchange markets. The final list of extended countries 
+is  composed  of:  Austria,  Belgium,  Finland,  France,  Greece,  Ireland, 
+Italy, the Netherlands, Portugal, Slovakia, Slovenia and Spain, which 
+belong to the Euro area as of 2022, and Chile, Denmark, Colombia, 
+Czech Republic, Hong Kong, Hungary, Israel, Mexico, Singapore, and 
+Turkey, which are countries outside the Euro area.
+
+We  also  use  several  macro  data  sources.  From  Datastream,  we 
+collect monthly data on consumer price indices (CPIs), unemployment 
+rates, and quarterly data on gross domestic product (GDP) for each 
+country in our sample.8 We then compute the cross-sectional standard 
+deviation of these variables as a measure of dispersion across macroe-
+conomic dimensions. As proxies for the return and volatility of the 
+stock market, we collect data for the MSCI World Index and for the VIX 
+Index from Bloomberg. The Global Economic Policy Uncertainty Index 
+(EPU) is obtained from the website of Scott Baker, Nick Bloom, and 
+Steven Davis. This index is based on Baker et al. (2016) and measures 
+global policy-related economic uncertainty. We also obtain data on 
+the intermediary capital risk factor, defined by He et al. (2017) as 
+AR(1) innovations to the capital ratio, scaled by its lagged value, where 
+the capital ratio is defined as the aggregate value of market equity 
+divided by the aggregate value of total assets (i.e, the sum of aggregate 
+market equity and book debt) and computed for the largest financial 
+intermediaries in the U.S. These data are available from the authors’ 
+websites.9
+
+3.3. Stylized facts
+
+We  first  provide  empirical  facts  about  the  risk-return  character-
+istics  of  government  bond  markets  and  dynamic  government  bond 
+portfolio  strategies.  Using  Eq.   (6),  we  calculate  annualized  average 
+excess returns, standard deviations, and Sharpe ratios for the G10∗
+countries. Table  1 provides descriptive statistics for annualized one-
+month holding period excess returns of 10-year government bonds by 
+country of issuance. Although all countries can be considered as very 
+close to default free, investors earned attractive returns over the sample 
+period. In fact, Sharpe ratios are above 0.4 in all markets except New 
+Zealand. The high average returns over the sample period partially 
+reflect a worldwide downwards trend in bond yields, which persisted 
+until March 2022.
+
+Table  2 compares risk-return characteristics from individual bond 
+markets with those that can be obtained from naively diversified static 
+portfolios  and  from  simple  dynamic  portfolio  strategies.  Comparing 
+
+8 For the GDP data, to move from quarterly to monthly frequency, we assign 
+
+the same value for all three months of each quarter.
+
+9 Table C2 in the appendix provides descriptive statistics for the above 
+
+macro and market variables.
+
+Table 2
+Stylized evidence.
+
+Journal of Financial Economics 173 (2025) 104152 
+
+Mean
+
+Median
+
+Std. Dev.
+
+SR
+
+7.379
+
+3.145
+
+3.307
+
+0.463 
+
+6.077
+6.637
+
+2.309
+2.862
+
+3.307
+3.505
+
+0.544 
+0.528 
+
+3.262
+1.815
+1.098
+
+  A. No diversification
+  Individual countries’ average
+  B. Simple strategies
+  Naive (1∕𝑁)
+  GDP-weighted
+  C. Conditional strategies
+0.813 
+  Carry
+0.465 
+  Value
+  Momentum
+0.284 
+This table shows the mean return in % p.a., median return in % p.a., standard deviation 
+in % p.a., and annualized Sharpe ratio (SR) of individual countries’ average as well as 
+global bond portfolio strategies. The sample consists of Australia, Canada, Germany, 
+Japan, New Zealand, Norway, Sweden, Switzerland, the United Kingdom, and the 
+United States. Panel A shows results with no diversification. Panel B shows results 
+of simple portfolio strategies. Panel C presents conditional strategies, where portfolios 
+are constructed using rank-weights following Asness et al. (2013) and focusing on the 
+following signals respectively: bond carry, defined as the difference between 10-year 
+yield and the local 1-month yield; bond value, defined as the difference between the 
+10-year yield and inflation; and bond momentum, defined as the cumulative return 
+over 12 months skipping the last month. Data are from December 1995 to December 
+2022.
+
+4.011
+3.907
+3.860
+
+2.684
+1.265
+0.961
+
+Panel A of Table  2, which denotes the benchmark case with no diver-
+sification, to Panel B, which displays simple diversification strategies, 
+it  becomes  clear  that  international  diversification  matters  for  bond 
+investors.  By  definition,  naive  (1∕𝑁)  diversification  across  markets 
+achieves an average excess return identical to the cross-sectional av-
+erage of the single-countries in the sample, which equals 3.3% p.a. 
+The individual countries’ average standard deviation equals 7.4%. By 
+diversifying, investors could have lowered the standard deviation of 
+their portfolio considerably by almost 20% to 6.1%, thereby achieving a 
+substantially higher Sharpe ratio. While the individual countries’ aver-
+age Sharpe ratio equals 0.46 in our sample, naive diversification across 
+the 10 markets increases the Sharpe ratio to 0.54. A GDP-weighted 
+strategy yields an only marginally worse risk-return trade-off, with a 
+Sharpe ratio of 0.53. Panel C of Table  2 explores whether simple port-
+folio strategies already realize most of the benefits of internationally 
+diversified bond portfolios, or whether conditional strategies, which 
+should be easily accessible to bond portfolio managers, lead to further 
+improvements. To this end, we investigate long-short portfolios sorted 
+on carry, value and momentum. Returns to these strategies have been 
+shown to contribute significantly to portfolio performance in different 
+asset classes, such as equity, currencies, and fixed income (e.g., Fama 
+and French, 2012; Asness et al., 2013; Koijen et al., 2018). We therefore 
+use the following characteristics to construct simple dynamic portfolio 
+strategies:  the  slope  of  the  yield  curve,  i.e.  the  difference  between 
+the 10-year yield and the local 1-month yield (carry), the real bond 
+yield, i.e. the difference between the 10-year yield and inflation (value), 
+and momentum, i.e. the cumulative return over 12 months skipping 
+the  most  recent  one  (momentum).  We  document  that  all  long-short 
+bond portfolios achieve positive performance. The Sharpe ratios for 
+carry, value and momentum are 0.81, 0.47, and 0.28, respectively. 
+Interestingly, the carry strategy outperforms all others substantially. 
+This evidence is consistent with the literature highlighting that returns 
+from carry generate positive alpha for a host of asset classes (Koijen 
+et al., 2018).
+
+Fig.  1 illustrates time variation in returns and risk for the bond 
+portfolio strategies. Specifically, Panels A and B display the extent to 
+which average excess returns fluctuate over time by plotting moving 
+averages over 36 months for the returns of the naive and the GDP-
+weighted portfolios, as well as the factor portfolios carry, value, and 
+momentum from Table  2 (Panel C). The considerable heterogeneity in 
+the performance dynamics of these bond portfolio strategies further 
+supports the conjecture that investors might be able to benefit from 
+conditional strategies. Fig.  1, Panels C and D instead show the time 
+
+4 
+
+ 
+ 
+ 
+O. Randl et al.
+
+Journal of Financial Economics 173 (2025) 104152 
+
+Fig. 1.  Time variation in returns and standard deviations.
+Panel A shows annualized moving average returns over 36 months for the naive (1∕𝑁) and the GDP-weighted portfolios. Panel B shows moving average returns over 36 months 
+for the rank-weighted conditional portfolios (Asness et al., 2013). These are constructed using bond carry, value, and momentum as signals. Bond carry is defined as the difference 
+between 10-year yield and the local 1-month yield. Bond value is defined as the difference between the 10-year yield and inflation. Bond momentum is defined as the cumulative 
+return over 12 months skipping the last month. Panels C and D plot standard deviations for the simple and conditional strategies, respectively. Details on the covariance matrix 
+estimation, based on Ledoit and Wolf (2022), which is used for the standard deviations, are reported in Section 3.4.2. Bond data belong to the following countries: Australia, 
+Canada, Germany, Japan, New Zealand, Norway, Sweden, Switzerland, United Kingdom, United States. Data are from October 1998 to December 2022.
+
+series of the standard deviations of these five portfolios, where the 
+estimation procedure used to compute the covariances is explained 
+in  detail  in  Section  3.4.2.  While  it  can  be  seen  that  all  portfolios 
+show considerable fluctuations in their standard deviations over time, 
+the factor strategies appear to exhibit lower risk levels on average. 
+Motivated  by  these  findings,  we  proceed  to  analyze  the  properties 
+of the UMVE portfolio, using the parsimonious theoretical framework 
+described in Section 2. To this end, we first explain how the two inputs 
+for its estimation, namely expected returns and conditional covariance 
+matrix are derived.
+
+3.4. Estimation of expected bond returns and covariances
+
+3.4.1. Expected returns
+
+𝑡(𝑟𝑥𝑖
+
+To  forecast  expected  excess  returns  E
+
+𝑡+1)  one  month  ahead, 
+we  rely  on  forward  spread  and  value  signals.  These  are  two  well 
+established predictive variables, for which there is a large empirical 
+literature, both as potential predictors of excess returns in local bond 
+markets as well as of other asset classes. Specifically, we run the fol-
+lowing pooled ordinary least squares (OLS) regression, using expanding 
+time windows, with standard errors clustered at the country level: 
+
+E
+
+𝑡(𝑟𝑥𝑖
+
+𝑡+1) = 𝛾𝑡 𝐹 𝑜𝑟𝑤𝑎𝑟𝑑𝑆𝑝𝑟𝑒𝑎𝑑𝑖,𝑡 + 𝛿𝑡 𝑉 𝑎𝑙𝑢𝑒𝑖,𝑡 ,
+
+(7)
+
+5 
+
+O. Randl et al.
+
+where we define the explanatory variables as follows. The forward 
+spread is defined as 
+
+𝑃 (10𝑌 −1𝑀)
+𝑖,𝑡
+𝑃 (10𝑌 )
+𝑖,𝑡
+
+.
+
+−
+
+(8)
+
+𝐹 𝑜𝑟𝑤𝑎𝑟𝑑𝑆𝑝𝑟𝑒𝑎𝑑𝑖,𝑡 =
+
+1
+𝑃 (1𝑀)
+𝑖,𝑡
+Many papers, starting with Fama and Bliss (1987) and Campbell and 
+Shiller  (1991),  document  the  empirical  failure  of  the  expectations 
+hypothesis and that forward rates predict future bond returns: steep 
+yield curves signal high subsequent holding period returns. More re-
+cently, Koijen et al. (2018) provide evidence that similar carry mea-
+sures predict returns cross-sectionally and in the time series for dif-
+ferent asset classes. Their definition of global bond carry is a slightly 
+modified version of the Fama and Bliss (1987) forward spread. Linking 
+carry concepts from the currency and bond markets, Andrews et al. 
+(2024) show that sorting countries on the slope of their yield curves 
+constitutes a profitable trading strategy, in particular since 2008 when 
+returns from the traditional currency carry have weakened.
+
+Next we define value by the real bond yield: 
+
+𝑉 𝑎𝑙𝑢𝑒𝑖,𝑡 = 𝑌 (10𝑌 )
+
+𝑖,𝑡
+
+− 𝜋𝑖,𝑡 ,
+
+(9)
+
+where 𝜋𝑖,𝑡 = 𝐶𝑃 𝐼𝑖,𝑡∕𝐶𝑃 𝐼𝑖,𝑡−12𝑀 − 1 and 𝐶𝑃 𝐼𝑖,𝑡 is country 𝑖’s consumer 
+price index, lagged by one month. Inflation has been considered an 
+important driver of bond holding period returns, both in academic 
+research as well as among practitioners. Campbell and Ammer (1993) 
+show that unexpected excess bond returns must be associated with 
+changes in expected inflation rates, future real interest rates, or fu-
+ture excess bond returns. Because bond payoffs are fixed, changes in 
+expected inflation rates impact nominal bond returns even if expected 
+real returns are constant. More recently, Cieslak and Povala (2015) find 
+that a cycle factor that captures deviations of observed bond yields from 
+those fitted on the basis of current and past inflation predicts excess 
+returns of long-term yields.
+
+It is plausible that sophisticated investors were aware of the relation 
+between the above predictive variables and bond returns throughout 
+our sample period. As discussed above, the shape of the yield curve has 
+already been identified as a determinant of bond risk premia by Fama 
+and Bliss (1987) and Campbell and Ammer (1993), who split the bond 
+yield into expected real rates and other components, thus emphasizing 
+the role of value measures as defined in Eq.  (9) above. Also, Ilmanen 
+(1995)  considers  both  the  term  spread  and  the  real  bond  yield  as 
+instruments to explain bond excess returns. To ensure that we use only 
+information up to time 𝑡 to form expectations about returns ending in 
+period 𝑡+1, we re-estimate the coefficients in Eq.  (7) every month using 
+an expanding sample. For the regression, we require a minimum of 
+60 months of data, and thus we obtain expected returns starting with 
+January 2001.
+
+Fig.  2 shows the time series of the estimated coefficients ̂𝛾𝑡 and  ̂𝛿𝑡, 
+while Table  3 reports their descriptive statistics. Even though there is 
+some time variation in the estimates, they appear to be quite stable. 
+Consistent with the literature, both the forward spread and bond value 
+have  positive  coefficients,  but  only  the  former  has,  on  average,  a 
+statistically significant relation with expected returns. In Table  3, the 
+average 𝑡-statistics are 2.74 and 1.15 for the forward spread and bond 
+value, respectively. Despite the low 𝑡-stat of value, it turns out to be an 
+important predictor. As will be seen in Section 4.2, both the forward 
+spread and value signals are required to obtain a UMVE portfolio that 
+prices international bond portfolios.10
+
+10 The importance of value as an additional regressor is also confirmed 
+by the Diebold and Mariano (1995) test comparing the model that includes 
+both signals with the one that only uses the forward spread. The test shows 
+a significantly higher predictive ability for the full model, with a 𝑡-statistic 
+of  −3.45.  Furthermore,  Table   8  shows  that  a  restricted  UMVE,  which  is 
+constructed  using  only  the  forward  spread,  is  not  able  to  price  dynamic 
+portfolio strategies.
+
+Journal of Financial Economics 173 (2025) 104152 
+
+3.4.2. Covariances
+
+We estimate the covariance matrix using a three-step procedure. 
+First, we compute monthly bond returns at daily frequency. We require 
+a  high  frequency  of  observations  in  this  stage  as  this  allows  us  to 
+estimate a covariance matrix  ̂𝛴𝑡 for each month, thus capturing time 
+variation. Second, given the low number of observations within a single 
+month, we apply the quadratic shrinkage method of Ledoit and Wolf 
+(2022), obtaining  ̃𝛴𝑡. Finally, we calculate an exponentially weighted 
+average of the shrunk covariance matrices, to arrive at the estimate of 
+the covariance matrix V
+
+𝑡: 
+
+V
+
+𝑡 = (1 − 𝜆) ̃𝛴𝑡 + 𝜆V
+
+𝑡−1 ,
+
+where we set 𝜆=0.94.11
+
+3.4.3. Unbiasedness
+
+(10)
+
+As a sanity test, we first check if the main objects that we use for 
+constructing the UMVE portfolio are unbiased. In particular, we regress 
+(i) realized excess returns 𝑟𝑥𝑖
+𝑡+1), 
+(ii) squared returns in excess of expected values, (𝑟𝑥𝑖
+𝑡+1))2, 
+𝑡 (𝑟𝑥𝑖
+on estimated variances, 𝜎2
+𝑡+1), which are the diagonal elements of 
+𝑡+1)) ⋅ (𝑟𝑥𝑗
+𝑡+1 − E
+the matrix V
+𝑡+1 −
+, 𝑟𝑥𝑗
+𝑡(𝑟𝑥𝑗
+E
+𝑡+1),  which  are  the 
+off-diagonal elements of V
+
+𝑡+1 on expected excess returns E
+𝑡+1 − E
+
+𝑡+1))  on  estimated  covariances  𝑐𝑜𝑣𝑡(𝑟𝑥𝑖
+
+𝑡, and (iii) products of returns (𝑟𝑥𝑖
+
+𝑡(𝑟𝑥𝑖
+
+𝑡(𝑟𝑥𝑖
+
+𝑡(𝑟𝑥𝑖
+
+𝑡+1
+
+𝑡.
+
+Table  4 shows that the regression of realized returns on predicted 
+returns  produces  a  coefficient  close  to  1  (the  estimated  coefficient 
+is equal to 0.91). The conditional variance also appears consistently 
+estimated, as indicated by the coefficient of 0.95. Similar conclusions 
+obtain for the estimated covariance, where the regression coefficient 
+almost exactly equals 1.00. Thus, according to Table  4, the predictive 
+regressions are unbiased, as in none of the cases the coefficients are 
+statistically significantly different from 1.12
+
+4. Empirical evidence
+
+After defining the set of the test assets, this section provides the 
+main  results  of  the  asset  pricing  tests  to  evaluate  the  linear  factor 
+model, discusses the implications, and analyzes the properties of the 
+UMVE portfolio returns.
+
+4.1. Test assets
+
+Following Hansen and Richard (1987), one can evaluate the con-
+ditional linear beta pricing relationship from Eq.  (3) by testing the 
+unconditional linear beta pricing relation specified in Eq.  (2) for a com-
+prehensive set of dynamic trading strategies as test assets. Therefore, in 
+addition to individual countries’ bond returns, we include 14 trading 
+strategies in our set of test assets. Specifically, we define the return of 
+a dynamic portfolio strategy 𝑃 , 𝑟𝑥𝑃
+
+𝑡+1, as 
+
+𝑟𝑥𝑃
+
+𝑡+1 =
+
+𝑁𝑡∑
+
+𝑖=1
+
+𝑤𝑃
+
+𝑖,𝑡𝑟𝑥𝑖
+
+𝑡+1 ,
+
+(11)
+
+where  𝑤𝑃
+𝑖,𝑡  is  the  weight  of  country  𝑖  in  strategy  𝑃   and  𝑁𝑡  is  the 
+number of countries at time 𝑡. In addition to the naive 1∕𝑁 and the 
+GDP-weighted portfolios, we use bond carry, value, momentum, and 
+short-term momentum as trading signals, which we define as follows:
+
+1 equal to  ̃𝛴1.
+
+11 We set V
+12 This  is  also  true  when  predicting  returns  and  covariances  of  trading 
+strategies, as shown in Table D1 in the appendix.
+
+6 
+
+O. Randl et al.
+
+Journal of Financial Economics 173 (2025) 104152 
+
+Fig. 2.  Time series of estimated coefficients from predictive regression.
+This figure shows the time series of the estimated coefficients from pooled regressions of the forward spread (̂𝛾) and bond value ( ̂𝛿) on bond excess returns using expanding 
+windows. Panel A displays the estimated coefficient of the forward spread variable and Panel B of the bond value variable. The dotted lines and the shaded areas show the 90% 
+and 95% confidence intervals, respectively. Standard errors are clustered at the country level.
+
+  𝐶𝑎𝑟𝑟𝑦
+
+  𝑉 𝑎𝑙𝑢𝑒
+
+  𝑀𝑜𝑚𝑒𝑛𝑡𝑢𝑚
+
+  𝑆ℎ𝑜𝑟𝑡𝑇 𝑒𝑟𝑚𝑀𝑜𝑚
+
+,
+
+𝑖,𝑡
+
+difference between the 10-year yield and 
+the local 1-month yield
+𝐶𝑎𝑟𝑟𝑦𝑖,𝑡 = 𝑌 (10𝑌 )
+− 𝑌 (1𝑀)
+𝑖,𝑡
+real bond yield, as defined in Eq.  (9)
+𝑉 𝑎𝑙𝑢𝑒𝑖,𝑡 = 𝑌 (10𝑌 )
+− 𝜋𝑖,𝑡,
+cumulative return over 12 months, 
+skipping the last month
+𝑃 (10𝑌 −1𝑀)
+11
+∏
+𝑖,𝑡−𝑘
+𝑃 (10𝑌 )
+𝑖,𝑡−𝑘−1
+
+𝑀𝑜𝑚12𝑖,𝑡 =
+
+𝑆𝑖,𝑡−𝑘
+𝑆𝑖,𝑡−𝑘−1
+
+− 1,
+
+(
+
+)
+
+𝑖,𝑡
+
+𝑘=1
+return over the last month
+
+𝑀𝑜𝑚1𝑖,𝑡 =
+
+𝑃 (10𝑌 −1𝑀)
+𝑖,𝑡
+𝑃 (10𝑌 )
+𝑖,𝑡−1
+
+𝑆𝑖,𝑡
+𝑆𝑖,𝑡−1
+
+− 1.
+
+Table  5 lists the different trading strategies and provides the details 
+
+of the respective portfolio constructions.
+
+4.2. Regression tests of the UMVE portfolio
+
+To analyze whether the UMVE portfolio prices international govern-
+ment bonds, we test Equation (2) and run traditional regression tests 
+of the following form: 
+
+𝑟𝑥𝑖
+
+𝑡+1 = 𝛼𝑖 + 𝛽𝑖𝑟𝑥𝑈
+
+𝑡+1 + 𝜖𝑖,𝑡+1,
+
+(12)
+
+where 𝑟𝑥𝑖
+the country or the trading strategy, respectively) and 𝑟𝑥𝑈
+portfolio’s excess return as defined in Section 2.
+
+𝑡+1 denotes the excess returns of test asset 𝑖 (where 𝑖 denotes 
+𝑡+1 is the UMVE 
+
+7 
+
+Mean
+
+Median
+
+1.569
+2.736
+
+Table 3
+Estimated coefficients from predictive regressions.
+  Statistic
+Pctl(90)
+1.882  
+  ̂𝛾𝑡
+3.632  
+  𝑡-stat ̂𝛾𝑡
+0.072  
+  ̂𝛿𝑡
+1.527  
+  𝑡-stat ̂𝛿𝑡
+This  table  reports  descriptive  statistics  (mean,  median,  standard  deviation,  10th 
+percentile, and 90th percentile) of the estimated coefficients from the pooled regressions 
+specified in Eq.  (7). ̂𝛾𝑡, ̂𝛿𝑡 denote the estimated coefficients of the forward spread and 
+value, respectively. 𝑡-stat is the 𝑡-statistic of these variables.
+
+Std. Dev.
+0.276
+0.696
+
+0.045
+1.064
+
+0.050
+1.151
+
+0.016
+0.286
+
+0.033
+0.840
+
+1.659
+2.725
+
+1.184
+1.805
+
+Pctl(10)
+
+Table  6 shows the results of the hypothesis test for the G10∗ mar-
+kets. Specifically, it shows for each country the annualized Sharpe ratio, 
+the mean excess returns, and the 𝑡-test of the mean excess returns. It 
+further reports the alphas from country regressions defined in Eq.  (12), 
+their 𝑡-statistics, and the associated adjusted 𝑅2. While Sharpe ratios 
+range from 0.26 to 0.68 and mean annualized excess returns between 
+2.17% and 4.05%, alphas are small and not significantly different from 
+zero. The alpha for Norway has the largest 𝑡-statistic, with a value of 
+1.01. Japan exhibits the largest adjusted 𝑅2: the UMVE portfolio excess 
+returns explain 17% of Japanese bond excess returns. Overall, results 
+confirm the validity of the UMVE portfolio, as it is able to individually 
+price government bond markets without bias. However, the relatively 
+low 𝑅2s suggest that only a part of bond return variations is priced. 
+
+γδ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+O. Randl et al.
+
+Journal of Financial Economics 173 (2025) 104152 
+
+Fig. 3.  Sharpe ratio of original, hedging, and hedged strategies.
+This figure shows the annualized Sharpe ratio of the original, hedging and hedged portfolio strategies. The original portfolio strategies are defined in Table  5. The hedged portfolio 
+is the portfolio with systematic factor exposure, as defined in Section 4.4, while the hedging portfolio captures the unpriced source of common variation in bond returns. Data 
+are from January 2001 to December 2022.
+
+Table 4
+Predictive ability of conditional expectations, variance and covariance for individual countries.
+
+  E
+
+𝑡(𝑟𝑥𝑖
+
+𝑡+1)
+
+  𝜎2
+
+𝑡 (𝑟𝑥𝑖
+
+𝑡+1)
+
+  𝑐𝑜𝑣𝑡(𝑟𝑥𝑖
+
+𝑡+1
+
+, 𝑟𝑥𝑗
+
+𝑡+1)
+
+𝑟𝑥𝑖
+
+𝑡+1
+
+0.911
+(0.293)
+
+(𝑟𝑥𝑖
+
+𝑡+1 − E
+
+𝑡(𝑟𝑥𝑖
+
+𝑡+1))2
+
+(𝑟𝑥𝑖
+
+𝑡+1 − E
+
+0.950
+(0.085)
+
+0.999
+(0.115)
+
+𝑡(𝑟𝑥𝑖
+
+𝑡+1)) ⋅ (𝑟𝑥𝑗
+
+𝑡+1 − E
+
+𝑡(𝑟𝑥𝑗
+
+𝑡+1))
+
+2,640
+0.011
+
+  Observations
+11,880
+2,640
+  Adjusted R2
+0.054
+0.057
+𝑡+1))2 on 
+𝑡+1), column (1), of (𝑟𝑥𝑖
+𝑡+1, on expected returns, E
+This table shows estimates from regressions of realized returns, 𝑟𝑥𝑖
+estimated variance, 𝜎2
+𝑡+1)) on estimated covariance, column (3). The estimation of the 
+𝑡+1)) ⋅ (𝑟𝑥𝑗
+𝑡+1 − E
+conditional means and the conditional covariances follows Sections 3.4.1 and 3.4.2, respectively. Standard errors are clustered at the month 
+level. Under the null hypothesis that coefficients are equal to 1, ***,**,* indicates that estimates are statistically significant at the 1, 5, and 10 
+percent levels, respectively.
+
+𝑡+1), column (2), and of (𝑟𝑥𝑖
+
+𝑡+1 − E
+
+𝑡+1 − E
+
+𝑡 (𝑟𝑥𝑖
+
+𝑡(𝑟𝑥𝑗
+
+𝑡(𝑟𝑥𝑖
+
+𝑡(𝑟𝑥𝑖
+
+𝑡(𝑟𝑥𝑖
+
+This observation is consistent with the finding of Chernov et al. (2023) 
+for currencies. 
+
+Table  7 reports the results for portfolio strategies. The Sharpe ratios 
+of the 14 portfolio strategies range from −0.34 to 0.78. All alphas with 
+respect to the UMVE portfolio are statistically insignificant. The UMVE 
+portfolio prices a relatively large share of the variation in the cross-
+sectional carry strategy, as expressed by the 𝑅2 of 21%. The other 
+𝑅2s are relatively low, similar in magnitude to those of Table  6. This 
+suggests again that a substantial fraction of the variation of the returns 
+is unpriced. 
+
+Table   8  reports  the  results  of  the  Gibbons-Ross-Shanken  (GRS) 
+test (Gibbons et al., 1989) and the multihorizon returns (MHR) test 
+(Chernov et al., 2022). The first column shows the Sharpe ratio of the 
+UMVE portfolio, constructed from the full model defined in Eq.  (7) 
+(top row), and of alternative UMVE portfolios, which, alternatively, 
+only use the forward spread (middle row) or value (bottom row) as 
+predictor variable. As can be seen, the UMVE portfolio based on the full 
+model prices bond markets substantially better than the UMVE portfolio 
+obtained from the restricted models. This indicates that, while the bond 
+value variable exhibits poor statistical significance when we look at 
+
+8 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+O. Randl et al.
+
+Table 5
+Trading strategies.
+  Acronym
+  1∕𝑁
+  GDP-weighted
+  Average Carry
+
+  CS-Carry
+  TS-Carry
+  Average Value
+
+  CS-Value
+  TS-Value
+  Average Mom12
+
+  CS-Mom12
+  TS-Mom12
+
+  Average Mom1
+
+  CS-Mom1
+  TS-Mom1
+
+Name
+
+Naive
+GDP-weighted
+Average Carry
+
+Cross-Sectional Carry
+Time Series Carry
+Average Value
+
+Cross-Sectional Value
+Time Series Value
+Average Momentum 12 Months
+
+Cross-Sectional Momentum 12 Months
+Time Series Momentum 12 Months
+
+Average Momentum 1 Month
+
+Cross-Sectional Momentum 1 Month
+Time Series Momentum 1 Month
+
+Journal of Financial Economics 173 (2025) 104152 
+
+Description
+equally-weighted average of countries’ bond returns
+GDP-weighted average of countries’ bond returns
+long (short) in all countries when the average bond carry is 
+positive (negative)
+rank weights (Asness et al., 2013) based on bond carry
+long (short) in countries with a positive (negative) bond carry
+long (short) in all countries when the average bond value is 
+positive (negative)
+rank weights based on bond value
+long (short) in countries with a positive (negative) bond value
+long (short) in all countries when the average long-term bond 
+momentum is positive (negative)
+rank weights based on long-term bond momentum
+long (short) in countries with a positive (negative) long-term bond 
+momentum
+long (short) in all countries when the average short-term bond 
+momentum is positive (negative)
+rank weights based on short-term bond momentum
+long (short) in countries with a positive (negative) short-term bond 
+momentum
+
+Table 6
+Testing the UMVE using individual country bond returns.
+Mean
+
+SR
+
+Alpha
+
+t_mean
+
+t_alpha
+
+0.259
+0.466
+0.500
+0.684
+0.290
+
+1.219
+2.190
+2.348
+3.212
+1.364
+
+2.176
+3.237
+3.471
+2.272
+2.341
+
+adj.R2 
+0.012  
+  Australia
+0.085  
+  Canada
+0.081  
+  Germany
+0.171  
+  Japan
+0.033  
+  New Zealand
+0.014  
+  Norway
+0.054  
+  Sweden
+0.083  
+  Switzerland
+0.044  
+  United Kingdom
+  United States
+0.084  
+This table shows, for individual countries, the annualized Sharpe ratio (𝑆𝑅), mean bond returns (𝑀𝑒𝑎𝑛, in % p.a.), and the 𝑡-statistic for the 
+mean bond returns (𝑡_𝑚𝑒𝑎𝑛). It further reports the alpha from regressing individual countries’ bond returns on the UMVE portfolio returns 
+(𝐴𝑙𝑝ℎ𝑎, in % p.a.), the 𝑡-statistics for the alpha coefficient (𝑡_𝑎𝑙𝑝ℎ𝑎), and the adjusted R2 from this regression (𝑎𝑑𝑗.𝑅2). The 𝑡-statistics are 
+heteroskedasticity-robust. Data are from January 2001 to December 2022.
+
+0.871
+0.698
+0.985
+0.569
+0.433
+
+0.461
+0.454
+0.765
+0.808
+0.244
+
+1.014
+0.792
+0.709
+0.223
+0.371
+
+1.803
+2.142
+2.386
+1.472
+2.083
+
+1.578
+1.156
+0.839
+0.372
+0.733
+
+2.754
+3.287
+2.911
+2.539
+4.046
+
+0.384
+0.456
+0.508
+0.313
+0.443
+
+Table 7
+Testing the UMVE using portfolio strategies.
+
+SR
+
+Mean
+
+Alpha
+
+t_mean
+
+t_alpha
+
+2.903
+3.350
+
+0.477
+0.497
+
+0.823
+0.726
+
+2.239
+2.334
+
+3.752
+3.016
+2.782
+
+0.620
+0.779
+0.517
+
+adj.R2  
+0.074  
+  1∕𝑁
+0.097  
+  GDP-weighted
+0.108  
+  Average Carry
+0.211  
+  CS-Carry
+0.093  
+  TS-Carry
+0.033  
+  Average Value
+0.015  
+  CS-Value
+0.060  
+  TS-Value
+0.060  
+  Average Mom12
+−0.004 
+  CS-Mom12
+0.040  
+  TS-Mom12
+0.007  
+  Average Mom1
+0.001  
+  CS-Mom1
+  TS-Mom1
+0.008  
+This table shows for global bond portfolio strategies, as defined in Table  5, the annualized Sharpe ratio (𝑆𝑅), mean bond returns (𝑀𝑒𝑎𝑛, in % p.a.), and the 𝑡-statistic for the 
+mean bond returns (𝑡_𝑚𝑒𝑎𝑛). It further shows the alpha from regressing portfolio returns on the UMVE portfolio returns (𝐴𝑙𝑝ℎ𝑎, in % p.a.), the 𝑡-statistics for the alpha coefficient 
+(𝑡_𝑎𝑙𝑝ℎ𝑎), and the adjusted R2 from this regression (𝑎𝑑𝑗.𝑅2). The 𝑡-statistics are heteroskedasticity-robust. Data are from January 2001 to December 2022.
+
+1.211
+−1.458
+0.642
+
+0.939
+−1.851
+0.643
+
+0.069
+−0.337
+0.001
+
+0.422
+−1.158
+0.005
+
+0.323
+−1.583
+0.005
+
+2.394
+1.177
+2.352
+
+1.336
+2.041
+2.203
+
+0.299
+0.869
+0.775
+
+0.236
+1.256
+0.758
+
+1.221
+0.828
+1.240
+
+0.947
+1.050
+1.149
+
+0.509
+0.250
+0.501
+
+3.100
+0.829
+2.531
+
+1.742
+1.422
+2.287
+
+0.284
+0.434
+0.469
+
+2.913
+3.662
+2.428
+
+1.272
+0.817
+0.729
+
+1.024
+1.040
+0.671
+
+0.660
+0.522
+
+its effect in the forecasting regression (see Table  3), it is an important 
+variable, jointly with the forward spread, when it comes to pricing the 
+cross-section of bond returns. We also observe that the Sharpe ratio of 
+the optimal UMVE portfolio is much higher than the Sharpe ratios of 
+the individual bond markets and those of bond strategies.
+
+Columns 2 and 3 of Table  8 show the results from asset pricing 
+tests using all strategies as test assets. We report the 𝑝-values of the 
+tests whether the alphas from regressing each portfolio strategy on the 
+
+UMVE portfolio are jointly equal to zero. Both the GRS and MHR tests 
+fail to reject the null hypothesis with 𝑝-values equal to 0.455 and 0.106, 
+respectively. If we consider simpler models using the forward spread 
+only (middle row), or value only (bottom row), the GRS test rejects 
+the null with a 𝑝-value equal to 0.047 for the model using the forward 
+spread and 0.012 for the model using value. Similarly, the MHR test 
+rejects the null hypothesis for the restricted models. When using carry 
+and value strategies as test assets (columns 4 and 5), the GRS and MHR 
+
+9 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+O. Randl et al.
+
+Journal of Financial Economics 173 (2025) 104152 
+
+Table 8
+Sharpe ratios and asset pricing tests using portfolio strategies.
+UMVE
+
+All strategies
+GRS
+
+Carry and value
+MHR
+GRS
+
+SR
+
+MHR
+
+1.229
+0.969
+0.688
+
+0.106
+0.010
+0.019
+
+  Model
+  Optimal
+0.455
+  Forward spread only
+0.047
+  Value only
+0.012
+This table shows in column (1) the Sharpe ratio (SR) of the UMVE portfolio constructed 
+using the full estimation model, i.e. based on the forward spread and value as predictor 
+variables (top row), and of restricted UMVE portfolios constructed using only the 
+forward spread (middle row) or using only value (bottom row) as predictor variable. 
+Columns (2) and (3) show p-values of the GRS-test and MHR test, respectively, using 
+all strategies as test assets. Columns (4) and (5) show p-values of the GRS-test and 
+MHR test, respectively, using carry and value strategies as test assets. Data are from 
+January 2001 until December 2022.
+
+0.718
+0.688
+0.036
+
+0.544
+0.044
+0.003
+
+tests again do not reject the optimal model, while the evidence does not 
+support the restricted models.
+
+Overall, the UMVE portfolio, constructed using both the forward 
+spread and value signals, has the highest Sharpe ratio and is the only 
+model not rejected in any of the tests. Therefore, we conclude that the 
+full estimation model represents a valid SDF.
+
+4.3. Pricing other countries
+
+Since a global SDF should not only price the assets from which 
+it has been constructed, we go beyond the original set of the G10∗
+markets, and implement tests using a wider universe of bond markets. 
+Specifically, we test if the UMVE portfolio prices single-country bonds 
+and strategies based on an extended set of countries, which are not 
+used to construct the UMVE portfolio. We therefore run regression tests, 
+as specified in Section 4.2, using the excess returns of other countries’ 
+bond markets and the trading strategies associated with most of these 
+markets13 as the dependent variable in Eq.  (12).
+
+We report the results in Table  9. While, on average, alphas are 
+larger  in  magnitude  compared  to  the  results  for  the  main  markets 
+(see Table  6), none is statistically significant at the 5% level. This is 
+confirmed both for markets pegged to the Euro and, importantly, also 
+for other markets. The regression for Italy exhibits the largest 𝑡-stat, 
+with a value of 1.65. This might reflect the different behavior of Italian 
+bonds during and after the European sovereign debt crisis, when their 
+status as a safe asset was in doubt. The picture does not materially 
+change when we consider bond strategies constructed from this set of 
+bonds. Table  10 shows that most alphas are insignificant (at the 5% 
+level), with the exception of cross-sectional carry and cross-sectional 
+12-month momentum. In summary, there is little evidence of market 
+segmentation, as the UMVE portfolio constructed from the main bond 
+markets does not generally lead to large pricing errors even in a broader 
+asset universe. 
+
+4.4. Unpriced return components
+
+Our  results  so  far  confirm  that  the  UMVE  portfolio  prices  both 
+individual countries’ bond excess returns and the excess returns ob-
+tained from portfolio strategies. However, the share of variation in 
+returns explained by the UMVE, as expressed by the regressions 𝑅2s, 
+is relatively low. We therefore construct bond portfolios that hedge 
+out the unpriced sources of common variation in returns. The recent 
+literature explores the properties of hedged and unhedged portfolios 
+
+13 To guarantee a balanced panel and data availability from January 2001 
+(starting  date  of  the  UMVE)  for  the  trading  strategies,  we  use  only  data 
+on  the  following  markets  to  construct  the  alternative  countries’  portfolio 
+strategies: Austria, Belgium, Denmark, Finland, France, Hong Kong, Ireland, 
+Italy, Netherlands, Portugal, Singapore, and Spain.
+
+and their asset pricing implications (e.g., Daniel et al., 2020; Lopez-Lira 
+and Roussanov, 2023). These papers find that Sharpe ratios improve 
+substantially when hedging unpriced components of risk. We compute 
+for each strategy the conditional beta, 𝛽𝑃
+𝑡 , with respect to the UMVE 
+portfolio as follows: 
+𝑡 )⊤V
+𝑡 )⊤V
+𝑡  is a vector of strategy weights, as defined in Table  5, and 𝐰𝑈
+𝑡
+
+where 𝐰𝑃
+is the vector with the weights of the UMVE portfolio.
+
+𝑡(𝐫𝐱𝑡+1)𝐰𝑈
+𝑡
+𝑡(𝐫𝐱𝑡+1)𝐰𝑈
+𝑡
+
+(𝐰𝑃
+(𝐰𝑈
+
+𝛽𝑃
+𝑡 =
+
+(13)
+
+,
+
+𝑡 𝑟𝑥𝑈
+
+We define the hedged portfolio, 𝐻𝐷𝑃 , as a portfolio with excess 
+returns given by 𝛽𝑃
+𝑡+1, i.e. as a portfolio which only has systematic 
+factor exposure. The unpriced component is captured by the hedging 
+portfolio, 𝐻𝐺𝑃 , with returns equal to the return difference between 
+the original strategy portfolio, 𝑃 , and the hedged portfolio, 𝐻𝐷𝑃 . In 
+particular: 
+𝑡+1 = 𝑟𝑥𝑃
+The weights of the hedged portfolios are given by 𝐰𝐻𝐷𝑃
+
+𝑡 . 
+In Appendix E, we provide figures plotting the time series of portfolio 
+weights of the respective hedged trading strategy.
+
+𝑡+1 − 𝛽𝑃
+
+𝑡 𝑟𝑥𝑈
+
+𝑟𝑥𝐻𝐺𝑃
+
+= 𝛽𝑃
+𝑡
+
+⋅ 𝐰𝑈
+
+𝑡+1.
+
+(14)
+
+𝑡
+
+Fig.  3 displays the annualized Sharpe ratios of the original portfo-
+lios, of the hedging portfolios and of the hedged portfolios. The Sharpe 
+ratios of most hedging portfolios are close to zero, and always lower 
+than those of the original strategies.14 This accords well with the notion 
+that risks, which are not related to the SDF, should not be associated 
+with risk premia. We also observe that for most strategies the Sharpe 
+ratios of the hedged portfolios are all substantially larger than those of 
+the hedging and the original portfolio strategies, respectively.15 This 
+is consistent with Daniel et al. (2020), who conclude that the risk-
+adjusted  portfolio  return  can  be  improved  by  eliminating  unpriced 
+risks. Indeed, while the risk-adjusted portfolio returns for the original 
+strategies  are  in  the  range  of  −0.34  to  0.78,  those  of  the  hedged 
+portfolios range between 0.02 and 1.35.
+
+To gain additional insight into the structure of bond returns and 
+their relation to the UMVE portfolio, we perform a Principal Compo-
+nents Analysis (PCA) of bond excess returns. Fig.  4 displays the loadings 
+of the first three principal components (PCs). The first PC is a level 
+factor,  as  all  countries  load  positively  on  it.  The  second  PC  seems 
+to be an Australasia vs. rest of the world factor. Australia and New 
+Zealand have indeed positive loadings, while the remaining countries 
+have negative ones. With respect to the third PC, we cannot see a clear, 
+intuitive interpretation.
+
+Fig.  5 documents how much of the variation in the UMVE portfolio 
+returns is explained by the PCs. Panel B of Fig.  5 reports the 𝑅2 of these 
+regressions. The first bar shows the results from regressing the UMVE 
+on the first PC only, the second one uses the first two PCs as regressors 
+and similar interpretations apply for the other bars. Interestingly, the 
+first three PCs explain less than 10% of the variation in the UMVE 
+excess  returns.  This  is  despite  the  fact  that  these  three  PCs  jointly 
+explain around 86% of the variation in bond returns, as documented 
+in Panel A of Fig.  5. Even when all PCs are considered, the 𝑅2 only 
+increases to 28%. This implies that the UMVE is not spanned by the 
+PCs, since a significant fraction of its variation remains unexplained. 
+Panel C of Fig.  5 shows the alphas from a regression of bond returns 
+on the PCs, as well as their confidence intervals. It can be seen that 
+
+14 Testing for statistical significance using Lo (2002), we do not reject the 
+null hypothesis of a Sharpe ratio equal to zero for 13 out of the 14 hedging 
+portfolios. Only CS-Mom1 is marginally statistically significant with a 𝑝-value 
+of 0.09.
+15 For short-term cross-sectional momentum, the absolute magnitude Sharpe 
+ratio of the hedging portfolio exceeds the original portfolio’s Sharpe ratio. 
+However, both values are negative, so even in this case hedging leads to a 
+higher Sharpe ratio.
+
+10 
+
+ 
+ 
+ 
+ 
+ 
+O. Randl et al.
+
+Journal of Financial Economics 173 (2025) 104152 
+
+Table 9
+Testing the UMVE using alternative countries’ bond returns.
+
+SR
+
+Mean
+
+t_mean
+
+Alpha
+
+t_alpha
+
+adj.R2  
+
+0.522
+0.536
+0.493
+0.546
+0.274
+0.463
+0.531
+0.511
+0.434
+0.431
+0.322
+0.546
+
+0.952
+1.051
+0.741
+1.213
+1.394
+1.113
+1.652
+0.880
+1.368
+0.966
+0.873
+1.393
+
+2.453
+2.517
+2.317
+2.567
+1.286
+2.174
+2.496
+2.400
+2.040
+1.769
+1.372
+2.563
+
+3.754
+4.154
+3.535
+3.940
+10.469
+5.130
+5.153
+3.661
+5.740
+3.516
+3.267
+4.890
+
+1.272
+1.520
+0.996
+1.647
+11.439
+2.809
+3.330
+1.170
+3.920
+2.062
+2.234
+2.652
+
+0.075  
+0.073  
+0.080  
+0.063  
+−0.003 
+0.025  
+0.020  
+0.076  
+0.009  
+0.019  
+0.004  
+0.038  
+
+  Euro area
+  Austria
+  Belgium
+  Finland
+  France
+  Greece
+  Ireland
+  Italy
+  Netherlands
+  Portugal
+  Slovakia∗
+  Slovenia∗
+  Spain
+  Other countries
+−0.002 
+  Chile∗
+0.068  
+  Denmark
+0.055  
+  Colombia∗
+0.034  
+  Czech Republic
+0.039  
+  Hong Kong
+0.014  
+  Hungary∗
+0.074  
+  Israel∗
+0.037  
+  Mexico∗
+0.009  
+  Poland
+0.077  
+  Singapore
+  Turkey∗
+0.046  
+This table shows for other countries, which we do not use for the estimation of the UMVE portfolio, the annualized Sharpe ratio (𝑆𝑅), mean 
+bond returns (𝑀𝑒𝑎𝑛, in % p.a.), and the 𝑡-statistic for the mean bond returns (𝑡_𝑚𝑒𝑎𝑛). It further shows the alpha from regressing these 
+countries’ bond returns on the UMVE portfolio returns (𝐴𝑙𝑝ℎ𝑎, in % p.a.), the 𝑡-statistics for the alpha (𝑡_𝑎𝑙𝑝ℎ𝑎), and the adjusted 𝑅2 from this 
+regression (𝑎𝑑𝑗.𝑅2). Data are from January 2001 until December 2022. ∗indicates countries for which data are available for a shorter time 
+period. Specifically, data availability starts as follows: Chile: September 2005, Colombia: April 2006, Hungary: March 2001, Israel: March 2005, 
+Mexico: August 2003, Slovakia: April 2006, Slovenia: December 2004, Turkey: April 2005.
+
+0.922
+0.777
+−0.115
+0.770
+0.820
+0.300
+1.133
+0.278
+0.752
+0.413
+0.450
+
+2.381
+1.087
+−0.410
+1.519
+1.810
+1.006
+2.482
+0.781
+1.883
+0.675
+3.711
+
+2.989
+3.497
+3.628
+3.706
+4.309
+3.536
+5.262
+3.822
+3.502
+3.271
+12.138
+
+1.188
+2.247
+1.030
+1.901
+2.052
+1.080
+2.444
+1.348
+1.434
+2.062
+1.468
+
+0.286
+0.478
+0.251
+0.405
+0.437
+0.231
+0.577
+0.305
+0.305
+0.439
+0.348
+
+Table 10
+Testing the UMVE using alternative countries’ portfolio strategies.
+
+SR
+
+Mean
+
+Alpha
+
+t_mean
+
+t_alpha
+
+4.253
+4.323
+
+0.616
+0.609
+
+1.419
+1.490
+
+1.907
+2.067
+
+2.894
+2.860
+
+4.253
+4.634
+4.041
+
+0.616
+0.642
+0.609
+
+2.894
+3.016
+2.863
+
+adj.R2  
+0.073  
+  1∕𝑁
+0.063  
+  GDP-weighted
+0.073  
+  Average Carry
+−0.004 
+  CS-Carry
+0.064  
+  TS-Carry
+0.131  
+  Average Value
+−0.004 
+  CS-Value
+0.095  
+  TS-Value
+0.063  
+  Average Mom12
+0.011  
+  CS-Mom12
+0.050  
+  TS-Mom12
+0.000  
+  Average Mom1
+0.007  
+  CS-Mom1
+  TS-Mom1
+0.002  
+This table shows for global bond portfolio strategies, as defined in Table  5, of other countries, which we do not use for the estimation of the UMVE portfolio, the annualized 
+Sharpe ratio (𝑆𝑅), mean bond returns (𝑀𝑒𝑎𝑛, in % p.a.), and the 𝑡-statistic for the mean bond returns (𝑡_𝑚𝑒𝑎𝑛). It further shows the alpha from regressing portfolio strategies of 
+these countries’ bond returns on the UMVE portfolio returns (𝐴𝑙𝑝ℎ𝑎, in % p.a.), the 𝑡-statistics for the alpha coefficient (𝑡_𝑎𝑙𝑝ℎ𝑎), and the adjusted 𝑅2 from this regression (𝑎𝑑𝑗.𝑅2). 
+Data are from January 2001 until December 2022.
+
+1.502
+−0.346
+0.905
+
+0.320
+−0.074
+0.193
+
+2.232
+−0.410
+1.154
+
+3.201
+2.051
+3.555
+
+1.907
+4.647
+1.922
+
+1.419
+2.616
+1.454
+
+1.594
+2.881
+2.041
+
+1.061
+1.754
+1.682
+
+2.787
+0.305
+1.723
+
+1.859
+0.239
+1.418
+
+4.688
+2.992
+4.154
+
+0.681
+0.436
+0.756
+
+3.460
+2.516
+3.250
+
+2.870
+4.248
+2.443
+
+1.985
+2.866
+1.965
+
+0.736
+0.535
+0.692
+
+5.052
+3.324
+4.138
+
+the resulting alphas are all positive and statistically significant. Thus, 
+PCs extracted from bond returns do not adequately explain the UMVE 
+portfolio returns.
+
+Overall, this evidence suggests that there is an important timing 
+component in the UMVE portfolio, which is not reflected in the PCs of 
+bond returns. The latter are, indeed, essentially a linear combination 
+of individual bond returns weighted by constant loadings, and as such 
+cannot  capture  the  dynamic  nature  of  the  UMVE  portfolio.  Such  a 
+timing component is likely to be even more strongly reflected in trading 
+strategies. We therefore turn our attention to dynamic trading strategies 
+next.
+
+Fig.  6 shows the PC loadings of the (dynamic) bond trading strate-
+gies. These loadings do not imply a straightforward economic interpre-
+tation of the PCs, except for the first PC, which again seems to reflect 
+a level factor. As displayed in Panel A of Fig.  7, the first three PCs 
+explain 78% of the variation in portfolio strategies. However, even 
+though these three PCs capture the time variation of strategy returns 
+quite well, they only explain a small share of priced risks, i.e. 14%, as 
+documented in Panel B of Fig.  7. If we use all PCs, the 𝑅2 increases 
+to 33%. As is the case for individual bonds, we document that the 
+factors explaining the variation in the returns on trading strategies are 
+not important drivers of the variation in the UMVE portfolio returns. 
+However, consistent with the fact that trading strategies better capture 
+
+11 
+
+ 
+ 
+ 
+ 
+O. Randl et al.
+
+Journal of Financial Economics 173 (2025) 104152 
+
+Fig. 4.  Principal component analysis of returns: Loadings.
+This figure shows loadings from Principal Component Analysis of bond returns. Bond returns refer to the G10∗ countries. Panel A reports loadings for PC1, Panel B for PC2, and 
+Panel C for PC3. Data are from January 2001 to December 2022.
+
+Table 12
+Descriptive statistics of the UMVE portfolio for Pre- and Post-08/2008 periods.
+
+Pre-08/2008
+
+Post-08/2008 
+
+7.519
+6.937
+6.692
+0.454
+7.064
+1.124
+9.917
+
+7.421
+7.086
+4.783
+0.805
+5.687
+1.552
+5.202
+
+𝑖,𝑡  (in %)
+𝑖,𝑡  (in %)
+𝑖,𝑡| (in %)
+𝑖,𝑡 − 𝐰𝑈
+|𝐰𝑈
+
+  Mean (in %)
+  Median (in %)
+  Std. Dev. (in %)
+  Skewness
+  Kurtosis
+  Sharpe Ratio
+  Maximum Drawdown (in %)
+  𝐰𝑈 ,+
+  𝐰𝑈 ,−
+  |𝐰𝑈
+  ∑
+This table shows descriptive statistics for the UMVE portfolio. UMVE returns are scaled 
+so that they have the same volatility as the naive portfolio. Specifically, it shows the 
+mean excess return (in % p.a.), median excess return (in % p.a.), standard deviation 
+(in % p.a.), Sharpe ratio (annualized), and maximum drawdown (in %). The second set 
+of rows provides statistics for the UMVE portfolio weights averaged across time and 
+markets. It reports the average absolute portfolio weight (in %), the average of positive 
+weights (in %), the average of negative weights (in %), and the average portfolio 
+turnover. Data for the columns labeled Pre-08/2008 cover the period from January 
+2001 to July 2008. Post-08/2008 covers the period from August 2008 to December 
+2022.
+
+45.231
+−36.738
+41.387
+1.726
+
+35.767
+−29.496
+33.017
+1.191
+
+𝑖,𝑡−1|
+
+Table 11
+Descriptive statistics for the UMVE portfolio.
+
+Full sample period 
+
+7.485
+7.047
+6.092
+0.527
+4.447
+1.229
+9.917
+
+𝑖,𝑡  (in %)
+𝑖,𝑡  (in %)
+𝑖,𝑡| (in %)
+𝑖,𝑡 − 𝐰𝑈
+|𝐰𝑈
+
+  Mean (in %)
+  Median (in %)
+  Std. Dev. (in %)
+  Skewness
+  Kurtosis
+  Sharpe Ratio
+  Maximum Drawdown (in %)
+  𝐰𝑈 ,+
+  𝐰𝑈 ,−
+  |𝐰𝑈
+  ∑
+This table shows descriptive statistics for the UMVE portfolio. 
+UMVE returns are scaled so that they have the same volatility 
+as the naive portfolio. Specifically, it shows the mean excess 
+return (in % p.a.), median excess return (in % p.a.), standard 
+deviation (in % p.a.), Sharpe ratio (annualized), and maximum 
+drawdown (in %). The second set of rows provides statistics for 
+the UMVE portfolio weights averaged across time and markets. 
+It reports the average absolute portfolio weight (in %), the 
+average of positive weights (in %), the average of negative 
+weights (in %), and the average portfolio turnover. Data are 
+from January 2001 to December 2022.
+
+41.914
+−34.293
+38.502
+1.543
+
+𝑖,𝑡−1|
+
+12 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+O. Randl et al.
+
+Journal of Financial Economics 173 (2025) 104152 
+
+Fig. 5.  Principal component analysis of bond returns and UMVE returns.
+This figure shows in Panel A the fraction of variance explained by the PCs of bond returns. Bond returns refer to the G10∗ countries. Panel B shows the adjusted 𝑅2 from regressing 
+the UMVE returns on the PCs of bond returns. Panel C shows the alpha from these regressions, the black lines are the 95% confidence intervals. Data are from January 2001 to 
+December 2022.
+
+the dynamic nature of the UMVE, the principal components obtained 
+from these portfolios explain a higher fraction of the UMVE portfolio 
+returns than the ones obtained from the set of individual bond markets.
+
+4.5. Sharpe ratio decomposition
+
+Section  4.4  documents  that  the  Sharpe  ratios  of  almost  all  tra-
+ditional trading strategies can be substantially improved by hedging 
+out risk components unrelated to UMVE portfolio returns. This section 
+analyzes whether this improvement is mainly due to the SDF capturing 
+the cross-sectional and time series variation of the various markets’ 
+expected returns, the time-varying return dependence, or to both being 
+of similar importance.
+
+To this end, we successively shut off elements in the estimation 
+of the UMVE portfolio (i.e., expected returns, variances, correlations) 
+and only let the others vary. Comparing hedging strategies based on 
+the  restricted  UMVE  portfolios  helps  to  identify  the  sources  of  the 
+Sharpe ratio improvements. Specifically, our approach considers the 
+following alternatives: First, we fix expected returns at the historical 
+average across all markets over the estimation window, but use the 
+estimates for the conditional variance from the full model (as described 
+in Section 3.4.2). Thus, we shut off any cross-sectional variation in 
+conditional expected returns when constructing the UMVE portfolio. 
+Second, we use estimates for expected returns for each market from 
+the full model (as described in Section 3.4.1), but employ a covariance 
+matrix V ̄𝜎
+𝑡  where we set each market’s variance equal to the cross-
+sectional average. Thus, here we shut off any cross-sectional variation 
+
+in conditional variances when constructing the UMVE portfolio. Third, 
+we again estimate expected returns based on the full model (as de-
+scribed in Section 3.4.1), but use a covariance matrix V ̄𝜌
+𝑡  where we 
+set all correlations equal to the average estimated pairwise correlation. 
+Thus,  here  we  shut  off  any  cross-sectional  variation  in  conditional 
+correlations. Note that all three described estimates are out-of-sample 
+since the values at which a component of the estimation is fixed only 
+depends on past returns. We describe our approach in more detail in 
+Appendix F.
+
+We refer to the hedged portfolios resulting from the three restricted 
+SDF estimations as Hedged: Constant Expected Returns, Hedged: Constant 
+Sigma and Hedged: Constant Correlation. Fig.  8 shows the annualized 
+Sharpe ratios for these portfolios. For easier interpretation, the first 
+bar displays the Sharpe ratios of the hedged portfolios based on the 
+unrestricted UMVE portfolio returns, as already shown in Fig.  3. As 
+can be seen from Fig.  8, only the portfolios Hedged: Constant Correlation
+have Sharpe ratios close to the ones obtained from the hedged strategies 
+that make full use of the estimated parameters, as is done in Fig.  3. In 
+contrast, Sharpe ratios are much lower when using an SDF that is esti-
+mated from the UMVE portfolios that assume constant expected returns 
+or constant standard deviations across markets. When comparing the 
+second (green) and third (turquoise) bars in the charts for the different 
+strategies, we see that modeling the cross-section of expected returns 
+is more important in defining the UMVE portfolio than estimating the 
+cross-section of variances. Indeed, the hedged portfolios when using 
+UMVE portfolio estimations based on constant variances have higher 
+
+13 
+
+O. Randl et al.
+
+Journal of Financial Economics 173 (2025) 104152 
+
+Fig. 6.  Principal component analysis of strategies: Loadings.
+This figure shows loadings from Principal Component Analysis of global bond strategy returns. The portfolio strategies are defined in Table  5. Panel A reports loadings for PC1, 
+Panel B for PC2, and Panel C for PC3. Data are from January 2001 to December 2022.
+
+Fig. 7.  Principal component analysis of strategies and UMVE returns.
+This figure shows in Panel A the fraction of variance explained by the PCs of global bond strategy returns. The portfolio strategies are defined in Table  5. Panel B shows the 
+adjusted 𝑅2 from regressing the UMVE returns on the PCs. Panel C shows the alpha from these regressions, the black lines are the 95% confidence intervals. Data are from January 
+2001 to December 2022.
+
+14 
+
+O. Randl et al.
+
+Journal of Financial Economics 173 (2025) 104152 
+
+Fig. 8.  Sharpe ratio hedged strategies decomposition.
+This figure shows, for each strategy, the annualized Sharpe ratio of the hedged portfolio (first bar), as defined in Section 4.4, along with three alternative hedged portfolios based 
+on restricted versions of the UMVE portfolio. We construct the restricted versions by successively holding constant one component – expected returns, variances, or correlations – 
+while estimating the remaining components from the full model (as described in Sections 3.4.1 and 3.4.2). Specifically, the restricted portfolios eliminate cross-sectional variation 
+in conditional expected returns, conditional variances, or conditional correlations, as described in Section 4.5. The resulting hedged portfolios are labeled Hedged: Constant Expected 
+Returns, Hedged: Constant Sigma, and Hedged: Constant Correlation. Data are from January 2001 to December 2022.
+
+Sharpe  ratios  on  average  than  in  the  case  where  UMVE  portfolios 
+are constructed based on constant expected returns, indicating that 
+shutting off cross-sectional variation in expected returns worsens the 
+performance of the resulting SDF more than shutting off cross-sectional 
+variation in variances.16
+
+4.6. UMVE portfolio characteristics
+
+This section reports important properties of the UMVE portfolio 
+shown to price bond markets. In particular, we provide descriptive 
+statistics and analyze its time-varying risk-return characteristics. To this 
+
+16 The  analysis  in  this  subsection  eliminates  various  sources  of  cross-
+sectional differences in the parameters that determine the UMVE portfolio. 
+For completeness, Appendix G reports results of an alternative exercise, which 
+eliminates various sources of time series differences instead. Specifically, we 
+(i)  use  the  in-sample  country-specific  average  excess  returns,  but  let  the 
+conditional variance be estimated as in Section 3.4.2 and (ii) we let expected 
+returns be estimated as in Section 3.4.1, but use the in-sample estimated 
+covariance matrix, by computing the arithmetic average of all monthly shrunk 
+covariance matrices. The detailed description of this approach as well as the 
+results are available in Appendix G. Overall, the outcome is consistent with the 
+conclusions of this subsection in the sense that capturing time series differences 
+in expected returns is more important than capturing time series differences 
+in covariances.
+
+purpose, we scale the UMVE portfolio, so that its returns have the same 
+average volatility as the 1∕𝑁 portfolio, i.e. a portfolio that allocates 
+capital equally across all bond markets.
+
+Table  11 summarizes descriptive statistics.  Specifically, it shows 
+that  the  UMVE  portfolio  returns  an  impressive  average  annualized 
+excess return of 7.5% with a volatility of 6.1% over the entire period 
+from January 2001 to December 2022. This implies a Sharpe ratio of 
+1.23. The maximum drawdown is 9.9%. Returns are positively skewed 
+(skewness equals 0.53) and exhibit fat tails (kurtosis is equal to 4.4). 
+The second set of rows shows average weights (across markets and 
+time) of the optimal portfolio weights. It can be seen that individual po-
+sitions are quite large: the average absolute weight is about four times 
+that of the 1∕𝑁 portfolio. The dynamics of the portfolio composition 
+are illustrated in Fig.  9, which plots the weights of the constituents of 
+the UMVE portfolio over time. There is considerable time-variation in 
+the portfolio composition, which is consistent with Green and Hollifield 
+(1992), who argue that the presence of a dominant factor can lead to 
+extreme weights of assets in mean–variance efficient portfolios. The 
+sensitivity of results with respect to restrictions on portfolio turnover 
+is discussed in Section 6.
+
+Fig.  10 plots the UMVE’s annualized expected Sharpe ratio over 
+time. The figure illustrates that the market price of risk exhibits sig-
+nificant time-variation. The highest expected Sharpe ratio is 2.68 and 
+it reaches a minimum of 0.74. We observe relatively high Sharpe ratios 
+in periods of crises, as reflected by the peaks around the financial crisis 
+
+15 
+
+O. Randl et al.
+
+Journal of Financial Economics 173 (2025) 104152 
+
+Fig. 9.  Times series of portfolio weights.
+This figure shows the time series of weights for the UMVE portfolio. The UMVE portfolio returns are scaled so that they have the same volatility as the naive portfolio. Data are 
+from January 2001 to December 2022.
+
+2008, the European sovereign debt crisis from 2010 to 2012, and the 
+recent COVID-19 crisis. The highest values correspond to the fourth 
+quarter of 2022. During that year, average inflation rates reached a 
+record  high,  triggered  also  by  Russia’s  invasion  of  Ukraine  in  late 
+February 2022. This suggests that the unprecedented sharp increase 
+in yields led by aggressive monetary policy tightening and increases 
+in inflation expectations raised investors’ marginal utility of wealth. 
+In  accordance  with  this  observation,  the  difference  in  the  average 
+expected Sharpe ratio between recession and non-recession periods, as 
+defined by the NBER for the U.S. and the Eurostat Business Cycle Clock 
+for the Euro area, is positive and statistically significant.17 Overall, 
+this suggests that the estimated price of risk is high when the current 
+macroeconomic situation is bleak, consistent with the intuition that 
+investors have high marginal utility in times of crisis and, as a result, 
+require more compensation for foregoing consumption by investing in 
+a risky bond portfolio.
+
+Fig.  10 suggests that the market price of risk in international govern-
+ment bond portfolios is related to the macro economy. This observation 
+aligns with a large literature that links risk premia in single government 
+bond  markets  to  macro  variables.18  Important  macro  variables  that 
+
+17 We regress the UMVE expected Sharpe ratio on a constant, plus a recession 
+dummy (equal to 1 for recession periods as defined by the NBER and the Eu-
+rostat Business Cycle Clock, 0 otherwise) and document a positive coefficient 
+of 0.260 which is statistically significant at the 5% level, using Newey and 
+West (1994) standard errors.
+18 For recent examples, see Moench and Soofi-Siavash (2022), Fang et al. 
+(2025), or Cieslak and Pflueger (2023).
+
+have been found to affect bond risk premia include output growth, 
+unemployment  and  inflation  (e.g.,  Ludvigson  and  Ng,  2009).  In  a 
+next step, we therefore analyze to what extent expected Sharpe ratios 
+from internationally diversified government bond portfolios are indeed 
+statistically linked to macro variables.
+
+To this end, we aggregate individual countries’ macro variables and 
+consider the average trend inflation across these countries (Countries’ 
+trend inflation), global equity return (MSCIRet ), as a forward looking 
+measure of global economic growth, and the VIX index, as a measure 
+of overall risk, which has been shown by Miranda-Agrippino and Rey 
+(2020) to correlate with the global business cycle. We also include 
+a measure of global economic policy uncertainty, (GlobEPU ), based 
+on Baker et al. (2016). This measure is computed as the GDP-weighted 
+average of countries’ Economic Policy Uncertainty (EPU) indices. Fi-
+nally, given the globally prominent role of U.S. financial institutions, 
+we also include a measure of the risk bearing capacity of large U.S. 
+institutions, defined by the intermediary capital risk factor (HKM ) as 
+in He et al. (2017).
+
+If changes in relevant macro variables were perfectly aligned across 
+the G10∗ countries, macro-driven term-structure changes should also 
+be highly correlated. Consequently, the benefits from allocating capital 
+across different countries’ bond markets would be minimal. Diversifica-
+tion matters only when there is heterogeneity in the countries’ macro-
+economic dynamics. To capture this, we include the cross-sectional 
+standard deviation of the key macro variables (GDP SD, Unempl SD,
+Infla SD) to explain the dynamics of the UMVE portfolio’s expected 
+Sharpe ratio. 
+
+Table  13 presents the regression results. Notably, inflation variables 
+emerge as the most consistent and significant determinants of expected 
+
+16 
+
+O. Randl et al.
+
+Journal of Financial Economics 173 (2025) 104152 
+
+Fig. 10.  UMVE expected Sharpe ratio.
+The figure shows the time series of the expected Sharpe ratio of the UMVE portfolio (annualized in %). The shaded areas correspond to recession periods, as defined by the NBER 
+for the USA and the Eurostat Business Cycle Clock for the Euro area. The dashed line indicates its mean value. Data are from January 2001 to December 2022.
+
+Table 13
+Time series expected UMVE Sharpe ratio and macro and market variables.
+UMVE expected Sharpe ratio
+(1)
+
+(2)
+
+  GDP SD
+
+  Unempl SD
+
+  Infla SD
+
+  Countries’ trend inflation
+
+−0.060
+(0.040)
+0.006
+(0.006)
+0.504***
+(0.094)
+
+0.021
+(0.038)
+−0.0001
+(0.005)
+0.208***
+(0.078)
+0.856***
+(0.137)
+
+  MSCIRet
+
+  VIX Index
+
+  HKM
+
+  GlobEPU
+
+  Constant
+
+(3)
+
+0.020
+(0.038)
+−0.001
+(0.006)
+0.203**
+(0.081)
+0.821***
+(0.148)
+−0.194
+(0.310)
+0.002
+(0.003)
+
+(4)
+
+0.022
+(0.038)  
+−0.002  
+(0.006)  
+0.192**  
+(0.085)  
+0.837*** 
+(0.191)  
+−0.532  
+(0.376)  
+0.002
+(0.004)  
+0.309
+(0.299)  
+0.0001  
+(0.0004)  
+−0.256  
+(0.269)  
+264
+0.593
+
+0.840***
+(0.114)
+
+−0.273
+(0.185)
+
+−0.236
+(0.198)
+
+264
+0.370
+
+  Observations
+  Adjusted R2
+This table shows estimates from regressions of the UMVE expected Sharpe ratio on macro and market variables. GDP SD, Unempl SD, and
+Infla SD are the cross-sectional standard deviations of countries’ GDP, unemployment, and inflation rates, respectively. 𝐶𝑜𝑢𝑛𝑡𝑟𝑖𝑒𝑠’ 𝑡𝑟𝑒𝑛𝑑 𝑖𝑛𝑓 𝑙𝑎𝑡𝑖𝑜𝑛
+refers to the cross-sectional average of countries’ trend inflation. MSCIRet is the return on the MSCI World Index. VIX Index is an index of 
+the implied volatility of the S&P 500 and is calculated from S&P 500 index options. HKM is the (He et al., 2017) intermediary capital risk 
+factor, and GlobEPU is the Global Economic Policy Uncertainty Index as defined by Baker et al. (2016). Newey–West standard errors with 6 
+lags are reported in parentheses (Newey and West, 1994). Data are from January 2001 to December 2022. ***,**,* indicates that estimates are 
+statistically significant at the 1, 5, and 10 percent levels, respectively.
+
+264
+0.593
+
+264
+0.594
+
+17 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+O. Randl et al.
+
+Table 14
+Time series expected UMVE Sharpe ratio and macro-market variables for the Pre- and 
+Post-08/2008 periods.
+
+UMVE expected Sharpe ratio
+Pre-08/2008
+
+  GDP SD
+
+  Unempl SD
+
+  Infla SD
+
+  Countries’ trend inflation
+
+  MSCIRet
+
+  VIX Index
+
+  HKM
+
+  GlobEPU
+
+  Constant
+
+0.007
+(0.099)
+−0.008
+(0.006)
+0.0005
+(0.068)
+−0.845***
+(0.211)
+0.275
+(0.463)
+0.019***
+(0.004)
+0.151
+(0.300)
+0.0003
+(0.001)
+2.534***
+(0.341)
+
+Post-08/2008  
+0.005
+(0.041)
+0.003
+(0.006)
+0.253***
+(0.093)
+0.873***
+(0.196)
+−1.059**
+(0.434)
+−0.001
+(0.004)
+0.462
+(0.369)
+−0.0001
+(0.0004)
+−0.310
+(0.260)
+
+173
+0.685
+
+  Observations
+91
+  Adjusted R2
+0.322
+This table shows estimates from regressions of the UMVE expected Sharpe ratio on 
+macro and market variables. GDP SD, Unempl SD, and Infla SD are the cross-sectional 
+standard deviations of countries’ GDP, unemployment, and inflation rates, respectively. 
+𝐶𝑜𝑢𝑛𝑡𝑟𝑖𝑒𝑠’  𝑡𝑟𝑒𝑛𝑑 𝑖𝑛𝑓 𝑙𝑎𝑡𝑖𝑜𝑛  refers  to  the  cross-sectional  average  of  countries’  trend 
+inflation. MSCIRet is the return on the MSCI World Index. VIX Index is an index of the 
+implied volatility of the S&P 500 and is calculated from S&P 500 index options. HKM
+is the (He et al., 2017) intermediary capital risk factor, and GlobEPU is the Global 
+Economic Policy Uncertainty Index as defined by Baker et al. (2016). Newey–West 
+standard errors with 6 lags are reported in parentheses (Newey and West, 1994). Data 
+for the column labeled Pre-08/2008 cover the period from January 2001 to July 2008, 
+while data for the column labeled Post-08/2008 cover the period from August 2008 to 
+December 2022. ***,**,* indicates that estimates are statistically significant at the 1, 
+5, and 10 percent levels, respectively.
+
+risk adjusted returns. Specifically, over the full sample, a higher cross-
+sectional standard deviation of inflation and an elevated level of trend 
+inflation are both positively and significantly associated with a higher 
+expected Sharpe ratio in all model specifications.19
+
+These  findings  highlight  the  critical  role  of  inflation  as  the  key 
+driver influencing global government bond markets. This is consistent 
+with Lustig et al. (2019) and Cieslak and Povala (2015), who argue 
+that inflation is important for explaining local currency bond excess 
+returns. The results also accord with recent evidence presented by An-
+drews et al. (2024), who examine a currency portfolio strategy based 
+on government bond yields. They analyze the excess returns from a 
+portfolio that goes long bonds with the steepest yield curves, financed 
+by 3-month U.S. treasuries, and short bonds of markets with the flattest 
+yields curves, investing the proceeds in 3-month U.S. treasuries. They 
+document that this strategy produces significantly positive excess re-
+turns, but only after August 2008, i.e. after the onset of the GFC. They 
+argue that this can be explained by the portfolio’s changing exposure to 
+global expected inflation. Given the significant risk-return differences 
+before and after August 2008, we therefore also analyze whether the 
+expected Sharpe ratios of the UMVE portfolio exhibits similar time 
+series differences, and split the sample in a pre- and post-August 2008 
+period, respectively.20
+
+Journal of Financial Economics 173 (2025) 104152 
+
+4.6.1. Pre and post 2008 periods
+
+Summary statistics for the sub-samples are presented in Table  12. 
+We first observe that the excess returns of the UMVE portfolio analyzed 
+in this paper do not exhibit a structural break around the financial 
+crisis, as their mean values remain quite similar across the two sample 
+periods.21 In contrast to Andrews et al. (2024), the Sharpe ratio of 
+the UMVE portfolio in the earlier period is even higher than in the 
+post-crisis period.
+
+However, our results align with Andrews et al. (2024) in the sense 
+that the term-structure slope turns out to be a key predictive variable 
+in both studies. In the context of the UMVE portfolio, this variable 
+has predictive power in both subsample periods, whereas in Andrews 
+et al. (2024) this is only the case in the period after the great financial 
+crisis. This highlights a key difference between a bond portfolio based 
+on  term-structure  changes,  which  is  funded  in  the  respective  local 
+money markets, and a strategy that is fully exposed to exchange rates 
+movements.
+
+Next, we re-run the regression analysis for the two sub-periods and 
+report the results in Table  14. When comparing the subsample results 
+to the ones for the full sample displayed in Table  13, the most im-
+portant differences are related to the inflation variables. In accordance 
+with Andrews et al. (2024), inflation affects expected Sharpe ratios of 
+the UMVE portfolio differently in the pre- and the post-crisis periods. As 
+shown in Table  14, the dispersion of inflation rates is not significantly 
+associated with the risk premium before 2008, most likely reflecting the 
+generally stable and more homogeneous environment among developed 
+economies in a period sometimes termed the ‘‘great moderation’’. In 
+contrast, there is a strong positive relationship in the period after the 
+financial crisis.
+
+Table  14 also shows that the level of trend inflation affects expected 
+Sharpe  ratios  differently  before  and  after  August  2008:  before,  the 
+sign is negative, whereas it is positive afterwards, and in both cases 
+statistically significant. Thus, in the pre-crisis sample period, higher 
+trend inflation is negatively related to expected Sharpe ratios, while 
+the opposite it true in the second subsample period.
+
+These results are consistent with a pre-crisis world, where higher 
+inflation signals higher economic risk, as central banks’ inflation tar-
+gets  were  frequently  exceeded  by  realized  rates.  Thus,  during  this 
+period, a higher trend inflation may have led to a higher demand for 
+precautionary savings, leading to lower expected risk adjusted bond 
+portfolio returns. In contrast, parts of the post-crisis period are char-
+acterized by low inflation rates, undershooting central banks’ targets 
+and even creating the risk of deflation (see, e.g. Christensen et al., 
+2015;  Fleckenstein  et  al.,  2017).  In  such  a  setting,  an  increase  in 
+average trend inflation rates is likely to represent a positive signal about 
+future economic growth, rather than the risk of excessive inflation. In 
+response to an increase in trend inflation, investors are therefore likely 
+to require higher risk adjusted returns for transferring wealth to the 
+future, consistent with higher expected Sharpe ratios.
+
+This  finding  relates  to  Andrews  et  al.  (2024),  as  they  find  that 
+returns  of  a  slope  carry  strategy  are  negative  before,  but  strongly 
+positive after August 2008 and attribute this difference to the strat-
+egy’s changing exposure to global expected inflation. In contrast, we 
+find that risk-adjusted returns of the UMVE portfolio are not lower 
+before the financial crisis, but, as presented above, inflation is one 
+of the key drivers of the UMVE portfolio’s expected Sharpe ratios.22 
+This highlights the fundamental difference between currency-hedged 
+
+19 While inflation emerges as an important explanatory variable, we also 
+investigate whether other macroeconomic variables play a similarly prominent 
+role. Therefore we test the role of alternative macroeconomic indicators: U.S. 
+consumption growth, U.S. employment growth, long-run GDP growth, and 
+sovereign credit risk. Results, which indicate a weak or no relationship, are 
+reported in Appendix D. In untabulated results, we also include the Fama–
+French 5 factors as additional variables. Results show that these factors are 
+not statistically significantly related to the UMVE expected Sharpe ratio.
+
+20 In untabulated results, we regress the returns of hedged and hedging 
+portfolio  strategies  on  shocks  to  macroeconomic  variables,  as  well  as  the 
+intermediary capital factor from He et al. (2017), and MSCI World returns. 
+For most variables, we do not see a consistent pattern. For the priced risk 
+component, shocks to trend inflation and the HKM factor appear to have the 
+highest relevance.
+21 This is also confirmed by a 𝑡-test.
+
+18 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+O. Randl et al.
+
+Table 15
+Regressing bond excess returns on 𝑆𝑡+1∕𝑆𝑡. 
+
+Journal of Financial Economics 173 (2025) 104152 
+
+𝑟𝑥(10𝑌 )
+
+𝑟𝑥(10𝑌 ),𝐿𝐶
+
+𝑟𝑥(10𝑌 ),𝑇 𝐵𝑖𝑙𝑙
+
+Beta
+
+Beta
+
+Beta
+
+t_beta
+
+t_beta
+
+t_beta
+
+adj.R2
+
+adj.R2
+
+−0.117
+−0.129
+−0.077
+0.035
+−0.035
+−0.072
+−0.086
+0.029
+−0.140
+
+adj.R2 
+  Country
+0.579  
+  Australia
+0.478  
+  Canada
+0.621  
+  Germany
+0.825  
+  Japan
+0.657  
+  New Zealand
+0.665  
+  Norway
+0.592  
+  Sweden
+0.766  
+  Switzerland
+  United Kingdom
+0.443  
+This table shows each country’s estimated beta (𝐵𝑒𝑡𝑎), the corresponding 𝑡-statistic (𝑡_𝑏𝑒𝑡𝑎), and the adjusted 𝑅2 (𝑎𝑑𝑗.𝑅2) from regressing bond 
+excess returns on currency depreciation rates 𝑆𝑡+1∕𝑆𝑡. We use three definitions of bond excess returns: (i) FX-managed, USD-denominated bond 
+excess returns, as defined in Eq. (6), denoted as 𝑟𝑥(10𝑌 ); (ii) local currency excess returns, denoted as 𝑟𝑥(10𝑌 ),𝐿𝐶 ; and (iii) unhedged bond excess 
+returns, computed by borrowing in USD and investing in the foreign long-term bond, denoted as 𝑟𝑥(10𝑌 ),𝑇 𝐵𝑖𝑙𝑙.
+
+−2.728
+−2.533
+−1.898
+0.783
+−0.755
+−2.106
+−2.067
+0.625
+−2.198
+
+−0.119
+−0.134
+−0.083
+0.033
+−0.035
+−0.078
+−0.091
+0.021
+−0.145
+
+−2.649
+−2.499
+−1.758
+0.758
+−0.751
+−1.993
+−1.940
+0.851
+−2.181
+
+0.021
+0.018
+0.010
+0.002
+−0.001
+0.011
+0.011
+−0.002
+0.019
+
+0.020
+0.017
+0.008
+0.002
+−0.001
+0.009
+0.010
+−0.000
+0.018
+
+20.143
+16.869
+21.101
+22.359
+20.967
+25.338
+20.436
+29.603
+13.426
+
+0.890
+0.873
+0.928
+1.037
+0.969
+0.931
+0.919
+1.033
+0.862
+
+portfolios, where bond positions are funded in the local currency, and 
+the slope carry strategy analyzed by Andrews et al. (2024), where bond 
+positions are always funded in the home currency, i.e. the US$. While 
+beyond the scope of this paper, a detailed analysis of the different role 
+of inflation in FX-risk-hedged versus unhedged bond strategies appears 
+as an interesting direction for future research.
+
+5. The role of exchange rates
+
+The portfolios analyzed in this paper are largely insulated from FX 
+risk, since bond positions are always financed in the local currency. 
+However, excess returns and ultimately UMVE returns may still be 
+related to exchange rates. This section therefore investigates to what 
+extent this is the case and whether any remaining exposure to FX risk 
+is priced.
+
+5.1. International bond returns and exchange rates
+
+We begin by regressing bond excess returns on changes in exchange 
+rates. We hereby consider three alternative definitions of bond returns: 
+(i) bond excess returns as defined in Eq. (6), (ii) local currency excess 
+returns, i.e. returns that would result from a ‘‘quanto-position’’ where 
+the local currency excess return is converted into a USD excess return 
+at a fixed exchange rate; and (iii) FX-unhedged bond excess returns, 
+resulting from borrowing in USD and investing in the foreign bond.
+
+Table  15 presents the results, highlighting two key findings. First, 
+the currency risk exposure of bond excess returns, as defined in Eq. (6), 
+closely mirrors that of local currency excess returns. In both cases, 
+exchange rate changes explain only a marginal proportion of the vari-
+ation in bond returns, with adjusted 𝑅2’s ranging from 0% to 2%. This 
+contrasts with the regression results for unhedged bond returns, which 
+show a strong relationship with exchange rate movements. In this case, 
+exchange rate changes explain between 44% and 83% of bond excess 
+returns within our sample. Consequently, FX-hedging, as implicit in 
+the construction of bond excess returns defined in Eq. (6), effectively 
+eliminates the majority of FX risk. 
+
+22 Andrews et al. (2024) propose an SDF where the heterogeneity across 
+countries is caused by their different exposures to real growth news shocks. 
+In their model, a country’s real expected growth can change because expected 
+global growth changes or, indirectly, because expected global inflation changes 
+and this in turn affects expected global growth. The model parameters are 
+calibrated such that shocks to expected global inflation are associated with an 
+increase in the representative agent’s marginal utility, whereas the opposite is 
+true for shocks to expected growth. In the pre-crisis period, the slope carry 
+strategy analyzed by Andrews et al. (2024) places more weight on countries 
+which are not very sensitive to global inflation, whereas in the post-crisis 
+period, the strategy shifts portfolio weights to countries with higher exposures 
+to global inflation. As a consequence, required risk premia increase after the 
+crisis.
+
+The second finding from Table  15 is that, while exchange rates only 
+explain a small fraction of the overall variation in FX-risk-hedged bond 
+excess returns, there is still some exposure to currency movements, 
+as evidenced by betas significantly different from zero. However, the 
+economic magnitude of this exposure is minimal, with an average beta 
+of −0.07, comparable to that implicit in local-currency excess returns. 
+In summary, bonds returns as defined in Eq. (6) exhibit only a weak 
+relationship with exchange rate changes.
+
+5.2. PCA’s of bond and currency returns
+
+We next conduct a PCA of currency excess returns and compare 
+the  resulting  loadings  with  those  from  FX-risk-hedged  bond  excess 
+returns. As expected, in both cases, the first principal component (PC) 
+reflects a level factor, with all markets loading positively. However, the 
+correlation between the loadings on the first bond and the first currency 
+PC is low, at 0.16. The second PC of currency excess returns represents 
+a slope (or carry) factor, with positive loadings on high-interest-rate 
+currencies and negative loadings on low-interest-rate currencies. This 
+interpretation does not extend to the second PC of bond excess returns, 
+as discussed in Section 4.4. The correlation between the loadings on 
+the second bond and the second currency PCs is approximately 0.5.
+
+Finally, the third PC lacks a clear economic interpretation, with only 
+modest correlations between the loadings across bonds and currencies. 
+A detailed exposition of this analysis is provided in Appendix H.
+
+In summary, the PCA results highlight that FX-risk-hedged bond 
+returns, as defined in Eq. (6), and currency returns exhibit distinctly 
+different risk structures.
+
+5.3. Bond versus FX UMVE portfolios
+
+Despite the weak relationship between bond returns and exchange 
+rates  documented  in  the  previous  analyses,  an  important  question 
+remains: is exchange rate risk still reflected in the pricing of FX-risk-
+hedged international bond portfolios? To address this, we modify the 
+regressions described in Eq. (12) and conduct additional tests to analyze 
+the role of exchange rate risk.
+
+Specifically, we orthogonalize the UMVE returns, 𝑟𝑥𝑈 , by regressing 
+them on a currency SDF, 𝑟𝑥𝐹 𝑋 . The resulting error term represents 
+a pure bond SDF, 𝑟𝑥𝑈 ⊥, which is determined only by term structure 
+movements unpriced by the currency SDF. We obtain the currency 
+SDF defined by the unconditionally mean–variance-efficient currency 
+portfolio return, FX-UMVE, constructed from the currencies in the G10 
+markets, from Chernov et al. (2024).23
+
+Chernov et al. (2023) demonstrate that the FX-UMVE effectively 
+prices both individual currency returns and dynamic currency trading 
+
+23 We  are  very  grateful  to  Mike  Chernov  for  sharing  the  data  for  the 
+FX-UMVE.
+
+19 
+
+ 
+O. Randl et al.
+
+Journal of Financial Economics 173 (2025) 104152 
+
+Table 16
+Testing bond and FX UMVEs using individual country bond returns.
+
+𝑟𝑥𝑈 ⊥
+
+𝑟𝑥𝐹 𝑋
+
+𝑟𝑥𝑈 and 𝑟𝑥𝐹 𝑋
+Alpha
+
+Alpha
+
+Alpha
+
+adj.R2
+
+adj.R2
+
+t_alpha
+
+t_alpha
+
+adj.R2 
+  Country
+0.009  
+  Australia
+0.082  
+  Canada
+0.080  
+  Germany
+0.168  
+  Japan
+0.031  
+  New Zealand
+0.015  
+  Norway
+0.054  
+  Sweden
+0.080  
+  Switzerland
+0.041  
+  United Kingdom
+0.085  
+  United States
+This table shows the alpha from regressing countries’ excess returns on alternative UMVE portfolio returns (𝐴𝑙𝑝ℎ𝑎, in % p.a.), the corresponding 𝑡-statistics (𝑡_𝑎𝑙𝑝ℎ𝑎), and the 
+adjusted R2 from each regression. We consider the following alternative UMVE portfolio returns: i) 𝑟𝑥𝑈 ⊥, the orthogonalized bond UMVE portfolio, whose returns are uncorrelated 
+with currency risk; ii) 𝑟𝑥𝐹 𝑋 , the UMVE portfolio constructed from currency excess returns; and iii) a combined specification using both 𝑟𝑥𝑈 (the UMVE portfolio based on bond 
+excess returns) and 𝑟𝑥𝐹 𝑋 .
+
+−0.003
+−0.004
+0.002
+−0.003
+−0.001
+0.003
+0.004
+−0.001
+−0.004
+0.006
+
+0.837
+0.743
+0.853
+0.599
+0.325
+1.391
+0.979
+0.782
+0.441
+0.487
+
+1.180
+2.185
+2.192
+3.051
+1.265
+1.649
+1.921
+2.278
+1.481
+1.927
+
+2.070
+3.178
+3.181
+2.233
+2.108
+2.452
+2.954
+2.739
+2.531
+3.567
+
+0.446
+0.490
+0.654
+0.831
+0.183
+0.902
+0.660
+0.666
+0.261
+0.246
+
+0.882
+0.683
+1.030
+0.559
+0.470
+1.641
+1.216
+0.858
+0.348
+0.816
+
+0.465
+0.442
+0.800
+0.798
+0.263
+1.047
+0.834
+0.722
+0.209
+0.412
+
+0.012
+0.085
+0.077
+0.171
+0.032
+0.012
+0.050
+0.080
+0.044
+0.078
+
+t_alpha
+
+Table 17
+Testing bond and FX UMVEs using portfolio strategies.
+
+𝑟𝑥𝑈 ⊥
+
+𝑟𝑥𝐹 𝑋
+
+𝑟𝑥𝑈 and 𝑟𝑥𝐹 𝑋
+Alpha
+
+Alpha
+
+Alpha
+
+adj.R2
+
+adj.R2
+
+t_alpha
+
+t_alpha
+
+t_alpha
+
+0.071
+0.092
+
+0.679
+0.552
+
+0.850
+0.769
+
+0.744
+0.601
+
+0.000
+0.003
+
+2.148
+2.212
+
+2.701
+3.062
+
+0.244
+0.881
+0.788
+
+0.107
+0.209
+0.091
+
+1.014
+1.033
+0.676
+
+1.265
+0.813
+0.738
+
+3.665
+2.928
+2.652
+
+adj.R2  
+  Strategy
+0.071  
+  1∕𝑁
+0.096  
+  GDP-weighted
+0.104  
+  Average Carry
+0.208  
+  CS-Carry
+0.089  
+  TS-Carry
+0.034  
+  Average Value
+0.012  
+  CS-Value
+0.057  
+  TS-Value
+0.057  
+  Average Mom12
+−0.006 
+  CS-Mom12
+0.037  
+  TS-Mom12
+0.006  
+  Average Mom1
+−0.002 
+  CS-Mom1
+  TS-Mom1
+0.004  
+This table shows the alpha from regressing bond trading strategy returns on alternative UMVE portfolio returns (𝐴𝑙𝑝ℎ𝑎, in % p.a.), the corresponding 𝑡-statistics (𝑡_𝑎𝑙𝑝ℎ𝑎), and the 
+adjusted R2 from each regression. We consider the following alternative UMVE portfolio returns: i) 𝑟𝑥𝑈 ⊥, the orthogonalized bond UMVE portfolio, whose returns are uncorrelated 
+with currency risk; ii) 𝑟𝑥𝐹 𝑋 , the UMVE portfolio constructed from currency excess returns; and iii) a combined specification using both 𝑟𝑥𝑈 (the UMVE portfolio based on bond 
+excess returns) and 𝑟𝑥𝐹 𝑋 .
+
+−0.003
+−0.002
+−0.002
+
+−0.001
+−0.002
+−0.004
+
+−0.002
+−0.003
+−0.004
+
+−0.002
+−0.002
+−0.002
+
+0.292
+−1.221
+0.019
+
+0.230
+−1.640
+0.020
+
+1.085
+−1.496
+0.631
+
+0.969
+−1.830
+0.645
+
+0.836
+−1.894
+0.626
+
+0.057
+−0.004
+0.040
+
+1.254
+−1.446
+0.646
+
+2.938
+3.463
+2.399
+
+1.293
+0.827
+0.703
+
+1.049
+1.043
+0.653
+
+2.922
+0.897
+2.539
+
+2.327
+1.277
+2.387
+
+1.152
+0.879
+1.291
+
+0.892
+1.123
+1.208
+
+1.244
+0.810
+1.222
+
+0.964
+1.024
+1.128
+
+0.008
+0.001
+0.008
+
+1.891
+1.347
+2.166
+
+1.494
+1.942
+2.147
+
+0.462
+0.831
+0.736
+
+0.358
+1.196
+0.734
+
+0.193
+1.273
+0.763
+
+0.035
+0.014
+0.058
+
+0.600
+0.431
+
+Table 18
+Sharpe ratio and GRS test for bond and FX UMVEs using portfolio strategies.
+
+  Model
+
+SR
+
+UMVE
+
+GRS Tests — p-values
+All strategies
+
+All Carry
+
+All Value
+
+All Carry  
+and Value 
+0.544
+0.544
+0.001
+0.551
+
+1.229
+1.236
+
+  𝑟𝑥𝑈 (the original UMVE)
+  𝑟𝑥𝑈 ⊥
+  𝑟𝑥𝐹 𝑋
+  𝑟𝑥𝑈 + 𝑟𝑥𝐹 𝑋
+This table shows in column (1) the Sharpe ratio (SR) of the UMVE portfolios. Column (2) shows the 𝑝-value of the GRS test if the alphas from regressing all global portfolio 
+strategies on the respective UMVE portfolio are jointly equal to zero. Column (3) shows the 𝑝-value of the GRS test if the alphas from regressing global carry portfolio strategies 
+on the respective UMVE portfolio are jointly equal to zero. Column (4) shows the 𝑝-value of the GRS test of whether the alphas from regressing global value portfolio strategies 
+on the respective UMVE portfolio are jointly equal to zero. Column (5) shows the 𝑝-value of the GRS test of whether the alphas from regressing global carry and value portfolio 
+strategies on the respective UMVE portfolio are jointly equal to zero. Data are from January 2001 until December 2022.
+
+0.399
+0.415
+0.000
+0.356
+
+0.635
+0.607
+0.124
+0.709
+
+0.455
+0.461
+0.004
+0.439
+
+strategies. To orthogonalize the returns of the bond UMVE portfolio 
+with respect to the currency SDF, we regress the bond UMVE returns 
+on the demeaned FX UMVE returns, as shown in Eq. (15): 
+
+𝑟𝑥𝑈 = 𝛼 + 𝛽(𝑟𝑥𝐹 𝑋 − 𝑟𝑥𝐹 𝑋 ) + 𝜖
+
+(15)
+
+To obtain mean-preserving orthogonalized UMVE portfolio returns, 
+𝑟𝑥𝑈 ⊥, we define 𝑟𝑥𝑈 ⊥ = 𝛼 + 𝜖. Using 𝑟𝑥𝑈 ⊥ and 𝑟𝑥𝐹 𝑋 , we perform 
+asset pricing tests akin to those reported in Section 4.2. Results for 
+the two sets of test assets are reported in Tables  16 (countries) and 17 
+(strategies). We find that the component of the UMVE portfolio returns 
+unrelated to the currency SDF, 𝑟𝑥𝑈 ⊥, effectively prices both individual 
+countries’ bond returns and dynamic bond portfolio strategies. Indeed, 
+
+the resulting alphas, shown in the columns to the left, are not statisti-
+cally different from zero, as all 𝑡-statistics are low, with the largest one 
+being −1.8 for CS-Mom1. Our evidence thus suggests that taking out 
+priced currency risks does not materially affect the UMVE’s ability to 
+price international bond markets and portfolio strategies.
+
+Next, we perform similar tests, but use the currency SDF, 𝑟𝑥𝐹 𝑋 , as 
+the explanatory variable in the regressions. The results are reported in 
+the middle columns of Tables  16 and 17. In this case, most alphas are 
+large and statistically different from zero. Thus, the currency SDF does 
+a poor job in pricing FX-risk-hedged international bond portfolios.
+
+We also examine the pricing performance of the combination of 𝑟𝑥𝑈
+(the original UMVE return) and 𝑟𝑥𝐹 𝑋 (the FX-UMVE). Analyzing the 
+three rightmost columns of Tables  16 and 17, we observe that including 
+
+20 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+O. Randl et al.
+
+the currency SDF as an additional explanatory variable has minimal 
+impact on the ability to price bonds or bond strategies. The alphas and 
+their 𝑡-statistics remain nearly identical to the results presented earlier 
+in Tables  6 and 7.
+
+We conduct GRS tests to determine whether the alphas from differ-
+ent model specifications are jointly different from zero. The results in 
+Table  18 indicate negligible differences across models, whether using 
+𝑟𝑥𝑈 , 𝑟𝑥𝑈 ⊥ or a combination of 𝑟𝑥𝑈  and 𝑟𝑥𝐹 𝑋 . These results accord 
+well  with  our  earlier  evidence,  suggesting  that  exchange  risk  con-
+tributes minimal explanatory power to bond excess returns, as defined 
+in Eq. (6).
+
+When relating the bond UMVE and the FX UMVE to the macroe-
+conomy, we find distinct patterns. While the expected Sharpe ratios of 
+the former are primarily related to inflation dynamics across countries 
+(see Section 4.6), Chernov et al. (2023) find that FX UMVE returns 
+are primarily related to US consumption growth. The important role 
+of inflation for the bond UMVE is intuitive. Excess returns of long-
+term  bonds  are  almost  mechanically  linked  to  inflation  shocks,  as 
+inflation erodes the purchasing power of fixed future cash flows and 
+correlates with the level of interest rates. Consequently, it is natural 
+for inflation risk to be priced in international bond markets. This is 
+consistent with Fang et al. (2025), who show that government bonds 
+have negative exposure to both core and energy inflation. In contrast, 
+these authors find that currencies behave differently: While they exhibit 
+positive  and  sizable  exposure  to  energy  inflation,  exposure  to  core 
+inflation is negative, albeit not statistically significant. This fact likely 
+reflects the tendency of central banks to intervene – either directly 
+in currency markets or indirectly through monetary policy decisions 
+– thereby mitigating some of the effects of core inflation shocks on 
+exchange rates. Thus, while Fang et al. (2025) find that certain FX trad-
+ing strategies – such as carry – are exposed to inflation, the opposing 
+signs of currencies’ exposures to core and energy inflation, which tend 
+to offset each other, may explain why headline inflation has not been 
+found to be significantly related to the FX UMVE.
+
+6. Implications for bond portfolio strategies
+
+In this section, we discuss implications of our findings for bond port-
+folio management. We start by illustrating the time-varying expected 
+risk premia of traditional bond portfolio strategies. We then provide 
+information about the time-varying composition of the UMVE portfolio, 
+and discuss to what extent extreme long and short positions, as shown 
+in Table  11, are required to obtain the attractive risk-return relation of 
+the UMVE.
+
+Once the portfolio projection of the SDF is known, one can calculate 
+the  expected  risk  premium  of  various  bond  strategies  in  real  time. 
+Specifically,  for  each  bond  strategy  considered  by  an  investor,  she 
+can obtain the expected Sharpe ratio based on estimates of expected 
+excess returns and the covariance matrix. Fig.  11 illustrates the cross-
+sectional  and  the  time  variation  of  expected  Sharpe  ratios  for  the 
+trading strategies described in Section 4.1. Positive (negative) values 
+are shown in green (red) color; darker areas indicate larger absolute 
+values. First, Fig.  11 reveals considerable heterogeneity: simple diver-
+sification (naive and GDP-weighted), and carry strategies have almost 
+always positive expected Sharpe ratios, while momentum strategies 
+show notable fluctuations between positive and negative values. The 
+attractiveness of value strategies appears to vary at lower frequency.
+
+While a real-time assessment of the risk-return properties of a given 
+trading strategy, as illustrated in Fig.  11, may be useful for investors, 
+it does not speak to the overall optimal portfolio. We thus turn to 
+the analysis of the practical implementability of the UMVE portfolio. 
+We have shown that hedged portfolio strategies lead to economically 
+attractive risk-return ratios which, in most cases, beat the original trad-
+ing strategies by a wide margin. It is therefore natural to ask whether 
+these strategies would be implementable in practice. Such a practical 
+implementation may face two challenges. First, the hedged portfolio 
+
+Journal of Financial Economics 173 (2025) 104152 
+
+strategies may require extreme position weights to achieve their high 
+performance. To see how sensitive the results are with regard to a 
+portfolio manager’s ability to take extreme market positions, we impose 
+minimum and maximum weights for the hedged portfolio strategies 
+and compare the resulting Sharpe ratios with the ones of the original 
+strategies. A second potential concern relates to the feasibility of taking 
+short positions. In principle, short positions should be easily achievable, 
+since long-term government bond futures are available in all markets 
+of our main sample with the exception of Norway.24 However, many 
+asset managers, such as conventional mutual fund managers, face legal 
+or investor-imposed short-selling constraints. We therefore also analyze 
+strategies with minimum weights of zero in each market as a robustness 
+check. Specifically, we implement the following two lower and upper 
+bounds on portfolio weights: First, we restrict portfolio weights for each 
+country between 0% and 20% and second, we consider a restricted 
+strategy with portfolio weights in the range between −20% to +20%. 
+We report the results in Fig.  12. Remarkably, even when we apply such 
+relatively conservative weight restrictions, the hedged strategies beat 
+the original trading strategies with Sharpe ratios close to those achieved 
+by the unrestricted portfolios. However, it appears that a considerable 
+part of the performance comes from short positions. While 13 out of 
+14 long-only strategies still outperform their unhedged counterparts, 
+their Sharpe ratios tend to be lower than those of portfolios that allow 
+at  least  limited  short  positions.  This  observation  does  not  hold  for 
+the momentum portfolios. Here, restricting investors from taking short 
+positions even turns out to be beneficial. Overall, the hedged portfolios 
+improve Sharpe ratios considerably, even when large portfolio weights 
+are not allowed.
+
+Finally, Table  11 shows that implementation of the UMVE requires 
+high portfolio turnover which might raise concerns about trading costs. 
+Yet, this is not likely to be an important issue for major government 
+bond markets since they all feature derivatives markets. Trading costs 
+for bond futures are very low, typically in the order of magnitude of 1 
+basis point. Transactions in the cash market tend to be slightly more 
+expensive. Favero et al. (2010) quantify the median cost of trading 
+German government bonds with 10 year maturity with 3 basis points. 
+Using a range from 1 to 3 basis points, trading costs will lower the 
+return of the UMVE by only about 0.2% to 0.6% p.a.
+
+7. Robustness
+
+7.1. Estimation of expected returns: Alternative specifications
+
+In  this  subsection,  we  test  alternative  specifications  of  Eq.   (7). 
+Specifically, we (i) add a constant, (ii) add country fixed effects, and 
+use alternative definitions of (iii) the forward spread and (iv) the bond 
+value variables.
+
+For alternative specification (iii), we compute the forward spread 
+
+variable defined over 1 year: 
+
+𝐹 𝑜𝑟𝑤𝑎𝑟𝑑𝑆𝑝𝑟𝑒𝑎𝑑∗
+
+𝑃 (9𝑌 )
+𝑖,𝑡
+𝑃 (10𝑌 )
+𝑖,𝑡
+and not over 1 month, as defined in Eq.  (8).
+
+1
+𝑃 (1𝑌 )
+𝑖,𝑡
+
+𝑡 =
+
+−
+
+,
+
+(16)
+
+24 Koijen et al. (2018) include the same ten bond markets as our paper 
+but calculate synthetic bond futures returns because of liquidity concerns and 
+data availability. For markets where they have access to bond futures prices, 
+they find correlations above 0.95 between actual and synthetic futures returns. 
+Similarly, we find correlations above 0.97 between excess returns that we 
+calculate from yield curves and futures excess returns for Australia, Canada, 
+Germany, Sweden, Switzerland, the UK, and the U.S. We find somewhat lower 
+correlations for futures markets that are less liquid (New Zealand 0.81, Japan 
+0.92). There is no long-term government bond futures contract traded for 
+Norway.
+
+21 
+
+O. Randl et al.
+
+Journal of Financial Economics 173 (2025) 104152 
+
+Fig. 11.  Portfolio strategies heatmap.
+This figure shows a heatmap of the portfolio strategies’ expected Sharpe ratio over time. The estimation of the conditional means and the conditional covariances follows 
+Sections 3.4.1 and 3.4.2. Detailed description of the trading strategies is available in Table  5. Data are from January 2001 to December 2022.
+
+The alternative bond value variable used in specification (iv) is 
+based on trend inflation, as defined by Cieslak and Povala (2015), 
+instead of historical inflation. Specifically, we compute: 
+𝑉 𝑎𝑙𝑢𝑒∗
+
+𝑡 = 𝑌 (10𝑌 )
+
+𝑖,𝑡
+
+𝑣𝑖𝜋𝑡−𝑖 ,
+
+(17)
+
+𝜏𝐶𝑃 𝐼
+𝑡
+
+=
+
+(1 − 𝑣)
+(1 − 𝑣𝑀 )
+
+− 𝜏𝐶𝑃 𝐼
+𝑡
+𝑀−1
+∑
+
+𝑖=0
+
+where 𝜋𝑡 = 𝐶𝑃 𝐼𝑡∕𝐶𝑃 𝐼𝑡−12𝑀 − 1 is the annual inflation in month 𝑡, 
+lagged by one month, 𝑀 = 120 is the number of months considered 
+for measuring inflation25, and 𝑣 is a parameter calibrated to inflation 
+survey data which we set equal to 0.987, as in Cieslak and Povala 
+(2015). Trend inflation, as defined above, has been shown to forecast 
+future inflation and to predict bond excess returns (see Cieslak and 
+Povala (2015) and the literature cited there).
+
+The results for alternative definitions of return prediction variables 
+(i)  to  (iv)  are  reported  in  Appendix  D.  These  results  closely  align 
+with those obtained from the main model specification, but do not 
+outperform it.
+
+7.2. Estimation of expected returns: Country-by-country dynamics
+
+We  estimate  the  predictive  regression  specified  in  Eq.  (7)  using 
+pooled OLS, which provides a single estimate for ̂𝛾𝑡 and ̂𝛿𝑡, respectively. 
+
+While this is efficient if the underlying relationships are expected to 
+be similar or identical across countries, it might bias results if there 
+are cross-country differences. As a robustness check, we therefore run 
+country-by-country regressions over expanding time windows, allowing 
+coefficients ̂𝛾𝑖,𝑡 and ̂𝛿𝑖,𝑡 to vary across countries 𝑖 and time 𝑡. Appendix H 
+presents the resulting time series of gamma and delta coefficients for 
+each G10∗ market, as well as cross-sectional averages and standard de-
+viations. Compared to the pooled OLS estimation, individual countries’ 
+estimates are more unstable at the beginning of the sample, with much 
+wider confidence intervals. While the point estimates of coefficients 
+vary across countries and time, the general pattern is remarkably simi-
+lar, and the cross-sectional mean of the individual countries’ estimates 
+is close to the estimate when using the pooled OLS approach.
+
+7.3. Estimation of expected returns: Including additional predictive vari-
+ables
+
+We next explore the robustness of our findings with respect to the 
+variables used in the model of expected returns. In particular, we con-
+sider alternative versions of momentum, foreign exchange predictors, 
+additional forward interest rates, as suggested by Cochrane and Piazzesi 
+(2005), and a credit risk measure as additional candidate variables.
+
+25 When fewer than 120 months of data are available, we progressively 
+adjust 𝑀 to ensure the same number of observations as in the main model.
+
+We  start  by  extending  the  model  in  Eq.   (7)  and  include  long-
+term and short-term bond excess return momentum. Specifically, we 
+
+7.3.1. Long and short term momentum
+
+22 
+
+O. Randl et al.
+
+Journal of Financial Economics 173 (2025) 104152 
+
+Fig. 12.  Portfolio strategies with weights cutoffs.
+This figure shows the annualized Sharpe ratio of the original, hedged portfolio strategies, and hedged portfolio strategies with weight restrictions. Hedged weights 0 to +0.20 
+means that the weights of the hedged portfolio are restricted to be between 0% and 20% of the total portfolio exposure. Hedged weights −0.20 to +0.20 means that the weights 
+of the hedged portfolio are restricted to be between −20% and +20% of the total portfolio exposure.
+
+estimate the following out-of-sample regressions: 
+
+E
+
+𝑡(𝑟𝑥𝑖
+
+𝑡+1) = 𝜓1,𝑡𝐹 𝑜𝑟𝑤𝑎𝑟𝑑𝑆𝑝𝑟𝑒𝑎𝑑𝑖
+
+𝑡 +𝜓2,𝑡𝑉 𝑎𝑙𝑢𝑒𝑖
+
+𝑡 +𝜓3,𝑡𝐿𝑇 𝑀𝑜𝑚𝑖
+
+𝑡 +𝜓4,𝑡𝑆𝑇 𝑀𝑜𝑚𝑖
+
+𝑡 , (18)
+
+where  𝐹 𝑜𝑟𝑤𝑎𝑟𝑑𝑆𝑝𝑟𝑒𝑎𝑑  and  𝑉 𝑎𝑙𝑢𝑒  are  defined  as  in  Section  3.4.1, 
+𝐿𝑇 𝑀𝑜𝑚 represents the cumulative return from 𝑡 − 12 to 𝑡 − 1 and 
+𝑆𝑇 𝑀𝑜𝑚 denotes the most recent monthly return. We find that incorpo-
+rating these additional variables weakens the results compared to the 
+model that includes only carry and value. Specifically, this alternative 
+model produces noisier conditional expectations. Importantly, although 
+a UMVE portfolio constructed from the extended model above still 
+seems to correctly price all trading strategies, its Sharpe ratio is lower 
+than the one resulting from the UMVE that only relies on two signals. 
+Detailed results are provided in Appendix D.
+
+7.3.2. Foreign exchange predictors
+
+As detailed in Section 5, the FX-risk-hedged returns we use are 
+largely insulated from exchange rate risk. However, it could be argued 
+that foreign exchange predictors still play a role in forecasting excess 
+bond returns. To investigate this, we use the FX predictors proposed 
+by  Chernov  et  al.  (2023)  and  estimate  the  following  out-of-sample 
+regressions:
+
+E
+
+𝑡(𝑟𝑥𝑖
+
+𝑡+1) = 𝑏1,𝑡𝐹 𝑜𝑟𝑤𝑎𝑟𝑑𝑆𝑝𝑟𝑒𝑎𝑑𝑖
+
++ 𝑏3,𝑡(𝑆𝑖
+
+𝑡 ∕𝐹 𝑖
+
+𝑡 − 1)𝑡 + 𝑏4,𝑡𝑧𝑖
+
+𝑡 ∕𝑆𝑖
+
+𝑡−12 − 1),
+
+𝑡 + 𝑏2,𝑡𝑉 𝑎𝑙𝑢𝑒𝑖
+𝑡
+𝑡 + 𝑏5,𝑡(𝑆𝑖
+
+(19)
+
+23 
+
+𝑡 ∕𝐹 𝑖
+
+where (𝑆𝑖
+(RER)26, and (𝑆𝑖
+
+𝑡 − 1) is the forward discount, 𝑧𝑖
+𝑡−12 − 1) is a trend signal.
+
+𝑡 ∕𝑆𝑖
+
+𝑡 is the Real Exchange Rate 
+
+Adding foreign exchange predictors results in weaker predictabil-
+ity.27 Additionally, the resulting UMVE fails to price several test assets 
+such  as  Japanese  bonds  and  some  strategies  related  to  carry  and 
+momentum. We report detailed results in Appendix D.
+
+7.3.3. Additional forward interest rates (Cochrane and Piazzesi)
+
+Cochrane and Piazzesi (2005) demonstrate that a linear combina-
+tion of forward rates has significant predictive ability to explain future 
+excess bond returns. Motivated by this finding, we analyze a model 
+of expected returns by replacing the forward spread in Eq. (7) with a 
+linear combination of forward rates, incorporating maturities of up to 
+5 years. Specifically, the regression equation is specified as follows: 
+
+E
+𝑡(𝑟𝑥𝑖
+
+𝑡+1) = 𝜈1,𝑡𝑉 𝑎𝑙𝑢𝑒𝑖
+
+𝑡 +𝜈2,𝑡𝑌 (1𝑌 ),𝑖
+
+𝑡
+
++𝜈3,𝑡𝐹 (2𝑌 ),𝑖
+
+𝑡
+
++𝜈4,𝑡𝐹 (3𝑌 ),𝑖
+
+𝑡
+
++𝜈4,𝑡𝐹 (4𝑌 ),𝑖
+
+𝑡
+
++𝜈4,𝑡𝐹 (5𝑌 ),𝑖
+
+𝑡
+
+, (20)
+
+𝑡 = 𝑆 𝑖
+
+𝑡 ∕𝐶𝑃 𝐼 𝑖
+
+𝑡 ⋅ 𝐶𝑃 𝐼 𝑈 𝑆
+
+26 First define the RER as 𝑄𝑖
+by the average RER from 4.5 to 5.5 years ago:  ̃𝑄𝑖
+∑𝑁
+Finally, demean cross-sectionally: 𝑧𝑖
+𝑖=1
+27 This is confirmed by the Diebold and Mariano (1995) test comparing the 
+full model that includes bond and value signals with the one that additionally 
+includes foreign exchange predictors. The test shows a significantly higher 
+predictive ability for the full model, with a 𝑡-statistic of −6.3.
+
+𝑡 . Then, divide each RER 
+. 
+𝑗=−6 𝑄𝑖
+𝑡 = 𝑄𝑖
+𝑡
+̃𝑄𝑖
+𝑡.
+
+𝑡 = ̃𝑄𝑖
+
+( 1
+13
+
+𝑡 − 1
+
+𝑡−60+𝑗
+
+)−1
+
+∑6
+
+𝑁
+
+O. Randl et al.
+
+𝑡
+
+𝑡
+
+  is  defined  as  𝑃 (𝑚−1)
+
+where  𝐹 (𝑚)
+∕𝑃 (𝑚)
+.  Panel  C  of  Table  D3  in  the 
+𝑡
+appendix reveals that the unbiasedness test using the expected returns 
+estimated from Eq. (20) gives a weaker result compared to the baseline 
+optimal model. Consequently, adding a linear combination of forward 
+rates does not improve the estimation of bond expected returns.
+
+7.3.4. Credit risk
+
+The G10∗ countries, as defined in Section 3.1, all represent de-
+veloped economies that are both economically and politically stable. 
+Consequently, we interpret their bond markets as effectively default-
+free. However, existing literature highlights credit risk as a potentially 
+important component of the bond risk premium, even for such coun-
+tries (Longstaff et al., 2011; Augustin et al., 2022). To address this, 
+we perform an additional robustness check by incorporating sovereign 
+credit risk, measured using sovereign CDS spreads, into the estimation 
+of expected returns.
+
+Specifically, we run out-of-sample regressions of the following form: 
+
+E
+
+𝑡(𝑟𝑥𝑖
+
+𝑡+1) = 𝜃1,𝑡𝐹 𝑜𝑟𝑤𝑎𝑟𝑑𝑆𝑝𝑟𝑒𝑎𝑑𝑖
+
+𝑡 + 𝜃2,𝑡𝑉 𝑎𝑙𝑢𝑒𝑖
+
+𝑡 + 𝜃3,𝑡𝛥𝐶𝑟𝑒𝑑𝑖𝑡𝑅𝑖𝑠𝑘𝑖
+𝑡 ,
+
+(21)
+
+where 𝛥𝐶𝑟𝑒𝑑𝑖𝑡𝑅𝑖𝑠𝑘𝑖
+𝑡 is computed as 𝐶𝐷𝑆𝑖,𝑡 − 𝐶𝐷𝑆𝑖,𝑡−1𝑀 , with 𝐶𝐷𝑆𝑖,𝑡
+and 𝐶𝐷𝑆𝑖,𝑡−1𝑀  being the monthly average CDS spread levels (in basis 
+points) at time 𝑡 and 𝑡 − 1𝑀, respectively. We use data on 5-year USD-
+denominated sovereign CDS spreads from Markit and follow Della Corte 
+et al. (2022) for an accurate selection of the CDS restructuring clauses.28 
+To obtain a balanced panel of liquid CDS contracts, we use data starting 
+from the end of 2003. However, we lack liquid data for Switzerland 
+(up to 2005) and the United Kingdom (up to 2008). To proxy for the 
+missing CDS data, we use contracts of comparable countries based on 
+credit ratings and levels of investor protection.29 We find that adding 
+CDS  does  not  improve  the  prediction  of  bond  expected  returns  or 
+variances. We provide results in Appendix D.
+
+7.4. Estimation of expected returns: Fixed estimation window
+
+In the main analysis, expected returns are estimated using an ex-
+panding time window. However, using a rolling estimation window 
+may be more effective in capturing potential time variation in the rela-
+tionship between predictive variables and future bond excess returns. 
+To explore this, we re-estimate Equation (7) using fixed 5-year rolling 
+windows instead of an expanding window.
+
+Results remain broadly unchanged. As expected, the time series of 
+the estimated coefficients ̂𝛾𝑡 and ̂𝛿𝑡 show greater fluctuation. Neverthe-
+less, the estimates of expected returns remain valid and unbiased. We 
+document the output of these robustness tests in Appendix D.
+
+7.5. Regression test of the UMVE portfolio: Other maturities
+
+We have demonstrated that the UMVE derived in Sections 2 and 3 
+effectively prices individual bond markets and trading strategies. These 
+tests were based on holding-period returns from 10-year bonds. To 
+analyze whether the UMVE also prices international bonds in other ma-
+turity buckets, we extend the analysis to include holding-period returns 
+
+28 We focus on contracts denominated in USD and with 5-year maturity, as 
+they are the most liquid contracts in the sovereign CDS market.
+29 To identify comparable countries, we match credit ratings, using Thomson 
+Reuters as data source for Fitch Long Term Default Ratings. To match investor 
+protection, we use La Porta et al. (1998) and select countries of the same legal 
+origin and with a low number of deviations in all sub-categories of shareholder 
+rights, creditor rights, and rule of law. For these countries, we compute the 
+average CDS spreads and use them for the period for which the respective 
+matched country has no liquid CDS data. To avoid potential jumps between 
+the two time series, we apply an adjustment factor to the matched average 
+CDS spread.
+
+24 
+
+Journal of Financial Economics 173 (2025) 104152 
+
+from alternative bond maturities. Specifically, we analyze whether the 
+UMVE also prices 5-year and 15-year maturities.
+
+Results are reported in Table D8 in the appendix. Notably, none 
+of the regressions yields a statistically significant alpha at the con-
+ventional  5%  level.  This  finding  holds  even  for  the  shorter  5-year 
+maturity, where one might expect distortions or structural breaks due 
+to  countries’  monetary  policies  following  the  Great  Financial  Crisis 
+and COVID-19 — factors that may not be fully captured by the 10-
+year return-based UMVE. Overall, this evidence further reinforces the 
+validity of the UMVE.
+
+7.6. Alternative measurement currency
+
+The analysis in this paper is based on bond excess returns denomi-
+nated in USD. This raises the question whether the results also hold for 
+alternative measurement currencies. To address this, we follow Cher-
+nov et al. (2024) and convert the USD-based UMVE into alternative 
+measurement  currencies.  For  instance,  when  focusing  on  EUR,  we 
+compute 𝑟𝑥𝑈 ,𝐸𝑈 𝑅
+𝑡+1𝑀 , where 𝑆𝐸𝑈 𝑅 represents the 
+exchange  rate  in  USD  per  unit  of  EUR.  We  then  examine  whether 
+𝑟𝑥𝑈 ,𝐸𝑈 𝑅
+  prices  individual  bond  returns  and  strategies,  expressed  in 
+𝑡+1
+EUR. We perform this exercise for all currencies in our sample.
+
+𝑡+1 ⋅ 𝑆𝐸𝑈 𝑅
+
+∕𝑆𝐸𝑈 𝑅
+
+= 𝑟𝑥𝑈
+
+𝑡+1
+
+𝑡
+
+As  detailed  in  Appendix  I,  changing  the  measurement  currency 
+does not qualitatively alter the findings. SDFs constructed from alter-
+native measurement currencies consistently price the respective bond 
+portfolio returns effectively. This result aligns with the discussion in 
+Section 5, which shows that the exposure of excess bond returns to FX 
+risk is economically very small. Consequently, the choice of measure-
+ment currency used to define the SDF does not materially affect the 
+conclusions.
+
+7.7. Alternative benchmark portfolios
+
+7.7.1. The naive portfolio
+
+As  shown  above,  the  SDF  projection  on  the  UMVE  portfolio  is 
+supported by standard validation tests. However, one may question 
+whether a naive SDF, such as the one derived from a projection on 
+the  1∕𝑁  portfolio,  would  yield  similar  results.  To  investigate  this, 
+we  conduct  regression  tests  analogous  to  those  in  Tables   6 and 7, 
+substituting the naive 1∕𝑁 portfolio returns when defining the SDF. 
+The results are presented in Appendix D.
+
+While the 1∕𝑁 portfolio successfully prices some individual gov-
+ernment bond markets and portfolio strategies, we observe that, on 
+average, the 𝑡-statistics of the alphas are significantly higher than those 
+obtained when using the SDF based on the UMVE portfolio (see Tables 
+6 and 7). More critically, for certain test assets, the alphas resulting 
+from the 1∕𝑁 portfolio are statistically significantly different from zero. 
+These findings lead us to conclude that the SDF derived from the naive 
+1∕𝑁 portfolio strategy is dominated by the SDF derived in Section 2.
+
+7.7.2. The minimum entropy approach
+
+In our main analysis, we obtain real-time estimates of the UMVE-
+based SDF. An alternative approach is based on minimum entropy, 
+which takes into account higher moments of returns. Following Sand-
+ulescu et al. (2021), we provide an in-sample estimate of the minimum 
+entropy SDF for international government bond markets. Specifically, 
+we obtain the minimum entropy SDF,  ̃𝑀, as 
+̃𝑀𝑡 = 𝑅−1
+̂𝜆∗,𝑡
+
+(22)
+
+,
+
+where 𝑅 ̂𝜆∗,𝑡 denotes the gross returns of the optimal growth portfolio. 
+The latter is defined as 
+
+𝑁
+∑
+
+𝑅 ̂𝜆∗,𝑡 =
+
+̂𝜆∗
+𝑖 𝑟𝑥𝑖
+
+𝑡 + 𝑅(1𝑀)
+𝑈 𝑆 ,
+
+𝑖=1
+𝑖  is the optimal portfolio weight for country 𝑖 and 𝑅(1𝑀)
+where ̂𝜆∗
+𝑈 𝑆  is the 
+gross return of 1-month U.S. T-bills. We estimate the optimal portfolio 
+
+(23)
+
+O. Randl et al.
+
+weights from the solution to the following set of empirical moment 
+conditions:30
+
+̂E[𝑅−1
+
+̂𝜆∗ 𝐫𝐱] = 𝟎 ,
+
+(24)
+
+where 𝐫𝐱 is the vector of excess returns of our test assets, i.e. the 
+individual bond markets. Following Sandulescu et al. (2021), we obtain 
+the vector of portfolio weights  ̂𝜆∗, i.e. the parameters to be estimated 
+from Eq.  (24), using the method of moments.
+
+We report the results of the hypothesis test specified in Eq.  (12) 
+and the results from the GRS test in Appendix D. Overall, the optimal 
+growth  portfolio,  which  is  constructed  in-sample,  explains  a  larger 
+fraction of the variation in bond returns and portfolio strategies than 
+the UMVE portfolio, which is constructed out-of-sample. However, the 
+UMVE portfolio dominates with respect to pricing international govern-
+ment bonds. With the exception of cross-sectional carry, cross-sectional 
+value, and cross-sectional short-term momentum, alphas of individual 
+country and strategy regressions are statistically indistinguishable from 
+zero. However, using the GRS test, we reject the hypothesis that alphas 
+are jointly equal to 0 when using the minimum entropy SDF.
+
+8. Conclusion
+
+This paper investigates the pricing of currency-hedged government 
+bond portfolios and presents several key findings. We document sub-
+stantial diversification benefits for investors due to the imperfect cor-
+relation between term-structure movements across bond markets, even 
+when focusing only on developed markets and simple strategies, such 
+as GDP-weighted or equally weighted portfolios.
+
+We find that the unconditional mean–variance efficient portfolio 
+of G10∗ government bonds can be constructed using expected return 
+forecasts based on forward spreads and real yields, along with a time-
+varying covariance matrix, estimated with a shrinkage method. The 
+resulting SDF prices individual G10∗ bond markets and dynamic bond 
+trading strategies effectively. Although the SDF derived in this paper 
+is based on 10-year bond portfolios, we demonstrate that it also prices 
+bonds of other maturities.
+
+We explore several model extensions, incorporating additional vari-
+ables into the expected return models, such as CDS-based sovereign 
+credit risk measures, the term structure of forward interest rates and al-
+ternative definitions of carry and value. We also confirm the results us-
+ing alternative measurement currencies. Remarkably, the parsimonious 
+UMVE model from the main analysis prices this asset class surprisingly 
+well, even when compared to these more complex extensions.
+
+We also investigate to what extent the bond pricing kernel captures 
+FX risk. First, we demonstrate that, as bond positions are financed in 
+their respective local currencies, the UMVE portfolio’s exposure to FX 
+risk is economically negligible. Moreover, we show that the returns of 
+the UMVE portfolio are largely unrelated to an SDF that prices curren-
+cies. Consequently, using only the component of the UMVE return that 
+is orthogonal to the currency SDF prices international bond portfolio 
+equally well as the original UMVE. These findings highlight that the 
+priced risks of international bond portfolios are fundamentally distinct 
+from those of currency portfolios.
+
+The UMVE portfolio has several notable properties. First, the opti-
+mal international government bond portfolio achieves a large improve-
+ment in the Sharpe ratio, increasing it from an average of approxi-
+mately 0.46 for individual markets to a value exceeding 1. However, 
+the UMVE exhibits substantial time-variation in the implied market 
+price of risk. Specifically, it increases around recessions and crises, with 
+the highest expected Sharpe ratio observed in the fourth quarter of 
+2022, when concerns about inflation and tightening monetary policies 
+raised investors’ marginal utility of wealth.
+
+30 For details, see Equation (17) from Sandulescu et al. (2021).
+
+Journal of Financial Economics 173 (2025) 104152 
+
+Additionally, the paper finds that the expected Sharpe ratio of the 
+UMVE portfolio is strongly positively related to the absolute level and 
+to the dispersion of inflation rates across the G10∗ countries. These 
+relationships seem to be largely driven by the period after August 2008.
+While bond returns exhibit a strong factor structure, with 86% of 
+the variance being explained by the first three principal components, 
+there is very little relation between common sources of variation in 
+international bond market returns and priced risk. The first 10 principal 
+components only explain around 30% of the UMVE portfolio return 
+variation.
+
+Consistent with this finding, portfolio strategies, such as equally 
+weighting or various factor-based portfolio strategies, such as carry, 
+value, and momentum strategies, all exhibit large amounts of unpriced 
+risks. By constructing portfolios that hedge out such unpriced compo-
+nents from bond strategies, Sharpe ratios improve substantially. Our 
+analysis  also  suggests  that,  for  successful  practical  implementation, 
+the  estimation  of  expected  returns  is  essential,  while  estimation  of 
+variances matters to a lesser degree.
+
+To shed light on the feasibility of strategies that hedge out un-
+priced risks, we provide sensitivity analyses and impose restrictions on 
+the absolute values of portfolio weights. We document that portfolio 
+performance is remarkably robust to imposing such limits. Only when 
+long-only restrictions are imposed, the portfolio performance drops. 
+However, bond futures exist in almost all of the G10∗ markets, which 
+should make shorting a particular market easy for professional market 
+participants.
+
+Recognizing that the existing finance literature provides little the-
+oretical and empirical foundation on which international government 
+bond portfolio strategies can be built, this paper provides a first step to 
+fill this gap. However, given the growing size and economic importance 
+of this asset class, this is likely to remain an active area of research. One 
+obvious extension is to analyze pricing kernels for a broader universe 
+of bond markets which also includes emerging markets, where default 
+risks are likely to play a role.
+
+CRediT authorship contribution statement
+
+Otto Randl: Writing – review & editing, Writing – original draft, 
+Visualization, Supervision, Project administration, Methodology, Con-
+ceptualization. Giorgia Simion: Writing – review & editing, Writing – 
+original draft, Visualization, Validation, Methodology, Formal analysis, 
+Data  curation,  Conceptualization.  Josef  Zechner:  Writing  –  review 
+& editing, Writing – original draft, Visualization, Supervision, Project 
+administration, Methodology, Conceptualization.
+
+Declaration of competing interest
+
+The  authors  declare  that  they  have  no  known  competing  finan-
+cial interests or personal relationships that could have appeared to 
+influence the work reported in this paper.
+
+Acknowledgments
+
+Nick Roussanov was the editor for this article. We thank him and an 
+anonymous referee for their valuable insights. We thank Manuel Peters 
+and Daniil Gerchik for excellent research assistance. We are grateful to 
+Pierluigi Balduzzi, Martijn Boons, Georg Cejnek, Mikhail Chernov, Ste-
+fano Giglio, Zhengyang Jiang, Lukas Kremens, Anh Le, Lars Lochstoer, 
+Hanno Lustig, Matteo Maggiori, Semyon Malamud, Alessandro Melone, 
+Andy Neuhierl, Stefan Pichler, Alberto Rossi, Andrea Vedolin, Christian 
+Wagner, Michael Weber, Rüdiger Weber, and Irina Zviadadze, and con-
+ference and seminar participants at the Einaudi Institute for Economics 
+and Finance (EIEF), Birkbeck Business School, SFS Cavalcade North 
+America 2023, EFA 2022 Annual Meeting, University of Bologna, EPFL, 
+University of Cambridge, Vienna Graduate School of Finance (VGSF), 
+2022 JEF Conference, and the 2022 AFFI International Conference for 
+helpful discussions and comments.
+
+25 
+
+Journal of Financial Economics 173 (2025) 104152 
+
+Fama, E.F., French, K.R., 2012. Size, value, and momentum in international stock 
+
+returns. J. Financ. Econ. 105 (3), 457–472.
+
+Fang, X., Liu, Y., Roussanov, N., 2025. Getting to the core: Inflation risks within and 
+
+across asset classes. Rev. Financ. Stud. hhaf050.
+
+Favero, C., Pagano, M., von Thadden, E.-L., 2010. How does liquidity affect government 
+
+bond yields? J. Financ. Quant. Anal. 45 (1), 107–134.
+
+Ferson,  W.E.,  Siegel,  A.F.,  2001.  The  efficient  use  of  conditioning  information  in 
+
+portfolios. J. Financ. 56 (3), 967–982.
+
+Ferson, W.E., Siegel, A.F., 2003. Stochastic discount factor bounds with conditioning 
+
+information. Rev. Financ. Stud. 16 (2), 567–595.
+
+Ferson,  W.E.,  Siegel,  A.F.,  2009.  Testing  portfolio  efficiency  with  conditioning 
+
+information. Rev. Financ. Stud. 22 (7), 2735–2758.
+
+Fleckenstein, M., Longstaff, F.A., Lustig, H., 2017. Deflation risk. Rev. Financ. Stud. 30 
+
+(8), 2719–2760.
+
+Gibbons, M.R., Ross, S.A., Shanken, J., 1989. A test of the efficiency of a given portfolio. 
+
+Econometrica 57 (5), 1121–1152.
+
+Green, R.C., Hollifield, B., 1992. When will mean-variance efficient portfolios be well 
+
+diversified? J. Financ. 47 (5), 1785–1809.
+
+Hansen,  L.,  Richard,  S.,  1987.  The  role  of  conditioning  information  in  deducing 
+testable restrictions implied by dynamic asset pricing models. Econometrica 55 
+(3), 587–613.
+
+He, Z., Kelly, B., Manela, A., 2017. Intermediary asset pricing: New evidence from 
+
+many asset classes. J. Financ. Econ. 126 (1), 1–35.
+
+Ilmanen, A., 1995. Time-varying expected returns in international bond markets. J. 
+
+Jordà, Ò., Knoll, K., Kuvshinov, D., Schularick, M., Taylor, A.M., 2019. The rate of 
+
+return on everything, 1870–2015. Q. J. Econ. 134 (3), 1225–1298.
+
+Jotikasthira,  C.,  Le,  A.,  Lundblad,  C.,  2015.  Why  do  term  structures  in  different 
+
+currencies co-move? J. Financ. Econ. 115 (1), 58–83.
+
+Koijen, R.S.J., Moskowitz, T.J., Pedersen, L.H., Vrugt, E.B., 2018. Carry. J. Financ. 
+
+La Porta, R., de Silanes, F.L., Shleifer, A., Vishny, R.W., 1998. J. Political Econ. 106 
+
+Ledoit, O., Wolf, M., 2022. Quadratic shrinkage for large covariance matrices. Bernoulli 
+
+Lo, A.W., 2002. The statistics of sharpe ratios. Financ. Anal. J. 58 (4), 36–52.
+Longstaff,  F.A.,  Pan,  J.,  Pedersen,  L.H.,  Singleton,  K.J.,  2011.  How  sovereign  is 
+
+sovereign credit risk? Am. Econ. J. Macroecon. 3 (2), 75–103.
+
+Lopez-Lira, A., Roussanov, N., 2023. Do common factors really explain the cross-section 
+
+Ludvigson, S.C., Ng, S., 2009. Macro factors in bond risk premia. Rev. Financ. Stud. 
+
+of stock returns? Working paper.
+
+22 (12), 5027–5067.
+
+Lustig, H., Stathopoulos, A., Verdelhan, A., 2019. The term structure of currency carry 
+
+trade risk premia. Am. Econ. Rev. 109 (12), 4142–4177.
+
+Maurer, T., Tô, T.-D., Tran, N.-K., 2022. Pricing implications of covariances and spreads 
+
+in currency markets. Rev. Asset Pricing Stud. 81, 336–388.
+
+Miranda-Agrippino, S., Rey, H., 2020. U.S. monetary policy and the global financial 
+
+cycle. Rev. Econ. Stud. 87 (6), 2754–2776.
+
+Moench, E., Soofi-Siavash, S., 2022. What moves treasury yields? J. Financ. Econ. 146 
+
+Newey, W.K., West, K.D., 1994. Automatic lag selection in covariance matrix estimation. 
+
+Rev. Econ. Stud. 61 (4), 631–653.
+
+Sandulescu,  M.,  Trojani,  F.,  Vedolin,  A.,  2021.  Model-free  international  stochastic 
+
+discount factors. J. Financ. 76 (2), 935–976.
+
+Sialm, C., Zhu, Q., 2024. Currency management by international fixed-income mutual 
+
+funds. J. Financ. 79 (6), 4037–4081.
+
+Econ. 127 (2), 197–225.
+
+(6), 1113–1155.
+
+28 (3), 1519–1547.
+
+Bekaert, G., Ermolov, A., 2023. International yield comovements. J. Financ. Quant. 
+
+Financ. 50 (2), 481–506.
+
+J. Econ. 131 (4), 1593–1636.
+
+Anal. 58 (1), 250–288.
+
+O. Randl et al.
+
+Supplementary data
+
+Supplementary material related to this article can be found online 
+
+at https://doi.org/10.1016/j.jfineco.2025.104152.
+
+Data availability
+
+Pricing and Constructing International Bond Portfolios (Original data) 
+(Mendeley Data)
+
+References
+
+Andrews, S., Colacito, R., Croce, M.M., Gavazzoni, F., 2024. Concealed carry. J. Financ. 
+
+Asness, C.S., Moskowitz, T.J., Pedersen, L.H., 2013. Value and momentum everywhere. 
+
+Econ. 159, 103874.
+
+J. Financ. 68 (3), 929–985.
+
+Augustin, P., Sokolovski, V., Subrahmanyam, M.G., Tomio, D., 2022. How sovereign is 
+sovereign credit risk? Global prices, local quantities. J. Monet. Econ. 131, 92–111.
+Baker, S.R., Bloom, N., Davis, S.J., 2016. Measuring economic policy uncertainty. Q. 
+
+Bodie, Z., Kane, A., Marcus, A.J., 2024. Investments, thirteenth ed. McGraw-Hill.
+Brooks, J., Moskowitz, T.J., 2019. Yield curve premia. Working paper.
+Campbell, J.Y., Ammer, J., 1993. What moves the stock and bond markets? A variance 
+
+decomposition for long-term asset returns. J. Financ. 48 (1), 3–37.
+
+Campbell, J.Y., Serfaty-de Medeiros, K., Viceira, L.M., 2010. Global currency hedging. 
+
+J. Financ. 65 (1), 87–121.
+
+Rev. Econ. Stud. 58, 495–514.
+
+Campbell, J.Y., Shiller, R.J., 1991. Yield spreads and interest rates: A bird’s eye view. 
+
+Chen, S., Ganum, P., Liu, L.Q., Martinez, L., Peria, M.S.M., 2019. Debt Maturity and the 
+Use of Short-term Debt: Evidence from Sovereigns and Firms. IMF Departmental 
+Paper No. 2019/001, International Monetary Fund.
+
+Chernov, M., Dahlquist, M., Lochstoer, L.A., 2023. Pricing currency risks. J. Financ. 78 
+
+(2), 693–730.
+
+Chernov, M., Dahlquist, M., Lochstoer, L., 2024. An anatomy of currency strategies: 
+
+The role of emerging markets. Working paper.
+
+Chernov, M., Lochstoer, L.A., Lundeby, S.R.H., 2022. Conditional dynamics and the 
+
+multihorizon risk-return trade-off. Rev. Financ. Stud. 35 (3), 1310–1347.
+
+Christensen, J.H.E., Lopez, J.A., Rudebusch, G.D., 2015. Pricing deflation risk with US 
+
+treasury yields. Rev. Financ. 20 (3), 1107–1152.
+
+Cieslak, A., Pflueger, C., 2023. Inflation and asset returns. Annu. Rev. Financ. Econ. 
+
+Cieslak, A., Povala, P., 2015. Expected returns in treasury bonds. Rev. Financ. Stud. 
+
+15 (1), 433–448.
+
+28 (10), 2859–2901.
+
+17–32.
+
+Daniel, K., Mota, L., Rottke, S., Santos, T., 2020. The cross-section of risk and returns. 
+
+Rev. Financ. Stud. 33 (5), 1927–1979.
+
+Della  Corte,  P.,  Sarno,  L.,  Schmeling,  M.,  Wagner,  C.,  2022.  Exchange  rates  and 
+
+sovereign risk. Manag. Sci. 68 (8), 5591–5617.
+
+Diebold, F.X., Mariano, R.S., 1995. Comparing predictive accuracy. J. Bus. Econom. 
+
+Fama, E.F., Bliss, R.R., 1987. The information in long-maturity forward rates. Am. Econ. 
+
+Statist. 13 (3), 253–263.
+
+Rev. 77 (4), 680–692.
+
+26 
+
+Cochrane, J.H., Piazzesi, M., 2005. Bond risk premia. Am. Econ. Rev. 95 (1), 138–160.
+Dahlquist, M., Hasseltoft, H., 2013. International bond risk premia. J. Int. Econ. 90 (1), 
+
+(3), 1016–1043.
+
+

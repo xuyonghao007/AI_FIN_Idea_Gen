@@ -1,0 +1,4771 @@
+Contents lists available at ScienceDirect
+
+Journal of Financial Economics
+
+journal homepage: www.elsevier.com/locate/finec
+
+Importance of transaction costs for asset allocation in foreign exchange
+markets✩
+Ilias Filippou a, Thomas A. Maurer b,∗, Luca Pezzo c, Mark P. Taylor d
+a Florida State University, United States of America
+b Faculty of Business and Economics, The University of Hong Kong, Pokfulam Road, Hong Kong
+c Department of Economics and Finance, University of New Orleans, United States of America
+d Olin Business School, Washington University in St. Louis, and Centre for Economic Policy Research, United States of America
+
+A R T I C L E I N F O
+
+A B S T R A C T
+
+Transaction costs have a first-order effect on the performance of currency portfolios. Proportional costs based
+on quoted bid–ask spread are relatively small, but when a fund is large, costs due to the trading volume price
+impact are sizable and quickly erode returns, leaving many popular strategies unprofitable. A mean–variance-
+transaction-cost optimized approach (MVTC) that accounts for costs in the optimization efficiently tackles
+the problem with only relatively minor negative implications on before-cost profitability. MVTC is robust
+even when the price impact of trading is severe. Finally, we introduce an accurate extrapolation approach to
+expand the sample of the realized Amihud measure of Ranaldo and Santucci de Magistris (2022) from 12 to
+26 currencies and from 2012 back in time to 1986.
+
+Dataset link: Importance of Transaction Costs f
+or Asset Allocation in Foreign Exchange Marke
+ts (Reference data)
+
+JEL classification:
+F31
+G11
+G15
+
+Keywords:
+Transaction costs
+Price impact
+Realized Amihud
+Mean–variance
+Optimization
+Asset allocation
+Foreign exchange
+Carry trade
+
+1. Introduction
+
+We analyze the importance of transaction costs for investors in
+foreign exchange (FX) markets. The contribution of our analysis is
+threefold. We first document that the trading volume price impact
+can lead to significant transaction costs with first-order negative im-
+plications on the profitability of currency trading strategies despite
+the relatively high trading volume and liquidity in FX markets. Most
+importantly, while proportional costs based on quoted bid–ask spreads
+are relatively small, the performance of many popular strategies is
+sensitive to the price impact of trading. For some strategies – such as
+
+the currency carry trade, momentum, and mean–variance optimized
+currency portfolios – costs due to the trading volume price impact
+quickly erode returns, rendering the strategies unprofitable.
+
+For instance, the monthly rebalancing of a simple carry trade strat-
+egy implies a relatively large monthly turnover of 57% of its notional
+value. When a fund’s initial assets under management (AUM) reaches
+USD 100 million or even 1 billion, then trade orders on average account
+for 3% or even 10% of the daily trading volume. This implies that sell
+and buy orders of such a fund significantly move bid and ask quotes,
+and in turn, costs due to the price impact are large. The carry trade
+strategy provides a Sharpe ratio of 0.79 before accounting for costs
+
+✩
+
+Nikolai Roussanov was the editor for this article. We are thankful to Nikolai Roussanov and one anonymous referee, as well as to Pasquale Della Corte, Jason
+Donaldson, Bernard Dumas, Phil Dybvig, Radha Gopalan, Nishad Kapadia, Mina Lee, Hong Liu, Dong Lou, Paolo Santucci de Magistris, Asaf Manela, Michael
+Melvin, George Panayotov, Ivelina Pavlova, Angelo Ranaldo, Alessio Saretto, Fabricius Somogyi, Ngoc-Khanh Tran, Adrien Verdelhan, Michael Weber, Di Woody
+Wu, Guofu Zhou, seminar participants at Tulane U., U. New Orleans, Washington U., and conference participants at the American Finance Association, Eastern
+Finance Association, Hong Kong Joint Finance Research Workshop, Multinational Finance Society, Southwestern Finance Association, Tsinghua Finance Workshop
+for many helpful comments and suggestions. Finally, we are thankful to Rakhal Dave and Olsen Data for assistance with data inquiries.
+
+∗ Corresponding author.
+
+E-mail addresses:
+
+ifilippou@business.fsu.edu (I. Filippou), maurer@hku.hk (T.A. Maurer), lpezzo@uno.edu (L. Pezzo), mark.p.taylor@wustl.edu
+
+(M.P. Taylor).
+
+https://doi.org/10.1016/j.jfineco.2024.103886
+Received 7 July 2021; Received in revised form 29 May 2024; Accepted 30 May 2024
+
+JournalofFinancialEconomics159(2024)103886Availableonline19June20240304-405X/©2024ElsevierB.V.Allrightsarereserved,includingthosefortextanddatamining,AItraining,andsimilartechnologies.I. Filippou et al.
+
+and 0.74 after deducting proportional costs, which is consistent with
+the literature. In contrast, for a fund with an initial AUM of USD 80
+million, the costs due to the trading volume price impact reduce the
+Sharpe ratio to 0.5, which is comparable to the performance of the US
+stock market. Moreover, when the AUM reaches USD 660 million or
+more, costs due to the price impact dominate the average returns and
+the strategy is unprofitable.
+
+It is an important contribution to document the sensitivity of cur-
+rency strategies to the price impact of trading. So far the literature
+on FX trading strategies and international portfolio management has
+only considered the relatively small proportional trading costs captured
+by quoted bid–ask spreads. The main insight of the literature is that
+popular strategies are robust to proportional costs as illustrated in the
+previous paragraph. Our finding provides a new perspective that the
+trading volume price impact poses a severe challenge for investors,
+and popular strategies even turn unprofitable if a fund reaches a
+certain size. In addition, our results provide a natural motivation to
+explain illiquidity premia in FX markets as documented by, for instance,
+Mancini et al. (2013) and Soderlind and Somogyi (2024). That is,
+investors care about FX liquidity and dislike to be exposed to liquidity
+risk since the price impact of trading has a first-order quantitative
+negative effect on the profitability of currency strategies.
+
+Second, we provide a mean–variance-transaction-cost optimization
+approach (𝑀𝑉 𝑇 𝐶) that efficiently mitigates trading costs with only
+relatively minor negative effects on the before-cost optimality. MVTC
+builds on the mean–variance optimized currency portfolio of Maurer
+et al. (2023) and uses the framework of Dybvig and Pezzo (2020) to
+tackle costs. The optimization ensures that the portfolio stays ‘‘close
+enough’’ to the optimal before-cost balance between expected return
+and risk, while reducing trading activity (especially in less liquid
+and more expensive currencies) and thus minimizing costs. Our cost-
+optimized portfolio performs well out-of-sample. It is robust to a price
+impact of trading and remains profitable even under severe conditions.
+Specifically, even when the initial AUM of a fund reaches USD 1 billion
+the after-cost Sharpe ratio is still 0.75, which is comparable with the
+before-cost Sharpe ratio of the simple carry trade (0.79). Moreover, its
+capacity is large. It outperforms the US stock market as long as the
+initial AUM does not exceed USD 6 billion, and its after-cost average
+returns are positive even when the AUM of a fund exceeds USD 1
+trillion.
+
+Intuitively, we can understand our findings using an analogy from
+basic portfolio diversification. Idiosyncratic risks can be a first-order
+component of an asset’s volatility. Hence, it is important for investors
+to tackle idiosyncratic risks and construct a diversified portfolio. Once
+idiosyncratic risks are diversified away, they have no (or only a negli-
+gible) effect on the performance. Similarly, we show that transaction
+costs (and specifically the price impact of trading) can significantly
+affect the profitability of currency trading strategies. Accordingly, it
+is important for investors to optimally tackle transaction costs in the
+portfolio construction. Once investors adopt efficient cost-mitigation
+techniques (following 𝑀𝑉 𝑇 𝐶), trading costs have a small effect on
+performance.
+
+Third, we contribute to the FX market literature on illiquidity
+by expanding the sample of the realized Amihud illiquidity measure
+of Ranaldo and Santucci de Magistris (2022) to a large cross-section of
+currencies against the USD (26 instead of 12) and a long time-series
+(starting in 1986 instead of 2012).1 Ranaldo and Santucci de Magistris
+(2022) and Lacava et al. (2023) show that this measure is accurate
+and robust, and as such arguably more suitable for our analysis than
+alternatives in the literature. The daily realized Amihud measure is the
+ratio of the daily exchange rate growth variation and the trading vol-
+ume. Olsen intraday exchange rate quotes are available for a large panel
+of currencies, and it is straightforward to estimate daily exchange rate
+
+1 We make our estimations/extrapolations available on our websites.
+
+growth variations. In contrast, volume data from Continuous Linked
+Settlement Group (CLS) is available for 12 currencies against the USD
+and starting in 2012. Although these currencies represent a substantial
+share of the global trading volume, we propose novel extrapolations
+of the trading volume data to further expand this panel to a larger
+cross-section of currencies and back to 1986. Specifically, we show
+that trading volume can be accurately extrapolated using the pro-
+portional bid–ask spread as a conditioning variable.2 The use of the
+bid–ask spread as a conditioning variable is consistent with the finding
+of Karnaukh et al. (2015) that the bid–ask spread is a useful proxy for
+liquidity in Electronic Broking Services (EBS) data.
+
+Our paper is related to a growing literature on FX market illiquidity
+that uses CLS volume and Olsen intraday price data. Fischer and
+Ranaldo (2011) show that FX trading volume increases after FOMC
+meetings. Ranaldo and Somogyi (2021) estimate a VAR model similar
+to the stock market model of Hasbrouck (1991a,b) and find substantial
+information asymmetry across participants, time and currency pairs,
+and they estimate a sizeable asymmetric information risk premium.
+Hasbrouck and Levich (2021) document that more central agents trade
+at better conditions (centrality premium), and provide evidence that
+this is a compensation for providing liquidity in the market. Hasbrouck
+and Levich (2019) compute the Amihud (2002) illiquidity measure
+and show that it is closely related to price impact estimates based on
+high-frequency EBS data. Ranaldo and Santucci de Magistris (2022)
+introduce the realized Amihud illiquidity measure – a refinement of
+the Amihud (2002) measure. They find that this novel illiquidity mea-
+sure is decreasing in market depth, and increasing in bid–ask spreads,
+money market stress, uncertainty, risk aversion, and price inefficien-
+cies. Lacava et al. (2023) further provide an in-depth theoretical discus-
+sion of the realized Amihud measure, and demonstrate its accuracy and
+robustness. Cespa et al. (2022) examine the information content of FX
+volume and find a stronger daily return reversal for currency pairs with
+abnormally low volume. Somogyi (2022) shows that trading against the
+USD is generally cheaper than other bilateral trades and argues that
+part of the USD dominance in terms of order volume can be attributed
+to the cost advantage of trading against the USD. Roussanov and Wang
+(2023) document that FX dealers trade without delay on monetary
+policy announcements. In contrast, funds and non-bank financials are
+slower and only react 3 to 5 days later. This evidence provides a
+channel for the delayed adjustment of exchange rates to monetary
+news. Finally, using CLS data on FX forwards (Bräuer and Hau, 2023)
+show that FX hedging demands have a significant impact on exchange
+rates.
+
+Another strand of the literature uses datasets other than the volume
+data from CLS. Evans and Lyons (2002, 2008) use interdealer order
+flow data from Reuters Dealing 2000-1 and show that order flow is
+a strong determinant of exchange rates, and even more so after the
+release of macro news. Froot and Ramadorai (2005) estimate a VAR
+model to disentangle intrinsic-value from expected return shocks, and
+show that institutional-investor FX flows only correlate with expected
+return shocks. Hau et al. (2010) document that a change in the MSCI
+Global Equity Index has triggered large uninformed order flows in FX
+markets, which in turn has a significant price impact on exchange
+rates. Using EBS data, Karnaukh et al. (2015) show that FX market
+illiquidity correlates with funding constraints and global risk. Mancini
+et al. (2013) (using EBS data) and Soderlind and Somogyi (2024) (using
+estimates of effective bid–ask spreads) document that illiquidity in FX
+markets is priced in the cross-section of returns. Breedon et al. (2016)
+use data from Reuters and EBS and show that order flows have a
+significant effect on FX risk premia. Using disaggregated Norwegian
+
+2 In the main text of the paper in Section 2.4.1 we only show the extrapola-
+tion in the cross-section. Section B.3 in the Internet Appendix provides details
+about the extrapolation in the panel (cross-section and time-series) using data
+from CLS or the BIS Triennial Surveys.
+
+JournalofFinancialEconomics159(2024)1038862I. Filippou et al.
+
+central bank data (Evans and Rime, 2016) show that order flows
+predict exchange rate fluctuations over relatively long horizons, and
+most of the predictability is attributed to the time-variation in the risk
+premium. Menkhoff et al. (2016) use end-user data from a top FX
+dealer and document that orders of demand-side investment managers
+forecast currency returns, while corporates and individual investors
+appear uninformed. Krohn and Sushko (2022) document a tight link
+between FX spot and swap market liquidity, and further show that
+banks’ funding liquidity has a significant impact on FX market liquidity.
+Hau et al. (2021) use EU regulatory data and find that there is price
+discrimination across clients in forward FX markets, i.e., dealers charge
+significantly smaller spreads to more sophisticated clients. Camanho
+et al. (2022) use fund-level holdings data and show that funds rebalance
+their international allocation in response to realized returns with the
+aim to maintain their original risk exposure. In turn, the flows due to
+rebalancing have a significant impact on exchange rates. Using data
+from the BIS Triennial Survey (Aloosh and Bekaert, 2022) find that
+aggregate trading volume explains a significant part of the common
+variation of exchange rate changes. Korsaye et al. (2023) show that
+trading frictions (proxied by bid–ask spreads) are important in con-
+structing robust global factors that correctly price international asset
+returns. Bechtel et al. (2023) propose and test a new channel that
+connects liquidity risk and interest rates in short-term funding markets.
+Finally, Krohn et al. (2024) show that the USD tends to appreciate
+in the run-up to FX fixes and depreciates afterwards, leading to a
+W-shaped intraday return pattern.
+
+While this literature makes an effort to understand liquidity in FX
+markets,3 we are agnostic about the determinants of liquidity. We use
+the realized Amihud measure of Ranaldo and Santucci de Magistris
+(2022) for its simplicity and robustness to quantify the price impact of
+trading, and then analyze its implications on the profitability of popular
+FX trading strategies.
+
+Finally, our paper is related to the literature on portfolio optimiza-
+tion in the presence of transaction costs. For brevity, we refer to Dybvig
+and Pezzo (2020) for a review of this literature.
+
+The rest of the paper is structured as follows. Section 2 provides
+details about the data and the investment opportunity set in FX mar-
+kets, including the specification of transaction costs. In Section 3, we
+briefly describe seven popular trading strategies from the literature, and
+introduce our novel mean–variance-transaction-cost optimized strategy
+𝑀𝑉 𝑇 𝐶. Section 4 provides the main results, and documents that the
+price impact has first-order effects on the profitability of most trading
+strategies. In Section 5, we outline the robustness checks detailed in the
+Internet Appendix B. Section 6 concludes. Additional results, robustness
+checks, details about the theory of 𝑀𝑉 𝑇 𝐶, and details about the data
+are in the Internet Appendix.
+
+2. Investment opportunity set in FX markets
+
+2.1. Data
+
+We take the view of a US investor. The short-term bond denomi-
+nated in the U.S. dollar (USD) is the risk-free asset. For the universe of
+risky assets, we use currency returns for 𝑁𝑡 currencies against the USD.
+Depending on data availability at time 𝑡, the number of currencies 𝑁𝑡
+changes through time.
+
+Following the literature, we include the currencies of 26 countries
+in our analysis. Of these, 13 belong to the set of countries classified
+as developed in Lustig et al. (2011), while the remaining 13 are
+classified as emerging. The 13 developed countries and currency codes
+are: Australia (AUD), Canada (CAD), the Euro Area (EUR), France
+
+3 That is, quantifying the impact of order flows on exchange rates, mea-
+suring illiquidity, understanding the heterogeneity of market participants, risk
+sharing, and the role of dealers, etc.
+
+(FRF), Germany (DEM), Italy (ITL), Japan (JPY), Netherlands (NLG),
+New Zealand (NZD), Norway (NOK), Sweden (SEK), Switzerland (CHF),
+United Kingdom(GBP). The 13 emerging countries and currency codes
+are: Brazil (BRL), Czech Republic (CZK), Greece (GRD), Hungary (HUF),
+Ireland (IEP), Mexico (MXN), Poland (PLN), Portugal (PTE), Singapore
+(SGD), South Africa (ZAR), South Korea (KRW), Spain (ESP), and
+Taiwan (TWD). We provide details about data sources and filters in
+Internet Appendix D.
+
+We obtain daily bid, ask and mid quotes for spot and forward
+exchange rates with 1- and 3-month maturities from Barclays Bank
+International and Reuters (B&R) via Datastream. In the following, we
+focus on forwards with 1-month maturity but all computations are
+analogous for 3-month contracts. We denote by 𝑋𝐵𝑅
+the spot
+and forward exchange rates from B&R as USD per unit of currency 𝑖 on
+day 𝑡. We add superscripts 𝑏 and 𝑎 to indicate bid and ask quotes. We
+also collect hourly spot exchange rates from Olsen, and denote by 𝑋𝑂
+𝑖,𝑡,𝜏
+the USD per unit of currency 𝑖 at hour 𝜏 on day 𝑡. We have Olsen spot
+quotes against the USD from February 1986 to January 2024, while the
+B&R data for spot and forwards against the USD is available starting in
+October 1983 and ending in January 2024. Our analysis is conducted
+over the sample covered by both sources, i.e., starting in February 1986
+and ending in January 2024.
+
+𝑖,𝑡 and 𝐹 𝐵𝑅
+𝑖,𝑡
+
+Spot quotes from Olsen are more comprehensive in terms of market
+coverage, and these data are usually regarded as more reliable and
+of superior quality compared to the B&R data. Comparing daily spot
+quotes of the two datasets, we find that mid-prices are the same
+
+𝑋𝑖,𝑡 = 𝑋𝐵𝑅
+
+𝑖,𝑡 ≈ 𝑋𝑂
+𝑖,𝑡.
+
+However, proportional bid–ask spreads are generally narrower in the
+Olsen data. This is consistent with the literature suggesting that bid–ask
+spreads in the B&R data are too wide (Lyons, 2001). Acknowledging
+this feature of the data we reconstruct the time series of spot bid and
+ask quotes as follows. For currency 𝑖 against the USD we compute a
+daily estimate for the proportional bid–ask spread of Olsen by aver-
+aging the hourly spreads within day 𝑡, and denote it as 𝑃 𝐵𝐴𝑆,𝑂
+𝑖,𝑡 =
+
+∑
+
+𝜏 ln
+
+1
+, where 𝐻𝑡 is the number of trading hours on day 𝑡.
+𝐻𝑡
+For the B&R data we use the daily bid and ask spot quotes to compute
+the spread 𝑃 𝐵𝐴𝑆,𝐵𝑅
+
+. We then define the adjusted daily
+
+= ln
+
+)
+
+𝑖,𝑡
+
+( 𝑋𝑎,𝐵𝑅
+𝑖,𝑡
+𝑋𝑏,𝐵𝑅
+𝑖,𝑡
+
+spread as the minimum between the daily spreads of Olsen and B&R,
+and construct the corresponding adjusted daily ask and bid spot prices,
+
+)
+
+( 𝑋𝑎,𝑂
+𝑖,𝑡,𝜏
+𝑋𝑏,𝑂
+𝑖,𝑡,𝜏
+
+𝑃 𝐵𝐴𝑆
+
+𝑖,𝑡 = min
+
+(
+
+𝑃 𝐵𝐴𝑆,𝑂
+𝑖,𝑡
+
+, 𝑃 𝐵𝐴𝑆,𝐵𝑅
+
+𝑖,𝑡
+
+)
+
+,
+
+(1)
+
+𝑋𝑎
+
+𝑖,𝑡 = 𝑋𝑖,𝑡 exp
+
+{
+
+0.5𝑃 𝐵𝐴𝑆
+𝑖,𝑡
+
+}
+
+,
+
+𝑋𝑏
+
+𝑖,𝑡 = 𝑋𝑖,𝑡 exp
+
+{
+
+−0.5𝑃 𝐵𝐴𝑆
+𝑖,𝑡
+
+}
+
+,
+
+Table 1 provides a summary of the spot quotes. The first three
+columns with the heading ‘All Days’ consider our full sample that
+combines data from B&R and Olsen, while the last five columns with
+the heading ‘Days with B&R Data Coverage’ focus on the sub-sample
+of days for which B&R data is available. The columns indicated by ‘N
+Obs’ reports the number of days for which we can construct 𝑃 𝐵𝐴𝑆
+𝑖,𝑡.
+For 19 out of our 26 currencies B&R provides bid and ask quotes for
+more than 98% of the days that are covered in our full sample. That is,
+Olsen quotes only fill small gaps. For KRW, MXN, TWD and ZAR B&R is
+missing roughly 10% of the data points in our full sample, and for ESP,
+GRD and PTE the B&R coverage is only 41%, 50% respectively 56%
+of the full sample. In these cases Olsen provides data to significantly
+increase our sample.
+
+We further report in Table 1 the time-series average of the adjusted
+𝑆
+bid–ask spread 𝑃 𝐵𝐴
+𝑖,𝑡 for our full sample (column 2) and
+the sub-sample of days with B&R coverage (column 6). For the latter
+sample we also compute the average bid–ask spread based on only B&R
+𝑆,𝐵𝑅
+data, 𝑃 𝐵𝐴
+are on average
+𝑖
+
+𝑆,𝐵𝑅
+. B&R spreads 𝑃 𝐵𝐴
+𝑖
+
+𝑡 𝑃 𝐵𝐴𝑆,𝐵𝑅
+
+𝑡 𝑃 𝐵𝐴𝑆
+
+𝑖 = 1
+
+∑
+
+∑
+
+𝑇
+
+𝑖,𝑡
+
+= 1
+𝑇
+
+JournalofFinancialEconomics159(2024)1038863I. Filippou et al.
+
+Table 1
+Average trading costs by currency.
+
+Currency 𝑖 All days
+
+Days with B&R data coverage
+
+N Obs
+
+𝑆
+𝑃 𝐵𝐴
+𝑖
+
+̄𝐴𝑆
+𝑖
+
+N Obs
+
+𝑆,𝐵𝑅
+
+𝑃 𝐵𝐴
+𝑖
+
+𝑃 𝐵𝐴
+
+𝑆
+
+𝑖
+
+̄𝐴𝑆
+𝑖
+
+AUD
+BRL
+CAD
+CHF
+CSK
+DEM
+ESP
+EUR
+FRF
+GBP
+GRD
+HUF
+IEP
+ITL
+JPY
+KRW
+MXN
+NLG
+NOK
+NZD
+PLN
+PTE
+SEK
+SGD
+TWD
+ZAR
+
+9653
+7718
+9653
+9653
+7604
+3107
+3048
+6542
+3107
+9653
+3489
+7849
+3107
+3107
+9653
+8746
+9021
+3107
+9653
+9652
+7587
+2246
+9653
+9653
+8837
+9628
+
+4.6
+6.9
+3.1
+3.5
+10.4
+4.3
+7.1
+1.5
+4.6
+2.8
+15.1
+10.9
+10.5
+7.4
+3.1
+5
+6.6
+4.7
+4.8
+7.8
+9.4
+10.9
+5.8
+4.4
+7.2
+12.7
+
+0.019
+0.101
+0.009
+0.038
+0.484
+0.018
+0.032
+0.004
+0.021
+0.011
+0.103
+0.59
+0.064
+0.043
+0.007
+0.074
+0.042
+0.02
+0.188
+0.068
+0.267
+0.065
+0.156
+0.027
+0.033
+0.093
+
+9638
+7714
+9631
+9653
+7604
+3065
+1261
+6521
+3065
+9652
+1761
+7849
+3065
+3065
+9650
+7819
+7849
+3065
+9652
+9604
+7587
+1261
+9652
+9651
+7825
+8978
+
+8.1
+7.3
+5.4
+5.6
+11.6
+6.4
+5.9
+3.7
+9.6
+4.3
+9.4
+11.4
+18.6
+11.6
+5.9
+6.7
+7.8
+6.4
+5.8
+12.2
+10.7
+7.9
+8.2
+7.2
+7.8
+25.6
+
+4.6
+6.9
+3.1
+3.5
+10.4
+4.3
+5.6
+1.5
+4.7
+2.8
+7.7
+10.9
+10.4
+7.4
+3.1
+5.2
+7
+4.7
+4.8
+7.9
+9.4
+7.5
+5.8
+4.4
+6.8
+11.5
+
+0.019
+0.101
+0.009
+0.038
+0.484
+0.018
+0.035
+0.004
+0.021
+0.011
+0.12
+0.59
+0.064
+0.043
+0.007
+0.082
+0.048
+0.02
+0.187
+0.068
+0.267
+0.067
+0.156
+0.027
+0.037
+0.089
+
+∆𝐤
+
+𝐢 𝑊
+91.8
+1.6
+127.8
+28.1
+1.2
+60.1
+5.3
+293.7
+115.6
+70.1
+7.1
+0.4
+63.6
+47.7
+187.8
+8.9
+9.1
+41.2
+2.9
+32.5
+2.4
+3.2
+7.4
+51.1
+13.8
+78.9
+
+Notes: The table reports trading costs for each currency against the USD. The first
+three columns use data from our full sample, the last five columns considers the sub-
+sample of days for which B&R data is available. N obs reports the number of daily
+
+𝑃 𝐵𝐴𝑆
+
+𝑖,𝑡 and the B&R spot spreads 𝑃 𝐵𝐴𝑆,𝐵𝑅
+
+𝑖,𝑡
+
+,
+
+𝑃 𝐵𝐴𝐹
+
+𝑖,𝑡 = 𝑃 𝐵𝐴𝐹 ,𝐵𝑅
+
+𝑖,𝑡
+
+1
+𝑇
+
+∑
+
+𝑡
+
+𝑃 𝐵𝐴𝑆
+𝑖,𝑡
+𝑃 𝐵𝐴𝑆,𝐵𝑅
+𝑖,𝑡
+
+.
+
+The assumption is that the issue of too wide B&R spreads is roughly the
+same across spots and forwards. We then define the daily mid, ask and
+bid forward prices:
+
+𝐹𝑖,𝑡 = 𝐹 𝐵𝑅
+𝑖,𝑡
+
+,
+
+𝐹 𝑏
+𝑖,𝑡 = 𝐹𝑖,𝑡 exp
+
+𝐹 𝑎
+𝑖,𝑡 = 𝐹𝑖,𝑡 exp
+}
+
+−0.5𝑃 𝐵𝐴𝐹
+𝑖,𝑡
+
+.
+
+{
+
+{
+
+0.5𝑃 𝐵𝐴𝐹
+𝑖,𝑡
+
+}
+
+,
+
+In addition to the price data we use quantity data to estimate the
+price impact of large trade orders on the bid and ask quotes (details
+on the price impact measure are in Section 2.4). We obtain spot order
+flows from CLS via Quandl.com. Flows are defined as buy or sell orders
+of foreign currency against the USD, and they are measured in USD. The
+order flow data span the period of September 2012 until September
+2021, and include the following currencies: AUD, CAD, EUR, JPY,
+MXN, NZD, NOK, SGD, ZAR, SEK, CHF, GBP.4 CLS provides data across
+four categories: corporates, funds, non-bank financials, and total buy-
+side. We follow Ranaldo and Somogyi (2021) to identify banks acting as
+price takers by subtracting signed flows of corporates, funds, and non-
+bank financials from the total buy-side. Finally, on day 𝑡 we aggregate
+the orders for currency 𝑖 across all participants (i.e., corporates, funds,
+non-bank financials, and banks acting as price takers) to obtain the total
+spot trading volume 𝑣𝑆
+𝑖,𝑡.
+
+is the average proportional bid-ask spreads (in
+
+2.2. Monthly returns and trading positions
+
+𝑆,𝐵𝑅
+
+∑
+
+observations. 𝑃 𝐵𝐴
+𝑖
+
+𝑡 𝑃 𝐵𝐴𝑆,𝐵𝑅
+𝑆
+bps) computed from B&R data. 𝑃 𝐵𝐴
+̄𝐴𝑆
+𝑖 = 1
+
+(in bps) according to Eq. (1).
+
+= 1
+𝑇
+
+𝑖,𝑡
+
+𝑇
+
+∑
+
+𝑖 = 1
+𝑇
+∑
+𝑡 𝐴𝑆
+
+𝑡 𝑃 𝐵𝐴𝑆
+
+𝑖,𝑡 is the average adjusted spreads
+𝑖,𝑡 is the average realized Amihud measure
+
+(in bps per USD 1 million traded) according to Eq. (8). ∆𝐤
+
+𝐢 𝑊 =
+
+trade order size (in million USD) that equalizes the trading costs if we only consider
+
+proportional costs constructed from B&R data 0.5𝑃 𝐵𝐴
+
+compared to the total costs
+
+𝑆
+considering the adjusted proportional costs 0.5𝑃 𝐵𝐴
+𝑖 and the price impact of trading
+given the realized Amihud measure ̄𝐴𝑆
+𝐢 𝑊 . The data are
+daily for the period from the 2st of February 1986 to the 31st of January 2024.
+
+𝑖 and the trade order size ∆𝐤
+
+𝑆,𝐵𝑅
+
+𝑖
+
+𝑆,𝐵𝑅
+
+𝑃 𝐵𝐴
+𝑖
+
+𝑆
+−𝑃 𝐵𝐴
+𝑖
+
+2 ̄𝐴𝑆
+𝑖
+
+is the
+
+𝑆
+48% larger than our adjusted spreads 𝑃 𝐵𝐴
+𝑖 . Interestingly, the problem
+of too wide spreads in the B&R data appears worse for developed
+markets and more liquid currencies. For developed currencies B&R
+𝑆,𝐵𝑅
+spreads 𝑃 𝐵𝐴
+are on average 67% wider compared to our adjusted
+𝑖
+𝑆
+𝑖 . In comparison, 𝑃 𝐵𝐴
+spreads 𝑃 𝐵𝐴
+𝑆
+than 𝑃 𝐵𝐴
+for our set of emerging currencies. Moreover, for EUR,
+𝑖
+JPY, and GBP, which are the three most liquid currencies (i.e., high
+𝑆,𝐵𝑅
+trading volume and low bid–ask spreads), we observe a 𝑃 𝐵𝐴
+that is
+𝑖
+𝑆
+150%, 91%, respectively 54% larger than 𝑃 𝐵𝐴
+𝑖 . Meanwhile, for CSK,
+HUF and PNL, which are among the most illiquid currencies in our
+𝑆,𝐵𝑅
+sample (i.e., low trading volume and high bid–ask spreads), 𝑃 𝐵𝐴
+𝑖
+
+is on average only 30% larger
+
+𝑆,𝐵𝑅
+𝑖
+
+is only 11%, 5% respectively 14% larger than 𝑃 𝐵𝐴
+𝑆
+and 𝑃 𝐵𝐴
+𝑖
+
+sectional correlation between
+
+𝑆,𝐵𝑅
+𝑖
+
+𝑃 𝐵𝐴
+
+𝑆
+𝑖 . Finally, the cross-
+
+is −.34, or similarly
+
+the correlation between
+
+and the average daily trading volume
+
+of currency 𝑖 is 0.68. Both correlations corroborate the finding that
+the issue of too wide B&R spreads is more prominent for more liquid
+currencies.
+
+Forward quotes are only available from B&R, and therefore we can
+
+only compute the daily 𝑃 𝐵𝐴𝐹 ,𝐵𝑅
+
+𝑖,𝑡
+
+= ln
+
+from daily bid and ask
+
+)
+
+( 𝐹 𝑎,𝐵𝑅
+𝑖,𝑡
+𝐹 𝑏,𝐵𝑅
+𝑖,𝑡
+
+forward quotes. Accordingly, we cannot use the same procedure as for
+spots to address the concern that B&R spreads for forwards are too
+wide. Instead, we construct an adjusted bid–ask spread for forwards by
+re-scaling 𝑃 𝐵𝐴𝐹 ,𝐵𝑅
+by the average ratio of our adjusted spot spreads
+
+𝑖,𝑡
+
+𝑃 𝐵𝐴
+
+𝑆
+𝑖
+
+𝑃 𝐵𝐴
+
+𝑆,𝐵𝑅
+𝑖
+
+𝑃 𝐵𝐴
+
+𝑆
+𝑖
+
+Following the literature, we define the 1-month realized currency
+return as the return of an uncovered long position in the 1-month
+forward exchange rate contract of currency 𝑖 against the USD (denom-
+inated in USD),
+( 𝑋𝑖,𝑡+1
+𝐹𝑖,𝑡
+
+= 𝑓 𝑑𝑖,𝑡 + 𝛥𝑥𝑖,𝑡+1,
+
+𝑟𝑖,𝑡+1
+
+≡ ln
+
+)
+
+)
+
+( 𝑋𝑖,𝑡
+𝐹𝑖,𝑡
+( 𝑋𝑖,𝑡+1
+𝑋𝑖,𝑡
+
+)
+
+where 𝑓 𝑑𝑖,𝑡 = ln
+
+is the forward discount which is known at time
+
+𝑡, and 𝛥𝑥𝑖,𝑡+1 = ln
+is the spot exchange rate growth which is
+realized at time 𝑡+1. Note that 𝑟𝑖,𝑡+1 is an excess return over the risk-free
+rate in USD. We use the last mid-price quotes of the month to compute
+monthly returns before accounting for trading costs.
+
+For trading strategy 𝑗, currency 𝑖 and time 𝑡 we denote by 𝜽𝟎,𝐣
+𝐢,𝐭
+the initial position before trading takes place, and by 𝜽𝐣
+𝐢,𝐭 the portfolio
+weight after trading. We define 𝜽 as a fraction of a fund’s assets under
+management (AUM), or more generally, a fraction of invested wealth.
+We measure the AUM or wealth in USD and denote it by 𝑊𝑡. Then, the
+trading activity in currency 𝑖 is given by
+𝐢,𝐭 − 𝜽𝟎,𝐣
+𝜽𝐣
+
+𝐢,𝐭 + ∆𝐏−
+
+𝐢,𝐭 = ∆𝐏+
+
+𝐢,𝐭 − ∆𝐒+
+
+, with
+
+(2)
+
+𝐢,𝐭
+
+• ∆𝐏+
+
+𝐢,𝐭 = max
+{
+
+positions,
+
+• ∆𝐏−
+
+𝐢,𝐭 = max
+
+positions,
+
+• ∆𝐒−
+
+𝐢,𝐭 = max
+{
+
+positions,
+
+• ∆𝐒+
+
+𝐢,𝐭 = max
+
+{
+
+}
+
+, 0), 0
+
+: opening new long forward
+
+}
+
+}
+
+min(𝜽𝐣
+𝐢,𝐭
+
+, 0) − 𝜽𝟎,𝐣
+𝐢,𝐭
+
+, 0
+
+: closing existing short forward
+
+min(𝜽𝟎,𝐣
+𝐢,𝐭
+
+, 0) − 𝜽𝐣
+𝐢,𝐭
+
+, 0
+
+: opening new short forward
+
+𝜽𝟎,𝐣
+𝐢,𝐭 − max(𝜽𝐣
+
+𝐢,𝐭
+
+}
+
+, 0), 0
+
+: closing existing long forward
+
+positions.
+
+4 Following Ranaldo and Somogyi (2021) we exclude HUF as its coverage
+starts only on November 7, 2015. We further exclude KRW due to the limited
+number of trades per price taker category.
+
+𝐢,𝐭 − ∆𝐒−
+{
+
+𝐢,𝐭 − max(𝜽𝟎,𝐣
+𝜽𝐣
+
+𝐢,𝐭
+
+JournalofFinancialEconomics159(2024)1038864I. Filippou et al.
+
+Similar to 𝜽, ∆ are fractions of 𝑊𝑡. To obtain the USD amount traded
+we multiply ∆ by 𝑊𝑡.
+
+We consider two types of transaction costs: (i) proportional costs
+𝑃 𝐶𝑡 in Eq. (6), and (ii) price impact of trading 𝑃 𝐼𝑡 in Eq. (7). Both
+are measured in terms of a fraction of the invested wealth. To obtain
+trading costs in USD we need to multiply these quantities by the fund’s
+current AUM, 𝑊𝑡. Proportional costs are characterized by the quoted
+bid–ask spread, and capture the costs that investors pay for small
+trading orders. The price impact of trading accounts for the widening in
+the bid–ask spread in response to large orders. When an investor places
+a large buy (sell) order and the market is not deep enough to fully
+absorb it at the current ask (bid) quote, then this order puts upward
+(downward) pressure on the ask (bid) price, and the cost to execute
+the order increases.
+
+We denote by ̃𝑊𝑡 = 𝑊𝑡
+
+(
+1 − 𝑃 𝐶𝑡 − 𝑃 𝐼𝑡
+
+)
+
+the wealth at time 𝑡 after
+
+trading costs have been paid. Then, the wealth process is given by
+
+𝑊𝑡 =
+
+𝑁𝑡∑
+
+𝑖=1
+
+(
+1 + 𝑟𝑈 𝑆,𝑡−1 + 𝑟𝑖,𝑡
+
+) 𝜽𝐣
+
+𝐢,𝐭−𝟏
+
+̃𝑊𝑡−1 +
+
+(
+1 + 𝑟𝑈 𝑆,𝑡−1
+
+)
+
+(
+
+1 −
+
+𝑁𝑡∑
+
+𝑖=1
+
+)
+
+𝜽𝐣
+𝐢,𝐭−𝟏
+
+̃𝑊𝑡−1
+
+×
+
+(
+
+=
+
+1 + 𝑟𝑈 𝑆,𝑡−1 +
+
+)
+
+𝜽𝐣
+𝐢,𝐭−𝟏
+
+𝑟𝑖,𝑡
+
+𝑁𝑡∑
+
+𝑖=1
+
+(
+1 − 𝑃 𝐶𝑡−1 − 𝑃 𝐼𝑡−1
+
+) 𝑊𝑡−1,
+
+where 𝑟𝑈 𝑆,𝑡−1 denotes the risk-free rate in USD, and we use the fact that
+1 − ∑𝑁𝑡
+𝜽𝐣
+𝐢,𝐭−𝟏 is invested in the risk-free asset in the USD. Therefore,
+𝑖=1
+we define the realized excess return before costs 𝑟𝑗
+𝑡 and the equivalent
+after cost return 𝑟𝑗,𝑐
+𝑡
+
+as
+
+𝑁𝑡∑
+
+𝑟𝑗
+𝑡 =
+
+𝑖=1
+
+𝑟𝑖,𝑡𝜽𝐣
+
+𝐢,𝐭−𝟏
+
+,
+
+(3)
+
+𝑡 = 𝑟𝑗
+𝑟𝑗,𝑐
+
+(
+
+𝑡 −
+
+1 + 𝑟𝑈 𝑆,𝑡−1 + 𝑟𝑗
+
+) (𝑃 𝐶𝑡−1 + 𝑃 𝐼𝑡−1
+From post-trading date 𝑡−1 to before-trading date 𝑡, the USD amount
+
+(4)
+
+) .
+
+𝑡
+
+invested in currency 𝑖 changes according to
+
+𝜽𝟎,𝐣
+𝐢,𝐭
+
+𝑊𝑡 =
+
+(
+1 + 𝑟𝑈 𝑆,𝑡−1 + 𝑟𝑖,𝑡
+
+) 𝜽𝐢,𝐭−𝟏
+
+̃𝑊𝑡−1.
+
+Accordingly, the initial position in currency 𝑖 at time 𝑡 is given by
+
+𝜽𝟎,𝐣
+𝐢,𝐭 =
+
+1 + 𝑟𝑈 𝑆,𝑡−1 + 𝑟𝑖,𝑡
+1 + 𝑟𝑈 𝑆,𝑡−1 + 𝑟𝑗
+
+𝑡
+
+𝜽𝐢,𝐭−𝟏.
+
+Our setup only considers trades 𝜽 and ∆ against the USD. This
+ignores the possibility that it may be cheaper to trade directly between
+two non-USD currencies rather than twice against the USD. We address
+this limitation in robustness tests in Section 5 and Internet Appendix
+B.3, and confirm that our main results are unaffected.
+
+2.3. Proportional costs
+
+For the proportional costs, we follow the literature (Menkhoff et al.,
+2012; Della Corte et al., 2016; Maurer et al., 2023), and account for
+quoted bid and ask spreads. Since it is relatively cheap to roll a contract
+over from month to month, the literature typically assumes no roll-over
+fees and only accounts for transaction costs if there is a change in a
+position.
+
+Our measure of the per dollar proportional transaction costs to open
+𝐢,𝐭 ), open new
+𝐢,𝐭 ) are
+
+𝐢,𝐭 ), close existing short positions (𝐂𝐏−
+𝐢,𝐭 ) and close existing long positions (𝐂𝐒+
+)
+
+new long positions (𝐂𝐏+
+short positions (𝐂𝐒−
+( 𝐹 𝑎
+𝑖,𝑡
+𝐹𝑖,𝑡
+
+𝐂𝐏+
+𝐢,𝐭
+
+≡ ln
+
+)
+
+,
+
+𝐂𝐏−
+𝐢,𝐭
+
+≡ ln
+
+( 𝑋𝑎
+𝑖,𝑡
+𝑋𝑖,𝑡
+
+𝐂𝐒−
+𝐢,𝐭
+
+≡ ln
+
+(
+
+)
+
+,
+
+𝐹𝑖,𝑡
+𝐹 𝑏
+𝑖,𝑡
+
+𝐂𝐒+
+𝐢,𝐭
+
+≡ ln
+
+)
+
+(
+
+𝑋𝑖,𝑡
+𝑋𝑏
+𝑖,𝑡
+
+,
+
+.
+
+In the data, bid–ask spreads of forward contracts are wider than spreads
+of spot exchange rates. Our measure of proportional costs accounts for
+these differences. The proportional costs to trade the 𝑁𝑡 currencies at
+time 𝑡 reduce the portfolio return by
+
+𝑃 𝐶𝑡 =
+
+𝑁𝑡∑
+
+𝑖=1
+
+∑
+
+𝑘∈
+
+quantity
+traded
+⏞⏞⏞
+∆𝐤
+𝐢,𝐭
+
+𝐂𝐤
+𝐢,𝐭
+⏟⏟⏟
+cost per
+dollar traded
+
+, where  = {𝑃 +, 𝑃 −, 𝑆−, 𝑆+}.
+
+(6)
+
+Recall that the proportional costs 𝑃 𝐶𝑡 are measured in terms of a
+fraction of the invested wealth. To obtain trading costs in USD we need
+to multiply 𝑃 𝐶𝑡 by 𝑊𝑡.
+
+(
+
+(
+0.5𝐶 𝑃 +
+
+0.5𝐶 𝑆+
+𝑖,𝑡 + 0.5𝐶 𝑆−
+𝑖,𝑡
+
+average proportional costs for the spot market, 𝑚𝑒𝑑
+
+Fig. 1 plots the time-series of the cross-currency median of the
+)
+𝑖,𝑡 + 0.5𝐶 𝑃 −
+𝑖,𝑡
+(solid line), and the forward market, 𝑚𝑒𝑑
+(dashed
+line). Proportional costs are roughly between 0.5 and 7 basis points
+(bps), are slightly higher and more volatile for the 1-month forwards,
+and decrease over time after the year 2000. The highest spike (around
+6.5 bps) in the forward time-series occurs during the 2008 financial
+crisis, while the most illiquid period for the spot market is between the
+1997 Asian crisis and the Dot-com crisis in the early 2000s. Figures A2
+and A3 in the Internet Appendix show the country specific time-series,
+confirming the fact that costs are generally lower in spot markets.
+
+)
+
+2.4. Price impact of trading
+
+In our analysis we rebalance trading strategies once on the last day
+of the month and we implicitly assume that the execution of a trade
+is spread out over the course of the day. Therefore, the price impact
+captures the average pressure during the day. Our assumption follows
+the insight of Garleanu and Pedersen (2016) that it is optimal to trade
+continuously to minimize the price impact but the price impact function
+inversely scales with time.
+
+𝑖,𝑡(∆𝑘
+
+We use the price impact functions 𝛱 𝑘
+
+𝑖,𝑡) for  = {𝑃 +, 𝑃 −, 𝑆−,
+𝑆+} to quantify changes in spot and forward ask and bid quotes in-
+duced by trading currency 𝑖 on day 𝑡. These changes in quotes increase
+costs and are additive to the proportional costs. We separately construct
+price impact functions for ask and bid quotes in spot and forward
+markets, each currency 𝑖, and point in time 𝑡, as liquidity starkly varies
+across markets, currencies and time.
+
+𝑖,𝑡 (∆𝐏−
+
+Closing existing short positions (∆𝐏−
+𝐢,𝐭 ) requires a buy order in the
+spot market. In response to buy order ∆𝐏−
+the log-ask quote in the
+𝐢,𝐭
+spot market for currency 𝑖 at time 𝑡 increases by 𝛱 𝑃 −
+𝐢,𝐭 ). Recall that
+costs are defined as the difference between the effective ask price (at
+which trades are executed) and the mid-quote. Accordingly, an increase
+in ask quotes implies higher trading costs. Similarly, closing existing
+long positions requires a sell order in spot markets, and sell order
+∆𝐒+
+𝑖,𝑡 (∆𝐒+
+𝐢,𝐭 ).
+Finally, opening new long (∆𝐏+
+𝐢,𝐭 ) requires
+trading in forward contracts, and forward log-ask quotes increase by
+𝛱 𝑃 +
+
+𝐢,𝐭 decreases the associated spot market log-bid quote by 𝛱 𝑆+
+
+𝑖,𝑡 (∆𝐏+
+Eq. (7) formalizes the price impact cost 𝑃 𝐼𝑡 in terms of a fraction of
+
+𝐢,𝐭 ), and log-bid quotes decrease by 𝛱 𝑆−
+
+𝐢,𝐭 ) or short positions (∆𝐒−
+
+𝑖,𝑡 (∆𝐒−
+𝐢,𝐭 ).
+
+the invested wealth to trade the 𝑁𝑡 currencies at time 𝑡,
+
+𝑃 𝐼𝑡 =
+
+𝑁𝑡∑
+
+∑
+
+𝑖=1
+
+𝑘∈
+
+quantity
+traded
+⏞⏞⏞
+∆𝐤
+𝐢,𝐭
+
+𝛱 𝑘
+𝑖,𝑡(∆𝐤
+𝐢,𝐭 )
+⏟⏞⏞⏟⏞⏞⏟
+price impact per
+dollar traded
+
+where  = {𝑃 +, 𝑃 −, 𝑆−, 𝑆+}.
+
+(7)
+
+Eq. (14) in Section 2.4.2 provides more details and a linear functional
+form of 𝛱 𝑘
+
+𝑖,𝑡(∆𝐤
+
+𝐢,𝐭 ).
+
+(5)
+
+2.4.1. Amihud price impact measure
+
+Our estimation of the price impact is based on the measure of Ami-
+hud (2002). The Amihud measure captures the percentage change in
+
+JournalofFinancialEconomics159(2024)1038865I. Filippou et al.
+
+Fig. 1. The figure plots the cross-currency median of the average proportional costs (Section 2.3) for the spot market, 𝑚𝑒𝑑
+
+𝑚𝑒𝑑
+
+(
+0.5𝐶 𝑃 +
+
+𝑖,𝑡 + 0.5𝐶 𝑆−
+
+𝑖,𝑡
+
+)
+
+(dashed line). The sample includes 13 developed and 13 emerging currencies against the USD for the period from February 1986 to January 2024.
+
+(
+0.5𝐶 𝑆+
+
+𝑖,𝑡 + 0.5𝐶 𝑃 −
+𝑖,𝑡
+
+)
+
+(solid line), and the forward market,
+
+the price per dollar traded in the spot market. It can be interpreted as
+a proxy for the price impact parameter 𝜆 in Kyle (1985). In the context
+of FX markets, Ranaldo and Santucci de Magistris (2022) propose a
+daily realized Amihud measure for spot exchange rates using intraday
+price data from Olsen and trading volume data from CLS. Lacava et al.
+(2023) further provide an in-depth theoretical discussion of the realized
+Amihud measure, and demonstrate its accuracy and robustness.5 We
+follow these papers and construct the realized Amihud measure of the
+spot exchange rate of currency 𝑖 on day 𝑡 as,
+
+𝐴𝑆
+
+𝑖,𝑡 =
+
+𝑅𝑃 𝑉𝑖,𝑡
+𝑣𝑆
+𝑖,𝑡
+
+,
+
+(8)
+
+where 𝑅𝑃 𝑉𝑖,𝑡 = ∑𝐻𝑡
+𝜏=1 |𝛥𝑥𝑖,𝑡,𝜏 | is the sum of the 𝐻𝑡 hourly absolute spot
+exchange rate growths (using mid-price quotes) within day 𝑡, and 𝑣𝑆
+𝑖,𝑡 is
+the daily USD trading volume for spot transactions of currency 𝑖 against
+the USD.
+
+We have a good coverage of hourly price data from Olsen from
+February 1986 to January 2024, and it is straightforward to estimate
+𝑅𝑃 𝑉𝑖,𝑡. In contrast, as explained in Section 2.1, we have CLS volume
+data for spot transactions for a subset of 12 out of 26 currencies and
+only covering the period from September 2012 to September 2021. Ac-
+cordingly, we need to extrapolate 𝑣𝑆
+𝑖,𝑡 in the time dimension, and across
+currencies. In the following, we denote the set of the 12 currencies with
+CLS coverage by , and we define the complement set 𝑐 containing the
+remaining 14 currencies without CLS volume data.6 We further define
+the set of days with CLS coverage (September 2012 to September 2021)
+
+5 A possible alternative measure is the VAR approach of Ranaldo and
+Somogyi (2021). This measure has many useful features such as the possibility
+to differentiate the trading impact of diverse traders on market prices, i.e., the
+main feature exploited by the authors. However, we do not need to know the
+determinants but simply need an accurate measure of liquidity. The realized
+Amihud measure is precise, and in addition, it is straightforward to obtain
+a time-series of liquidity. For these reasons it is a suitable measure for our
+purposes.
+
+6 Specifically,  = {𝐴𝑈 𝐷, 𝐸𝑈 𝑅, 𝐺𝐵𝑃 , 𝑁𝑍𝐷, 𝐶𝐴𝐷, 𝐶𝐻𝐹 , 𝐽 𝑃 𝑌 , 𝑁𝑂𝐾, 𝑆𝐸𝐾,
+𝑀𝑋𝑁, 𝑆𝐺𝐷, 𝑍𝐴𝑅}, and 𝑐 = {𝐵𝑅𝐿, 𝐶𝑍𝐾, 𝐷𝐸𝑀, 𝐸𝑆𝑃 , 𝐹 𝑅𝐹 , 𝐺𝑅𝐷, 𝐻𝑈 𝐹 ,
+𝐼𝐸𝑃 , 𝐼𝑇 𝐿, 𝐾𝑅𝑊 , 𝑁𝐿𝐺, 𝑃 𝐿𝑁, 𝑃 𝑇 𝐸, 𝑇 𝑊 𝐷}.
+
+Table 2
+Correlations between alternative realized Amihud measures.
+
+Hourly quotes
+Constant volume
+
+Hourly quotes
+Constant volume
+
+AUD
+
+0.83
+0.63
+
+MXN
+
+0.88
+0.81
+
+CAD
+
+0.9
+0.77
+
+NOK
+
+0.88
+0.79
+
+CHF
+
+0.83
+0.67
+
+NZD
+
+0.8
+0.67
+
+EUR
+
+0.79
+0.62
+
+SEK
+
+0.79
+0.67
+
+GBP
+
+0.89
+0.72
+
+SGD
+
+0.84
+0.64
+
+JPY
+
+0.6
+0.48
+
+ZAR
+
+0.79
+0.63
+
+Notes: The table reports for the spot exchange rates of each currency 𝑖 ∈  = {AUD,
+EUR, GBP, NZD, CAD, CHF, JPY, NOK, SEK, MXN, SGD, ZAR} the correlations between
+the daily realized Amihud measure of Ranaldo and Santucci de Magistris (2022) and
+two versions of our daily 𝐴𝑆
+in Eq. (8) for the time period from September
+
+𝑖,𝑡 =
+
+𝑅𝑃 𝑉𝑖,𝑡
+𝑣𝑆
+𝑖,𝑡
+
+2012 to September 2021. Ranaldo and Santucci de Magistris (2022) use one-minute
+exchange rate quotes to compute the daily return variation 𝑅𝑃 𝑉𝑖,𝑡 and daily volume
+data for 𝑣𝑆
+𝑖,𝑡. In the row indicated by ‘Hourly Quotes’ we use hourly exchange rate quotes
+to compute 𝑅𝑃 𝑉𝑖,𝑡 and daily volume data for 𝑣𝑆
+𝑖,𝑡. In the row indicated by ‘Constant
+Volume’ we use hourly exchange rate quotes to compute 𝑅𝑃 𝑉𝑖,𝑡 and the time-series
+average of the daily volume (i.e., a constant) for 𝑣𝑆
+𝑖,𝑡.
+
+by  , and the periods from February 1986 to August 2012 and October
+2021 to January 2024 by  𝑐 .
+
+Before we explain our approach to extrapolate the volume data, note
+that our computation of the realized Amihud measure slightly differs
+from that of Ranaldo and Santucci de Magistris (2022). While both their
+and our measures use daily volume data from CLS for 𝑣𝑆
+𝑖,𝑡, we use hourly
+data from Olsen and they use minute-level quotes to compute 𝑅𝑉 𝑃𝑖,𝑡.
+However, we find that our estimates are similar. For each currency
+𝑖 ∈  we compute the correlation between our daily 𝐴𝑆
+𝑖,𝑡 based on hourly
+Olsen quotes and the daily realized Amihud measure of Ranaldo and
+Santucci de Magistris (2022) that uses one-minute Olsen quotes for the
+sample 𝑡 ∈  .7 We report the results in Table 2 in the row indicated by
+‘Hourly Quotes’. The correlations range between 0.79 and 0.9, with the
+exception of the JPY, which has the lowest correlation of 0.6. While
+the estimates of Ranaldo and Santucci de Magistris (2022) based on
+
+7 We are thankful to Angelo Ranaldo and Paolo Santucci de Magistris for
+sharing their daily realized Amihud estimates for the 12 currencies 𝑖 ∈  for
+the sample period from September 2012 to September 2021.
+
+JournalofFinancialEconomics159(2024)1038866I. Filippou et al.
+
+minute-level data are more precise, the high correlations confirm that
+it is not a major concern that we use hourly data.
+
+For the extrapolation in the time dimension we simply use the
+
+time-series average of the available volume data. That is, we set
+
+(9)
+
+∀𝑡 ∈  𝑐,
+
+𝑖,𝑡 = ̄𝑣𝑆
+𝑣𝑆
+𝑖
+where ̄𝑣𝑆
+is the average of the daily trading volume of currency 𝑖 for
+𝑖
+𝑡 ∈  . The extrapolation backwards in time is conservative, as trading
+volume is generally increasing over time. For instance, the BIS Triennial
+Survey suggests that the trading volume of EUR/USD spot transactions
+for the survey years of 2013, 2016 and 2019 was more than twice the
+trading volume in the years 2001, 2004, and 2007. Other currencies
+have experienced a similar and often larger increase in trading volume
+over time. Thus, prior to 2012 our extrapolated Amihud measure 𝐴𝑆
+𝑖,𝑡
+in (8) is likely lower when we use 𝑣𝑆
+𝑖 , suggesting that we assume
+more liquidity and a lower price impact of trading than the actual
+market conditions. Accordingly, in the early years of our sample we
+likely underestimate the importance of the price impact, and in reality
+transaction costs likely had a more severe impact on the profitability
+of trading strategies than what we report. In Section 5 and Internet
+Appendix B.3, we consider alternative extrapolations of 𝑣𝑆
+𝑖,𝑡 that allow
+for time-variation. As expected, the time-series of the extrapolated
+volume data is increasing over time. In turn, this implies that the price
+impact in our baseline analysis is smaller and more conservative than
+in the robustness tests. However, we find that the choice of method for
+extrapolating the volume data does not have a material effect on our
+final results on the after-cost profitability of our strategies.
+
+𝑖,𝑡 = ̄𝑣𝑆
+
+𝑖,𝑡 = ̄𝑣𝑆
+𝑖
+
+Setting 𝑣𝑆
+
+for all 𝑡 ∈  𝑐 means that the Amihud measure
+𝐴𝑆
+𝑖,𝑡 in (8) is only dynamic due to the time-variation in 𝑅𝑃 𝑉𝑖,𝑡. To
+get a sense of whether this restriction is problematic, we compute
+again for each currency 𝑖 ∈  the correlation between our realized
+Amihud measure and the measure of Ranaldo and Santucci de Magistris
+(2022). However, this time we impose a time-invariant 𝑣𝑆
+𝑖,𝑡 = ̄𝑣𝑆
+𝑖
+for our measure. The row indicated by ‘Constant Volume’ in Table 2
+reports the results. The correlations range between 0.62 and 0.81, with
+the exception of the JPY, which has the lowest correlation of 0.49.
+The generally high correlations indicate that most of the time-series
+variation in the realized Amihud measure stems from 𝑅𝑃 𝑉𝑖,𝑡, and it is
+unproblematic to impose a time-invariant 𝑣𝑆
+for the purpose of
+our extrapolations.
+
+𝑖,𝑡 = ̄𝑣𝑆
+𝑖
+
+𝑖 (and construct 𝑣𝑆
+
+Recall that we have CLS volume data and we can compute ̄𝑣𝑆
+𝑖,𝑡 = ̄𝑣𝑆
+
+𝑖 only
+for the 12 currencies 𝑖 ∈ . To obtain ̄𝑣𝑆
+𝑖 and
+𝑖,𝑡 in (8)) for the 14 currencies 𝑖 ∈ 𝑐, we extrapolate in
+ultimately 𝐴𝑆
+the cross-section. Karnaukh et al. (2015) show that bid–ask spreads
+are a good proxy for liquidity. Motivated by this insight, we use the
+proportional bid–ask spread as a conditioning variable for the cross-
+sectional extrapolation of ̄𝑣𝑆
+𝑖 . Specifically, for currency 𝑖 we denote by
+𝑆
+𝑃 𝐵𝐴
+𝑖 the time-series average from September 2012 to September 2021
+of the daily proportional spot bid–ask spread 𝑃 𝐵𝐴𝑆
+𝑖,𝑡 (see definition in
+Section 2.1). Then, we regress the natural logarithm of ̄𝑣𝑆
+𝑖 on a constant
+𝑆
+and the natural logarithm of 𝑃 𝐵𝐴
+𝑖
+(
+
+for the 12 currencies 𝑖 ∈ ,
+
+)
+
+ln
+
+)
+
+( ̄𝑣𝑆
+𝑖
+
+= 𝑎 + 𝑏 ln
+
+𝑆
+𝑃 𝐵𝐴
+𝑖
+
++ 𝜀𝑖,
+
+(10)
+
+(
+
+against ln
+
+where 𝑎 and 𝑏 are the regression coefficients estimated via OLS, and
+( ̄𝑣𝑆
+)
+𝜀𝑖 is the residual. Fig. 2 plots ln
+(indicated by
+𝑖
+asterisks), and visualizes the striking linear relation. The regression fit
+𝑅2 = 0.8 is astounding. The negative slope coefficient 𝑏 = −1.46 is sen-
+sible and has a clear interpretation: lower levels of liquidity proxied by
+higher spreads are associated with lower traded volume. This provides
+confidence for the accuracy of a cross-sectional extrapolation based on
+bid–ask spreads.
+
+𝑆
+𝑃 𝐵𝐴
+𝑖
+
+)
+
+Given the linear regression (10) we construct extrapolated average
+
+volumes for the 14 currencies 𝑖 ∈ 𝑐 ,
+(
+
+)}
+
+{
+
+𝑎 + 𝑏 ln
+
+𝑃 𝐵𝐴
+
+.
+
+̄𝑣𝑆
+𝑖 = exp
+
+𝑆
+𝑖
+
+(11)
+
+𝑖 and 𝐴𝑆
+
+One complication is the availability of bid and ask quote data to com-
+𝑆
+pute 𝑃 𝐵𝐴
+𝑖 . We only have daily bid and ask quotes between September
+2012 and September 2021 for 6 of the 14 currencies 𝑖 ∈ 𝑐 , namely
+BRL, CZK, HUF, KRW, PLN, and TWD. For these 6 currencies, we can
+readily use (11) to obtain extrapolated values ̄𝑣𝑆
+𝑖 , and thus construct
+𝑖,𝑡 in (8). We plot the extrapolated ̄𝑣𝑆
+𝑖,𝑡 = ̄𝑣𝑆
+𝑣𝑆
+in Fig. 2 (indicated
+𝑖
+by circles). A nice feature of the extrapolation is that ln
+for
+𝑖 ∈  spans a relatively large range from −9.74 to −7.39. BRL, KRW and
+TWD lie well within that range, and CSK, HUF and PLN are located just
+outside with HUF taking the most extreme value of −6.92. Therefore,
+the extrapolations do not require us to move far out on the estimated
+line.
+
+𝑆
+𝑃 𝐵𝐴
+𝑖
+
+)
+
+(
+
+The remaining 8 currencies (namely DEM, ESP, FRF, GRD, IEP, ITL,
+NLG, PTE; which we denote as the subset 𝑐
+𝐸𝑈 ) have joined the EUR,
+and it is only possible to compute average proportional bid–ask spreads
+𝑆
+based on data prior to January 1999. We denote this by 𝑃 𝐵𝐴
+𝑖,pre-EUR.
+𝑆
+As bid–ask spreads are generally decreasing over time, 𝑃 𝐵𝐴
+𝑖,pre-EUR
+for 𝑖 ∈ 𝑐
+𝐸𝑈 computed from data prior to 1999 are not comparable
+𝑆
+for 𝑖 ∈  constructed from data from September 2012 to
+to 𝑃 𝐵𝐴
+𝑖
+
+𝑆
+September 2021. That is, if we simply plug in the pre-1999 𝑃 𝐵𝐴
+𝑖,pre-EUR
+in (11) then we obtain comparatively low extrapolated values of ̄𝑣𝑆
+for
+𝑖
+𝑖 ∈ 𝑐
+𝐸𝑈 . Accordingly, we re-scale the extrapolated volumes such that
+they add up to the average volume of the EUR, ∑
+𝐸𝑈 𝑅. The
+idea is that the currencies that join the EUR should collectively have
+a trading volume that is comparable to that of the EUR. Note that this
+implicitly assumes the same time-invariant extrapolation as in (9). The
+adjusted extrapolation formula for currencies 𝑖 ∈ 𝑐
+(
+
+𝑖 = ̄𝑣𝑆
+̄𝑣𝑆
+
+𝐸𝑈 is,8
+
+𝑖∈𝑐
+
+)}
+
+{
+
+𝐸𝑈
+
+̄𝑣𝑆
+𝑖 =
+
+̄𝑣𝑆
+𝐸𝑈 𝑅 exp
+
+𝑎 + 𝑏 ln
+
+𝑆
+𝑃 𝐵𝐴
+𝑖,pre-EUR
+
+∑
+
+𝑗∈𝑐
+
+𝐸𝑈
+
+exp
+
+{
+
+𝑎 + 𝑏 ln
+
+(
+
+𝑆
+𝑃 𝐵𝐴
+𝑗,pre-EUR
+
+)} .
+
+(12)
+
+Finally, we construct the Amihud measure for forwards 𝐴𝐹
+𝑃 𝐵𝐴𝐹
+𝑖,𝑡
+𝑃 𝐵𝐴𝑆
+𝑖,𝑡
+
+of the 26 currencies by re-scaling 𝐴𝑆
+
+𝑖,𝑡 by 𝑃 𝐵𝐴𝐹 ∕𝑆
+
+= 1
+𝑇
+
+∑
+𝑡
+
+𝑖
+
+𝑖,𝑡 for each
+
+, which
+
+𝑖 𝐴𝑆
+𝑖,𝑡.
+
+is the time-series average over the entire sample of the ratio between
+the proportional forward and the spot bid–ask spreads,
+𝑖,𝑡 = 𝑃 𝐵𝐴𝐹 ∕𝑆
+𝐴𝐹
+𝑃 𝐵𝐴𝐹 ∕𝑆
+is greater than 1 for every currency, reflecting the well-known
+𝑖
+fact that the forward market is less liquid than the spot market. In
+turn, this consistently reflects a higher price impact per dollar traded
+𝑖,𝑡 > 𝐴𝑆
+in the forward market, i.e. 𝐴𝐹
+𝑖,𝑡 ∀{𝑖, 𝑡}. The tight link between
+liquidity in spot and forward markets in (13) is closely related to the
+empirical findings of Krohn and Sushko (2022), albeit their data is on
+swaps rather than forwards.
+
+(13)
+
+𝑖,𝑡 analogously to 𝐴𝑆
+
+Note that it would have been problematic to use forward price and
+volume data to construct 𝐴𝐹
+𝑖,𝑡 in (8). The reason
+is that forward quotes are tightly linked to spot quotes due to no-
+arbitrage, and much of the variation in forward quotes is indirectly
+driven by fluctuations in spot prices (and thus spot order flow) rather
+than by order flows in forward markets. Indeed, hourly forward spreads
+(i.e., forward minus spot quotes) from Olsen have little variation,
+implying that spot and forward prices closely move together and have
+approximately the same variation. Bräuer and Hau (2023) further
+
+8 To the extent that GDP is a good proxy for the traded volume, we
+
+compared our re-scaling factor
+
+̄𝑣𝑆
+𝐸𝑈 𝑅
+(
+
+{
+
+exp
+
+𝑎+𝑏 ln
+
+)} to the average GDP of
+
+𝑃 𝐵𝐴𝑆
+
+𝑗,pre-EUR
+
+∑
+
+𝑗∈𝑐
+
+𝐸𝑈
+
+the EUR countries in our sample relative to the GDP of the Euro area over the
+period 1995 to 2021 using the data available from the OECD, https://stats.
+oecd.org/Index.aspx?DatasetCode=SNA_TABLE1#. This comparison produces
+results in line with our assumptions. First, relative GDP is very stable across
+time. Second, the correlation between our re-scaling factor and the average
+relative GDP is 0.7.
+
+JournalofFinancialEconomics159(2024)1038867I. Filippou et al.
+
+( ̄𝑣𝑆
+Fig. 2. The asterisks in the figure plot the natural logarithm of the average volume ln
+𝑖
+for the 12 currencies 𝑖 ∈  = {AUD, EUR, GBP, NZD, CAD, CHF, JPY, NOK, SEK, MXN, SGD, ZAR}. The average is taken over the daily sample between September 3rd 2012
+through September 24th 2021. The linear line is the fitted regression ln
+corresponding
+
+against the natural logarithm of the average proportional bid–ask spread ln
+
+, and the circles on the line represent the fitted values ln
+
+= 9.83 − 1.46 ln
+
+𝑆
+𝑃 𝐵𝐴
+𝑖
+
+( ̄𝑣𝑆
+
+( ̄𝑣𝑆
+
+)
+
+(
+
+)
+
+)
+
+)
+
+𝑖
+
+𝑆
+𝑃 𝐵𝐴
+𝑖
+
+𝑖
+
+(
+
+)
+
+to ln
+
+(
+
+𝑆
+𝑃 𝐵𝐴
+𝑖
+
+)
+
+for the 6 currencies BRL, CZK, HUF, KRW, PLN, and TWD (for which CLS trading volume data is unavailable).
+
+confirm in their analysis that the correlation is 0.99 between dollar
+forward and spot. To the extent that order flows in spot markets
+predominately drive spot and therefore also forward prices, a forward
+Amihud measure analogous to (8) would be grossly misspecified. As
+a simple example, consider a forward market that has no trading on a
+particular day. However, transactions in the corresponding spot market
+move spot prices, and market makers adjust forward quotes to preclude
+arbitrage. The Amihud measure for forwards according to (8) would
+be infinite on that day. In principle, this problem is also present in the
+construction of the Amihud measure for spot markets. In common with
+one strand of the literature, we therefore assume that order flows in
+spot markets are the main drivers while flows in corresponding forward
+markets are of secondary importance.9 Accordingly, our construction
+of 𝐴𝐹
+𝑖,𝑡 in Eq. (13) is arguably more sensible as it is based on the more
+precisely measured 𝐴𝑆
+𝑖,𝑡, and uses a simple liquidity adjustment based
+on bid–ask spreads.
+
+2.4.2. Linear price impact function
+
+Next, we construct a linear price impact function of the trade order
+size and derive a mapping to the Amihud measure. The linear price
+impact function is:
+
+𝐢,𝐭 ) ≡ 𝜋𝑘
+
+𝑖,𝑡∆𝐤
+𝐢,𝐭 ,
+
+𝛱 𝑘
+
+𝑖,𝑡(∆𝐤
+with 𝜋𝑘
+
+𝑖,𝑡 specified in (15).
+
+∀𝑘 ∈ {𝑃 +, 𝑃 −, 𝑆−, 𝑆+},
+
+(14)
+
+A linear functional form is popular in the literature (Kyle, 1985;
+Leland, 1985; Back, 1993; Garleanu and Pedersen, 2013, 2016; Kyle
+
+9 For instance, Ranaldo and Santucci de Magistris (2022) implicitly assume
+the same. However, we acknowledge that for instance Bräuer and Hau (2023)
+provide evidence that FX hedging demands via forwards can have a significant
+impact on exchange rates. This introduces some errors in the spot Amihud
+measure.
+
+et al., 2018). However, we acknowledge that our specification has lim-
+itations. The linear specification in (14) and the independence across
+currencies in (7) are likely an accurate representation of FX markets
+when trade orders are of a moderate size. However, the same may not
+be true during turbulent times or when trade orders are very large.
+FX markets are OTC and liquidity is provided by a few global dealers
+that are simultaneously making the market for multiple currencies.
+It is plausible that the search costs and dealers’ liquidity needs and
+inventory risks lead to commonalities in liquidity and non-linear cost
+functions with increasing marginal costs. These effects can have non-
+trivial implications on the costs of a trading strategy, in particular when
+multiple currencies are traded at the same time. Estimating commonal-
+ities and non-linearities in the price impact function is a difficult task
+and potentially comes with large estimation errors. We leave this for
+future research, and use the linear specification without cross-sectional
+interconnectedness that is simpler to estimate and is arguably subject to
+smaller estimation errors. To the extent that effects from non-linearity
+and interconnectedness likely increase trading costs, we expect that
+the findings of our analysis are conservative and understate the true
+problem of transaction costs.
+
+Consider for now the buy order ∆𝐏−
+
+𝐢,𝐭 . The mapping between per
+dollar price impact measure 𝐴𝑆
+𝑖,𝑡 and the parameter 𝜋𝑃 −
+is derived as
+𝑖,𝑡
+follows. By definition of the Amihud measure 𝐴𝑆
+𝐢,𝐭 of
+a fund with a current AUM of 𝑊𝑡 pushes up the current log-ask price
+ln
+
+𝑖,𝑡 buy order ∆𝐏−
+
+to
+
+)
+
+(
+
+𝑋𝑎
+𝑖,𝑡
+
+ln( ̃𝑋𝑎
+
+𝑖,𝑡) = ln(𝑋𝑎
+
+𝑖,𝑡) + 𝐴𝑆
+
+𝑖,𝑡∆𝐏−
+
+𝐢,𝐭 𝑊𝑡.
+
+)
+
+It follows that the cost (as a fraction of the AUM) that the fund has to
+pay over and above the mid quote 𝑋𝑖,𝑡 is
+( ̃𝑋𝑎
+( 𝑋𝑎
+𝑖,𝑡
+𝑖,𝑡
+𝑋𝑎
+𝑋𝑖,𝑡
+𝑖,𝑡
+⏟⏞⏞⏞⏟⏞⏞⏞⏟
+⏟⏞⏞⏞⏟⏞⏞⏞⏟
+(∆𝐏−
+=Π𝐏−
+=𝐂𝐏−
+)
+𝐢,𝐭
+𝐢,𝐭
+𝐢,𝐭
+
+( ̃𝑋𝑎
+𝑖,𝑡
+𝑋𝑖,𝑡
+
+𝐢,𝐭 = ln
+
+𝐢,𝐭 + ln
+
+∆𝐏−
+𝐢,𝐭 .
+
+∆𝐏−
+
+∆𝐏−
+
+)
+
+)
+
+ln
+
+JournalofFinancialEconomics159(2024)1038868I. Filippou et al.
+
+The first term is the proportional costs as described in Eq. (6), while
+the second term identifies the costs due to the price impact of trading
+related to Eq. (7). Dividing the second term by ∆𝐏−
+𝐢,𝐭 , and comparing it
+to the right-hand side of Eq. (14), we obtain
+
+𝑖,𝑡 = 𝐴𝑆
+𝜋𝑃 −
+
+𝑖,𝑡𝑊𝑡.
+
+Using a similar argument, we obtain price impact parameters 𝜋𝑆+
+𝑖,𝑡
+to sell currency 𝑖 in the spot market to close existing long positions,
+and 𝜋𝑃 +
+𝑖,𝑡 and 𝜋𝑆−
+to open new long, respectively short positions in the
+𝑖,𝑡
+forward market,
+
+𝑖,𝑡𝑊𝑡,
+
+𝑖,𝑡 = 𝜋𝑃 −
+𝜋𝑆+
+where 𝐴𝑆
+Section 2.4.1.
+
+𝑖,𝑡 = 𝐴𝑆
+𝑖,𝑡 and 𝐴𝐹
+
+and 𝜋𝑃 +
+
+𝑖,𝑡 = 𝜋𝑆−
+
+𝑖,𝑡 = 𝐴𝐹
+
+𝑖,𝑡𝑊𝑡,
+
+(15)
+
+𝑖,𝑡 are described in (8) and (13) and the discussion in
+
+In Table 1 in the columns indicated by ̄𝐴𝑆
+
+𝑖 we report the time-series
+average of our realized Amihud measure (Eq. (8)) for spot transactions.
+The reported numbers measure the bps change in the ask or bid price
+in response to a buy or sell order of USD 1 million. Not surprisingly
+̄𝐴𝑆
+is smaller for developed than emerging currencies. Perhaps more
+𝑖
+surprisingly is the fact that
+is over 150 times larger for the HUF
+(the least liquid currency in our sample) than the EUR (the most liquid
+currency).
+
+̄𝐴𝑆
+𝑖
+
+To provide a sense of the severity of the transaction costs due to the
+trading volume price impact we revisit our discussion on the ‘too wide’
+B&R bid–ask spreads in Section 2.1. Recall that B&R spreads are on
+average 48% wider than our adjusted spreads. Similar to Lyons (2001)
+it follows a simple rule-of-thumb that B&R spreads should be reduced,
+and thus, transaction costs have a smaller impact on the profitability of
+trading strategies than what is reported in papers that only work with
+B&R data. However, this conclusion is misleading as it only considers
+proportional costs and ignores the price impact of trading. To address
+this issue we compute the break even trade order size
+
+∆𝐤
+
+𝐢 𝑊 =
+
+𝑆,𝐵𝑅
+𝑃 𝐵𝐴
+𝑖
+
+− 𝑃 𝐵𝐴
+
+2 ̄𝐴𝑆
+𝑖
+
+𝑆
+𝑖
+
+,
+
+𝑖 and the order size ∆𝐤
+𝐢
+
+such that the transaction costs due to our adjusted proportional costs
+𝑆
+0.5𝑃 𝐵𝐴
+𝑖 and due to the price impact of trading based on the Amihud
+measure ̄𝐴𝑆
+𝑊 are exactly equal to the B&R
+𝑆,𝐵𝑅
+proportional costs 0.5𝑃 𝐵𝐴
+(i.e., the benchmark that is often used
+𝑖
+in the literature). We report this break even order size ∆𝐤
+𝑊 (in million
+𝐢
+USD) in the last column of Table 1. For the EUR we need large orders
+of almost USD 300 million such that the trading costs are comparable
+to the wide B&R spreads. Similarly for some other developed currencies
+(e.g., JPY, CAD, FRF) orders have to be large (above USD 100 mil-
+lion) such that costs exceed the quoted B&R spreads. In contrast, for
+some developed (most notably the NOK and SEK) and many emerging
+currencies orders of less than USD 10 million, and in the case of the
+HUF an order of only USD 400k already imply trading costs that are
+higher than the proportional costs based on the B&R bid–ask spreads.
+To put the trade order size into perspective it is important to note that
+many popular FX trading strategies are concentrated, and thus, trade
+orders are a large fraction of the invested wealth. Accordingly, a large
+fund that manages USD 1 billion or more often places large orders that
+easily exceed USD 100 million. Accordingly, contrary to the previous
+conclusion, showing that a strategy survives costs based on B&R spreads
+is not a conservative robustness analysis. Indeed, for many currencies
+the price impact of trading leads to much larger costs (compared to the
+proportional costs) when trade orders are large.
+
+Finally, to visualize the price impact estimates, we plot the time-
+for forward trans-
+=
+
+𝑖,𝑡 ̄𝑧𝑓 𝑢𝑛𝑑𝑠
+for spot transactions and 𝐴𝐹
+𝑖
+̄𝑧𝑓 𝑢𝑛𝑑𝑠
+= 1
+𝑖
+𝑇
+− 𝑠𝑒𝑙𝑙𝑓 𝑢𝑛𝑑𝑠
+|
+, the absolute value of the daily order flow imbal-
+|
+𝑖,𝑡
+|
+
+series 𝐴𝑆
+actions.
+𝑏𝑢𝑦𝑓 𝑢𝑛𝑑𝑠
+|
+|
+𝑖,𝑡
+|
+ance of funds. 𝑏𝑢𝑦𝑓 𝑢𝑛𝑑𝑠
+represent the USD value of the
+sum of all CLS registered spot buy respectively sell orders of funds for
+
+𝑖,𝑡 ̄𝑧𝑓 𝑢𝑛𝑑𝑠
+is the time-series average of 𝑧𝑓 𝑢𝑛𝑑𝑠
+
+and 𝑠𝑒𝑙𝑙𝑓 𝑢𝑛𝑑𝑠
+
+𝑡 𝑧𝑓 𝑢𝑛𝑑𝑠
+
+∑
+
+𝑖,𝑡
+
+𝑖,𝑡
+
+𝑖,𝑡
+
+𝑖,𝑡
+
+𝑖
+
+𝑖
+
+currency 𝑖 on day 𝑡.10,11 The idea is to get a sense of the magnitude
+of the price impact (i.e., the increase in the ask or the decrease in the
+bid quote) in response to the average buy and sell imbalance of funds
+within a day. As such ̄𝑧𝑓 𝑢𝑛𝑑𝑠
+can be interpreted as the daily average
+of the aggregated ∆𝐤
+𝑊 of all funds. Fig. 3 plots the cross-currency
+𝐢
+median price impact (reported in bps) for the spot market (solid line)
+and the forward market (dashed line). As expected, the price impact
+is higher for the forward market (hovering around 7–8 bps) than the
+spot market (hovering around 4–5 bps). The price impact in spot and
+forward markets peaks around the 2008 financial crisis. We further
+notice a higher volatility of the price impact in the forward market.
+Finally, there is no downtrend in the price impact as we use a time-
+invariant volume to extrapolate the volume data in the time dimension.
+This feature, if anything, makes it more difficult to detect the effects of
+the price impact on the profitability of our trading strategies. The same
+insights are confirmed at the currency-level as reported in Figures A4
+and A5 in the Internet Appendix.
+
+3. Trading strategies
+
+In Section 3.1 we construct seven currency trading strategies that
+are well-known for delivering high returns. Six of these seven strate-
+gies rank currencies based on characteristics and construct (mostly
+equally weighted) long–short portfolios. The seventh strategy is a
+mean–variance optimized currency portfolio. In Section 3.2 we intro-
+duce a mean–variance-transaction-cost optimized strategy that aims to
+achieve the optimal balance between rebalancing the portfolio to earn
+a high before-cost Sharpe ratio while reducing trading activity to lower
+transaction costs.
+
+Following the literature, all our strategies are rebalanced monthly.
+Our strategies use the information available at the end of month 𝑡 to
+construct portfolios that we then hold until the end of the subsequent
+month 𝑡 + 1. Accordingly, the returns are out-of-sample, and the trading
+strategies do not suffer from a look-ahead bias.
+
+3.1. Strategies from the literature
+
+DOL: The dollar strategy (𝐷𝑂𝐿) borrows in USD and equally invests
+
+in all other currencies (Lustig et al., 2011), 𝜃𝐷𝑂𝐿
+
+𝑖,𝑡
+
+= 1
+𝑁𝑡
+
+.
+
+𝑖,𝑡
+
+(
+
+= 𝑠𝑖𝑔𝑛
+
+DDOL: The dollar carry (𝐷𝐷𝑂𝐿) takes a long position in 𝐷𝑂𝐿 if the
+median exchange rate forward discount is positive, and a short position
+)) 1
+otherwise (Lustig et al., 2014), 𝜃𝐷𝐷𝑂𝐿
+.
+𝑁𝑡
+HML: The carry (𝐻𝑀𝐿) sorts currencies according to the forward
+discount into quintiles and borrows in the bottom quintile and invests
+in the top quintile (Lustig and Verdelhan, 2007). Define 𝑗
+𝑡 as the set
+of forward discount sorted currencies in quintile 𝑗. 1𝑖∈𝑗
+is an indicator
+function equal to 1 if currency 𝑖 is in set 𝑗
+∑𝑁𝑡
+
+𝑡 =
+counts the number of currencies in quintile 𝑗 at time 𝑡. Then,
+
+𝑡 , and 0 otherwise. 𝑄𝑗
+
+(
+{𝑓 𝑑𝑗,𝑡}
+
+𝑚𝑒𝑑𝑖𝑎𝑛
+
+𝑁𝑡
+𝑗=1
+
+𝑡
+
+𝑖=1 1𝑖∈𝑗
+𝑡
+1
+
+𝜃𝐻𝑀𝐿
+𝑖,𝑡
+
+=
+
+𝑖∈5
+𝑡
+𝑄5
+𝑡
+
+1
+
+−
+
+𝑖∈1
+𝑡
+𝑄1
+𝑡
+
+.
+
+RB: As an alternative to 𝐻𝑀𝐿 we also consider the ranked-based
+(𝑅𝐵) version of the carry trade (Asness et al., 2013). In this strategy,
+the rescaled rank is used as the portfolio weight, 𝜃𝑅𝐵
+
+𝜗𝑖,𝑡
+0.5 ∑𝑁𝑡
+𝑖=1|𝜗𝑖,𝑡|
+𝑟𝑎𝑛𝑘(𝑓 𝑑𝑗,𝑡)
+with 𝜗𝑖,𝑡 = 𝑟𝑎𝑛𝑘(𝑓 𝑑𝑖,𝑡) − ∑𝑁𝑡
+. As for 𝐻𝑀𝐿, the notional
+𝑁𝑡
+value of the 𝑅𝐵 is equal to 2 by construction. The rank-based weights
+are not sensitive to the magnitude of forward discounts. As such, 𝑅𝐵
+
+𝑖,𝑡 =
+
+𝑗=1
+
+using an analogous approach as for the extrapolation of ̄𝑣𝑆
+
+10 For currencies 𝑖 ∈ 𝑐 (for which we do not have CLS data) we extrapolate
+̄𝑧𝑓 𝑢𝑛𝑑𝑠
+𝑖 . Similar to
+𝑖
+the volume data we show in the Internet Appendix A that we can reliably
+extrapolate ̄𝑧𝑓 𝑢𝑛𝑑𝑠
+
+.
+
+11 We only use the order imbalance ̄𝑧𝑓 𝑢𝑛𝑑𝑠
+
+for spot transactions. We do not
+generate an estimate for the forward order flows. This helps us to keep the
+price impact comparable across the two markets.
+
+𝑖
+
+𝑖
+
+JournalofFinancialEconomics159(2024)1038869I. Filippou et al.
+
+Fig. 3. The figure plots the cross-currency median of 𝐴𝑆
+and forwards. ̄𝑧𝑓 𝑢𝑛𝑑𝑠
+against the USD for the period from February 1986 to January 2024.
+
+𝑖,𝑡 ̄𝑧𝑓 𝑢𝑛𝑑𝑠
+
+𝑖
+
+𝑖,𝑡 are the realized Amihud measures for spot
+is the time-series average of the absolute value of the daily order flow imbalance of funds. The sample includes 13 developed and 13 emerging currencies
+
+for forwards (dashed line). 𝐴𝑆
+
+for spot (solid line) and 𝐴𝐹
+
+𝑖,𝑡 and 𝐴𝐹
+
+𝑖
+
+𝑖,𝑡 ̄𝑧𝑓 𝑢𝑛𝑑𝑠
+
+𝑖
+
+avoids the issue of extreme portfolio weights due to outliers, a desirable
+property that is shared with 𝐻𝑀𝐿. In contrast to 𝐻𝑀𝐿, 𝑅𝐵 may
+benefit from being less concentrated as all currencies are used in the
+portfolio construction, while 𝐻𝑀𝐿 only uses currencies in the top and
+bottom quintiles.
+
+net estimations to forecast 𝛥𝑥𝑖,𝑡+1. Their results reveal an average out-
+of-sample 𝑅2 of 0.36% for the monthly predictions. However, when
+applied to optimized portfolios, they document that the portfolio based
+on the predicted 𝛥𝑥𝑖,𝑡+1 performs worse out-of-sample than the portfolio
+based on the random walk assumption.
+
+MOM: The momentum strategy 𝑀𝑂𝑀 sorts currencies according
+to their past 12-month performance into quintiles and borrows in
+the bottom and invests in the top quintile (Burnside et al., 2011;
+Menkhoff et al., 2012). Formally, the portfolio weights 𝜃𝑀𝑂𝑀
+are
+defined analogously to 𝜃𝐻𝑀𝐿
+
+𝑖,𝑡
+
+.
+
+𝑖,𝑡
+
+VAL: The value strategy (𝑉 𝐴𝐿) sorts currencies according to the
+purchasing-power-parity-adjusted (PPP) or real exchange rate into
+quintiles, and borrows in the top quintile (overvalued currencies with
+high real exchange rates) and invests in the bottom quintile (underval-
+ued currencies with low real exchange rates) (Bilson, 1984; Menkhoff
+et al., 2017). We estimate the real exchange rate of currency 𝑖 against
+the USD by multiplying the PPP (which is the ratio of prices in currency
+𝑖 and the USD of a representative consumption bundle) by the nominal
+exchange rate 𝑋𝑖,𝑡. Formally, the portfolio weights 𝜃𝑉 𝐴𝐿
+are defined
+analogously to 𝜃𝐻𝑀𝐿
+
+𝑖,𝑡
+
+.
+
+𝑖,𝑡
+
+MV: The mean–variance optimized portfolio (𝑀𝑉 ) solves,
+
+{
+
+𝜽𝐭
+
+max
+{𝜽𝐭 ∈R𝑁𝑡 }
+
+′𝝁𝐞
+
+𝐭 −
+
+}
+
+′𝐕𝐭 𝜽𝐭
+
+𝜽𝐭
+
+𝜆
+2
+[𝑟𝑡+1
+
+]
+
+𝐭 = 𝐸𝑡
+
+where 𝝁𝐞
+is the 𝑁𝑡 × 1 vector of conditional expected
+currency returns, and 𝐕𝐭 is the 𝑁𝑡 × 𝑁𝑡 covariance matrix. Maurer et al.
+(2023) show that this mean–variance optimization performs well out-
+of-sample, and outperforms other types of mean–variance optimized
+portfolios that impose risk limits or other constraints.
+
+With regard to the conditional covariance matrix 𝐕𝐭 , Maurer et al.
+(2023) show that the out-of-sample performance of 𝑀𝑉 substantially
+improves if we eliminate principal components that explain less than
+1% of the common variation of the currency returns. This is motivated
+by the results of Lustig et al. (2011), who document a strong factor
+structure in FX markets. We first use daily returns over the previous
+6 months to obtain the rolling window sample covariance matrix ̂𝐕𝐭 at
+the end of month 𝑡. Then, we define the robust version of the covariance
+𝐭 , and its inverse as ̃𝐕−1
+matrix as ̃𝐕𝐭 = 𝐖𝐭 Λ𝐭 𝐖′
+𝐭 , where 𝐖𝐭
+is the matrix of eigenvectors and Λ𝐭 is the diagonal matrix of eigenval-
+̂𝐕𝐭 after removing eigenvectors and eigenvalues which explain
+ues of
+less than 1% of the common variation of the returns. Accordingly, the
+𝐭 = 1
+portfolio weights of 𝑀𝑉 are 𝜽𝐌𝐕
+
+𝜆
+Finally, we follow Maurer et al. (2023) and set 𝜆 = 25 to roughly
+match the unconditional volatility of 8% of the other currency trading
+strategies. Section 5 and A15 in the Internet Appendix analyze the
+effects of using other values for 𝜆.
+
+𝐭 = 𝐖𝐭 Λ𝐭
+
+𝐭 𝑓 𝑑𝑡.
+
+−1𝐖′
+
+̃𝐕−1
+
+3.2. Mean-Variance-Transaction-Cost optimization (𝑀𝑉 𝑇 𝐶)
+
+We use the framework of Dybvig and Pezzo (2020) to optimize over
+costs within a myopic mean–variance setup. We denote this strategy
+as the Mean-Variance-Transaction-Cost optimized portfolio (𝑀𝑉 𝑇 𝐶).12
+We ignore potentially interesting implications of a dynamic model to
+
+We follow the literature and use the current forward discount 𝑓 𝑑𝑖,𝑡
+as a proxy for 𝝁𝐞
+𝐢,𝐭 (Baz et al., 2001; Della Corte et al., 2009; Daniel
+et al., 2017; Ackermann et al., 2016; Maurer et al., 2023, 2022). This
+is motivated by the random walk conjecture, i.e., the well-known em-
+pirical finding that exchange rate changes are difficult to predict over
+a short horizon, 𝐸𝑡
+≈ 0 (Meese and Rogoff, 1983). Moreover,
+as demonstrated for instance by Maurer et al. (2023), although there
+is evidence of predictability in 𝛥𝑥𝑖,𝑡+1, it does not seem to hold any
+economic value. They employ a set of 18 predictors and conduct elastic
+
+[𝛥𝑥𝑖,𝑡+1
+
+]
+
+12 Garleanu and Pedersen (2013, 2016), Olivares-Nadal and DeMiguel
+(2016), Hautsch and Voigt (2019) and DeMiguel et al. (2020) provide al-
+ternative solution methods to transaction cost problems. One advantage of
+our approach is that we account for rebalancing due to realize returns that
+generate a difference between the initial position 𝜽𝟎,𝐣
+𝐢,𝐭−𝟏, and changes
+in the investment opportunity set that generate a difference between 𝜽𝐣
+𝐢,𝐭 and
+𝐢,𝐭−𝟏. The aforementioned papers ignore the first effect and assume 𝜽𝟎,𝐣
+𝜽𝐣
+to simplify the optimization problem.
+
+𝐢,𝐭 and 𝜽𝐣
+
+𝐢,𝐭 = 𝜽𝐣
+
+𝐢,𝐭−𝟏
+
+JournalofFinancialEconomics159(2024)10388610I. Filippou et al.
+
+keep the solution tractable. Therefore, our strategy in general leads
+to a sub-optimal outcome. However, 𝑀𝑉 𝑇 𝐶 is still resilient even to
+a severe price impact of trading and outperforms all other strategies
+in our analysis by a large margin. Accordingly, we are not concerned
+about its theoretical sub-optimality.
+The optimization problem is:
+
+Problem 1.
+
+max
+}𝑘∈
+≥0
+
+{
+
+∆𝐤
+𝐢,𝐭
+
+𝑖={1,…,𝑁𝑡}
+𝑠.𝑡. 𝜽𝐌𝐕𝐓𝐂
+𝐢,𝐭
+
+{
+
+𝜽𝐌𝐕𝐓𝐂
+𝐭
+
+′
+
+𝝁𝐞
+𝐭 −
+
+𝜆
+2
+
+′
+
+𝜽𝐌𝐕𝐓𝐂
+𝐭
+
+𝐕𝐭 𝜽𝐌𝐕𝐓𝐂
+𝐭
+
+− 𝑃 𝐶𝑡 − 𝑃 𝐼𝑡
+
+}
+
+− 𝜽𝟎,𝐌𝐕𝐓𝐂
+𝐢,𝐭
+
+= ∆𝐏+
+
+𝐢,𝐭 + ∆𝐏−
+
+𝐢,𝐭 − ∆𝐒−
+
+𝐢,𝐭 − ∆𝐒+
+
+𝐢,𝐭
+
+,
+
+where 𝑃 𝐶𝑡 and 𝑃 𝐼𝑡 are defined in (6) and (7).
+
+The economics of Problem 1 are well established in the literature.
+We refer to Internet Appendix C and Dybvig and Pezzo (2020) for a
+review of the economic properties. The first insight is that proportional
+costs (𝑃 𝐶𝑡 > 0) give rise to a no-trading region around 𝜽𝐌𝐕
+, which
+identifies the optimal balance between expected return to risk before
+accounting for costs. If the initial position 𝜽𝟎,𝐌𝐕
+is close enough to 𝜽𝐌𝐕
+,
+then it is not worth paying costs to move closer to 𝜽𝐌𝐕
+. The second
+insight is that a price impact (𝑃 𝐼𝑡 > 0) does not affect the shape or size
+of the no-trading region, but the optimal trades (which are initiated
+outside of the no-trading region) are different and we never end up at
+the border of the no-trading region.
+
+𝐭
+
+𝐭
+
+𝐭
+
+𝐭
+
+The theoretical setup provides us with three predictions charac-
+terizing 𝑀𝑉 𝑇 𝐶. First, we expect 𝑀𝑉 to outperform 𝑀𝑉 𝑇 𝐶 if the
+performance is measured in returns before transaction costs. This is
+because, by definition, 𝑀𝑉 is the optimal portfolio when evaluated
+before transaction costs (in a single-period model). Second, we expect
+transaction costs to be larger for 𝑀𝑉 than for 𝑀𝑉 𝑇 𝐶. Third, we expect
+𝑀𝑉 𝑇 𝐶 to outperform 𝑀𝑉 after transaction costs. Finally, the size of
+these differences between 𝑀𝑉 and 𝑀𝑉 𝑇 𝐶 are expected to depend on
+the magnitude of the transaction costs.
+
+3.2.1. Implementation
+
+with three adjustments.
+
+Problem 1 does not have a closed-form solution. However, it is
+a well-behaved quadratic program for which an accurate and fast
+converging numerical solution is readily available. We solve Problem 1
+for 𝜃𝑀𝑉 𝑇 𝐶
+𝑡
+First, we set all proportional costs in (5) equal, 𝐂𝐤
+
+0.25 ∑
+ℎ∈ 𝐂𝐡
+eters in (15), 𝜋𝑘
+impact functions (14) are identical across order types, 𝛱 𝑘
+𝛱𝑖,𝑡(∆𝐤
+lem as we can now combine ∆𝐏+
+
+𝐢,𝐭 = 𝐂𝐢,𝐭 =
+𝐢,𝐭 , ∀𝑘 ∈ . Second, we equalize the price impact param-
+𝑖,𝑡, ∀𝑘 ∈ , and thus, the price
+𝐢,𝐭 ) =
+𝐢,𝐭 ), ∀𝑘 ∈ . These adjustments simplify our optimization prob-
+𝐢,𝐭 and ∆𝐏−
+𝐢,𝐭 , and
+
+𝑖,𝑡 = 𝜋𝑖,𝑡 = 0.25 ∑
+
+𝐢,𝐭 + ∆𝐏−
+
+ℎ∈ 𝜋ℎ
+
+𝑖,𝑡(∆𝐤
+
+to ∆𝐏
+
+𝐢,𝐭 = ∆𝐏+
+𝐢,𝐭 . Then, Eq. (2) becomes 𝜽𝐌𝐕𝐓𝐂
+
+𝐢,𝐭
+
+𝐢,𝐭
+
+𝑡
+
+(
+
+)
+
+− 𝜽𝟎,𝐌𝐕𝐓𝐂
+𝐢,𝐭
+
+= ∑𝑁𝑡
+𝑖=1
+
+𝐢,𝐭 + ∆𝐒+
+
+𝐢,𝐭 = ∆𝐒−
+
+∆𝐏
+= ∑𝑁𝑡
+𝑖=1
+
+𝐢,𝐭 + ∆𝐒
+𝐢,𝐭
+𝜋𝑖,𝑡
+
+similarly ∆𝐒
+𝐢,𝐭 −∆𝐒
+∆𝐏
+costs (6) simplifies to 𝑃 𝐶 (𝑎𝑑𝑗)
+to the price impact (7) reduces to 𝑃 𝐼 (𝑎𝑑𝑗)
+
+=
+𝐢,𝐭 . Furthermore, the performance reduction due to proportional
+𝐂𝐢,𝐭
+, and the cost due
+(
+
+𝑡
+In principle, it is possible to implement Problem 1 in its original
+formulation, but our empirical results are qualitatively unaffected.
+Accordingly, it is efficient to simplify the cost structure. Note that we
+use the approximate proportional costs 𝑃 𝐶 (𝑎𝑑𝑗)
+and price impact 𝑃 𝐼 (𝑎𝑑𝑗)
+𝑡
+in the optimization to construct 𝜃𝑀𝑉 𝑇 𝐶
+, but we use the actual cost
+𝑡
+function 𝑃 𝐶𝑡 in (6) and 𝑃 𝐼𝑡 in (7) (with the linear specification detailed
+in (14) and (15) in Section 2.4.2) when we compute after-cost returns
+in our out-of-sample performance evaluation.
+
+𝐢,𝐭 + ∆𝐒
+
+∆𝐏
+
+)
+
+𝐢,𝐭
+
+.
+
+𝑡
+
+Third, the solution approach of Problem 1 requires the covariance
+matrix to be full rank. Unfortunately, ̃𝐕𝐭 is not full rank. Therefore, we
+re-write Problem 1 to explicitly incorporate 𝜽𝐌𝐕
+as the target portfolio,
+
+𝐭
+
+Problem 2 (Strategy 𝑀𝑉 𝑇 𝐶).
+
+{
+
+∆𝐏
+𝐢,𝐭
+
+×
+
+max
+}
+≥0
+
+≥0,∆𝐒
+𝐢,𝐭
+
+′
+
+{ 1
+𝜽𝐌𝐕
+𝐭
+2
+−𝑃 𝐶 (𝑎𝑑𝑗)
+𝑡
+
+𝑠.𝑡. 𝜽𝐌𝐕𝐓𝐂
+𝐢,𝐭
+
+𝑖={1,…,𝑁𝑡}
+(𝜽𝐌𝐕𝐓𝐂
+𝑓 𝑑𝑡 − 𝜆
+𝐭
+2
+− 𝑃 𝐼 (𝑎𝑑𝑗)
+𝑡
+− 𝜽𝟎,𝐌𝐕𝐓𝐂
+𝐢,𝐭
+
+− 𝜽𝐌𝐕
+𝐭
+
+)′ ̂𝐕𝐭
+
+(𝜽𝐌𝐕𝐓𝐂
+𝐭
+
+− 𝜽𝐌𝐕
+𝐭
+
+}
+)
+
+= ∆𝐏
+
+𝐢,𝐭 − ∆𝐒
+
+𝐢,𝐭
+
+and
+
+𝜽𝐌𝐕
+𝐭 =
+
+1
+𝜆
+
+̃𝐕−1
+
+𝐭 𝑓 𝑑𝑡.
+
+𝐭
+
+.
+
+̂𝐕𝐭
+is the sample covariance matrix estimated from daily currency
+returns over the past 6 months (which is full rank), and ̃𝐕−1
+is the
+𝐭
+robust inverse of the covariance matrix ̂𝐕𝐭 after removing principal
+components that explain less than 1% of the common variation of
+currency returns (see Section 3.1 for details). In Internet Appendix C
+we provide details of the numerical algorithm used to solve Problem 2.
+Intuitively, 𝜽𝐌𝐕𝐓𝐂
+identifies the optimal trade-off between (i) minimiz-
+ing the distance to the maximum (before-cost) Sharpe ratio portfolio
+, and (ii) minimizing trading costs when rebalancing from 𝜽𝟎,𝐌𝐕𝐓𝐂
+𝜽𝐌𝐕
+𝐭
+to 𝜽𝐌𝐕𝐓𝐂
+𝐭
+Formally, if we set
+
+, then Problem 2 is equivalent to
+Problem 1. This is because the objective function in Problem 2 in this
+case is an algebraic re-arrangement of that in Problem 1. Intuitively, in
+the formulation of Problem 2 the maximum (before-cost) Sharpe ratio
+portfolio 𝜽𝐌𝐕
+is surrounded by the no-trading region from Problem 1.
+In more practical terms, when our portfolio construction approach
+requires the inverse of the covariance matrix then we use the robust
+version ̃𝐕−𝟏
+. Moreover, when our approach needs an estimate of the
+𝐭
+covariance matrix, and full rank is required, then we resort to ̂𝐕𝐭 .
+̃𝐕−1
+. With this transformation we retain the feasibility of the approach
+𝐭
+of Dybvig and Pezzo (2020) while exploiting the superior performance
+of the robust mean–variance optimized portfolio of Maurer et al. (2022,
+2023).
+
+𝐭 = ̂𝐕−1
+̃𝐕−1
+
+𝐭
+
+𝐭
+
+𝐭
+
+4. Performance of trading strategies
+
+Section 4.1 summarizes the before cost performance of the eight
+strategies, and confirms the findings in the literature that they are
+profitable and achieve high Sharpe ratios. Section 4.2 quantifies the
+trading costs depending on the AUM of a fund, and Section 4.3 analyzes
+the after-cost performance. The main results are in Table 3. Panel A
+considers the case when there are only proportional costs but no price
+impact of trading. This applies to funds with a small AUM and trading
+volume. Panel B and C show the performance for funds with initial
+AUM of USD 100 million and USD 1 billion in February 1987. These
+funds place sizable orders and the price impact of trading is non-trivial.
+Note that the performance analysis of our strategies uses returns
+from February 1987 to January 2024 although our data starts in
+February 1986. The reason is that we require 12 months of data to
+construct 𝑀𝑂𝑀, and therefore we start all strategies in February 1987.
+
+4.1. Performance before costs
+
+We start our discussion with a comparison of the before-cost per-
+formance of 𝑀𝑉 , 𝐻𝑀𝐿, 𝑅𝐵, 𝐷𝑂𝐿, 𝐷𝐷𝑂𝐿, 𝑉 𝐴𝐿, and 𝑀𝑂𝑀. The
+first three rows of panel A in Table 3 report the annualized before-
+cost Sharpe ratio, average return, and volatility. Consistent with the
+literature, we find that most strategies have an attractive before-cost
+performance. 𝑀𝑉 dominates all other strategies with a before-cost
+Sharpe ratio of 1.12. The interest-rate-sorted 𝑅𝐵 and 𝐻𝑀𝐿 deliver sub-
+stantially lower but still high before-cost Sharpe ratios of 0.81 and 0.79.
+The 𝑉 𝐴𝐿, 𝑀𝑂𝑀, and 𝐷𝐷𝑂𝐿 have relatively modest Sharpe ratios of
+0.51, 0.36, and 0.32. Finally, the 𝐷𝑂𝐿 is essentially unprofitable, with
+a Sharpe ratio of only 0.09. The stark before-cost outperformance of
+𝑀𝑉 resonates with previous results in the literature (Baz et al., 2001;
+Della Corte et al., 2009; Daniel et al., 2017; Ackermann et al., 2016;
+Maurer et al., 2023, 2022; Chernov et al., 2023).
+
+JournalofFinancialEconomics159(2024)10388611I. Filippou et al.
+
+Table 3
+Performance of FX strategies.
+
+Panel A: No price impact
+
+Before cost SR
+Before cost mean (%)
+Before cost Vol (%)
+
+Mean costs (%)
+Turnover
+Notional
+
+SR
+∆SR
+Mean (%)
+Vol (%)
+Skew
+MDD (%)
+Total return
+
+Panel B: 𝐴𝑈 𝑀0 = 100 million
+
+Before cost SR
+Before cost mean (%)
+Before cost Vol (%)
+Mean costs (%)
+Turnover
+Notional
+Avg USD trade size (millions)
+Avg relative trade size (%)
+
+SR
+∆SR
+Mean (%)
+Vol (%)
+Skew
+MDD (%)
+Total return
+
+Panel C: 𝐴𝑈 𝑀0 = 1 billion
+
+Before cost SR
+Before cost mean (%)
+Before cost Vol (%)
+
+Mean costs (%)
+Turnover
+Notional
+Avg USD trade size (millions)
+Avg relative trade size (%)
+SR
+∆SR
+Mean (%)
+Vol (%)
+Skew
+MDD (%)
+Total return
+
+𝑀𝑉
+
+1.12
+8.92
+7.95
+
+1.06
+2.32
+3.07
+
+0.99
+−0.02
+7.85
+7.92
+−0.83
+−26.42
+44.56
+
+1.12
+8.92
+7.95
+5.92
+2.32
+3.07
+62.15
+2.99
+
+0.36
+−0.52***
+2.92
+8.14
+−1.23
+−35.91
+6.41
+
+1.12
+8.92
+7.95
+
+11.49
+2.32
+3.07
+148.06
+5.74
+−0.27
+−1.02***
+−2.74
+10.03
+−2.47
+−157.21
+−0.14
+
+𝑀𝑉 𝑇 𝐶
+
+𝐻𝑀𝐿
+
+𝑅𝐵
+
+𝐷𝑂𝐿
+
+𝐷𝐷𝑂𝐿
+
+𝑉 𝐴𝐿
+
+𝑀𝑂𝑀
+
+1.08
+8.40
+7.76
+
+0.58
+1.49
+2.93
+
+1.01
+–
+7.81
+7.73
+−0.76
+−28.02
+44.23
+
+0.96
+6.94
+7.25
+0.56
+0.68
+2.59
+33.60
+0.63
+
+0.88
+–
+6.37
+7.22
+−1.03
+−25.53
+26.00
+
+0.84
+5.36
+6.41
+
+0.54
+0.29
+2.16
+88.84
+1.39
+0.75
+–
+4.81
+6.44
+−0.95
+−29.62
+14.49
+
+0.79
+6.55
+8.34
+
+0.34
+1.13
+2.00
+
+0.74
+−0.27
+6.20
+8.34
+−0.77
+−32.28
+23.73
+
+0.79
+6.55
+8.34
+2.63
+1.13
+2.00
+63.40
+3.21
+
+0.46
+−0.42**
+3.90
+8.39
+−0.83
+−33.24
+9.58
+
+0.79
+6.55
+8.34
+
+7.51
+1.13
+2.00
+220.87
+10.07
+−0.12
+−0.86***
+−1.01
+8.82
+−0.91
+−115.01
+0.71
+
+0.81
+5.50
+6.80
+
+0.39
+0.95
+2.00
+
+0.75
+−0.26
+5.11
+6.80
+−0.69
+−31.43
+16.32
+
+0.81
+5.50
+6.80
+1.46
+0.95
+2.00
+32.25
+1.53
+
+0.59
+−0.29*
+4.04
+6.83
+−0.71
+−31.88
+10.66
+
+0.81
+5.50
+6.80
+
+5.16
+0.95
+2.00
+151.91
+6.92
+0.04
+−0.70***
+0.31
+7.09
+−0.83
+−62.16
+1.94
+
+0.09
+0.70
+7.83
+
+0.02
+0.03
+1.00
+
+0.09
+−0.92***
+0.68
+7.83
+−0.41
+−44.09
+2.37
+
+0.09
+0.70
+7.83
+0.02
+0.03
+1.00
+0.39
+0.02
+
+0.09
+−0.80***
+0.68
+7.83
+−0.41
+−44.10
+2.37
+
+0.09
+0.70
+7.83
+
+0.04
+0.03
+1.00
+3.92
+0.19
+0.08
+−0.66***
+0.66
+7.83
+−0.41
+−44.14
+2.34
+
+0.32
+2.45
+7.74
+
+0.19
+0.40
+1.00
+
+0.29
+−0.72***
+2.25
+7.75
+−0.28
+−18.30
+4.87
+
+0.32
+2.45
+7.74
+0.41
+0.40
+1.00
+9.50
+0.49
+
+0.26
+−0.62***
+2.04
+7.77
+−0.29
+−18.98
+4.42
+
+0.32
+2.45
+7.74
+
+1.82
+0.40
+1.00
+73.14
+3.74
+0.08
+−0.67***
+0.63
+7.99
+−0.42
+−47.12
+2.20
+
+0.51
+3.50
+6.92
+
+0.11
+0.25
+2.00
+
+0.49
+−0.52**
+3.39
+6.91
+−0.20
+−22.39
+8.25
+
+0.51
+3.50
+6.92
+0.46
+0.25
+2.00
+10.83
+0.61
+
+0.44
+−0.44**
+3.04
+6.92
+−0.21
+−22.55
+7.16
+
+0.51
+3.50
+6.92
+
+2.47
+0.25
+2.00
+76.39
+4.17
+0.14
+−0.61***
+1.02
+7.20
+−0.42
+−28.37
+2.91
+
+0.36
+3.15
+8.67
+
+0.30
+0.95
+2.00
+
+0.33
+−0.68***
+2.85
+8.67
+−0.25
+−54.73
+6.13
+
+0.36
+3.15
+8.67
+1.58
+0.95
+2.00
+36.45
+1.83
+
+0.18
+−0.70***
+1.56
+8.69
+−0.24
+−80.47
+3.44
+
+0.36
+3.15
+8.67
+
+5.57
+0.95
+2.00
+169.02
+7.63
+−0.28
+−1.02***
+−2.45
+8.86
+−0.24
+−144.18
+0.00
+
+Notes: The table reports summary statistics of monthly excess returns of our strategies in the FX market. The strategies are described in Section 3. Panel A summaries the performance
+when there are only proportional costs. Panel B and C report results when the initial AUM of a fund is USD 100 million respectively 1 billion and costs account for the price
+impact of trading. Before cost SR, Mean (%) and Vol (%) measure the annualized Sharpe ratio, and annualized average and volatility of the excess returns (reported in percentage
+points). Mean Costs (%) measures the average annualized trading costs as a percentage of the AUM. Turnover and Notional report the monthly turnover and the notional value as a
+fraction of the AUM. Avg Relative Trade Size (%) and Avg USD Trade Size (millions) measures the average amount traded per month (average across currency-month observations
+with non-trivial trade) as a percentage of the average daily trading volume in the market respectively in absolute terms as millions of USD. SR is the annualized after cost Sharpe
+ratio. 𝛥SR is the difference in the after-cost Sharpe ratio of a strategy and that of 𝑀𝑉 𝑇 𝐶. Standard errors of 𝛥SR are estimated using block bootstrapping with a block size of 5
+observations to account for heteroskedasticity, cross- and auto-correlation (Ledoit and Wolf, 2008). Mean (%) and Vol (%) are the annualized average and volatility of the after
+cost excess returns (reported in percentage points). Skew is the monthly skewness of the after cost excess returns, MDD (%) is the Maximum Draw Down (measured in percentage
+points). Total return is the return (including the risk-free rate) from February 1987 to January 2024. The sample includes 13 developed and 13 emerging currencies against the
+USD for the period from February 1987 to January 2024.
+* Indicate a statistical significance at the 10% level.
+** Indicate a statistical significance at the 5% level.
+*** Indicate a statistical significance at the 1% level.
+
+The Sharpe ratios of 𝐷𝐷𝑂𝐿 (0.32) and 𝑀𝑂𝑀 (0.36) are lower than
+the values in the original papers in the literature. Lustig et al. (2014)
+report a Sharpe ratio of 0.56 for 𝐷𝐷𝑂𝐿 (and 0.66 if it is constructed
+from currencies of only developed countries), and Menkhoff et al.
+(2012) find a Sharpe ratio of 0.61 for 𝑀𝑂𝑀.13 The main difference
+
+is the sample period. The former study uses data from 1983 to 2010,
+the sample of the latter is from 1976 to 2010, while our sample starts
+in 1987 and ends in 2024. We find that 𝐷𝐷𝑂𝐿 and 𝑀𝑂𝑀 performed
+
+13 They further find that 𝑀𝑂𝑀 based on a shorter formation period is
+more profitable. For instance, if they use a 1-month formation period 𝑀𝑂𝑀
+
+achieves a Sharpe ratio of 0.95. In our sample we find that a 12-month
+formation period yields a more profitable 𝑀𝑂𝑀 than a 1-month formation
+period.
+
+JournalofFinancialEconomics159(2024)10388612I. Filippou et al.
+
+Fig. 4. The figures plot the after-cost cumulative excess returns of 𝑀𝑉 (solid line),
+𝑀𝑉 𝑇 𝐶 (bold solid line), 𝐻𝑀𝐿 (dashed line), and 𝑀𝑂𝑀 (dotted line). The strategies
+are described in Section 3. The top graph assumes no price impact, while the middle
+and bottom graphs assume an initial AUM of USD 100 million respectively 1 billion.
+The sample includes 13 developed and 13 emerging currencies against the USD for the
+period from February 1987 to January 2024.
+
+well until the global financial crisis (GFC), but since 2008 their average
+returns were low or even negative in the case of 𝑀𝑂𝑀.
+
+In robustness checks reported in Section 5 and in Internet Appendix
+B.2, we analyze different sample periods. As a brief preview, the
+first plot in Fig. 4 illustrates that the cumulative return of 𝑀𝑂𝑀 is
+comparable to 𝐻𝑀𝐿 until 2008. After that, 𝐻𝑀𝐿 continues to earn
+relatively high average returns while 𝑀𝑂𝑀 consistently makes losses.
+
+In addition, Table A5 in the Internet Appendix reproduces Table 3 for
+the sample period ending in December 2007.14 The first row in panel A
+shows that the before-cost Sharpe ratios of 𝐷𝐷𝑂𝐿 and 𝑀𝑂𝑀 are 0.55
+and 0.68, respectively, which are close to the values reported by Lustig
+et al. (2014) and Menkhoff et al. (2012).
+
+By construction, the annual volatilities are similar across all strate-
+gies, and range between 6.8% and 8.7%. The characteristic-sorted
+long–short strategies maintain a constant notional value of either one
+(𝐷𝑂𝐿, 𝐷𝐷𝑂𝐿) or two (𝐻𝑀𝐿, 𝑅𝐵, 𝑉 𝐴𝐿, 𝑀𝑂𝑀) resulting in com-
+parable volatilities. 𝑅𝐵 has the lowest volatility of 6.8%. As pointed
+out in Section 3.1 𝑅𝐵 invests in all currencies with less portfolio con-
+centration, resulting in better diversification. This explains the lower
+volatility compared to 𝐻𝑀𝐿 or other characteristic-sorted long–short
+strategies that only invest in the top and bottom quintiles. In the con-
+struction of 𝑀𝑉 , we set 𝜆 = 25 to target a volatility that is comparable
+to the characteristic-sorted long–short strategies. Specifically, 𝑀𝑉 has
+a volatility of 7.95% (see Appendix B.4.2 for a sensitivity analysis of
+MV to different values of 𝜆).
+
+So far, our discussion refers to the values reported in panel A
+of Table 3. These results apply to sufficiently small funds that face
+no price impact of trading. However, the results generalize to any
+fund size and transaction costs. The reason is that 𝑀𝑉 , 𝐻𝑀𝐿, 𝑅𝐵,
+𝐷𝑂𝐿, 𝐷𝐷𝑂𝐿, 𝑉 𝐴𝐿, and 𝑀𝑂𝑀 do not account for transaction costs in
+their construction. As such, the portfolio holdings and the before-cost
+performance of these strategies are unaffected by the AUM or trading
+costs. Indeed, the values in the top three rows across panels A (small
+fund without price impact), B (initial fund size of USD 100 million)
+and C (initial fund size of USD 1 billion) are identical for the seven
+strategies. This illustrates that there are no implications of the fund
+size or transaction costs on the before-cost performance.
+
+Next, we analyze the before-cost performance of 𝑀𝑉 𝑇 𝐶, which
+is novel and has not been analyzed in the literature. As 𝑀𝑉 𝑇 𝐶 ac-
+counts for trading costs in the optimization, theory predicts that it
+decreases the trading order size to reduce transaction costs. In terms
+of before-cost performance, this reduction in trading activity implies
+a sub-optimal rebalancing policy and asset allocation. Therefore, we
+expect that 𝑀𝑉 𝑇 𝐶 underperforms 𝑀𝑉 when evaluated in before-
+cost returns, as the latter targets the highest before-cost Sharpe ratio
+irrespective of trading costs. We further conjecture that an increase in
+the AUM and costs due to the price impact of trading have negative
+implications on the before-cost performance of 𝑀𝑉 𝑇 𝐶.
+
+We confirm these predictions in the data. The before-cost Sharpe
+ratio of 𝑀𝑉 𝑇 𝐶 is 1.08 in panel A of Table 3 when there is no price
+impact of trading. That is, 𝑀𝑉 𝑇 𝐶 underperforms 𝑀𝑉 . However, the
+difference between the Sharpe ratios is small and insignificant, 1.08 for
+𝑀𝑉 𝑇 𝐶 and 1.12 for 𝑀𝑉 . Indeed, if there is no price impact of trading
+then 𝑀𝑉 and 𝑀𝑉 𝑇 𝐶 are highly correlated, and they are very similar
+in terms of all performance measures listed in panel A of Table 3. It
+is interesting that 𝑀𝑉 and 𝑀𝑉 𝑇 𝐶 are almost indistinguishable when
+there is no price impact. This means that proportional costs do not have
+a noticeable negative effect on the before-cost performance of 𝑀𝑉 𝑇 𝐶.
+In contrast, the negative implications of the price impact of trading
+on the before-cost performance of 𝑀𝑉 𝑇 𝐶 are sizable. The before-cost
+Sharpe ratio of 𝑀𝑉 𝑇 𝐶 decreases to 0.96 and 0.84 when the initial
+fund size is USD 100 million in panel B and USD 1 billion in panel
+C, respectively. In other words, the sub-optimal allocation of 𝑀𝑉 𝑇 𝐶
+in terms of before-cost performance becomes noticeable when a fund
+reaches a sufficiently large size and trading costs due to price impact
+are considerable.
+
+The annual volatility of 𝑀𝑉 𝑇 𝐶 is decreasing in the initial AUM. It
+is 7.8% when there is no price impact of trading (panel A), decreases to
+
+14 2008 appears to identify a structural break for the profitability of many
+FX trading strategies. After 2008 many strategies perform substantially worse
+than in the sample before the GFC.
+
+JournalofFinancialEconomics159(2024)10388613I. Filippou et al.
+
+7.3% when the initial AUM is USD 100 million (panel B), and further
+drops to 6.4% when the initial fund size is USD 1 billion (panel C).
+The decrease in volatility can be explained by the reduction in the
+trading activity of 𝑀𝑉 𝑇 𝐶 in response to higher transaction costs. A
+lower turnover means more stability in the portfolio weights. This is
+similar to shrinkage methods that are designed to tackle estimation er-
+rors and reduce out-of-sample volatility (Olivares-Nadal and DeMiguel,
+2016). However, this shrinkage effect is secondary, and the impact on
+volatility is relatively small. We observe a stronger effect of the fund
+size or trading costs on the before-cost average return of 𝑀𝑉 𝑇 𝐶. When
+there is no price impact of trading the average annual return is 8.4%
+(panel A). It decreases to 6.9% and 5.4% when the initial AUM are
+USD 100 million and USD 1 billion, respectively. The stark decline in
+the average return dominates the relatively small effect on volatility,
+resulting in a before-cost Sharpe ratio that is decreasing in the fund
+size.
+
+Our results are opposite to the key insights of Yoshimoto (1996),
+Olivares-Nadal and DeMiguel (2016), Hautsch and Voigt (2019) and
+Pezzo et al. (2023), who analyze the implications of transaction costs
+on portfolio choice in stock markets. These authors find that accounting
+for transaction costs in the construction of stock portfolios primarily
+introduces stability (similar to a shrinkage estimator), and therefore
+mitigates estimation error problems. The actual mitigation of trans-
+action costs appears secondary in their analyses. It is particularly
+important to note that the negative effect of transaction costs on
+the before-cost Sharpe ratio of 𝑀𝑉 𝑇 𝐶 is the opposite. That is, if an
+estimation error mitigation effect was present in our analysis (i.e., the
+dominant effect in the stock market literature), then the before-cost
+Sharpe ratio of 𝑀𝑉 would be smaller than the one of 𝑀𝑉 𝑇 𝐶, and
+likely the before-cost Sharpe ratio of 𝑀𝑉 𝑇 𝐶 would be increasing in
+transaction costs. Therefore, the insights of the stock market literature
+do not carry over to our analysis in FX markets.
+
+The reason why the insights of the stock literature are not applicable
+is that estimation errors are not a (first-order) concern in FX markets,
+while it is a serious issue in stock markets. First of all, the literature has
+shown that interest rate differentials are a good proxy for conditional
+expected currency returns, and optimized portfolios based on this proxy
+perform well out-of-sample (Meese and Rogoff, 1983; Baz et al., 2001;
+Della Corte et al., 2009; Daniel et al., 2017; Ackermann et al., 2016;
+Maurer et al., 2023, 2022; Chernov et al., 2023). In contrast, it is
+difficult to find good estimates of conditional expected returns in stock
+markets. Second, FX strategies typically use a relatively small set of
+currencies (less than 30) compared to typical stock portfolios (several
+thousands). In addition, Lustig et al. (2011) show that there is a strong
+factor structure in FX markets while there is a large ‘‘factor zoo’’ in
+stock markets.15 Accordingly, it is feasible to obtain precise estimates
+of the covariance matrix of returns in FX markets, while this is a
+formidable problem in stock markets.
+
+Finally, we benchmark our currency strategies to the US stock
+market.16 The buy-and-hold value-weighted stock market portfolio has
+a before-cost Sharpe ratio of 0.52 during our sample period (February
+1987 to January 2024). The annual average excess return and volatility
+are 8.1% and 15.6%, respectively. Accordingly, 𝑀𝑉 , 𝑀𝑉 𝑇 𝐶, 𝑅𝐵 and
+𝐻𝑀𝐿 outperform the US stock market in terms of before-cost Sharpe
+ratio. 𝑉 𝐴𝐿 has almost the same before cost Sharpe ratio at the US
+stock market. In contrast, 𝐷𝑂𝐿, 𝐷𝐷𝑂𝐿, and 𝑀𝑂𝑀 deliver an inferior
+performance.
+
+15 Subsequent to Lustig et al. (2011) the FX literature has introduced many
+additional factors beyond the 𝐷𝑂𝐿 and 𝐻𝑀𝐿. However, recently (Sarno et al.,
+2024) and Liu et al. (2023) show that these additional factors in the literature
+are subsumed by 𝐷𝑂𝐿 and 𝐻𝑀𝐿.
+
+16 Stock market excess returns are downloaded from Kenneth French’s
+https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_
+
+website,
+library.html.
+
+The inferior performance does not necessarily mean that these
+strategies are undesirable. First, recall that before the Global Finan-
+cial Crisis (GFC), 𝐷𝐷𝑂𝐿 and 𝑀𝑂𝑀 performed well with before-cost
+Sharpe ratios of 0.55 and 0.68, respectively. They only perform poorly
+after 2008. As a comparison, during the sample period from 1987 to
+December 2007, the US stock market earned a Sharpe ratio of only
+0.45. Accordingly, pre-GFC 𝐷𝐷𝑂𝐿 and 𝑀𝑂𝑀 outperform the US stock
+market in terms of before-cost Sharpe ratio. Second, if the correlation
+between the strategies is sufficiently low, then a combination of the
+strategies may be more efficient than investing in a single strategy. In
+other words, even a strategy with a relatively low Sharpe ratio may
+improve the performance of the portfolio. This is particularly relevant
+when we consider currency portfolios and the US stock market, as the
+correlations between them are low.17
+
+To sum up, the before-cost performance of 𝑀𝑉 𝑇 𝐶 is virtually
+indistinguishable from 𝑀𝑉 when there are only proportional costs.
+However, when a fund has a large AUM and there is a price impact of
+trading, then the deviation is economically large of 𝑀𝑉 𝑇 𝐶 from the
+optimal balance of before-cost expected return and risk, resulting in
+a noticeably lower before-cost Sharpe ratio. Furthermore, independent
+of the fund size, 𝑀𝑉 and 𝑀𝑉 𝑇 𝐶 significantly outperform popular
+characteristic-sorted currency trading strategies in terms of before-cost
+returns. Finally, within our full sample, only 𝑀𝑉 , 𝑀𝑉 𝑇 𝐶 and the carry
+trade strategies 𝐻𝑀𝐿 and 𝑅𝐵 deliver a higher before-cost Sharpe ratio
+than the value-weighted US stock market portfolio. The performance
+of 𝑉 𝐴𝐿 is identical to the US stock market. 𝐷𝑂𝐿, 𝐷𝐷𝑂𝐿, and 𝑀𝑂𝑀
+underperform it.
+
+4.2. Transaction costs
+
+Table 3 reports the average annualized trading costs, the monthly
+turnover, and the average notional value in the fourth to sixth rows in
+panels A, B, C. The costs are measured by 𝑃 𝐶𝑡 + 𝑃 𝐼𝑡 and are measured
+as a percentage of the AUM of a fund. The monthly turnover of strategy
+𝑆 is defined as ∑𝑁𝑡
+𝑖,𝑡 − 𝜃0,𝑆
+𝑖,𝑡 |, and quantifies the fraction of the AUM
+that is traded every month. The notional value is ∑𝑁𝑡
+𝑖,𝑡|, and identi-
+fies the combined notional value of all long and short forward positions
+as a fraction of the AUM. The ratio of the turnover to the notional value
+(TO-NV) determines the fraction of the portfolio’s notional value that
+is traded every month.
+
+𝑖=1 |𝜃𝑆
+
+𝑖=1 |𝜃𝑆
+
+𝑀𝑉 has an average monthly turnover of 2.32, an average notional
+value of 3.07, and a TO-NV of 0.76. These quantities are independent of
+the fund size. The average annual costs incurred by 𝑀𝑉 are 1.1% when
+a fund is small and only pays proportional costs. The costs increase to
+5.9% and even 11.5% when the initial AUM of a fund are USD 100
+million or USD 1 billion. These costs are considerable given that the
+average before cost return of 𝑀𝑉 is 8.9%. While small funds (no price
+impact) are still profitable after costs, for larger funds the before-cost
+performance is quickly eroded by trading costs.
+
+By construction, the portfolio holdings of a characteristic-sorted,
+long–short strategy are in general less sensitive to the time-series
+variation in forward discounts (conditional expected returns) and co-
+variances than 𝑀𝑉 with its fine-tuned weights. Thus, it is reasonable
+to expect that the turnover and transaction costs are smaller for equally
+weighted strategies compared to 𝑀𝑉 . To illustrate this, we provide
+an intuitive argument. Consider a mean–variance optimized portfolio
+and an equally weighted portfolio which sorts assets according to
+expected returns and buys the top quintile and sells the bottom quintile.
+A time-series variation in the covariance matrix will only affect the
+
+17 However, among currency portfolios (Maurer et al., 2023, 2022) show
+that 𝑀𝑉 outperforms combinations of other currency strategies, and other
+strategies do not earn an abnormal return when 𝑀𝑉 is used as a pricing factor.
+As such 𝑀𝑉 on its own appears to be efficient (in terms of before cost returns)
+within the space of currency returns.
+
+JournalofFinancialEconomics159(2024)10388614I. Filippou et al.
+
+portfolio weights of the optimized portfolio whereas the weights in the
+equally weighted portfolio remain constant. Moreover, small changes in
+expected returns will likely leave the allocation of the equally weighted
+portfolio unchanged, whereas the weights of the optimized portfolio
+may substantially change. In these scenarios the optimized portfolio has
+more turnover and higher costs than the equally weighted strategy.
+
+Indeed, we document this insight in the data for all strategies.
+Among the characteristic-sorted strategies, 𝐻𝑀𝐿 has the highest av-
+erage monthly turnover of 1.13 with a TO-NV of 0.57. These values
+are substantially lower than in the case of 𝑀𝑉 . 𝑅𝐵 and 𝑀𝑂𝑀 have a
+slightly lower turnover of 0.95 each, and a TO-NV of 0.48. The turnover
+of 𝐷𝐷𝑂𝐿 is roughly half (0.4), but given that its notional value is also
+only half of the other strategies, then the TO-NV remains comparable
+(0.4). The turnover and TO-NV are substantially lower for 𝑉 𝐴𝐿 (0.25
+and 0.13) and 𝐷𝑂𝐿 (0.03 and 0.03). This confirms our conjecture that
+the characteristic-sorted portfolios trade less aggressively than 𝑀𝑉 .
+
+The average costs paid by the characteristic-sorted strategies are
+also considerably lower than 𝑀𝑉 . Nevertheless, the costs are far from
+negligible for most strategies. When the fund size is large (initial AUM
+of USD 1 billion) 𝐻𝑀𝐿, 𝑀𝑂𝑀, and 𝑅𝐵 incur average costs of 7.5%,
+5.6%, and 5.2%, respectively. These costs surpass (or in the case of
+𝑅𝐵 are very close to) the average before-cost returns, implying that
+they are making losses (or are almost unprofitable) after accounting
+for costs. Even for a fund with initial AUM of USD 100 million, costs
+erode a significant part of the before-cost returns of these strategies.
+Thus, investors should be concerned about the price impact of trading.
+𝐷𝑂𝐿, 𝐷𝐷𝑂𝐿, and 𝑉 𝐴𝐿 are more resilient to the price impact of
+trading and the costs are considerably lower, amounting to only 0.04%,
+1.8%, and 2.5%, respectively, even in the case of a large fund with an
+initial AUM of USD 1 billion. It is important to note that this conclusion
+is based on the assumption that the price impact functions are linear
+and independent across currencies. As pointed out in the discussion in
+Section 2.4.2 large trade orders in multiple currencies may come with a
+larger price impact than implied by our functional form. In such a case
+costs may be larger than reported in our analysis and 𝐷𝑂𝐿, 𝐷𝐷𝑂𝐿,
+and 𝑉 𝐴𝐿 may not be as resilient.
+
+Next, recall that 𝑀𝑉 𝑇 𝐶 is designed to optimally reduce costs
+compared to 𝑀𝑉 , which trades irrespective of costs. Accordingly, we
+expect that 𝑀𝑉 𝑇 𝐶 trades less and incurs lower trading costs than 𝑀𝑉 .
+We further expect that 𝑀𝑉 𝑇 𝐶 reduces its trading activity (measured
+in terms of the fraction of the portfolio’s notional value) as the AUM
+becomes larger and the price impact more severe. It is, however,
+ambiguous how costs of 𝑀𝑉 𝑇 𝐶 are affected by the fund size. Holding
+trading activity constant, an increase in the AUM leads to higher costs
+due to the larger price impact. On the other side, if the reduction in
+trading activity is sufficiently large, then costs (as a percentage of the
+AUM) may still decrease as we increase the fund size, although the price
+impact becomes more severe.
+
+We confirm our predictions in the data. When there is no price
+impact, 𝑀𝑉 𝑇 𝐶 has an average monthly turnover of 1.5, an average
+notional value of 2.9, implying a TO-NV of 0.5. This is two-thirds of
+𝑀𝑉 and comparable to 𝐻𝑀𝐿, 𝑅𝐵, and 𝑀𝑂𝑀. The trading activity
+drastically decreases with an average monthly turnover of 0.7 or 0.3, an
+average notional value of 2.6 or 2.2, and a TO-NV of only 0.26 or 0.13
+when the initial AUM of a fund is USD 100 million or USD 1 billion.
+This means that 𝑀𝑉 𝑇 𝐶’s trading aggressiveness is comparable to 𝑉 𝐴𝐿
+when the fund size is large and the price impact of trading is severe.
+
+The average costs incurred by 𝑀𝑉 𝑇 𝐶 are 0.58% per year when
+there is no price impact, and 0.56% or 0.54% when the initial fund size
+is USD 100 million or USD 1 billion. With the exception of the 𝐷𝑂𝐿
+(which incurs almost zero trading costs) these costs are low compared
+to any of the other strategies, especially considering a large fund that is
+subject to a severe price impact. It is interesting that 𝑀𝑉 𝑇 𝐶 reduces its
+trading activity to the extent that the AUM appears orthogonal to the
+average costs incurred by the fund. This means that the increase in the
+per-USD trading costs due to the more severe price impact is perfectly
+
+offset by the reduction in the trading aggressiveness in response to the
+higher per-USD costs. These costs are comparably small considering
+that the average before-cost return of 𝑀𝑉 𝑇 𝐶 ranges between 5.4% and
+8.4% (depending on the initial AUM). This is in stark contrast to 𝑀𝑉 ,
+for which trading costs are a major concern.
+
+Table 3 further reports, on rows seven and eight in panels B and C,
+the average amount traded by the strategy (average across currency-
+month observations with non-trivial trade) as a percentage of the
+average daily trading volume in the market (row seven), or in absolute
+terms as millions of USD (row eight). These metrics provide a reference
+to understand the trading activity of each strategy. In particular, the
+trade size relative to the daily trading volume in the market allows a
+cross-strategy comparison.
+
+Most notably, 𝑀𝑉 , 𝐻𝑀𝐿, 𝑅𝐵, and 𝑀𝑂𝑀 engage in large trades in
+the order of 1.5–3.2% or even 5.7–10.1% of the average daily trading
+volume in the market when the AUM of a fund is USD 100 million or 1
+billion. This resonates with the finding that the price impact of trading
+is severe for these strategies. In comparison for the fund size of USD
+100 million or 1 billion these percentages of the daily volume in the
+market are 0.5% or 3.7% for 𝐷𝐷𝑂𝐿, 0.6% or 4.2% for 𝑉 𝐴𝐿, 0.6% or
+1.4% for 𝑀𝑉 𝑇 𝐶, and only 0.02% or 0.2% for 𝐷𝑂𝐿. This illustrates
+again the resilience of 𝑀𝑉 𝑇 𝐶 and 𝐷𝑂𝐿 to the problem of transaction
+costs even when the size of a fund is large.
+
+It is furthermore interesting that the average trade size of 𝑀𝑉 𝑇 𝐶 is
+roughly half that of 𝑀𝑉 when measured in USD (USD 34 million versus
+62 million for AUM of USD 100 million; USD 89 million versus 148
+million for AUM of USD 1 billion), but it is less than a quarter when
+expressed as a percentage of the daily trading volume in the market
+(0.6% vs. 3.0% for AUM of USD 100 million; 1.4% vs. 5.7% for AUM
+of USD 1 billion). Similar patterns are also observed when we compare
+𝑀𝑉 𝑇 𝐶 to all other strategies. The reason is that 𝑀𝑉 𝑇 𝐶 (compared to
+𝑀𝑉 or other strategies) does not only reduce the overall trade size, it
+also specifically reduces the order size of expensive currencies. These
+expensive currencies are illiquid and the daily trading volume in the
+market is typically low. In contrast, 𝑀𝑉 𝑇 𝐶 still trades aggressively
+(and comparable to 𝑀𝑉 or other strategies) in cheap currencies, which
+are liquid and have a high daily volume. Therefore, the average order
+size as a percentage of the daily trading volume should be much lower
+for 𝑀𝑉 𝑇 𝐶 than 𝑀𝑉 or other strategies, while the USD difference in
+average order size may be relatively small.
+
+As a final comparison, we consider the trading costs of the US stock
+market. For that purpose, we use the S&P 500 SPDR ETF (SPY) as
+a reference.18 We have data for the SPY starting in April 1993. The
+correlation of monthly excess returns between the US value-weighted
+stock market portfolio and the SPY is 0.98 for the sample period from
+April 1993 to January 2024. Moreover, we find that the US stock
+market earns on average 0.12% more per year than the SPY. This
+is close to the SPY’s advertised expense ratio of 0.09%. A buy-and-
+hold investment in the SPY does not incur additional costs beyond the
+expense ratio.19 Accordingly, we use 0.09% as the relevant costs for the
+US stock market, independent of the AUM. This is a small fraction of
+the costs incurred by our FX trading strategies.
+
+To sum up, we document that the price impact of FX trading is a
+major concern for large funds. For most strategies, trading costs erode a
+large fraction of the average before-cost returns. Specifically, when the
+initial AUM of a fund is USD 1 billion 𝑀𝑉 , 𝐻𝑀𝐿, and 𝑀𝑂𝑀 incur
+costs that surpass the average before-cost returns, resulting in strategies
+that, on average, make losses after accounting for costs. Moreover,
+we observe that 𝑀𝑉 𝑇 𝐶 significantly reduces its trading activity in
+response to transaction costs. It incurs substantially lower costs than
+
+18 We download SPY data from Yahoo finance, https://finance.yahoo.com/.
+19 The bid–ask spread and the price impact only have to be paid twice;
+once at the beginning and once at the end of the investment. Considering
+an investment period of 37 years these costs are negligible.
+
+JournalofFinancialEconomics159(2024)10388615I. Filippou et al.
+
+𝑀𝑉 and other popular FX trading strategies. This effect intensifies
+when we consider a higher initial AUM of a fund. As a result 𝑀𝑉 𝑇 𝐶
+efficiently tackles the transaction cost problem, resulting in costs that
+are a small fraction of its average returns.
+
+4.3. Performance after costs
+
+As documented in the previous section, when the size of a fund is
+large, the price impact and trading costs are considerable and in some
+cases larger than the average before-cost returns. Therefore, the price
+impact of trading has a first-order impact on the profitability of most
+trading strategies. In the following, we analyze the after-cost perfor-
+mance of our strategies in more detail. The last seven rows in panel A,
+B, and C in Table 3 report the after-cost Sharpe ratio, the difference
+between the after-cost Sharpe ratio of a strategy and that of 𝑀𝑉 𝑇 𝐶
+(denoted by 𝛥SR), the after-cost annualized average return, annualized
+volatility, monthly skewness, maximum drawdown (MDD) measuring
+the largest negative return from peak to trough during our sample
+period, and the total return of the strategy over the sample period.
+
+4.3.1. Mean-variance optimized portfolio 𝑀𝑉
+
+We start with 𝑀𝑉 , which is the most profitable strategy in terms
+of before-cost returns. When there are only proportional costs, the
+after-cost Sharpe ratio of 𝑀𝑉 is 0.99, which is a 12% drop from the
+before-cost Sharpe ratio of 1.12. This suggests that trading costs are not
+a major concern for small funds that invest in 𝑀𝑉 .
+
+In contrast, when a fund has an initial AUM of USD 100 million,
+then the after-cost Sharpe ratio of 𝑀𝑉 drops to 0.36. This is a 68%
+reduction from the before-cost Sharpe ratio. Interestingly, while 𝑀𝑉
+outperforms the US stock market in terms of before-cost returns (1.12
+vs. 0.52) or after accounting for only proportional costs (0.99 vs. 0.51),
+it performs considerably worse than the stock market (0.36 vs. 0.51)
+when the initial fund size is USD 100 million.20 Even worse, when the
+initial AUM is USD 1 billion then 𝑀𝑉 turns into a losing strategy with
+a negative after-cost Sharpe ratio of −0.27 (or an average excess return
+of −2.7% per year). Accordingly, when a fund is large, the costs due to
+the price impact of trading have a first-order impact on the profitability
+of 𝑀𝑉 .
+
+The reduction in the Sharpe ratio of the 𝑀𝑉 is almost entirely
+explained by the direct implications of costs on the average return. The
+annual average return decreases from 8.9% before costs to 7.9% after
+deducting proportional costs, and 2.9% or even −2.7% after accounting
+for the price impact when a fund has an initial AUM of USD 100 million
+or 1 billion, respectively.
+
+There is also a small effect of the price impact on volatility. The
+before-cost volatility of 𝑀𝑉 is 8.0%, and it slightly decreases to 7.9%
+after accounting for proportional costs. Interestingly, it increases to
+8.1% or 10.0% when the initial AUM is USD 100 million or 1 billion,
+respectively. This increase in volatility negatively affects the after-cost
+Sharpe ratio but, as mentioned above, this effect is small compared to
+the direct effect of costs on the average return.
+
+Similar to the effect on volatility, we observe a negative effect of
+the price impact on crash risks. However, while the effect on volatility
+is relatively modest, the crash risk implications are quantitatively large
+and concerning. The price impact leads to a reduction in the monthly
+skewness from −0.83 and the MDD from −26% (when there are only
+proportional costs) to −1.23 and −36% when the initial AUM is USD
+100 million, or to −2.47 and −157% when the initial AUM is USD 1
+billion.
+
+Finally, we analyze the total increase in the AUM from February
+1987 to January 2024 for a fund that invests in 𝑀𝑉 . A fund that
+
+20 The after-cost Sharpe ratio of 0.51 of the US stock market is almost
+identical to its before-cost Sharpe ratio of 0.52. The reason is that the US
+stock market has a low expense ratio of 0.09%.
+
+started out with an AUM of USD 100 million achieves a total return
+of 641%. In comparison, a fund with an initial AUM of USD 1 billion
+has a total return of −14%. Note that these calculations account for the
+risk-free rate in the USD while the average returns reported above are
+excess returns. If these funds had to pay only proportional costs but
+there was no price impact of trading, then the total return would be
+4456%. Clearly, the cumulative costs over the 37-year horizon add up
+significantly, and the price impact of trading has a first-order effect.
+
+Overall, trading costs are a major concern for large funds that face
+a non-trivial price impact of trading and intend to invest in 𝑀𝑉 .
+Transaction costs erode a large fraction of or even the entire expected
+return, and increase the crash risk at the same time.
+
+4.3.2. Characteristic sorted long–short strategies
+
+Next, we turn to the six characteristic-based long–short strategies
+𝐻𝑀𝐿, 𝑅𝐵, 𝐷𝑂𝐿, 𝐷𝐷𝑂𝐿, 𝑉 𝐴𝐿, and 𝑀𝑂𝑀. In the previous section we
+established that, by construction, these strategies trade less aggressively
+and incur lower costs than 𝑀𝑉 . The proportional costs borne by
+these strategies are small, and after-cost Sharpe ratios are close to the
+respective before-cost Sharpe ratios. As such, a small fund (which does
+not face any price impact of trading) does not need to be concerned
+about trading costs. This is the standard conclusion from the literature,
+which only assesses the effect of proportional costs on the profitability
+of trading strategies.
+
+In contrast, the after-cost Sharpe ratios substantially decrease when
+the initial AUM of the fund is large. The effect is the largest for 𝐻𝑀𝐿,
+𝑅𝐵 and 𝑀𝑂𝑀. In the case of 𝐻𝑀𝐿, the before-cost Sharpe ratio is
+0.79, while the after-cost Sharpe ratio decreases to 0.74 when there is
+no price impact, and to 0.46 or even −0.12 when the initial AUM is USD
+100 million or USD 1 billion, respectively. Similarly, for 𝑅𝐵 and 𝑀𝑂𝑀
+the corresponding values are 0.81 and 0.36 before cost, 0.75 and 0.33
+after cost without price impact, 0.59 and 0.18 when the initial AUM is
+USD 100 million, and 0.04 and −0.28 when the initial fund size is USD
+1 billion. Also similarly to 𝑀𝑉 , 𝐻𝑀𝐿 and 𝑀𝑂𝑀 underperform the US
+stock market (which has an after-cost Sharpe ratio of 0.51) when the
+fund size is USD 100 million, and all three strategies are unprofitable
+(with negative or barely positive average returns) after accounting for
+costs when the fund has an initial AUM of USD 1 billion.
+
+The implications of the price impact of trading are less severe but
+still concerning for the 𝐷𝐷𝑂𝐿 and 𝑉 𝐴𝐿. These strategies have before-
+cost Sharpe ratios of 0.32 for 𝐷𝐷𝑂𝐿 and 0.51 for 𝑉 𝐴𝐿. Proportional
+costs reduce the Sharpe ratios of 𝐷𝐷𝑂𝐿 and 𝑉 𝐴𝐿 to 0.29 and 0.49,
+while the price impact of a fund with an initial AUM of USD 100
+million or USD 1 billion further reduces these ratios to 0.26 or 0.08 for
+𝐷𝐷𝑂𝐿 and 0.44 or 0.14 for 𝑉 𝐴𝐿. While the after-cost Sharpe ratios
+remain positive even when the initial AUM reaches USD 1 billion,
+the performance is not attractive to an investor and these strategies
+underperform the US stock market by a large margin.
+
+The costs incurred by 𝐷𝑂𝐿 are negligible irrespective of the fund
+size, and the after-cost Sharpe ratio of 𝐷𝑂𝐿 is virtually identical to the
+before-cost Sharpe ratio. As such, the 𝐷𝑂𝐿 is very resilient to trading
+costs. However, we acknowledge that the 𝐷𝑂𝐿 is not an attractive
+strategy to begin with.
+
+It is clear that the intuitive advantage of characteristic-based long–
+short strategies to mitigate costs (as the investment policy is less
+sensitive to state variables than 𝑀𝑉 ) does not work well. The reason is
+twofold. First, the before-cost performance of these strategies is much
+worse than the performance of 𝑀𝑉 , and we would need a lot of cost
+savings to make up for this. Second, although the characteristic-based
+long–short strategies are less sensitive to the price impact of trading
+than 𝑀𝑉 , they are not resilient enough. That is, when the size of a
+fund is large, they still suffer greatly from the price impact of trading
+and incur large transaction costs.
+
+Similarly to 𝑀𝑉 , for the characteristic-based long–short strategies
+we also observe an increase in crash risk due to the price impact, albeit
+this effect appears only relevant when the fund size is sufficiently large.
+
+JournalofFinancialEconomics159(2024)10388616I. Filippou et al.
+
+For instance, the skewness and MDD of 𝐻𝑀𝐿 are −0.77 and −32%,
+respectively, when there is no price impact, and these values decline
+to −0.83 and −33% when the initial AUM is USD 100 million, and to
+−0.91 and −115% when the initial AUM is USD 1 billion. The crash risk
+for a fund with an initial AUM of USD 100 million is almost identical
+to a small fund with no price impact. However, the crash risk rapidly
+increases as we increase the initial fund size from USD 100 million to
+USD 1 billion. The effect is similar for the other five characteristic-based
+long–short strategies.
+
+To sum up, for large funds, transaction costs have first-order impli-
+cations on the profitability of characteristic-based long–short strategies.
+
+4.3.3. Mean–Variance-Transaction-Cost optimized portfolio 𝑀𝑉 𝑇 𝐶
+
+Finally, we investigate the after-cost performance of 𝑀𝑉 𝑇 𝐶, which
+is designed to optimally tackle costs. In the previous sections, we
+showed that, compared to the high before-cost returns, average annual
+costs are relatively low even when the fund size is large. Accordingly,
+the Sharpe ratios are comparable before and after costs. When there are
+only proportional costs, the after-cost Sharpe ratio of 𝑀𝑉 𝑇 𝐶 is 1.01,
+which is a 6% drop from the before-cost Sharpe ratio of 1.08. For a
+fund with an initial AUM of USD 100 million or USD 1 billion, the
+after-cost Sharpe ratios are 0.88 or 0.75, respectively, which is an 8%
+or 11% decrease from the before-cost Sharpe ratios of 0.96 or 0.84.
+This suggests that trading costs are not a major concern for investors
+in 𝑀𝑉 𝑇 𝐶, independent of the fund size.
+
+Consistent with the theory, we also observe that 𝑀𝑉 𝑇 𝐶 always
+outperforms 𝑀𝑉 after accounting for costs, despite the fact that 𝑀𝑉
+has a higher before-cost Sharpe ratio. In the case of only proportional
+costs, the difference between the after-cost Sharpe ratios of 𝑀𝑉 and
+𝑀𝑉 𝑇 𝐶, i.e., 𝛥𝑆𝑅 = 𝑆𝑅𝑀𝑉 −𝑆𝑅𝑀𝑉 𝑇 𝐶 = −0.02, is small and statistically
+insignificant.21 However, when the initial AUM is USD 100 million
+or USD 1 billion, these differences (i.e., 𝛥𝑆𝑅) are −0.52 or −1.02,
+respectively, and statistically significant at the 1% level. The differences
+in Sharpe ratios between all other strategies and the 𝑀𝑉 𝑇 𝐶 are always
+(i.e., independent of the fund size) economically large and statistically
+significant, as indicated by 𝛥SR in Table 3. Furthermore, in comparison
+to the US stock market, 𝑀𝑉 𝑇 𝐶 delivers a much more attractive Sharpe
+ratio.
+
+Fig. 4 further illustrates the after-cost outperformance of 𝑀𝑉 𝑇 𝐶.
+We plot the cumulative after-cost excess returns of 𝑀𝑉 𝑇 𝐶, 𝑀𝑉 ,
+𝐻𝑀𝐿, and 𝑀𝑂𝑀.22 First, 𝑀𝑉 𝑇 𝐶 performs well independent of the
+fund size. Second, we note that there are no sudden discontinuities.
+That is, the strong performance of 𝑀𝑉 𝑇 𝐶 is not driven by a few
+outlier months but it is continuous throughout the sample. While we
+generally observe a weakening of the FX strategies between October
+2008 and December 2021,23 𝑀𝑉 𝑇 𝐶 is still profitable during that
+period. Moreover, the performance during the final 2 years of our
+sample are exceptional. This demonstrates that FX strategies, and in
+particular 𝑀𝑉 𝑇 𝐶, did not only perform well in the distant past but
+also deserve much attention nowadays. Moreover, table A6 shows that
+post-GFC the after cost Sharpe ratio of 𝑀𝑉 𝑇 𝐶 is still 0.81 (no price
+impact), 0.76 (initial AUM of USD 100 million), and 0.59 (initial AUM
+of USD 1 billion).
+
+The after-cost cumulative returns of 𝑀𝑉 are almost indistinguish-
+able from 𝑀𝑉 𝑇 𝐶 when there is no price impact of trading. In contrast,
+when the fund size is large and there is a non-trivial price impact
+of trading the outperformance of 𝑀𝑉 𝑇 𝐶 over 𝑀𝑉 is obvious. When
+
+21 To test for significance, we employ the test proposed by Ledoit and Wolf
+(2008), which uses block bootstrapping and is robust to heteroskedasticity and
+cross- and auto-correlation. We choose a block size of 5 observations for the
+block bootstrapping.
+
+22 We do not plot the other strategies to keep the figure legible.
+23 We provide a more detailed analysis of pre- and post-2008 performance
+
+in robustness tests in Section 5 and Internet Appendix B.2.
+
+the initial AUM is USD 100 million, 𝑀𝑉 performs relatively well
+for the first 10 years but is essentially unprofitable after 1997. Even
+worse, when the initial AUM is USD 1 billion, 𝑀𝑉 makes large losses,
+especially in the 1990s, reports some small gains from 2000 to 2006,
+and is a losing strategy ever since.
+
+𝑀𝑉 𝑇 𝐶 also outperform 𝐻𝑀𝐿 and 𝑀𝑂𝑀 by a large margin. 𝐻𝑀𝐿
+performs well throughout the sample when there is no price impact of
+trading. It performs relatively well until 2008 when the initial AUM
+is USD 100 million, but after that the performance is weak. Moreover,
+when the initial AUM is 1 billion, 𝐻𝑀𝐿 is a losing strategy almost
+throughout the entire sample. 𝑀𝑂𝑀 performs similarly to 𝐻𝑀𝐿 until
+2008. After 2008, even its before-cost average return turns negative,
+and it is unprofitable before and after costs.
+
+Compared to the other strategies, we do not observe any worrisome
+effects of the fund size and trading costs on the risk of 𝑀𝑉 𝑇 𝐶. The
+before-cost and after-cost volatilities are almost identical. The skewness
+and MDD are unaffected by the fund size. When there is no price
+impact, the monthly skewness of 𝑀𝑉 𝑇 𝐶 is −0.76 and the MDD is
+−28%. When the initial fund size is USD 100 million or 1 billion, the
+skewness coefficients are −1.03 or −0.95, respectively, and the MDD
+are −26% or −30%. Moreover, this insight is also confirmed in Fig. 4.
+Essentially, there is only a trend adjustment in the cumulative returns
+of 𝑀𝑉 𝑇 𝐶 when we compare different fund sizes.
+
+Finally, a fund that started out with an AUM of USD 100 million in
+February 1987 yields a total return of 2600%. In comparison, a fund
+with an initial AUM of USD 1 billion has a total return of 1449%. These
+total returns are a lot more attractive than the total returns of 𝑀𝑉 ,
+i.e., 641% or −14%.
+
+Overall, 𝑀𝑉 𝑇 𝐶 efficiently reduces its trading activity to save costs
+while maintaining a strong performance. First, trading costs are much
+less problematic for 𝑀𝑉 𝑇 𝐶 than all other strategies. Second, 𝑀𝑉 𝑇 𝐶
+is resilient to transaction costs even when the price impact of trading
+is severe.
+
+Last but not least, we note that 𝑀𝑉 𝑇 𝐶 is the solution in a single-
+period model. It does not take into account potentially interesting
+dynamics in a multi-period model. It is not obvious at the outset that
+𝑀𝑉 𝑇 𝐶 performs well out-of-sample when implemented in the data
+with many trading dates. It is an important empirical finding that
+(i) 𝑀𝑉 𝑇 𝐶 performs significantly better than all other strategies, (ii)
+achieves a high after-cost Sharpe ratio, and (iii) is resilient even when
+the size of a fund is large and the price impact of trading is severe.
+
+4.3.4. Capacities of strategies: Effect of the fund size
+
+Next, we vary the size of a fund to further investigate the resilience
+of 𝑀𝑉 𝑇 𝐶 to the price impact of trading. Fig. 5 plots the after-cost
+Sharpe ratio of a fund against its initial AUM. For the AUM we consider
+values up to USD 5 billion. The figure is complemented by Table A1
+in the Internet Appendix, which provides more detailed values and
+considers a wider range for the AUM. All lines in Fig. 5 are decreasing
+as a larger AUM implies larger trade orders and higher costs due to the
+trading volume price impact. Confirming the findings in Table 3, when
+the initial AUM of a fund is less than USD 100 million or 1 billion,
+𝑀𝑉 𝑇 𝐶 achieves an after-cost Sharpe ratio of at least 0.88 or at least
+0.75, respectively.
+
+Recall that the US stock market has an after-cost Sharpe ratio of 0.51
+irrespective of the AUM as indicated by the horizontal line in the figure.
+A fund investing in 𝑀𝑉 𝑇 𝐶 performs better than the US stock market as
+long as the initial AUM does not surpass USD 6 billion (or equivalently
+an AUM of USD 45 billion in January 2024). Moreover, 𝑀𝑉 𝑇 𝐶 is still
+profitable (i.e., it earns a positive after-cost average return and a Sharpe
+ratio of more than 0.15) even when the initial AUM reaches USD 1
+trillion. These numbers demonstrate that 𝑀𝑉 𝑇 𝐶 has a large capacity
+and is resilient to even a very large fund size and a severe price impact
+of trading.
+
+In contrast, all other strategies perform much worse. For instance,
+𝑀𝑉 only outperforms the US stock market when the initial AUM is
+
+JournalofFinancialEconomics159(2024)10388617I. Filippou et al.
+
+Fig. 5. The figure plots the annualized after-cost Sharpe ratio as a function of the initial AUM of a fund for our FX trading strategies, and the US stock market (SPY; horizontal
+line at 0.51). The FX strategies are described in Section 3. The sample includes 13 developed and 13 emerging currencies against the USD for the period from February 1987 to
+January 2024.
+
+smaller than USD 60 million. Moreover, 𝑀𝑉 is unprofitable as soon as
+the initial AUM surpasses USD 340 million. Similarly, 𝐻𝑀𝐿 and 𝑅𝐵
+underperform the US stock market or even turn completely unprofitable
+once the initial AUM is larger than USD 80 million or USD 180 million,
+respectively, or USD 660 million or USD 1.25 billion, respectively. As
+such, these strategies have relatively small capacities, especially if we
+take the US stock market as the benchmark. 𝑀𝑉 𝑇 𝐶 clearly stands out
+as the only currency trading strategy that is resilient to a severe price
+impact of trading.
+
+We conclude that transaction costs, and specifically the price impact
+of trading, are a first-order concern for currency investors. Costs quickly
+erode the expected returns of popular strategies in the literature, and
+these strategies are left unprofitable. Thus, addressing trading costs in
+the construction of the portfolio is essential to improve the overall per-
+formance. 𝑀𝑉 𝑇 𝐶 efficiently reduces trading activity to mitigate costs.
+Accordingly, it is resilient to even a severe price impact of trading.
+
+5. Robustness and extensions
+
+We perform several robustness checks and extensions, which we
+report in detail in the Internet Appendix B. It is reassuring that our main
+results continue to hold in all robustness analyses. In the following we
+provide a brief overview.
+
+In Appendix B.1 we investigate whether intuitive rules-of-thumb are
+helpful in mitigating transaction costs. We consider two rules-of-thumb:
+(i) trading at a lower frequency, or (ii) removing high-cost currencies
+from our asset universe. Such rules reduce costs to some extent, but
+they are inefficient as they have significant negative implications on the
+performance of our strategies. Thus, our findings advise against the use
+of intuitive rules-of-thumb, as deviations from the optimal (before-cost)
+balance between expected return and risk have adverse consequences
+for the performance. If we invest in 𝑀𝑉 𝑇 𝐶, which accounts for costs
+in portfolio optimization, the out-of-sample performance is significantly
+better. Moreover, 𝑀𝑉 𝑇 𝐶 is far more resilient than the other analyzed
+strategies when we consider large funds that face a severe price impact.
+In Section 4 we use the longest available sample period as our
+baseline as a longer sample period generally provides more accurate
+estimates of expected returns. Nevertheless, in Appendix B.2, we further
+show that our results are robust and continue to hold in the following
+
+sub-samples: (i) pre- and post-2008 global financial crisis (GFC), (ii)
+pre- and post-introduction of the Euro (January 1999), and (iii) in
+and out of NBER-defined US recessions. These robustness checks are
+important to ensure that our results are generally true, and not driven
+by a specific sub-sample under special economic conditions.
+
+In Appendix B.3 we show that our results are robust and continue
+to hold for alternative estimations of the price impact functions. The
+choice of method used to estimate cost functions has little effect on the
+after-cost profitability of our strategies and, therefore, our results are
+not driven by the particular estimation of the costs. Recall that in the
+baseline analysis we keep the trading volume fixed through time and all
+time-series variation in the Amihud measure stems from the variation
+in absolute returns. In our robustness checks we first use the time-series
+average of our Amihud measure to construct a time-invariant price
+impact function. Second, we do a more elaborate extrapolation back
+in time and allow for time-varying volume. Finally, we cut all costs
+in half to conservatively address the concerns that our setup cannot
+handle indirect trades via the currency triangle. The idea is that it might
+be cheaper (and, in the best-case scenario, reduce costs by up to 50%)
+to trade directly between two non-USD currencies rather than twice
+against the USD.
+
+A potential concern about 𝑀𝑉 𝑇 𝐶 is that it instantly adjusts its
+portfolio holdings when there is a major shock to the investment
+opportunity set, while in reality this may not be possible. Therefore,
+in Appendix B.4.1, we implement an event study and illustrate that the
+crash risk exposure of 𝑀𝑉 𝑇 𝐶 does not substantially increase even if it
+is impossible to unwind its risk exposure in turbulent periods.
+
+Finally, in Appendix B.4.2 we show that reasonable choices of the
+
+𝜆 parameter for the 𝑀𝑉 𝑇 𝐶 strategy do not alter our results.
+
+6. Conclusion
+
+We show that, despite the high trading volume in FX markets,
+transaction costs have a first-order impact on the performance of
+currency portfolios. Specifically, while proportional costs are a minor
+concern (as documented in the literature), the price impact of trading
+is a first-order problem for popular FX trading strategies. Costs due
+to the price impact quickly erode average returns, and cause these
+strategies to underperform the US stock market or, even worse, turn
+
+JournalofFinancialEconomics159(2024)10388618I. Filippou et al.
+
+them unprofitable. This is an important contribution, as the FX market
+literature has hitherto considered the profitability of currency strategies
+in the absence of price impact.
+
+In contrast, if we optimally account for costs in the construction
+of our portfolio (𝑀𝑉 𝑇 𝐶), we find that the after-cost performance is
+attractive, and 𝑀𝑉 𝑇 𝐶 consistently outperforms the US stock market.
+𝑀𝑉 𝑇 𝐶 is resilient to even a large fund size and a severe price impact
+of trading. Accordingly, transaction costs are a first-order problem,
+and it is vital for investors to optimally tackle them in the portfolio
+construction in order to obtain a robustly profitable strategy.
+
+Our paper further contributes to the literature on liquidity in FX
+markets. Most importantly, we propose novel extrapolations of the real-
+ized Amihud measure introduced by Ranaldo and Santucci de Magistris
+(2022). This allows us to obtain estimates of the price impact for 26
+instead of 12 currencies (against the USD) and for a sample going back
+to 1986 instead of 2012. In particular, we show that trading volume can
+be accurately extrapolated in the cross-section and in the time-series
+using the bid–ask spread as a conditioning variable.24
+
+CRediT authorship contribution statement
+
+Ilias Filippou: Writing – review & editing, Writing – original draft,
+Visualization, Validation, Supervision, Software, Resources, Project ad-
+ministration, Methodology, Investigation, Funding acquisition, Formal
+analysis, Data curation, Conceptualization. Thomas A. Maurer: Writ-
+ing – review & editing, Writing – original draft, Visualization, Valida-
+tion, Supervision, Software, Resources, Project administration, Method-
+ology, Investigation, Funding acquisition, Formal analysis, Data cu-
+ration, Conceptualization. Luca Pezzo: Writing – review & editing,
+Writing – original draft, Visualization, Validation, Supervision, Soft-
+ware, Resources, Project administration, Methodology, Investigation,
+Funding acquisition, Formal analysis, Data curation, Conceptualization.
+Mark P. Taylor: Writing – review & editing, Writing – original draft,
+Visualization, Validation, Supervision, Software, Resources, Project ad-
+ministration, Methodology, Investigation, Funding acquisition, Formal
+analysis, Data curation, Conceptualization.
+
+Declaration of competing interest
+
+None.
+
+Data availability
+
+Importance of Transaction Costs for Asset Allocation in Foreign Exc
+hange Markets (Reference data) (Mendeley Data)
+
+.
+
+Appendix A. Supplementary data
+
+Supplementary material related to this article can be found on-
+line at https://doi.org/10.1016/j.jfineco.2024.103886. Details about
+the supplementary appendix are described in Section 5.
+
+24 The results of the time-series extrapolation are in Section B.3 in the
+
+Internet Appendix.
+
+References
+
+Ackermann, Fabian, Pohl, Walt, Schmedders, Karl, 2016. Optimal and naive
+
+diversification in currency markets. Manage. Sci..
+
+Aloosh, Arash, Bekaert, Geert, 2022. Currency factors. Manage. Sci. 68, 3975–4753.
+Amihud, Yakov, 2002. Illiquidity and stock returns: cross-section and time-series effects.
+
+J. Financ. Mark. 5 (1), 31–56.
+
+Asness, Clifford S., Moskowitz, Tobias J., Pedersen, Lasse H., 2013. Value and
+
+momentum everywhere. J. Finance 68 (3), 929–985.
+
+Back, K., 1993. Asymmetric information and options. Rev. Financ. Stud. 6.
+Baz, Jamil, Breedon, Frances, Naik, Vasant, Peress, Joel, 2001. Optimal portfolios of
+
+foreign currencies. J. Portfolio Manag. 28 (1), 102–111.
+
+Bechtel, Alexander, Ranaldo, Angelo, Wrampelmeyer, Jan, 2023. Liquidity risk and
+
+funding cost. Rev. Finance 27, 399–422.
+
+Bilson, John F.O., 1984. Purchasing power parity as a trading strategy. J. Finance 39
+
+(3), 715–724.
+
+Bräuer, Leonie, Hau, Harald, 2023. Can Time Varying Currency Risk Hedging Explain
+
+Exchange Rates? Working Paper.
+
+Breedon, Francis, Rime, Dagfinn, Vitale, Paolo, 2016. Carry trades, order flow, and the
+
+forward bias puzzle. J. Money Credit Bank. 48, 1113–1134.
+
+Burnside, Craig, Eichenbaum, Martin, Rebelo, Sergio, 2011. Carry trade and momentum
+
+in currency markets. Annu. Rev. Finan. Econ. 3, 511–535.
+
+Camanho, Nelson, Hau, Harald, Rey, Helene, 2022. Global rebalancing and the
+
+exchange rate. Rev. Financ. Stud. 35, 5228–5274.
+
+Cespa, Giovanni, Gargano, Antonio, Riddiough, Steven J, Sarno, Lucio, 2022. Foreign
+
+exchange volume. Rev. Financ. Stud. 35 (5), 2386–2427.
+
+Chernov, Mikhail, Dahlquist, Magnus, Lochstoer, Lars, 2023. Pricing currency risks. J.
+
+Finance 78 (2), 693–730.
+
+Daniel, Kent, Hodrick, Robert J., Lu, Zhongjin, 2017. The carry trade: Risks and
+
+drawdowns. Crit. Finance Rev. 6 (2), 211–262.
+
+Della Corte, Pasquale, Ramadorai, Tarun, Sarno, Lucio, 2016. Volatility risk premia and
+
+exchange rate predictability. J. Financ. Econ. 120, 21–40.
+
+Della Corte, Pasquale, Sarno, Lucio, Tsiakas, Ilias, 2009. An economic evaluation of
+
+empirical exchange rate models. Rev. Financ. Stud. 22 (9), 3491–3530.
+
+DeMiguel, Victor, Martin-Utrera, Alberto, Nogales, Francisco J., Uppal, Raman, 2020.
+A transaction-cost perspective on the multitude of firm characteristics. Rev. Financ.
+Stud. 33 (5), 2180–2222.
+
+Dybvig, Phillip H., Pezzo, Luca, 2020. Mean-Variance Porfolio Rebalancing with
+
+Transaction Costs. Working Paper, Washington University.
+
+Evans, Martin D.D., Lyons, Richard K., 2002. Order flow and exchange rate dynamics.
+
+J. Political Econ. 110 (1), 170–180.
+
+Evans, Martin D.D., Lyons, Richard K., 2008. How is macro news transmitted to
+
+exchange rates? J. Financ. Econ. 88 (1), 26–50.
+
+Evans, Martin D.D., Rime, Dagfinn, 2016. Order flow information and spot rate
+
+dynamics. J. Int. Money Finance 69, 45–68.
+
+Fischer, Andreas M., Ranaldo, Angelo, 2011. Does FOMC news increase global FX
+
+trading? J. Bank. Financ. 35, 2965–2973.
+
+Froot, Kenneth A., Ramadorai, Tarun, 2005. Currency returns, intrinsic value, and
+
+institutional-investor flows. J. Finance 60 (3), 1535–1566.
+
+Garleanu, Nicolae, Pedersen, Lasse H., 2013. Dynamic trading with predictable returns
+
+and transaction costs. J. Finance 68 (6), 2309–2340.
+
+Garleanu, Nicolae, Pedersen, Lasse H., 2016. Dynamic portfolio choice with frictions.
+
+J. Econom. Theory 165, 487–516.
+
+Hasbrouck, Joel, 1991a. Measuring the information content of stock trades. J. Finance
+
+46 (1), 179–207.
+
+Hasbrouck, Joel, 1991b. The summary informativeness of stock trades: An econometric
+
+analysis. Rev. Financ. Stud. 4 (3), 571–595.
+
+Hasbrouck, Joel, Levich, Richard M., 2019. FX Liquidity and Market Metrics: New
+
+Results Using CLS Bank Settlement Data. Working Paper.
+
+Hasbrouck, Joel, Levich, Richard M., 2021. Network structure and pricing in the FX
+
+market. J. Financ. Econ. 141, 705–729.
+
+Hau, Harald, Hoffmann, Peter, Langfield, Sam, Timmer, Yannick, 2021. Discriminatory
+
+pricing of over-the-counter derivatives. Manage. Sci. 67, 6629–7289.
+
+Hau, Harald, Massa, Massimo, Peress, Joel, 2010. Do demand curves for currencies
+slope down? Evidence from the MSCI global index change. Rev. Financ. Stud. 23,
+1681–1717.
+
+Hautsch, Nikolaus, Voigt, Stefan, 2019. Large-scale portfolio allocation under
+
+transaction costs and model uncertainty. J. Econometrics 212, 221–240.
+
+Karnaukh, Nina, Ranaldo, Angelo, Soederlind, Paul, 2015. Understanding FX liquidity.
+
+Rev. Financ. Stud. 28 (11), 3073–3108.
+
+Korsaye, Sofonias Alemu, Trojani, Fabio, Vedolin, Andrea, 2023. The global factor
+
+structure of exchange rates. J. Financ. Econ. 148 (1), 21–46.
+
+Krohn, Ingomar, Mueller, Philippe, Whelan, Paul, 2024. Foreign exchange fixings and
+
+returns around the clock. J. Finance 79 (1), 541–578.
+
+Krohn, Ingomar, Sushko, Vladyslav, 2022. FX spot and swap market liquidity spillovers.
+
+J. Int. Money Finance 120, 1–18.
+
+Kyle, Albert S., 1985. Continuous auctions and insider trading. Econometrica 53.
+Kyle, Albert S., Obizhaeva, Anna A., Wang, Yajun, 2018. Smooth trading with
+
+overconfidence and market power. Rev. Econ. Stud. 85.
+
+JournalofFinancialEconomics159(2024)10388619I. Filippou et al.
+
+Lacava, Demetrio, Ranaldo, Angelo, Santucci de Magistris, Paolo, 2023. Realized
+
+Menkhoff, Lukas, Sarno, Lucio, Schmeling, Maik, Schrimpf, Andreas, 2012. Currency
+
+Illiquidity. Working Paper.
+
+Ledoit, Olivier, Wolf, Michael, 2008. Robust performance hypothesis testing with the
+
+sharpe ratio. J. Empir. Financ. 15, 850–859.
+
+Leland, Hayne E., 1985. Option pricing and replication with transactions costs. J.
+
+Finance 40, 1283–1301.
+
+momentum strategies. J. Financ. Econ. 106, 620–684.
+
+Menkhoff, Lukas, Sarno, Lucio, Schmeling, Maik, Schrimpf, Andreas, 2016. Information
+flows in foreign exchange markets: Dissecting customer currency trades. J. Finance
+71, 601–634.
+
+Menkhoff, Lukas, Sarno, Lucio, Schmeling, Maik, Schrimpf, Andreas, 2017. Currency
+
+Liu, Sining, Maurer, Thomas, Vedolin, Andrea, Zhang, Yaoyuan, 2023. Dollar and Carry
+
+value. Rev. Financ. Stud. 30 (2), 416–441.
+
+Redux. Working Paper.
+
+Olivares-Nadal, Alba V., DeMiguel, Victor, 2016. A robust perspective on transaction
+
+Lustig, Hanno, Roussanov, Nick, Verdelhan, Adrien, 2011. Common risk factors in
+
+costs in portfolio optimization. Oper. Res. 66, 733–739.
+
+currency returns. Rev. Financ. Stud. 24 (11), 3731–3777.
+
+Pezzo, Luca, Wang, Lei, Zirek, Duygu, 2023. Large scale mean-variance strategies in
+
+Lustig, Hanno, Roussanov, Nick, Verdelhan, Adrien, 2014. Countercyclical currency risk
+
+the U.S. stock market. Res. Int. Bus. Finance 66.
+
+premia. J. Financ. Econ. 111 (3), 527–553.
+
+Ranaldo, Angelo, Santucci de Magistris, Paolo, 2022. Liquidity in the global currency
+
+Lustig, Hano, Verdelhan, Adrien, 2007. The cross-section of foreign currency risk premia
+
+market. J. Financ. Econ. 146 (3), 859–883.
+
+and consumption growth risk. Amer. Econ. Rev. 97, 89–117.
+
+Ranaldo, Angelo, Somogyi, Fabricius, 2021. Asymmetric information risk in FX markets.
+
+In: The
+
+J. Financ. Econ. 140 (2), 391–411.
+
+Lyons, R. K.l, 2001. The microstructure approach to exchange rates.
+Microstructure Approach to Exchange Rates. MIT Press, Cambridge, MA.
+
+Mancini, Loriano, Ranaldo, Angelo, Wrampelmeyer, Jan, 2013. Liquidity in the foreign
+exchange market: Measurement, commonality, and risk premiums. J. Finance 68
+(5), 1805–1841.
+
+Maurer, Thomas A., To, Thuy-Duong, Tran, Ngoc-Khanh, 2022. Pricing implications
+of covariances and spreads in currency markets. Rev. Asset Pricing Stud. 12 (1),
+336–388.
+
+Maurer, Thomas A., To, Thuy-Duong, Tran, Ngoc-Khanh, 2023. Market timing and
+
+Roussanov, Nikolai, Wang, Xiaoliang, 2023. Following the Fed: Limits of Arbitrage and
+
+the Dollar. Working Paper.
+
+Sarno, Lucio, Nucera, Federico, Zinna, Gabriele, 2024. Currency risk premia redux. Rev.
+
+Financ. Stud. 37 (2), 356–408.
+
+Soderlind, Paul, Somogyi, Fabricius, 2024. FX liquidity risk and carry trade premia.
+
+Manage. Sci. forthcoming.
+
+Somogyi, Fabricius, 2022. Dollar Dominance in FX Trading. Working Paper.
+Yoshimoto, Atsushi, 1996. The mean-variance approach to portfolio optimization
+
+predictability in FX markets. Rev. Finance 27 (1), 223–246.
+
+subject to transaction costs. J. Oper. Res. Soc. Japan 31 (1), 99–117.
+
+Meese, R., Rogoff, K., 1983. Empirical exchange rate models of the seventies: Do they
+
+fir out of sample? J. Int. Econ. 14, 3–24.
+
+JournalofFinancialEconomics159(2024)10388620

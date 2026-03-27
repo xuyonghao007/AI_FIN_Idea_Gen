@@ -1,0 +1,7856 @@
+Journal of Financial Economics 162 (2024) 103948 
+
+Contents lists available at ScienceDirect
+
+Journal of Financial Economics
+
+journal homepage: www.elsevier.com/locate/finec
+
+Broken promises, competition, and capital allocation in the mutual fund
+industry✩
+Simona Abis a, Anton Lines b,∗
+a University of Colorado Boulder, Leeds School of Business, 995 Regent Dr, Boulder, 80309, CO, United States
+b Copenhagen Business School, Solbjerg Plads 3, 2000 Frederiksberg, Denmark
+
+A R T I C L E I N F O
+
+A B S T R A C T
+
+What characteristics of mutual funds do investors care about? In addition to performance and fees, we show
+that investors exhibit a clear preference for managers who adhere to the strategies they describe in their
+prospectuses. Capital flows respond negatively when funds diverge from the average holdings of their text-
+based strategy peer groups, but positively when they outperform those peer averages. We identify this effect
+using a novel instrumental variables approach, and show that funds face a delicate trade-off between keeping
+their promises and outperforming their peers who make similar promises.
+
+Dataset link: Abis Lines Mutual Fund Strategy D
+escriptions (Original data), Abis Lines MF Prom
+ises Replication Packet (Original data)
+
+JEL classification:
+G11
+G23
+L10
+
+Keywords:
+Mutual fund strategies
+Prospectuses
+Industrial organization
+Fund flows
+Machine learning
+
+1. Introduction
+
+Most fund managers operate according to fixed investment man-
+dates that curtail the types of assets they are permitted to hold (He
+and Xiong, 2013), implying that institutional demand is ultimately
+determined by end investors allocating across fund categories. In this
+view, it is of crucial importance to uncover what characteristics drive
+investors’ allocation decisions and fund product offerings.
+
+The existing literature studying US active equity mutual funds has
+mostly focused on investors’ preference for higher risk-adjusted returns,
+and documented product segmentation along priced characteristics
+such as size, value and momentum. In this paper we expand the current
+understanding of investor preferences and fund styles by taking advan-
+tage of the Principal Investment Strategy (PIS) descriptions included
+
+in mutual fund prospectuses.1 We obtain a comprehensive sample
+of prospectuses from EDGAR (the SEC’s Electronic Data Gathering,
+Analysis, and Retrieval system) for the period 2000–2017. Then, using
+a simple tool from unsupervised machine learning — the k-means
+algorithm — we distill the text into interpretable strategy peer groups
+(SPGs): clusters of similar descriptions that represent distinct text-based
+investment styles. SPGs provide a novel taxonomy for the equilibrium
+outcome between investor demand for fund characteristics and the
+supply of funds. Quantifying this equilibrium sheds light on which fund
+characteristics investors desire, and how their preferences shape the
+Industrial Organization (IO) of the mutual fund industry.
+
+In analyzing the market equilibrium, we first focus on the supply of
+funds. We show that differences in strategy descriptions across SPGs
+
+✩
+
+Nikolai Roussanov was the editor for this article. We thank Nikolai Roussanov and one anonymous referee for excellent comments. We also thank Svetlana
+Bryzgalova, Kent Daniel, Leonard Kostovetsky, Harry Mamaysky, Paul Tetlock, and conference/seminar participants at AFA 2021, Future of Financial Information
+Conference 2020, Columbia GSB, Minnesota 3M Seminar, London Business School, SFI, Toulouse, and City U HK for helpful feedback. Anton Lines gratefully
+acknowledges support from the Danish Finance Institute and the Center for Big Data in Finance (grant no. DNRF167). Finally, we thank Luofeng Zhou, Tian
+Zhang, Ritt Keerati, and Gary Buranasampatanon for superb research assistance. This paper was previously circulated under the title ‘‘Do Mutual Funds Keep
+Their Promises?’’.
+
+∗ Corresponding author.
+
+E-mail addresses: simona.abis@colorado.edu (S. Abis), ali.fi@cbs.dk (A. Lines).
+
+1 Mandated by the Securities and Exchange Commission, these descriptions are intended to ‘‘explain in general terms how the fund’s adviser decides what
+securities to buy and sell … [and] provide investors with essential information about the fund’s investment approach and how the fund’s portfolio would be
+managed.’’ (SEC rule S7-10-97).
+
+https://doi.org/10.1016/j.jfineco.2024.103948
+Received 8 January 2022; Received in revised form 12 September 2024; Accepted 14 September 2024
+
+Available online 28 September 2024 
+0304-405X/© 2024 The Authors. Published by Elsevier B.V. This is an open access article under the CC BY license ( http://creativecommons.org/licenses/by/4.0/ ). 
+
+S. Abis and A. Lines
+
+Journal of Financial Economics 162 (2024) 103948 
+
+reflect significant differences in fund returns, holdings, and strategy
+features, but not in risk-adjusted performance. Textual differences do
+not seem to be a mere marketing artifact, but rather reflect a dif-
+ferentiated product offering. The lack of differences in risk-adjusted
+performance suggests that product differentiation might happen along
+risk exposures and/or non-priced characteristics. Second, we focus on
+investor demand by examining their flow responses. We show that
+investors are aware of SPG boundaries by documenting a significant
+flow-performance sensitivity for SPG-adjusted returns, of comparable
+magnitude to that for other commonly used performance measures.
+Additionally, we show that investors care about the strategy features
+offered by SPGs, as they react with outflows when funds diverge from
+their SPG’s core strategy, even after controlling for performance. Lastly,
+we provide evidence for the economic mechanism driving the results:
+investor preferences for both higher SPG-adjusted performance and
+adherence to SPG core strategies provide funds with conflicting incen-
+tives. This generates a trade-off between SPG-adjusted performance and
+SPG adherence: when SPG peer groups are crowded in the classic style
+space (size, value, and momentum), funds that move to a less crowded
+space by diverging from their SPG’s core strategy outperform their SPG
+peers.
+
+Our full analysis is structured as follows. We first describe the
+construction of our Strategy Peer Groups, using the k-means algorithm.2
+We start by encoding each fund’s PIS description as a vector of relative
+word frequencies. Then, after randomly initializing 𝑘 centroid vectors
+in the space spanned by the entire corpus of descriptions, each PIS is
+assigned to the closest centroid by Euclidean distance. Following this
+assignment, each centroid vector is recomputed as the mean vector of
+all documents assigned to it. The last two steps are repeated until con-
+vergence, resulting in 𝑘 clusters, each with minimal distance between
+their constituents and the geometric center.3
+
+We optimally identify 17 distinct strategies, as shown in Fig. 1.
+The key features of some strategies are well known to academics and
+practitioners (e.g. Large Cap, Mid Cap, Small Cap). But most appear to go
+beyond: some are associated with firm characteristics (Dividends; New
+Products & Services; Competitive Advantage; Price-Earnings Ratio), some
+with investment philosophies (Quantitative; Fundamental; Intrinsic Value;
+Long Term; Defensive; Tax), some with secondary asset classes (Fixed In-
+come; Derivatives), and some with international markets (Foreign (ADR);
+Foreign (Emerging Markets)).4 In our baseline analysis we adopt the
+simplifying assumption that, at any given time, funds belong to a single
+dominant strategy. Hence, our strategy peer groups (SPGs) perfectly
+overlap with the outcome of the k-means algorithm. We then generalize
+that approach by allowing funds to promise any combination of the
+above strategies, which identifies customized fund-specific SPGs. All
+results hold with both methods, as funds tend to have a dominant SPG
+which explains the majority of the documented effects, consistent with
+
+2 A popular alternative for textual topic modeling is Blei et al. (2003)’s
+Latent Dirichlet Allocation (LDA), which estimates a posterior distribution
+over several topics for each document. Although this method yields similar
+results to k-means if we assign peer groups based on the most probable
+topic for each fund, we use k-means in our main specifications for two
+reasons: (i) philosophically, minimizing the distance to a single cluster center
+is more consistent with our interpretation of average portfolio weights as core
+strategies; and (ii) empirically, the topics generated by LDA have slightly less
+clear boundaries (e.g. two very similar topics for quantitative, while small cap
+and large cap strategies are merged into one topic; see Appendix C).
+
+3 To determine the number of clusters, we develop two criteria which we
+call density and stability. Intuitively, the density criterion requires new clusters
+to be sufficiently linguistically distinct, and the stability criterion requires most
+funds to be classified into the same groups across consecutive 𝑘s. Our results
+are not sensitive to the exact number of clusters chosen; see Appendix B.2.
+
+4 All funds in our sample hold an average of at least 80% of assets in U.S.
+common stock; however, what funds do with the remaining 20% is sometimes
+their most distinguishing feature.
+
+the findings of He and Xiong (2013), who show a tendency towards
+narrower mandates.
+
+Having determined the structure of promised product offerings, we
+assess whether SPGs reflect an actual differentiated product offering.
+Starting with a narrative approach, we find that the characteristics of
+fund holdings differ significantly across funds belonging to different
+SPGs, in a way that is consistent with an intuitive reading of their
+promised strategies. For instance, funds belonging to the ‘‘Dividend’’
+SPG hold stocks with the highest dividend yield, less cash and less
+investment, whereas funds belonging to the ‘‘Long Term’’ SPG hold
+stocks with lower book-to-market ratios, higher intangibles and lower
+dividend yields.
+
+Next, we build a formal measure of strategy adherence (or, equiv-
+alently, strategy divergence). This approach has the advantages of
+quantifiability and objectivity but requires a simplifying assumption:
+that divergences from core strategies within each peer group are purely
+idiosyncratic. If this condition is satisfied, the average portfolio weight
+vector within each SPG represents its core strategy. Our measure of
+strategy divergence is therefore the (log-transformed) sum of squared
+differences between each fund’s portfolio weight vector and the average
+weight vector for all funds in the same SPG.5 If funds are following
+their promised strategies, they should diverge less from their own peer
+group average than from a placebo strategy, i.e., some other peer group
+average. Indeed, we find that funds’ portfolio weights are between 9%
+and 46% more similar to their own SPG average than the placebo (de-
+pending on included controls), confirming that funds generally follow
+their promised strategies. To show that SPGs capture a novel dimension
+of product differentiation, the controls include alternative measures
+of competition (Hoberg et al. (2018), henceforth HKP) and product
+uniqueness (Kostovetsky and Warner (2020), henceforth KW).
+
+Following standard practice in the literature, we study investor
+demand for SPGs through their flow responses. A rich body of work has
+documented flow sensitivity to performance (e.g. Chevalier and Ellison
+(1997); Sirri and Tufano (1998); Barber et al. (2016); Berk and Van
+Binsbergen (2016)) and stressed the importance of evaluating funds
+relative to their direct rivals (e.g., Cohen et al. (2005) and Hoberg et al.
+(2018)). Combining these insights, we hypothesize that if investors are
+aware of SPG boundaries and consider funds in the same SPG to be
+substitute products, we should observe a significant flow-performance
+sensitivity when benchmarking performance relative to these SPG ri-
+vals. Thus we construct SPG-adjusted returns by subtracting the average
+return of all funds in same textual peer group, and show that this
+new measure of performance is positively and significantly related to
+future flows, even when controlling for a wide variety of traditional
+performance measures, namely: CAPM alpha, Fama–French-Carhart
+four-factor (FFC4) alpha, Fama and French (2015) five-factor plus
+momentum (FFC6) alpha, HKP customized peer alpha, and the Daniel
+et al. (1997) (henceforth, DGTW) characteristic selectivity measure.
+When all controls are included, the sensitivity of flows to SPG-adjusted
+performance remains 43% as large as the sensitivity to CAPM alpha,
+suggesting that investors are aware of SPG boundaries and consider
+funds belonging to the same SPG to be imperfect substitutes. We note
+that this perceived substitutability must occur along dimensions that
+are novel and distinct from traditional priced characteristics, given the
+traditional performance controls.
+
+To further explore investors’ preferences for SPG-specific charac-
+teristics, we study their responses when funds diverge from promised
+strategies. In months following higher strategy divergence, flows as
+a percentage of TNA are significantly lower, and this result is ro-
+bust to controlling for both performance and alternative measures of
+product differentiation (KW and HKP). To analyze the dynamics and
+full magnitude of the effect, we implement a structural panel Vector
+
+5 The log transformation is applied so that the variable is approximately
+
+normally distributed.
+
+2 
+
+S. Abis and A. Lines
+
+Journal of Financial Economics 162 (2024) 103948 
+
+Fig. 1. Strategy Peer Groups: Word clouds for all estimated SPGs using the k-means algorithm with 𝑘 = 17 clusters. These represent the frequency of features (words and bi-grams)
+in the strategy sections within each SPG. Word sizes are proportional to frequency.
+
+3 
+
+S. Abis and A. Lines
+
+Journal of Financial Economics 162 (2024) 103948 
+
+Auto-Regression (SPVAR) model. Orthogonalized divergence shocks
+are recovered using a Cholesky identification approach (Sims, 1980),
+with variable ordering based on a slow-moving capital argument. This
+approach enables us to show that investors’ outflows continue for more
+than 12 months following an initial change in divergence, with a
+single-month, one-standard-deviation shock leading to a reduction in
+annual percentage flows equal to 15% of the annual sample mean.
+Using this framework, we are also able to analyze the dynamics of
+strategy divergence. Divergence exhibits mean reversion at an un-
+conditional rate of 75% per year, which increases by 12.5% when
+funds face one-standard-deviation outflows. This result is consistent
+with a market-led disciplining mechanism holding funds close to their
+promised strategies, even when legal enforcement would be difficult.
+
+Although the SPVAR approach renders reverse causality unlikely,
+other forms of endogeneity remain a concern for our analysis. In
+particular, unobserved fund characteristics or macroeconomic events
+may be correlated with both strategy divergence and investor flows,
+resulting in omitted variable bias. To mitigate these concerns, we rely
+on the fact that our sample excludes industry funds (hence, most funds
+have a balanced exposure to multiple industries), and identify plau-
+sibly exogenous shocks to divergence originating from idiosyncratic
+industry-specific events. The idea is that large idiosyncratic industry
+returns — positive or negative — will mechanically change the com-
+position of a fund’s portfolio in a way that is uncorrelated with fund
+attributes or macroeconomic events.6 Since return-driven shocks affect
+individual portfolios and SPG averages differently, they will cause
+funds to involuntarily diverge from their core strategies.
+
+Idiosyncratic industry shocks are computed by regressing returns
+from each of the Fama–French 10 industry portfolios on a comprehen-
+sive factor model (the Fama–French-Carhart six factors). The absolute
+values of the regression residuals then serve as instruments. In the
+first stage of the IV regression, we show that there is a strong posi-
+tive relationship between absolute idiosyncratic industry returns and
+changes in divergence (𝐹 -statistic > 10). Using the fitted values from
+the first stage, we then show that funds experience outflows starting
+one quarter after a divergence shock and lasting for at least four
+quarters. Economically this pattern is reassuring, as investors would
+likely react with a delay after observing the impact of the shocks on
+portfolio composition. Due to the time-series nature of the instruments
+the IV resembles an event study, and in this light it is also encouraging
+to note that the ‘‘no pre-trends’’ assumption is satisfied: instrumented
+divergence has no effect on flows prior to the industry shock.
+
+In the OLS and SPVAR regressions, we estimate an average effect
+across cases where divergence is intentional and cases where it is
+unintentional. The IV approach, by contrast, allows us to estimate the
+effect of divergence specifically in cases where it is not confounded
+by strategic managerial decisions. Thus, the results of our IV regres-
+sions likely reflect investors’ ‘‘pure’’ preferences for SPG adherence.
+Based on variation in strategy divergence directly attributable to the
+industry shocks, a one-standard-deviation increase in fitted changes in
+divergence results in an annual percentage flow reduction of 0.6% per
+year, or 25% of the annual sample mean. Note that the magnitude
+of this result is constrained by the size of the shocks generated by
+our instrument. Hence, it likely represents a lower-bound for the true
+magnitude of the typical effect.
+
+Finally, having examined the supply and demand effects of SPGs, we
+explore a potential economic mechanism driving strategy divergence.
+As highlighted by our IV approach, there exist scenarios in which
+divergence happens involuntarily, and investors punish those cases
+harshly. We could imagine, however, that funds might want to diverge
+strategically when they identify alpha opportunities and/or when they
+face high competition from similar funds, despite potential disapproval
+
+6 Effects on flows coming via performance are accounted for using explicit
+
+controls.
+
+from investors. To better understand this trade-off, we isolate cases
+in which divergence is more likely to happen strategically. Relying
+on HKP’s finding that funds with fewer DGTW peers are better able
+to deliver alpha, we conjecture that changes in divergence which
+lead funds to move from a high-density DGTW-characteristics space
+(many HKP peers) to a lower density space (fewer HKP peers) are
+more likely to be driven by strategic considerations. In these cases
+we expect increases in divergence to lead to increases in SPG-adjusted
+performance. Confirming this conjecture, we find that while divergence
+is generally negatively or insignificantly related to performance, the
+effect becomes significantly positive when interacted with the strategic
+divergence dummy. In these cases, increasing divergence from the
+lower quartile to the upper quartile of its empirical distribution results
+in funds outperforming their SPG peers by 1.02% (or 56% of the sample
+standard deviation; the mean is zero by construction).
+
+1.1. Related literature
+
+Our findings relate primarily to the mutual fund IO literature, where
+we contribute by showing that investor preferences, and the supply
+of fund styles, are much more fine-grained than what has previously
+been documented in the literature. Various papers have studied com-
+petition in the index fund space,7 while fewer investigate the active
+equity space. Those that do, study competition via holdings or return
+similarities. In this vein, the closest papers to ours are Wahal and Wang
+(2011), who examine competition among incumbents and new entrants
+through similarities in overall fund holdings; Li and Qiu (2014), who
+document that funds reduce competition by differentiating the factor
+exposures of their portfolios; Hoberg et al. (2018), who identify fund-
+specific peer groups by computing similarities in exposures to size,
+value, and momentum; and Kostovetsky and Warner (2020),8 who find
+that small and start-up fund families avoid competition by differenti-
+ating themselves through more distinctive prospectus text.9 Adding to
+this body of work, we show that investors exhibit preferences that go
+beyond standard measures of performance and priced characteristics
+(particularly size, value, and momentum), and that funds clearly dif-
+ferentiate their product offerings along these lines. We further show
+that differences in strategy descriptions reflect real differences in fund
+behavior rather than pure marketing, and that they are relevant for
+investors in terms of their specific content, not simply the uniqueness
+of the text.10
+
+We also contribute to the more extensive mutual funds style lit-
+erature by proposing a novel taxonomy of styles based on textual
+information in mutual fund prospectuses. The existing literature focuses
+mostly on return-based (e.g., Sharpe (1988, 1992); Brown and Goetz-
+mann (1997); Hunter et al. (2014)) or holdings-based (e.g., Grinblatt
+
+7 e.g., Elton et al. (2004); Hortacsu and Syverson (2004); Khorana et al.
+(2009); Gil-Bazo and Ruiz-Verdú (2009); Stoughton et al. (2011); Sun (2021)
+8 Kostovetsky and Warner (2020) use strategy description excerpts provided
+by Morningstar, which contain, on average, only the first 70 words of the full
+strategy text available in EDGAR filings. For comparison, the average length
+of this section in our dataset is 317 words.
+
+9 Other related papers include Khorana and Servaes (2012), who study the
+drivers of fund family market shares by analyzing their marketing expenses
+and funds’ exposure to price-to-book, earnings growth, and market capitaliza-
+tion; Ali et al. (2020), who show that among funds taking advantage of post
+earnings announcement drift, only those who are able to avoid competition
+by investing in harder to hold stocks outperform, and Guercio and Reuter
+(2014), who study funds’ incentives to generate alpha based on the competitive
+pressure they face due to diverse preferences of their target clientele (proxied
+by distribution channels).
+
+10 To ensure that our SPGs capture a novel and distinct dimension of
+competition, we show that there exists a low correlation between KW’s and
+HKP’s measures and ours, and we include both of these measures as controls
+in our analysis.
+
+4 
+
+S. Abis and A. Lines
+
+Journal of Financial Economics 162 (2024) 103948 
+
+Table 1
+Summary Statistics: This table reports summary statistics for the full matched sample in our dataset (i.e., each observation for which we can assign
+a prospectus to the fund). For each variable, the table displays the number of available observations (𝑐𝑜𝑢𝑛𝑡), the mean (𝑚𝑒𝑎𝑛), the standard deviation
+(𝑠𝑑), the minimum (𝑚𝑖𝑛) and maximum (𝑚𝑎𝑥) values, and the 25th (𝑝25), 50th (𝑝50) and 75th (𝑝75) percentiles.
+
+TNA ($M)
+Age (Months)
+Expense Ratio (%)
+Turnover Ratio (%)
+Flows (%)
+Raw Return (Monthly)
+CAPM Alpha (Monthly)
+FFC6 Alpha (Monthly)
+
+count
+
+315 190
+315 178
+313 724
+313 288
+314 940
+315 006
+296 110
+296 110
+
+mean
+
+1209.68
+178.83
+1.21
+78.78
+−0.12
+0.61
+−0.07
+−0.09
+
+sd
+
+4394.34
+158.20
+0.39
+65.91
+3.42
+4.74
+1.86
+1.18
+
+min
+
+5.10
+0.00
+0.28
+4.00
+−9.00
+−13.96
+−5.49
+−3.57
+
+p25
+
+68.70
+78.00
+0.98
+33.35
+−1.50
+−1.88
+−1.05
+−0.73
+
+p50
+
+246.80
+138.00
+1.18
+62.00
+−0.45
+1.04
+−0.10
+−0.11
+
+p75
+
+908.20
+221.00
+1.42
+102.00
+0.74
+3.54
+0.86
+0.52
+
+max
+
+177 462.59
+1121.00
+2.44
+369.00
+12.54
+12.18
+5.86
+3.72
+
+and Titman (1989); Daniel et al. (1997); Chan et al. (2002); Chan et al.
+(2009); Hoberg et al. (2018)) style definitions. An exception is Sensoy
+(2009) who analyzes funds’ self disclosed benchmarks in prospectuses,
+but does not attempt to extract styles from prospectuses’ text. These
+approaches require the ex-ante knowledge of relevant characteristics.
+Our unsupervised approach instead determines them endogenously,
+while still providing intuitive strategy descriptions thanks to the data’s
+narrative nature.
+
+We additionally contribute to the vast empirical literature on fund
+flows by documenting two novel drivers: SPG-adjusted performance
+and SPG-divergence. Existing work has mostly examined flow responses
+to performance (e.g. Chevalier and Ellison (1997); Sirri and Tufano
+(1998); Barber et al. (2016); Berk and Van Binsbergen (2016)), fees
+(e.g. Barber et al. (2005); Ivković and Weisbenner (2009)), and mar-
+keting/product differentiation (e.g. Jain and Wu (2000); Cooper et al.
+(2005); Reuter and Zitzewitz (2006); Khorana and Servaes (2012);
+Christoffersen et al. (2013); Kostovetsky and Warner (2020); Roussanov
+et al. (2021)).
+
+Finally, we contribute to the burgeoning literature analyzing mutual
+fund mandatory disclosures. We are the first to provide a compre-
+hensive analysis of the full PIS description for active equity mutual
+funds. Abis (2022) uses the same data, but only to identify quantitative
+funds. Abis et al. (2022) test a theoretical model of fund disclosure
+choice and investors’ learning; their analysis, though, is conducted
+within fund mandates. Kostovetsky and Warner (2020) construct a
+textual measure of product differentiation, but do not explore the
+described strategies. Akey et al. (2021) use PIS text to determine the
+investment objectives of a different segment of the industry: ETFs
+and index funds. Krakow and Schäfer (2020) measure textual unique-
+ness within fund families as a proxy for disclosure informativeness;
+and Sheng et al. (2021) examine summary risk descriptions.
+
+2. Data and clustering methodology
+
+2.1. Data
+
+To construct our mapping of the mutual fund industry, we combine
+standard information about mutual fund characteristics, returns and
+holdings with a novel textual dataset of their ‘‘Principal Investment
+Strategy’’ descriptions, taken from mandatory disclosures to the SEC
+(prospectuses). Our combined sample runs from March 2000 to De-
+cember 2017, covering 2,995 unique funds and 315,190 fund–month
+observations. Table 1 provides descriptive statistics for the final dataset.
+
+2.1.1. Prospectuses
+
+The SEC requires all mutual fund families to publish prospectuses
+covering all of their funds. We obtain fund prospectuses from the
+Electronic Data Gathering, Analysis, and Retrieval system (EDGAR) of
+the SEC. The EDGAR system has been active since 1994, with a 2-year
+phase-in period. A number of subsequent reforms led to increasing
+standardization in disclosure formatting. In particular, as detailed in
+Release No. 33-7684, the SEC began to accept disclosures in HTML
+
+format in 2000. Prior to this year, the lack of standardization renders
+textual analysis much less reliable, and coverage of funds is also much
+more sparse. Hence, we begin our sample in March (end of Q1) 2000.
+Prospectuses are divided into sections, each addressing a different
+regulatory question. In this paper we focus on a specific section: Princi-
+pal Investment Strategies (PIS), corresponding to Item 9(c) of the N-1 A
+mandatory disclosure form.11 This item requires funds to disclose their
+main investing methodology, including the types of securities they tend
+to hold and the primary criteria used in selecting those securities. Funds
+provide narrative descriptions of their strategies, constrained only by
+the above requirements and the additional stipulation that they be
+written in ‘‘plain English’’ (rule 421(d) of the Securities Act).12
+
+We construct a comprehensive panel dataset of PIS descriptions
+by fund–month, which we then merge to the traditional mutual fund
+datasets. We are able to match 31,695 PIS descriptions to our funds of
+interest. Prospectuses may be published on any day of the year, and are
+often published less than once per quarter. Since any material change to
+the management of the fund must be reported to both the SEC and fund
+investors, for any month in which PIS is not available, we forward-fill
+it using the latest available one.
+
+Appendix A provides detailed summary statistics for the PIS corpus
+utilized in our analysis. We document a large variation in the length,
+complexity and sentiment of PIS descriptions, suggesting they may
+contain heterogeneous information about fund strategies.
+
+2.1.2. Fund characteristics and returns
+
+We obtain fund characteristics and returns
+
+from the CRSP
+Survivorship-Bias-Free Mutual Fund dataset. We restrict the sample to
+equity funds and exclude international funds, sector funds, index funds,
+and underlying variable annuities. We account for incubation bias by
+excluding observations dated before the fund’s first offer date (Evans,
+2010). We also exclude funds with less than $5 million in Total Net
+Assets (TNA), following Kacperczyk et al. (2008). We then aggregate
+observations across all share classes of each fund for each time period.
+This is done by keeping the first offer date of the oldest share class,
+summing the TNA of all share classes, and averaging all other variables
+(e.g. fees, returns, turnover, etc.), weighted by lagged TNA. Follow-
+ing Abis (2022), we identify each fund’s share classes by constructing
+a comprehensive fund identifier using the CRSP Class Group identifier,
+the WFICN identifier in MFLinks, and fund names. This choice is
+particularly relevant for matching fund returns and characteristic to
+their holdings. Notably, the MFLinks table excludes many new funds in
+recent years (Shive and Yun (2013); Zhu (2020)). Finally, we exclude
+funds for which we have less than 12 months of observations.
+
+2.1.3. Holdings
+
+Fund holdings are obtained by combining the Thomson Reuters (for-
+merly CDA/ Spectrum) Mutual Fund Holdings dataset (from January
+2000 to August 2008) and the CRSP Mutual Fund Holdings dataset (from
+
+11 https://www.sec.gov/files/form-n-1a.pdf
+12 https://www.sec.gov/rules/final/33-7497.txt
+
+5 
+
+S. Abis and A. Lines
+
+Journal of Financial Economics 162 (2024) 103948 
+
+September 2008 to December 2017). The date of the switch is chosen
+to maximize coverage of active equity funds. We drop funds that hold
+fewer than 10 stocks, and funds that hold, on average, less than 80%
+of their assets (excluding cash) in common stock (Kacperczyk et al.,
+2008). When observations are missing or only available quarterly, we
+forward-fill them to a monthly frequency.13
+
+2.1.4. Other
+
+We also use the CRSP monthly security database, Compustat,
+Fama–French factors and industry portfolios, and the CBOE VIX Index.
+
+2.2. Strategy peer groups
+
+We now describe our methodology for grouping funds into quan-
+tifiable and interpretable ‘‘Strategy Peer Groups’’ (SPGs) based on
+similarities in their PIS text.
+
+2.2.1. Pre-processing
+
+To convert textual data to quantitative data, we use the ‘‘bag of
+words’’ approach. This procedure yields a list of all words and bi-grams
+(consecutive two-word combinations) for each document. We remove
+symbols, standard English stop-words (e.g. ‘‘is’’, ‘‘the’’, ‘‘and’’, etc.), and
+a list of context-specific stop words.14 We reduce words to their root
+using the Porter stemmer algorithm (e.g., ‘‘company’’, ‘‘companies’’,
+. . . = ‘‘compani’’).
+
+The second step is to remove boilerplate language, which occurs in
+most prospectuses and is therefore less informative. This step reduces
+classification noise. To do this, we aggregate unique word stems found
+in any of the PIS sections into a corpus, then compute the frequency of
+all 4-grams (4 word combinations) in this corpus. For each document,
+we remove any 4-gram with a full-corpus frequency above the 0.1th
+percentile (this procedure removes 601 4-grams). We further remove
+single words and bi-grams that appear in more than 30% of PIS sections
+and in fewer than 5%. The remaining words and bi-grams are the
+‘‘features’’ utilized in the clustering algorithm.
+
+In the third step, we represent the entire corpus as a single matrix,
+whose columns are linguistic terms (words and bi-grams) and whose
+rows are individual PIS sections. Each element in this matrix is the
+frequency of a particular feature in a particular PIS section, scaled
+by the number of sections in which that feature appears. This matrix
+is known as the term frequency–inverse document frequency, or tfidf,
+matrix.
+
+2.2.2. Clustering
+
+We use the k-means algorithm to group PIS sections by textual
+similarity. We choose this algorithm for its simplicity, and because its
+outcome naturally aligns with our measurement of core strategies as
+peer group average portfolio weights.15
+
+K-means takes as inputs: the tfidf matrix, the desired number of
+clusters, and a tolerance parameter. The goal of the algorithm is to
+minimize the total Euclidean distance between the center of each
+
+13 Monthly holdings are already available for or 42% of the sample; 90% of
+the data is forward-filled for at most 1 quarter in total; and 99% is forward-
+filled for at most 2 quarters in total. Forward-filling is restricted to a maximum
+of 1 year.
+
+14 The full list of removed words, after stemming, is as follows: advis, alloc,
+asset, averag, bar, billion, chart, class, compani, describ, equiti, fmr, fund, iii,
+inform, invest, least, manag, may, might, money, mutual, net, nyse, object,
+page, portfolio, potenti, price, princip, prospectu, rang, reason, risk, russel,
+s&p, secur, sharehold, shown, state, stock, strategi, style, subadvis, total, unit,
+varieti, year.
+
+15 It is possible to construct peer groups using other popular models such as
+Latent Dirichlet Allocation (LDA). In that case, core strategies could be defined
+by using the highest weighted topic for each fund. This procedure gives similar
+results to k-means clustering. See Appendix C.
+
+cluster (called the ‘‘centroid’’) and all observations assigned to that
+cluster. In the context of textual analysis, the Euclidean distance is
+computed as follows:
+√
+√
+√
+√
+
+𝑅
+∑
+
+(1)
+
+‖𝑥𝑟 − 𝑥𝐶
+
+𝑟 ‖2,
+
+𝑟=1
+
+where 𝑥𝑟 is the tfidf value for feature 𝑟 in a specific document and 𝑥𝐶
+𝑟 is
+the corresponding value in the cluster centroid. 𝑅 is the total number
+of features. Centroids are initialized randomly in the vector space of all
+documents, then updated using an iterative process. In each iteration,
+each document is assigned to the closest centroid (i.e., with the smallest
+Euclidean distance), after which the centroid is redefined as the mean
+tfidf vector of all documents assigned to it. This process continues until
+the Euclidean distance between cluster centroids in two consecutive
+iterations is smaller than the specified tolerance level.16
+
+The key hyper-parameter is the number of clusters, 𝑘. The optimal
+number varies depending on the true structure of the data. To find
+this optimum, we run the algorithm independently for consecutive
+𝑘 = [10, 20], then compare outcomes according to two criteria:
+
+1. Stability. A robust approach should not be very sensitive to the
+number of clusters chosen. The majority of PIS sections should
+be jointly categorized into the same cluster across consecutive
+𝑘s. This should hold for any two consecutive 𝑘s.
+
+2. Density. When moving from 𝑘 to 𝑘 + 1, the new cluster generated
+should be sufficiently distinct from existing ones. This provides
+an optimal stopping point, beyond which additional clusters are
+redundant.
+
+We systematically quantify the above concepts as follows. First, we
+define the cross-tab matrix as the number of observations falling in
+cluster 𝑖 under 𝑘 and cluster 𝑗 under 𝑘 + 1, such as:
+
+𝐶𝑟𝑜𝑠𝑠𝑇 𝑎𝑏(𝑖,𝑗) = # 𝑐𝑙𝑢𝑠𝑡𝑒𝑟𝑒𝑑 𝑎𝑠 𝑖 𝑢𝑛𝑑𝑒𝑟 𝑘 𝑎𝑛𝑑 𝑗 𝑢𝑛𝑑𝑒𝑟 𝑘 + 1.
+
+If we treat 𝑘 + 1 as the ground truth, and 𝑘 as the predicted value,
+for any combination (𝑖, 𝑗), the denominator of its precision is the sum
+for all j given i, and the denominator of its recall is the sum for all i
+given j. Formally, define precision and recall as:
+𝐶𝑟𝑜𝑠𝑠𝑇 𝑎𝑏(𝑖,𝑗)
+𝑖=1 𝐶𝑟𝑜𝑠𝑠𝑇 𝑎𝑏(𝑖,𝑗)
+
+𝐶𝑟𝑜𝑠𝑠𝑇 𝑎𝑏(𝑖,𝑗)
+𝑗=1 𝐶𝑟𝑜𝑠𝑠𝑇 𝑎𝑏(𝑖,𝑗)
+
+; 𝑅𝑒𝑐𝑎𝑙𝑙(𝑖,𝑗) =
+
+𝑃 𝑟𝑒𝑐𝑖𝑠𝑖𝑜𝑛(𝑖,𝑗) =
+
+∑𝐾+1
+
+∑𝐾
+
+.
+
+Intuitively, a large 𝑃 𝑟𝑒𝑐𝑖𝑠𝑖𝑜𝑛(𝑖,𝑗), means that observations classified as i
+under 𝑘, are likely to be classified as j under 𝑘 + 1. Similarly, a large
+𝑅𝑒𝑐𝑎𝑙𝑙(𝑖,𝑗), means that observations classified as j under 𝑘 + 1, are likely
+to be classified as i under 𝑘. We combine those two criteria into an
+𝐹 𝑠𝑐𝑜𝑟𝑒 matrix indicating their harmonic mean. Due to the characteristic
+of the harmonic mean, if 𝐹 𝑠𝑐𝑜𝑟𝑒(𝑖,𝑗) is large, 𝑃 𝑟𝑒𝑐𝑖𝑠𝑖𝑜𝑛(𝑖,𝑗) and 𝑅𝑒𝑐𝑎𝑙𝑙(𝑖,𝑗)
+are both expected to be large, and cluster i under 𝑘 is likely to be in
+line with cluster j under 𝑘 + 1:
+
+𝐹 𝑠𝑐𝑜𝑟𝑒(𝑖,𝑗) = 2 ⋅
+
+𝑃 𝑟𝑒𝑐𝑖𝑠𝑖𝑜𝑛(𝑖,𝑗) ⋅ 𝑅𝑒𝑐𝑎𝑙𝑙(𝑖,𝑗)
+𝑃 𝑟𝑒𝑐𝑖𝑠𝑖𝑜𝑛(𝑖,𝑗) + 𝑅𝑒𝑐𝑎𝑙𝑙(𝑖,𝑗)
+
+.
+
+We finally transform the 𝐹 𝑠𝑐𝑜𝑟𝑒(𝑖,𝑗) matrix into a 𝑆𝑡𝑎𝑏𝑖𝑙𝑖𝑡𝑦(𝑖,𝑗) matrix
+by substituting scores with 1 if they are greater than a threshold (we
+currently use 0.5), 0 otherwise. All 1s indicate matched clusters across
+consecutive runs 𝑘 and 𝑘 + 1.
+
+Next, we define 𝐷𝑖𝑠𝑡 as the Eucledian distance between the cen-
+troids of any pair of clusters under 𝑘 and 𝑘+1 as: 𝐷𝑖𝑠𝑡(𝑖,𝑗) = ‖𝐶 𝑘
+2;
+‖
+where 𝐶 𝑘
+indicates the centroid of tfidf vector of cluster i under 𝑘, and
+𝑖
+𝐶 𝑘+1
+indicates the centroid of tfidf vector of cluster j under 𝑘+1. A small
+𝑗
+distance between two centroids indicates that the underlying clusters
+are likely to be similar in meaning. Hence, we transform the 𝐷𝑖𝑠𝑡(𝑖,𝑗)
+
+𝑖 −𝐶 𝑘+1
+
+𝑗
+
+16 For a more detailed description of the k-means algorithm, see Ap-
+
+pendix B.1.
+
+6 
+
+S. Abis and A. Lines
+
+Journal of Financial Economics 162 (2024) 103948 
+
+matrix into the 𝐷𝑒𝑛𝑠𝑖𝑡𝑦(𝑖,𝑗) matrix by substituting distances with 1 if
+they are lower than a threshold (we currently use 0.2), 0 otherwise. All
+1s indicate matched clusters across consecutive runs 𝑘 and 𝑘 + 1.
+
+We start by inspecting the 𝑆𝑡𝑎𝑏𝑖𝑙𝑖𝑡𝑦(𝑖,𝑗) matrix for (𝑘, 𝑘+1) = (10, 11).
+For the 𝑠𝑡𝑎𝑏𝑖𝑙𝑖𝑡𝑦 criterion to be satisfied we must have that: (1) all rows
+of 𝑆𝑡𝑎𝑏𝑖𝑙𝑖𝑡𝑦(𝑖,𝑗) sum to at least 1; that means that all clusters in 𝑘 = 10
+are matched to at least 1 cluster in 𝑘 = 11. (2) Columns should sum to
+at most 1; that means that all clusters in 𝑘 = 11 are matched to at most
+one cluster in 𝑘 = 10. Any column whose sum is zero is considered to
+be a new cluster. Note that it is possible for a cluster in 𝑘 to be matched
+into 2 clusters in 𝑘 + 1, that would be the case if a cluster representing
+a broad category is split into two meaningfully different sub-clusters.
+To verify that newly generated clusters are sufficiently distinct from
+existing ones we next inspect the 𝐷𝑒𝑛𝑠𝑖𝑡𝑦(𝑖,𝑗) matrix for (𝑘, 𝑘 + 1) =
+(10, 11). For the density criterion to be satisfied we must have that
+for any newly generated cluster in 𝑘 + 1 the sum of the corresponding
+column in the 𝐷𝑒𝑛𝑠𝑖𝑡𝑦(𝑖,𝑗) matrix should equal 0 (i.e., the centroid vector
+for that cluster should be meaningfully different from any centroid
+vector already present in 𝑘). If both conditions are satisfied we proceed
+to analyzing the 𝑆𝑡𝑎𝑏𝑖𝑙𝑖𝑡𝑦 and 𝐷𝑒𝑛𝑠𝑖𝑡𝑦 matrices for (𝑘, 𝑘 + 1) = (11, 12).
+We repeat the above steps until the 𝐷𝑒𝑛𝑠𝑖𝑡𝑦 criterion fails. That allows
+us to establish that the optimal number of clusters in our setting is 17.17
+
+2.2.3. Clusters as text-based styles
+
+Centroids identified through this methodology should be interpreted
+as distinct text-based promised strategies. Although strategies are rep-
+resented by a full distribution over words and bi-grams, the labels
+and key terms shown in Fig. 1 are a useful short-hand to indicate
+the features that are most distinctive of each. The key features of
+some strategies are commonly known by academics and in the industry
+(Large Cap, Mid Cap, Small Cap). But most represent novel dimensions:
+some are associated with firm characteristics (Dividends, New Products &
+Services, Competitive Advantage, Price-Earnings Ratio); some with invest-
+ment philosophies (Quantitative, Fundamental, Intrinsic Value, Long Term,
+Defensive, Tax); some with secondary asset classes (Fixed Income, Deriva-
+tives); and some with international markets (Foreign (ADR), Foreign
+(Emerging Markets)).
+
+K-means assigns each PIS section to one centroid, implicitly assum-
+ing that each strategy description has a dominant strategy; i.e., that the
+spatial distribution of funds is concentrated around centroids. We adopt
+two methods to assign funds to Strategy Peer Groups (SPGs). First,
+we take k-means assignments to represent SPGs; i.e., we study funds’
+dominant promised strategies. Then, we generalize SPG definitions by
+allowing funds to promise a weighted combination of the identified
+strategies (a fund’s promise vector). That approach yields fund-specific
+SPGs, defined as the set of funds with the most similar promise vectors.
+In both approaches the 2,995 funds of interest are assigned to an SPG
+for every month they are active between March 2000 and December
+2017. All of the paper’s results are robust to utilizing either imple-
+mentation. Hence, for simplicity of exposition, we first report results
+based on the simplified method, while generalized results are reported
+in Section 3.4.
+
+Fig. 2 shows that the relative size of SPGs varies over time in terms
+of both the number of funds and TNA. Panel 1 of Fig. 3 shows the
+frequency of assignment to each SPG; Panel 2 shows that funds tend
+to be assigned to the same SPG over time. 1,087 funds are assigned to
+only one SPG throughout their lives, the majority of funds is assigned
+to a maximum of 5, and only a small number is assigned to more
+(that may be the result of estimation noise). We do not constrain the
+cluster estimation to group together PIS sections from the same fund.
+Hence, the time-series stability of the assignment further confirms the
+robustness of our approach.
+
+17 Since the stability criterion is generally satisfied for any consecutive 𝑘s,
+our results are not very sensitive to the choice of k. Appendix B.2 shows that
+our main result holds for 𝑘 = [14, 20].
+
+3. Empirical analysis
+
+3.1. Supply of funds
+
+To better understand the nature of the uncovered strategies, and to
+ascertain if this promised product differentiation lines up with actual
+differences in implementation, we start with a narrative analysis. We
+ask whether fund characteristics, risk-factor loadings, performance,
+and holdings attributes line up with an intuitive reading of strategy
+descriptions. This exercise necessarily involves a subjective component.
+Hence, it should be intended as purely descriptive. In Section 3.1.1 we
+provide evidence based on objective similarity measures.
+
+For each variable, and for each SPG, we implement a regression
+analysis which allows us to estimate the average difference in that
+variable for the SPG of interest and all other SPGs (holding other
+characteristics, family membership, and month constant). Appendix D
+explains in detail that regression strategy, reports a detailed set of
+results, and provides a discussion of the key characteristics of all 17
+SPGs. In the discussion below, we highlight the most striking attributes
+of a few selected SPGs.
+
+Dividends. The ‘‘Dividends’’ group arguably has the most straightfor-
+ward strategy and the clearest ex-ante expectations for investors: funds
+in this SPG should try to maximize dividend distributions. Accordingly,
+we find that these funds hold stocks with (by far) the highest dividend
+yield among all SPGs. The funds implementing this strategy tend to
+charge lower fees and have lower turnover ratios. The companies they
+hold are typical high-dividend firms: they are larger and older, have
+lower investment, and R&D expenses, and hold less cash (plausibly due
+to higher payout ratios). Portfolios are tilted towards high-dividend
+industries such as Utilities, Telecoms, and Banks; and tilted away from
+the Tech industry.
+
+Long term. Funds in this SPG claim to be searching for long term invest-
+ment opportunities, or companies with long term growth potential. In
+the data, funds implementing this strategy tend to be older and have
+lower turnover ratios. The stocks they hold have lower than average
+book-to-market ratios, both at the fund level and at the stock level
+(indicting a growth style tilt). They tend to avoid mature industries
+such as Utilities and Banks. Instead, they hold companies with higher
+intangibles (which includes capitalized R&D), higher cash, and lower
+dividend yields (greater retained earnings, typically used to grow the
+firm).
+
+New products & services. Funds in this SPG focus on companies with
+new or innovative product lines, and new or rapidly changing tech-
+nologies. Consistent with this focus, funds in this SPG tend to avoid
+stable industries such as utilities, telecoms, and banks, while holding a
+significantly greater fraction of stocks from innovative industries such
+as technology and pharmaceuticals (drugs). The funds implementing
+this strategy charge higher fees and have higher turnover ratios. The
+firms they hold have higher levels of investment and R&D expenditure,
+higher asset growth, and lower dividend yield, as would be expected
+for companies introducing new products and services.
+
+It is clear from the above descriptions, and by inspecting the full
+Tables in Appendix D, that each of these strategies has a multi-faceted
+implementation. Indeed, they imply differential exposures to various
+risk-factors, as well as differences in other fund and holdings features.
+For instance, both the Long Term and the New Products & Services
+strategies have a growth tilt, but they achieve that objective differently:
+Long Term funds have a low turnover ratio, New Products & Services
+funds have a high one. New Products & Services funds hold younger
+firms with higher asset growth and R&D expenditures, and a greater
+than average exposure to the Tech and Drugs industries, while Long
+Term funds do not.
+
+A natural next question is whether SPGs significantly differ in risk-
+adjusted performance. Appendix Table D.9 shows that this is generally
+
+7 
+
+S. Abis and A. Lines
+
+Journal of Financial Economics 162 (2024) 103948 
+
+Fig. 2. TNA by SPG Over Time: Panel 1 displays the cumulative TNA managed by funds in different SPGs between January 2000 and December 2017. Panel 2 displays the
+number of funds assigned to the different SPGs between January 2000 and December 2017.
+
+not the case. An intuitive alternative explanation for the documented
+product differentiation is that funds cater to investors with different
+preferences for risk-exposures and/or for non-priced characteristics. For
+instance, investors who prefer income to capital gains might choose
+Dividend funds.18 Similarly, among investors looking for exposure to
+the growth factor, those with a longer horizon might prefer Long Term
+funds while those with a shorter horizon might prefer New Products &
+Services ones.
+
+3.1.1. Divergence from core strategies
+
+In this section, we construct a general measure of strategy di-
+vergence that does not depend on subjective interpretations of the
+text. The underlying assumption is that the average holdings of the
+funds in each SPG are representative of the group’s core strategy—in
+other words, we assume that individual fund divergences are purely
+idiosyncratic and cancel out over many funds in a group. Then, the core
+strategy of each SPG is measured as the mean portfolio weight vector
+
+18 e.g., Allen et al. (2000); and Hartzmark and Solomon (2019) document
+investor preferences for high dividends, motivated by taxation or behavioral
+reasons, respectively.
+
+across all funds in that group, and an individual fund’s divergence from
+the core strategy is measured by the distance of its holdings from this
+mean vector. For each month in our sample, we compute this distance
+relative to each fund’s own assigned SPG, and relative to the average of
+other SPGs. If funds are following their promised strategies, we should
+observe smaller divergences from their own group average. Formally:
+
+𝐷𝑖𝑣𝑒𝑟𝑔𝑒𝑛𝑐𝑒
+
+𝐺𝑗,𝑡
+𝑗,𝑡 =
+
+𝑁 𝑗
+𝑡∑
+
+𝑖=1
+
+(
+𝑤𝑗
+
+𝑖,𝑡 − ̄𝑤
+
+)2
+
+𝐺𝑗𝑡
+𝑖,𝑡
+
+(2)
+
+for 𝐺 = [𝑆𝑃 𝐺, ̃𝑆𝑃 𝐺], where 𝑆𝑃 𝐺𝑗,𝑡 is the SPG of fund 𝑗 at time
+𝑡, and ̃𝑆𝑃 𝐺𝑗,𝑡 represents all groups other than 𝑆𝑃 𝐺𝑗,𝑡. 𝑤𝑗
+is the
+𝑖,𝑡
+𝐺𝑗,𝑡
+weight on stock 𝑖 in fund 𝑗’s portfolio in month 𝑡, and ̄𝑤
+is the
+𝑖,𝑡
+average weight on stock 𝑖 at time 𝑡 for all funds belonging to group
+𝐺𝑗,𝑡. We log-transform divergence so that it is approximately normally
+distributed.
+
+To test whether funds generally adhere to the strategies described in
+their prospectuses (which lead them to be categorized into a particular
+SPG) we run the following regression:
+
+𝐷𝑖𝑣𝑒𝑟𝑔𝑒𝑛𝑐𝑒𝑗,𝑡 − ̃𝐷𝑖𝑣𝑒𝑟𝑔𝑒𝑛𝑐𝑒𝑗,𝑡 = 𝛼 + 𝜆′𝑋𝑗,𝑡 + 𝜂𝑓 ,𝑡 + 𝜀𝑗,𝑡.
+
+(3)
+
+8 
+
+S. Abis and A. Lines
+
+Journal of Financial Economics 162 (2024) 103948 
+
+Table 2
+SPG Divergence - Validation: This table reports mean divergence of funds from the
+average holdings of their own peer group (Column 1), mean placebo divergence from
+the average holdings of other peer groups (Column 2), and the difference between
+these two estimates (Column 3) (see Section 3.1.1). Throughout the table, averages are
+estimated controlling for fund age, log assets, expense ratio, turnover ratio, monthly
+fund flows, fund flow volatility, and family-month fixed effects. In the second row,
+we additionally control for funds’ holdings divergence based on Daniel et al. (1997)
+characteristics peer groups, the log of the number of Hoberg et al. (2018) fund
+peers, and the Kostovetsky and Warner (2020) uniqueness measure. All non-binary
+independent variables are demeaned. Standard errors are two-way clustered by fund
+and month.
+
+Baseline
+
+R2
+N
+
+Add. Controls
+
+R2
+Obs
+
+Controls
+FE
+Cluster
+
+(1)
+Within SPG
+
+−4.790***
+(−443.16)
+
+0.347
+266 803
+
+−2.015***
+(−47.44)
+
+0.566
+264 089
+
+Yes
+Family-Month
+Fund+Month
+
+(2)
+Outside SPG
+
+−4.360***
+(−348.65)
+
+0.374
+266 803
+
+−1.086***
+(−25.48)
+
+0.700
+264 089
+
+Yes
+Family-Month
+Fund+Month
+
+(3)
+Difference
+
+−0.430***
+(−50.54)
+
+0.278
+266 803
+
+−0.929***
+(−23.21)
+
+0.326
+264 089
+
+Yes
+Family-Month
+Fund+Month
+
+t statistics in parentheses; * p < 0.10, ** p < 0.05, *** p < 0.01.
+
+relative to the fund’s own SPG (within) and relative to other SPGs
+(outside), respectively. Column 3 shows that divergence is on average
+8.98% lower within the SPG than outside it,19 and all results are
+significant at the 1% level.20
+
+These results imply that funds allocate their capital more similarly
+to the average fund in their own SPG. Thus we conclude that, on aver-
+age, promised product differentiation translates into actual differences
+in product offering. This interpretation does not depend on the average
+level of distance within any particular group, as long as funds with
+high in-group distance still have higher distance with respect to funds
+outside of the group.21
+
+A remaining concern is that SPG-divergence might be capturing a
+simple transformation of other product differentiation measures previ-
+ously documented in the literature. In particular, SPG centroids might
+be conceptually similar to centroids obtained by sorting funds based
+on terciles of market capitalization, book-to-market, and past returns
+of the stocks they hold (DGTW-peers).22 Hence, we construct peer
+groups based on that alternative methodology and compute diver-
+gence based on those clusters, following Eq. (3). As HKP have shown,
+though, competition in DGTW space is driven by the crowdedness
+of the strategy space in the proximity of a fund’s location. For that
+reason, we additionally compute HKP’s fund-specific peer groups and
+proxy for the degree of competition using the number of HKP peers
+and its natural logarithm. Finally, it is plausible that SPG divergence
+could be capturing a general drive towards strategy uniqueness, in a
+conceptually similar way to KW’s uniqueness measure. Hence, we also
+reproduce it.
+
+19 Portfolio weight divergences are always negative due to the log
+
+transformation.
+
+20 Note that the large t-statistics are due to the fact that the reported
+
+coefficients are regression intercepts.
+
+21 We acknowledge that our measure is limited by how well portfolio
+weights can capture all aspects of fund strategies. The ̂𝛼 coefficient could
+be biased towards zero if we miss a major axis of commonality for a par-
+ticular strategy (e.g., we do not observe derivative positions for funds in the
+Derivatives SPG).
+
+22 The 9 main Morningstar categories for U.S. Equity funds are nested within
+
+the 27 DGTW peer groups.
+
+Fig. 3. SPG Assignments Per Fund: Panel 1 shows the number of
+fund-month
+observations assigned to each of the SPGs using the k-means algorithm with 17 clusters.
+The number next to each bar indicates the unique number of funds assigned to each SPG
+at some point in their lifetimes. Panel 2 shows the number of different SPG assignments
+that unique funds receive throughout their lives.
+
+The coefficient of interest is ̂𝛼, which estimates the difference be-
+tween within-group 𝐷𝑖𝑣𝑒𝑟𝑔𝑒𝑛𝑐𝑒 and outside-group ̃𝐷𝑖𝑣𝑒𝑟𝑔𝑒𝑛𝑐𝑒 when
+all control variables are equal to their mean values (all controls are
+demeaned). The control variable vector, 𝑋𝑗,𝑡, contains the log of total
+net assets (TNA), the log of fund age, the fund’s expense and turnover
+ratios, monthly percentage flows, and monthly flow volatility for fund
+𝑗 in month 𝑡. 𝜂𝑓 ,𝑡 are fund family × month fixed effects. Standard errors
+are clustered by fund and month. Hence, a negative and significant ̂𝛼
+should be interpreted as a lower mean in SPG-divergence within SPGs
+than outside, between funds in the same month and fund family, after
+controlling for fund-level characteristics.
+
+The top Panel of Table 2 reports the estimated ̂𝛼s in the third
+column, while the first two columns show the average divergences
+
+9 
+
+S. Abis and A. Lines
+
+Journal of Financial Economics 162 (2024) 103948 
+
+Table 3
+SPG Divergence - Correlations: This table reports the monthly correlations of our
+SPG Divergence measure with other measures of mutual fund competition and product
+differentiation used in the literature: the Hoberg et al. (2018) number of customized
+characteristics-based peers (HKP Peers) and its natural logarithm (HKP Log Peers); the
+Kostovetsky and Warner (2020) uniqueness measure; and an alternative divergence
+measure based on Daniel et al. (1997) characteristics peer groups. SPG Divergence is
+the log sum of squared differences between the fund’s portfolio weights and the average
+weights for funds in the same Strategy Peer Group. DGTW Divergence is constructed
+in the same way but with respect to average portfolio weights among funds whose
+holdings are in the same Daniel et al. (1997) size, book-to-market, and past return
+terciles. See Section 3.1.1 for further details.
+
+Divergence
+
+SPG
+
+DGTW
+
+HKP
+
+Peers
+
+Log Peers
+
+DGTW Divergence
+
+HKP Peers
+
+Log HKP Peers
+
+KW Uniqueness
+
+𝑁
+
+0.628∗∗∗
+−0.123∗∗∗
+−0.203∗∗∗
+0.126∗∗∗
+
+315 190
+
+∗ 𝑝 < 0.05, ∗∗ 𝑝 < 0.01, ∗∗∗ 𝑝 < 0.001.
+
+−0.146∗∗∗
+−0.242∗∗∗
+0.120∗∗∗
+
+0.829∗∗∗
+0.028∗∗∗
+
+−0.018∗∗∗
+
+3
+
+of
+
+the
+
+Table
+
+shows
+
+among
+
+correlation
+
+correlation
+
+SPG-divergence
+
+12.6% between
+
+SPG-divergence,
+DGTW-divergence, HKP-peers, and KW-uniqueness. We observe a small
+positive
+and
+KW-uniqueness; a small negative correlation of (−20.3%) −12.3% be-
+tween SPG-divergence and (log) HKP-peers; and a much higher positive
+correlation of 62.8% between SPG-divergence and DGTW-divergence.
+The higher correlation with DGTW-divergence is not surprising, as both
+measures are constructed as distances between holdings vectors. Given
+those correlations, the bottom Panel of Table 2 repeats the analysis in
+Eq. (3) by adding those variables to the controls vector (𝑋). In this
+case, the difference increases substantially: divergence is 46.1% lower
+with respect to funds’ own assigned SPGs, suggesting that our measure
+is capturing a novel dimension of product differentiation.
+
+In Appendix E we allow for more stringent controls by comparing
+funds pairwise. That analysis yields similar conclusions: any pair of
+funds is more likely to have lower divergence and similar moments in
+future return distribution if they belong to the same SPG.
+
+3.2. Investor demand
+
+In this section we examine investors’ demand for SPGs by studying
+their flow responses to SPG-adjusted performance and SPG-divergence.
+
+3.2.1. Fund flows and SPG-adjusted performance
+
+Given our analysis of the supply of funds, it is plausible that
+SPG-level product differentiation might reflect investor preferences for
+risk-exposures and/or other non-priced characteristics distinctive of
+each SPG. If that was the case, investors should be aware of SPG
+boundaries and should view funds within the same SPG as imperfect
+substitutes.
+
+An extensive academic literature has documented investors’ pref-
+erence for higher active returns and their flow-performance sensitivity
+(e.g. Chevalier and Ellison (1997); Sirri and Tufano (1998); Barber et al.
+(2016); Berk and Van Binsbergen (2016)). If investors prefer higher
+active returns, while simultaneously having a preference for other SPG
+features, we should observe a significant flow-performance sensitivity
+when benchmarking a fund’s return against the average return of other
+funds in the same SPG. To test that hypothesis we build a measure of
+SPG-adjusted performance as follows:
+
+𝑆𝑃 𝐺 𝐴𝑙𝑝ℎ𝑎 = 𝑅𝑗,𝑡 − ̄𝑅𝑡
+
+𝑆𝑃 𝐺
+𝑗,𝑡
+
+(4)
+
+where 𝑅𝑗,𝑡 is the annual net of fee return of fund 𝑗 from month 𝑡 − 11
+to month 𝑡; and ̄𝑅𝑡
+is the average annual net of fee return from
+month 𝑡 − 11 to month 𝑡, of funds belonging to the same SPG as fund
+
+𝑆𝑃 𝐺
+𝑗,𝑡
+
+10 
+
+𝑗 in month 𝑡. Table 4 displays the correlations between SPG Alpha and
+other performance measures commonly used in the literature.
+
+We then run the following regression:
+
+𝐹 𝑙𝑜𝑤𝑗,𝑡+1 = 𝛼 + 𝛽𝑆𝑃 𝐺 𝐴𝑙𝑝ℎ𝑎𝑗,𝑡 + 𝛾 ′𝑃 𝑒𝑟𝑓 𝑜𝑟𝑚𝑎𝑛𝑐𝑒𝑗,𝑡 + 𝜆′𝑋𝑗,𝑡 + 𝜂𝑓 ,𝑡 + 𝜀𝑗,𝑡. (5)
+
+where 𝐹 𝑙𝑜𝑤𝑗,𝑡+1 represents fund flows at time 𝑡 + 1 (one month ahead),
+measured as the percentage change in total net assets not due to
+returns. 𝑆𝑃 𝐺 𝐴𝑙𝑝ℎ𝑎𝑗,𝑡 is the SPG-adjusted performance for fund 𝑗 in
+month 𝑡, as defined in Eq. (4). 𝑃 𝑒𝑟𝑓 𝑜𝑟𝑚𝑎𝑛𝑐𝑒𝑗,𝑡 contains other common
+measures of performance, namely: CAPM, FFC4, and FFC6 alphas;23
+and HKP and DGTW peer-adjusted returns. All returns and alphas are
+net of fees. 𝑋𝑗,𝑡 contains fund-level control variables (log TNA; log age;
+expense ratio; turnover ratio) for fund 𝑗 in month 𝑡. Since capital flows
+are heavily influenced by distribution channels common to funds in
+the same family, and given the impact of overall market conditions
+(e.g., aggregate outflows during recessions) that may affect different
+families in different ways, all specifications include fund family×month
+fixed effects, represented by 𝜂𝑓 ,𝑡. Standard errors are clustered by fund
+̂𝛽 would indicate a significant
+and month. A positive and significant
+flow-performance sensitivity towards SPG-adjusted performance.
+
+Column 1 of Table 5 shows the outcome of that regression, when
+excluding the vector of additional 𝑃 𝑒𝑟𝑓 𝑜𝑟𝑚𝑎𝑛𝑐𝑒 controls. As expected,
+we observe a positive and significant (at the 1% level) ̂𝛽 = 0.116. To
+better understand the economic magnitude of this result, and to assess
+its incremental explanatory power, Column 2 of Table 5 reports the
+same results when adding other standard performance controls. The
+̂𝛽 is unchanged (1% level), while its point
+statistical significance of
+estimate becomes ̂𝛽 = 0.015. Despite other alphas absorbing much of the
+variation, SPG alpha remains incrementally relevant to investors: to put
+the coefficient into perspective, it represents 43% of the incremental
+effect of CAPM alpha, 29% of that of FFC4 alpha, 60% of that of FFC6
+alpha, 200% of that of DGTW-adjusted returns, and 22% of that of HKP
+peer-adjusted returns.
+
+These results suggests that investors are aware of SPG bound-
+aries and consider products within them to be imperfect substitutes.
+Combining those insights with the lack of differences in risk-adjusted
+performance across SPGs, provides preliminary evidence of investor
+preferences for other characteristics of SPGs, beyond risk-adjusted per-
+formance.
+
+3.2.2. Fund flows and SPG divergence
+
+To more formally study investors’ preferences for SPG core strate-
+gies, we study their flow responses to SPG-divergence. If investors have
+a preference for risk exposures or other non-priced features of SPGs,
+we should observe that they punish funds with outflows when their
+implemented strategy diverges from the promised one.
+
+To test this hypothesis, we use the measure of SPG-divergence,
+constructed as per Eq. (2). To facilitate discussion of magnitudes,
+we standardize the measure to have mean zero and variance 1. We
+then examine the relationship between fund flows and SPG-divergence,
+controlling for fund characteristics, past performance, and fund family
+membership, which are already known to drive flows, by running the
+following regression:
+
+𝐹 𝑙𝑜𝑤𝑗,𝑡+1 = 𝛼 + 𝛽𝐷𝑖𝑣𝑒𝑟𝑔𝑒𝑛𝑐𝑒𝑗,𝑡 + 𝛾𝑆𝑃 𝐺 𝐴𝑙𝑝ℎ𝑎𝑗,𝑡 + 𝜆′𝑋𝑗,𝑡 + 𝜂𝑓 ,𝑡 + 𝜀𝑗,𝑡+1, (6)
+
+where 𝐹 𝑙𝑜𝑤𝑗,𝑡+1 represents fund flows at time 𝑡 + 1 (one month ahead);
+Divergence is within-SPG divergence (Eq. (2)) for fund 𝑗 in month 𝑡;
+
+23 All alphas are computed at a monthly frequency by subtracting monthly
+fund returns from a beta-adjusted factor return portfolio, where the betas are
+estimated using rolling 24-month regressions. We then aggregate the monthly
+alphas up to the annual frequency. Note that we do not include Berk and van
+Binsbergen (2015)’s value added measure in this regression as our goal is to
+understand investor responses. Value-added is a measure of fund manager skill
+in the presence of decreasing returns to scale, while investors only care about
+the returns they will experience on their own portfolios.
+
+S. Abis and A. Lines
+
+Journal of Financial Economics 162 (2024) 103948 
+
+Table 4
+SPG Alpha - Correlations: This table reports the correlations of monthly SPG-adjusted performance (SPG Alpha) with various
+other standard performance measures: Daniel et al. (1997) characteristic selectivity measure (DGTW Alpha); Hoberg et al.
+(2018) customized peer alpha (HKP Alpha); CAPM Alpha, Fama–French-Carhart 4-Factor Alpha (FFC4 Alpha), and Fama–
+French-Carhart 6-Factor Alpha (FFC6 Alpha). All performance measures are computed net of fees. See Section 3.1.1 for
+further details.
+
+SPG Alpha
+
+DGTW Alpha
+
+HKP Alpha
+
+CAPM Alpha
+
+FFC4 Alpha
+
+DGTW Alpha
+
+HKP Alpha
+
+CAPM Alpha
+
+FFC4 Alpha
+
+FFC6 Alpha
+
+𝑁
+
+0.566∗∗∗
+0.750∗∗∗
+0.756∗∗∗
+0.557∗∗∗
+0.495∗∗∗
+
+315 006
+
+t statistics in parentheses
+∗ 𝑝 < 0.05, ∗∗ 𝑝 < 0.01, ∗∗∗ 𝑝 < 0.001.
+
+0.619∗∗∗
+0.513∗∗∗
+0.452∗∗∗
+0.408∗∗∗
+
+0.607∗∗∗
+0.593∗∗∗
+0.534∗∗∗
+
+0.641∗∗∗
+0.576∗∗∗
+
+0.892∗∗∗
+
+Table 5
+Fund Flows, SPG Divergence, and Performance: This table shows regressions of one-month-ahead net fund flows (% of TNA)
+on SPG Divergence, SPG Alpha, various other measures of one-year past performance, and controls for fund characteristics
+(omitted for brevity), competition, and product differentiation (see Section 3.2.2). SPG Alpha is the fund’s return relative
+to the average of all funds in the same text-based Strategy Peer Group (SPG). SPG Divergence is the log sum of squared
+differences between the fund’s portfolio weights and the average weights for funds in the same SPG. DGTW Divergence is
+constructed in the same way but with respect to funds in the same Daniel et al. (1997) characteristics terciles. HKP Peers
+is the number of fund competitors according to Hoberg et al. (2018), and HKP Alpha is the fund’s return relative to these
+competitors. The dummies Low Comp and Med Comp indicate the bottom and middle terciles (by month) of the distribution of
+HKP Peers. KW Uniqueness is the Kostovetsky and Warner (2020) measure of textual prospectus uniqueness. All specifications
+include fund-family × month fixed effects, and standard errors are two-way clustered by fund and month.
+
+(1)
+
+(2)
+
+(3)
+
+−0.049***
+(−2.63)
+
+0.116***
+(22.07)
+
+0.116***
+(22.03)
+
+0.015***
+(2.91)
+0.035***
+(7.32)
+0.052***
+(5.93)
+0.025***
+(3.43)
+0.007**
+(2.05)
+0.068***
+(12.27)
+
+(4)
+
+−0.060***
+(−3.20)
+0.027
+(1.59)
+−0.043*
+(−1.71)
+−0.036**
+(−2.11)
+0.013**
+(2.40)
+0.035***
+(7.42)
+0.053***
+(5.95)
+0.024***
+(3.20)
+0.007**
+(2.05)
+0.071***
+(12.53)
+
+SPG Divergence
+
+DGTW Divergence
+
+KW Uniqueness
+
+Log HKP Peers
+
+SPG Alpha
+
+CAPM Alpha
+
+FFC4 Alpha
+
+FFC6 Alpha
+
+DGTW Alpha
+
+HKP Alpha
+
+Low Comp
+
+Med Comp
+
+Low Comp × HKP Alpha
+
+Med Comp × HKP Alpha
+
+R2
+Obs
+
+0.320
+239,751
+
+0.336
+239,751
+
+0.320
+239,751
+
+0.336
+237,178
+
+t statistics in parentheses; * p < 0.10, ** p < 0.05, *** p < 0.01.
+
+(5)
+
+−0.055***
+(−2.96)
+0.027
+(1.60)
+−0.041
+(−1.63)
+
+0.012**
+(2.20)
+0.036***
+(7.70)
+0.052***
+(5.94)
+0.024***
+(3.21)
+0.007**
+(2.22)
+0.060***
+(7.61)
+0.142***
+(3.17)
+0.120***
+(3.38)
+0.011
+(1.49)
+0.016**
+(2.25)
+
+0.336
+239,486
+
+𝑆𝑃 𝐺 𝐴𝑙𝑝ℎ𝑎 is SPG-adjusted performance (Eq. (4)); 𝑋𝑗,𝑡 contains fund-
+level controls (log TNA; fund age; expense ratio; turnover ratio) for
+fund 𝑗 in month 𝑡; 𝜂𝑓 ,𝑡 are family×month fixed effects. Standard errors
+are clustered by fund and month. A negative and significant ̂𝛽 would
+indicate outflows when a fund’s portfolio diverges from that of its SPG’s
+average.
+
+Column 3 of Table 5 reports the results without additional controls.
+As expected, ̂𝛽 is negative and significant at the 1% level. Although the
+single-month magnitude appears modest — on average, a one-standard-
+deviation increase in SPG-Divergence leads to a decrease in next-month
+flows of 0.05% — the effect grows over time and is substantially greater
+in the long run, as we show in Sections 3.2.3 and 3.2.4. Furthermore,
+
+as we discuss in Section 3.3, SPG divergence can occur for a variety of
+reasons, both accidental and deliberate. In equilibrium, the estimated
+coefficient reflects an average of these effects and thus will be driven
+towards zero, whereas Section 3.2.4 shows that the magnitude is much
+greater when divergence is not a conscious choice by the fund manager.
+Lastly, it is worth keeping in mind that our measure of SPG adherence is
+necessarily noisy, which also potentially biases the coefficient towards
+zero.
+
+The effect of 𝑆𝑃 𝐺 𝐴𝑙𝑝ℎ𝑎 on flows (̂𝛾) remains positive and sig-
+nificant, highlighting the dual preference of investors for higher SPG-
+adjusted returns and lower SPG divergence.
+
+11 
+
+S. Abis and A. Lines
+
+Journal of Financial Economics 162 (2024) 103948 
+
+To explore the robustness of these results, in Column 4 of Table 5
+we add to the controls vector all additional performance measures
+included in Column 3; as well as DGTW-divergence, KW-uniqueness
+and log(HKP-peers) (constructed as in Section 3.1.1). This alleviates
+concerns that the effect of divergence on flows might be driven by
+SPGs’ correlation with omitted measures of performance, competition,
+̂𝛽 remains statistically
+or product differentiation. In this specification,
+significant at the 1% level, while its economic magnitude increases: a
+one-standard-deviation increase in SPG-Divergence leads to a decrease
+in next-month flows of 0.06%. To ascertain that SPG-divergence is
+capturing a truly distinct effect from HKP’s measures, we further refine
+our analysis by substituting log(HKP-peers) with dummies for funds in
+the bottom and mid terciles of HKP-peers, as well as the interaction
+between those dummies and HKP Alpha. Column 5 of Table 5 reports
+those results, showing a similar economic and statistical significance of
+̂𝛽 = 0.055.
+
+the
+
+that
+
+these
+
+results
+
+indicate
+
+Taken together,
+
+effect of
+SPG-divergence on flows is driven by investor preferences that are
+novel and distinct from the preference for higher risk-adjusted perfor-
+mance. However, questions remain about the magnitude of the effect,
+which we address in our subsequent analysis. The joint significance
+of SPG-adjusted performance and SPG-divergence in driving flows,
+suggests that the dual nature of investor preferences is distinct and the
+two effects need not necessarily go in the same direction. We study this
+trade-off more in depth in Section 3.3, when investigating the economic
+mechanism driving divergence.
+
+3.2.3. Dynamics of investor and fund responses
+
+In this section we explore the dynamic interrelationships among
+our main variables of interest. We have shown that investors respond
+negatively to funds’ divergence from their core strategies and positively
+to higher peer-adjusted returns, but our interpretation of these results
+may be confounded by endogenous feedback effects in a complex
+equilibrium system. For instance, rational fund managers may also
+anticipate or respond to investors’ responses, and fund performance
+may depend on prior managerial actions and investor flows. To capture
+these intertemporal feedback effects in a more disciplined way, we
+consider a structural panel vector autoregression (SPVAR) model.
+
+Structural panel vector autoregression. The 𝐿-order structural equation
+we would like to estimate is:
+
+𝑦𝑗,𝑡𝐴0 =
+
+𝐿
+∑
+
+𝑙=1
+
+𝑦𝑗,𝑡−𝑙𝐴𝑙 + 𝑥𝑗,𝑡𝐵 + 𝛼𝑗 + 𝜀𝑗,𝑡,
+
+(7)
+
+where 𝑦𝑖,𝑡 is an 𝑁-vector of endogenous variables for fund 𝑗 in month
+𝑡; 𝑥𝑗,𝑡 is a vector of exogenous control variables; 𝐴0 through 𝐴𝐿 and
+𝐵 are coefficient matrices; 𝛼𝑗 are fund-level fixed effects;24 and 𝜀𝑗,𝑡 is a
+vector of independent structural shocks driving each of the endogenous
+variables, distributed as 𝑁(0, 𝐼). The endogenous vector 𝑦𝑖,𝑡 contains
+SPG divergence (measured at the beginning of month 𝑡), SPG alpha
+(measured from 𝑡 to 𝑡 + 1), percentage fund flows (measured from 𝑡 to
+𝑡 + 1), and the multiplicative interaction between divergence and flows.
+Including the interaction term allows the autoregressive coefficients for
+divergence to depend on flows, and vice versa. The exogenous vector
+𝑥𝑗,𝑡 contains other standard performance measures—HKP, and DGTW
+peer-adjusted returns, and CAPM, FFC4, and FFC6 alphas (measured
+from 𝑡 − 12 to 𝑡 − 1)—as well as fund characteristics—log age, log TNA,
+expense ratio, and turnover ratio (measured as of the beginning of
+month 𝑡).
+
+This framework permits simultaneous estimation of several key
+intertemporal relationships: (i) the long-run effects of divergence and
+performance on flows (Section 3.2.2 considers investor responses only
+
+24 We use fund fixed effects as we are interested in estimating within-fund
+
+time-series dynamics.
+
+one month ahead); (ii) the time-series properties of divergence; (iii) the
+feedback effects of flows on future divergence; and (iv) the effects of
+divergence and flows on future performance.
+
+Contemporaneous relationships among the endogenous variables
+are represented by the matrix 𝐴0, which is not directly observable. We
+also cannot directly observe the structural shocks 𝜀𝑗,𝑡. Fortunately, well-
+documented market frictions combined with variable timings imply a
+natural causal ordering that allows us to first estimate the reduced-form
+model,
+
+𝑦𝑗,𝑡 =
+
+𝐿
+∑
+
+𝑙=1
+
+𝑦𝑗,𝑡−𝑙
+
+̃𝐴𝑙 + 𝑥𝑗,𝑡
+
+̃𝐵 + ̃𝛼𝑗 + 𝜈𝑗,𝑡,
+
+(8)
+
+where 𝜈𝑗,𝑡 ∼ 𝑁(𝜔, 𝛺), and then identify the structural coefficients
+via Cholesky decomposition of the reduced-form residual variance–
+′ = ̂𝛺,
+covariance matrix ̂𝛺 (Sims, 1980). Specifically, we set
+̂𝐴𝑙 = ̃𝐴𝑙
+0 , and
+which yields estimates
+̂𝐴−1
+̂𝜀𝑗,𝑡 = ̂𝜈𝑗,𝑡
+0 . Our identification strategy thus depends crucially on the
+following ordering of variables and equations:
+
+̂𝐴0
+̂𝛼𝑖 = ̃𝛼𝑗
+
+̂𝐵 = ̃𝐵 ̂𝐴−1
+0 ,
+
+̂𝐴0
+̂𝐴−1
+
+̂𝐴−1
+0 ,
+
+1. SPG divergence is causally ordered first (i.e., last in 𝑦𝑗,𝑡, due to
+the lower-triangular form of ̂𝐴0), allowing the orthogonalized di-
+vergence shocks ( ̂𝜀𝐷𝑖𝑣
+𝑗,𝑡 ) to affect all variables contemporaneously,
+while other shocks can only affect divergence with a lag. This
+assumption is true by construction, since divergence is recorded
+at the beginning of month 𝑡 while the other variables are recorded
+during month 𝑡.
+
+2. The interaction between divergence and flows is causally or-
+dered second (second-last in 𝑦𝑗,𝑡). The divergence component of
+the orthogonalized interaction shocks ( ̂𝜀𝐷𝑖𝑣×𝐹 𝑙𝑜𝑤
+) can affect all
+other variables contemporaneously but the flow component can-
+not affect divergence contemporaneously, again by construction
+due to variable timing.
+
+𝑗,𝑡
+
+𝑗,𝑡
+
+3. Fund flows are causally ordered third (third-last in 𝑦𝑗,𝑡): or-
+thogonalized flow shocks ( ̂𝜀𝐹 𝑙𝑜𝑤
+) can affect only flows and per-
+formance contemporaneously (the latter could occur due to
+flow-induced trading as fund managers seek to deploy new
+capital or meet redemptions). For the same reason as above, flow
+shocks cannot immediately affect divergence or its interaction.
+4. SPG alpha is causally ordered last (first in 𝑦𝑗,𝑡), implying that
+orthogonalized performance shocks ( ̂𝜀𝐴𝑙𝑝ℎ𝑎
+) can affect all other
+variables only with a lag. This is mechanically true for diver-
+gence as discussed above, and it is justifiable for flows due to
+market frictions, particularly slow-moving capital (Mitchell et al.
+(2007), Duffie (2010)).
+
+𝑗,𝑡
+
+Following Hansen (1982), Holtz-Eakin et al. (1988), Arellano and
+Bover (1995), and Abrigo and Love (2016), we estimate the model
+using feasible generalized method of moments (GMM) after applying
+a forward orthogonal deviation (FOD) transformation to the data to
+absorb fund fixed effects,25 while the untransformed variables are used
+as GMM instruments.26 Estimation results are reported as orthogonal-
+ized impulse-response functions (IRFs), derived from the infinite-order
+vector moving average (VMA) representation of Eq. (7):
+
+𝐼𝑅𝐹0 = 𝐼𝑁 ;
+
+𝐼𝑅𝐹𝑘 =
+
+𝑘
+∑
+
+𝑖=1
+
+𝐼𝑅𝐹𝑘−1
+
+̂𝐴𝑘
+
+∀𝑘 > 0
+
+(9)
+
+25 This methodology delivers consistent and efficient estimates of
+
+the
+reduced-form coefficient matrices for fixed 𝑇 (number of months) as 𝐽 → ∞
+(number of funds), which is sensible in our setting. Alvarez and Arellano
+(2003) prove consistency also for 𝑇 → ∞, but under conditions that do not
+hold in our setting.
+
+26 The optimal weighting matrix is derived from the expected squared
+moment condition 𝐸[𝑍′ ̂𝜈 ̂𝜈′𝑍], where 𝑍 is the stacked matrix of instrument
+observations and 𝜈 is the stacked matrix of reduced-form residuals.
+
+12 
+
+S. Abis and A. Lines
+
+Journal of Financial Economics 162 (2024) 103948 
+
+Fig. 4. SPVAR Impulse Response Functions: This figure plots orthogonalized impulse response functions for all endogenous variables in the structural panel VAR described in
+Section 3.2.3. In the figure arrangement, rows correspond to impulses and columns to responses. Responses of the interaction between 𝑆𝑃 𝐺𝐷𝑖𝑣𝑒𝑟𝑔𝑒𝑛𝑐𝑒 and 𝐹 𝑙𝑜𝑤 are not shown
+for brevity. Structural identification is via Cholesky decomposition, and variables are causally ordered from bottom to top in the figure. Shaded regions indicate 95% confidence
+intervals, computed via bootstrapping (Lütkepohl, 2005).
+
+IRF confidence intervals are computed by bootstrapping from the
+reduced-form residuals (Lütkepohl, 2005), retaining their estimated
+covariance structure. To select the number of lags 𝐿 we rely on the
+coefficient of determination (𝑅2), as the model is just-identified and
+thus information criteria are unavailable (Abrigo and Love, 2016).
+
+Note that this identification strategy says nothing about the ultimate
+source of the structural shocks, only that they are orthogonal to each
+other. Shocks to divergence could arise from strategic managerial de-
+cision making, from flow-induced trading, from return-driven changes
+in portfolio composition, or from shifts in the core strategy of the
+peer group. Several of these sources may be driven by macroeconomic
+events or unobserved fund/manager characteristics that could poten-
+tially also affect flows. Thus, while the SPVAR approach is informative
+for establishing intertemporal feedback relationships and ruling out
+reverse causality, omitted variable bias remains a concern. We ad-
+dress this concern in Section 3.2.4 using an instrumental variables
+identification strategy.
+
+Results. Fig. 4 displays the orthogonalized impulse response functions
+(IRFs). Each row of the figure shows responses to a different structural
+shock (rows are arranged in reverse causal order), and each column
+
+13 
+
+shows the responses of a different endogenous variable. Since the
+interaction term between SPG divergence and flows is not itself an
+outcome of interest, we omit its responses for the sake of brevity.
+The impulses are positive one-standard-deviation realizations of the
+structural errors ̂𝜈𝑗,𝑡
+
+̂𝐴−1
+0 .
+
+The first notable result, which can be seen in the bottom right
+panel of Fig. 4, is that SPG divergence is strongly mean-reverting
+over time. After an initial shock raises divergence by just over 40%
+of its unconditional standard deviation, the effect declines to 10%
+after twelve months, implying a mean reversion rate of 0.75 per year.
+Rather than funds having the freedom to move permanently to different
+strategy spaces, their portfolio weights appear to be anchored to the
+core strategies of their peer groups. This finding further validates the
+salience of SPGs in explaining fund manager behavior, and suggests
+that funds are responsive to market or regulatory forces pushing them
+to keep their promises. Given the many possible drivers of divergence
+(see discussion in previous subsection), it would be practically impos-
+sible for a fund to adhere perfectly to the peer group average even if
+such adherence were the goal. Thus, the speed at which mutual funds
+revert towards the average is potentially as important as the level of
+divergence itself.
+
+S. Abis and A. Lines
+
+Journal of Financial Economics 162 (2024) 103948 
+
+of Fig. 4: the impact of SPG-adjusted performance on flows persists
+for over a year following the initial shock.28 Fund flow shocks have
+a contemporaneously positive effect on SPG Alpha which lasts into
+the first post-shock month (Column 1, Row 2), consistent with flow-
+induced trading. Finally, SPG divergence shocks have a lasting negative
+impact on future fund performance. We will return to the relationship
+of divergence and fund performance in Section 3.3.
+
+3.2.4. Identification
+Instrumental variables. To mitigate the concern that unobserved fund
+attributes could be correlated with both SPG divergence and fund flows,
+resulting in omitted variable bias, we employ a novel instrumental
+variables strategy. The key underlying idea is that SPG divergence can
+change mechanically when some subset of a funds’ portfolio holdings
+experiences extreme returns. Provided the fund’s holdings are not
+initially identical to the SPG core strategy (confirmed in Table 2), the
+re-weighting caused by large positive or negative returns will have
+differing effects on the fund’s portfolio and the SPG average portfolio,
+potentially increasing their distance. To exploit this effect for identifica-
+tion, we then require a source of extreme stock returns that is plausibly
+unrelated to both fund and investor behavior.
+
+Following this logic, we propose the use of (absolute) idiosyncratic
+industry returns as instruments for changes in SPG divergence. After
+subtracting compensation for aggregate risk exposures (using the FFC6
+factor model), industry return residuals should be driven almost en-
+tirely by specific shocks to narrow sectors of the economy, and thus
+should be approximately orthogonal to the macroeconomic shocks that
+drive aggregate mutual fund flows. Moreover, because our sample
+explicitly excludes sector funds, and industry returns only affect part of
+a fund’s portfolio, they are less likely to be correlated with unobserved
+fund or manager attributes. We also control directly for observable fund
+performance (SPG, HKP, and DGTW peer-adjusted returns; and CAPM,
+FFC4, and FFC6 factor model alphas) as well as fund characteristics (log
+TNA, log age, expense ratio, and turnover ratio). In some specifications
+we also control for the VIX Index, to account for common volatility
+shocks that may drive both absolute industry return residuals and fund
+flows.
+
+In sum, our instruments are valid if: (1) Relevance: absolute industry
+return residuals significantly predict changes in SPG divergence; and;
+(2) Exogeneity: (i) risk adjustment using a standard asset pricing model
+is sufficient to separate industry-specific news from economy-wide
+shocks; (ii) industry-specific news does not affect flows via channels
+other than SPG divergence, fund alphas, or common volatility shocks.
+Although it is impossible to prove that the exogeneity condition
+is satisfied, we submit that (i) and (ii) are reasonable assumptions.
+First, we use a comprehensive factor model that enjoys much empirical
+success in the asset pricing literature. Second, it seems unlikely that
+idiosyncratic events affecting narrow industries without any corre-
+sponding effects on the market (or small stocks, value stocks, profitable
+stocks, stocks with low investment or high past returns) should directly
+drive mutual fund flows across the entire market, unless through their
+effects on fund performance, which is controlled for in our regressions,
+or funds’ portfolio composition. By using an idiosyncratic shock to
+instrument for a more general effect, our approach is similar in spirit
+to the granular instrumental variables strategy of Gabaix and Koijen
+(2021). Even if the above assumptions do not hold universally, the IV
+approach should be closer to random assignment than ordinary least
+squares.
+
+We estimate the effect of SPG divergence on future fund flows using
+a two-stage least squares (2SLS) procedure. The first stage is as follows:
+
+𝐷𝑖𝑣𝑔𝐷𝑖𝑓 𝑓𝑗,𝑡 = 𝜄𝑗 +
+
+𝑁
+∑
+
+𝑛=1
+
+𝛿𝑛
+
+̃𝐼𝑛,𝑡 + 𝛾 ′𝑋𝑗,𝑡 + 𝜀𝑗,𝑡,
+
+(10)
+
+Fig. 5. SPVAR Cumulative Flow Response: This figure plots the cumulative response
+of fund flows to the orthogonalized SPG divergence shock in the structural panel VAR
+described in Section 3.2.3. Shaded regions indicate 95% confidence intervals, computed
+via bootstrapping (Lütkepohl, 2005).
+
+If market discipline is a factor driving fund manager behavior,
+we hypothesize that the future evolution of divergence should be
+influenced by investors’ flow responses. Specifically, we expect strategy
+mean reversion to be faster if the initial divergence shock results in
+higher outflows. Including the interaction of divergence and subsequent
+flows as an endogenous variable allows us to test this hypothesis. As
+shown in the third row of the final column in Fig. 4, the interaction
+effect is significant and positive from month 𝑡 + 1 onwards, peaking
+in month 6 at a value of 0.0075. That indicates that mean reversion
+speed increases when flows are negative, or conversely that divergence
+remains higher for longer relative to its pre-shock level if flows are
+positive.
+
+To illustrate the magnitude of the effect, consider a large shock
+that shifts divergence two standard deviations above its mean. Then,
+if monthly flow is one standard deviation below its mean following
+the divergence shock (−3.37% in the regression sample), divergence
+will be 0.0075 × 2 × −3.37 ≈ 0.05 closer to its long-run mean after six
+months than if flow was at its mean—or an increase in mean-reversion
+speed of 12.5%. These results are in line with a market-led disciplining
+mechanism, whereby flow responses keep funds’ actual strategies close
+to the promised ones, even when that would be difficult to achieve
+through legal enforcement.
+
+The main finding from Section 3.2.2 — that SPG divergence neg-
+atively affects flows — is confirmed in the bottom row and second
+column of Fig. 4. Compared to the OLS methodology, orthogonalizing
+the divergence shock results in the estimation of a delayed flow effect:
+the response is initially insignificant, and only becomes significantly
+negative in the second month after the shock. This delay is consistent
+with investor inattention or slow moving capital. The magnitude of the
+response continues to increase through month six, possibly as more in-
+vestors become aware of the fund’s promise-breaking, before gradually
+decaying towards zero. Fig. 5 plots the cumulative flow response: a
+one-standard-deviation increase in divergence results in a reduction in
+percentage flows of about 0.35% over the course of a year (about 15%
+of the unconditional mean of 2.35% in the regression sub-sample).27
+
+Several other results are also of secondary interest. The dynamics
+of the flow-performance relationship are shown in Column 2, Row 1
+
+27 Note that this figure differs from the average reported in the full-sample
+
+28 This result holds for any standard performance measure, as we confirm
+
+statistics (Table 1).
+
+in unreported results.
+
+14 
+
+S. Abis and A. Lines
+
+Journal of Financial Economics 162 (2024) 103948 
+
+Table 6
+IV - First Stage: This table reports estimated coefficients and 𝐹 -statistics from the first stage of an instrumental variables regression
+of future fund flows on first-differences of SPG Divergence. SPG Divergence differences (the dependent variable in the first stage
+regression) is instrumented using absolute idiosyncratic industry returns (i.e., residuals from the Fama–French-Carhart six factor model)
+for the Fama–French 10 industry portfolios. Included exogenous control variables are fund characteristics, yearly lagged performance,
+competition and product differentiation measures (see description of Table 5). Column 1 omits the control variables to illustrate the
+relevance of the excluded instruments alone, and is therefore is not used in the second stage regressions. Columns 2 through 5 are
+used in the second stage regressions. Columns 2 and 4 use the full sample of observations, while Columns 3 and 5 omit the dotcom
+crash years of 2000-01 and the financial crisis of 2008-09. Columns 4 and 5 also control for the VIX Index. All specifications include
+fund fixed effects, and standard errors are clustered by fund. See Section 3.2.4 for further details.
+
+Consumer Durables
+
+Consumer NonDur
+
+Manufacturing
+
+Energy
+
+High Tech
+
+Telecoms
+
+Wholesale/Retail
+
+Healthcare
+
+Utilities
+
+Other
+
+VIX Index
+
+Controls
+Sample
+F-Statistic
+Obs
+
+(1)
+
+0.039
+(1.09)
+0.260***
+(3.37)
+0.328***
+(2.89)
+0.071*
+(1.75)
+0.295***
+(3.81)
+0.148***
+(2.63)
+−0.194***
+(−2.60)
+0.243***
+(3.90)
+−0.224***
+(−5.06)
+−0.084
+(−0.67)
+
+No
+All
+10.13
+271,708
+
+(2)
+
+0.085**
+(2.29)
+0.253***
+(3.27)
+0.295**
+(2.55)
+0.061
+(1.50)
+0.341***
+(4.40)
+0.157***
+(2.77)
+−0.243***
+(−3.20)
+0.236***
+(3.74)
+−0.205***
+(−4.64)
+−0.064
+(−0.51)
+
+Yes
+All
+67.59
+271,708
+
+(3)
+
+0.036
+(0.82)
+0.054
+(0.65)
+0.350***
+(2.78)
+0.153***
+(3.21)
+0.516***
+(6.37)
+0.224***
+(3.68)
+−0.370***
+(−4.15)
+0.404***
+(5.47)
+−0.125**
+(−2.50)
+−0.268*
+(−1.71)
+
+Yes
+No Crash
+62.56
+230,404
+
+(4)
+
+0.123***
+(3.26)
+0.257***
+(3.31)
+0.391***
+(3.36)
+0.019
+(0.47)
+0.384***
+(4.97)
+0.203***
+(3.55)
+−0.277***
+(−3.64)
+0.271***
+(4.24)
+−0.221***
+(−4.98)
+0.003
+(0.02)
+−0.069***
+(−7.90)
+
+Yes
+All
+69.31
+271,708
+
+(5)
+
+0.044
+(0.97)
+0.059
+(0.70)
+0.360***
+(2.87)
+0.143***
+(2.96)
+0.526***
+(6.49)
+0.233***
+(3.76)
+−0.373***
+(−4.17)
+0.412***
+(5.48)
+−0.126**
+(−2.53)
+−0.255
+(−1.63)
+−0.015
+(−1.22)
+
+Yes
+No Crash
+60.27
+230,404
+
+t statistics in parentheses; * p < 0.10, ** p < 0.05, *** p < 0.01.
+
+where 𝐷𝑖𝑣𝑔𝐷𝑖𝑓 𝑓𝑗,𝑡 is the first difference of SPG divergence within
+funds, 𝜄𝑗 is a fund-specific intercept and the vector 𝑋𝑗,𝑡 contains per-
+formance controls, VIX levels, and fund characteristics. Using the es-
+timated coefficients from Eq. (10), we compute fitted values of the
+dependent variable, ̂𝐷𝑖𝑣𝑔𝐷𝑖𝑓 𝑓 (we use first differences because re-
+turn shocks affect changes in portfolio holdings rather than levels).
+Note the variation in ̂𝐷𝑖𝑣𝑔𝐷𝑖𝑓 𝑓 is mostly time-series variation, as
+the instruments are the same for all funds (only the control variables
+differ).29 The interpretation of the first-stage fitted values is therefore
+the average change in SPG divergence, across all funds, that is driven
+by idiosyncratic industry shocks.30 In this way, the IV results resemble
+an event study following an exogenous shock.
+
+Finally, we estimate the second stage regression:
+
+𝐹 𝑙𝑜𝑤𝑗,𝑡+1∶𝑡+𝑘 = 𝜄𝑗 + 𝛽 ̂𝐷𝑖𝑣𝑔𝐷𝑖𝑓 𝑓 𝑗,𝑡 + 𝛾 ′𝑋𝑗,𝑡 + 𝜀𝑗,𝑡,
+
+𝑘 = 1, … , 12
+
+(11)
+
+where 𝐹 𝑙𝑜𝑤𝑗,𝑡+1∶𝑡+𝑘 is the cumulative flow to fund 𝑗 from months 𝑡+1 to
+𝑡 + 𝑘. In addition to cumulative future flows, we also estimate variants
+of Eq. (11) with contemporaneous and past flows on the left hand
+side. If our instruments do in fact capture exogenous shocks to SPG
+divergence, we would expect there to be no effects on past flows.
+Similarly, if our assumptions (i) and (ii) hold, we should also not see
+any contemporaneous effects on flows. Throughout the analysis, due to
+the variation in our instruments being exclusively time-series in nature,
+we can include only fund-level fixed effects and cluster standard errors
+at the fund level.
+
+Results. The first-stage coefficients (Eq. (10)) are reported in Table 6.
+The first column shows a variant of the regression omitting all con-
+trols, to illustrate the relevance of the instruments (importantly, the
+fitted values from this column are not used in the second stage).
+The 𝐹 -statistic of this regression is above the standard rule-of-thumb
+of 10 (10.13) and, as hypothesized, the majority of the coefficients
+are positive and significant. In other words, increasing the magnitude
+of idiosyncratic shocks that affect only part of funds’ portfolios also
+generally results in a greater positive change in SPG divergence. These
+conclusions continue to hold if we include fund-specific control vari-
+ables (particularly past performance) in Column 2, where the 𝐹 -statistic
+rises considerably (to 67.59).
+
+As shown in Columns 3-5, we employ two strategies to further
+reduce the likelihood that our instruments capture unobserved macroe-
+conomic variation. First, as in Columns 3 and 5, we run the regression
+in a sub-sample that excludes two major events that primarily affected a
+single industry—the bursting of the Dotcom bubble during 2000–2001,
+which mainly affected tech firms; and the financial crisis of 2008–2009,
+which was driven by financial firms. We are extremely conservative in
+excluding two full years for each event. Second, in Columns 4 and 5,
+we add the VIX index as a control to capture common volatility shocks.
+Encouragingly, the first stage results are similar across the different
+specifications, confirming that the relevance condition is satisfied.31
+Intuitively, the VIX is relevant only in the full sample, and does not
+affect portfolio compositions outside of the crisis periods. The last spec-
+ification (Column 5) is therefore the most likely to satisfy assumption
+(ii) of the endogeneity condition. Unlike in Sections 3.2.2 and 3.2.3,
+
+29 Due to the time-series nature of the instruments we can only include fund-
+level fixed effects. For the same reason, standard errors are clustered at the
+fund level.
+
+30 We use changes in SPG divergence because they correspond to changes
+
+in stock prices, i.e., returns.
+
+31 We are unable to run tests of over-identifying restrictions in this setting,
+as they are invalid in the presence of sample heterogeneity, which is clearly
+the case for mutual fund panel data (Angrist and Pischke, 2009).
+
+15 
+
+S. Abis and A. Lines
+
+Journal of Financial Economics 162 (2024) 103948 
+
+Fig. 6. IV Regression Second Stage Coefficients: In this figure we plot point estimates and 95% confidence intervals from an instrumental variables regression of cumulative fund
+flows on changes in SPG divergence, where divergence changes are instrumented using absolute idiosyncratic industry returns. Stocks are classified into Fama–French 10 industry
+portfolios, and idiosyncratic returns are computed by subtracting estimated FFC six-factor model benchmarks. The regression includes exogenous controls for fund performance
+(SPG Alpha; Hoberg et al. (2018) Alpha; FFC 6-factor Alpha), fund characteristics (log TNA; log age; expense ratio; turnover ratio), competition (Hoberg et al. (2018) customized
+peer alpha and log number of peers), product differentiation (Kostovetsky and Warner (2020) uniqueness), and fund fixed effects. Panels (c) and (d) also include the VIX Index
+as an additional control. Panels (a) and (c) use the full sample, while panels (b) and (d) omit the years 2000-01 and 2008-09. Light blue indicates lagged cumulative flows (from
+months 𝑡 − 𝑘 to 𝑡), red indicates contemporaneous (month 𝑡) flows, and dark blue indicates future cumulative flows (from months 𝑡 to 𝑡 + 𝑘). The bars are 95% confidence intervals,
+and standard errors are clustered at the fund level. See Section 3.2.4 for further details.
+
+where the variation in SPG divergence may be driven by many factors
+including strategic managerial considerations, the variation in the fitted
+values from these regressions is more likely to be unintentional on the
+part of fund managers.
+
+The second stage coefficients are plotted in Fig. 6 for various cumu-
+lative flow horizons. Starting with the baseline full-sample case without
+a VIX control (panel a; corresponding to the first stage in Column
+(2) of Table 6), flows are unaffected by fitted changes in divergence
+for up to six months prior to the idiosyncratic shock. This result
+is necessary (though not sufficient) for our identifying assumptions
+to hold. Consistent with a delayed investor response, flows are also
+unaffected contemporaneously and for two months following the shock.
+Then, in month three, they begin to respond negatively and continue
+to do so in each subsequent month. By month twelve, the cumulative
+coefficient is −60. Since fitted divergence has a standard deviation of
+0.01, a one-SD shock results in an annual percentage flow response of
+0.6%, or approximately 25% of its annual mean in the regression sub-
+sample (2.35%).32 Note that the magnitude of this result is constrained
+by the size of the shocks generated by our instrument. Hence, it likely
+represents a lower-bound for the true magnitude of the typical effect.
+Removing the Dotcom crash and the global financial crisis from
+the data does not attenuate the results significantly (panel b; corre-
+sponding to Column 3 of Table 6), suggesting that the instruments
+
+32 Note that this figure differs from the average reported in the full-sample
+
+statistics (Table 1).
+
+are not driven entirely by the largest macroeconomic events affecting
+particular industries during our sample period. Adding the VIX as a
+control (panel c; corresponding to Column 4 of Table 6) introduces
+substantial noise in the estimation, but the significance of the results
+nonetheless holds (for at least eight months after the shock). Finally,
+adding the VIX in the restricted sample (panel d; corresponding to
+Column 5 of Table 6) no longer increases estimation variance, and
+the effect on flows remains steadily significant after twelve months.
+Although the coefficient magnitude is halved compared to the baseline.
+Overall, the results presented in this section increase our confidence
+that fund investors are responding to fund strategy divergence and
+not some unobserved attribute of the fund, the fund manager, or the
+macroeconomic environment.
+
+3.3. Economic mechanism
+
+In this section, we delve deeper into the economic mechanism
+driving divergence. Section 3.2.1 highlighted the dual preference of
+investors for SPG-adjusted performance and SPG-adherence. If all funds
+were skilled, and divergence only happened for strategic motives, we
+would expect funds to diverge from their promised strategy only when
+that would increase SPG-adjusted performance. If this is the case, we
+should observe a positive relationship between divergence and future
+performance. As highlighted by our IV strategy, though, there can be
+scenarios in which divergence happens involuntarily. Additionally, un-
+skilled fund managers might diverge to exploit alpha opportunities but
+be unsuccessful in their attempts. Hence, the net effect of divergence on
+
+16 
+
+S. Abis and A. Lines
+
+Journal of Financial Economics 162 (2024) 103948 
+
+Table 7
+Future Performance and SPG Divergence: This table reports coefficients from regressions of future (𝑡 + 1 to 𝑡 + 12) fund performance on SPG
+Divergence, as well as controls for lagged (𝑡 − 11 to 𝑡) performance, fund characteristics, competition, and product differentiation (see description
+of Table 5). Performance variables are SPG-adjusted returns (SPG Alpha), CAPM Alpha, and Fama–French-Carhart six-factor alpha (FFC6 Alpha).
+All specifications include fund fixed effects, and standard errors are two-way clustered by fund and month. See Section 3.3 for further details.
+
+SPG Alpha
+
+(1)
+
+−0.021
+(−0.41)
+
+0.043*
+(1.75)
+
+SPG Divergence
+
+DGTW Divergence
+
+KW Uniqueness
+
+Low Comp
+
+Med Comp
+
+Lagged SPG Alpha
+
+Lagged HKP Alpha
+
+Low Comp × HKP Alpha
+
+Med Comp × HKP Alpha
+
+Other Lagged Alphas
+Fund Controls
+R2
+Obs
+
+No
+Yes
+0.298
+211,014
+
+(2)
+
+−0.079
+(−1.49)
+0.009
+(0.18)
+−0.014
+(−0.20)
+1.340***
+(5.24)
+1.221***
+(6.65)
+0.038
+(1.01)
+0.008
+(0.23)
+−0.019
+(−0.83)
+−0.025
+(−1.26)
+
+Yes
+Yes
+0.306
+210,764
+
+CAPM Alpha
+
+(3)
+
+−0.144**
+(−2.52)
+
+−0.166***
+(−5.45)
+
+No
+Yes
+0.385
+211,014
+
+(4)
+
+−0.077
+(−1.41)
+−0.127***
+(−2.62)
+0.121
+(1.52)
+0.448*
+(1.86)
+0.634***
+(3.46)
+−0.202***
+(−5.65)
+0.062*
+(1.88)
+−0.011
+(−0.52)
+−0.009
+(−0.46)
+
+Yes
+Yes
+0.387
+210,764
+
+FFC6 Alpha
+
+(5)
+
+−0.095***
+(−2.78)
+
+−0.003
+(−0.27)
+
+No
+Yes
+0.370
+211,014
+
+(6)
+
+−0.084**
+(−2.30)
+−0.031
+(−0.94)
+−0.036
+(−0.73)
+0.349***
+(2.76)
+0.387***
+(3.45)
+−0.021
+(−1.64)
+−0.002
+(−0.07)
+0.046**
+(2.51)
+0.029*
+(1.89)
+
+Yes
+Yes
+0.371
+210,764
+
+t statistics in parentheses; * p < 0.10, ** p < 0.05, *** p < 0.01.
+
+future performance is unclear. To explore that relationship empirically,
+we run the following regression:
+
+𝑃 𝑒𝑟𝑓 𝑜𝑟𝑚𝑎𝑛𝑐𝑒𝑗,𝑡+12 = 𝛼 + 𝛽𝐷𝑖𝑣𝑒𝑟𝑔𝑒𝑛𝑐𝑒𝑗,𝑡 + 𝜃′𝐶𝑗,𝑡 + 𝜆′𝑋𝑗,𝑡 + 𝜂𝑓 ,𝑡 + 𝜖𝑗,𝑡 (12)
+
+where 𝑃 𝑒𝑟𝑓 𝑜𝑟𝑚𝑎𝑛𝑐𝑒𝑗,𝑡+12 is the annualized net of fees 𝑆𝑃 𝐺, 𝐶𝐴𝑃 𝑀 or
+𝐹 𝐹 𝐶6 𝐴𝑙𝑝ℎ𝑎 for fund 𝑗 over the period (𝑡 + 1 to 𝑡 + 12); 𝐷𝑖𝑣𝑒𝑟𝑔𝑒𝑛𝑐𝑒𝑗,𝑡 is
+within-SPG divergence (as in Eq. (2)) for fund 𝑗 in month 𝑡. 𝐶𝑗,𝑡 contains
+competition controls (DGTW-divergence, KW-uniqueness, HKP-peers
+controls) for fund 𝑗 in month 𝑡.33 𝑋𝑗,𝑡 contains fund-level controls (log
+TNA; fund age; expense ratio; turnover ratio) for fund 𝑗 in month 𝑡. 𝜂𝑓 ,𝑡
+are family×month fixed effects. Standard errors are clustered by fund
+and month. The coefficient of interest is ̂𝛽—as previously discussed,
+there is no clear economic prediction for the sign of the result.
+
+Table 7 reports the outcome of those regressions. Regardless of
+how we measure performance, divergence is not significantly positively
+related to future performance (on the contrary, point estimates are
+often negative and sometimes significantly so). That is not surprising,
+as those regressions do not distinguish between strategic or involuntary
+motives for divergence. Instead, they provide an average estimate
+across all scenarios.
+
+To better understand the relationship between strategic divergence
+and performance, we need to isolate cases in which divergence likely
+happens for strategic reasons. To do so, we utilize HKP’s findings. HKP
+show that funds with fewer DGTW peers face lower competition and are
+better able to achieve higher future performance. Hence, we conjecture
+that divergence which leads funds to move to a lower density DGTW-
+space (i.e., a space with fewer HKP peers) is likely to be driven by
+strategic motives. If so, in those cases we would expect increases in
+divergence to lead to increases in SPG-adjusted performance.
+
+To test that hypothesis we construct a dummy variable that takes
+a value of 1 when divergence is likely to happen strategically, and 0
+otherwise. We isolate those cases by imposing two conditions. First, we
+
+33 In order to provide the most stringent set of competition controls, for what
+regards HKP-peers we add dummies for the bottom and medium terciles of the
+number of HKP-peers as well as the interaction between those dummies and
+𝐻𝐾𝑃 𝐴𝑙𝑝ℎ𝑎. That is the specification utilized by HKP in their performance
+regressions.
+
+require the number of HKP peers at 𝑡−1 to be in the top tercile; i.e., ex-
+ante competition should be high for funds to be incentivized to move
+to a less crowded space. Second, we require changes in divergence and
+changes in the number of HKP peers between 𝑡−1 and 𝑡 to go in opposite
+directions; i.e., there should be a trade-off between SPG-divergence and
+the degree of competition funds face.
+
+We then run the following regression:
+
+𝛥𝑃 𝑒𝑟𝑓 𝑜𝑟𝑚𝑎𝑛𝑐𝑒𝑗,𝑡+12 =𝛼 + 𝛽𝛥𝐷𝑖𝑣𝑒𝑟𝑔𝑒𝑛𝑐𝑒𝑗,𝑡 + 𝛿𝑆𝑡𝑟𝑎𝑡𝑒𝑔𝑖𝑐𝑗,𝑡+
+
+𝜁𝛥𝐷𝑖𝑣𝑒𝑟𝑔𝑒𝑛𝑐𝑒𝑗,𝑡 × 𝑆𝑡𝑟𝑎𝑡𝑒𝑔𝑖𝑐𝑗,𝑡 + 𝜃′𝛥𝐶𝑗,𝑡+
+𝛾 ′𝑃 𝑒𝑟𝑓 𝑜𝑟𝑚𝑎𝑛𝑐𝑒𝑗,𝑡−1 + 𝜆′𝑋𝑗,𝑡 + 𝜂𝑓 ,𝑡 + 𝜖𝑗,𝑡.
+
+(13)
+
+where 𝛥𝑃 𝑒𝑟𝑓 𝑜𝑟𝑚𝑎𝑛𝑐𝑒𝑗,𝑡+12 is the change in annualized net of fees 𝑆𝑃 𝐺,
+𝐶𝐴𝑃 𝑀 or 𝐹 𝐹 𝐶6 𝐴𝑙𝑝ℎ𝑎 for fund 𝑗 between the periods (𝑡 − 11 to 𝑡), and
+(𝑡+1 to 𝑡+12). 𝛥𝐷𝑖𝑣𝑒𝑟𝑔𝑒𝑛𝑐𝑒𝑗,𝑡 is the change in within-SPG divergence for
+fund 𝑗 between months 𝑡−1 and 𝑡. 𝑆𝑡𝑟𝑎𝑡𝑒𝑔𝑖𝑐𝑗,𝑡 is the dummy identifying
+whether the divergence of fund 𝑗 between 𝑡 − 1 and 𝑡 is likely strategic;
+𝛥𝐷𝑖𝑣𝑒𝑟𝑔𝑒𝑛𝑐𝑒𝑗,𝑡 × 𝑆𝑡𝑟𝑎𝑡𝑒𝑔𝑖𝑐𝑗,𝑡 is the interaction between 𝛥𝐷𝑖𝑣𝑒𝑟𝑔𝑒𝑛𝑐𝑒𝑗,𝑡
+and 𝑆𝑡𝑟𝑎𝑡𝑒𝑔𝑖𝑐𝑗,𝑡. 𝛥𝐶𝑗,𝑡 contains changes in competition controls (DGTW-
+divergence, and KW-uniqueness) for fund 𝑗 between months 𝑡 − 1
+and 𝑡, as well as their interaction with 𝑆𝑡𝑟𝑎𝑡𝑒𝑔𝑖𝑐𝑗,𝑡.34 𝑃 𝑒𝑟𝑓 𝑜𝑟𝑚𝑎𝑛𝑐𝑒𝑗,𝑡−1
+contains controls for past annualized net of fee 𝐻𝐾𝑃 , 𝑆𝑃 𝐺, 𝐶𝐴𝑃 𝑀 or
+𝐹 𝐹 𝐶6 𝐴𝑙𝑝ℎ𝑎 for the period (𝑡 − 23 to 𝑡 − 12). 𝑋𝑗,𝑡 contains fund-level
+controls (log TNA; fund age; expense ratio; turnover ratio) for fund
+𝑗 in month 𝑡. 𝜂𝑓 ,𝑡 are family×month fixed effects. Standard errors are
+clustered by fund and month.
+
+The coefficients of interest are ̂𝛽, and ̂𝜁.
+
+̂𝛽 identifies the uncon-
+ditional effect of changes in divergence on changes in performance.
+Similarly to the prior specification, we cannot provide a clear prediction
+̂𝜁, instead, identifies the incremental
+for the direction of this effect.
+effect of changes in divergence on changes in performance, when
+divergence likely happens for strategic reasons. The overall effect in
+those cases is given by ̂𝛽 + ̂𝜁. We expect that overall effect ( ̂𝛽 + ̂𝜁) to be
+positive and statistically significant.
+
+34 We cannot add controls based on HKP-peers as they are collinear with the
+𝑆𝑡𝑟𝑎𝑡𝑒𝑔𝑖𝑐 dummy, which already accounts for the interaction between HKP’s
+result and ours.
+
+17 
+
+S. Abis and A. Lines
+
+Journal of Financial Economics 162 (2024) 103948 
+
+Table 8
+Strategic SPG Divergence: This table reports coefficients from regressions of changes in annual fund performance (month 𝑡 + 1 to 𝑡 + 12 minus
+month 𝑡−11 to 𝑡) on changes in SPG Divergence, a dummy variable (𝑆𝑡𝑟𝑎𝑡𝑒𝑔𝑖𝑐) indicating that divergence changes are more likely to be strategic
+rather than involuntary, and the interaction between these variables. 𝑆𝑡𝑟𝑎𝑡𝑒𝑔𝑖𝑐 equals 1 when Hoberg et al. (2018) competition at time 𝑡 − 1
+is high, and changes in SPG Divergence have the opposite sign to changes in the number of HKP peers. The regressions also control for fund
+characteristics, lagged (𝑡 − 23 to 𝑡 − 12) performance, changes in DGTW divergence and Kostovetsky and Warner (2020) uniqueness, and the
+interaction of the IO variables with the 𝑆𝑡𝑟𝑎𝑡𝑒𝑔𝑖𝑐 dummy. All specifications include family-month fixed effects, and standard errors are two-way
+clustered by fund and month. See Section 3.3 for further details.
+
+SPG Divg. Diff.
+
+Strategic
+
+Strategic × SPG Divg. Diff.
+
+DGTW Divg. Diff.
+
+KW Unique Diff.
+
+Strategic × DGTW Divg. Diff.
+
+Strategic × KW Unique Diff.
+
+Lagged HKP Alpha
+
+Lagged SPG Alpha
+
+Lagged CAPM Alpha
+
+Lagged FFC6 Alpha
+
+Fund Controls
+R2
+Obs
+
+(1)
+SPG Alpha
+
+−0.044
+(−0.58)
+
+−0.032
+(−0.94)
+0.042
+(0.36)
+
+0.066
+(1.58)
+−0.044
+(−0.92)
+
+(2)
+
+−0.155**
+(−2.13)
+−0.075
+(−0.33)
+0.927***
+(3.28)
+−0.033
+(−0.89)
+0.054
+(0.40)
+−0.024
+(−0.19)
+−0.088
+(−0.30)
+0.066
+(1.60)
+−0.045
+(−0.93)
+
+(3)
+CAPM Alpha
+
+(4)
+
+−0.080
+(−1.09)
+
+−0.039
+(−1.05)
+0.054
+(0.41)
+
+0.130***
+(4.38)
+
+−0.129*
+(−1.81)
+0.099
+(0.44)
+0.357
+(1.52)
+−0.045
+(−1.13)
+0.056
+(0.36)
+0.050
+(0.41)
+−0.013
+(−0.04)
+0.130***
+(4.36)
+
+−0.087**
+(−2.54)
+
+−0.087**
+(−2.52)
+
+Yes
+0.289
+182,690
+
+Yes
+0.289
+182,690
+
+Yes
+0.374
+182,690
+
+Yes
+0.374
+182,690
+
+(5)
+FFC6 Alpha
+
+−0.020
+(−0.46)
+
+−0.003
+(−0.11)
+−0.048
+(−0.75)
+
+0.028**
+(2.02)
+
+(6)
+
+−0.026
+(−0.57)
+−0.040
+(−0.38)
+0.055
+(0.41)
+−0.002
+(−0.06)
+−0.058
+(−0.74)
+−0.013
+(−0.16)
+0.074
+(0.39)
+0.028**
+(2.03)
+
+−0.164***
+(−11.12)
+
+Yes
+0.346
+182,690
+
+−0.164***
+(−11.14)
+
+Yes
+0.346
+182,690
+
+t statistics in parentheses; * p < 0.10, ** p < 0.05, *** p < 0.01.
+
+Table 8 reports the outcome of those regressions. In line with
+Table 7’s results, the unconditional effect ( ̂𝛽) is negative or insignificant
+in all specifications. The effect of the interaction between changes
+in divergence and the Strategic dummy ( ̂𝜁), instead, is positive and
+statistically significant (at the 1% level) when measuring performance
+using changes in 𝑆𝑃 𝐺 𝐴𝑙𝑝ℎ𝑎 specifically (Column 2). As expected, the
+combined effect in these cases ( ̂𝛽 + ̂𝜁) = −0.155 + 0.927 = 0.772 is
+overwhelmingly positive. Increasing divergence from the lower quartile
+to the upper quartile of its empirical distribution would result in the
+average fund outperforming its SPG peers by 1.02%, or 56% of the
+sample standard deviation (since the mean change in SPG alpha is
+zero by construction, the relevant comparison is the sample standard
+deviation).
+
+The estimate of ̂𝜁 is not statistically significant in any other speci-
+fication; i.e., it is only significant when measuring changes in perfor-
+mance using 𝑆𝑃 𝐺 𝐴𝑙𝑝ℎ𝑎. This is in line with the expected economic
+mechanism. As previously highlighted, the characteristics driving SPG
+product differentiation are unrelated to funds’ ability to generate risk-
+adjusted performance. Hence, if all funds remained close to their SPG’s
+core strategy, that location would likely become crowded in an HKP-
+sense. When that happens, funds that strategically diverge in order
+to move to a less crowded space are able to beat their SPG-peers.
+As more funds diverge, the trade-off between SPG adherence and
+SPG-adjusted performance would become less advantageous, leading
+to mean-reversion towards SPG core strategies. Funds cannot fully
+anticipate other funds’ behavior or overall equilibrium outcomes, as
+divergence can also happen for non-strategic reasons.
+
+The results in this section are consistent with the hypothesized
+trade-off faced by fund managers between SPG adherence and SPG
+Alpha. However, the results are open to interpretation, and we consider
+this analysis to be suggestive rather than conclusive. Further research
+along this dimension would be a fruitful topic for future research.
+
+3.4. Generalized SPG assignments
+
+All results presented so far rely on the assumption that funds’
+promises contain one dominant strategy. This implies that the spatial
+distribution of strategy descriptions is concentrated around k-means
+centroids. If instead many funds were close to cluster boundaries, we
+might erroneously assign a high divergence to these boundary funds
+that are actually close to implementing their promised strategy. To
+exclude this alternative interpretation, we generalize SPG assignment
+by allowing funds to offer a combination of the 17 strategies identified
+by the k-means algorithm.
+
+Similarly to HKP, we locate each fund in a multi-dimensional space
+based on its exposure to different strategy dimensions. HKP consider
+3 dimensions in their main results: size, value, and momentum char-
+acteristics of funds’ holdings. We adopt a similar methodology in a
+17-dimensional space by identifying each fund with a vector of weights
+on each SPGs’ core strategy. To compute weights we first identify
+the features of each centroid that are most indicative of that SPG’s
+core strategy. We do so by curtailing the centroid vector to the top
+1% of most frequent terms.35 For each prospectus we then compute
+the percentage of top-terms of each SPG centroid which are present
+in its text, weighted by their tfidf score. Finally, we normalize those
+percentages to sum to one for each prospectus’ 17-dimensional vector,
+which we define as the fund’s ‘‘promise vector’’. Finally, we identify
+fund-specific sets of SPG-peers by taking pairwise Euclidean distances
+between funds’ promise vectors, and utilizing the same cut-off as HKP
+to identify the boundaries of each peer set (i.e., the average number of
+peers in Lipper fund categories).
+
+The columns of Fig. 7 report the average promise vector for funds
+that were originally assigned to each of the 17 strategies. Reassuringly,
+
+35 Results are robust, but noisier, if choosing higher cut-offs up to at least
+
+10%.
+
+18 
+
+S. Abis and A. Lines
+
+Journal of Financial Economics 162 (2024) 103948 
+
+Table 9
+Promise-Weighted Divergence - Correlations: This table reports correlations among various generalized versions of our SPG
+Divergence measure, constructed as the log sum of squared differences between the fund’s portfolio holdings vector and the
+weighted average holdings of funds in the top 𝑥 most relevant strategy peer groups (SPGs). The weights on the SPG holdings
+vectors are given by the fund’s ‘‘promise vector’’, constructed from the fraction of relevant words for each SPG that appear
+in the fund’s prospectus strategy description (see Section 3.4).
+
+SPG Divg.
+
+Weighted SPG Divg.
+
+Single SPG
+
+Top 2
+
+Top 3
+
+Top 5
+
+Top 10
+
+Weighted Divg. (Top 2)
+
+Weighted Divg. (Top 3)
+
+Weighted Divg. (Top 5)
+
+Weighted Divg. (Top 10)
+
+Weighted Divg. (All SPGs)
+
+𝑁
+
+0.799∗∗∗
+0.786∗∗∗
+0.770∗∗∗
+0.757∗∗∗
+0.755∗∗∗
+
+315 190
+
+t statistics in parentheses
+∗ 𝑝 < 0.05, ∗∗ 𝑝 < 0.01, ∗∗∗ 𝑝 < 0.001.
+
+0.977∗∗∗
+0.959∗∗∗
+0.947∗∗∗
+0.946∗∗∗
+
+0.987∗∗∗
+0.977∗∗∗
+0.976∗∗∗
+
+0.994∗∗∗
+0.994∗∗∗
+
+1.000∗∗∗
+
+Fig. 7. SPG Promise Weights: This figure shows the average ‘‘promise weight’’ for each Strategy Peer Group (along the rows) among funds assigned primarily to the SPGs listed
+along the columns. Promise weights are constructed from the fraction of relevant words for each SPG that appear in the fund’s prospectus strategy description (see Section 3.4).
+
+the dominant strategy in each average promise vector is always con-
+sistent with the dominant strategy that had been assigned utilizing the
+simplified approach, with average weights ranging from 13% for funds
+originally assigned to the 𝐿𝑎𝑟𝑔𝑒𝐶𝑎𝑝 SPG, to 50% for those originally
+assigned to the 𝑇 𝑎𝑥 SPG. Additionally, none of the other strategies
+appears to be co-dominant.
+
+Next, we compute SPG-divergence and SPG-adjusted performance
+based on the generalized approach. To compute SPG-divergence, we
+first construct a tailored reference portfolio for each fund, as the
+weighted average of each SPG’s average portfolio, weighted by the
+fund’s promise vector. We then compute divergence equivalently to
+𝐺𝑗𝑡
+Eq. (2), but substituting ̄𝑤
+𝑖,𝑡 with the weights in each stock 𝑖 in the ref-
+erence portfolio of fund 𝑗 at time 𝑡. Finally, we compute SPG-adjusted
+performance by subtracting from each fund’s return the average return
+of its tailored SPG-peers. This procedure is repeated monthly, but, just
+like the single-cluster SPG assignment, it is sticky as PIS sections vary
+slowly over time.
+
+repeat
+
+For SPG Divergence, we
+
+in
+𝑥-dimensional spaces, for 𝑥 𝑖𝑛 [2, 3, 5, 10], by considering only the 𝑥
+SPGs with the greatest weight in each fund’s 17-dimensional promise
+vector; i.e., we construct 𝑥-dimensional promise vectors, which we
+normalize to sum to 1.
+
+the above procedure
+
+Table 9 reports the correlation of SPG-divergence constructed using
+the simplified method (1-strategy assignment per fund-month) with the
+generalized versions (up to 17 weighted strategy assignments per fund-
+month). Correlations are always very high. There is a 79.9% correlation
+between the single-strategy assignment and the 2-strategy assignment;
+that correlation only drops to 75.5% when allowing up to 17-strategy
+assignments.
+
+19 
+
+Table 10
+Customized SPG Alpha - Correlations: This table
+reports the correlation between our baseline mea-
+sure of SPG-adjusted performance (SPG Alpha),
+and an alternative measure based on the aver-
+age performance of customized ‘‘promise peers’’
+(Promise Peer Alpha). Promise Peer Alpha is con-
+structed by applying the Hoberg et al. (2018) peer
+identification methodology to the vector of funds’
+textual loadings on our 17 strategy peer groups
+(see Section 3.4).
+
+Promise Peer Alpha
+
+𝑁
+
+SPG Alpha
+
+0.941∗∗∗
+
+315 006
+
+Table 10 reports the correlation between SPG-adjusted performance
+based on a single dominant SPG, and the generalized version based on
+funds with similar promise vectors. For SPG-adjusted performance the
+correlation is still 94% when comparing the construction based on the
+single-strategy assignment to that based on the 17-strategy assignment.
+Finally, we replicate our core results in 2/3/5/10/17-dimensional
+spaces. First, in Table 11 we confirm that investors have a dual prefer-
+ence for higher SPG-adjusted performance but lower SPG-divergence.
+All specifications are based on Eq. (6), and are equivalent to Col-
+umn 4 of Table 5, with the only difference that SPG-divergence and
+𝑆𝑃 𝐺 𝐴𝑙𝑝ℎ𝑎 are computed based on 1/2/3/5/10/17-dimensional spaces.
+̂𝛽 and ̂𝛾 are almost identical across specification, both
+Coefficients
+statistically and economically (even if t-stats drop with the number
+
+S. Abis and A. Lines
+
+Journal of Financial Economics 162 (2024) 103948 
+
+Table 11
+Flows, Divergence, and Performance (Promise-Weighted): This table repeats the analysis of future flows, SPG Divergence, and SPG Alpha
+from Column 4 of Table 5, but using the generalized versions of these measures based on funds’ ‘‘promise vectors’’ (i.e., the weighted fraction
+of relevant words from each SPG that are found in the fund’s prospectus strategy description). See Section 3.4 for additional details.
+
+SPG Divergence
+
+SPG Alpha
+
+DGTW Divergence
+
+KW Uniqueness
+
+Log HKP Peers
+
+HKP Alpha
+
+Controls
+R2
+Obs
+
+(1)
+Single
+
+−0.060***
+(−3.20)
+0.013**
+(2.40)
+0.027
+(1.59)
+−0.043*
+(−1.71)
+−0.036**
+(−2.11)
+0.071***
+(12.53)
+
+Yes
+0.336
+237,178
+
+(2)
+Top 2
+
+−0.062***
+(−3.01)
+0.015***
+(2.73)
+0.031*
+(1.77)
+−0.044*
+(−1.73)
+−0.041**
+(−2.36)
+0.069***
+(12.25)
+
+Yes
+0.337
+237,178
+
+(3)
+Top 3
+
+−0.058***
+(−2.73)
+0.016***
+(2.77)
+0.029
+(1.63)
+−0.043*
+(−1.71)
+−0.041**
+(−2.34)
+0.069***
+(12.06)
+
+Yes
+0.336
+237,178
+
+(4)
+Top 5
+
+−0.060***
+(−2.75)
+0.016***
+(2.75)
+0.030*
+(1.66)
+−0.043*
+(−1.70)
+−0.042**
+(−2.39)
+0.069***
+(12.02)
+
+Yes
+0.336
+237,178
+
+(5)
+Top 10
+
+−0.057***
+(−2.61)
+0.015***
+(2.65)
+0.028
+(1.55)
+−0.043*
+(−1.70)
+−0.042**
+(−2.40)
+0.069***
+(12.07)
+
+Yes
+0.336
+237,178
+
+(6)
+All
+
+−0.058***
+(−2.63)
+0.015***
+(2.65)
+0.029
+(1.57)
+−0.043*
+(−1.70)
+−0.042**
+(−2.40)
+0.069***
+(12.07)
+
+Yes
+0.336
+237,178
+
+t statistics in parentheses; * p < 0.10, ** p < 0.05, *** p < 0.01.
+
+of dimensions). Second, in Fig. 8 we confirm the dynamics of the
+relationship between divergence and flows. Row 1 of Fig. 8 reproduces
+the two key panels of the SVAR baseline result from Fig. 4, which show
+respectively that flows decrease following a shock to divergence, and
+that mean-reversion in divergence is accelerated by outflows. Rows 2-
+4 of Fig. 8 report the same two panels when constructing measures
+based on 2/5/17-dimensional spaces. Impulse response functions are
+almost identical across specifications. Third, Fig. 9 confirms that the IV
+results hold with multi-dimensional SPG assignments. Panel 1 of Fig. 9
+reports the second stage of the 2SLS baseline approach (as in Panel 1 of
+Fig. 6). Panels 2-4 report the same analysis when constructing measures
+based on 2/5/17-dimensional spaces. Results are economically similar
+across specifications, while confidence intervals widen with the number
+of dimensions.
+
+These results lead us to conclude that our original assumption was
+reasonable. Indeed, it appears that funds do have a dominant strategy
+and investor flows seem to respond predominantly to SPG-divergence
+and SPG-adjusted performance based on that dominant dimension. That
+conclusion is in line with the findings of He and Xiong (2013), who
+show a tendency towards narrower mandates. Indeed, from a ‘‘market-
+disciplining’’ perspective, it would be more complex for investors to
+determine the correct weighting of different strategies from PIS text
+and hold funds accountable to their promises, leaving more room for
+manipulation. Hence, it is reasonable that in equilibrium we would
+observe funds with narrower mandates, while investors can still com-
+bine different funds into an overall portfolio that can accommodate
+preferences over multiple SPG strategies.
+
+4. Conclusion
+
+In this paper we investigate the characteristics sought by U.S.
+mutual fund investors by examining the strategy descriptions in their
+prospectus documents. We use unsupervised machine learning to group
+together funds with similar strategy descriptions and use these to infer
+aggregated portfolios that correspond to different fund strategies. Each
+of the resulting 17 strategy peer groups (SPGs) capture distinct and
+interpretable approaches to investment, most of which go beyond the
+standard size-value axis widely used to measure fund styles.
+
+To answer the question of whether funds follow their promised
+strategies, we compute fund-level divergences from the core strategy
+of each SPG and find that funds are on average closer to the core
+strategies of their own peer groups than to others. We then document
+a market discipline effect that operates via investors’ net capital flows.
+Controlling for performance and other fund characteristics, flows are
+lower for funds that diverge more from the core strategy of their
+
+Fig. 8. Promise-Weighted SPGs - SPVAR IRFs: In this figure we repeat the analysis
+from Fig. 4 but using generalized versions of our SPG Divergence measure, constructed
+as the log sum of squared differences between the fund’s portfolio holdings vector and
+the weighted average holdings of funds in the top 𝑥 most relevant strategy peer groups
+(SPGs). The weights on the SPG holdings vectors are given by the fund’s ‘‘promise
+vector’’, constructed from the fraction of relevant words for each SPG that appear in
+the fund’s prospectus strategy description (see Section 3.4).
+
+SPG. The investor response is persistent, lasting up to twelve months
+after the initial divergence. Investors also chase SPG-adjusted returns
+independently of standard factor model alphas, with similar levels of
+predictive power. We show that funds are responsive to the disciplinary
+
+20 
+
+S. Abis and A. Lines
+
+Journal of Financial Economics 162 (2024) 103948 
+
+Fig. 9. Promise-Weighted SPGs - IV Second Stage: In this figure we repeat the analysis from Fig. 6 but using generalized versions of our SPG Divergence measure, constructed
+as the log sum of squared differences between the fund’s portfolio holdings vector and the weighted average holdings of funds in the top 𝑥 most relevant strategy peer groups
+(SPGs). The weights on the SPG holdings vectors are given by the fund’s ‘‘promise vector’’, constructed from the fraction of relevant words for each SPG that appear in the fund’s
+prospectus strategy description (see Section 3.4).
+
+effect of fund flows. Strategy divergence mean-reverts over time, and
+does so at a faster rate following months in which funds diverged more
+from their core strategies and experienced outflows.
+
+To overcome concerns of omitted variable bias, we implement a
+novel instrumental variables identification strategy based on idiosy-
+cratic shocks to portfolio composition coming from narrow industry
+sectors. Finally, we document a plausible economic mechanism driving
+our results. When funds diverge from their peer groups in order to move
+to a less crowded strategy space, they earn higher SPG-adjusted returns.
+However, in the absence of these strategic considerations, diverging
+results in negative or insignificant effects on performance. Our results
+uncover a diverse fund strategy landscape that was previously unknown
+from traditional analyses of holdings and returns.
+
+CRediT authorship contribution statement
+
+Simona Abis: Writing – review & editing, Writing – original draft,
+Visualization, Validation, Supervision, Software, Resources, Project ad-
+ministration, Methodology, Investigation, Formal analysis, Data cu-
+ration, Conceptualization. Anton Lines: Writing – review & editing,
+Writing – original draft, Visualization, Validation, Supervision, Soft-
+ware, Resources, Project administration, Methodology, Investigation,
+Formal analysis, Data curation, Conceptualization.
+
+Declaration of competing interest
+
+The authors declare that they have no known competing finan-
+cial interests or personal relationships that could have appeared to
+influence the work reported in this paper.
+
+Data availability
+
+AbisLinesMutualFundStrategyDescriptions(Originaldata) (Mendeley
+Data) AbisLinesMFPromisesReplicationPacket(Originaldata) (Mendeley
+Data).
+
+Appendix A. Prospectuses summary statistics
+
+In this section we provide detailed summary statistics about the
+
+corpus of PIS sections utilized in the paper.
+
+Fig. A1 displays the cross-sectional distribution of PIS word counts,
+which show wide variation from as few as 20 to as many as 1500. This
+figure also indicates that the complete PIS sections are much longer
+than the excerpts provided by Morningstar (average word counts of 70
+for Morningstar versus 306 in our sample), examined previously by KW.
+We also observe significant variation in the textual sentiment and
+textual complexity of these sections. Panel 1 of Fig. A2 shows the dis-
+tribution, across fund–month observations, of the Flesch-Kincaid grade
+level complexity measure (Kincaid et al., 1975). Panel 2 displays the
+same distribution for the Flesch reading ease measure (Flesch, 1948).
+These measures are based on the relative number of total words to total
+sentences (average sentence length) and the relative number of total
+syllables to total words (average word syllable length) in a given text.
+They are calibrated to indicate, respectively, the number of years of
+schooling required to comprehend the text (panel 1) and a standardized
+readability index on a range of [0, 100] (panel 2). The figure shows
+that there exists a large dispersion in the complexity (readability) of
+
+21 
+
+S. Abis and A. Lines
+
+Journal of Financial Economics 162 (2024) 103948 
+
+Finally, we use the Loughran and McDonald dictionaries of pos-
+itive, negative, uncertainty and litigious words to measure sentiment.
+These dictionaries are adapted to account for specific characteris-
+tics of financial language (Loughran and McDonald, 2011). Fig. A3
+shows the distribution of the frequency of positive (panel 1), negative
+(panel 2), uncertainty (panel 3) and litigious (panel 4) words for all
+pooled fund–month strategy descriptions. Here we also observe large
+cross-sectional variation in the sentiment of strategy sections.
+
+These descriptive statistics suggest that the narrative descriptions in
+fund prospectuses may contain relevant and heterogeneous information
+about their strategies.
+
+Appendix B. K-means
+
+Fig. A1. Distribution of word count for Strategy Sections: Pooled distribution of
+the number of words contained in of all fund–month observations, for PIS sections.
+
+B.1. The algorithm
+
+The K-Means algorithm takes as inputs the tfidf matrix, the number
+of desired clusters (𝑘) and a tolerance threshold (𝜏). The algorithm is
+initialized by choosing 𝑘 points in the vector space (centroids). Points
+are deliberately chosen to be far from each other in order to minimize
+the likelihood of converging to a local minimum. Each chosen point
+represents a features vector of same length as the number of chosen
+features (10,000), whose elements exist in [0, 1]. Then the following
+steps are repeated until the pre-defined tolerance is reached:
+
+1. Calculate the euclidean distance between the vectors
+
+representing each document (rows of the tfidf matrix) and each
+
+of the 𝑘 centroid vectors as follows:
+
+𝑅
+∑
+
+‖𝑥𝑟 − 𝑥𝐶
+2
+𝑟 ‖
+
+(B.1)
+
+𝑟=1
+where 𝑥𝑟 is the frequency assigned to feature 𝑟 in a specific
+document and 𝑥𝐶
+is the frequency assigned to feature 𝑟 in a
+𝑟
+cluster’s centroid. 𝑅 is the total number of features.
+
+2. Assign each document to the closest centroid (form clusters)
+3. Generate new centroids (features vectors) by taking the item-by-
+item average of the feature vectors of all documents assigned to
+the same cluster
+
+4. Calculate the euclidean distance between the centroids at itera-
+
+tion 𝑛 and those at iteration 𝑛 + 1.
+
+• If the largest distance is greater than the tolerance level 𝜏,
+
+repeat all steps
+
+• Otherwise exit the loop and return the formed clusters
+
+(convergence)
+
+We ran the above algorithm with different specifications for the user
+defined parameters (𝑘 and 𝜏). All runs are independent (use different
+seeds). Despite the possibility of K-means reaching a local optimum,
+in our setting, the procedure is robust to changes in initial parameters
+(see discussion in Appendix B.2). In the main specification we use the
+default value for 𝜏 in Python’s scikit-learn implementation: 0.0001. We
+use 17 clusters for the determination of the SPGs.
+
+B.2. Robustness to choice of 𝑘
+
+To further verify the validity of our methodology and the stability
+of assignment when changing the number of clusters (𝑘), Table B.1
+replicas our main result in Table 5 using alternative numbers of SPGs
+from 14 to 20. All specifications are based on Eq. (6), and are equivalent
+to Column 4 of Table 11, aside for the number of chosen clusters in the
+k-means implementation. We confirm the dual preference of investors
+for higher SPG-adjusted performance and lower SPG-divergence. Co-
+efficients ̂𝛽 and ̂𝛾 are both statistically and economically significant
+across specifications. Reassuringly, the effect of SPG-divergence on
+future flows is largest in magnitude for 𝑘 = 17.
+
+Fig. A2. Distribution of Complexity for Strategy Sections: Panel 1 displays the
+pooled distribution of the Flesch-Kincaid grade level complexity measure across all
+fund–month observations, for PIS sections. This measure indicates the number of years
+of schooling required in order to comprehend each section. Panel 2 displays the same
+distribution for the Flesch-Kincaid reading ease measure. This measure indicates, on
+a scale of [1, 100], how easily a section can be read (a higher score indicates lower
+complexity). Both measures are based on the relative number of total words to total
+sentences (average sentence length) and the relative number of total syllables to total
+words (average word length) contained in each section.
+
+these sections, with most sections requiring between 5 to 25 years of
+
+schooling (with a mean of 13.7), or a reading ease score between 10
+
+and 80.
+
+22 
+
+S. Abis and A. Lines
+
+Journal of Financial Economics 162 (2024) 103948 
+
+Fig. A3. Frequency of Positive, Negative Uncertainty and Litigious Words in Strategy Sections: Panel 1 displays the distribution of the frequency of positive words for all
+fund–month observations. Panel 2 displays the distribution for negative words, Panel 3 for uncertainty words and Panel 4 for litigious words. The frequency of words per PIS is
+obtained by computing the percentage of the total number of words in each section that appear in the Loughran-McDonald positive, negative, uncertainty or litigious dictionaries.
+These dictionaries are adapted to account for specific characteristics of financial language (Loughran and McDonald (2011)).
+
+Table B.1
+Flows, Divergence, and Performance (Alternative Clustering): This table repeats the analysis of future flows, SPG Divergence, and SPG
+Alpha from Column 4 of Table 5, but using alternative numbers of Strategy Peer Groups from the K-Means Algorithm.
+
+Number of clusters
+
+SPG Divergence
+
+DGTW Divergence
+
+KW Uniqueness
+
+Log HKP Peers
+
+SPG Alpha
+
+CAPM Alpha
+
+FFC4 Alpha
+
+FFC6 Alpha
+
+DGTW Alpha
+
+HKP Alpha
+
+Fund Controls
+R2
+Obs
+
+14
+
+−0.064***
+(−3.76)
+0.034*
+(1.92)
+−0.044*
+(−1.74)
+−0.038**
+(−2.22)
+0.013**
+(2.42)
+0.035***
+(7.42)
+0.053***
+(5.96)
+0.024***
+(3.20)
+0.007**
+(2.04)
+0.071***
+(12.52)
+
+Yes
+0.337
+237,178
+
+15
+
+−0.070***
+(−4.04)
+0.037**
+(2.09)
+−0.044*
+(−1.74)
+−0.038**
+(−2.21)
+0.013**
+(2.40)
+0.036***
+(7.43)
+0.053***
+(5.94)
+0.024***
+(3.22)
+0.007**
+(2.06)
+0.071***
+(12.53)
+
+Yes
+0.337
+237,170
+
+t statistics in parentheses; * p < 0.10, ** p < 0.05, *** p < 0.01.
+
+16
+
+−0.069***
+(−4.03)
+0.035**
+(2.04)
+−0.043*
+(−1.71)
+−0.037**
+(−2.15)
+0.012**
+(2.39)
+0.036***
+(7.45)
+0.053***
+(5.94)
+0.024***
+(3.23)
+0.007**
+(2.05)
+0.071***
+(12.53)
+
+Yes
+0.337
+237,178
+
+23 
+
+18
+
+−0.053***
+(−3.05)
+0.026
+(1.53)
+−0.043*
+(−1.71)
+−0.036**
+(−2.08)
+0.013**
+(2.42)
+0.035***
+(7.42)
+0.053***
+(5.96)
+0.024***
+(3.21)
+0.007**
+(2.01)
+0.071***
+(12.57)
+
+Yes
+0.336
+237,162
+
+19
+
+−0.055***
+(−3.16)
+0.027
+(1.54)
+−0.043*
+(−1.69)
+−0.035**
+(−2.07)
+0.012**
+(2.37)
+0.036***
+(7.42)
+0.053***
+(5.95)
+0.024***
+(3.20)
+0.007**
+(2.03)
+0.072***
+(12.59)
+
+Yes
+0.336
+237,162
+
+20
+
+−0.048***
+(−2.83)
+0.023
+(1.32)
+−0.043*
+(−1.70)
+−0.035**
+(−2.04)
+0.012**
+(2.37)
+0.036***
+(7.44)
+0.053***
+(5.96)
+0.024***
+(3.18)
+0.007**
+(2.03)
+0.071***
+(12.53)
+
+Yes
+0.336
+237,092
+
+S. Abis and A. Lines
+
+Journal of Financial Economics 162 (2024) 103948 
+
+Fig. C1. LDA Topics: Word clouds for 𝑘 = 17 topics estimated by applying Latent Dirichlet Allocation to fund strategy descriptions. The word clouds represent the distribution of
+features (words and bi-grams) for each topic. Word sizes are proportional to frequency.
+
+Appendix C. Alternative clustering: LDA
+
+Latent Dirichlet Allocation (Blei et al., 2003) is commonly used for
+textual topic modeling in the finance and economics literatures (see
+the recent survey in Loughran and McDonald (2020)). The reader may
+wonder why we use k-means clustering instead of the more common
+LDA. In practice, the results of the two methodologies are fairly similar,
+as can be seen in Fig. C1. This figure shows the topic word clouds re-
+sulting from an application of LDA with prior topic probability 𝐷𝑖𝑟(1∕𝑘)
+and prior word probability 𝐷𝑖𝑟(1∕𝑁), where 𝑘 is the number of topics
+and 𝑁 is the number of terms (words and bi-grams) in the corpus. For
+comparison with our k-means results, we choose 𝑘 = 17.
+
+Despite the similarities, k-means is more suited to our particular ap-
+plication because it explicitly generates maximum differences between
+groups, whereas LDA seeks to maximize the likelihood of a generative
+model, even if the resulting topics are fairly similar. Fig. C1 illustrates
+
+this problem with LDA: there are two ‘‘Quantitative’’ topics, two ‘‘Fun-
+damental’’ topics, and two ‘‘PE-Ratio’’ topics, with quite similar word
+distributions. On the other hand, topics that are separated by k-means
+are sometimes merged by LDA: e.g. ‘‘Tax’’ and ‘‘Dividends’’; and ‘‘Small
+Cap’’ and ‘‘Large Cap’’.
+
+Another issue with LDA is that it is much less stable than k-means.
+The example in Fig. C1 would not be reproducible by re-running the
+algorithm, whereas k-means, even with different random seeds, delivers
+similar clusters every time it is run on the same data.
+
+Finally, one advantage of LDA, in principle, is that it estimates
+a distribution over topics for each document. In the context of fund
+strategies, it would be useful to have the ability to assign multiple
+strategies to the same fund. In practice, however, due to the short
+length of the PIS descriptions (about 300 words, on average), over
+90% of funds have virtually all of their weight in a single topic. The
+relatively short documents may also be the reason why LDA is less
+stable in our setting.
+
+24 
+
+S. Abis and A. Lines
+
+Journal of Financial Economics 162 (2024) 103948 
+
+Table D.1
+Fund Attributes by SPG: This table reports differences between average fund attributes within a particular Strategy Peer Group (SPG) and the
+average across all other SPGs. Coefficients are estimated in separate regressions of the dependent vars (log of fund age, log of TNA, expense
+ratio, and turnover ratio) on dummies for each SPG (see Appendix D). Also shown are the overall averages across the full sample. We include
+month and fund family fixed effects. Standard errors are two-way clustered by fund and month.
+
+Large Cap
+
+Fundamental
+
+Products & Services
+
+Dividends
+
+Derivatives
+
+Comp. Advantage
+
+Defensive
+
+Quantitative
+
+Small Cap
+
+Long Term
+
+PE-Ratio
+
+Foreign (ADR)
+
+Mid Cap
+
+Intrinsic Value
+
+Fixed Income
+
+Tax
+
+Foreign (EM)
+
+Overall
+
+Obs
+
+t statistics in parentheses
+* p < 0.10, ** p < 0.05, *** p < 0.01.
+
+ln(TNA)
+
+−0.0268
+(−0.69)
+
+0.0151
+(0.33)
+
+0.0876
+(1.61)
+
+0.0447
+(0.68)
+
+−0.0441
+(−0.76)
+
+0.0784
+(1.07)
+
+0.123**
+(2.21)
+
+−0.251***
+(−3.75)
+
+0.00894
+(0.13)
+
+0.103
+(1.61)
+
+−0.0275
+(−0.36)
+
+−0.0438
+(−0.69)
+
+−0.104
+(−1.27)
+
+0.0239
+(0.27)
+
+0.0841
+(1.42)
+
+−0.105
+(−1.11)
+
+−0.0168
+(−0.17)
+
+5.545***
+(325.90)
+
+288,012
+
+ln(Age)
+
+0.0382
+(1.52)
+
+−0.0400
+(−1.47)
+
+0.0365
+(1.17)
+
+0.0279
+(0.69)
+
+−0.0261
+(−0.66)
+
+−0.00135
+(−0.04)
+
+−0.0464
+(−1.32)
+
+−0.116***
+(−3.20)
+
+−0.104***
+(−3.05)
+
+0.102***
+(2.67)
+
+0.0813**
+(2.04)
+
+−0.0406
+(−1.04)
+
+0.0168
+(0.42)
+
+0.000798
+(0.01)
+
+0.0612*
+(1.66)
+
+−0.0154
+(−0.33)
+
+0.0607
+(1.26)
+
+4.898***
+(472.54)
+
+288,012
+
+Expenses
+
+−0.0255**
+(−2.19)
+
+0.00132
+(0.12)
+
+0.0586***
+(4.09)
+
+−0.0676***
+(−4.27)
+
+−0.0346**
+(−2.42)
+
+0.0377**
+(2.09)
+
+−0.0289**
+(−2.13)
+
+−0.0713***
+(−3.90)
+
+0.0725***
+(3.88)
+
+0.0365*
+(1.90)
+
+0.0126
+(0.71)
+
+−0.0254
+(−1.46)
+
+0.0276
+(1.37)
+
+0.0399**
+(2.44)
+
+0.00454
+(0.26)
+
+−0.00645
+(−0.29)
+
+−0.00695
+(−0.32)
+
+1.224***
+(278.75)
+
+288,012
+
+Turnover
+
+−4.658**
+(−2.33)
+
+2.480
+(0.97)
+
+8.583**
+(2.57)
+
+−10.60***
+(−3.90)
+
+13.94***
+(4.25)
+
+−0.761
+(−0.24)
+
+−3.678
+(−1.09)
+
+27.24***
+(6.11)
+
+1.201
+(0.37)
+
+−11.01***
+(−4.18)
+
+−2.328
+(−0.65)
+
+−1.840
+(−0.59)
+
+4.676
+(1.36)
+
+−18.96***
+(−7.20)
+
+3.322
+(0.88)
+
+−11.38**
+(−2.59)
+
+−7.608**
+(−2.44)
+
+81.29***
+(99.19)
+
+288,012
+
+Appendix D. Full narrative analysis
+
+As a supplement to our quantitative findings on core strategy diver-
+gences, we conduct a narrative analysis of each strategy peer group
+(SPG), asking whether its implementation lines up with an intuitive
+reading of the strategy descriptions. This exercise necessarily involves
+a subjective component, and reasonable readers may disagree with
+some of our choices. We try to avoid overly detailed inferences and
+instead focus on broad observations that we believe are less likely
+to be controversial. This narrative exercise is intended to act as a
+sanity check on, and to provide context for, the objective similarity
+measures examined in Section 3.1.1. The exercise also has independent
+descriptive value, as the active equity investment landscape in the
+United States has not previously been examined in this way.
+
+For each fund, we compile fund attributes, performance statistics,
+risk-factor loadings, average industry composition, and average stock
+characteristics weighted by the percentage of assets invested in each
+stock. The fund attributes are log TNA, log age, expense ratio, and
+
+turnover ratio. The performance measures are rolling 24-month six-
+factor alphas ((Fama and French, 2015) plus momentum) and six-factor
+value-added (Berk and van Binsbergen, 2015). For risk-factor loadings,
+we again use the five Fama–French factors plus momentum. For in-
+dustry composition, we use the Fama–French 48 industries. The stock
+characteristics are subdivided into five categories: (i) ‘‘traditional’’
+characteristics (market beta, market capitalization, book-to-market ra-
+tio, past year’s stock return, investment, and profitability); (ii) bal-
+ance sheet variables (current assets, inventories, non-performing assets,
+PP&E, intangible assets, asset growth, cash and equivalents, current
+liabilities, deferred taxes, long-term debt, and leverage ratio); (iii) in-
+come statement variables (operating income, earnings growth, and R&D
+expenditures); (iv) market variables (dividend yield, equity issuance,
+equity repurchases, Amihud illiquidity, and firm age). Furthermore, we
+compute the following portfolio characteristics: percentage of holdings
+in ADRs (American Depository Receipts); percentage of holdings that
+are foreign incorporated; percentage of holdings in common stock;
+percentage of holdings in cash; and number of different stocks in the
+
+25 
+
+S. Abis and A. Lines
+
+Journal of Financial Economics 162 (2024) 103948 
+
+Table D.2
+Risk Factor Exposures by SPG: This table reports differences between funds’ loadings on the Fama and French (2015) five factors plus momentum
+within a particular Strategy Peer Group (SPG) and the average across all other SPGs. Coefficients are estimated in separate regressions of fund
+loadings (estimated from prior 12 months’ daily returns) on dummies for each SPG (see Appendix D). Also shown are the overall averages
+across the full sample. We control for (demeaned) log age, log assets, expense and turnover ratio, fund flows, flow volatility, as well as month
+fund and family fixed effects. Standard errors are two-way clustered by fund and month.
+
+MOM beta
+
+RMW beta
+
+Market beta
+
+SMB beta
+
+LargeCap
+
+Fundmntl
+
+ProdServ
+
+Dividends
+
+Deriv
+
+CompAdv
+
+Defensive
+
+Quantit
+
+SmallCap
+
+LongTerm
+
+PE-Ratio
+
+Foreign(ADR)
+
+MidCap
+
+IntrValue
+
+FixedInc
+
+Tax
+
+Foreign(EM)
+
+Overall
+
+Obs
+
+−0.00302
+(−0.65)
+
+0.00153
+(0.32)
+
+0.0194***
+(2.77)
+
+−0.0203**
+(−2.54)
+
+−0.0305***
+(−3.65)
+
+0.00610
+(0.92)
+
+−0.0119*
+(−1.90)
+
+0.00603
+(0.88)
+
+0.0205***
+(2.91)
+
+0.00944
+(1.15)
+
+0.00556
+(0.75)
+
+0.00985
+(1.24)
+
+0.00935
+(1.30)
+
+−0.00306
+(−0.34)
+
+−0.0154
+(−1.64)
+
+0.00110
+(0.17)
+
+−0.00647
+(−0.79)
+
+0.980***
+(970.75)
+
+285,996
+
+t statistics in parentheses
+* p < 0.10, ** p < 0.05, *** p < 0.01.
+
+−0.0357**
+(−2.57)
+
+0.0309*
+(1.90)
+
+0.0601***
+(3.18)
+
+−0.179***
+(−11.13)
+
+−0.0472***
+(−2.75)
+
+−0.0171
+(−0.74)
+
+−0.0373**
+(−2.57)
+
+−0.0385
+(−1.65)
+
+0.372***
+(19.48)
+
+−0.0176
+(−0.82)
+
+0.00966
+(0.38)
+
+−0.00703
+(−0.30)
+
+−0.00812
+(−0.47)
+
+−0.0716***
+(−3.14)
+
+−0.0125
+(−0.72)
+
+−0.0615**
+(−2.14)
+
+0.0294
+(1.09)
+
+0.222***
+(34.85)
+
+285,996
+
+HML beta
+
+−0.00561
+(−0.64)
+
+0.0101
+(1.01)
+
+−0.0653***
+(−6.34)
+
+0.0863***
+(7.95)
+
+0.00147
+(0.15)
+
+−0.0985***
+(−7.67)
+
+0.00344
+(0.36)
+
+0.0361***
+(3.06)
+
+0.0402***
+(3.22)
+
+−0.0375***
+(−2.75)
+
+0.0423***
+(3.23)
+
+−0.0145
+(−1.03)
+
+−0.0272**
+(−2.10)
+
+0.0675***
+(5.34)
+
+0.00391
+(0.37)
+
+−0.0139
+(−1.13)
+
+−0.0160
+(−1.05)
+
+−0.00637*
+(−1.85)
+
+285,996
+
+0.00182
+(0.46)
+
+0.00476
+(1.08)
+
+0.0298***
+(5.16)
+
+−0.0420***
+(−7.38)
+
+−0.00753
+(−1.35)
+
+0.0170**
+(2.53)
+
+−0.00717
+(−1.35)
+
+0.0158***
+(2.76)
+
+0.00406
+(0.79)
+
+0.000236
+(0.04)
+
+−0.00407
+(−0.53)
+
+0.0129**
+(2.37)
+
+0.00937
+(1.61)
+
+−0.0485***
+(−7.40)
+
+−0.0202***
+(−3.60)
+
+0.00367
+(0.67)
+
+0.0106
+(1.55)
+
+0.0307***
+(21.39)
+
+285,996
+
+−0.00575
+(−0.89)
+
+−0.0130*
+(−1.71)
+
+−0.0764***
+(−7.20)
+
+0.105***
+(11.05)
+
+0.00763
+(0.86)
+
+−0.0604***
+(−5.31)
+
+0.00265
+(0.30)
+
+0.0790***
+(9.18)
+
+−0.00438
+(−0.43)
+
+−0.0144
+(−1.29)
+
+0.0364***
+(3.23)
+
+−0.0130
+(−1.09)
+
+−0.0136
+(−1.27)
+
+0.0260**
+(2.17)
+
+−0.0160
+(−1.50)
+
+0.0135
+(1.19)
+
+−0.0335***
+(−3.00)
+
+−0.0542***
+(−20.49)
+
+CMA beta
+
+−0.00825
+(−1.28)
+
+−0.00954
+(−1.29)
+
+−0.0391***
+(−4.67)
+
+0.106***
+(10.44)
+
+0.0110
+(1.34)
+
+−0.0622***
+(−5.18)
+
+0.0115
+(1.28)
+
+0.0238***
+(2.71)
+
+−0.0135**
+(−1.98)
+
+−0.0373***
+(−3.43)
+
+0.0206**
+(2.11)
+
+−0.0271**
+(−1.97)
+
+0.0190*
+(1.88)
+
+0.0360***
+(3.09)
+
+0.0115
+(1.14)
+
+0.00345
+(0.36)
+
+−0.0351***
+(−2.82)
+
+−0.0319***
+(−13.29)
+
+285,996
+
+285,996
+
+portfolio. All variables are normalized by subtracting the full-sample
+mean and dividing by the standard deviation.
+
+and all other SPGs (holding other characteristics, family membership,
+and month constant).
+
+As highlighted in Section 3.1, for each of the above variables, and
+
+for each SPG, we run the following regression:
+
+𝑌𝑗,𝑡 = 𝛼 + 𝛽𝐼
+
+𝑆𝑃 𝐺𝑗,𝑡
+𝑗,𝑡
+
++ 𝛾𝑋𝑗,𝑡 + 𝜂𝑡 + 𝜄𝑗∈𝑓 + 𝜀𝑗,𝑡,
+
+(D.1)
+
+𝑆𝑃 𝐺𝑗,𝑡
+𝑗,𝑡
+
+where 𝑌𝑗,𝑡 is the variable of interest for fund 𝑗 at time 𝑡; 𝜂𝑡 and 𝜄𝑗∈𝑓
+denote fixed effects for month 𝑡 and membership of fund 𝑗 in family
+𝑓 , respectively; 𝐼
+is an indicator variable equal to 1 if fund 𝑗
+belongs to the SPG of interest at time 𝑡, and 0 otherwise; and 𝑋𝑗,𝑡 is a
+vector of demeaned fund-level control variables (the natural logarithms
+of fund age and TNA, expense ratio, turnover ratio, net fund flows, and
+flow volatility; when 𝑌𝑗,𝑡 is one of these fund-level characteristics, it is
+excluded from the control vector). Because all independent variables
+are demeaned, 𝛼 can be interpreted as the mean of the characteristic
+of interest when 𝐼
+= 0 (i.e. when fund 𝑗 does not belong to
+the SPG of interest at time 𝑡). The 𝛽 coefficient then indicates the
+average difference between the characteristic for the SPG of interest
+
+𝑆𝑃 𝐺𝑗,𝑡
+𝑗,𝑡
+
+In the discussion below, we highlight the most striking (and statis-
+tically significant) attributes of each SPG. The full breakdown for all of
+the above attributes is provided in Tables D.1 through D.8.
+
+Large cap, mid cap, and small cap. The obviously relevant attributes
+for peer groups based on company size are SMB beta, average market
+capitalization, and average firm age. Accordingly, we find that funds
+in the Large Cap SPG have significantly lower SMB betas, and hold
+significantly older firms with larger average market cap. The SMB beta
+of the Mid Cap SPG is not significantly different from other funds, but
+average firm age and market cap are smaller. The Small Cap SPG has
+both a higher SMB beta (highest among all SPGs) and a much lower
+average firm age and market cap (lowest among all SPGs).
+
+Intrinsic value. Funds in this SPG invest in companies trading at a
+discount to perceived intrinsic value. This is the closest SPG to a typical
+‘‘value’’ strategy, and as such is reflected in higher than average HML
+
+26 
+
+S. Abis and A. Lines
+
+Journal of Financial Economics 162 (2024) 103948 
+
+Table D.3
+Industry Exposures by SPG: This table displays differences in average industry exposures between funds in each Strategy Peer Group (SPG) and
+the average across all other SPGs. These differences are estimated in separate regressions of fund-level industry exposures on dummy variables
+for each SPG (see Appendix D), controlling for fund age, log assets, expense ratio, turnover ratio, monthly fund flows, monthly fund flow
+volatility, and month as well as fund family fixed effects. All non-binary independent variables are demeaned. Standard errors are two-way
+clustered by fund and month. Industries are the Fama–French 48 industries—a selected sample is displayed for brevity.
+
+LargeCap
+
+Fundamental
+
+ProductsServices
+
+Dividends
+
+Derivatives
+
+CompAdvantage
+
+Defensive
+
+Quantitative
+
+SmallCap
+
+LongTerm
+
+PERatio
+
+Foreign(ADR)
+
+MidCap
+
+IntrinsicValue
+
+FixedIncome
+
+Tax
+
+Foreign(EM)
+
+Obs
+
+Util
+
+−0.23**
+(−2.29)
+
+0.22
+(1.58)
+
+−0.68***
+(−6.04)
+
+1.71***
+(8.89)
+
+0.14
+(0.96)
+
+−0.87***
+(−7.75)
+
+0.03
+(0.23)
+
+0.25
+(1.63)
+
+−0.24**
+(−2.01)
+
+−0.55***
+(−2.69)
+
+0.39**
+(2.49)
+
+−0.51**
+(−2.07)
+
+0.43**
+(2.29)
+
+0.14
+(0.77)
+
+0.19
+(1.34)
+
+−0.41*
+(−1.95)
+
+−0.17
+(−0.80)
+
+288,012
+
+Telcm
+
+−0.16
+(−1.07)
+
+−0.34**
+(−2.54)
+
+−0.46**
+(−2.04)
+
+1.83***
+(7.95)
+
+0.37**
+(2.16)
+
+−0.61***
+(−3.58)
+
+0.16
+(0.84)
+
+0.41**
+(2.43)
+
+−1.53***
+(−9.00)
+
+−0.19
+(−0.76)
+
+−0.13
+(−0.65)
+
+−0.28
+(−1.12)
+
+−0.39**
+(−2.07)
+
+1.87***
+(3.52)
+
+0.14
+(0.54)
+
+0.28
+(1.07)
+
+−0.08
+(−0.29)
+
+288,012
+
+Hshld
+
+0.05
+(0.98)
+
+−0.08
+(−1.47)
+
+−0.08
+(−1.38)
+
+0.11*
+(1.79)
+
+−0.00
+(−0.01)
+
+0.35***
+(3.94)
+
+−0.02
+(−0.33)
+
+−0.09*
+(−1.67)
+
+−0.12*
+(−1.79)
+
+0.10
+(1.03)
+
+0.03
+(0.26)
+
+−0.19**
+(−2.46)
+
+−0.07
+(−0.91)
+
+0.02
+(0.18)
+
+−0.06
+(−0.78)
+
+0.12
+(1.24)
+
+−0.13
+(−1.43)
+
+288,012
+
+Oil
+
+−0.28
+(−1.12)
+
+0.37
+(1.12)
+
+−0.36
+(−0.96)
+
+0.31
+(1.02)
+
+−0.02
+(−0.06)
+
+−1.33***
+(−3.77)
+
+0.07
+(0.21)
+
+0.63*
+(1.74)
+
+2.62***
+(4.37)
+
+−0.52
+(−1.14)
+
+0.26
+(0.56)
+
+0.54
+(1.18)
+
+−1.83***
+(−4.61)
+
+−1.57***
+(−3.25)
+
+0.13
+(0.35)
+
+1.28**
+(2.14)
+
+−0.60
+(−1.01)
+
+288,012
+
+Banks
+
+−0.05
+(−0.16)
+
+0.57
+(1.64)
+
+−2.77***
+(−6.33)
+
+4.09***
+(7.44)
+
+0.04
+(0.10)
+
+−1.18***
+(−2.86)
+
+0.87*
+(1.81)
+
+1.19***
+(2.63)
+
+−1.41***
+(−3.11)
+
+−1.35***
+(−2.66)
+
+0.79
+(1.36)
+
+0.20
+(0.40)
+
+−2.75***
+(−5.99)
+
+1.91***
+(3.41)
+
+0.21
+(0.44)
+
+0.37
+(0.73)
+
+−0.54
+(−1.04)
+
+288,012
+
+Tech
+
+0.00
+(1.38)
+
+0.00
+(0.81)
+
+0.01***
+(3.43)
+
+−0.02***
+(−5.91)
+
+0.00
+(0.73)
+
+0.01*
+(1.86)
+
+−0.00
+(−0.53)
+
+0.00
+(0.08)
+
+−0.01***
+(−2.69)
+
+0.00
+(1.08)
+
+−0.00
+(−1.25)
+
+0.00
+(0.10)
+
+−0.00
+(−1.20)
+
+−0.00
+(−0.01)
+
+0.00
+(0.03)
+
+0.00
+(0.91)
+
+0.00
+(1.16)
+
+288,012
+
+Drugs
+
+−0.05
+(−0.20)
+
+−0.18
+(−0.64)
+
+0.99**
+(2.51)
+
+−0.27
+(−0.83)
+
+0.01
+(0.03)
+
+1.15***
+(2.78)
+
+−0.56*
+(−1.85)
+
+−0.37
+(−1.19)
+
+0.32
+(0.61)
+
+0.93*
+(1.81)
+
+−0.99***
+(−2.91)
+
+0.38
+(1.13)
+
+−1.57***
+(−4.42)
+
+−0.57
+(−1.63)
+
+0.49
+(0.99)
+
+0.66
+(1.29)
+
+−0.55*
+(−1.70)
+
+288,012
+
+t statistics in parentheses
+* p < 0.10, ** p < 0.05, *** p < 0.01.
+
+betas at the fund level, as well as higher than average book-to-market
+ratio at the stock level. The ‘‘discount to intrinsic value’’ attribute may
+also be reflected in the fact that these funds buy firms with higher share
+repurchases, potentially indicating undervaluation.
+
+Long term. Funds in this SPG claim to be searching for long term invest-
+ment opportunities, or companies with long term growth potential. In
+the data, funds implementing this strategy tend to be older and have
+lower turnover ratios. The stock they hold have lower than average
+book-to-market ratios, both at the fund level and at the stock level
+(indicting a growth style tilt). They tend to avoid mature industries
+such as Utilities and Banks. Instead, they hold companies with higher
+intangibles (which includes capitalized R&D), higher cash, and lower
+dividend yields (greater retained earnings, typically used to grow the
+firm).
+
+Fixed income. The Fixed Income SPG is distinguished by an emphasis on
+bonds as a secondary asset class. Consistent with this emphasis, we find
+funds in this SPG to have the lowest percentage of holdings in common
+stock, and the highest holdings in cash.
+
+Derivatives:. Funds in this SPG discuss the use of derivatives (partic-
+ularly options and futures) and short selling to enhance their port-
+folio return. Unfortunately, we do not observe derivative positions
+in our dataset and are thus unable to validate this SPG using the
+narrative/descriptive approach.
+
+Quantitative. Funds in this group are significantly younger and smaller,
+with higher turnover ratio and lower expense ratio. This confirms
+the findings of Abis (2022), who identifies quantitative funds using a
+different methodology (supervised machine learning). We also expect
+Quantitative funds to make greater use of trend-following strategies
+and hold stocks of more companies at a time, signifying their greater
+information-processing capabilities. Both of these expectations are val-
+idated by the data: funds in this SPG have higher momentum betas and
+hold stocks of more companies than other funds.
+
+Fundamental. The Fundamental SPG is comprised of funds that engage
+in bottom-up, fundamental research on individual companies. As such,
+we would not expect any particular tilts in industry composition, risk
+factor loadings or stock characteristics. Funds in this peer group can be
+seen as generic traditional investment managers. Consistent with this
+
+27 
+
+S. Abis and A. Lines
+
+Journal of Financial Economics 162 (2024) 103948 
+
+Table D.4
+Traditional Stock Characteristics by SPG: This table reports differences between various average stock characteristics within a particular
+Strategy Peer Group (SPG) and the average across all other SPGs. The differences are estimated in separate regressions of fund-level average
+stock characteristics on dummy variables for each SPG (see Appendix D), controlling for fund age, log assets, expense ratio, turnover ratio,
+monthly fund flows, monthly fund flow volatility, and month as well as fund family fixed effects. All non-binary independent variables are
+demeaned. Standard errors are two-way clustered by fund and month.
+
+MarketBeta
+
+MarketCap
+
+BookToMkt
+
+Momentum
+
+Investment
+
+Profitability
+
+LargeCap
+
+Fundmntl
+
+ProdServ
+
+Dividends
+
+Deriv
+
+CompAdv
+
+Defensive
+
+Quantit
+
+SmallCap
+
+LongTerm
+
+PERatio
+
+Foreign(ADR)
+
+MidCap
+
+IntrValue
+
+FixedInc
+
+Tax
+
+Foreign(EM)
+
+Obs
+
+−0.942**
+(−2.03)
+
+0.618
+(1.17)
+
+0.843
+(1.09)
+
+−2.774***
+(−4.28)
+
+0.796
+(0.99)
+
+−0.0285
+(−0.04)
+
+−0.825
+(−1.25)
+
+−0.247
+(−0.38)
+
+2.153**
+(2.41)
+
+0.626
+(0.72)
+
+−0.236
+(−0.27)
+
+1.428*
+(1.71)
+
+0.249
+(0.35)
+
+−1.332
+(−1.26)
+
+0.114
+(0.13)
+
+1.240
+(1.40)
+
+−1.173
+(−1.27)
+
+288,012
+
+t statistics in parentheses
+* p < 0.10, ** p < 0.05, *** p < 0.01.
+
+7.372**
+(2.47)
+
+−4.409
+(−1.36)
+
+−14.96***
+(−3.82)
+
+38.89***
+(10.74)
+
+7.771**
+(2.08)
+
+6.995
+(1.40)
+
+5.265
+(1.64)
+
+9.875**
+(2.22)
+
+−68.46***
+(−18.03)
+
+5.138
+(1.11)
+
+−2.696
+(−0.51)
+
+1.856
+(0.39)
+
+−12.88***
+(−3.40)
+
+13.17***
+(2.81)
+
+2.770
+(0.70)
+
+18.27***
+(3.08)
+
+−10.12*
+(−1.93)
+
+288,012
+
+−0.0126
+(−0.13)
+
+0.113
+(1.09)
+
+−0.337***
+(−3.01)
+
+0.763***
+(5.60)
+
+0.118
+(1.02)
+
+−0.817***
+(−5.50)
+
+0.0531
+(0.56)
+
+0.0675
+(0.56)
+
+0.350*
+(1.76)
+
+−0.408***
+(−2.63)
+
+0.0336
+(0.26)
+
+−0.0654
+(−0.34)
+
+−0.156
+(−0.69)
+
+0.287**
+(2.04)
+
+0.101
+(0.89)
+
+0.0109
+(0.06)
+
+−0.204
+(−1.62)
+
+288,012
+
+−0.935
+(−1.03)
+
+1.562*
+(1.68)
+
+6.930***
+(4.27)
+
+−10.61***
+(−6.48)
+
+−1.397
+(−1.13)
+
+3.233**
+(2.31)
+
+−2.519**
+(−2.27)
+
+1.021
+(0.73)
+
+5.071***
+(3.36)
+
+0.562
+(0.38)
+
+−1.647
+(−1.02)
+
+3.049**
+(2.23)
+
+0.335
+(0.29)
+
+−7.736***
+(−6.64)
+
+−2.037*
+(−1.69)
+
+1.271
+(0.72)
+
+1.690
+(1.35)
+
+288,012
+
+−0.492
+(−0.75)
+
+−0.296
+(−0.55)
+
+2.542***
+(2.73)
+
+−2.195***
+(−3.80)
+
+0.502
+(0.63)
+
+−0.420
+(−0.53)
+
+−0.530
+(−0.87)
+
+−2.325***
+(−4.68)
+
+5.652***
+(4.45)
+
+0.912
+(0.77)
+
+−0.569
+(−0.62)
+
+0.460
+(0.70)
+
+−1.184**
+(−2.30)
+
+−2.803***
+(−3.58)
+
+−0.132
+(−0.15)
+
+−0.348
+(−0.30)
+
+0.466
+(0.83)
+
+288,012
+
+0.552
+(0.60)
+
+−0.715
+(−0.73)
+
+4.726***
+(4.17)
+
+−7.378***
+(−7.89)
+
+−1.820
+(−1.34)
+
+7.258***
+(5.79)
+
+0.341
+(0.32)
+
+−0.447
+(−0.41)
+
+−2.402
+(−1.46)
+
+2.421
+(1.56)
+
+−1.198
+(−0.84)
+
+1.518
+(1.10)
+
+3.009**
+(2.45)
+
+−3.813***
+(−2.94)
+
+−3.458**
+(−2.39)
+
+−1.022
+(−0.64)
+
+0.610
+(0.41)
+
+288,012
+
+intuition, we do not observe large differences between funds in this
+SPG and funds outside this SPG.
+
+Defensive.
+In general, ‘‘defensive’’ strategies can mean either safer asset
+classes or defensive industries—the word cloud indicates that this SPG
+focuses on the former, specifically money market and other short term
+securities. The text generally permits managers to use these cash-like
+securities to reduce risk in adverse market conditions. In line with this
+objective, our results show that these funds hold a smaller fraction of
+their assets in common stock. The funds also have a lower than average
+market beta.
+
+Tax. This SPG is characterized by tax-management strategies that
+explicitly aim to reduce the tax burden to the end investor through
+lower distributions. This strategy is difficult to assess using the simple
+characteristics we report in this paper, as it depends on the timing of
+sales relative to accrued capital gains. We note, however, that the Tax
+SPG holds much less of its assets in cash than other funds, which may
+correlate with lower taxable distributions.
+
+Dividends. The ‘‘Dividends’’ group arguably has the most straightfor-
+ward strategy and the clearest ex-ante expectations for investors: funds
+
+in this SPG should try to maximize dividend distributions. Accordingly,
+we find that these funds hold stocks with (by far) the highest dividend
+yield among all SPGs. The funds implementing this strategy tend to
+charge lower fees and have lower turnover ratios. The companies they
+hold are typical high-dividend firms: they are larger and older, have
+lower investment, and R&D expenses, and hold less cash (plausibly due
+to higher payout ratios). Portfolios are tilted towards high-dividend
+industries such as Utilities, Telecoms, and Banks; and tilted away from
+the Tech industry.
+
+PE ratio. The use of the price-earnings ratio in security valuation is
+the common theme among funds in this SPG, who claim to look for
+companies whose prices are low relative to the prices implied by PE
+multiples for similar firms. This SPG also contains funds who use the
+PE ratio to identify ‘‘value’’ firms (i.e., those with low PE ratios). This
+is consistent with our finding that funds in this SPG have higher than
+average HML betas (though not higher book-to-market ratios at the
+stock level). Overall, our analysis for this SPG is limited.
+
+28 
+
+S. Abis and A. Lines
+
+Journal of Financial Economics 162 (2024) 103948 
+
+Table D.5
+Balance Sheet Variables by SPG: This table reports differences between average balance sheet characteristics of fund holdings within a particular
+Strategy Peer Group (SPG) and the average across all other SPGs. These differences are estimated in separate regressions of the dependent
+variables on dummies for each SPG (see Appendix D), controlling for fund age, log assets, expense ratio, turnover ratio, monthly fund flows,
+monthly fund flow volatility, and month as well as fund family fixed effects. All non-binary independent variables are demeaned. Standard
+errors are two-way clustered by fund and month.
+
+CurrAsts
+
+Invent.
+
+NonPrfAst
+
+PP&E
+
+LargeCap
+
+Fundmntl
+
+ProdServ
+
+Dividends
+
+Deriv
+
+CompAdv
+
+Defensive
+
+Quantit
+
+SmallCap
+
+LongTerm
+
+PERatio
+
+Foreign(ADR)
+
+MidCap
+
+IntrValue
+
+FixedInc
+
+Tax
+
+Foreign(EM)
+
+−0.05
+(−0.03)
+
+−0.72
+(−0.49)
+
+13.88***
+(7.54)
+
+−20.09***
+(−12.05)
+
+−2.20
+(−1.35)
+
+8.99***
+(4.43)
+
+−2.00
+(−1.23)
+
+−5.96***
+(−3.53)
+
+13.13***
+(6.27)
+
+4.57**
+(2.04)
+
+−4.20*
+(−1.94)
+
+1.51
+(0.73)
+
+1.16
+(0.64)
+
+−9.28***
+(−4.61)
+
+−2.16
+(−1.12)
+
+−4.10*
+(−1.88)
+
+3.09
+(1.37)
+
+0.47
+(0.59)
+
+0.26
+(0.42)
+
+−0.95
+(−1.27)
+
+−2.83***
+(−3.30)
+
+−0.24
+(−0.30)
+
+−0.03
+(−0.03)
+
+0.27
+(0.25)
+
+2.74***
+(3.59)
+
+2.24**
+(1.99)
+
+1.24
+(1.13)
+
+2.80**
+(2.48)
+
+−0.55
+(−0.67)
+
+0.10
+(0.11)
+
+−2.65**
+(−2.34)
+
+−1.80*
+(−1.74)
+
+−1.27
+(−1.22)
+
+−1.90
+(−1.58)
+
+−0.46
+(−1.40)
+
+1.10**
+(2.53)
+
+−0.96**
+(−2.28)
+
+0.98**
+(2.53)
+
+−0.42
+(−0.79)
+
+−1.94***
+(−3.61)
+
+1.44*
+(1.86)
+
+−0.03
+(−0.06)
+
+1.77***
+(2.92)
+
+−1.61***
+(−3.35)
+
+0.92*
+(1.69)
+
+−0.22
+(−0.36)
+
+−2.35***
+(−4.78)
+
+1.24
+(1.50)
+
+1.11*
+(1.76)
+
+−0.64
+(−1.41)
+
+−0.15
+(−0.22)
+
+Obs
+
+288,012
+
+288,012
+
+288,012
+
+t statistics in parentheses
+* p < 0.10, ** p < 0.05, *** p < 0.01.
+
+−1.42
+(−1.33)
+
+1.03
+(0.89)
+
+−1.27
+(−0.84)
+
+1.72
+(1.33)
+
+0.77
+(0.67)
+
+−6.17***
+(−3.82)
+
+−2.50*
+(−1.76)
+
+0.44
+(0.37)
+
+6.30***
+(3.62)
+
+−2.40
+(−1.31)
+
+2.58
+(1.38)
+
+−0.08
+(−0.05)
+
+3.32*
+(1.94)
+
+−4.22**
+(−2.08)
+
+1.20
+(0.81)
+
+1.34
+(0.61)
+
+−0.11
+(−0.06)
+
+288,012
+
+Intang.
+
+0.78
+(0.60)
+
+−1.75
+(−1.27)
+
+5.25***
+(3.48)
+
+−4.54***
+(−3.24)
+
+−2.87*
+(−1.73)
+
+9.09***
+(4.53)
+
+0.21
+(0.14)
+
+−8.78***
+(−4.94)
+
+−11.08***
+(−5.93)
+
+4.83**
+(2.40)
+
+−2.46
+(−1.35)
+
+0.18
+(0.10)
+
+13.10***
+(6.06)
+
+5.47**
+(2.10)
+
+−3.80**
+(−2.19)
+
+−4.68**
+(−2.38)
+
+2.36
+(0.97)
+
+AstGrw
+
+−0.24
+(−0.52)
+
+0.66
+(1.12)
+
+4.15***
+(4.85)
+
+−6.18***
+(−7.37)
+
+−1.14**
+(−1.99)
+
+2.22***
+(3.01)
+
+−0.86
+(−1.33)
+
+−2.63***
+(−4.34)
+
+3.15***
+(3.19)
+
+1.21
+(1.49)
+
+−0.56
+(−0.63)
+
+2.23***
+(2.97)
+
+−0.27
+(−0.37)
+
+−3.82***
+(−5.41)
+
+−0.41
+(−0.47)
+
+0.31
+(0.36)
+
+1.39**
+(1.98)
+
+Cash
+
+−0.23
+(−0.18)
+
+−0.79
+(−0.55)
+
+11.83***
+(6.07)
+
+−14.61***
+(−9.32)
+
+−0.72
+(−0.40)
+
+8.13***
+(3.59)
+
+−1.80
+(−1.11)
+
+−5.30***
+(−3.38)
+
+9.17***
+(3.85)
+
+4.83**
+(2.04)
+
+−5.80***
+(−3.04)
+
+2.40
+(1.22)
+
+−5.31***
+(−3.11)
+
+−5.77***
+(−2.63)
+
+−0.58
+(−0.30)
+
+−1.24
+(−0.56)
+
+3.53*
+(1.69)
+
+288,012
+
+288,012
+
+288,012
+
+New products & services. Funds in this SPG focus on companies with
+new or innovative product lines, and new or rapidly changing tech-
+nologies. Consistent with this focus, funds in this SPG tend to avoid
+stable industries such as utilities, telecoms, and banks, while holding a
+significantly greater fraction of stocks from innovative industries such
+as technology and pharmaceuticals (drugs). The funds implementing
+this strategy charge higher fees and have higher turnover ratios. The
+firms they hold have higher levels of investment and R&D expenditure,
+higher asset growth, and lower dividend yield, as would be expected
+for companies introducing new products and services.
+
+Foreign. The two Foreign SPGs — Emerging Markets (EM) and American
+
+Depository Receipts (ADR) — represent quite different strategies. While
+
+the former is explicitly focused on buying stocks of foreign companies,
+
+usually in emerging markets, the latter strategy appears to simply
+
+indicate a larger investment opportunity set, where funds are permitted
+
+(but not required) to hold ADRs. The characteristics data are consistent
+
+with this interpretation: Foreign (EM) funds hold a higher fraction of
+
+both ADRs and foreign-incorporated firms in their portfolios, compared
+
+to all other funds. However, there are no significant differences for
+
+Foreign (ADR) funds.
+
+Competitive advantage. According to the text, the two defining at-
+tributes of this SPG are companies with a sustainable competitive
+advantage and those with a strong balance sheet. Consistent with
+both of these attributes, we find that funds in this SPG tend to hold
+companies with higher than average profitability (highest among all
+SPGs) and companies with lower levels of debt (lowest among all SPGs)
+and lower leverage.
+
+While we are not able to measure every relevant characteristic
+
+associated with the various strategies — derivative and bond positions,
+
+for example — we do not find any inconsistencies among the large set
+
+of characteristics that we are able to measure, and in most cases the
+
+measured characteristics directly affirm the text. Overall, we conclude
+
+that fund characteristics are broadly consistent with the investment
+
+approaches described in the text.
+
+29 
+
+S. Abis and A. Lines
+
+Journal of Financial Economics 162 (2024) 103948 
+
+Table D.6
+Additional Balance Sheet and Income Statement Variables by SPG: This table reports differences between average characteristics of fund
+holdings within a particular Strategy Peer Group (SPG) and the average across all other SPGs. These differences are estimated in separate
+regressions of the dependent variables on dummies for each SPG (see Appendix D), controlling for fund age, log assets, expense ratio, turnover
+ratio, monthly fund flows, monthly fund flow volatility, and month as well as fund family fixed effects. All non-binary independent variables
+are demeaned. Standard errors are two-way clustered by fund and month.
+
+LargeCap
+
+Fundmntl
+
+ProdServ
+
+Dividends
+
+Deriv
+
+CompAdv
+
+Defensive
+
+Quantit
+
+SmallCap
+
+LongTerm
+
+PERatio
+
+Foreign(ADR)
+
+MidCap
+
+IntrValue
+
+FixedInc
+
+Tax
+
+Foreign(EM)
+
+CurrLiab
+
+0.97
+(1.14)
+
+−1.44*
+(−1.68)
+
+4.69***
+(4.62)
+
+−5.69***
+(−5.78)
+
+−0.22
+(−0.22)
+
+4.39***
+(4.43)
+
+−0.50
+(−0.50)
+
+0.99
+(0.90)
+
+−2.31*
+(−1.93)
+
+1.65
+(1.29)
+
+−2.02
+(−1.41)
+
+−0.08
+(−0.06)
+
+3.05**
+(2.45)
+
+−2.48*
+(−1.89)
+
+−1.46
+(−1.23)
+
+−1.07
+(−0.77)
+
+−0.13
+(−0.09)
+
+Obs
+
+288,012
+
+t statistics in parentheses
+* p < 0.10, ** p < 0.05, *** p < 0.01.
+
+Levrg
+
+0.02
+(0.06)
+
+−0.65*
+(−1.75)
+
+−2.33***
+(−5.01)
+
+2.82***
+(6.16)
+
+0.43
+(0.91)
+
+−1.24**
+(−2.31)
+
+0.88**
+(2.11)
+
+2.15***
+(4.70)
+
+DefTax
+
+2.02
+(1.21)
+
+−1.32
+(−0.72)
+
+−7.74***
+(−3.80)
+
+19.86***
+(9.05)
+
+3.52*
+(1.69)
+
+1.08
+(0.40)
+
+−3.04
+(−1.28)
+
+7.89***
+(3.61)
+
+−2.58***
+(−4.79)
+
+−19.50***
+(−9.93)
+
+−0.09
+(−0.16)
+
+−0.05
+(−0.08)
+
+−1.09**
+(−2.05)
+
+−0.17
+(−0.33)
+
+3.05***
+(3.43)
+
+0.29
+(0.60)
+
+0.53
+(0.90)
+
+−0.37
+(−0.69)
+
+288,012
+
+2.44
+(0.95)
+
+−0.46
+(−0.17)
+
+2.00
+(0.69)
+
+−10.15***
+(−4.57)
+
+4.55*
+(1.72)
+
+−3.03
+(−1.32)
+
+8.05**
+(2.48)
+
+−6.30**
+(−2.14)
+
+288,012
+
+LTDebt
+
+−2.76***
+(−3.16)
+
+−0.10
+(−0.10)
+
+−2.71**
+(−2.34)
+
+2.89***
+(2.62)
+
+−0.09
+(−0.10)
+
+−5.62***
+(−4.40)
+
+−0.77
+(−0.69)
+
+0.67
+(0.64)
+
+3.13**
+(2.05)
+
+−0.59
+(−0.31)
+
+−0.34
+(−0.28)
+
+−0.97
+(−0.71)
+
+5.48***
+(4.34)
+
+4.72**
+(2.44)
+
+3.33*
+(1.88)
+
+−2.32
+(−1.59)
+
+1.58
+(1.18)
+
+288,012
+
+OperInc
+
+−2.22
+(−1.25)
+
+1.60*
+(1.74)
+
+−2.20
+(−1.54)
+
+2.92***
+(4.17)
+
+−2.94
+(−0.83)
+
+−0.18
+(−0.11)
+
+−0.48
+(−0.36)
+
+4.33***
+(3.46)
+
+−4.85**
+(−2.17)
+
+0.19
+(0.21)
+
+1.50
+(1.64)
+
+0.08
+(0.10)
+
+1.59**
+(2.04)
+
+4.98
+(1.56)
+
+−0.16
+(−0.15)
+
+0.30
+(0.16)
+
+−1.56
+(−1.32)
+
+288,012
+
+EarnGrw
+
+−0.17
+(−0.80)
+
+0.07
+(0.31)
+
+−0.13
+(−0.38)
+
+0.28
+(1.08)
+
+0.14
+(0.62)
+
+0.25
+(0.63)
+
+0.11
+(0.31)
+
+0.19
+(0.72)
+
+−0.74
+(−1.64)
+
+0.04
+(0.11)
+
+−0.22
+(−0.67)
+
+0.18
+(0.62)
+
+0.21
+(0.51)
+
+−0.75
+(−1.16)
+
+−0.46
+(−1.45)
+
+0.51
+(1.49)
+
+0.65
+(1.13)
+
+288,012
+
+R&D
+
+0.04
+(0.03)
+
+−1.91*
+(−1.79)
+
+6.07**
+(2.52)
+
+−4.13***
+(−3.70)
+
+−1.34
+(−1.20)
+
+−0.59
+(−0.35)
+
+−0.04
+(−0.02)
+
+−3.40***
+(−3.48)
+
+7.54**
+(2.48)
+
+2.51
+(0.97)
+
+−0.76
+(−0.38)
+
+0.99
+(0.49)
+
+−2.10**
+(−2.24)
+
+−4.99***
+(−2.98)
+
+0.98
+(0.49)
+
+1.05
+(0.35)
+
+−0.68
+(−0.71)
+
+288,012
+
+30 
+
+S. Abis and A. Lines
+
+Journal of Financial Economics 162 (2024) 103948 
+
+Table D.7
+Security Market Characteristics by SPG: This table reports differences between average market characteristics of securities
+held by funds within a particular Strategy Peer Group (SPG) and the average across all other SPGs. These differences are
+estimated in separate regressions of the dependent variables on dummies for each SPG (see Appendix D), controlling for fund
+age, log assets, expense ratio, turnover ratio, monthly fund flows, monthly fund flow volatility, and month as well as fund
+family fixed effects. All non-binary independent variables are demeaned. Standard errors are two-way clustered by fund and
+month.
+
+LargeCap
+
+Fundmntl
+
+ProdServ
+
+Dividends
+
+Deriv
+
+CompAdv
+
+Defensive
+
+Quantit
+
+SmallCap
+
+LongTerm
+
+PERatio
+
+Foreign(ADR)
+
+MidCap
+
+IntrValue
+
+FixedInc
+
+Tax
+
+Foreign(EM)
+
+Obs
+
+DivYield
+
+−0.23*
+(−1.74)
+
+−0.16
+(−1.14)
+
+−0.74***
+(−4.03)
+
+3.48***
+(10.00)
+
+0.36
+(1.52)
+
+−0.83***
+(−4.34)
+
+0.27*
+(1.70)
+
+0.12
+(0.69)
+
+−1.06***
+(−6.26)
+
+−0.66**
+(−2.35)
+
+0.01
+(0.07)
+
+−0.46**
+(−1.97)
+
+−0.58**
+(−2.33)
+
+0.49*
+(1.94)
+
+0.36
+(1.36)
+
+0.11
+(0.45)
+
+−0.50*
+(−1.93)
+
+288,012
+
+Issuance
+
+Repurchase
+
+0.03
+(0.07)
+
+0.17
+(0.43)
+
+−1.49***
+(−3.63)
+
+3.01***
+(6.35)
+
+0.10
+(0.20)
+
+−1.32**
+(−2.12)
+
+0.55
+(1.23)
+
+2.23***
+(3.43)
+
+−2.82***
+(−4.53)
+
+0.71
+(1.32)
+
+−0.05
+(−0.09)
+
+0.24
+(0.40)
+
+−1.42**
+(−2.08)
+
+0.18
+(0.24)
+
+−0.35
+(−0.50)
+
+1.79***
+(2.65)
+
+−1.61**
+(−2.32)
+
+288,012
+
+2.36**
+(2.29)
+
+−1.75
+(−1.39)
+
+−4.91***
+(−3.59)
+
+5.07***
+(4.07)
+
+1.90
+(1.29)
+
+−3.60**
+(−2.08)
+
+1.93*
+(1.69)
+
+11.79***
+(6.83)
+
+−19.07***
+(−11.80)
+
+−1.07
+(−0.71)
+
+−0.21
+(−0.12)
+
+1.14
+(0.68)
+
+0.18
+(0.12)
+
+10.80***
+(5.00)
+
+0.51
+(0.38)
+
+4.87**
+(2.32)
+
+−6.02***
+(−3.02)
+
+288,012
+
+Illiquid
+
+0.00
+(0.33)
+
+−0.00
+(−0.33)
+
+−0.00*
+(−1.92)
+
+0.01**
+(2.40)
+
+−0.00
+(−1.28)
+
+−0.01**
+(−2.48)
+
+0.00
+(0.39)
+
+0.01**
+(2.14)
+
+−0.01**
+(−1.98)
+
+−0.00
+(−0.35)
+
+0.00
+(0.77)
+
+0.00
+(0.69)
+
+−0.00
+(−0.68)
+
+−0.00
+(−0.42)
+
+0.01
+(1.47)
+
+−0.00
+(−1.42)
+
+−0.00
+(−1.19)
+
+288,012
+
+FirmAge
+
+5.49**
+(2.05)
+
+−5.21
+(−1.64)
+
+−23.29***
+(−6.36)
+
+61.97***
+(15.40)
+
+8.23**
+(2.16)
+
+−11.85***
+(−2.72)
+
+2.11
+(0.70)
+
+17.54***
+(4.19)
+
+−53.29***
+(−16.02)
+
+−3.30
+(−0.74)
+
+9.79*
+(1.96)
+
+−4.14
+(−0.80)
+
+−18.66***
+(−4.78)
+
+15.32***
+(3.08)
+
+3.34
+(0.84)
+
+17.78***
+(3.22)
+
+−20.42***
+(−4.12)
+
+288,012
+
+t statistics in parentheses
+* p < 0.10, ** p < 0.05, *** p < 0.01.
+
+31 
+
+S. Abis and A. Lines
+
+Journal of Financial Economics 162 (2024) 103948 
+
+Table D.8
+Holdings Characteristics by SPG: This table reports differences between average fund holdings characteristics for a particular
+Strategy Peer Group (SPG) and the average across all other SPGs. These differences are estimated in separate regressions
+of the dependent variables on dummies for each SPG (see Appendix D), controlling for fund age, log assets, expense ratio,
+turnover ratio, monthly fund flows, monthly fund flow volatility, and month as well as fund family fixed effects. All non-binary
+independent variables are demeaned. Standard errors are two-way clustered by fund and month.
+
+LargeCap
+
+Fundmntl
+
+ProdServ
+
+Dividends
+
+Deriv
+
+CompAdv
+
+Defensive
+
+Quantit
+
+SmallCap
+
+LongTerm
+
+PERatio
+
+Foreign(ADR)
+
+MidCap
+
+IntrValue
+
+FixedInc
+
+Tax
+
+Foreign(EM)
+
+Obs
+
+ADR%
+
+−0.02
+(−0.38)
+
+−0.09
+(−1.15)
+
+−0.00
+(−0.05)
+
+0.95***
+(6.40)
+
+0.02
+(0.23)
+
+−0.03
+(−0.31)
+
+0.11
+(1.17)
+
+−0.65***
+(−7.95)
+
+−0.36***
+(−4.26)
+
+0.02
+(0.20)
+
+−0.22**
+(−2.08)
+
+0.03
+(0.18)
+
+−0.20
+(−1.32)
+
+0.10
+(0.67)
+
+−0.09
+(−0.87)
+
+0.12
+(0.84)
+
+0.46***
+(3.30)
+
+288,012
+
+t statistics in parentheses
+* p < 0.10, ** p < 0.05, *** p < 0.01.
+
+ForeignInc
+
+NumStocks
+
+0.06
+(0.34)
+
+0.06
+(0.24)
+
+0.15
+(0.49)
+
+0.37
+(1.39)
+
+0.18
+(0.67)
+
+0.13
+(0.47)
+
+0.39*
+(1.68)
+
+−1.81***
+(−7.54)
+
+−0.88***
+(−2.91)
+
+−0.22
+(−0.72)
+
+−0.34
+(−1.03)
+
+0.46
+(1.45)
+
+0.51
+(1.49)
+
+0.50
+(1.62)
+
+−0.03
+(−0.10)
+
+−0.29
+(−0.94)
+
+1.08***
+(2.60)
+
+288,012
+
+−2.05
+(−0.66)
+
+−2.61
+(−0.98)
+
+−1.42
+(−0.71)
+
+−6.47*
+(−1.75)
+
+3.52
+(0.99)
+
+−13.55***
+(−5.61)
+
+−3.48*
+(−1.67)
+
+18.93***
+(4.89)
+
+40.14***
+(4.79)
+
+−11.17*
+(−1.91)
+
+−4.50
+(−1.30)
+
+−4.18**
+(−2.02)
+
+−6.47
+(−1.54)
+
+−13.87***
+(−7.47)
+
+−1.43
+(−0.65)
+
+15.03
+(1.62)
+
+−8.30**
+(−2.13)
+
+288,012
+
+Cash%
+
+2.45
+(1.00)
+
+0.64
+(0.28)
+
+−2.34
+(−0.82)
+
+−4.02
+(−1.30)
+
+2.23
+(0.55)
+
+0.98
+(0.22)
+
+3.40
+(1.00)
+
+−15.44***
+(−4.23)
+
+3.45
+(1.15)
+
+−1.33
+(−0.33)
+
+−1.03
+(−0.24)
+
+−3.89
+(−1.32)
+
+−3.47
+(−1.37)
+
+3.66
+(0.84)
+
+21.33***
+(4.40)
+
+−12.45***
+(−3.34)
+
+7.60*
+(1.81)
+
+275,825
+
+CommStk%
+
+4.48*
+(1.71)
+
+2.05
+(0.72)
+
+7.48**
+(2.24)
+
+−23.36***
+(−4.80)
+
+−5.59
+(−1.09)
+
+8.85*
+(1.81)
+
+−9.22**
+(−2.36)
+
+25.16***
+(6.67)
+
+−3.90
+(−1.12)
+
+7.61*
+(1.66)
+
+7.39*
+(1.73)
+
+4.31
+(1.09)
+
+6.19*
+(1.86)
+
+−12.79**
+(−2.01)
+
+−26.77***
+(−4.04)
+
+11.11**
+(2.54)
+
+−16.74**
+(−2.01)
+
+275,825
+
+32 
+
+S. Abis and A. Lines
+
+Journal of Financial Economics 162 (2024) 103948 
+
+Table D.9
+Fund Performance by SPG: This table reports differences between average fund alphas within a particular Strategy Peer Group (SPG) and the
+average across all other SPGs. Coefficients are estimated in separate regressions of the dependent vars (log of fund age, log of TNA, expense
+ratio, turnover ratio, post-fee FFC6 Alpha, and post-fee FFC6 Value Added) on dummies for each SPG (see Appendix D). Also shown are the
+overall averages across the full sample. We include month and fund family fixed effects. Standard errors are two-way clustered by fund and
+month.
+
+Raw Return
+
+SPG Alpha
+
+CAPM Alpha
+
+FFC6 Alpha
+
+DGTW Alpha
+
+HKP Alpha
+
+0.00342
+(0.30)
+
+0.0144
+(1.45)
+
+0.00789
+(0.43)
+
+−0.0316
+(−1.20)
+
+−0.00603
+(−0.41)
+
+0.0264
+(1.41)
+
+0.0102
+(0.52)
+
+−0.0302
+(−1.57)
+
+−0.00922
+(−0.52)
+
+−0.0104
+(−0.54)
+
+0.00354
+(0.19)
+
+0.00125
+(0.07)
+
+0.000426
+(0.02)
+
+−0.0132
+(−0.58)
+
+0.00681
+(0.35)
+
+0.00397
+(0.24)
+
+0.0169
+(0.72)
+
+−0.0133
+(−0.90)
+
+−0.0115
+(−0.85)
+
+−0.0184
+(−0.63)
+
+0.0437
+(1.11)
+
+−0.0542***
+(−2.74)
+
+0.0157
+(0.56)
+
+−0.00183
+(−0.08)
+
+0.0178
+(0.65)
+
+0.00634
+(0.21)
+
+−0.0177
+(−0.77)
+
+0.0509*
+(1.71)
+
+−0.0225
+(−1.37)
+
+0.0140
+(0.61)
+
+0.0221
+(0.81)
+
+−0.0223
+(−0.87)
+
+−0.0359
+(−1.51)
+
+0.0432
+(1.35)
+
+−0.101***
+(−47.48)
+
+254,428
+
+−0.0397***
+(−24.54)
+
+266,803
+
+0.000502
+(0.04)
+
+−0.00181
+(−0.17)
+
+−0.0315
+(−1.40)
+
+0.0155
+(0.47)
+
+−0.0470**
+(−2.45)
+
+0.0278
+(1.30)
+
+−0.0124
+(−0.70)
+
+0.00752
+(0.34)
+
+−0.0150
+(−0.95)
+
+0.0166
+(0.83)
+
+0.0424*
+(1.80)
+
+0.00790
+(0.52)
+
+0.0161
+(1.03)
+
+−0.00457
+(−0.20)
+
+−0.00919
+(−0.40)
+
+−0.0177
+(−1.00)
+
+0.0110
+(0.45)
+
+−0.00299**
+(−2.48)
+
+264,086
+
+LargeCap
+
+Fundamental
+
+ProdServ
+
+Dividends
+
+Derivatives
+
+CompAdv
+
+Defensive
+
+Quantitative
+
+SmallCap
+
+LongTerm
+
+PERatio
+
+ForeignADR
+
+MidCap
+
+IntrValue
+
+FixedIncome
+
+Tax
+
+ForeignEM
+
+Overall
+
+Obs
+
+−0.0136
+(−0.90)
+
+−0.0147
+(−0.93)
+
+−0.0199
+(−0.46)
+
+0.00101
+(0.02)
+
+−0.0669**
+(−2.22)
+
+0.0161
+(0.44)
+
+0.00355
+(0.12)
+
+−0.0276
+(−0.84)
+
+0.0746
+(1.11)
+
+−0.00331
+(−0.12)
+
+0.0814**
+(2.38)
+
+−0.00854
+(−0.44)
+
+0.0705**
+(2.23)
+
+−0.00345
+(−0.09)
+
+−0.0217
+(−0.69)
+
+−0.100***
+(−3.01)
+
+0.0365
+(1.12)
+
+0.629***
+(239.03)
+
+266,803
+
+t statistics in parentheses
+* p < 0.10, ** p < 0.05, *** p < 0.01.
+
+−0.0140
+(−1.00)
+
+−0.00242
+(−0.23)
+
+0.0318
+(1.55)
+
+−0.00385
+(−0.19)
+
+0.0143
+(0.82)
+
+−0.00307
+(−0.16)
+
+0.0205
+(0.88)
+
+−0.0310*
+(−1.83)
+
+−0.0367**
+(−2.05)
+
+−0.00649
+(−0.32)
+
+0.0548*
+(1.86)
+
+−0.00168
+(−0.10)
+
+0.0162
+(1.19)
+
+0.000642
+(0.03)
+
+0.0145
+(0.60)
+
+−0.0412**
+(−2.48)
+
+0.00774
+(0.37)
+
+0.000482
+(0.22)
+
+266,803
+
+−0.0120
+(−0.87)
+
+−0.0241*
+(−1.80)
+
+−0.00587
+(−0.17)
+
+0.0191
+(0.35)
+
+−0.00326
+(−0.13)
+
+0.0264
+(0.80)
+
+−0.0243
+(−0.99)
+
+−0.00879
+(−0.30)
+
+−0.0112
+(−0.18)
+
+−0.00680
+(−0.26)
+
+0.0405
+(1.45)
+
+0.00897
+(0.45)
+
+0.0513*
+(1.67)
+
+0.0114
+(0.30)
+
+0.00701
+(0.27)
+
+−0.0493*
+(−1.80)
+
+0.00718
+(0.22)
+
+−0.0808***
+(−39.03)
+
+254,428
+
+33 
+
+S. Abis and A. Lines
+
+Appendix E. Pairwise analysis
+
+To allow for more strict control variables, we compute our diver-
+gence measure, as well as differences between the first four return
+moments, for each pair of funds in the full sample, every month.
+
+𝐷𝑖𝑣𝑒𝑟𝑔𝑒𝑛𝑐𝑒𝑖,𝑗,𝑡 = 𝛼 + 𝛽1𝑆𝑎𝑚𝑒𝑆𝑃 𝐺𝑖,𝑗,𝑡 + 𝛽2𝑆𝑎𝑚𝑒𝐷𝐺𝑇 𝑊𝑖,𝑗,𝑡+
+
+𝛽3𝑆𝑎𝑚𝑒𝐹 𝐹 3𝑖,𝑗,𝑡 + 𝐷𝑖𝑣𝑒𝑟𝑔𝑒𝑛𝑐𝑒𝑖,𝑗,𝑡−1 + 𝛾𝑋𝑖,𝑗,𝑡+
+
+Journal of Financial Economics 162 (2024) 103948 
+
+Table E.2
+In this table we regress pairwise absolute
+Pairwise Return Moment Distances:
+return moment differences (mean, standard deviation, skewness, and kurtosis) on a
+dummy for whether the funds are grouped into the same SPG (see Appendix E).
+Moments are estimated over the subsequent 24 months. Regressions control for past
+moment differences (previous 24 months), fund-level characteristic differences (log
+assets, log age, expense ratio, turnover ratio, flows, flow volatility) and co-membership
+in alternative peer groups, based on holdings characteristics (Daniel et al. 1997) and
+risk factor loadings (Fama and French, 1993). All specifications include month fixed
+effects, and standard errors are clustered by fund and month.
+
+𝜂𝑡 + 𝜀𝑖,𝑗,𝑡;
+
+(E.1)
+
+Ret. Mean
+
+Ret. Std.
+
+Ret. Skew.
+
+Ret. Kurt.
+
+𝑀𝑜𝑚𝑒𝑛𝑡𝐷𝑖𝑓 𝑓𝑖,𝑗,𝑡+(1,24) = 𝛼 + 𝛽1𝑆𝑎𝑚𝑒𝑆𝑃 𝐺𝑖,𝑗,𝑡 + 𝛽2𝑆𝑎𝑚𝑒𝐷𝐺𝑇 𝑊𝑖,𝑗,𝑡+
+𝛽3𝑆𝑎𝑚𝑒𝐹 𝐹 3𝑖,𝑗,𝑡 + 𝑀𝑜𝑚𝑒𝑛𝑡𝐷𝑖𝑓 𝑓𝑖,𝑗,𝑡−(24,1)+
+
+Same SPG
+
+Same DGTW
+
+𝛾𝑋𝑖,𝑗,𝑡 + 𝜂𝑡 + 𝜀𝑖,𝑗,𝑡.
+
+(E.2)
+
+Same FF3
+
+𝐷𝑖𝑣𝑒𝑟𝑔𝑒𝑛𝑐𝑒𝑖,𝑗,𝑡 is defined as in Eq. (2), except the average portfolio
+weights ̄𝑤𝐺
+𝑖,𝑡 are replaced with the weights of another individual fund
+𝑖. 𝑀𝑜𝑚𝑒𝑛𝑡𝐷𝑖𝑓 𝑓𝑖,𝑗,𝑡+(1,24) is the absolute difference (between fund 𝑖 and
+fund 𝑗, in month 𝑡) in each moment of the distribution of future
+24-months rolling returns, for 𝑀𝑜𝑚𝑒𝑛𝑡 ∈ [𝑀𝑒𝑎𝑛, 𝑆𝑡𝐷𝑒𝑣, 𝑆𝑘𝑒𝑤𝑛𝑒𝑠𝑠,
+𝐾𝑢𝑟𝑡𝑜𝑠𝑖𝑠]. The variables denoted by 𝑆𝑎𝑚𝑒𝐶𝑙𝑢𝑠𝑡𝑒𝑟𝑖,𝑗,𝑡 (for 𝐶𝑙𝑢𝑠𝑡𝑒𝑟 =
+[𝑆𝑃 𝐺, 𝐷𝐺𝑇 𝑊 , 𝐹 𝐹 3]) are indicator variables that take a value of 1 if
+funds 𝑖 and 𝑗 are assigned to the same peer group, and 0 otherwise.
+The three peer groups are, respectively, (i) our text-based strategy
+peer groups (𝑆𝑃 𝐺𝑠); (ii) Daniel et al. (1997) holdings-based peer
+groups, constructed from terciles of market capitalization, book-to-
+market ratio, and past returns (𝐷𝐺𝑇 𝑊 ); and (iii) peer groups con-
+structed using funds’ exposures to the Fama–French 3-factor model
+(𝐹 𝐹 3). In both regressions, we control for differences in the same
+fund-level control variables as in Section 3.1.1 (represented here by
+𝑋𝑖,𝑗,𝑡), as well as the past portfolio weight divergences and moment
+differences (𝐷𝑖𝑣𝑒𝑟𝑔𝑒𝑛𝑐𝑒𝑖,𝑗,𝑡−1 and 𝑀𝑜𝑚𝑒𝑛𝑡𝐷𝑖𝑓 𝑓𝑖,𝑗,𝑡−(24,1), respectively).
+We also include month (𝜂𝑡) fixed-effects, and cluster standard errors
+at the fund and month level.
+
+The moment-similarity regressions have a predictive interpretation:
+a negative and significant 𝛽1 indicates that belonging to the same SPG
+today correlates with lower differences (higher similarity) in future
+returns. The portfolio weight divergence regression is run contempo-
+raneously, hence a negative and significant 𝛽1 indicates that funds
+belonging to the same SPG also have more similar holdings. Since
+we control for alternative peer group co-membership, a positive and
+significant 𝛽1 indicates that prospectuses have incremental predictive
+power for holdings and return similarities relative to traditional factors
+or characteristic portfolios.
+
+Table E.1
+Pairwise Strategy Divergence: This table reports the results of regressing pairwise
+portfolio weight divergence on a dummy variable for whether the two funds are
+grouped into the same SPG (see Appendix E). The regressions control
+for past
+differences in fund-level characteristics (log assets, log age, expense ratio, turnover
+ratio, net flows, net flow volatility), past portfolio weight divergence, and dummies
+for co-membership in alternative peer groups, based on holdings characteristics (Daniel
+et al. 1997) and risk factor loadings (Fama and French, 1993). All specifications include
+month fixed effects, and standard errors are clustered by fund and month.
+
+Same SPG
+
+Same DGTW
+
+Same FF3
+
+Controls
+FixedEffects
+Clustering
+R2
+Observations
+
+Portfolio Weight Divergence
+
+−0.0188***
+(−12.20)
+
+−0.0172***
+(−11.59)
+−0.174***
+(−22.66)
+
+Yes
+Month
+Fund+Month
+0.0354
+159681454
+
+Yes
+Month
+Fund+Month
+0.0739
+159681454
+
+−0.0175***
+(−11.79)
+
+−0.175***
+(−17.22)
+
+Yes
+Month
+Fund+Month
+0.0729
+159681454
+
+−0.0161***
+(−11.20)
+−0.159***
+(−24.09)
+−0.159***
+(−17.04)
+
+Yes
+Month
+Fund+Month
+0.105
+159681454
+
+−0.00731***
+(−4.35)
+−0.0481***
+(−9.84)
+−0.0414***
+(−8.69)
+
+Yes
+Month
+Fund+Month
+0.0870
+87 938 298
+
+−0.0431***
+(−8.39)
+−0.216***
+(−19.39)
+−0.197***
+(−18.31)
+
+Yes
+Month
+Fund+Month
+0.0953
+87 938 298
+
+−0.00617***
+(−4.06)
+−0.0425***
+(−6.86)
+−0.0329***
+(−6.23)
+
+Yes
+Month
+Fund+Month
+0.179
+87 938 298
+
+−0.00821***
+(−3.19)
+−0.0692***
+(−8.56)
+−0.0584***
+(−9.76)
+
+Yes
+Month
+Fund+Month
+0.150
+87935610
+
+Controls
+FixedEffects
+Clustering
+R2
+Observations
+
+t statistics in parentheses; * p < 0.10, ** p < 0.05, *** p < 0.01.
+
+Tables E.1 and E.2 report the results. 𝛽1 is always negative and sta-
+tistically significant, even when controlling for alternative peer groups.
+The magnitudes of the coefficients on the 𝑆𝑎𝑚𝑒𝑆𝑃 𝐺 indicator vari-
+able are between 6 and 10 times smaller than the coefficients on the
+𝑆𝑎𝑚𝑒𝐷𝐺𝑇 𝑊 or 𝑆𝑎𝑚𝑒𝐹 𝐹 3 indicator variables. This is not surprising.
+Indeed, the alternative peer groups are constructed directly from funds’
+holdings, which implies that they will mechanically have explanatory
+power for holdings similarities, and will
+likely predict similarities
+in returns. Instead, it is surprising that the text-based SPGs, which
+are constructed independently from funds’ holdings or returns, have
+any incremental explanatory power at all. These results indicate the
+SPGs capture a novel dimension of similarity that is not subsumed by
+traditional classifications.
+
+References
+
+Abis, S., 2022. Man vs. Machine: Quantitative and discretionary equity management.
+
+Working paper.
+
+Abis, S., Buffa, A.M., Javadekar, A., Lines, A., 2022. Learning from prospectuses.
+
+Working Paper.
+
+Abrigo, M.R., Love, I., 2016. Estimation of panel vector autoregression in stata. Stat.
+
+J. 16 (3), 778–804.
+
+Akey, P., Robertson, A.Z., Simutin, M., 2021. Closet active management of passive
+
+funds.
+
+Ali, A., Chen, X., Yao, T., Yu, T., 2020. Can mutual funds profit from post earnings
+announcement drift? The role of competition. J. Bank. Financ. 114, 105774.
+Allen, F., Bernardo, A.E., Welch, I., 2000. A theory of dividends based on tax clienteles.
+
+J. Finance 55 (6), 2499–2536.
+
+Alvarez, J., Arellano, M., 2003. The time series and cross-section asymptotics of
+
+dynamic panel data estimators. Econometrica 71 (4), 1121–1159.
+
+Angrist, J.D., Pischke, J.S., 2009. Mostly Harmless Econometrics: An Empiricist’s
+
+Companion. Princeton University Press.
+
+Arellano, M., Bover, O., 1995. Another look at the instrumental variable estimation of
+
+error-components models. J. Econometrics 68 (1), 29–51.
+
+Barber, B.M., Huang, X., Odean, T., 2016. Which factors matter to investors? Evidence
+
+from mutual fund flows. Rev. Financ. Stud. 29 (10), 2600–2642.
+
+Barber, B.M., Odean, T., Zheng, L., 2005. Out of sight, out of mind: The effects of
+
+expenses on mutual fund flows. J. Bus. 78 (6), 2095–2120.
+
+Berk, J.B., van Binsbergen, J.H., 2015. Measuring skill in the mutual fund industry. J.
+
+Financ. Econ. 118 (1), 1–20.
+
+Berk, J.B., Van Binsbergen, J.H., 2016. Assessing asset pricing models using revealed
+
+preference. J. Financ. Econ. 119 (1), 1–23.
+
+Blei, D.M., Ng, A.Y., Jordan, M.I., 2003. Latent dirichlet allocation. J. Mach. Learn.
+
+Res. 3, 993–1022.
+
+Brown, S.J., Goetzmann, W.N., 1997. Mutual fund styles. J. Financ. Econ. 43 (3),
+
+373–399.
+
+Chan, L.K., Chen, H.L., Lakonishok, J., 2002. On mutual fund investment styles. Rev.
+
+t statistics in parentheses; * p < 0.10, ** p < 0.05, *** p < 0.01.
+
+Financ. Stud. 15 (5), 1407–1437.
+
+Chan, L.K., Dimmock, S.G., Lakonishok, J., 2009. Benchmarking money manager
+
+performance: Issues and evidence. Rev. Financ. Stud. 22 (11), 4553–4599.
+
+34 
+
+S. Abis and A. Lines
+
+Journal of Financial Economics 162 (2024) 103948 
+
+Chevalier, J., Ellison, G., 1997. Risk taking by mutual funds as a response to incentives.
+
+Jain, P.C., Wu, J.S., 2000. Truth in mutual fund advertising: Evidence on future
+
+J. Political Econ. 105 (6), 1167–1200.
+
+performance and fund flows. J. Finance 55 (2), 937–958.
+
+Christoffersen, S.E., Evans, R., Musto, D.K., 2013. What do consumers’ fund flows
+maximize? Evidence from their brokers’ incentives. J. Finance 68 (1), 201–235.
+Cohen, R.B., Coval, J.D., Pástor, L., 2005. Judging fund managers by the company they
+
+Kacperczyk, M., Sialm, C., Zheng, L., 2008. Unobserved actions of mutual funds. Rev.
+
+Financ. Stud. 21 (6), 2379–2416.
+
+Khorana, A., Servaes, H., 2012. What drives market share in the mutual
+
+fund
+
+keep. J. Finance 60 (3), 1057–1096.
+
+industry? Rev. Financ. 16 (1), 81–113.
+
+Cooper, M.J., Gulen, H., Rau, P.R., 2005. Changing names with style: Mutual fund
+name changes and their effects on fund flows. J. Finance 60 (6), 2825–2858.
+Daniel, K., Grinblatt, M., Titman, S., Wermers, R., 1997. Measuring mutual fund
+performance with characteristic-based benchmarks. J. Finance 52 (3), 1035–1058.
+Duffie, D., 2010. Presidential address: Asset price dynamics with slow-moving capital.
+
+J. Finance 65 (4), 1237–1267.
+
+Khorana, A., Servaes, H., Tufano, P., 2009. Mutual fund fees around the world. Rev.
+
+Financ. Stud. 22 (3), 1279–1310.
+
+Kincaid, P.J., Fishburne, R.P., Rogers, R.L.J., Chissom, B.S., 1975. Derivation of new
+readability formulas (automated readability index, fox count and flesch reading
+ease formula) for navy enlisted personel. Inst. Simul. Train. 56.
+
+Kostovetsky, L., Warner, J.B., 2020. Measuring innovation and product differentiation:
+
+Elton, E.J., Gruber, M.J., Busse, J.A., 2004. Are investors rational? Choices among index
+
+Evidence from mutual funds. J. Finance 75 (2), 779–823.
+
+funds. J. Finance 59 (1), 261–288.
+
+Krakow, N.J., Schäfer, T., 2020. Mutual funds and risk disclosure: Information content
+
+Evans, R.B., 2010. Mutual fund incubation. J. Finance 65 (4), 1581–1611.
+Fama, E.F., French, K.R., 1993. Common risk factors in the returns on stocks and bonds.
+
+of fund prospectuses. Swiss Finance Institute Research Paper 20–54.
+
+Li, S., Qiu, J., 2014. Financial product differentiation over the state space in the mutual
+
+J. Financ. Econ. 33 (1), 3–56.
+
+fund industry. Manage. Sci. 60 (2), 508–520.
+
+Fama, E.F., French, K.R., 2015. A five-factor asset pricing model. J. Financ. Econ. 116
+
+Loughran, T., McDonald, B., 2011. When is a liability not a liability? Textual analysis
+
+(1), 1–22.
+
+Flesch, R., 1948. A new readability yardstick. J. Appl. Psychol. 32 (3), 221–233.
+Gabaix, X., Koijen, R.S., 2021. In search of the origins of financial fluctuations: The
+inelastic markets hypothesis. National Bureau of Economic Research, Working Paper
+No. w28967.
+
+dictionaries and 10-Ks. J. Finance 66 (1), 35–65.
+
+Loughran, T., McDonald, B., 2020. Textual analysis in finance. Annu. Rev. Finan. Econ.
+
+12, 357–375.
+
+Lütkepohl, H., 2005. New Introduction to Multiple Time Series Analysis. Springer
+
+Science & Business Media.
+
+Gil-Bazo, J., Ruiz-Verdú, P., 2009. The relation between price and performance in the
+
+Mitchell, M., Pedersen, L.H., Pulvino, T., 2007. Slow moving capital. Amer. Econ. Rev.
+
+mutual fund industry. J. Finance 64 (5), 2153–2183.
+
+97 (2), 215–220.
+
+Grinblatt, M., Titman, S., 1989. Mutual fund performance: An analysis of quarterly
+
+Reuter, J., Zitzewitz, E., 2006. Do ads influence editors? Advertising and bias in the
+
+portfolio holdings. J. Bus. 393–416.
+
+financial media. Q. J. Econ. 121 (1), 197–227.
+
+Guercio, D.D., Reuter, J., 2014. Mutual fund performance and the incentive to generate
+
+Roussanov, N., Ruan, H., Wei, Y., 2021. Marketing mutual funds. Rev. Financ. Stud.
+
+alpha. J. Finance 69 (4), 1673–1704.
+
+34 (6), 3045–3094.
+
+Hansen, L.P., 1982. Large sample properties of generalized method of moments
+
+Sensoy, B.A., 2009. Performance evaluation and self-designated benchmark indexes in
+
+estimators. Econometrica 1029–1054.
+
+the mutual fund industry. J. Financ. Econ. 92 (1), 25–39.
+
+Hartzmark, S.M., Solomon, D.H., 2019. The dividend disconnect. J. Finance 74 (5),
+
+Sharpe, W.F., 1988. Determining a fund’s effective asset mix. Invest. Manag. Rev. 2
+
+2153–2199.
+
+(6), 59–69.
+
+He, Z., Xiong, W., 2013. Delegated asset management, investment mandates, and capital
+
+Sharpe, W.F., 1992. Asset allocation: Management style and performance measurement.
+
+immobility. J. Financ. Econ. 107 (2), 239–258.
+
+J. Portf. Manag. 18 (2), 7–19.
+
+Hoberg, G., Kumar, N., Prabhala, N., 2018. Mutual fund competition, managerial skill,
+
+Sheng, J., Xu, N., Zheng, L., 2021. Do mutual funds walk the talk? A textual analysis
+
+and alpha persistence. Rev. Financ. Stud. 31 (5), 1896–1929.
+
+of risk disclosure by mutual funds. Working Paper.
+
+Holtz-Eakin, D., Newey, W., Rosen, H.S., 1988. Estimating vector autoregressions with
+
+Shive, S., Yun, H., 2013. Are mutual funds sitting ducks? J. Financ. Econ. 107.1,
+
+panel data. Econometrica 1371–1395.
+
+220–237.
+
+Hortacsu, A., Syverson, C., 2004. Product differentiation, search costs, and competition
+in the mutual fund industry: A case study of SP 500 index funds. Q. J. Econ. 119
+(2), 403–456.
+
+Sims, C.A., 1980. Macroeconomics and reality. Econometrica 1–48.
+Sirri, E.R., Tufano, P., 1998. Costly search and mutual fund flows. J. Finance 53 (5),
+
+1589–1622.
+
+Hunter, D., Kandel, E., Kandel, S., Wermers, R., 2014. Mutual fund performance
+
+Stoughton, N.M., Wu, Y., Zechner, J., 2011. Intermediated investment management. J.
+
+evaluation with active peer benchmarks. J. Financ. Econ. 112 (1), 1–29.
+
+Finance 66 (3), 947–980.
+
+Ivković, Z., Weisbenner, S., 2009. Individual investor mutual fund flows. J. Financ.
+
+Sun, Y., 2021. Index fund entry and financial product market competition. Manage.
+
+Econ. 92 (2), 223–237.
+
+Sci. 67 (1), 500–523.
+
+Wahal, S., Wang, A.Y., 2011. Competition among mutual funds. J. Financ. Econ. 99
+
+(1), 40–59.
+
+Zhu, Q., 2020. The missing new funds. Manage. Sci.
+
+35 
+
+

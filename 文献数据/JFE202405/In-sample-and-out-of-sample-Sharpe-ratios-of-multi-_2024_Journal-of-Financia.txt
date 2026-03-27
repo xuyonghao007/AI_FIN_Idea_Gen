@@ -1,0 +1,9305 @@
+Contents lists available at ScienceDirect
+
+Journal of Financial Economics
+
+journal homepage: www.elsevier.com/locate/jfec
+
+In-sample and out-of-sample Sharpe ratios of multi-factor asset pricing 
+models ✩
+Raymond Kan a,∗, Xiaolu Wang b, Xinghua Zheng c
+a University of Toronto, 105 St. George Street, Toronto, ON, M5S 3E6, Canada
+b Iowa State University, 2167 Union Drive, Ames, IA, 50011, USA
+c Hong Kong University of Science and Technology, Clear Water Bay, Kowloon, Hong Kong
+
+A  R  T  I  C  L  E 
+
+I  N  F  O
+
+A  B  S  T  R  A  C  T
+
+Using available return data, many multi-factor asset pricing models present impressive in-sample Sharpe ratios, 
+signiﬁcantly surpassing that of the market portfolio. Such a performance, however, contradicts the conventional 
+wisdom in ﬁnance. Investors cannot realistically attain the in-sample Sharpe ratios. They obtain the out-of-sample 
+Sharpe ratios, which are signiﬁcantly lower. Estimation risk is one reason for this performance deterioration. We 
+theoretically study the eﬀect of estimation risk by obtaining the exact distributions of in-sample and out-of-
+sample Sharpe ratios, and argue that such eﬀect needs to be considered in model comparisons.
+
+Dataset link: code and data for the paper
+‘‘In -sample and out -of -sample Sharpe ratios of
+multi -factor asset pricing models ’’ (Original
+Data)
+
+JEL classiﬁcation:
+C10
+C11
+G11
+G12
+
+Keywords:
+Asset pricing model
+Sharpe ratio
+Estimation risk
+Model comparison
+Exact and asymptotic distributions
+Stochastic representation
+
+1.  Introduction
+
+Many multi-factor asset pricing models have been proposed since 
+the capital asset pricing model (CAPM) of Sharpe (1964) and Lintner 
+(1965). Relative to the CAPM, the multi-factor models, especially the 
+more recently proposed ones, tend to perform better in terms of ex-
+plaining the cross-section of expected asset returns. However, none of 
+these models can completely explain the cross-section, and it is likely 
+that additional asset pricing models will be proposed.
+
+In this paper, we consider the CAPM that uses the value-weighted 
+market portfolio as the benchmark portfolio, and seven popular multi-
+
+factor asset pricing models. The multi-factor models that we consider 
+are: (1) Fama and French’s (1993) 3-factor model (FF-3), which adds 
+size  and  book-to-market  factor  to  the  CAPM;  (2)  Carhart’s  (1997)
+4-factor model (Carhart-4), which adds the momentum factor to FF-3; 
+(3)  the  betting  against  beta  (BAB)  model  of  Frazzini  and  Pedersen 
+(2014), which adds the return diﬀerence between low and high beta 
+portfolios as an additional factor to the CAPM; (4) Fama and French’s 
+(2015) 5-factor  model  (FF-5),  which  adds  proﬁtability  and  invest-
+ment factors to FF-3; (5) Hou et al.’s (2015) 𝑞-factor model (HXZ 𝑞), 
+which  adds  size,  investment  and  proﬁtability  factors  to  the  CAPM; 
+
+✩ Nikolai Roussanov was the editor for this article. We thank the editor, an anonymous reviewer, Svetlana Bryzgalova, Peter Christoﬀersen, Victor DeMiguel, 
+Andrew Detzel, Wayne Ferson, Junbo Wang, Guofu Zhou, seminar participants at Bates White Economic Consulting, Carleton University, Chinese University of Hong 
+Kong, Indiana University, Laval University, London Business School, Louisiana State University, Queensland University of Technology, Stockholm School of Business, 
+UCLouvain, University of Toronto, and conference participants at the 2019 CFIRM Conference, 2021 Finance Conference in Honour of Phelim Boyle, 2021 SoFiE 
+Conference, 2022 FMA annual conference, and 2022 CMStatistics conference for helpful comments and suggestions. Zheng’s research is partially supported by the 
+Research Grant Council of Hong Kong SAR grants GRF16304019, GRF15302321, GRF16304521, and T31-604/18-N.
+* Corresponding author.
+
+E-mail addresses: raymond.kan@rotman.utoronto.ca (R. Kan), xiaoluw@iastate.edu (X. Wang), xhzheng@ust.hk (X. Zheng).
+
+https://doi.org/10.1016/j.jﬁneco.2024.103837
+Received 27 February 2022; Received in revised form 21 March 2024; Accepted 24 March 2024
+
+JournalofFinancialEconomics155(2024)103837Availableonline4April20240304-405X/©2024ElsevierB.V.Allrightsreserved.R. Kan, X. Wang and X. Zheng
+
+(6) Barillas and Shanken’s (2018) 6-factor  model  (BS-6),  which  com-
+bines  the  market  factor,  size  factor,  momentum  factor,  HXZ’s  prof-
+itability and investment factors, and a monthly updated book-to-market 
+factor from Asness and Frazzini (2013); and (7) Hou et al.’s (2021) 𝑞5
+model (HMXZ 𝑞5), which adds an expected growth factor to HXZ 𝑞.
+
+Using monthly data over the 1967/1–2021/12 period, we empir-
+ically  examine  the  performance  of  the  eight  asset  pricing  models  in 
+terms of sample Sharpe ratios.1 The value-weighted market portfolio 
+has a monthly sample Sharpe ratio of 0.133. The seven multi-factor as-
+set pricing models all produce signiﬁcantly higher sample Sharpe ratios 
+than that of the CAPM, and the sample Sharpe ratios steadily increase 
+with newer models, ranging from 0.184 for FF-3 to 0.599 for HMXZ 𝑞5. 
+Given the work of Barillas and Shanken (2017), this trend is not en-
+tirely surprising. Superior asset pricing models that are uncovered over 
+time should have Sharpe ratios that are higher than those of past asset 
+pricing models.
+
+However,  the  conventional  wisdom  in  ﬁnance  suggests  that  high 
+Sharpe ratios are not easy to ﬁnd and are unlikely to survive. A Sharpe 
+ratio that is twice that of the market portfolio is considered to be very 
+high (e.g., Ross, 1976; MacKinlay, 1995; Cochrane and Saá-Requejo, 
+2000).2 Therefore, the high Sharpe ratios of the multi-factor models 
+that we observe, especially the more recent ones, do not seem to be 
+consistent with this widely accepted view.
+
+There are several possible reasons why investors cannot obtain the 
+high Sharpe ratios we observe for the multi-factor asset pricing mod-
+els. First, market frictions, such as short-selling constraints, transaction 
+costs, and taxes, can prevent investors from realizing the observed re-
+turns of the factor portfolios, especially those that involve long-short 
+portfolios (e.g., Novy-Marx and Velikov, 2016; Patton and Weller, 2020; 
+Detzel et al., 2023). Second, investors may not have conﬁdence that the 
+high sample Sharpe ratios of the multi-factor models can be sustained. 
+The underlying true performance of the model may change over time. 
+For example, publishing the model (and making investors aware of the 
+new ﬁndings) can potentially inﬂuence the model performance in the 
+post-publication period (e.g., Welch and Goyal, 2008; McLean and Pon-
+tiﬀ, 2016). In addition, the published multi-factor asset pricing models 
+may be subject to the repeated testing problem (e.g., Lo and MacKinlay, 
+1990; Harvey et al., 2016), and the surviving models may have unusu-
+ally  high  sample  Sharpe  ratios  compared  to  their  population  Sharpe 
+ratios. This is particularly true for models that are motivated by anoma-
+lies, yet models rooted in theories are not exempt from this issue.
+
+There is another reason that investors cannot realistically attain the 
+sample Sharpe ratios of the multi-factor models. At the time of portfo-
+lio construction, the observed Sharpe ratio of a multi-factor model is 
+computed based on the historical returns of the ex post optimal portfo-
+lio. We refer to this Sharpe ratio as the in-sample Sharpe ratio, which 
+is unattainable for investors. When the out-of-sample performance is 
+considered, investors would like to hold the true optimal portfolio (and 
+obtain the population Sharpe ratio), which is constructed using the true 
+mean and covariance matrix of the factors. In practice, these parameter 
+values are unknown to investors. When investors have only historical 
+data to work with, they need to estimate the optimal portfolio, which 
+we call the sample optimal portfolio. What investors can get is what we 
+term as the out-of-sample Sharpe ratio, that is, the Sharpe ratio of the 
+sample optimal portfolio in the out-of-sample period. The out-of-sample 
+Sharpe ratio clearly deviates from the in-sample Sharpe ratio, and it is 
+
+1 Barillas and Shanken (2017) suggest that comparing models with traded fac-
+tors can be reduced to a comparison of their Sharpe ratios, and such comparison 
+is independent of the choice of test assets.
+2 Such a view is also supported by evidence from the investing world. For 
+example, the Sharpe ratio of Berkshire Hathaway Inc. (ticker symbol: BRK.A), 
+which was managed by Warren Buﬀett, arguably the most illustrious investor 
+of our generation, is 0.227 for the period from November 1976 to December 
+2021.
+
+subject to estimation risk. In this paper, we focus on understanding the 
+eﬀect of estimation risk.
+
+We  ﬁrst  empirically  examine  the  gap  between  the  in-sample  and 
+the out-of-sample Sharpe ratios of the multi-factor asset pricing models. 
+Speciﬁcally, we divide our sample period into the estimation window 
+and the out-of-sample period, and then compute and compare the in-
+sample and the out-of-sample Sharpe ratios of the models. The results 
+for all the multi-factor models show that the out-of-sample Sharpe ratios 
+are signiﬁcantly lower than the in-sample ones. We also ﬁnd that all the 
+multi-factor models signiﬁcantly outperform the CAPM based on the in-
+sample Sharpe ratio, but most of the signiﬁcance disappears when we 
+consider the out-of-sample Sharpe ratio.
+
+One  possible  reason  for  the  observed  gap  between  the  in-sample 
+and the out-of-sample Sharpe ratios of the multi-factor models is that 
+the model performance is diﬀerent in the estimation window and the 
+out-of-sample period due to e.g., the publication decay, the repeated 
+testing problem, or simply random sampling. To control for this poten-
+tial eﬀect, we conduct a bootstrap exercise, and compute the in-sample 
+and the out-of-sample Sharpe ratios based on the simulated data. Across 
+10,000 simulations, the average out-of-sample Sharpe ratio of a given 
+multi-factor model continues to present a performance deterioration rel-
+ative to the corresponding average in-sample Sharpe ratio. While the 
+magnitude of this deterioration is smaller than what we observe empir-
+ically, it remains substantial. Estimation risk is the likely explanation 
+for  this  remaining  gap  between  the  in-sample  and  the  out-of-sample 
+Sharpe ratios of the multi-factor models.
+
+We next theoretically examine the eﬀect of estimation risk on the 
+performance of a multi-factor asset pricing model. Speciﬁcally, we as-
+sume  that  returns  of  the  traded  factors  are  identically  and  indepen-
+dently distributed (i.i.d.) with a multivariate normal distribution, and 
+then study the properties of the in-sample and the out-of-sample Sharpe 
+ratios of a multi-factor model. In this framework, the opportunity set is 
+constant, and estimation risk is the only reason for the gap between the 
+in-sample and the out-of-sample Sharpe ratios.
+
+We obtain a simple stochastic representation of the in-sample and 
+the out-of-sample Sharpe ratios of a multi-factor asset pricing model, 
+and derive the ﬁnite sample distributions using the stochastic represen-
+tation. We show that the out-of-sample Sharpe ratio is always lower 
+than the population Sharpe ratio, whereas the in-sample Sharpe ratio is 
+an upward biased estimator of the population Sharpe ratio. In addition, 
+we ﬁnd that the diﬀerence between the out-of-sample Sharpe ratio and 
+the in-sample Sharpe ratio is negatively correlated with the in-sample 
+Sharpe ratio. Therefore, the observed in-sample Sharpe ratio is not a 
+reliable indicator of what an investor can obtain out-of-sample.
+
+Due to estimation risk, the out-of-sample Sharpe ratio of a multi-
+factor model is lower than its population Sharpe ratio. Since the out-of-
+sample Sharpe ratio is the relevant one for investors, we argue that the 
+eﬀect of estimation risk needs to be considered when comparing asset 
+pricing models. Because the out-of-sample Sharpe ratio of the CAPM is 
+free from estimation risk, we select the CAPM as the benchmark model 
+to illustrate the comparison. When the estimation risk is taken into ac-
+count, the equality in the population Sharpe ratio does not necessarily 
+suggest that two models are equally good; a multi-factor model needs a 
+higher population Sharpe ratio (i.e., the break-even Sharpe ratio) to be 
+comparable to the CAPM.
+
+We deﬁne the break-even Sharpe ratio based on the theoretically 
+derived ﬁnite sample distribution of the out-of-sample Sharpe ratio. As 
+this distribution is signiﬁcantly left-skewed, we propose using an ex-
+pected shortfall measure to obtain the break-even Sharpe ratio. In both 
+the classical frequentist framework and the Bayesian framework, we 
+illustrate how to incorporate the break-even Sharpe ratio in model com-
+parisons. With the break-even Sharpe ratio, we ﬁnd that it is less likely 
+to reject the null hypothesis that a multi-factor model is as good as the 
+CAPM, and the eﬀect is stronger when the estimation window is short.
+Other than the ﬁnite sample distributions, the stochastic representa-
+tion also enables us to obtain the limiting distributions of the in-sample 
+
+JournalofFinancialEconomics155(2024)1038372R. Kan, X. Wang and X. Zheng
+
+Table 1
+In-sample  Sharpe  ratios  of  asset  pricing  models.  This  table  reports  the  in-
+sample  Sharpe  ratios  of  eight  asset  pricing  models  for  the  full  sample  pe-
+riod  (1967/1–2021/12)  as  well  as  the  two  subperiods  (1967/1–1994/6  and 
+1994/7–2021/12). The asset pricing models considered are: CAPM, Fama-French 
+3-factor model (FF-3), Carhart 4-factor model (Carhart-4), Betting-against-beta 2-
+factor model (BAB), Fama-French 5-factor model (FF-5), HXZ’s 𝑞-factor model, 
+Barillas and Shanken 6-factor model (BS-6), and HMXZ’s 𝑞5 model. The column 
+“Publication  Year”  presents  the  year  that  the  model  was  ﬁrst  published.  The 
+Gibbons-Ross-Shanken 𝐹 -test is conducted to compare the in-sample Sharpe ra-
+tio of a given multi-factor model with that of the CAPM. ∗∗∗, ∗∗, and ∗ denote that 
+the in-sample Sharpe ratio of the given model is higher than that of the CAPM at 
+the 1%, 5%, and 10% signiﬁcance levels.
+
+Publication
+Year
+
+Full Sample
+1967/1–2021/12
+
+First Half
+1967/1–1994/6
+
+Second Half
+1994/7–2021/12
+
+CAPM
+FF-3
+Carhart-4
+BAB
+FF-5
+HXZ 𝑞
+BS-6
+HMXZ 𝑞5
+
+1964
+1993
+1997
+2014
+2015
+2015
+2018
+2021
+
+0.133
+0.184∗∗∗
+0.278∗∗∗
+0.305∗∗∗
+0.325∗∗∗
+0.399∗∗∗
+0.464∗∗∗
+0.599∗∗∗
+
+0.087
+0.248∗∗∗
+0.386∗∗∗
+0.392∗∗∗
+0.496∗∗∗
+0.611∗∗∗
+0.787∗∗∗
+0.775∗∗∗
+
+0.182
+0.185
+0.244∗∗
+0.307∗∗∗
+0.368∗∗∗
+0.350∗∗∗
+0.367∗∗∗
+0.510∗∗∗
+
+and the out-of-sample Sharpe ratios. We consider two diﬀerent asymp-
+totic distributions: i) the number of traded factors (𝑁 ) is ﬁxed when the 
+length of the estimation window (𝑇 ) goes to inﬁnity, and ii) 𝑁 → ∞, 
+𝑇 → ∞, and 𝑁∕𝑇 → 𝜌 ∈ (0, 1). When 𝑁 is ﬁxed and 𝑇 → ∞, the limit-
+ing distribution of the in-sample Sharpe ratio is well known, but that of 
+the out-of-sample Sharpe ratio is new. We show that the limiting distri-
+bution of the out-of-sample Sharpe ratio is proportional to a chi-squared 
+distribution and it converges to the population Sharpe ratio at a rate of 
+1∕𝑇 . For the case 𝑁 → ∞, 𝑇 → ∞, and 𝑁∕𝑇 → 𝜌 ∈ (0, 1), the limit-
+ing distributions are currently unavailable in the literature. We provide 
+such distributions and show that neither the in-sample Sharpe ratio nor 
+the out-of-sample Sharpe ratio converge to the population Sharpe ratio 
+in this case.
+
+Researchers may opt to use the asymptotic distribution instead of 
+the ﬁnite sample distribution due to its simplicity. This is particularly 
+appealing when the approximation error of the limiting distribution is 
+small. We evaluate the accuracy of the two asymptotic distributions us-
+ing our ﬁnite sample results. In approximating the exact distribution of 
+the in-sample Sharpe ratio, the traditional ﬁxed 𝑁 asymptotic does not 
+perform well but the ﬁxed 𝑁∕𝑇 asymptotic works well, even when 𝑁
+is small. In approximating the exact distribution of the out-of-sample 
+Sharpe ratio, the ﬁxed 𝑁 asymptotic works well only for small 𝑁 . As 
+𝑁 increases, the ﬁxed 𝑁∕𝑇 asymptotic starts to do a better job than 
+the ﬁxed 𝑁 asymptotic, but both approximations signiﬁcantly deviate 
+from the exact distribution. Therefore, unless 𝑁 is small, the exact dis-
+tribution is a better choice to draw inferences.
+
+Our focus on the Sharpe ratios of the asset pricing models is built 
+on Barillas and Shanken (2017), who argue that with traded factors, 
+the comparison of asset pricing models can be reduced to a compar-
+ison of the Sharpe ratios. Based on this argument, model comparison 
+in  the  Bayesian  framework  is  developed  (e.g.,  Barillas  and  Shanken, 
+2018; Chib et al., 2020, 2024). Barillas et al. (2020) show how to con-
+duct asymptotically valid model comparisons. Fama and French (2018)
+use out-of-sample Sharpe ratios from bootstrap simulations to compare 
+models. All of these studies focus on testing the equality of the popula-
+tion Sharpe ratios of diﬀerent models. We argue that given estimation 
+risk, the equality in the population Sharpe ratio does not necessarily 
+suggest that two models are equally good. We recommend the eﬀect of 
+estimation risk be included when comparing asset pricing models.
+
+Previous studies propose taking into account the eﬀect of market 
+frictions when evaluating and comparing asset pricing models. For ex-
+ample, Detzel et al. (2023) present model comparison results after in-
+corporating transaction costs. Li et al. (2023) provide a formal statistical 
+
+test to compare factor models with price impact. Our paper adds to this 
+strand of literature by recommending that the eﬀect of estimation risk 
+be included in model comparisons.
+
+Our  empirical  results  that  the  out-of-sample  Sharpe  ratios  of  the 
+multi-factor asset pricing models are signiﬁcantly lower than the cor-
+responding  in-sample  Sharpe  ratios  are  consistent  with  the  ﬁndings 
+from other papers (e.g., Welch and Goyal, 2008; McLean and Pontiﬀ, 
+2016). McLean and Pontiﬀ (2016) show that academic publications can 
+contribute to a decrease in performance, suggesting that the underly-
+ing model parameters are likely to be time varying. In addition, poor 
+out-of-sample Sharpe ratios can be the result of the repeated testing 
+problem (e.g., Lo and MacKinlay, 1990; Harvey et al., 2016). We present 
+evidence that estimation risk is another substantial contributor to the 
+documented performance deterioration.
+
+Finally, the eﬀect of estimation risk has been studied extensively in 
+the portfolio choice literature. The theoretical analyses in this paper are 
+built and developed from the analytical tools provided in e.g., Kan and 
+Zhou (2007), Kan et al. (2022), and Kan and Wang (2023).
+
+The remainder of the paper is organized as follows. In Section 2, 
+we report some empirical results to motivate the theoretical analysis. 
+In Section 3, we outline the problem and present our theoretical re-
+sults. In Section 4, we illustrate how to compare a multi-factor model 
+against the CAPM, taking into account the estimation risk. We conclude 
+in Section 5. The Appendix contains all the proofs.
+
+2.  Some empirical results
+
+In this section, we examine the empirical performance of the eight 
+asset pricing models: (1) CAPM, (2) FF-3, (3) Carhart-4, (4) BAB, (5) 
+FF-5,  (6)  HXZ  𝑞,  (7)  BS-6,  and  (8)  HMXZ  𝑞5.  The  sample  period  is 
+1967/1–2021/12. We obtain the monthly factor returns of the CAPM, 
+FF-3, Carhart-4, and FF-5 from Ken French’s website. Monthly returns 
+of the 𝑞 and 𝑞5 factors are downloaded from global -q .org. Monthly re-
+turns of the betting-against-beta factor in BAB and the monthly updated 
+value factor in BS-6 are available from AQR’s website.
+
+In  Table 1,  we  report  the  maximum  sample  Sharpe  ratios  of  the 
+eight  asset  pricing  models  using  data  for  the  full  sample  period 
+(1967/1–2021/12),  as  well  as  two  subperiods  (1967/1–1994/6  and 
+1994/7–2021/12).  The  year  in  which  the  model  was  ﬁrst  published 
+is  also  presented  in  the  table.  In  addition,  we  compare  the  perfor-
+mance of a given multi-factor model with that of the CAPM using the 
+Gibbons-Ross-Shanken (1989) 𝐹 -test (i.e., the GRS test), and report the 
+corresponding signiﬁcance in the table.
+
+JournalofFinancialEconomics155(2024)1038373R. Kan, X. Wang and X. Zheng
+
+Table 2
+In-sample versus out-of-sample Sharpe ratios of asset pricing models. In this 
+table, we divide the sample period into halves, and treat the ﬁrst half as the es-
+timation window and the second half as the out-of-sample period. Using data 
+in the estimation window, the sample optimal portfolio is constructed, and 
+the out-of-sample Sharpe ratio (OS-SR) is computed using the returns in the 
+out-of-sample period of the sample optimal portfolio. For comparison, the in-
+sample Sharpe ratio (IS-SR) based on the return data in the estimation window 
+is also reported. Gibbons-Ross-Shanken 𝐹 -test is conducted to compare IS-SR 
+of a given multi-factor model with that of the CAPM. One-sided test based on 
+asymptotic distribution is conducted to compare the OS-SR of a given multi-
+factor model with that of the CAPM. ∗∗∗, ∗∗, ∗ denote that the Sharpe ratio of 
+a given multi-factor model is higher than that of the CAPM at the 1%, 5%, and 
+10% signiﬁcance levels. The sample period for the left and the right panel are 
+1967/1–2021/12 and 1994/7–2021/12, respectively.
+
+1967/1–2021/12
+
+1994/7–2021/12
+
+IS-SR
+
+0.087
+0.248∗∗∗
+0.386∗∗∗
+0.392∗∗∗
+0.496∗∗∗
+0.611∗∗∗
+0.787∗∗∗
+0.775∗∗∗
+
+OS-SR
+
+0.182
+0.111
+0.154
+0.189
+0.192
+0.214
+0.226
+0.411∗∗∗
+
+IS-SR
+
+0.137
+0.262∗∗
+0.353∗∗∗
+0.331∗∗∗
+0.393∗∗∗
+0.439∗∗∗
+0.500∗∗∗
+0.601∗∗∗
+
+OS-SR
+
+0.223
+0.094
+0.113
+0.286∗
+0.317∗∗
+0.269
+0.238
+0.419∗∗∗
+
+CAPM
+FF-3
+Carhart-4
+BAB
+FF-5
+HXZ 𝑞
+BS-6
+HMXZ 𝑞5
+
+Over the 1967/1–2021/12 period, the CAPM has a monthly sample 
+Sharpe ratio of 0.133, and all the multi-factor asset pricing models pro-
+duce statistically signiﬁcantly higher (at the 1% level) sample Sharpe 
+ratios than that of the CAPM. Note that the sample Sharpe ratios for 
+the asset pricing models steadily increase with their dates of publica-
+tion. It starts with 0.133 for the CAPM in 1964, increases to 0.184 for 
+FF-3 in 1993, and reaches 0.599 for HMXZ 𝑞5 in 2021. A similar pattern 
+holds for both subperiods (1967/1–1994/6 and 1994/7–2021/12). Ex-
+cept for the CAPM, the sample Sharpe ratios of the asset pricing models 
+are lower in the second subperiod.3
+
+The sample Sharpe ratios of the multi-factor models in Table 1 are 
+computed  based  on  the  ex  post optimal  portfolios,  and  we  call  such 
+Sharpe ratio the in-sample Sharpe ratio, as discussed above.  The in-
+sample  Sharpe  ratios  are  not  attainable  for  investors  in  practice.  In 
+addition, investors do not know the true mean and covariance matrix of 
+the traded factors and have only historical data to work with. Therefore, 
+they are not able to construct the true optimal portfolio, and the popu-
+lation Sharpe ratio is also not attainable. What investors can construct 
+and hold out-of-sample is the optimal portfolio based on parameters 
+estimated using historical data (i.e., the sample optimal portfolio). As 
+discussed above, we call the Sharpe ratio of the sample optimal portfo-
+lio computed using the out-of-sample returns the out-of-sample Sharpe 
+ratio.
+
+In Table 2, we present the out-of-sample Sharpe ratios of the as-
+set pricing models, and compare them to the in-sample Sharpe ratios. 
+Speciﬁcally, we divide the sample period into halves, and treat the ﬁrst 
+half as the estimation window and the second half as the out-of-sample 
+period. We assume an investor estimates the sample optimal portfolio 
+using data in the estimation window and holds it throughout the out-
+of-sample period. The out-of-sample Sharpe ratio (OS-SR) is computed 
+using  the  returns  in  the  out-of-sample  period  of  the  sample  optimal 
+portfolio; the in-sample Sharpe ratio (IS-SR) is computed using the re-
+turns  in  the  estimation  window  of  the  sample  optimal  portfolio.4 In 
+the left (right) panel of the table, the sample period is 1967/1–2021/12 
+
+3 The exact mechanism underlying this dynamic pattern of the sample Sharpe 
+ratio is out of the scope of this paper, and we leave it for future study.
+4 A similar empirical exercise is performed by Fama and French (2018). They 
+use the out-of-sample Sharpe ratio to infer which asset pricing model has a 
+higher population Sharpe ratio based on a bootstrap experiment.
+
+(1994/12–2021/12). The in-sample Sharpe ratio of a multi-factor model 
+is compared to that of the CAPM using the GRS test. The correspond-
+ing out-of-sample Sharpe ratio comparison is based on a one-sided test 
+using the asymptotic distribution.5
+
+Table 2 shows that for the multi-factor models, the out-of-sample 
+Sharpe ratios (i.e., OS-SR) are all inferior to their in-sample Sharpe ra-
+tios (i.e., IS-SR), often by a substantial amount. For the 1967/1–2021/12 
+sample period (left panel), the performance deterioration of OS-SR rel-
+ative  to  IS-SR  (i.e.,  (OS-SR − IS-SR)/IS-SR)  ranges  from  46.97%  for 
+HMXZ 𝑞5 to 71.28% for BS-6. For the 1994/7–2021/12 sample period 
+(right panel), the range is from 13.60% for BAB to 68% for Carhart-4. 
+In both panels, all of the multi-factor models have an IS-SR that is sig-
+niﬁcantly  higher  than  that  of  the  CAPM.  The  signiﬁcance,  however, 
+disappears in most cases when the OS-SR is considered. Some of the 
+multi-factor models even have an OS-SR that is smaller than that of the 
+CAPM.
+
+At the time of portfolio construction, only the IS-SR is observable to 
+the investor. The results in Table 2 suggest that the observed IS-SR is 
+not a reliable indicator of what the investor can obtain out-of-sample.
+One  potential  reason  for  the  gap  between  OS-SR  and  IS-SR  doc-
+umented  in  Table 2 is  that  the  model  performance  is  poorer  in  the 
+out-of-sample period than that in the estimation window. To control 
+for  such  eﬀect,  we  conduct  a  bootstrap  simulation  exercise.  Speciﬁ-
+cally, we apply the stationary block bootstrap procedure proposed in 
+Politis and Romano (1994) to our dataset to generate 𝑇 monthly data, 
+with an expected block length of 10 months. The 𝑇 simulated monthly 
+data are divided into halves, with the ﬁrst half treated as the estima-
+tion window and the second half as the out-of-sample period. IS-SR and 
+OS-SR, similar to those in Table 2, are computed using the simulated 
+data. We run such simulation 10,000 times, and report the average val-
+ues of IS-SR and OS-SR in Table 3. The standard deviations of IS-SR and 
+OS-SR across 10,000 simulations are shown in brackets. We examine 
+both 𝑇 = 660 (i.e., the full length of our sample period) and 𝑇 = 330.
+
+Table 3 also shows that there is a substantial performance deterio-
+ration for OS-SR relative to IS-SR for all the multi-factor models. The 
+magnitude  of  the  deterioration  is,  however,  smaller  in  Table 3 than 
+that in Table 2 for all the cases except for FF-5 with 𝑇 = 330. When 
+𝑇 = 660, the magnitude of the deterioration ranges from 5.38% for BAB 
+to 22.75% for FF-3. When 𝑇 = 330, the magnitude increases, ranging 
+from 10.65% for BAB to 35.68% for FF-3. These ﬁndings suggest that 
+time-varying model performance indeed contributes to the gap between 
+IS-SR and OS-SR (in Table 2),6 but it clearly does not explain the en-
+tire gap. The remaining gap is still sizable, and the estimation risk is the 
+likely explanation for the remaining gap.
+
+3.  Theoretical distributions of in-sample and out-of-sample 
+Sharpe ratios
+
+In this section, we conduct a theoretical analysis and obtain the dis-
+tributions  of  the  in-sample  and  the  out-of-sample  Sharpe  ratios  of  a 
+multi-factor asset pricing model to gain a better understanding of the 
+eﬀect of estimation risk.
+
+3.1.  The setup
+
+We consider a multi-factor asset pricing model with 𝑁 traded factors 
+and 𝑁 ≥ 2. Let 𝑟𝑡 be the excess returns of the 𝑁 traded factors at time 𝑡. 
+
+5 This approach, suggested by Jobson and Korkie (1981), tests whether the 
+population Sharpe ratios of two portfolios are equal to each other.
+6 There are diﬀerent potential explanations for the time-varying model perfor-
+mance. One possibility is that the parameter values (i.e., the expected returns 
+and the covariance matrix of the traded factors) are time varying. Explicitly 
+modeling the time-varying parameters and exploring the corresponding impli-
+cations on the out-of-sample Sharpe ratios of the asset pricing models is an 
+interesting problem but beyond the scope of this paper.
+
+JournalofFinancialEconomics155(2024)1038374R. Kan, X. Wang and X. Zheng
+
+Table 3
+In-sample versus out-of-sample Sharpe ratios – simulation results. We apply the 
+stationary block bootstrap procedure of Politis and Romano (1994) to our em-
+pirical dataset (1967–2021) to generate 𝑇 monthly data, with an expected block 
+length of 10 months. The 𝑇 monthly data are divided into halves, with the ﬁrst 
+half treated as the estimation window and the second half as the out-of-sample 
+period. IS-SR and OS-SR are computed using the simulated data, following the 
+same procedure as in Table 2,. We run the simulation 10,000 times. Cross-
+simulation average values of IS-SR and OS-SR, and the corresponding standard 
+deviations (in brackets), are reported in the table. In the left panel, 𝑇 = 660, 
+and in the right panel, 𝑇 = 330.
+
+CAPM
+
+FF-3
+
+Carhart-4
+
+BAB
+
+FF-5
+
+HXZ 𝑞
+
+BS-6
+
+HMXZ 𝑞5
+
+𝑇 = 660
+
+IS-SR
+
+0.137
+(0.062)
+
+0.211
+(0.074)
+
+0.303
+(0.073)
+
+0.316
+(0.115)
+
+0.365
+(0.061)
+
+0.424
+(0.066)
+
+0.506
+(0.084)
+
+0.624
+(0.069)
+
+OS-SR
+
+0.136
+(0.062)
+
+0.163
+(0.076)
+
+0.260
+(0.075)
+
+0.299
+(0.115)
+
+0.300
+(0.067)
+
+0.386
+(0.067)
+
+0.441
+(0.085)
+
+0.585
+(0.071)
+
+𝑇 = 330
+
+IS-SR
+
+0.139
+(0.088)
+
+0.227
+(0.123)
+
+0.320
+(0.127)
+
+0.310
+(0.196)
+
+0.400
+(0.094)
+
+0.442
+(0.115)
+
+0.537
+(0.143)
+
+0.647
+(0.103)
+
+OS-SR
+
+0.140
+(0.088)
+
+0.146
+(0.113)
+
+0.239
+(0.119)
+
+0.277
+(0.189)
+
+0.284
+(0.102)
+
+0.373
+(0.108)
+
+0.424
+(0.133)
+
+0.574
+(0.105)
+
+The elements of 𝑟𝑡 can be returns of risky assets in excess of the risk-free 
+rate, or they can be return diﬀerences of two risky assets. We deﬁne the 
+mean and covariance matrix of 𝑟𝑡 as 𝜇 = 𝔼[𝑟𝑡] and Σ = Var[𝑟𝑡], respec-
+tively. We assume 𝜇 is a nonzero vector and Σ is positive deﬁnite. For 
+a mean-variance investor who wants to hold a portfolio with a target 
+standard deviation of 𝜎, it is easy to show that his optimal portfolio has 
+weights of
+
+𝑤∗ =
+
+𝜎
+𝜃 Σ−1𝜇
+
+√
+
+in the 𝑁 traded factors, where 𝜃 =
+𝜇′Σ−1𝜇 is the maximum Sharpe 
+ratio that one can obtain from the 𝑁 factors (i.e., the population Sharpe 
+ratio). Obviously, the Sharpe ratio of portfolio 𝑤∗ is 𝜃:
+
+𝑤∗′𝜇
+
+√
+
+=
+
+𝜇′Σ−1𝜇
+√
+𝜇′Σ−1𝜇
+
+√
+
+=
+
+𝜇′Σ−1𝜇 = 𝜃.
+
+𝑤∗′Σ𝑤∗
+In practice, the investor does not know the mean and covariance 
+matrix of the factors, and therefore, the optimal portfolio 𝑤∗ and 𝜃 are 
+unattainable. Suppose the investor estimates 𝜇 and Σ using historical 
+data on 𝑟𝑡 for 𝑡 = 1, … , 𝑇 . The sample estimators of 𝜇 and Σ are given 
+by
+
+(1)
+
+̂𝜇 =
+
+̂Σ =
+
+1
+𝑇
+
+1
+𝑇
+
+𝑇∑
+
+𝑡=1
+
+𝑇∑
+
+𝑡=1
+
+𝑟𝑡,
+
+(𝑟𝑡 − ̂𝜇)(𝑟𝑡 − ̂𝜇)′,
+
+and the sample estimator of 𝜃 is
+
+√
+
+̂𝜃 =
+
+̂𝜇′ ̂Σ−1 ̂𝜇.
+
+(2)
+
+(3)
+
+(4)
+
+A natural estimator of 𝑤∗ is
+
+̂𝑤 =
+
+𝜎
+̂𝜃
+
+̂Σ−1 ̂𝜇,
+
+(5)
+
+√
+
+which we call the sample optimal portfolio. It is easy to see that ̂𝜃 is the 
+Sharpe ratio of the sample optimal portfolio in the estimation window, 
+̂𝜇′ ̂Σ−1 ̂𝜇 = ̂𝜃, which is an ex post measure of per-
+i.e.,  ̂𝑤′ ̂𝜇∕
+formance and it is unattainable for investors. We call  ̂𝜃 the in-sample 
+Sharpe ratio of the factors (or asset pricing model).
+
+̂𝑤′ ̂Σ ̂𝑤 =
+
+√
+
+The out-of-sample mean and variance of the sample optimal portfo-
+
+lio are
+
+̂𝑤′𝜇 =
+
+̂𝑤′Σ ̂𝑤 =
+
+𝜎
+̂𝜃
+𝜎2
+̂𝜃2
+
+̂𝜇′ ̂Σ−1𝜇,
+
+̂𝜇′ ̂Σ−1Σ ̂Σ−1 ̂𝜇.
+
+The corresponding Sharpe ratio is then given by
+̂𝜇′ ̂Σ−1𝜇
+( ̂𝜇′ ̂Σ−1Σ ̂Σ−1 ̂𝜇)
+
+̂𝑤′Σ ̂𝑤
+
+̃𝜃 =
+
+̂𝑤′𝜇
+
+√
+
+=
+
+1
+2
+
+.
+
+(6)
+
+(7)
+
+(8)
+
+We call  ̃𝜃 the out-of-sample Sharpe ratio of the factors (or asset pricing 
+model). Unlike  ̂𝜃 or 𝜃,  ̃𝜃 is what an investor can obtain out-of-sample 
+by holding the sample optimal portfolio  ̂𝑤.
+
+Note that both  ̂𝜃 and  ̃𝜃 are random variables because they depend 
+on the realizations of  ̂𝜇 and ̂Σ. Next, we derive the distribution of ̂𝜃 and 
+̃𝜃, assuming that 𝑟𝑡 is i.i.d. with a multivariate normal distribution that 
+has mean 𝜇 and covariance Σ.
+
+3.2.  Stochastic representation
+
+In Proposition 1, we ﬁrst provide a stochastic representation of ( ̂𝜃, ̃𝜃)
+that only depends on four univariate random variables (instead of  ̂𝜇 and 
+̂Σ). Such a representation greatly simpliﬁes the problem and facilitates 
+the derivation of the distributions of ( ̂𝜃, ̃𝜃).
+
+i.i.d.
+∼  (𝜇, Σ) and  𝑁 ≥ 2.  Let  𝑢
+
+Proposition  1. Suppose  𝑟𝑡
+𝑇 −𝑁 , 
+𝑏 ∼ Beta((𝑇 − 𝑁 + 1)∕2, (𝑁 − 1)∕2), and they are independent of each 
+𝑏
+other. Conditional on 𝑏, let ̃𝑧 ∼  (
+𝑁−1((1 − 𝑏)𝑇 𝜃2), 
+𝜈 (𝛿) stands for a 
+and they are independent of each other and 𝑢
+noncentral chi-squared random variable with 𝜈 degrees of freedom and a 
+noncentrality parameter of 𝛿. We have
+
+𝑇 𝜃, 1) and ̃𝑢 ∼ 𝜒 2
+1, where 𝜒 2
+
+1 ∼ 𝜒 2
+
+√
+
+√
+
+̂𝜃
+
+𝑑
+=
+
+̃𝜃
+
+𝑑
+=
+
+√
+
+√
+
+̃𝑧2 + ̃𝑢
+√
+𝑢
+1
+𝜃 ̃𝑧
+
+̃𝑧2 + ̃𝑢
+
+,
+
+.
+
+(9)
+
+(10)
+
+Proposition 1 reveals that instead of the individual elements in 𝜇
+and Σ, the joint distribution of ( ̂𝜃, ̃𝜃) depends only on 𝑁 , 𝑇 , and 𝜃. 
+Therefore, for asset pricing models with the same number of factors 
+(i.e., 𝑁 ), as long as they have the same 𝜃, their joint distributions of 
+( ̂𝜃, ̃𝜃) are identical regardless of the values of 𝜇 and Σ.
+
+With the stochastic representation of ( ̂𝜃, ̃𝜃) in Proposition 1, we can 
+obtain  the  exact  moments  and  joint  moments  of  ̂𝜃 and  ̃𝜃.  Lemma 1
+presents some low order moments of  ̂𝜃 and  ̃𝜃.
+
+Lemma 1. Suppose 𝑟𝑡
+(
+(
+
+)
+
+)
+
+Γ
+
+𝔼[ ̂𝜃] =
+
+𝑁+1
+2
+(
+
+𝑁
+2
+
+Γ
+
+)
+
+(
+
+Γ
+
+Γ
+
+𝑇 −𝑁−1
+2
+𝑇 −𝑁
+2
+
+) 1
+
+i.i.d.
+∼  (𝜇, Σ) and 𝑁 ≥ 2. We have
+
+(
+
+𝐹
+1
+
+−
+
+1
+2
+
+;
+
+𝑁
+
+2
+
+; −
+
+𝑇 𝜃2
+
+2
+
+)
+
+for 𝑇 ≥ 𝑁 + 2,
+
+(11)
+
+JournalofFinancialEconomics155(2024)1038375R. Kan, X. Wang and X. Zheng
+
+Fig. 1. Expected diﬀerence in out-of-sample and in-sample Sharpe ratio of an asset pricing model. The ﬁgure plots the expected diﬀerence between the out-of-sample 
+Sharpe ratio and the in-sample Sharpe ratio, 𝔼[ ̃𝜃 − ̂𝜃], as a function of the population Sharpe ratio, 𝜃, for an asset pricing model with 𝑁 traded factors and an 
+estimation window with 𝑇 periods. Plots for two diﬀerent values of 𝑁 (3 and 6) and 𝑇 (120 and 240) are presented.
+
+√
+
+𝜃2
+√
+
+𝑇 Γ
+(
+
+𝔼[ ̃𝜃] =
+
+2Γ
+
+𝑁+2
+2
+for 𝑇 ≥ 𝑁 + 1,
+𝑇 𝜃2 + 𝑁
+𝑇 − 𝑁 − 2
+
+𝔼[ ̂𝜃2] =
+
+[
+
+(
+
+)
+
+(
+
+)
+
+(
+
+)
+
+𝑇
+
+(
+
+𝑁+1
+2
+)
+
+Γ
+(
+
+𝑇 −𝑁+2
+2
+𝑇 −𝑁+1
+2
+
+)
+
+Γ
+
+Γ
+(
+
+2
+𝑇 +1
+2
+
+Γ
+
+) 1
+
+𝐹
+1
+
+)
+
+1
+2
+
+;
+
+𝑁 + 2
+2
+
+; −
+
+𝑇 𝜃2
+
+2
+
+(12)
+
+(13)
+
+)]
+
+(14)
+
+(15)
+
+for 𝑇 ≥ 𝑁 + 3,
+
+𝔼[ ̃𝜃2] = 𝜃2
+
+𝑇 − 𝑁 + 1
+𝑇
+
+−
+
+(𝑁 − 1)(𝑇 − 𝑁)
+𝑁𝑇
+
+(
+
+𝐹
+1
+
+1
+
+1;
+
+𝑁 + 2
+2
+
+; −
+
+𝑇 𝜃2
+
+2
+
+for 𝑇 ≥ 𝑁 + 1,
+
+√
+
+𝜃2
+
+𝑇 (𝑇 − 𝑁)Γ
+(
+
+2(𝑇 − 𝑁 − 1)Γ
+
+(
+
+)
+
+𝑇
+2
+𝑇 +1
+2
+
+𝔼[ ̂𝜃 ̃𝜃] =
+
+√
+
+) for 𝑇 ≥ 𝑁 + 2,
+
+where Γ(𝑎) is the gamma function and 1
+ometric function.
+
+1(𝑎; 𝑏; 𝑥) is the conﬂuent hyperge-
+𝐹
+
+The stochastic representation in Proposition 1 and the expressions 
+in Lemma 1 enable us to derive some important inequalities, which are 
+presented in Lemma 2.
+
+the sample optimal portfolio to have a better in-sample performance 
+than the population Sharpe ratio on average. Thus, the out-of-sample 
+Sharpe ratio is lower than the in-sample Sharpe ratio on average (i.e., 
+𝔼[ ̃𝜃 − ̂𝜃] < 0). The second inequality in Lemma 2 suggests that an in-
+vestor would experience a larger disappointment (in terms of  ̃𝜃 − ̂𝜃) 
+when the asset pricing model realizes a higher in-sample Sharpe ratio. 
+This conﬁrms our ﬁnding from the empirical results that the observable 
+in-sample Sharpe ratio is not a reliable indicator of what an investor 
+can get out-of-sample.
+
+In Fig. 1, we plot 𝔼[ ̃𝜃 − ̂𝜃] as a function of the population Sharpe 
+ratio 𝜃 for two diﬀerent values of 𝑁 (3 and 6) and 𝑇 (120 and 240). 
+It is evident that estimation errors have a substantial negative impact 
+on the out-of-sample performance of a multi-factor asset pricing model, 
+and the inﬂuence of estimation risk is more pronounced for a larger 
+model and a shorter estimation window. For example, when 𝜃 = 0.1, 
+the out-of-sample Sharpe ratio is, on average, 0.204 lower than the in-
+sample Sharpe ratio for 𝑇 = 120 and 𝑁 = 6. Conversely, for 𝑇 = 240
+and 𝑁 = 3, this reduction is 0.075, which still represents 75% of the 
+population Sharpe ratio. In addition, Fig. 1 shows that the magnitude 
+of the reduction is decreasing in 𝜃, which is due to a higher signal-to-
+noise ratio associated with larger 𝜃.
+
+Lemma 2. Suppose 𝑟𝑡
+
+i.i.d.
+∼  (𝜇, Σ) and 𝑁 ≥ 2. We have
+
+3.3.  Theoretical distributions
+
+𝔼[ ̃𝜃 − ̂𝜃] < 0,
+Cov[ ̃𝜃 − ̂𝜃, ̂𝜃] < 0.
+
+(16)
+
+(17)
+
+With the stochastic representation in Proposition 1, we derive both 
+the ﬁnite sample distributions and the asymptotic distributions of ̂𝜃 and 
+̃𝜃 in this subsection.
+
+√
+
+|
+From (10), it is easy to see that  ̃𝜃 < 𝜃 because 
+̃𝑧∕
+|
+|
+
+< 1. This 
+ﬁnding is not surprising: since  ̂𝑤 is estimated with errors, the out-of-
+sample Sharpe ratio of  ̂𝑤 is not as good as the Sharpe ratio of the true 
+optimal portfolio. In addition, we know that  ̂𝜃 is an upward biased es-
+timator of 𝜃, i.e., 𝔼[ ̂𝜃] > 𝜃. This is because the in-sample Sharpe ratio is 
+computed after  ̂𝜇 and  ̂Σ are observed, and the look-ahead bias allows 
+
+|
+̃𝑧2 + ̃𝑢
+|
+|
+
+3.3.1.  Finite sample distributions
+
+3 = ̃𝑧2 + ̃𝑢 ∼ 𝜒 2
+
+For  the  marginal  distribution  of  ̂𝜃,  we  can  write  ̂𝜃
+𝑑
+= 𝑢
+
+𝑢
+𝑢
+1, 
+3∕
+𝑁 (𝑇 𝜃2). This implies that  ̂𝜃2
+where 𝑢
+1 is propor-
+tional to a noncentral 𝐹 -distribution with degrees of freedom 𝑁 and 
+𝑇 − 𝑁 and a noncentrality parameter 𝑇 𝜃2, a well-known result in the 
+literature (e.g., Gibbons et al., 1989; Kan and Robotti, 2016). Let 𝐹 𝛿
+𝑚,𝑛(⋅)
+
+𝑑
+=
+3∕𝑢
+
+√
+
+√
+
+JournalofFinancialEconomics155(2024)1038376R. Kan, X. Wang and X. Zheng
+
+Fig. 2. Density of in-sample Sharpe ratio of an asset pricing model (𝑇 = 120). The ﬁgure plots the density of  ̂𝜃∕𝜃 of an asset pricing model with 𝑁 traded factors 
+when the length of estimation window is 𝑇 = 120, where  ̂𝜃 is the in-sample Sharpe ratio and 𝜃 is the population Sharpe ratio. Plots for two diﬀerent values of 
+number of traded factors (𝑁 = 3 and 6) and population Sharpe ratio (𝜃 = 0.2 and 0.4) are presented.
+
+and 𝑓 𝛿
+𝑚,𝑛(⋅) denote the cumulative distribution function and the density 
+function of a noncentral 𝐹 random variable with 𝑚 and 𝑛 degrees of 
+freedom and a noncentrality parameter 𝛿. The distribution and density 
+functions of  ̂𝜃 are given by
+
+ℙ[ ̂𝜃 < 𝑐] = ℙ[ ̂𝜃2 < 𝑐2] = 𝐹 𝑇 𝜃2
+
+(
+
+(𝑇 − 𝑁)𝑐2
+𝑁
+
+)
+
+,
+
+(18)
+
+𝑁,𝑇 −𝑁
+(
+
+)
+
+.
+
+𝑓 ̂𝜃(𝑐) =
+
+𝑓 𝑇 𝜃2
+𝑁,𝑇 −𝑁
+
+2(𝑇 − 𝑁)𝑐
+𝑁
+
+(𝑇 − 𝑁)𝑐2
+𝑁
+In Fig. 2, we plot the density function of  ̂𝜃∕𝜃 for two diﬀerent values 
+of 𝑁 (3 and 6) and 𝜃 (0.2 and 0.4) with 𝑇 = 120. As pointed out in 
+the previous subsection,  ̂𝜃 is an upward biased estimator of 𝜃. Fig. 2
+shows that the bias increases with 𝑁 and decreases with 𝜃. Thus, an 
+asset pricing model with more factors tends to have a higher in-sample 
+Sharpe ratio on average, even though the population Sharpe ratio may 
+not improve from having more factors.
+
+(19)
+
+To derive the marginal distribution of  ̃𝜃, we deﬁne 𝑞 = ̃𝑧∕
+
+√
+
+obtain
+
+̃𝜃
+
+𝑑
+=
+
+√
+
+𝜃 ̃𝑧
+
+̃𝑧2 + ̃𝑢
+
+=
+
+√
+
+𝜃𝑞
+
+.
+
+1 + 𝑞2
+
+Expression (20) suggests that  ̃𝜃 is a monotonically increasing function 
+of 𝑞 and −𝜃 ≤ ̃𝜃 ≤ 𝜃. Conditional on 𝑏, 𝑞 is proportional to a doubly non-
+central 𝑡-distribution, and we can compute the cumulative distribution 
+function of  ̃𝜃 using the following:
+
+ℙ[ ̃𝜃 < 𝑐] = ℙ
+
+[
+
+[
+
+𝑐
+
+𝑞 <
+
+√
+
+= ℙ
+
+̃𝑧 <
+
+√
+
+]
+
+]
+
+𝜃2 − 𝑐2
+√
+
+𝑐
+
+̃𝑢
+
+𝜃2 − 𝑐2
+
+̃𝑢 and 
+
+(20)
+
+1
+
+∞
+
+(
+
+Φ
+
+=
+
+∫
+0
+
+∫
+0
+
+√
+
+̃𝑢
+
+𝑐
+
+√
+
+𝜃2 − 𝑐2
+
+)
+
+√
+
+√
+
+𝑏
+
+𝑇 𝜃
+
+−
+
+𝑓 ̃𝑢( ̃𝑢)𝑓𝑏(𝑏)d ̃𝑢d𝑏
+
+for −𝜃 < 𝑐 < 𝜃,
+
+(21)
+
+where Φ(⋅) is the cumulative distribution function of a standard nor-
+mal, 𝑓 ̃𝑢( ̃𝑢) is the density function of ̃𝑢 ∼ 𝜒 2
+𝑁−1((1 − 𝑏)𝑇 𝜃2), and 𝑓𝑏(𝑏) is 
+the density function of 𝑏 ∼ Beta((𝑇 − 𝑁 + 1)∕2, (𝑁 − 1)∕2). Taking the 
+derivative yields the density function of  ̃𝜃 as follows:
+
+𝑓 ̃𝜃(𝑐) =
+
+𝜃2
+
+(𝜃2 − 𝑐2)
+
+3
+2
+
+∫
+0
+
+∫
+0
+
+1
+
+∞
+
+(
+
+𝜙
+
+√
+
+̃𝑢
+
+𝑐
+
+√
+
+𝜃2 − 𝑐2
+
+)
+
+√
+
+√
+
+√
+𝑏
+
+𝑇 𝜃
+
+−
+
+̃𝑢𝑓 ̃𝑢( ̃𝑢)𝑓𝑏(𝑏)d ̃𝑢d𝑏
+
+for −𝜃 < 𝑐 < 𝜃,
+
+(22)
+
+where 𝜙(⋅) is the density function of a standard normal.
+
+In Fig. 3, we plot the density function of  ̃𝜃∕𝜃 for two diﬀerent val-
+ues  of  𝑁 (3  and  6)  and  𝜃 (0.2  and  0.4)  with  𝑇 = 120.7 The  ﬁgure 
+shows that  ̃𝜃 is quite volatile and highly left-skewed. When 𝑁 is large 
+and 𝜃 is small, there is a substantial deterioration in the out-of-sample 
+performance when an investor holds the sample optimal portfolio. For 
+example, when 𝑁 = 6 and 𝜃 = 0.2, we have ℙ[ ̃𝜃∕𝜃 < 0.8] = 0.7027, i.e., 
+there is more than 70% probability that an investor will lose more than 
+20% of the Sharpe ratio due to estimation risk. And this probability 
+drops down to 19% when 𝜃 = 0.4.
+
+Next, we derive the joint distribution of ( ̂𝜃, ̃𝜃). The joint cumulative 
+distribution of ( ̂𝜃, ̃𝜃) can be written as a triple integral, whereas the joint 
+
+7 It can be shown that when 𝑁 > 3, lim𝑐→𝜃− 𝑓 ̃𝜃(𝑐) = 0 and lim𝑐→(−𝜃)+ 𝑓 ̃𝜃(𝑐) = 0. 
+When 𝑁 = 3, these two limits are ﬁnite, and when 𝑁 = 2, these two limits are 
+inﬁnity. Proof of these results as well as the explicit expressions of the two limits 
+for the case of 𝑁 = 3 are available upon request.
+
+JournalofFinancialEconomics155(2024)1038377R. Kan, X. Wang and X. Zheng
+
+Fig. 3. Density of out-of-sample Sharpe ratio of an asset pricing model (𝑇 = 120). The ﬁgure plots the density of ̃𝜃∕𝜃 of an asset pricing model with 𝑁 traded factors 
+when the length of estimation window is 𝑇 = 120, where  ̃𝜃 is the out-of-sample Sharpe ratio and 𝜃 is the population Sharpe ratio. Plots for two diﬀerent values of 
+number of traded factors (𝑁 = 3 and 6) and population Sharpe ratio (𝜃 = 0.2 and 0.4) are presented.
+
+density of ( ̂𝜃, ̃𝜃) can be written as a double integral. These expressions 
+are summarized in Proposition 2.
+
+Proposition 2. Suppose 𝑟𝑡
+𝑐
+
+≤ 𝜃, we have
+
+2
+
+i.i.d.
+∼  (𝜇, Σ) and 𝑁 ≥ 2. When 𝑐
+
+> 0 and 0 <
+
+1
+
+ℙ[ ̂𝜃 < 𝑐
+
+1
+
+, ̃𝜃 < 𝑐
+
+2]
+
+∞
+
+1
+
+𝑐2
+1
+
+=
+
+∫
+0
+
+∫
+0
+
+∫
+0
+(
+
+⎛
+⎜
+⎜
+min
+⎜
+⎝
+
+⎡
+⎢
+⎢
+⎢
+⎣
+
+Φ
+
+⎡
+𝑣
+⎢
+⎢
+⎢
+⎣
+√
+
+− Φ
+
+−
+
+𝑣 − ̃𝑢 −
+
+𝑐2
+1
+
+𝑐
+√
+
+√
+
+̃𝑢
+
+2
+𝜃2 − 𝑐2
+2
+
+√
+
+,
+
+𝑣 − ̃𝑢
+
+𝑐2
+1
+
+⎤
+⎥
+⎥
+⎥
+⎦
+
+√
+
+√
+𝑏
+
+𝑇 𝜃
+
+−
+
+⎞
+⎟
+⎟
+⎟
+⎠
+
+)]
+
+√
+
+√
+𝑏
+
+𝑇 𝜃
+
+× 𝑓 ̃𝑢( ̃𝑢)𝑓𝑏(𝑏)𝑓𝑢
+
+(𝑣)d ̃𝑢d𝑏d𝑣,
+
+1
+
+(23)
+
+where 𝑓 ̃𝑢( ̃𝑢) is the density function of 𝜒 2
+sity function of Beta((𝑇 − 𝑁 + 1)∕2, (𝑁 − 1)∕2), and 𝑓𝑢
+1
+≤ 0, we have
+function of 𝜒 2
+
+𝑁−1((1 − 𝑏)𝑇 𝜃2), 𝑓𝑏(𝑏) is the den-
+(𝑣) is the density 
+
+> 0 and −𝜃 ≤ 𝑐
+
+𝑇 −𝑁 . When 𝑐
+
+1
+
+2
+
+ℙ[ ̂𝜃 < 𝑐
+
+1
+
+, ̃𝜃 < 𝑐
+
+2]
+
+)𝑣
+
+𝑐2
+1
+
+(𝜃2−𝑐2
+2
+𝜃2
+
+∞
+
+1
+
+=
+
+∫
+0
+
+∫
+0
+
+∫
+0
+
+(
+
+√
+
+⎡
+⎢
+⎢
+Φ
+⎢
+⎣
+
+⎛
+⎜
+⎜
+⎜
+⎝
+
+− Φ
+
+−
+
+𝑣 − ̃𝑢 −
+
+𝑐2
+1
+
+𝑐
+√
+
+√
+
+̃𝑢
+
+2
+𝜃2 − 𝑐2
+2
+
+√
+
+√
+𝑏
+
+𝑇 𝜃
+
+−
+
+⎞
+⎟
+⎟
+⎟
+⎠
+
+)]
+
+√
+
+√
+𝑏
+
+𝑇 𝜃
+
+× 𝑓 ̃𝑢( ̃𝑢)𝑓𝑏(𝑏)𝑓𝑢
+
+(𝑣)d ̃𝑢d𝑏d𝑣.
+
+1
+
+(24)
+
+The joint density of ( ̂𝜃, ̃𝜃) is given by8
+
+1
+
+∞
+
+(
+
+1 (𝜃2 − 𝑐2
+𝑐2
+𝜃2
+
+2 )𝑣
+
+)
+
+(
+
+𝜙
+
+𝑐
+
+𝑐
+
+1
+
+√
+
+2
+𝜃
+
+𝑣
+
+√
+
+−
+
+𝑇 𝜃
+
+√
+
+)
+
+𝑏
+
+𝑓 ̂𝜃, ̃𝜃(𝑐
+
+1
+
+, 𝑐
+
+2) =
+
+𝑓 ̃𝑢
+
+∫
+0
+
+∫
+0
+
+3
+2
+
+𝑣
+
+2𝑐2
+1
+𝜃
+
+×
+
+for 𝑐
+
+1
+
+> 0 and −𝜃 < 𝑐
+
+2
+
+𝑓𝑢
+
+(𝑣)𝑓𝑏(𝑏)d𝑣d𝑏
+
+1
+< 𝜃.
+
+(25)
+
+With the expression of the joint density of ( ̂𝜃, ̃𝜃) and the marginal 
+density of  ̂𝜃, we can compute the density of  ̃𝜃 conditional on  ̂𝜃 using 
+the following:
+
+𝑓 ̃𝜃| ̂𝜃(𝑐
+
+2
+
+|𝑐
+
+1) =
+
+, 𝑐
+
+𝑓 ̂𝜃, ̃𝜃(𝑐
+1
+𝑓 ̂𝜃(𝑐
+1)
+
+2)
+
+.
+
+(26)
+
+In Fig. 4, we plot the conditional density of  ̃𝜃∕𝜃 for two diﬀerent 
+values of 𝑁 (3 and 6) and 𝜃 (0.2 and 0.4) with 𝑇 = 120. The plots 
+present the conditional density of  ̃𝜃∕𝜃 for three diﬀerent values of  ̂𝜃: 
+the ﬁrst one is at the 10th percentile of  ̂𝜃 (solid line), the second one 
+is at the 50th percentile of  ̂𝜃 (dotted line), and the last one is at the 
+90th percentile of ̂𝜃 (dashed line). The ﬁgure shows that the conditional 
+density of  ̃𝜃 can be quite sensitive to the value of  ̂𝜃.
+
+3.3.2.  Asymptotic distributions
+
+Instead  of  the  exact  distribution,  researchers  may  opt  to  use  the 
+asymptotic distribution because the asymptotic distribution is often sim-
+pler than the ﬁnite sample distribution. The simplicity is particularly 
+
+8 When 𝑁 is even, the inner integrals of 𝑓 ̃𝜃(𝑐) and 𝑓 ̂𝜃, ̃𝜃(𝑐
+1
+analytically, so 𝑓 ̃𝜃(𝑐) and 𝑓 ̂𝜃, ̃𝜃(𝑐
+1
+a double integral. These results are available upon request.
+
+2) can be solved 
+2) can be evaluated using a single rather than 
+
+, 𝑐
+
+, 𝑐
+
+JournalofFinancialEconomics155(2024)1038378R. Kan, X. Wang and X. Zheng
+
+Fig. 4. Conditional density of out-of-sample Sharpe ratio of an asset pricing model (𝑇 = 120). The ﬁgure plots the conditional density of the normalized out-of-sample 
+Sharpe ratio ( ̃𝜃∕𝜃) of an asset pricing model when conditional on the in-sample Sharpe ratio ( ̂𝜃) is at its 10th (solid line), 50th (dotted line), and 90th (dashed line) 
+percentiles. The length of estimation window is 𝑇 = 120 and plots for two diﬀerent values of number of traded factors (𝑁 = 3 and 6) and population Sharpe ratio 
+(𝜃 = 0.2 and 0.4) are presented.
+
+appealing when the approximation error of the asymptotic distribution 
+is small. In this subsection, we present the asymptotic distributions of 
+( ̂𝜃, ̃𝜃) and evaluate their accuracy using the ﬁnite sample results ob-
+tained previously.
+
+There are two diﬀerent limiting distributions for ( ̂𝜃, ̃𝜃), depending 
+on whether 𝑁 is ﬁxed or 𝑁 → ∞ as 𝑇 → ∞. For both cases, we can 
+use the stochastic representation in Proposition 1 to derive the limiting 
+distributions of  ̂𝜃 and ̃𝜃. Proposition 3 presents the limiting distribution 
+under the assumption that 𝑁 is ﬁxed when 𝑇 → ∞. This assumption is 
+used for the traditional asymptotic analysis.
+
+Proposition 3. Suppose 𝑟𝑡
+𝑇 → ∞, we have
+[ √
+
+]
+
+[
+
+]
+
+𝑇 ( ̂𝜃 − 𝜃)
+𝑇 ( ̃𝜃 − 𝜃)
+
+𝑑
+→
+
+𝑋
+𝑌
+
+(
+0, 1 +
+
+)
+
+𝜃2
+
+where  𝑋 ∼ 
+2
+independent of each other.
+
+i.i.d.
+∼  (𝜇, Σ) and 𝑁 ≥ 2. When 𝑁 is ﬁxed and 
+
+,
+
+(27)
+
+and  𝑌 ∼ −(1 + 𝜃2)∕(2𝜃)𝜒 2
+
+𝑁−1,  and  they  are 
+
+√
+
+The limiting distribution of 
+
+𝑇 ( ̂𝜃 − 𝜃) is well known (e.g., Barillas 
+et al., 2020). Note that the asymptotic distribution of ̂𝜃 is the same as 
+the one for the single asset case as discussed in Lo (2002), suggesting 
+that using  ̂𝑤 instead of 𝑤∗ has no impact on the asymptotic distribution 
+of  ̂𝜃.
+
+Our result of the limiting distribution of 𝑇 ( ̃𝜃 − 𝜃) is new. There are 
+two points to note here. First, unlike  ̂𝜃, which converges to 𝜃 at a rate 
+√
+𝑇 ,  ̃𝜃 converges to 𝜃 at a rate of 1∕𝑇 . Second, the limiting distri-
+of 1∕
+
+bution of 𝑇 ( ̃𝜃 − 𝜃) is not normal; instead, it is distributed as a negative 
+𝑁−1. This is because while  ̃𝜃
+random variable that is proportional to 𝜒 2
+converges to 𝜃, it is always less than 𝜃 in a ﬁnite sample, so the limiting 
+distribution of 𝑇 ( ̃𝜃 − 𝜃) is a negative random variable.
+
+Instead of the traditional asymptotic analysis, which assumes ﬁxed 
+𝑁 , Proposition 4 presents the limiting distribution assuming both 𝑁
+and 𝑇 go to inﬁnity, but 𝑁∕𝑇 → 𝜌 ∈ (0, 1).
+
+i.i.d.
+Proposition 4. Suppose 𝑟𝑡
+∼  (𝜇, Σ) and 𝑁 ≥ 2. Let 𝜃(𝑁) denote the 
+population Sharpe ratio when 𝑁 is a ﬁnite number and 𝜃 be the limit of 
+𝜃(𝑁) as  𝑁 → ∞ with  𝜃(𝑁) − 𝜃 = 𝑜(1∕
+𝑁). When  𝑁 → ∞,  𝑇 → ∞, 
+𝑁∕𝑇 → 𝜌 ∈ (0, 1), we have
+]
+[ √
+√
+
+√
+
+𝑇 ( ̂𝜃 − ̄𝜃)
+𝑇 ( ̃𝜃 − 𝜃)
+
+𝑑
+→ 
+
+⎛
+⎜
+02
+⎜
+⎝
+
+,
+
+⎡
+⎢
+⎢
+⎣
+
+𝜃4+2𝜃2+𝜌
+2(1−𝜌)2(𝜃2+𝜌)
+𝜌𝜃2
+2(𝜃2+𝜌)2
+
+[
+
+𝜌𝜃2
+2(𝜃2+𝜌)2
+(1−𝜌)(2𝜌+𝜃2)
+(𝜃2+𝜌)2 + 2 + 𝜃2
+
+]
+
+⎞
+⎤
+⎟
+⎥
+⎥
+⎟
+⎦
+⎠
+
+,
+
+𝜌𝜃2
+2(𝜃2+𝜌)
+
+where
+√
+
+̄𝜃 =
+
+𝜃 =
+
+√
+
+𝜃2 + 𝜌
+1 − 𝜌
+√
+
+𝜃2
+√
+
+1 − 𝜌
+𝜃2 + 𝜌
+
+> 𝜃,
+
+< 𝜃.
+
+(28)
+
+(29)
+
+(30)
+
+JournalofFinancialEconomics155(2024)1038379R. Kan, X. Wang and X. Zheng
+
+Fig. 5. Exact and approximate densities of in-sample Sharpe ratio of an asset pricing model (𝑇 = 120). The ﬁgure plots the exact density (solid line) of the normalized 
+in-sample Sharpe ratio ( ̂𝜃∕𝜃) and two diﬀerent approximated density, the ﬁrst one assumes 𝑁 is ﬁxed and 𝑇 → ∞ (dashed line), and the second one assumes both 
+𝑁 and 𝑇 → ∞ with 𝑁∕𝑇 → 𝜌 (dotted line). The length of time series is 𝑇 = 120 and plots for two diﬀerent values of number of traded factors (𝑁 = 3 and 6) and 
+population Sharpe ratio (𝜃 = 0.2 and 0.4) are presented.
+
+The result that  ̂𝜃
+
+Unlike the ﬁxed 𝑁 asymptotic results, Proposition 4 shows that  ̂𝜃
+and  ̃𝜃 no longer converge to 𝜃 for the case of 𝑁∕𝑇 → 𝜌. This is because 
+for ﬁxed 𝑁 , the eﬀect of estimation risk diminishes to nil as 𝑇 → ∞, 
+but it is not the case when 𝑁 → ∞ and 𝑇 → ∞.
+
+𝑝
+→ ̄𝜃 under the assumption that 𝑁∕𝑇 → 𝜌 can be 
+𝑝
+obtained from Theorem 4.6 of El Karoui (2010). The result that  ̃𝜃
+→ 𝜃
+when 𝑁∕𝑇 → 𝜌 is shown in Ao et al. (2019). However, the limiting dis-
+tribution of ( ̂𝜃, ̃𝜃) under the assumption that 𝑁∕𝑇 → 𝜌 is not available 
+in the literature. The stochastic representation in Proposition 1 enables 
+us to obtain this limiting distribution by taking the appropriate limit.
+
+Next, we evaluate the accuracy of the two asymptotic distributions 
+of  ̂𝜃 and  ̃𝜃 by comparing them to the exact distributions obtained pre-
+viously. In Fig. 5, we plot the exact marginal density of  ̂𝜃∕𝜃 (solid line) 
+versus its two approximations: the ﬁxed 𝑁 asymptotic (dashed line) and 
+the 𝑁∕𝑇 → 𝜌 asymptotic (dotted line). We consider two diﬀerent values 
+of 𝑁 (3 and 6) and 𝜃 (0.2 and 0.4) with 𝑇 = 120. The ﬁgure shows that 
+the approximate distribution based on the traditional ﬁxed 𝑁 asymp-
+totic does not perform well, especially for the cases with large 𝑁 and 
+small 𝜃. By contrast, the approximation based on the ﬁxed 𝑁∕𝑇 asymp-
+totic  works  quite  well  in  all  cases.  Thus,  Fig. 5 provides  supporting 
+evidence to use the ﬁxed 𝑁∕𝑇 asymptotic distribution to approximate 
+the exact distribution of  ̂𝜃, if needed.
+
+In Fig. 6, we plot the exact marginal density of ̃𝜃∕𝜃 (solid line) versus 
+its two approximations: the ﬁxed 𝑁 asymptotic (dashed line) and the 
+𝑁∕𝑇 → 𝜌 asymptotic (dotted line). Similarly, we consider two diﬀerent 
+values of 𝑁 (3 and 6) and 𝜃 (0.2 and 0.4) with 𝑇 = 120. The ﬁgure 
+shows that when 𝑁 = 3, the ﬁxed 𝑁 asymptotic approximation works 
+well, especially when 𝜃 = 0.4. By contrast, the ﬁxed 𝑁∕𝑇 asymptotic 
+approximation of  ̃𝜃, which is a normal distribution, does a poor job in 
+
+approximating the exact distribution of  ̃𝜃. When 𝑁 = 6, the ﬁxed 𝑁∕𝑇
+asymptotic approximation continues to perform poorly; and the ﬁxed 𝑁
+asymptotic approximation starts to deviate signiﬁcantly from the exact 
+distribution of  ̃𝜃, especially for the case with 𝜃 = 0.2. Therefore, unless 
+𝑁 is very small, none of the two asymptotic approximations provides a 
+reliable approximation of the exact distribution of  ̃𝜃.
+
+In terms of approximating the exact distribution of  ̃𝜃 conditional on 
+̂𝜃, Proposition 3 shows that when 𝑁 is ﬁxed and 𝑇 → ∞, the limiting 
+distributions of  ̂𝜃 and  ̃𝜃 are independent of each other, and therefore, 
+the limiting conditional distribution of  ̃𝜃 is the same as the marginal 
+one. From Proposition 4, it is obvious that when both 𝑁 and 𝑇 → ∞, 
+the limiting distribution of  ̃𝜃 conditional on  ̂𝜃 is a normal distribution, 
+which clearly deviates from the exact conditional distribution of  ̃𝜃, as 
+shown in Fig. 4. Thus, none of the asymptotic approximations accu-
+rately approximates the exact conditional distribution of  ̃𝜃.
+
+4.  Model comparison with estimation risk
+
+The theoretical results in the previous section suggest that estima-
+tion  errors  in  the  sample  optimal  portfolio  result  in  a  lower  out-of-
+sample Sharpe ratio. In this section, we examine its implication when 
+comparing across asset pricing models. Because relative to the popu-
+lation Sharpe ratio, the out-of-sample Sharpe ratio is more relevant to 
+investors, we argue that the eﬀect of estimation risk needs to be consid-
+ered when comparing across models.
+
+In this section, we use the CAPM as the benchmark model because 
+its out-of-sample Sharpe ratio is free from estimation risk. We then as-
+sess the performance of a multi-factor model (with the market factor as 
+one of its factors) against this benchmark, taking into account the ef-
+
+JournalofFinancialEconomics155(2024)10383710R. Kan, X. Wang and X. Zheng
+
+Fig. 6. Exact and approximate densities of out-of-sample Sharpe ratio of an asset pricing model (𝑇 = 120). The ﬁgure plots the exact density (solid line) of the 
+normalized out-of-sample Sharpe ratio ( ̃𝜃∕𝜃) and two diﬀerent approximated density, the ﬁrst one assumes 𝑁 is ﬁxed and 𝑇 → ∞ (dashed line), and the second one 
+assumes both 𝑁 and 𝑇 → ∞ with 𝑁∕𝑇 → 𝜌 (dotted line). The length of time series is 𝑇 = 120 and plots for two diﬀerent values of number of traded factors (𝑁 = 3
+and 6) and population Sharpe ratio (𝜃 = 0.2 and 0.4) are presented.
+
+fect of estimation risk. When estimation risk is taken into account, the 
+multi-factor model needs a higher population Sharpe ratio to be seen as 
+equally good as the CAPM. In Section 4.1, we propose a way to obtain 
+this break-even Sharpe ratio. In Sections 4.2 and 4.3, we illustrate how 
+to incorporate the break-even Sharpe ratio in model comparisons, in 
+both the classical frequentist framework and the Bayesian framework.
+
+4.1.  Break-even Sharpe ratio
+
+When comparing asset pricing models, most of the tests focus on the 
+equality of the population Sharpe ratios across models. However, when 
+estimation  risk  is  taken  into  account,  the  equality  in  the  population 
+Sharpe ratio does not necessarily suggest that two models are equally 
+good. A larger model (in terms of number of factors) contains a higher 
+level of estimation risk, and it needs a higher population Sharpe ratio 
+(i.e., the break-even Sharpe ratio) to be seen as equally good as a smaller 
+model.9
+
+We deﬁne the break-even Sharpe ratio based on the ﬁnite sample 
+distribution of the out-of-sample Sharpe ratio of a multi-factor model 
+1 and 𝜃 denote the population Sharpe 
+that is presented in (22). Let 𝜃
+
+1 = 𝜃
+
+ratio of the CAPM and an 𝑁 -factor model (with 𝑁 ≥ 2), respectively. 
+Because the out-of-sample Sharpe ratio of the CAPM is free from es-
+timation risk, we have  ̃𝜃
+1. The out-of-sample Sharpe ratio of the 
+multi-factor model is a random variable that is smaller than its pop-
+ulation Sharpe ratio,  ̃𝜃 < 𝜃, and it is severely left-skewed, as shown in 
+Fig. 3. Investors are concerned about the randomness, and in particular, 
+the long left tail in the distribution of  ̃𝜃. We propose using an expected 
+shortfall measure to obtain the break-even Sharpe ratio because such a 
+measure aggregates the information in the left tail of a distribution.
+
+Let  ̃𝜃𝑐 be the 𝑐-percentile value of  ̃𝜃. The expected shortfall of  ̃𝜃 at 
+𝑐-percentile is 𝔼[ ̃𝜃| ̃𝜃 ≤ ̃𝜃𝑐]. At a selected value of 𝑐 with 0 < 𝑐 < 100, we 
+deﬁne the break-even Sharpe ratio as the 𝜃 such that 𝔼[ ̃𝜃| ̃𝜃 ≤ ̃𝜃𝑐] = 𝜃
+1, 
+and denote it as 𝜃𝑏.10 The choice of 𝑐, to some extent, reﬂects the risk 
+preference of the investor: a lower value of 𝑐 is associated with a higher 
+break-even Sharpe ratio. We set 𝑐 = 50 in our base case. From (22), 
+it  can  be  seen  that  at  a  given  value  of  𝑐,  𝜃𝑏 is  a  function  of  𝑁 ,  𝑇 , 
+and 𝜃
+1. When estimation risk is taken into account, instead of testing 
+𝐻
+1 ∶ 𝜃 > 𝜃𝑏 to 
+1 ∶ 𝜃 > 𝜃
+compare the multi-factor model to the CAPM.
+
+0 ∶ 𝜃 ≤ 𝜃𝑏 vs. 𝐻
+
+1, we test  𝐻
+
+0 ∶ 𝜃 = 𝜃
+
+1 vs. 𝐻
+
+9 The parsimony principle suggests that if two models have equal popula-
+tion Sharpe ratios, the smaller model is preferred. We argue that even if the 
+larger model has a population Sharpe ratio that is slightly higher, it is not nec-
+essarily a better model. In order for the larger model to be a better model, the 
+improvement in the population Sharpe ratio must outweigh the eﬀect of esti-
+mation risk. Our proposed break-even Sharpe ratio is a measure to incorporate 
+such a trade-oﬀ.
+
+10 When a multi-factor model, instead of the CAPM, is used as the benchmark 
+model, the out-of-sample Sharpe ratio of the benchmark model is also random. 
+Then the break-even Sharpe ratio will be deﬁned based on the joint distribution 
+of the out-of-sample Sharpe ratio of the benchmark model and that of the test 
+model. When both nested and non-nested models are considered, the derivation 
+of this joint distribution is not straightforward and is beyond the scope of this 
+paper. We leave it as well as the design of a comprehensive methodology of 
+model comparison with estimation risk for future study.
+
+JournalofFinancialEconomics155(2024)10383711R. Kan, X. Wang and X. Zheng
+
+1 where 𝜃
+
+Table 4
+Break-even Sharpe ratios. The break-even Sharpe ratio is deﬁned as the value 
+of 𝜃 such that 𝔼[ ̃𝜃| ̃𝜃 ≤ ̃𝜃𝑐 ] = 𝜃
+1 is the population Sharpe ratio of the 
+CAPM, 𝜃 is the population Sharpe ratio of a multi-factor model,  ̃𝜃 is the out-
+of-sample Sharpe ratio of the multi-factor model, and  ̃𝜃𝑐 is the 𝑐-percentile 
+value of  ̃𝜃. The ﬁnite sample distribution of  ̃𝜃 is available in (22). This table 
+reports the break-even Sharpe ratios for diﬀerent values of number of traded 
+factors in the multi-factor model (𝑁 ), the length of estimation window (𝑇 ), 
+1). Panels A and B present the 
+and the population Sharpe ratio of the CAPM (𝜃
+results for 𝑐 = 50 and 𝑐 = 25 respectively, where 𝑐 is the percentile speciﬁed in 
+𝔼[ ̃𝜃| ̃𝜃 ≤ ̃𝜃𝑐 ].
+
+A. 𝑐 = 50
+
+𝜃
+
+0.05
+
+1
+A1. 𝑇 = 120
+𝑁 = 2
+𝑁 = 3
+𝑁 = 4
+𝑁 = 5
+𝑁 = 6
+
+0.123
+0.133
+0.141
+0.147
+0.152
+
+A2. 𝑇 = 240
+𝑁 = 2
+𝑁 = 3
+𝑁 = 4
+𝑁 = 5
+𝑁 = 6
+
+0.098
+0.107
+0.113
+0.118
+0.122
+
+B. 𝑐 = 25
+
+𝜃
+
+0.05
+
+1
+B1. 𝑇 = 120
+𝑁 = 2
+𝑁 = 3
+𝑁 = 4
+𝑁 = 5
+𝑁 = 6
+
+0.154
+0.164
+0.171
+0.177
+0.182
+
+B2. 𝑇 = 240
+𝑁 = 2
+𝑁 = 3
+𝑁 = 4
+𝑁 = 5
+𝑁 = 6
+
+0.118
+0.127
+0.133
+0.137
+0.142
+
+0.10
+
+0.15
+
+0.20
+
+0.25
+
+0.30
+
+0.35
+
+0.40
+
+0.162
+0.176
+0.187
+0.195
+0.203
+
+0.136
+0.148
+0.156
+0.163
+0.169
+
+0.200
+0.217
+0.229
+0.239
+0.248
+
+0.176
+0.189
+0.198
+0.206
+0.212
+
+0.240
+0.258
+0.272
+0.283
+0.293
+
+0.220
+0.232
+0.241
+0.249
+0.256
+
+0.283
+0.301
+0.315
+0.327
+0.337
+
+0.266
+0.277
+0.286
+0.294
+0.301
+
+0.328
+0.346
+0.360
+0.371
+0.382
+
+0.314
+0.324
+0.332
+0.340
+0.346
+
+0.375
+0.392
+0.405
+0.417
+0.427
+
+0.362
+0.372
+0.379
+0.386
+0.393
+
+0.422
+0.438
+0.452
+0.463
+0.474
+
+0.411
+0.420
+0.427
+0.434
+0.440
+
+0.10
+
+0.15
+
+0.20
+
+0.25
+
+0.30
+
+0.35
+
+0.40
+
+0.187
+0.202
+0.213
+0.222
+0.229
+
+0.152
+0.164
+0.173
+0.180
+0.185
+
+0.221
+0.240
+0.253
+0.263
+0.273
+
+0.189
+0.203
+0.213
+0.221
+0.227
+
+0.258
+0.279
+0.293
+0.305
+0.315
+
+0.230
+0.244
+0.254
+0.263
+0.270
+
+0.299
+0.320
+0.335
+0.347
+0.358
+
+0.275
+0.288
+0.298
+0.306
+0.313
+
+0.342
+0.363
+0.378
+0.391
+0.402
+
+0.321
+0.333
+0.343
+0.351
+0.358
+
+0.388
+0.407
+0.422
+0.435
+0.447
+
+0.369
+0.380
+0.389
+0.397
+0.404
+
+0.434
+0.453
+0.468
+0.481
+0.492
+
+0.417
+0.428
+0.436
+0.443
+0.450
+
+Table 4 presents the break-even Sharpe ratio for diﬀerent values of 
+𝜃
+≤ 0.4), 𝑁 (2 ≤ 𝑁 ≤ 6), and 𝑇 (120 and 240).11 Panels A 
+1 (0.05 ≤ 𝜃
+1
+and B report the results for 𝑐 = 50 and 25, respectively. The table shows 
+that when the estimation risk is accounted for, the population Sharpe 
+ratio of a multi-factor model needs to substantially surpass that of the 
+CAPM for the two models to be deemed equivalent. For example, when 
+1 = 0.10 (Panel A1), even for a two-factor model, 
+𝑐 = 50, 𝑇 = 120, and 𝜃
+it needs a population Sharpe ratio at least 62% higher than that of the 
+CAPM (i.e., 𝜃𝑏 = 0.162). Not surprisingly, the break-even Sharpe ratio 
+increases with 𝑁 and decreases with 𝑇 due to a higher level of estima-
+tion risk that is associated with a larger model and a shorter estimation 
+window. In addition, the table shows that the required improvement in 
+the population Sharpe ratio of the multi-factor model is larger when 𝜃
+1
+is smaller due to a low signal-to-noise ratio.
+
+4.2.  GRS test and the break-even Sharpe ratio
+
+Gibbons et al. (1989) provide a well-known spanning test (i.e., the 
+GRS test) for the ex ante eﬃciency of a given portfolio. To compare the 
+performance of a multi-factor model with that of the CAPM, the GRS 
+test statistic is given by
+
+11 Based on (22), the explicit expression of 𝔼[ ̃𝜃| ̃𝜃 ≤ ̃𝜃𝑐 ] contains a triple in-
+tegral, which is diﬃcult and time consuming to obtain. Instead of the explicit 
+expression, we compute the break-even Sharpe ratio using simulation based on 
+the stochastic representation in Proposition 1.
+
+,
+
+𝑊 =
+
+(𝑇 − 𝑁) ̂𝛿2
+(𝑁 − 1)(1 + ̂𝜃2
+1 )
+1 , and  ̂𝜃 and  ̂𝜃
+where  ̂𝛿2 = ̂𝜃2 − ̂𝜃2
+1 are the in-sample Sharpe ratios of 
+the multi-factor model and the CAPM, respectively. Under the i.i.d. nor-
+mality assumption, this test statistic follows a noncentral 𝐹 -distribution 
+with 𝑁 − 1 and 𝑇 − 𝑁 degrees of freedom and a noncentrality parame-
+ter of 𝑇 𝛿2∕(1 + ̂𝜃2
+1) with 𝛿2 = 𝜃2 − 𝜃2
+1 ,
+
+(31)
+
+𝑇 𝛿2
+1+ ̂𝜃2
+1
+𝑁−1,𝑇 −𝑁
+
+𝑊 ∼ 
+
+.
+
+(32)
+
+If the CAPM is ex ante eﬃcient (i.e., 𝛿2 = 0), then 𝑊 follows an 𝐹 -
+distribution with 𝑁 − 1 and 𝑇 − 𝑁 degrees of freedom.
+
+When the estimation risk is considered, instead of testing 𝐻
+1 ∶ 𝛿2 > 0, we test 𝐻
+0 ∶ 𝛿2 ≤ 𝛿2
+1 . And the null distribution of 𝑊 is
+
+1 ∶ 𝛿2 > 𝛿2
+
+𝑏 vs. 𝐻
+
+0 vs. 𝐻
+𝑏 − 𝜃2
+𝜃2
+
+0 ∶ 𝛿2 =
+𝑏 =
+
+𝑏 , where 𝛿2
+
+𝑇 𝛿2
+𝑏
+1+ ̂𝜃2
+1
+𝑁−1,𝑇 −𝑁
+
+𝑊 ∼ 
+
+.
+
+(33)
+
+Because 𝜃𝑏 is a function of 𝜃
+1, the null distribution now depends on the 
+nuisance parameter 𝜃
+1. We examine the test results for various values 
+of 𝜃
+1. Speciﬁcally, we assume that the observed in-sample Sharpe ratio 
+of the CAPM ( ̂𝜃
+1) is at a certain percentile of its distribution, and obtain 
+the corresponding population Sharpe ratio (𝜃
+1). Under the i.i.d. mul-
+tivariate normality assumption, we know that the distribution of  ̂𝜃2
+1 is 
+proportional to a noncentral 𝐹 -distribution with 1 and 𝑇 − 1 degrees of 
+freedom and a noncentrality parameter of 𝑇 𝜃2
+1 ,
+
+(𝑇 − 1) ̂𝜃2
+
+1 ∼ 
+
+𝑇 𝜃2
+1
+1,𝑇 −1
+
+.
+
+For a given value of 𝛼 with 0 < 𝛼 < 1, the value of 𝜃
+
+(34)
+1, such that  ̂𝜃
+1
+is at 100(1 − 𝛼)-percentile of the distribution, can be determined from 
+the following equation
+
+(
+
+)
+
+𝐹
+
+(35)
+
+= 1 − 𝛼.
+
+(𝑇 − 1) ̂𝜃2
+1
+
+1 increases with 𝛼 for a given  ̂𝜃
+
+𝑇 𝜃2
+1
+1,𝑇 −1
+Since the cdf of the noncentral 𝐹 -distribution is decreasing in its non-
+centrality parameter, 𝜃
+1. In Table 5, 
+we consider ﬁve diﬀerent values of 𝛼: 10%, 25%, 50%, 75%, and 90%. 
+Panels A, B, and C report the results based on the most recent 25% (i.e., 
+2008/4–2021/12, 𝑇 = 165), 50% (i.e., 1994/7–2021/12, 𝑇 = 330), and 
+100% (i.e., 1967/1–2021/12, 𝑇 = 660) of the sample, respectively. In 
+all the panels, the column “GRS” reports the in-sample Sharpe ratios 
+( ̂𝜃
+1 and  ̂𝜃) of the models using all 𝑇 observations, together with the 
+𝑝-values associated with the GRS test. The remaining ﬁve columns re-
+1 (in the row of the CAPM) and 𝜃𝑏 (in the rows of the multi-factor 
+port 𝜃
+models) for diﬀerent values of 𝛼, as well as the 𝑝-values from the null 
+distribution as speciﬁed in (33).
+
+𝑏 = 𝜃2
+
+1 increase with 𝛼, and as a result, 𝛿2
+
+Because the cdf of the noncentral 𝐹 -distribution is decreasing in its 
+noncentrality parameter, and given that 𝛿2
+> 0, the 𝑝-values based on 
+𝑏
+the null in (33) are larger than that from the GRS test, as shown in 
+Table 5. In addition, the 𝑝-values increase with 𝛼. This is because 𝛿2
+𝑏
+1 decreases with 𝛼, both 
+increases with 𝛼. Note that even though 𝜃𝑏 − 𝜃
+𝜃𝑏 and 𝜃
+1 increases with 𝛼. 
+𝑏 − 𝜃2
+Across the three panels, the shortest estimation window (i.e., 𝑇 = 165) 
+is used in Panel A, and the eﬀect due to estimation risk is more evident. 
+In the 2008/4–2012/12 period, the GRS test results suggest that BAB 
+outperforms the CAPM at the 5% signiﬁcance level, and FF-5 and HMXZ 
+𝑞5 outperform the CAPM at the 1% level. When the estimation risk is 
+taken into account, BAB and FF-5 are no longer signiﬁcant for any of the 
+cases; and HMXZ 𝑞5 becomes signiﬁcant at the 5% level for most of the 
+cases. In Panel B, whether to consider the eﬀect of estimation risk leads 
+to diﬀerent conclusions for the performance of Carhart-4. The GRS test 
+results suggest that Carhart-4 outperforms the CAPM at the 5% level, 
+and  the  signiﬁcance  disappears  when  the  eﬀect  of  estimation  risk  is 
+considered. Even in Panel C, when we use the full sample, we continue 
+
+JournalofFinancialEconomics155(2024)10383712R. Kan, X. Wang and X. Zheng
+
+Table 5
+GRS test and the break-even Sharpe ratios. In this table, we compare the multi-
+factor asset pricing models against the CAPM using the GRS test as well as the 
+test that also incorporates the break-even Sharpe ratio. The in-sample Sharpe 
+ratios of the models, together with the corresponding 𝑝-values (in italics) from 
+the GRS test, are reported in the column “GRS”. Assuming that the observed 
+in-sample Sharpe ratio of the CAPM ( ̂𝜃
+1) is at 100(1 − 𝛼)-percentile of its dis-
+tribution, we obtain the corresponding population Sharpe ratio (𝜃
+1) and report 
+1, the break-even Sharpe ratio is derived for 
+it in the row of CAPM. Given 𝜃
+each multi-factor model and reported in the corresponding row. The 𝑝-values 
+from the null distribution in (33) are presented in italics, below the break-even 
+Sharpe ratios. Five diﬀerent values of 𝛼 are examined: 10%, 25%, 50%, 75%, 
+and 90%. Panels A, B, and C use data in 2008/4–2021/12, 1994/7–2021/12, 
+and 1967/1–2021/12, respectively.
+
+A. 2008/4–2021/12 (𝑇 = 165)
+
+𝛼 = 1 − 𝐹𝜃
+
+1
+
+( ̂𝜃
+
+1)
+
+CAPM
+
+FF-3
+
+Carhart-4
+
+BAB
+
+FF-5
+
+HXZ 𝑞
+
+BS-6
+
+HMXZ 𝑞5
+
+GRS
+
+10%
+
+25%
+
+50%
+
+75%
+
+90%
+
+0.223
+
+0.121
+
+0.168
+
+0.222
+
+0.275
+
+0.323
+
+0.267
+0.193
+
+0.268
+0.340
+
+0.288
+0.024
+
+0.376
+0.009
+
+0.294
+0.135
+
+0.315
+0.194
+
+0.430
+0.001
+
+0.178
+0.554
+
+0.189
+0.711
+
+0.164
+0.192
+
+0.197
+0.114
+
+0.189
+0.479
+
+0.204
+0.575
+
+0.197
+0.022
+
+0.218
+0.583
+
+0.229
+0.746
+
+0.203
+0.194
+
+0.238
+0.143
+
+0.229
+0.522
+
+0.246
+0.633
+
+0.238
+0.030
+
+0.263
+0.602
+
+0.275
+0.771
+
+0.248
+0.192
+
+0.285
+0.169
+
+0.275
+0.555
+
+0.293
+0.679
+
+0.285
+0.038
+
+0.311
+0.616
+
+0.322
+0.789
+
+0.297
+0.192
+
+0.332
+0.191
+
+0.322
+0.579
+
+0.340
+0.713
+
+0.332
+0.046
+
+0.355
+0.628
+
+0.366
+0.802
+
+0.342
+0.195
+
+0.375
+0.209
+
+0.366
+0.598
+
+0.384
+0.738
+
+0.375
+0.053
+
+B. 1994/7–2021/12 (𝑇 = 330)
+
+𝛼 = 1 − 𝐹𝜃
+
+1
+
+( ̂𝜃
+
+1)
+
+CAPM
+
+FF-3
+
+Carhart-4
+
+BAB
+
+FF-5
+
+HXZ 𝑞
+
+BS-6
+
+HMSZ 𝑞5
+
+GRS
+
+10%
+
+25%
+
+50%
+
+75%
+
+90%
+
+0.182
+
+0.110
+
+0.144
+
+0.181
+
+0.219
+
+0.252
+
+0.185
+0.828
+
+0.244
+0.041
+
+0.307
+0.000
+
+0.368
+0.000
+
+0.350
+0.000
+
+0.367
+0.000
+
+0.510
+0.000
+
+0.146
+0.955
+
+0.154
+0.298
+
+0.136
+0.002
+
+0.160
+0.001
+
+0.154
+0.001
+
+0.165
+0.002
+
+0.160
+0.000
+
+0.174
+0.958
+
+0.182
+0.325
+
+0.164
+0.002
+
+0.189
+0.001
+
+0.182
+0.002
+
+0.194
+0.004
+
+0.189
+0.000
+
+0.207
+0.960
+
+0.215
+0.346
+
+0.197
+0.001
+
+0.221
+0.002
+
+0.215
+0.002
+
+0.227
+0.005
+
+0.221
+0.000
+
+0.241
+0.962
+
+0.249
+0.362
+
+0.232
+0.001
+
+0.255
+0.002
+
+0.249
+0.002
+
+0.261
+0.006
+
+0.255
+0.000
+
+0.273
+0.963
+
+0.280
+0.375
+
+0.264
+0.002
+
+0.286
+0.003
+
+0.280
+0.002
+
+0.291
+0.007
+
+0.286
+0.000
+
+(continued on next page)
+
+to ﬁnd some diﬀerent conclusions. For FF-3, the GRS test results suggest 
+that it outperforms the CAPM at the 1% level, but it is no longer the case 
+when the estimation risk is taken into account.
+
+4.3.  The Bayesian framework
+
+Other than the classical frequentist approach (e.g., the GRS test), 
+the Bayesian approach has also been used in model comparisons. In 
+this subsection, we investigate the diﬀerence in the test results when 
+the estimation risk is taken into account in the Bayesian framework.
+
+Table 5 (continued)
+
+C. 1967/1–2021/12 (𝑇 = 660)
+
+𝛼 = 1 − 𝐹𝜃
+
+1
+
+( ̂𝜃
+
+1)
+
+CAPM
+
+FF-3
+
+Carhart-4
+
+BAB
+
+FF-5
+
+HXZ 𝑞
+
+BS-6
+
+HMXZ 𝑞5
+
+GRS
+
+10%
+
+25%
+
+50%
+
+75%
+
+90%
+
+0.133
+
+0.083
+
+0.106
+
+0.133
+
+0.159
+
+0.183
+
+0.184
+0.006
+
+0.278
+0.000
+
+0.305
+0.000
+
+0.325
+0.000
+
+0.399
+0.000
+
+0.464
+0.000
+
+0.599
+0.000
+
+0.107
+0.100
+
+0.112
+0.000
+
+0.100
+0.000
+
+0.117
+0.000
+
+0.112
+0.000
+
+0.120
+0.000
+
+0.117
+0.000
+
+0.127
+0.106
+
+0.133
+0.000
+
+0.120
+0.000
+
+0.137
+0.000
+
+0.133
+0.000
+
+0.141
+0.000
+
+0.137
+0.000
+
+0.150
+0.111
+
+0.156
+0.000
+
+0.144
+0.000
+
+0.160
+0.000
+
+0.156
+0.000
+
+0.164
+0.000
+
+0.160
+0.000
+
+0.174
+0.114
+
+0.179
+0.000
+
+0.168
+0.000
+
+0.184
+0.000
+
+0.179
+0.000
+
+0.188
+0.000
+
+0.184
+0.000
+
+0.197
+0.117
+
+0.201
+0.000
+
+0.191
+0.000
+
+0.205
+0.000
+
+0.201
+0.000
+
+0.209
+0.000
+
+0.205
+0.000
+
+The classical approach ignores the prior information about the dis-
+tribution of the parameter values, which is speciﬁed in the Bayesian 
+approach.  Following  many  previous  studies  (e.g.,  Harvey  and  Zhou, 
+1990; Pastor and Stambaugh, 2000; Barillas and Shanken, 2018), we 
+assume the prior distribution of 𝛿2 is proportional to a chi-squared dis-
+tribution with 𝑁 − 1 degrees of freedom12
+
+𝛿2 ∼ 𝑘𝜒 2
+
+𝑁−1
+
+.
+
+(36)
+
+Following the base case speciﬁcation in Barillas and Shanken (2018), 
+we set 𝑘 = 0.25𝜃2
+1 , which corresponds to a potential 50% increase in the 
+Sharpe ratio of a six-factor model relative to that of the CAPM.
+
+In addition to 𝛿2, we also need to specify the prior distribution of 
+≤ 0.4), and assume 
+
+1 (i.e., 0 ≤ 𝜃
+1
+
+1. We choose a bounded support for 𝜃
+𝜃
+that the prior of 𝜃
+1 is a beta distribution
+
+1 ∼ 0.4 × Beta(𝑎, 𝑏),
+𝜃
+where 𝑎 and 𝑏 are parameters to be speciﬁed.13 The prior mean of 𝜃
+given by
+
+(37)
+
+1 is 
+
+𝔼[𝜃
+
+1] =
+
+0.4𝑎
+𝑎 + 𝑏
+
+.
+
+(38)
+
+We consider three diﬀerent combinations of 𝑎 and 𝑏. With 𝑎 = 3 and 
+𝑏 = 3, the prior distribution of 𝜃
+1 is symmetric with a mean of 0.20. 
+With 𝑎 = 3 and 𝑏 = 5, the prior distribution of 𝜃
+1 is right-skewed with 
+a mean of 0.15 and a mode of 0.133. With 𝑎 = 5 and 𝑏 = 3, the prior 
+distribution of 𝜃
+1 is left-skewed with a mean of 0.25 and a mode of 
+0.267.
+
+Given the prior distribution of 𝛿2 and 𝜃
+
+1 in (36) and (37), together 
+1 from the data, the marginal likelihood under the null 
+𝑏 can be com-
+
+𝑏 and that under the alternative 𝐻
+
+1 ∶ 𝛿2 > 𝛿2
+
+with  ̂𝛿2 and  ̂𝜃2
+𝐻
+0 ∶ 𝛿2 ≤ 𝛿2
+puted as
+
+𝑀𝐿
+
+0(𝛿2
+
+𝑏 ) ≡ 𝑀𝐿(𝐻
+
+0 ∶ 𝛿2 ≤ 𝛿2
+𝑏 )
+
+12 This assumption is built on the positive link between the magnitude of alpha 
+to the residual variance, and asset pricing theory provides some motivations for 
+such link (e.g., Harvey and Zhou, 1990; MacKinlay, 1995; Pastor and Stam-
+baugh, 2000; Barillas and Shanken, 2018).
+13 We assume that the prior distribution of 𝛿2 depends on 𝜃
+in (36) with 𝑘 = 0.25𝜃2
+Thus, the joint prior distribution of 𝛿2 and 𝜃
+1 in (37), i.e., 𝑓 (𝛿2, 𝜃
+in (36) and the prior of 𝜃
+
+1 only through 𝑘
+1 does not depend on 𝛿2. 
+1 is the product of the prior of 𝛿2
+1) = 𝑓 (𝛿2|𝜃
+1).
+
+1 , and the prior distribution of 𝜃
+
+1)𝑓 (𝜃
+
+JournalofFinancialEconomics155(2024)10383713R. Kan, X. Wang and X. Zheng
+
+𝛿2
+𝑏
+
+(
+
+𝑓
+
+=
+
+∬
+0
+𝑏 ) ≡ 𝑀𝐿(𝐻
+∞
+(
+
+𝑀𝐿
+
+1(𝛿2
+
+𝑓
+
+=
+
+∬
+𝛿2
+𝑏
+
+̂𝛿2|
+|
+|
+
+̂𝜃2
+1
+
+)
+
+(
+
+, 𝛿2
+
+𝑓
+
+)
+
+̂𝜃2
+1
+
+|
+|
+|
+
+𝜃
+1
+
+𝑓 (𝛿2, 𝜃
+
+1)d𝛿2d𝜃
+1
+
+,
+
+(39)
+
+1 ∶ 𝛿2 > 𝛿2
+𝑏 )
+)
+
+̂𝛿2|
+|
+|
+
+̂𝜃2
+1
+
+, 𝛿2
+
+𝑓
+
+(
+
+)
+
+̂𝜃2
+1
+
+|
+|
+|
+
+𝜃
+1
+
+𝑓 (𝛿2, 𝜃
+
+1)d𝛿2d𝜃
+1
+
+,
+
+(40)
+
+where 𝑓 ( ̂𝛿2| ̂𝜃2
+, 𝛿2) is the density function of ̂𝛿2 conditional on ̂𝜃2
+1
+1) is the density function of  ̂𝜃2
+in (32), 𝑓 ( ̂𝜃2
+|𝜃
+1
+1) is the joint prior distribution of 𝛿2 and 𝜃
+and 𝑓 (𝛿2, 𝜃
+null probability can be computed as
+
+1 conditional on 𝜃
+
+1 and 𝛿2
+1 in (34), 
+1. The posterior 
+
+𝑝
+
+1(𝛿2
+
+𝑏 ) =
+
+𝑀𝐿
+
+0(𝛿2
+𝑏 )
+𝑏 ) + 𝑀𝐿
+
+0(𝛿2
+
+1(𝛿2
+𝑏 )
+
+𝑀𝐿
+
+,
+
+(41)
+
+which measures the support for the null hypothesis using both the prior 
+knowledge on the parameters and the evidence from the data.14
+
+For 𝐻
+
+0 ∶ 𝛿2 = 0 vs. 𝐻
+
+1 ∶ 𝛿2 > 0, the distribution of 𝛿2 in (36) is the 
+prior  distribution  under  the  alternative,  and  the  marginal  likelihood 
+under the alternative is given by,
+
+𝑀𝐿
+
+1(0) ≡ 𝑀𝐿(𝐻
+(
+
+𝑓
+
+= ∬
+
+1 ∶ 𝛿2 > 0)
+)
+̂𝛿2|
+̂𝜃2
+|
+|
+1
+
+, 𝛿2
+
+(
+
+𝑓
+
+)
+
+̂𝜃2
+1
+
+|
+|
+|
+
+𝜃
+1
+
+𝑓 (𝛿2, 𝜃
+
+1)d𝛿2d𝜃
+1
+
+.
+
+(43)
+
+To obtain the marginal likelihood under the null, we set 𝛿2 = 0, thus 
+the integration over 𝛿2 is no longer needed,
+
+𝑀𝐿
+
+0(0) ≡ 𝑀𝐿(𝐻
+(
+
+𝑓
+
+= ∫
+
+0 ∶ 𝛿2 = 0)
+̂𝛿2|
+̂𝜃2
+|
+|
+1
+
+, 𝛿2 = 0
+
+)
+
+(
+
+𝑓
+
+)
+
+̂𝜃2
+1
+
+|
+|
+|
+
+𝜃
+1
+
+𝑓 (𝜃
+
+1)d𝜃
+1
+
+.
+
+(44)
+
+HMXZ 𝑞5
+
+Because of the sharp null hypothesis (i.e., 𝛿2 = 0), we also need to sep-
+arately specify the prior null probability to compute the posterior null 
+probability. We assume equal prior odds for the null and the alterna-
+0(0) = 0.5), then the 
+tive (i.e., the prior null probability is set to 0.5, 𝑝
+posterior null probability can be computed as
+
+𝑝
+
+1(0) =
+
+𝑀𝐿
+0(0)
+0(0) + 𝑀𝐿
+
+1(0)
+
+𝑀𝐿
+
+.
+
+(45)
+
+Note that with the separately speciﬁed 𝑝
+null probability for 𝐻
+
+0(0), the comparable posterior 
+
+𝑏 needs to be adjusted as follows15
+
+̃𝑝
+
+1 − 𝑝
+
+𝑏 ) = 𝑝
+
+1(𝛿2
+where 𝑝
+account, the probability for the null hypothesis increases.
+
+1(0) +
+𝑏 ) is from (41). Thus, when the estimation risk is taken into 
+
+𝑏 ),
+1(𝛿2
+
+1(𝛿2
+
+(47)
+
+Table 6 reports  the  test  results  based  on  the  Bayesian  approach. 
+Panels A, B, and C present the results for diﬀerent combinations of 𝑎
+
+14 The prior probability for the null hypothesis 𝐻
+as
+
+0 ∶ 𝛿2 ≤ 𝛿2
+
+𝑏 can be computed 
+
+(
+
+0 ∶ 𝛿2 ≤ 𝛿2
+)
+1(0)
+
+𝑝
+
+𝑝
+
+0(𝛿2
+
+𝑏 ) =
+
+𝛿2
+𝑏
+
+∬
+0
+
+𝑓 (𝛿2, 𝜃
+
+1)d𝛿2d𝜃
+
+1
+
+.
+
+(42)
+
+HMXZ 𝑞5
+
+0(𝛿2
+
+𝑏 ) and 𝑁 is less straightforward: 𝛿2
+
+For a given multi-factor model, because 𝛿2
+𝑏 decreases with the length of the 
+estimation window 𝑇 , the prior null probability decreases with 𝑇 . The relation 
+between 𝑝
+𝑏 increases with 𝑁 , but at the 
+same time, the prior distribution of 𝛿2 in (36) also depends on 𝑁 . The results 
+in Table 6 suggest that 𝑝
+0(𝛿2
+15 The corresponding prior null probability is then
+)
+
+𝑏 ) decreases with 𝑁 .
+
+(
+
+̃𝑝
+
+𝑏 ) = 𝑝
+
+0(𝛿2
+where 𝑝
+
+1 − 𝑝
+0(0)
+0(0) +
+𝑏 ) is from (42).
+
+0(𝛿2
+
+𝑝
+
+𝑏 ),
+0(𝛿2
+
+Table 6
+Test in the Bayesian framework. In this table, the multi-factor asset pricing 
+models are compared to the CAPM in a Bayesian framework. The prior distri-
+0 ∶ 𝛿2 = 0), we 
+butions are speciﬁed in (36) and (37). For the sharp null (𝐻
+0(0) = 0.5); and report the posterior 
+assume a prior null probability of 0.5 (i.e., 𝑝
+1(0)) in the columns “𝛿2 = 0”. In the columns “𝛿2 ≤ 𝛿2
+null probability (i.e., 𝑝
+𝑏 ”, 
+𝑏 ) in (41), (42) and (47) are reported. Three diﬀerent 
+𝑝
+0(𝛿2
+1(𝛿2
+sample periods, i.e., 2008/4–202112, 1994/7–2021/12, and 1967/1–2021/12, 
+are examined in the table. Panels A, B, and C present the results for diﬀerent 
+values of 𝑎 and 𝑏 in (37).
+
+𝑏 ), and  ̃𝑝
+
+𝑏 ), 𝑝
+
+1(𝛿2
+
+A. 𝑎 = 3, 𝑏 = 3
+
+FF-3
+
+Carhart-4
+
+BAB
+
+FF-5
+
+HXZ 𝑞
+
+BS-6
+
+B. 𝑎 = 3, 𝑏 = 5
+
+FF-3
+
+Carhart-4
+
+BAB
+
+FF-5
+
+HXZ 𝑞
+
+BS-6
+
+2008/4–2021/12
+
+1994/7–2021/12
+
+1967/1–2021/12
+
+𝛿2 = 0
+
+0.496
+
+0.606
+
+0.253
+
+0.101
+
+0.445
+
+0.542
+
+0.016
+
+𝛿2 ≤ 𝛿2
+𝑏
+
+0.715
+0.650
+0.856
+
+0.750
+0.573
+0.901
+
+0.491
+0.748
+0.620
+
+0.256
+0.507
+0.331
+
+0.613
+0.573
+0.785
+
+0.577
+0.452
+0.806
+
+0.099
+0.507
+0.114
+
+𝛿2 = 0
+
+0.753
+
+0.272
+
+0.002
+
+0.000
+
+0.000
+
+0.000
+
+0.000
+
+𝛿2 ≤ 𝛿2
+𝑏
+
+0.877
+0.464
+0.970
+
+0.360
+0.371
+0.534
+
+0.016
+0.604
+0.018
+
+0.005
+0.303
+0.005
+
+0.008
+0.371
+0.008
+
+0.008
+0.252
+0.008
+
+0.000
+0.303
+0.000
+
+𝛿2 = 0
+
+0.079
+
+0.000
+
+0.000
+
+0.000
+
+0.000
+
+0.000
+
+0.000
+
+𝛿2 ≤ 𝛿2
+𝑏
+
+0.180
+0.305
+0.245
+
+0.000
+0.216
+0.000
+
+0.000
+0.466
+0.000
+
+0.000
+0.161
+0.000
+
+0.000
+0.216
+0.000
+
+0.000
+0.125
+0.000
+
+0.000
+0.161
+0.000
+
+2008/4–2021/12
+
+1994/7–2021/12
+
+1967/1–2021/12
+
+𝛿2 = 0
+
+0.481
+
+0.572
+
+0.272
+
+0.113
+
+0.430
+
+0.503
+
+0.021
+
+𝛿2 ≤ 𝛿2
+𝑏
+
+0.773
+0.788
+0.882
+
+0.802
+0.735
+0.915
+
+0.572
+0.849
+0.688
+
+0.327
+0.686
+0.403
+
+0.683
+0.735
+0.820
+
+0.650
+0.641
+0.826
+
+0.143
+0.686
+0.161
+
+𝛿2 = 0
+
+0.725
+
+0.266
+
+0.002
+
+0.000
+
+0.000
+
+0.001
+
+0.000
+
+𝛿2 ≤ 𝛿2
+𝑏
+
+0.893
+0.619
+0.970
+
+0.403
+0.539
+0.562
+
+0.023
+0.724
+0.025
+
+0.008
+0.474
+0.008
+
+0.011
+0.539
+0.012
+
+0.011
+0.420
+0.012
+
+0.000
+0.474
+0.000
+
+𝛿2 = 0
+
+0.082
+
+0.000
+
+0.000
+
+0.000
+
+0.000
+
+0.000
+
+0.000
+
+𝛿2 ≤ 𝛿2
+𝑏
+
+0.198
+0.444
+0.264
+
+0.001
+0.353
+0.001
+
+0.000
+0.585
+0.000
+
+0.000
+0.289
+0.000
+
+0.000
+0.353
+0.000
+
+0.000
+0.241
+0.000
+
+0.000
+0.289
+0.000
+
+(𝑝
+(𝑝
+( ̃𝑝
+
+1)
+0)
+1)
+
+(𝑝
+(𝑝
+( ̃𝑝
+
+1)
+0)
+1)
+
+(𝑝
+(𝑝
+( ̃𝑝
+
+1)
+0)
+1)
+
+(𝑝
+(𝑝
+( ̃𝑝
+
+1)
+0)
+1)
+
+(𝑝
+(𝑝
+( ̃𝑝
+
+1)
+0)
+1)
+
+(𝑝
+(𝑝
+( ̃𝑝
+
+1)
+0)
+1)
+
+(𝑝
+(𝑝
+( ̃𝑝
+
+1)
+0)
+1)
+
+(𝑝
+(𝑝
+( ̃𝑝
+
+1)
+0)
+1)
+
+(𝑝
+(𝑝
+( ̃𝑝
+
+1)
+0)
+1)
+
+(𝑝
+(𝑝
+( ̃𝑝
+
+1)
+0)
+1)
+
+(𝑝
+(𝑝
+( ̃𝑝
+
+1)
+0)
+1)
+
+(𝑝
+(𝑝
+( ̃𝑝
+
+1)
+0)
+1)
+
+(𝑝
+(𝑝
+( ̃𝑝
+
+1)
+0)
+1)
+
+(𝑝
+(𝑝
+( ̃𝑝
+
+1)
+0)
+1)
+
+and 𝑏 in (37). Similar to Table 5, we conduct the test using data over 
+three diﬀerent periods: 2008/4–2021/12 (𝑇 = 165), 1994/7–2021/12 
+(𝑇 = 330), and 1967/1–2021/12 (𝑇 = 660). The results of 𝑝
+𝑏 ), 
+𝑝
+0(𝛿2
+𝑏 ) in (45), (41), (42), and (47) are shown in the table. 
+For brevity, we omit 𝑝
+
+0(0) = 0.5 from the table.
+
+𝑏 ), and  ̃𝑝
+
+1(0), 𝑝
+
+1(𝛿2
+
+1(𝛿2
+
+(46)
+
+JournalofFinancialEconomics155(2024)10383714R. Kan, X. Wang and X. Zheng
+
+Table 6 (continued)
+
+C. 𝑎 = 5, 𝑏 = 3
+
+2008/4–2021/12
+
+1994/7–2021/12
+
+1967/1–2021/12
+
+𝛿2 = 0
+
+0.511
+
+0.640
+
+0.239
+
+0.094
+
+0.462
+
+0.585
+
+0.013
+
+𝛿2 ≤ 𝛿2
+𝑏
+
+0.664
+0.514
+0.836
+
+0.698
+0.416
+0.892
+
+0.432
+0.647
+0.568
+
+0.206
+0.338
+0.280
+
+0.552
+0.416
+0.759
+
+0.506
+0.277
+0.795
+
+0.075
+0.338
+0.087
+
+𝛿2 = 0
+
+0.784
+
+0.283
+
+0.001
+
+0.000
+
+0.000
+
+0.000
+
+0.000
+
+𝛿2 ≤ 𝛿2
+𝑏
+
+0.858
+0.325
+0.969
+
+0.314
+0.225
+0.508
+
+0.012
+0.493
+0.013
+
+0.004
+0.158
+0.004
+
+0.006
+0.225
+0.006
+
+0.006
+0.114
+0.006
+
+0.000
+0.158
+0.000
+
+𝛿2 = 0
+
+0.077
+
+0.000
+
+0.000
+
+0.000
+
+0.000
+
+0.000
+
+0.000
+
+𝛿2 ≤ 𝛿2
+𝑏
+
+0.153
+0.189
+0.218
+
+0.000
+0.107
+0.000
+
+0.000
+0.363
+0.000
+
+0.000
+0.064
+0.000
+
+0.000
+0.107
+0.000
+
+0.000
+0.040
+0.000
+
+0.000
+0.064
+0.000
+
+FF-3
+
+Carhart-4
+
+BAB
+
+FF-5
+
+HXZ 𝑞
+
+BS-6
+
+HMXZ 𝑞5
+
+(𝑝
+(𝑝
+( ̃𝑝
+
+1)
+0)
+1)
+
+(𝑝
+(𝑝
+( ̃𝑝
+
+1)
+0)
+1)
+
+(𝑝
+(𝑝
+( ̃𝑝
+
+1)
+0)
+1)
+
+(𝑝
+(𝑝
+( ̃𝑝
+
+1)
+0)
+1)
+
+(𝑝
+(𝑝
+( ̃𝑝
+
+1)
+0)
+1)
+
+(𝑝
+(𝑝
+( ̃𝑝
+
+1)
+0)
+1)
+
+(𝑝
+(𝑝
+( ̃𝑝
+
+1)
+0)
+1)
+
+As expected, the results in Table 6 suggest that the probability for 
+the null hypothesis increases when the estimation risk is taken into ac-
+count, and the impact is larger for the shorter estimation window. For 
+example, for 𝑎 = 3 and 𝑏 = 3 (Panel A) and the 2008/4–2021/12 pe-
+riod, without considering the estimation risk, the probability for the 
+null  𝐻
+0 ∶ 𝛿2 = 0 varies  between  1.6%  and  60.6%  across  the  multi-
+factor models when both the prior information and the data are taken 
+into account (i.e., 𝑝
+1(0)). When the estimation risk is considered (i.e., 
+𝐻
+𝑏 )) increase, and the 
+magnitude of the increase (i.e.,  ̃𝑝
+1(𝛿2
+1(0)) ranges from 9.8% for 
+HMXZ 𝑞5 to 36.7% for BAB. The magnitude is smaller for the longer es-
+timation window. For the 1994/7–2021/12 period, the increase in the 
+null probability ranges from 0% to 26.2%; and for the 1967/1–2021/12 
+period, the range is 0% to 16.6%.
+
+𝑏 ), all the null probabilities (i.e.,  ̃𝑝
+
+0 ∶ 𝛿2 ≤ 𝛿2
+
+𝑏 ) − 𝑝
+
+1(𝛿2
+
+In addition, Table 6 shows that whether the estimation risk is con-
+sidered or not, the role of data can change for a given model. For ex-
+ample, to test FF-3 against the CAPM using data over 2008/4–2021/12 
+in Panel A, without considering the estimation risk, the posterior null 
+1(0) = 0.496 <
+probability is lower than the prior null probability (i.e., 𝑝
+𝑝
+0(0) = 0.50), suggesting that the data does not provide further support 
+for the null. However, note that 𝑝
+𝑏 ) = 0.650, and 
+1(𝛿2
+therefore,  ̃𝑝
+𝑏 ) = 0.5 + 0.5 × 0.650 = 0.825. That is, 
+when the estimation risk is considered, the data now provide further 
+support for the null hypothesis.
+
+𝑏 ) = 0.715 > 𝑝
+
+𝑏 ) = 0.856 > ̃𝑝
+
+1(𝛿2
+
+0(𝛿2
+
+0(𝛿2
+
+Finally, comparing across the three panels in Table 6, we ﬁnd that 
+
+the results are not very sensitive to diﬀerent values of 𝑎 and 𝑏.
+
+5.  Conclusion
+
+Academic  asset  pricing  models  have  produced  increasingly  large 
+sample Sharpe ratios over time. Starting with the value-weighted mar-
+ket portfolio of the CAPM, which produced a sample Sharpe ratio of 
+0.133, there are now multi-factor model that produces a sample Sharpe 
+ratio of 0.599, more than four times larger than that of the market port-
+folio. Such a good performance is not seen in the investing world, and 
+the high sample Sharpe ratios of the popular multi-factor asset pric-
+ing models are also at odd with a long-standing belief in ﬁnance that 
+high Sharpe ratios are good deals and are unlikely to survive. For exam-
+
+ple, Ross (1976) assumes that no portfolio can have Sharpe ratio that is 
+twice as large as that of the market portfolio. MacKinlay (1995) thinks 
+that Fama-French 3-factor model has unreasonably high sample Sharpe 
+ratio, even after taking into account of sampling variability. Cochrane 
+and Saá-Requejo (2000) believe that no asset should have a Sharpe ratio 
+that is twice that of the S&P 500 (which they assume to have an annual 
+value of 0.5, or a monthly value of 0.1443) and use this assumption to 
+derive bounds on option prices.
+
+While there are a number of possible reasons why the recent asset 
+pricing models produce high sample Sharpe ratios that are unattainable 
+for real-world investors, we focus on one possible explanation: estima-
+tion risk. In practice, because the mean and covariance matrix of the 
+factors are unknown, investors are not able to construct and hold the 
+true optimal portfolio of the multi-factor models. Instead, they need to 
+estimate the optimal weights, which will lead to deteriorated out-of-
+sample performance.
+
+We  show  empirically  that  the  out-of-sample  Sharpe  ratios  of  the 
+multi-factor models are signiﬁcantly lower than their in-sample Sharpe 
+ratios. Even after using a bootstrap simulation to control for potential 
+time-varying model performance, the performance deterioration of the 
+out-of-sample Sharpe ratio remains substantial. Estimation risk is the 
+likely reason for this remaining gap between the in-sample and the out-
+of-sample Sharpe ratios.
+
+We theoretically analyze the eﬀect of estimation risk by obtaining 
+the ﬁnite sample distributions of the in-sample and the out-of-sample 
+Sharpe ratios of a multi-factor asset pricing model. The results show 
+that the out-of-sample Sharpe ratio is always lower than the population 
+Sharpe ratio, whereas the in-sample Sharpe ratio is an upward biased 
+estimator of the population Sharpe ratio. The results also show that the 
+performance  deterioration  of  the  out-of-sample  Sharpe  ratio  is  nega-
+tively correlated with the observed in-sample Sharpe ratio, suggesting 
+that the in-sample Sharpe ratio is not a reliable indicator of what in-
+vestors can obtain out-of-sample.
+
+Given that the out-of-sample Sharpe ratio is more relevant for in-
+vestors and it is subject to estimation risk, the eﬀect of estimation risk 
+needs to be considered when comparing asset pricing models. We rec-
+ommend the use of a break-even Sharpe ratio to incorporate the eﬀect 
+of estimation risk, and illustrate how to include the break-even Sharpe 
+ratio in the test to compare a multi-factor asset pricing model against 
+the CAPM. In both the classical frequentist framework and the Bayesian 
+framework, we show that the use of the break-even Sharpe ratio makes 
+the null hypothesis that a multi-factor model is as good as the CAPM 
+less likely to be rejected.
+
+One of the limitations of our theoretical analysis is that it is based on 
+the i.i.d. multivariate normality assumption for the returns of the traded 
+factors. With fat-tailed distributions, it is conceivable that the problem 
+of estimation risk is more severe than in the normality case.16 So one 
+should take our results as a lower bound on the impact of estimation 
+risk on the out-of-sample performance of the multi-factor asset pricing 
+models. In addition, if there is a concern that parameters in these mod-
+els are not constant over time, then there is an additional source of 
+risk that hampers the out-of-sample performance of the sample optimal 
+portfolio based on a multi-factor model.
+
+CRediT authorship contribution statement
+
+Raymond Kan: Writing – review & editing, Writing – original draft, 
+Visualization, Validation, Supervision, Software, Resources, Project ad-
+ministration,  Methodology,  Investigation,  Formal  analysis,  Conceptu-
+alization. Xiaolu Wang: Writing – review & editing, Writing – origi-
+nal draft, Visualization, Validation, Supervision, Software, Resources, 
+Project  administration,  Methodology,  Investigation,  Formal  analysis, 
+
+16 In a recent study, Kan and Lassance (2024) examine optimal portfolio choice 
+when the return distribution exhibits fat tails.
+
+JournalofFinancialEconomics155(2024)10383715R. Kan, X. Wang and X. Zheng
+
+Data  curation,  Conceptualization. Xinghua  Zheng: Writing  –  review 
+& editing, Validation, Methodology, Investigation, Funding acquisition.
+
+̃𝑧′𝑊 −1 ̃𝑧 = 𝐴−1
+
+11⋅2 =
+
+,
+
+1
+𝑢
+1
+
+Declaration of competing interest
+
+The authors declare that they have no known competing ﬁnancial 
+interests or personal relationships that could have appeared to inﬂuence 
+the work reported in this paper.
+
+𝑧′𝑊 −2𝑧 = 𝑧′𝑊 −1
+
+(
+
+̃𝑧 ̃𝑧′ + 𝑄
+
+1
+
+Data availability
+
+Data will be made available on request.
+
+Code and data for the paper “In-sample and out-of-sample Sharpe
+ratios of multi-factor asset pricing models” (Original Data) (Mendeley 
+Data).
+
+Appendix A.  Proofs
+
+Proof of Proposition 1. Under the multivariate normality assumption, 
+it is well known that  ̂𝜇 and  ̂Σ are independent of each other and have 
+the following distributions:
+
+̂𝜇 ∼  (𝜇, Σ∕𝑇 ),
+̂Σ ∼ 𝑁 (𝑇 − 1, Σ∕𝑇 ),
+where 𝑁 (𝑇 − 1, Σ∕𝑇 ) is a Wishart distribution with 𝑇 − 1 degrees 
+of freedom and covariance matrix Σ∕𝑇 . Deﬁne 𝜂 = Σ− 1
+2 𝜇∕𝜃, we have 
+𝜂′𝜂 = 1. Let 𝑃 be an 𝑁 × 𝑁 orthonormal matrix with its ﬁrst column to 
+be 𝜂. By deﬁning
+
+(A.1)
+
+(A.2)
+
+𝑄′
+1
+
+𝑊 −1 ̃𝑧 = −𝐴−1
+22
+
+𝐴
+
+𝑢
+2
+With these identities, we can write
+
+𝑢
+1
+
+𝐴−1
+
+11⋅2 =
+
+21
+
+𝑥
+√
+
+.
+
+(A.10)
+
+(A.11)
+
+(
+
+)
+
+)
+
++
+
+𝑄′
+1
+
+𝑥′𝑥
+𝑢
+𝑢2
+2
+1
+
+𝑊 −1𝑧 = (𝑧′𝑧)
+
+1
+𝑢2
+1
+1 ∼  (0, 1) be  the  ﬁrst  element  of  𝑧 and 
+1 + 𝑢 and 𝑥′𝑥 = 𝑥2
+3, where 
+
+1 + 𝑢
+
+(A.12)
+
+.
+
+√
+
+1 ∼  (
+
+𝑇 𝜃, 1) and  𝑥
+
+Let  𝑧
+𝑥, respectively. We can write 𝑧′𝑧 = 𝑧2
+3 ∼ 𝜒 2
+𝑢 ∼ 𝜒 2
+𝑁−2. It follows that
+(
+𝑥2
+1 + 𝑢
+𝑢
+2
+
+𝑁−1 and 𝑢
+(𝑧2
+
+𝑧′𝑊 −2𝑧 =
+
+1 + 𝑢)
+𝑢2
+1
+
+1 +
+
+)
+
+3
+
+.
+
+(A.13)
+
+(A.14)
+
+Without loss of generality, let the ﬁrst column of 𝑄
+
+1 be
+
+𝜉 =
+
+[
+
+(𝐼𝑁 − ̃𝑧 ̃𝑧′)𝑒
+
+1
+
+1(𝐼𝑁 − ̃𝑧 ̃𝑧′)𝑒
+𝑒′
+
+1
+
+] 1
+2
+
+(𝐼𝑁 − ̃𝑧 ̃𝑧′)𝑒
+√
+
+1
+
+.
+
+=
+
+1 −
+
+𝑧2
+1
+𝑧′𝑧
+
+From (A.11), we know that
+
+= 𝜉′𝑊 −1 ̃𝑧 =
+
+𝑒′
+1
+
+𝑊 −1 ̃𝑧 −
+√
+
+̃𝑧
+
+𝑒′
+1
+𝑢
+
+1
+
+𝑥
+1
+√
+
+𝑢
+2
+
+𝑢
+1
+
+𝑒′
+1
+
+=
+
+𝑊 −1𝑧 −
+√
+
+𝑢
+
+𝑧
+𝑢
+
+1
+
+1
+
+,
+
+(A.15)
+
+√
+
+)
+
+𝑢
+
+𝑥
+1
+√
+
+𝑢
+2
+
+.
+
+(A.16)
+
+1 −
+
+𝑧2
+1
+𝑧′𝑧
+
+(
+
+=
+
+1
+𝑢
+1
+
+𝑧
+1 +
+
+√
+
+and hence
+
+𝑊 −1𝑧 =
+
+𝑒′
+1
+
+𝑧
+1
+𝑢
+1
+
+√
+
+𝑥
+1
+√
+
+𝑢
+
+𝑢
+2
+
++
+
+𝑢
+1
+√
+
+√
+
+𝑧 =
+
+𝑇 𝑃 ′Σ− 1
+
+2 ̂𝜇 ∼ 
+
+([ √
+
+𝑇 𝜃
+0𝑁−1
+
+]
+
+)
+
+, 𝐼𝑁
+
+,
+
+2 ̂ΣΣ− 1
+
+2 𝑃 ∼ 𝑁 (𝑇 − 1, 𝐼𝑁 ),
+
+𝑊 = 𝑇 𝑃 ′Σ− 1
+we can write
+
+̂𝜃 = ( ̂𝜇′ ̂Σ−1 ̂𝜇)
+
+1
+2 = (𝑧′𝑊 −1𝑧)
+√
+
+1
+2 ,
+
+̃𝜃 =
+
+𝜇′ ̂Σ−1 ̂𝜇
+( ̂𝜇′ ̂Σ−1Σ ̂Σ−1 ̂𝜇)
+1 = [1,  0′
+
+𝑊 −1𝑧
+
+𝑊 −1𝑧
+
+𝑇 𝜃𝑒′
+1
+(𝑇 𝑧′𝑊 −2𝑧)
+
+𝜃𝑒′
+1
+(𝑧′𝑊 −2𝑧)
+𝑁−1]′.  Deﬁne  an  𝑁 × 𝑁 orthonormal  matrix  𝑄 =
+
+(A.6)
+
+=
+
+=
+
+1
+2
+
+1
+2
+
+1
+2
+
+,
+
+1] with its ﬁrst column to be ̃𝑧 ≡ 𝑧∕(𝑧′𝑧)
+
+1
+2 . Let
+]−1
+
+̃𝑧′𝑊 −1 ̃𝑧
+𝑄′
+1
+
+𝑊 −1 ̃𝑧 𝑄′
+1
+
+̃𝑧′𝑊 −1𝑄
+1
+𝑊 −1𝑄
+
+1
+
+where  𝑒
+[ ̃𝑧, 𝑄
+
+[
+
+𝐴 = (𝑄′𝑊 −1𝑄)−1 =
+
+]
+
+[
+
+≡
+
+𝐴
+𝐴
+
+11
+
+𝐴
+𝐴
+
+12
+
+∼ 𝑁 (𝑇 − 1, 𝐼𝑁 ),
+
+(A.7)
+
+22
+
+21
+where  𝐴
+11 is  the  (1, 1) element  of  𝐴.  Theorem  3.2.10  of  Muirhead 
+(1982) suggests that
+
+(A.3)
+
+(A.4)
+
+(A.5)
+
+2∕
+
+1∕
+
+2 = 𝑧
+
+1 = 𝑥
+
+𝑥′𝑥 and 𝑞
+
+𝑢, where 𝑧
+1 is independent of 𝑥′𝑥 and 𝑞
+
+2 ∼  (0, 1) is the second 
+Deﬁne 𝑞
+element of 𝑧. It is well known that 𝑞
+2 is 
+independent of 𝑢 [e.g., Theorem 1.5.6 of Muirhead (1982)]. Since 𝑥
+2 are independent of both 𝑢 and 𝑥′𝑥. In 
+is independent of 𝑢, 𝑞
+addition, 𝑞
+2 have the same distribution, so we can replace 𝑞
+1
+with 𝑞
+√
+
+1 and 𝑞
+
+√
+
+√
+
+√
+
+√
+
+1 and 𝑞
+2 and write
+√
+𝑥
+1√
+
+𝑥′𝑥
+
+𝑥′𝑥.
+
+𝑑
+=
+
+𝑢
+
+𝑥′𝑥
+
+𝑢 = 𝑧
+2
+
+𝑥
+1
+
+𝑢 =
+
+𝑧
+2√
+𝑢
+
+𝑥′𝑥
+
+In addition, let
+𝑢
+2
+𝑥′𝑥 + 𝑢
+2
+We can write
+
+𝑏 =
+
+(
+
+∼ Beta
+
+(
+
+𝑇 − 𝑁 + 1
+2
+
+,
+
+𝑁 − 1
+2
+
+)
+
+.
+
+𝑊 −1𝑧 =
+
+𝑒′
+1
+
+1
+𝑢
+1
+
+𝑧
+1 +
+
+√
+
+𝑧
+2
+√
+
+𝑥′𝑥
+
+𝑢
+2
+
+)
+
+(
+
+√
+
+𝑧
+1
+
+√
+
+𝑏 + 𝑧
+2
+√
+𝑏
+
+1 − 𝑏
+
+)
+
+,
+
+=
+
+1
+𝑢
+1
+
+=
+
+𝑧2
+2 + 𝑢
+1 + 𝑧2
+𝑏
+𝑢2
+1
+
+0
+
+,
+
+𝑧′𝑊 −2𝑧 =
+
+𝑧′𝑧
+𝑏
+𝑢2
+1
+0 ∼ 𝜒 2
+
+where 𝑢
+
+𝑁−2 and it is independent of 𝑧
+
+1 and 𝑧
+
+2. We have
+
+(A.17)
+
+(A.18)
+
+(A.19)
+
+(A.20)
+
+≡ 𝐴
+
+11 − 𝐴
+
+11⋅2 = 𝐴
+
+𝑢
+𝐴−1
+1
+22
+and it is independent of 𝐴
+Dickey (1967), we can show that
+
+21 ∼ 𝜒 2
+12 and 𝐴
+
+𝐴
+
+12
+
+𝑇 −𝑁 ,
+
+−𝐴−1
+22
+
+𝐴
+
+21 ∼
+
+,
+
+𝑥
+√
+𝑢
+2
+
+22. In addition, using the result of 
+
+̂𝜃 = (𝑧′𝑊 −1𝑧)
+
+1
+2 = (𝑧′𝑧)
+
+1
+2 ( ̃𝑧′𝑊 −1 ̃𝑧)
+
+1
+2
+
+𝑑
+=
+
+,
+
+(A.21)
+
+(A.8)
+
+√
+
+2 + 𝑢
+
+0
+
+1 + 𝑧2
+𝑧2
+√
+𝑢
+1
+√
+
+√
+
+(A.9)
+
+̃𝜃 =
+
+𝑊 −1𝑧
+
+𝜃𝑒′
+1
+√
+𝑧′𝑊 −2𝑧
+
+=
+
+√
+
+𝜃(
+
+𝑏𝑧
+
+√
+
+1 +
+(𝑧′𝑧)
+√
+
+√
+
+𝜃(
+
+2)
+
+𝑑
+=
+
+1 − 𝑏𝑧
+1
+2
+
+𝑏𝑧
+√
+
+1 +
+1 + 𝑧2
+𝑧2
+
+1 − 𝑏𝑧
+2 + 𝑢
+
+0
+
+2)
+
+.
+
+(A.22)
+
+, 𝐼𝑁−1), 𝑢
+
+𝑇 −𝑁+1, and they are independent of 
+1. Since the distribution of 𝐴 is independent of 𝑧, 𝑥, 𝑢
+1
+2 are also independent of 𝑧. Using the formula for the inverse of a 
+
+where 𝑥 ∼  (0𝑁−1
+each other and 𝑢
+and 𝑢
+partitioned matrix, we can easily verify that
+
+2 ∼ 𝜒 2
+
+Finally, let  ̃𝑧 =
+𝑏𝑧
+1 +
+2 +
+𝑢
+𝑁−1((1 − 𝑏)𝑇 𝜃2), and conditional on 𝑏, ̃𝑧 and ̃𝑢 are 
+0 − ̃𝑧2 = 𝑧′𝑧 − ̃𝑧2 ∼ 𝜒 2
+independent of each other. Therefore, we can write
+
+𝑇 𝜃, 1) and  ̃𝑢 = 𝑧2
+
+2 ∼  (
+
+1 + 𝑧2
+
+1 − 𝑏𝑧
+
+√
+
+√
+𝑏
+
+JournalofFinancialEconomics155(2024)10383716Γ
+
+𝜈
+2
+1 + 𝑟, 𝜈
+, 𝜈
+B(𝜈
+2)
+1
+
+B(𝜈
+
+2)
+
+R. Kan, X. Wang and X. Zheng
+
+̂𝜃
+
+𝑑
+=
+
+̃𝜃
+
+𝑑
+=
+
+√
+
+√
+
+̃𝑧2 + ̃𝑢
+√
+𝑢
+1
+𝜃 ̃𝑧
+
+̃𝑧2 + ̃𝑢
+
+,
+
+.
+
+(A.23)
+
+(A.24)
+
+This completes the proof.
+
+Proof of Lemma 1. We ﬁrst cite some explicit expressions of moments 
+of  noncentral  chi-squared  and  beta  random  variables.  Suppose  𝑋 ∼
+𝜈 (𝜆) and 𝐵 ∼ Beta(𝜈
+𝜒 2
+1
+)
++ 𝑟
+)
+
+2). We have
+
+𝜈
+2
+(
+
+2𝑟Γ
+
+, 𝜈
+
+)
+
+(
+
+𝜆
+
+𝜈
+
+𝜈
+
+,
+
+𝔼[𝑋𝑟] =
+
+(
+−𝑟;
+
+for 𝑟 > −
+
+(A.25)
+
+; −
+
+𝐹
+1
+
+1
+
+2
+
+2
+
+2
+
+𝔼[𝐵𝑟] =
+
+for 𝑟 > −𝜈
+1
+
+,
+
+(A.26)
+
+where B(𝑎, 𝑏) = Γ(𝑎)Γ(𝑏)∕Γ(𝑎 + 𝑏) is the beta function. (A.25) is given 
+in Krishnan (1967), and (A.26) is obtained by direct integration. Using 
+(A.25) and the fact that  ̃𝑧2 + ̃𝑢 ∼ 𝜒 2
+1, 
+we can obtain 𝔼[ ̂𝜃] and 𝔼[ ̂𝜃2] as
+
+𝑁 (𝑇 𝜃2) and it is independent of 𝑢
+
+𝐸[ ̂𝜃] = 𝐸[( ̃𝑧2 + ̃𝑢)
+)
+(
+
+Γ
+
+=
+
+𝑁+1
+2
+(
+
+)
+
+Γ
+
+𝑁
+
+2
+
+]
+)
+
+1
+
+2
+
+2 ]𝐸[𝑢− 1
+1
+(
+𝑇 −𝑁−1
+2
+𝑇 −𝑁
+2
+
+(
+
+Γ
+
+Γ
+
+) 1
+
+(
+
+𝐹
+1
+
+−
+
+1
+2
+
+;
+
+𝑁
+2
+
+; −
+
+𝑇 𝜃2
+2
+
+)
+
+for 𝑇 ≥ 𝑁 + 2,
+
+𝔼[ ̂𝜃2] = 𝐸[ ̃𝑧2 + ̃𝑢]𝐸[𝑢−1
+1 ]
+
+=
+
+𝑁 + 𝑇 𝜃2
+𝑇 − 𝑁 − 2
+
+for 𝑇 ≥ 𝑁 + 3.
+
+(A.27)
+
+(A.28)
+
+For  ̃𝜃, we use independence between 𝑏 and (𝑧
+1
+apply (A.26) to obtain
+
+, 𝑧
+2
+
+, 𝑢
+
+0) in (A.22) and 
+
+⎤
+⎥
+⎥
+⎥
+⎦
+
+𝔼[ ̃𝜃] = 𝜃𝔼[𝑏
+
+1
+2 ]𝔼
+
+⎡
+⎢
+⎢
+⎢
+⎣
+
+𝑧
+1√
+1 + 𝑧2
+𝑧2
+)
+
+(
+
+(
+
+B
+
+B
+
+= 𝜃
+
+𝑇 −𝑁+2
+2
+𝑇 −𝑁+1
+2
+
+, 𝑁−1
+2
+, 𝑁−1
+2
+
+0
+
+2 + 𝑢
+⎡
+⎢
+⎢
+⎢
+⎣
+
+) 𝔼
+
+𝑧
+1√
+1 + 𝑧2
+𝑧2
+
+2 + 𝑢
+
+.
+
+⎤
+⎥
+⎥
+⎥
+⎦
+0
+√
+
+[
+
+]
+
+.
+
+2
+
+0
+
+𝔼
+
+=
+
+√
+
+𝜃2
+𝑇
+
+1 + (𝑁 − 1)𝑧2
+(𝑇 − 𝑁 + 1)𝑧2
+1 + 𝑧2
+2 + 𝑢
+𝑧2
+2∕(𝑧2
+𝑧
+𝑏(1 − 𝑏)𝑧
+0) vanishes in the above 
+Note that the term 2
+1
+expectation because of symmetry. The last expectation term can be writ-
+ten as 𝔼[(𝑧′𝐴𝑧)∕(𝑧′𝑧)], where 𝐴 = Diag(𝑇 − 𝑁 + 1, 𝑁 − 1, 0′
+𝑁−2). Using 
+Theorem 4 of Hillier et al. (2014), we obtain the expectation of the ratio 
+of quadratic form in 𝑧 as
+
+1 + 𝑧2
+
+2 + 𝑢
+
+(A.31)
+
+]
+
+[
+
+𝔼
+
+𝑧′𝐴𝑧
+𝑧′𝑧
+
+=
+
+𝑇
+𝑁 1
+
+𝐹
+1
+
+(
+
+1;
+
+𝑁 + 2
+2
+
+; −
+
+)
+
+𝑇 𝜃2
+2
+(
+
++
+
+𝑇 𝜃2(𝑇 − 𝑁 + 1)
+𝑁 + 2
+
+𝐹
+1
+
+1
+
+1;
+
+)
+
+𝑇 𝜃2
+
+2
+
+𝑁 + 4
+2
+
+; −
+(
+
+= 𝑇 − 𝑁 + 1 −
+
+(𝑁 − 1)(𝑇 − 𝑁)
+𝑁
+
+𝐹
+1
+
+1
+
+1;
+
+𝑁 + 2
+2
+
+; −
+
+𝑇 𝜃2
+
+2
+
+)
+
+,
+
+(A.32)
+
+where the last equality follows from a recurrence relation of conﬂuent 
+hypergeometric function.17 It follows that
+
+[
+
+𝔼[ ̃𝜃2] = 𝜃2
+
+𝑇 − 𝑁 + 1
+𝑇
+
+−
+
+(𝑁 − 1)(𝑇 − 𝑁)
+𝑁𝑇
+
+(
+
+𝐹
+1
+
+1
+
+1;
+
+𝑁 + 2
+2
+
+; −
+
+𝑇 𝜃2
+
+2
+
+)]
+
+for 𝑇 ≥ 𝑁 + 1.
+
+(A.34)
+
+Finally, using (9) and (10), 𝔼[ ̂𝜃 ̃𝜃] is given by
+
+[
+
+]
+
+̃𝑧
+√
+𝑢
+1
+√
+
+1
+2 ]
+
+𝔼[ ̂𝜃 ̃𝜃] = 𝜃𝔼
+
+= 𝜃𝔼[𝑏
+(
+
+= 𝜃
+
+(
+
+B
+
+B
+
+𝑇 𝜃𝔼[𝑢− 1
+2
+]
+1
+)
+, 𝑁−1
+2
+, 𝑁−1
+2
+
+)
+
+𝑇 −𝑁+2
+2
+𝑇 −𝑁+1
+2
+
+√
+
+𝜃2
+
+𝑇 (𝑇 − 𝑁)Γ
+(
+
+2(𝑇 − 𝑁 − 1)Γ
+
+(
+
+)
+
+𝑇
+2
+𝑇 +1
+2
+
+=
+
+√
+
+√
+
+(
+
+Γ
+√
+
+𝑇 𝜃
+
+)
+
+)
+
+(
+
+𝑇 −𝑁−1
+2
+𝑇 −𝑁
+2
+
+2Γ
+
+) for 𝑇 ≥ 𝑁 + 2.
+
+(A.35)
+
+This completes the proof.
+
+(A.29)
+
+Proof of Lemma 2. To prove 𝔼[ ̃𝜃 − ̂𝜃] < 0, we show that 𝔼[ ̃𝜃] < 𝜃 and 
+𝔼[ ̂𝜃] > 𝜃. From (10), it is easy to see that ̃𝜃 < 𝜃 because | ̃𝑧∕
+̃𝑧2 + ̃𝑢| < 1. 
+Therefore, 𝔼[ ̃𝜃] < 𝜃. To prove 𝔼[ ̂𝜃] > 𝜃, note that
+
+√
+
+2 drops out because 
+By using the symmetry argument, the term 
+2 ∼  (0, 1). For the last expectation, we use a lemma in Kan et al. 
+𝑧
+(2022) to show that
+
+1 − 𝑏𝑧
+
+𝔼
+
+⎡
+⎢
+⎢
+⎢
+⎣
+
+𝑧
+1√
+1 + 𝑧2
+𝑧2
+
+2 + 𝑢
+
+0
+
+√
+
+=
+
+𝑇 𝜃𝔼
+
+[
+
+]
+
+1√
+𝑦
+
+,
+
+⎤
+⎥
+⎥
+⎥
+⎦
+
+(A.30)
+
+where 𝑦 ∼ 𝜒 2
+𝑁+2(𝑇 𝜃2). Then using (A.25), we obtain
+(
+√
+
+)
+
+)
+
+)
+
+(
+
+(
+
+𝑇
+
+Γ
+(
+
+Γ
+(
+
+𝑇 −𝑁+2
+2
+𝑇 −𝑁+1
+2
+
+)
+
+𝔼[ ̃𝜃] = 𝜃
+
+2
+𝑇 +1
+2
+For 𝔼[ ̃𝜃2], we use (A.22) and apply (A.26) to obtan
+
+) 1
+
+𝐹
+1
+
+2Γ
+
+)
+
+Γ
+
+Γ
+
+𝑇 𝜃Γ
+(
+√
+
+𝑁+1
+2
+𝑁+2
+2
+
+(
+
+;
+
+𝑁 + 2
+2
+
+; −
+
+𝑇 𝜃2
+
+2
+
+1
+2
+
+)
+
+.
+
+̂𝜃 =
+
+̂𝑤′ ̂𝜇
+( ̂𝑤′ ̂Σ ̂𝑤)
+
+1
+2
+
+≥
+
+𝑤∗′ ̂𝜇
+(𝑤∗′ ̂Σ𝑤∗)
+
+1
+2
+
+,
+
+(A.36)
+
+with the equality holds if and only if  ̂𝑤 is proportional to 𝑤∗. Since 
+this event has probability zero, we can write the above with a strict 
+inequality. Taking expectation on both sides and using the fact that  ̂𝜇 is 
+independent of  ̂Σ, we have
+
+𝔼[ ̂𝜃] > 𝔼
+
+[
+
+]
+
+[
+
+]
+
+𝑤∗′ ̂𝜇
+(𝑤∗′ ̂Σ𝑤∗)
+
+1
+2
+
+= 𝑤∗′𝜇𝔼
+
+1
+(𝑤∗′ ̂Σ𝑤∗)
+
+1
+2
+
+= 𝜃𝔼
+
+(
+
+⎡
+⎢
+⎢
+⎣
+
+𝑤∗′Σ𝑤∗
+𝑤∗′ ̂Σ𝑤∗
+
+) 1
+2
+
+⎤
+⎥
+⎥
+⎦
+
+.
+
+(A.37)
+Using 3.2.5 of Muirhead (1982), we know 𝑦 ≡ 𝑇 𝑤∗′ ̂Σ𝑤∗∕(𝑤∗′Σ𝑤∗) ∼
+𝜒 2
+𝑇 −1, so we have
+
+[
+
+[
+
+𝔼[ ̃𝜃2] = 𝜃2𝔼
+
+= 𝜃2𝔼
+
+𝑏𝑧2
+
+1 + (1 − 𝑏)𝑧2
+
+𝑏(1 − 𝑏)𝑧
+1
+
+√
+
+2 + 2
+2 + 𝑢
+1 + 𝑧2
+𝑧2
+]
+
+0
+
+𝑏𝑧2
+
+1 + (1 − 𝑏)𝑧2
+2 + 𝑢
+1 + 𝑧2
+𝑧2
+
+0
+
+2
+
+]
+
+𝑧
+2
+
+17 The recurrence relation is
+
+𝑏
+
+1(𝑎; 𝑏; 𝑧) − 𝑏
+𝐹
+
+1(𝑎 − 1; 𝑏; 𝑧) = 𝑧
+𝐹
+
+1(𝑎; 𝑏 + 1; 𝑧).
+𝐹
+
+1
+The equality is obtained by setting 𝑎 = 1, 𝑏 = (𝑁 + 2)∕2 and 𝑧 = −𝑇 𝜃2∕2.
+
+1
+
+1
+
+(A.33)
+
+JournalofFinancialEconomics155(2024)10383717R. Kan, X. Wang and X. Zheng
+
+𝔼
+
+(
+⎡
+⎢
+⎢
+⎣
+
+𝑤∗′Σ𝑤∗
+𝑤∗′ ̂Σ𝑤∗
+
+) 1
+2
+
+⎤
+⎥
+⎥
+⎦
+
+= 𝑇
+
+1
+2 𝔼
+
+]
+
+[
+
+𝑦− 1
+
+2
+
+≥
+
+1
+2
+
+𝑇
+
+(𝐸[𝑦])
+
+1
+2
+
+=
+
+1
+2
+
+𝑇
+
+(𝑇 − 1)
+
+1
+2
+
+> 1,
+
+(A.38)
+
+where the inequality follows because of Jensen’s inequality. Therefore, 
+we have 𝔼[ ̂𝜃] > 𝜃.
+
+Next,  we  prove  Var[ ̂𝜃] > Cov[ ̃𝜃, ̂𝜃].  In  our  proof,  we  assume 
+Cov[ ̃𝜃, ̂𝜃] > 0.18 Denote 𝜆 = 𝑇 𝜃2. Using Lemma 1 and applying a trans-
+formation of the conﬂuent hypergeometric function,
+
+𝑒𝜆
+
+Cov[ ̃𝜃, ̂𝜃]
+𝜆
+𝑇 − 𝑁 − 2
+
+[
+
+<
+
+𝑒𝜆 − 𝑐
+
+3 × 1
+
+𝐹
+1
+
+(
+
+𝑁 + 1
+2
+
+;
+
+=
+
+𝜆
+𝑇 − 𝑁 − 2
+
+∞∑
+
+𝑘=0
+
+̃𝑏𝑘
+𝑘!
+
+𝜆𝑘 =
+
+1
+𝑇 − 𝑁 − 2
+
+with
+
+;
+
+𝜆
+
+𝑁 + 2
+2
+2
+𝑘̃𝑏𝑘−1
+𝑘!
+
+∞∑
+
+𝑘=1
+
+𝜆𝑘,
+
+)
+
+(
+
+𝐹
+1
+
+1
+
+𝑁 + 1
+2
+
+;
+
+𝑁
+
+2
+
+;
+
+𝜆
+
+2
+
+)]
+
+𝑒𝑧
+
+1(𝑎; 𝑏; −𝑧) = 1
+𝐹
+
+1(𝑏 − 𝑎; 𝑏; 𝑧),
+𝐹
+
+1
+
+we can write
+
+𝑒𝜆
+
+Var[ ̂𝜃] =
+
+)
+
+(
+
+𝑁 + 𝜆
+𝑇 − 𝑁 − 2
+
+𝑒𝜆 − 𝑐
+
+1
+
+)
+2
+
+(
+
+Γ
+
+𝑁+1
+2
+
+(
+
+𝑁
+2
+
+Γ
+
+)
+
+𝐹
+1
+
+2 1
+
+(A.39)
+
+̃𝑎𝑘 = (𝑁 + 𝑘) −
+
+(
+
+𝑘∑
+
+𝑖=0
+
+) Γ
+𝑘
+𝑖
+
+1
+2𝑘−1
+
+(
+
+𝑁+1
+2
+(
+
+𝑁
+
+2
+(
+
+Γ
+)
+
+(
+
+(
+
+)
+
+)
+
++ 𝑖
+
++ 𝑖
+
+Γ
+
+Γ
+
+)
+
+𝑁+1
+2
+
++ 𝑘 − 𝑖
+
+) ,
+
+𝑁
+
+2
+
++ 𝑘 − 𝑖
+)
+
+(
+
+𝑁 + 1
+2
+
+;
+
+𝑁
+
+2
+
+;
+
+𝜆
+
+2
+
+)2
+
+,
+
+̃𝑏𝑘 = 1 −
+
+1
+2𝑘
+
+(
+
+𝑘∑
+
+𝑖=0
+
+) Γ
+𝑘
+𝑖
+
+(
+
+𝑁+1
+2
+
+(
+
++ 𝑖
+)
+
+Γ
+(
+
+Γ
+
+𝑁
+
+2
+
++ 𝑖
+
+Γ
+
+𝑁+1
+2
+𝑁+2
+2
+
++ 𝑘 − 𝑖
+
+) .
+
++ 𝑘 − 𝑖
+
+(A.49)
+
+(A.50)
+
+(A.51)
+
+𝑒𝜆
+
+Cov[ ̃𝜃, ̂𝜃]
+[
+𝑒𝜆 − 𝑐
+
+2
+
+=𝜆𝑐
+
+3 × 1
+
+(
+
+𝐹
+1
+
+𝑁 + 1
+2
+
+;
+
+𝑁 + 2
+2
+
+;
+
+𝜆
+2
+
+)
+
+(
+
+𝐹
+1
+
+1
+
+𝑁 + 1
+2
+
+;
+
+𝑁
+2
+
+;
+
+𝜆
+2
+
+)]
+
+,
+
+(A.40)
+
+(A.41)
+
+where
+
+̃𝑎
+
+0 = 𝑁 −
+
+)
+
+2
+
+Γ
+
+(
+
+2Γ
+
+)
+
+2
+
+𝑁+1
+2
+
+(
+
+)
+2
+
+𝑁
+2
+
+> 0 and ̃𝑎𝑘 > 𝑘̃𝑏𝑘−1 for 𝑘 ≥ 1, then Var[ ̂𝜃] > Cov[ ̃𝜃, ̂𝜃]. Using (A.45), 
+
+If ̃𝑎
+we can show
+
+0
+
+> 𝑁 − 2 ×
+
+𝑁
+
+2
+
+= 0.
+
+(A.52)
+
+,
+
+(A.42)
+
+Let 𝑔𝑁 (𝑘) = ̃𝑎𝑘 − 𝑘̃𝑏𝑘−1 for 𝑘 ≥ 1, and we will show
+
+𝑐
+
+1 =
+
+(
+
+Γ
+
+𝑇 −𝑁−1
+2
+
+)
+2
+
+(
+
+Γ
+
+𝑇 −𝑁
+2
+
+(
+
+)
+
+(
+
+𝑇
+
+2
+
+) ,
+
+𝑇 +1
+2
+
+(𝑇 − 𝑁)Γ
+
+𝑐
+
+2 =
+
+√
+
+2𝑇 (𝑇 − 𝑁 − 1)Γ
+)
+
+(
+
+2
+
+𝑐
+
+3 =
+
+Γ
+
+Γ
+
+(
+
+𝑁
+2
+
+𝑁+1
+2
+
+(
+
+)
+
+Γ
+
+) .
+
+𝑁+2
+2
+
+(A.43)
+
+(A.44)
+
+(A.45)
+
+(A.46)
+
+(A.47)
+
+𝑔𝑁 (𝑘) = 𝑁 −
+
+1
+2𝑘−1
+
+(
+
+) Γ
+𝑘
+𝑖
+
+⎡
+𝑘∑
+⎢
+⎢
+⎢
+⎣
+
+𝑖=0
+
+(
+
+𝑁+1
+2
+(
+
+𝑁
+2
+
+Γ
+
+(
+
+(
+
+)
+
+)
+
++ 𝑖
+
++ 𝑖
+
+Γ
+
+Γ
+
+𝑁+1
+2
+
++ 𝑘 − 𝑖
+)
+
+𝑁
+2
+
++ 𝑘 − 𝑖
+
+− 𝑘
+
+(
+
+𝑘−1∑
+
+𝑖=0
+
+) Γ
+
+𝑘 − 1
+𝑖
+
+(
+
+𝑁+1
+2
+(
+
+Γ
+
++ 𝑖
+
+)
+
+(
+
+Γ
+)
+
++ 𝑖
+
+Γ
+
+𝑁+1
+2
+(
+
+𝑁
+
++ 𝑘 − 1 − 𝑖
+
+)
+
++ 𝑘 − 𝑖
+
+= 𝑁 −
+
+(𝑁 − 1)
+2𝑘
+
+(
+
+𝑘∑
+
+𝑖=0
+
+) Γ
+
+𝑘
+𝑖
+
+𝑁
+
+2
+(
+
+𝑁+1
+2
+(
+
+𝑁
+
+2
+
+Γ
+
+(
+
+(
+
+2
+
+Γ
+
+Γ
+
+)
+
+)
+
++ 𝑖
+
++ 𝑖
+
+𝑁−1
+2
+
++ 𝑘 − 𝑖
+
+𝑁
+
+2
+
++ 𝑘 − 𝑖
+
+) > 0.
+
+)
+
+)
+
+⎤
+⎥
+⎥
+⎥
+⎦
+)
+
+Note that
+
+(
+
+𝑔𝑁 (1) = 𝑁 −
+
+(
+
+𝑁 − 1
+2
+
+) Γ
+
+Γ
+
+)
+
+(
+
+)
+
+𝑁+1
+2
+
+(
+
+)
+
+𝑁
+2
+
+Γ
+(
+
+Γ
+
+𝑁−1
+2
+𝑁+2
+2
+
+) × 𝑁
+
+= 𝑁
+
+⎡
+⎢
+⎢
+1 −
+⎢
+⎣
+
+Γ
+
+Γ
+
+(
+
+𝑁
+
+2
+
+(
+
+𝑁+1
+2
+
+(
+
+)
+
+Γ
+
+)
+2
+
+𝑁+2
+2
+
+)
+
+⎤
+⎥
+⎥
+⎥
+⎦
+
+> 0
+
+due to log-convexity of Γ(𝑥). Using
+(
+
+)
+
+(
+
+)
+
+(
+
+)
+
+𝑘 + 1
+𝑖
+
+=
+
++
+
+𝑘
+𝑖
+
+𝑘
+𝑖 − 1
+
+,
+
+we can write
+
+𝑔𝑁 (𝑘 + 1) = 𝑁 −
+
+(𝑁 − 1)
+2𝑘+1
+
+(
+
+) Γ
+𝑘
+𝑖
+
+⎡
+𝑘∑
+⎢
+⎢
+⎢
+⎣
+
+𝑖=0
+
+(
+
+𝑁+1
+2
+(
+
+𝑁
+2
+
+Γ
+
+(
+
+(
+
+)
+
+)
+
++ 𝑖
+
++ 𝑖
+
+Γ
+
+Γ
+
+(A.53)
+
+(A.54)
+
+(A.55)
+
+)
+
++ 𝑘 + 1 − 𝑖
+)
+
+𝑁−1
+2
+
+𝑁
+2
+
++ 𝑘 + 1 − 𝑖
+
+(
+
+𝑘∑
+
++
+
+𝑖=0
+
+) Γ
+𝑘
+𝑖
+
+Then for 𝑘 ≥ 1,
+
+(
+
+𝑁+1
+2
+(
+
+𝑁
+
+2
+
+Γ
+
+)
+
+)
+
+(
+
+(
+
+Γ
+
+Γ
+
++ 𝑖 + 1
+
++ 𝑖 + 1
+
+𝑁−1
+2
+
++ 𝑘 − 𝑖
+)
+
+𝑁
+
+2
+
++ 𝑘 − 𝑖
+
+)
+
+⎤
+⎥
+⎥
+⎥
+⎦
+
+.
+
+(A.56)
+
+Using the inequality (see Kazarinoﬀ, 1956)
+
+)
+2
+
+Γ
+
+(
+𝑥 + 1
+2
+Γ(𝑥)2
+
+<
+
+1
+2
+
+𝑥 −
+
+< 𝑥 −
+
+1
+4
+for 𝑥 > 0, we can show that
+
+< 𝑥
+
+<
+
+𝑐
+
+1
+
+1
+𝑇 −𝑁−1
+2
+
+− 1
+2
+
+=
+
+<
+
+𝑐
+
+2
+
+(𝑇 − 𝑁)
+(𝑇 − 𝑁 − 1)
+
+√
+
+,
+
+2
+𝑇 − 𝑁 − 2
+√
+
+1
+− 1
+4
+
+𝑇
+
+2
+
+=
+
+2𝑇
+
+<
+
+1
+𝑇 − 𝑁 − 2
+
+,
+
+𝑇 − 𝑁
+√
+
+(𝑇 − 𝑁 − 1)
+
+𝑇 (𝑇 − 1
+2
+
+)
+
+√
+
+where the last inequality holds because 
+𝑁 − 1) < 1∕(𝑇 − 𝑁 − 2). Then we have
+
+𝑇 (𝑇 − 1
+2
+
+) > 𝑇 −𝑁 and 1∕(𝑇 −
+
+𝑒𝜆
+
+Var[ ̂𝜃] >
+
+(
+
+𝑁 + 𝜆
+𝑇 − 𝑁 − 2
+
+)
+
+𝑒𝜆
+
+(
+
+−
+
+2
+𝑇 − 𝑁 − 2
+
+Γ
+
+Γ
+
+)
+2
+
+𝑁+1
+2
+
+(
+
+𝑁
+2
+
+(
+
+𝐹
+1
+
+𝑁 + 1
+2
+
+;
+
+𝑁
+
+2
+
+;
+
+𝜆
+
+2
+
+)2
+
+)
+
+2 1
+
+=
+
+1
+𝑇 − 𝑁 − 2
+
+∞∑
+
+𝑘=0
+
+̃𝑎𝑘
+𝑘!
+
+𝜆𝑘,
+
+(A.48)
+
+18 When Cov[ ̃𝜃, ̂𝜃] < 0, it is trivial that Var[ ̂𝜃] > Cov[ ̃𝜃, ̂𝜃]. We can prove that 
+Cov[ ̃𝜃, ̂𝜃] > 0. For brevity, we skip the proof, but it is available upon request.
+
+JournalofFinancialEconomics155(2024)10383718ℙ[ ̂𝜃 < 𝑐
+
+1
+
+, ̃𝜃 < 𝑐
+
+2]
+
+∞
+
+1
+
+𝑐2
+1
+
+=
+
+∫
+0
+
+∫
+0
+
+∫
+0
+(
+
+⎛
+⎜
+⎜
+min
+⎜
+⎝
+
+⎡
+⎢
+⎢
+⎢
+⎣
+
+⎡
+𝑣
+⎢
+⎢
+Φ
+⎢
+⎣
+√
+
+− Φ
+
+−
+
+𝑣 − 𝑢 −
+
+𝑐2
+1
+
+√
+
+𝑢
+
+𝑐
+√
+
+2
+
+𝜃2 − 𝑐2
+2
+√
+
+√
+
+𝑇 𝜃
+
+)]
+𝑏
+
+√
+
+,
+
+𝑐2
+1
+
+⎤
+⎥
+𝑣 − 𝑢
+⎥
+⎥
+⎦
+
+√
+
+√
+
+−
+
+𝑇 𝜃
+
+⎞
+⎟
+𝑏
+⎟
+⎟
+⎠
+
+1
+
+× 𝑓 ̃𝑢(𝑢)𝑓𝑏(𝑏)𝑓𝑢
+
+(𝑣)d𝑢d𝑏d𝑣.
+Taking derivative of ℙ[ ̂𝜃 < 𝑐
+2 and using 
+the Leibniz integral rule, we obtain the joint density of ( ̂𝜃, ̃𝜃) for both 
+cases as
+
+2] with respect to 𝑐
+
+1 and 𝑐
+
+, ̃𝜃 < 𝑐
+
+(A.64)
+
+1
+
+∞
+
+1
+
+(
+
+𝑐2
+1 (𝜃2 − 𝑐2
+𝜃2
+
+2 )𝑣
+
+)
+
+(
+
+𝜙
+
+𝑐
+
+𝑐
+
+1
+
+√
+
+2
+𝜃
+
+𝑣
+
+√
+
+−
+
+𝑇 𝜃
+
+√
+
+)
+
+𝑏
+
+𝑓 ̂𝜃, ̃𝜃(𝑐
+
+1
+
+, 𝑐
+
+2) =
+
+𝑓 ̃𝑢
+
+∫
+0
+
+∫
+0
+
+3
+2
+
+𝑣
+
+2𝑐2
+1
+𝜃
+
+×
+
+R. Kan, X. Wang and X. Zheng
+
+(
+
+𝑔𝑁 (𝑘 + 1) − 𝑔𝑁 (𝑘)
+) ⎡
+⎢
+⎢
+⎢
+⎣
+)
+
+(𝑁 − 1)
+2𝑘
+
+𝑘∑
+
+𝑘
+𝑖
+
+𝑖=0
+
+(
+
+(
+
+Γ
+
+𝑁+1
+2
+(
+
+𝑁
+2
+
+Γ
+(
+
+=
+
+(
+
+(
+
+)
+
+)
+
++ 𝑖
+
++ 𝑖
+
+Γ
+
+Γ
+
+𝑁−1
+2
+
+)
+
++ 𝑘 − 𝑖
+)
+
++ 𝑘 − 𝑖
+
+𝑁
+2
+)
+
+Γ
+
+−
+
+2Γ
+(
+
+Γ
+
+−
+
+𝑁+1
+2
+(
+
+𝑁
+2
+
++ 𝑖 + 1
+
+Γ
+)
+
++ 𝑖 + 1
+(
+)
+
+Γ
+
+𝑁−1
+2
+
+(
+
++ 𝑘 − 𝑖
+)
+
+𝑁
+2
+
++ 𝑘 − 𝑖
+
+𝑁+1
+2
+(
+
+𝑁
+2
+
++ 𝑖
+
+Γ
+)
+
++ 𝑖
+
+Γ
+
+𝑁−1
+2
+
+(
+
++ 𝑘 + 1 − 𝑖
+)
+
+𝑁
+2
+
+(
+
++ 𝑘 + 1 − 𝑖
+(
+)
+
+)
+
+⎤
+⎥
+⎥
+⎥
+⎦
+
+2Γ
+
+=
+
+(𝑁 − 1)
+2𝑘
+
+=
+
+(𝑁 − 1)
+2𝑘+2
+[(
+
+(
+
+𝑘∑
+
+𝑖=0
+
+(
+
+𝑘∑
+
+𝑖=0
+
+𝑘
+𝑖
+
+𝑘
+𝑖
+
+) Γ
+
+) Γ
+
+Γ
+)
+
+𝑁+1
+2
+
+(
+
+(
+
+(
+
+4Γ
+
+𝑁−1
+2
+𝑁+2
+2
+
+×
+
+1
+2
+
+𝑁 − 1
+2
+
+=
+
+(𝑁 − 1)
+2𝑘+3
+
+(
+
+𝑘∑
+
+𝑖=0
+
++ 𝑖
+
+) Γ
+
+𝑘
+𝑖
+
+(2𝑖 − 𝑘) +
+(
+)
+
+𝑁−1
+2
+
+(
+
+Γ
+
++ 𝑖
+
+𝑁+2
+2
+
++ 𝑖
+
+Γ
+
+𝑁−1
+2
+
+(
+
+)
+
+)
+
++ 𝑘 − 𝑖
+
+(2𝑖 − 𝑘)
+)
+
+𝑁+2
+2
+
+)
+
++ 𝑖
+(
+
+Γ
+
+𝑁+2
+2
+
++ 𝑘 − 𝑖
+)
+
++ 𝑘 − 𝑖
+
+)
+
++ 𝑘 − 𝑖
+)
+
++ 𝑘 − 𝑖
+
++ 𝑘 − 𝑖
+
++ 𝑖
+
++ 𝑖
+
+Γ
+
+)
+
+Γ
+(
+
+(
+
+𝑁−1
+2
+𝑁+2
+2
+𝑁 − 1
+2
+(
+𝑁−1
+2
+
+)
+
+(
+
+Γ
+
++ 𝑖
+
+Γ
+
+𝑁+2
+2
+
++ 𝑘 − 𝑖
+
+Proof of Proposition 2. From Proposition 1, we have
+
+̂𝜃 < 𝑐
+
+̃𝜃 < 𝑐
+
+1
+
+2
+
+√
+
+√
+
+⇒ −
+
+𝑐2
+1
+
+1 − ̃𝑢 < ̃𝑧 <
+𝑢
+√
+
+𝑐2
+1
+
+1 − ̃𝑢,
+𝑢
+
+⇒ ̃𝑧 <
+
+𝑐
+√
+
+̃𝑢
+
+.
+
+2
+𝜃2 − 𝑐2
+2
+
+When 𝑐
+
+2
+
+≤ 0, the range of ̃𝑧 is −
+
+√
+
+𝑐2
+1
+
+1 − ̃𝑢 < ̃𝑧 < 𝑐
+𝑢
+
+√
+
+√
+̃𝑢
+
+2
+𝜃2−𝑐2
+2
+
+√
+
+𝑐2
+1
+
+1 − ̃𝑢 >
+𝑢
+
+|
+|
+|
+|
+|
+|
+|
+|
+
+Therefore,
+
+𝑐
+√
+
+√
+
+̃𝑢
+
+2
+𝜃2 − 𝑐2
+2
+
+⇒ 0 < ̃𝑢 <
+
+𝑐2
+1
+
+1(𝜃2 − 𝑐2
+𝑢
+2 )
+𝜃2
+
+.
+
+|
+|
+|
+|
+|
+|
+|
+|
+
+ℙ[ ̂𝜃 < 𝑐
+
+1
+
+, ̃𝜃 < 𝑐
+
+2]
+
+)𝑣
+
+𝑐2
+1
+
+(𝜃2−𝑐2
+2
+𝜃2
+
+∞
+
+1
+
+=
+
+∫
+0
+
+∫
+0
+
+∫
+0
+√
+
+(
+
+⎡
+⎢
+⎢
+Φ
+⎢
+⎣
+
+⎛
+⎜
+⎜
+⎜
+⎝
+
+− Φ
+
+−
+
+𝑣 − 𝑢 −
+
+𝑐2
+1
+
+√
+
+𝑢
+
+𝑐
+√
+
+2
+
+√
+
+√
+
+−
+
+𝑇 𝜃
+
+⎞
+⎟
+𝑏
+⎟
+⎟
+⎠
+
+𝜃2 − 𝑐2
+2
+√
+
+√
+
+𝑇 𝜃
+
+𝑏
+
+)]
+
+𝑓𝑏(𝑏)𝑓𝑢
+
+1
+
+(𝑣)d𝑏d𝑣.
+
+(A.65)
+
+]
+(𝑘 − 2𝑖)
+)
+
+(𝑘 − 2𝑖)2
+)
+
+This completes the proof.
+
+> 0,
+
+(A.57)
+
+Proof of Proposition 3. Using the representation of  ̂𝜃 in (A.21) and 
+deﬁning 𝑤
+√
+
+1 and 𝑤
+
+2 as
+
+𝑧
+1 −
+
+𝑇 𝜃 = 𝑤
+
+1 ∼  (0, 1),
+
+𝑇 − 𝑢
+1√
+2𝑇
+
+𝑑
+→ 𝑤
+
+2 ∼  (0, 1),
+
+where the limiting distribution of (𝑇 − 𝑢
+the central limit theorem, we can write
+
+1)∕
+
+(A.66)
+
+(A.67)
+
+2𝑇 is obtained by using 
+
+√
+
+where the second last equality is obtained by summing the series for-
+ward  and  backward  and  taking  the  average  of  the  two  sums.  This 
+completes the proof.
+
+(A.58)
+
+(A.59)
+
+(A.60)
+
+, when
+
+√
+
+𝑇 ( ̂𝜃 − 𝜃)
+√
+
+⎛
+⎜
+⎜
+⎜
+⎝
+(
+
+√
+
+=
+
+𝑇
+
+√
+
+=
+
+𝑇
+
+1√
+𝑢
+1
+
+√
+
+2 + 𝑢
+
+0
+
+1 + 𝑧2
+𝑧2
+√
+𝑢
+1
+
+− 𝜃
+
+⎞
+⎟
+⎟
+⎟
+⎠
+
+)
+
+√
+
+−
+
+1√
+𝑇
+
+1 + 𝑧2
+𝑧2
+
+2 + 𝑢
+
+0 +
+
+(√
+
+1 + 𝑧2
+𝑧2
+
+2 + 𝑢
+
+0 −
+
+)
+
+√
+
+𝑇 𝜃
+
+=
+
+√
+
+√
+
+𝑇
+
+𝑇 (𝑇 − 𝑢
+1)
+√
+√
+𝑢
+𝑇 +
+1(
+
+√
+
+1 + 𝑧2
+𝑧2
+
+2 + 𝑢
+
+0 +
+
+𝑢
+1)
+
+√
+
+𝑧2
+1 + 𝑧2
+1 + 𝑧2
+𝑧2
+
+2 + 𝑢
+2 + 𝑢
+
+0 − 𝑇 𝜃2
+√
+
+0 +
+
+𝑇 𝜃
+
+√
+
+=
+
+1)
+
+2(𝑇 − 𝑢
+√
+2𝑇
+
+⎡
+⎢
+⎢
+⎢
+⎢
+⎣
+
+√
+𝑢
+1√
+𝑇
+
+1
+
+(
+
+1 +
+
+(
+
+𝑑
+→
+
+𝜃𝑤
+2√
+2
+
++ 𝑤
+
+1
+
+≡ 𝑋 ∼ 
+
+0, 1 +
+
+(
+
+⎤
+⎥
+⎥
+⎥
+⎥
+⎦
+
+)
+
+√
+𝑢
+1√
+𝑇
+
+𝑧2
+2 + 𝑢
+1 + 𝑧2
+𝑇
+
+0
+
+) 1
+2
+
+2𝜃𝑤
+
+1 +
+
+𝑤2
+1
+
++
+
+(
+
++𝑢
+
+0
+
+𝑧2
+1
+
++𝑧2
+2
+𝑇
+
++𝑧2
++𝑢
+0√
+2
+𝑇
+) 1
+2
+
++ 𝜃
+
+)
+
+.
+
+𝜃2
+
+2
+
+(A.68)
+
+The last equality is obtained by using the fact that 𝑢
+𝑢
+2 + 𝑢
+0)∕𝑇
+
+0)∕
+Using the representation of  ̃𝜃 in (A.22) and deﬁning 𝑣 as
+
+𝑝
+→ 𝜃2, and (𝑤2
+
+1 + 𝑧2
+
+𝑝
+→ 0.
+
+1∕𝑇
+
+√
+
+𝑇
+
+𝑝
+→ 1, (𝑧2
+
+1 + 𝑧2
+
+2 +
+
+× 𝑓 ̃𝑢(𝑢)𝑓𝑏(𝑏)𝑓𝑢
+
+(𝑣)d𝑢d𝑏d𝑣.
+
+1
+
+> 0, the range of ̃𝑧 is
+
+When 𝑐
+√
+
+2
+
+−
+
+𝑐2
+1
+
+1 − ̃𝑢 < ̃𝑧 <
+𝑢
+
+𝑐
+√
+
+√
+
+̃𝑢
+
+2
+𝜃2 − 𝑐2
+2
+
+if 0 < ̃𝑢 <
+
+𝑐2
+1
+
+1(𝜃2 − 𝑐2
+𝑢
+2 )
+𝜃2
+
+,
+
+(A.61)
+
+(A.62)
+
+𝑇 (1 − 𝑏)
+
+𝑑
+→ 𝑣 ∼ 𝜒 2
+
+𝑁−1
+
+,
+
+we can write
+
+√
+
+√
+
+−
+
+𝑐2
+1
+
+1 − ̃𝑢 < ̃𝑧 <
+𝑢
+
+𝑐2
+1
+
+1 − ̃𝑢
+𝑢
+
+if
+
+𝑐2
+1
+
+1(𝜃2 − 𝑐2
+𝑢
+2 )
+𝜃2
+
+< ̃𝑢 < 𝑐2
+1
+
+.
+
+𝑢
+1
+
+(A.63)
+
+𝑇 ( ̃𝜃 − 𝜃) = 𝑇 𝜃
+
+Therefore,
+
+⎛
+⎜
+⎜
+⎜
+⎝
+
+√
+
+𝑏𝑧
+
+1 +
+
+√
+
+1 − 𝑏𝑧
+√
+
+2 −
+
+√
+
+1 + 𝑧2
+𝑧2
+
+2 + 𝑢
+
+0
+
+1 + 𝑧2
+𝑧2
+
+2 + 𝑢
+
+0
+
+(A.69)
+
+⎞
+⎟
+⎟
+⎟
+⎠
+
+JournalofFinancialEconomics155(2024)10383719R. Kan, X. Wang and X. Zheng
+
+= −𝑇 𝜃
+
+⎡
+⎢
+⎢
+⎢
+⎣
+
+√
+
+(1 − 𝑏)𝑧2
+
+2 + 𝑢
+√
+
+1 + 𝑏𝑧2
+√
+𝑏𝑧
+
+1 +
+
+0 − 2
+
+√
+
+𝑏(1 − 𝑏)𝑧
+1
+√
+
+𝑧
+2
+
+1 + 𝑧2
+𝑧2
+
+2 + 𝑢
+0(
+
+1 − 𝑏𝑧
+
+2 +
+
+1 + 𝑧2
+𝑧2
+
+2 + 𝑢
+0)
+
+⎤
+⎥
+⎥
+⎥
+⎦
+
+√
+
+(1 − 𝑏)(𝑇 𝜃2 + 2
+
+𝑇 𝜃𝑤
+
+1 + 𝑤2
+[
+) 1
+2
+
+√
+
+1) + 𝑏𝑧2
+
+2 + 𝑢
+
+0 − 2
+(
+
++
+
+1−𝑏𝑧
+2√
+𝑇
+
++
+
+(
+
+2 +𝑢
+1 +𝑧2
+𝑧2
+𝑇
+
+0
+
+√
+
+𝑏(1 − 𝑏)(
+) 1
+2
+
+2 +𝑢
+1 +𝑧2
+𝑧2
+𝑇
+
+0
+
+√
+
+]
+
+𝑇 𝜃 + 𝑤
+
+1)𝑧
+
+2
+
+⎤
+⎥
+⎥
+⎥
+⎥
+⎥
+⎦
+
+= −𝜃
+
+⎡
+⎢
+⎢
+⎢
+⎢
+⎢
+⎣
+
+𝑑
+→ −𝜃
+
+√
+
+]
+
+𝑏𝑧
+1√
+𝑇
+√
+
+𝑣𝑧
+2
+
+[
+
+𝜃2𝑣 + 𝑧2
+
+0 − 2𝜃
+
+2 + 𝑢
+𝜃(𝜃 + 𝜃)
+√
+
+= −
+
+𝜃2𝑣 + 𝑧2
+
+0 − 2𝜃
+2 + 𝑢
+2𝜃
+
+𝑣𝑧
+2
+
+≡ 𝑌 .
+
+√
+
+𝑝
+→ 0, 
+√
+
+The second last equality follows because  𝑏 
+𝑏(1 − 𝑏)𝑤
+(1 − 𝑏)𝑤2
+2 + 𝑢
+√
+1
+𝑝
+→ 0. It remains to show that 𝑌 ∼ −(1 + 𝜃2)∕(2𝜃)𝜒 2
+1 − 𝑏𝑧
+𝜃, 
+In order to show that, we let
+
+𝑝
+→ 0, (𝑧2
+
+𝑝
+→ 1,  (1 − 𝑏)
+𝑝
+→ 𝜃2, 
+0)∕𝑇
+
+1 + 𝑧2
+
+𝑇 𝜃𝑤
+
+𝑧
+2
+
+1∕
+
+2∕
+
+𝑏𝑧
+
+√
+1
+
+√
+
+𝑇
+
+1
+
+𝑝
+→ 0, 
+𝑝
+→
+𝑇
+
+𝑁−1. 
+
+√
+
+𝑊 =
+
+[ √
+
+𝑣
+
+𝑧
+2
+
+0
+√
+𝑢
+0
+
+] [ √
+
+]
+
+𝑣
+0
+
+𝑧
+√
+2
+𝑢
+0
+
+.
+
+(A.71)
+
+2(𝑁 − 1, 𝐼
+
+From the Bartlett decomposition of Wishart distribution, we know 𝑊 ∼
+
+2). Then using 3.2.8 of Muirhead (1982), we have
+2 + 𝑢
+0 − 2𝜃
+2𝜃
+
+𝜃2𝑣 + 𝑧2
+
+𝑌 = −
+
+𝑣𝑧
+2
+
+√
+
+= −
+
+[𝜃, −1]𝑊 [𝜃, −1]′
+2𝜃
+
+∼ −
+
+(1 + 𝜃2)𝜒 2
+2𝜃
+
+𝑁−1
+
+.
+
+(A.72)
+
+Finally, 𝑋 is independent of 𝑌 because 𝑋 is a function 𝑧
+𝑌 is a function of 𝑧
+from the proof of Proposition 1. This completes the proof.
+
+1 and 𝑢
+1, and 
+, 𝑏, 𝑢
+1) are independent of (𝑧
+0)
+2
+
+0, and (𝑧
+1
+
+2, 𝑏, 𝑢
+
+, 𝑢
+
+Proof of Proposition 4. Based on the deﬁnition of random variables 
+in Proposition 1, we let
+
+̃𝑧
+1 =
+
+̃𝑧
+2 =
+
+𝑤
+
+1 =
+
+𝑤
+
+2 =
+
+,
+
+,
+
+𝑧
+1√
+𝑇
+
+𝑧
+2√
+𝑇
+
+𝑢
+0
+𝑇
+𝑢
+1
+𝑇
+
+,
+
+.
+
+(A.73)
+
+(A.74)
+
+(A.75)
+
+(A.76)
+
+Using the central limit theorem, we can easily show that when 𝑁 → ∞, 
+𝑇 → ∞, and 𝑁∕𝑇 → 𝜌, we have
+
+√
+
+√
+
+𝑇 ( ̃𝑧
+
+1 − 𝜃) ∼  (0, 1),
+√
+2 ∼  (0, 1),
+
+𝑇 ̃𝑧
+
+𝑇 (𝑤
+
+1 − 𝜌)
+
+2 − (1 − 𝜌))
+
+√
+
+𝑇 (𝑤
+√
+
+𝑇 (𝑏 − (1 − 𝜌))
+
+𝑑
+→  (0, 2𝜌),
+𝑑
+→  (0, 2(1 − 𝜌)),
+𝑑
+→  (0, 2𝜌(1 − 𝜌)),
+
+(A.77)
+
+(A.78)
+
+(A.79)
+
+(A.80)
+
+(A.81)
+
+and these ﬁve random variables are independent of each other. From 
+(A.21) and (A.22), we can write  ̂𝜃 and  ̃𝜃 as
+
+̂𝜃 =
+
+̃𝜃 =
+
+(
+
+̃𝑧2
+1 + ̃𝑧2
+
+2 + 𝑤
+
+1
+
+) 1
+2
+
+,
+
+𝑤
+
+1
+2
+2
+
+√
+
+√
+
+𝜃(
+(
+
+𝑏 ̃𝑧
+
+1 +
+1 + ̃𝑧2
+̃𝑧2
+
+2)
+
+1 − 𝑏 ̃𝑧
+) 1
+2
+
+2 + 𝑤
+
+1
+
+,
+
+(A.82)
+
+(A.83)
+
+and both of them are functions of ( ̃𝑧
+, 𝑤
+1
+1
+method and upon simpliﬁcation, we obtain
+
+, ̃𝑧
+2
+
+, 𝑤
+
+2
+
+, 𝑏). Then using the delta 
+
+√
+
+𝑇
+
+[
+⎛
+⎜
+⎜
+⎜
+⎝
+
+̂𝜃
+
+̃𝜃
+
+]
+
+−
+
+⎡
+⎢
+⎢
+⎢
+⎣
+
+√
+
+√
+
+√
+
+√
+
+𝜃2+𝜌
+1−𝜌
+1−𝜌𝜃2
+𝜃2+𝜌
+
+⎤
+⎥
+⎥
+⎥
+⎦
+
+⎞
+⎟
+⎟
+⎟
+⎠
+
+𝑑
+→𝑁
+
+⎛
+⎜
+⎜
+⎝
+
+,
+
+02
+
+⎡
+⎢
+⎢
+⎣
+
+𝜃4+2𝜃2+𝜌
+2(1−𝜌)2(𝜃2+𝜌)
+𝜌𝜃2
+2(𝜃2+𝜌)2
+
+[
+
+𝜌𝜃2
+2(𝜃2+𝜌)2
+(1−𝜌)(2𝜌+𝜃2)
+(𝜃2+𝜌)2 + 2 + 𝜃2
+
+]
+
+⎤
+⎞
+⎥
+⎟
+⎥
+⎟
+⎦
+⎠
+
+.
+
+𝜌𝜃2
+2(𝜃2+𝜌)
+
+(A.84)
+
+This completes the proof.
+
+(A.70)
+
+References
+
+Econometrica 57, 1121–1152.
+
+Financ. Stud. 29, 5–68.
+
+221–254.
+
+Ao, M., Li, Y., Zheng, X., 2019. Approaching mean-variance eﬃciency for large portfolios. 
+
+Rev. Financ. Stud. 32, 2890–2919.
+
+Asness, C., Frazzini, A., 2013. The devil in HML’s details. J. Portf. Manag. 39, 49–68.
+Barillas, F., Kan, R., Robotti, C., Shanken, J., 2020. Model comparison with Sharpe ratios. 
+
+J. Financ. Quant. Anal. 55, 1840–1874.
+
+Barillas, F., Shanken, J., 2017. Which alpha? Rev. Financ. Stud. 30, 1316–1338.
+Barillas, F., Shanken, J., 2018. Comparing asset pricing models. J. Finance 73, 715–754.
+Carhart, M., 1997. On persistence in mutual fund performance. J. Finance 52, 57–82.
+Chib, S., Zeng, X., Zhao, L., 2020. On comparing asset pricing models. J. Finance 75, 
+
+551–577.
+
+Sci. 70, 396–414.
+
+Chib, S., Zhao, L., Zhou, G., 2024. Winners from winners: a take of risk factors. Manag. 
+
+Cochrane, J.H., Saá-Requejo, J., 2000. Beyond arbitrage: good-deal asset price bounds in 
+
+incomplete markets. J. Polit. Econ. 108, 79–119.
+
+Detzel, A., Novy-Marx, R., Velikov, M., 2023. Model comparison with transaction costs. 
+
+J. Finance 78, 1743–1775.
+
+Dickey, J.M., 1967. Matricvariate generalizations of the multivariate 𝑡 distribution and 
+
+the inverted multivariate 𝑡 distribution. Ann. Math. Stat. 38, 511–518.
+
+El Karoui, N., 2010. High-dimensionality eﬀects in the Markowitz problem and other 
+quadratic  programs  with  linear  constraints:  risk  underestimation.  Ann.  Stat. 38, 
+3487–3566.
+
+Fama, E.F., French, K.R., 1993. Common risk factors in the returns on stocks and bonds. 
+
+J. Financ. Econ. 33, 3–56.
+
+1–22.
+
+Fama, E.F., French, K.R., 2015. A ﬁve-factor asset pricing model. J. Financ. Econ. 116, 
+
+Fama, E.F., French, K.R., 2018. Choosing factors. J. Financ. Econ. 128, 234–252.
+Frazzini, A., Pedersen, L.H., 2014. Betting against beta. J. Financ. Econ. 111, 1–25.
+Gibbons, M., Ross, S., Shanken, J., 1989. A test of the eﬃciency of a given portfolio. 
+
+Harvey, C., Liu, Y., Zhu, H., 2016. ... and the cross-section of expected returns. Rev. 
+
+Harvey, C., Zhou, G., 1990. Bayesian inference in asset pricing tests. J. Financ. Econ. 26, 
+
+Hillier, G., Kan, R., Wang, X., 2014. Generating functions and short recursions, with ap-
+plications to the moments of quadratic Forms in noncentral normal vectors. Econom. 
+Theory 30, 436–473.
+
+Hou, K., Mo, H., Xue, C., Zhang, L., 2021. An augmented 𝑞-factor model with expected 
+
+Hou, K., Xue, C., Zhang, L., 2015. Digesting anomalies: an investment approach. Rev. 
+
+growth. Rev. Finance 25, 1–41.
+
+Financ. Stud. 28, 650–705.
+
+Jobson, J.D., Korkie, R., 1981. Performance hypothesis testing with the Sharpe and 
+
+Treynor measures. J. Finance 36, 889–908.
+
+Kan, R., Lassance, N., 2024. Optimal portfolio choice with fat tails and parameter uncer-
+
+tainty. Unpublished working paper. University of Toronto.
+
+Kan, R., Robotti, C., 2016. The exact distribution of the Hansen-Jagannathan bound. 
+
+Manag. Sci. 62, 1915–1943.
+
+Kan, R., Wang, X., 2023. Optimal portfolio choice with unknown benchmark eﬃciency. 
+
+Manag. Sci. https://doi .org /10 .1287 /mnsc .2021 .01767. Forthcoming.
+
+Kan, R., Wang, X., Zhou, G., 2022. Optimal portfolio choice with estimation risk: no risk-
+
+free asset case. Manag. Sci. 68, 2047–2068.
+
+Kan, R., Zhou, G., 2007. Optimal portfolio choice with parameter uncertainty. J. Financ. 
+
+Quant. Anal. 42, 621–656.
+
+Kazarinoﬀ, D.K., 1956. On Wallis’ formula. Edinb. Math. Notes 40, 19–21.
+Krishnan, M., 1967. The moments of a doubly noncentral 𝑡-distribution. J. Am. Stat. As-
+
+soc. 62, 278–287.
+
+Li, S., DeMiguel, V., Martin-Utrera, A., 2023. Comparing factor models with price-impact 
+
+costs. Unpublished working paper. London Business School.
+
+Lintner, J., 1965. The valuation of risk assets and the selection of risky investments in 
+
+stock portfolios and capital budgets. Rev. Econ. Stat. 47, 13–37.
+Lo, A.W., 2002. The statistics of Sharpe ratios. Financ. Anal. J. 58, 36–52.
+Lo, A.W., MacKinlay, A.C., 1990. Data-snooping biases in tests of ﬁnancial asset pricing 
+
+models. Rev. Financ. Stud. 3, 431–467.
+
+JournalofFinancialEconomics155(2024)10383720R. Kan, X. Wang and X. Zheng
+
+MacKinlay, A.C., 1995. Multi-factor models do not explain deviations from the CAPM. 
+
+McLean, R.D., Pontiﬀ, J., 2016. Does academic research destroy stock return predictabil-
+
+Muirhead, R.J., 1982. Aspects of Multivariate Statistical Theory. Wiley, New York.
+Novy-Marx, R., Velikov, M., 2016. A taxonomy of anomalies and their trading costs. Rev. 
+
+J. Financ. Econ. 38, 3–28.
+
+ity? J. Finance 71, 5–32.
+
+Financ. Stud. 29, 104–147.
+
+Politis,  D.N.,  Romano,  J.P.,  1994.  The  stationary  bootstrap.  J. Am.  Stat.  Assoc. 89, 
+
+1303–1313.
+
+Ross, S.A., 1976. The arbitrage theory of capital asset pricing. J. Econ. Theory 13, 
+
+Sharpe, W.F., 1964. Capital asset prices: a theory of market equilibrium under conditions 
+
+341–360.
+
+of risk. J. Finance 19, 425–442.
+
+Welch, I., Goyal, A., 2008. A comprehensive look at the empirical performance of equity 
+
+Pastor, L., Stambaugh, R.F., 2000. Comparing asset pricing models: an investment per-
+
+premium prediction. Rev. Financ. Stud. 21, 1455–1508.
+
+spective. J. Financ. Econ. 56, 335–381.
+
+Patton, A.J., Weller, B.M., 2020. What you see is not what you get: the costs of trading 
+
+market anomalies. J. Financ. Econ. 137, 515–549.
+
+JournalofFinancialEconomics155(2024)10383721

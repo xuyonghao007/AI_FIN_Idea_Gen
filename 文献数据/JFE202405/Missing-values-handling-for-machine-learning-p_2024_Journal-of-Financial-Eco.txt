@@ -1,0 +1,2460 @@
+Contents lists available at ScienceDirect
+
+Journal of Financial Economics
+
+journal homepage: www.elsevier.com/locate/jfec
+
+Missing values handling for machine learning portfolios ✩
+Andrew Y. Chen a,∗, Jack McCoy b
+a Federal Reserve Board, United States of America
+b Columbia Business School, United States of America
+
+A  R  T  I  C  L  E 
+
+I  N  F  O
+
+A  B  S  T  R  A  C  T
+
+Dataset link: https://
+data .mendeley .com /datasets /jcw4xkp886 /1
+
+JEL classiﬁcation:
+G0
+G1
+
+Keywords:
+Stock market predictability
+Stock market anomalies
+Missing values
+Machine learning
+
+1.  Introduction
+
+We characterize the structure and origins of missingness for 159 cross-sectional return predictors and study 
+missing value handling for portfolios constructed using machine learning. Simply imputing with cross-sectional 
+means performs well compared to rigorous expectation-maximization methods. This stems from three facts about 
+predictor data: (1) missingness occurs in large blocks organized by time, (2) cross-sectional correlations are small, 
+and (3) missingness tends to occur in blocks organized by the underlying data source. As a result, observed data 
+provide little information about missing data. Sophisticated imputations introduce estimation noise that can lead 
+to underperformance if machine learning is not carefully applied.
+
+A growing literature applies methods from machine learning (ML) 
+to asset pricing. These studies combine the information in dozens, or 
+even hundreds, of cross-sectional stock return predictors. Freyberger et 
+al. (2020) combine 62; Kelly et al. (2023) combine 138; and Han et al. 
+(2022) combine up to 193 predictors. Each of these papers ﬁnds that 
+there are economic gains to expanding the set of predictors beyond the 
+ﬁve used in Fama and French (2015).1
+
+Buried  in  this  literature  is  the  problem  of  missing  values.  When 
+learning from many predictors, the standard practice of dropping stocks 
+with missing values is often untenable. For example, applying the stan-
+dard  practice  to  the  125  most-observed  predictors  in  the  Chen  and 
+Zimmermann (2022) dataset drops 99% of stocks. So even though im-
+
+puting missing values may seem dangerous, ML researchers often have 
+no choice but to impute.
+
+We examine missing data handling for 159 predictors using a broad 
+array of imputation and return forecasting methods. We focus on cross-
+sectional expectation-maximization (EM) and cross-sectional mean im-
+putation, but also examine several other methods, including some that 
+incorporate time-series information. Our baseline forecasts use principal 
+component regressions (PCR), but we also examine neural networks and 
+gradient boosting. These methods are chosen to provide an overview 
+and intuition behind missing data issues, rather than to advocate for a 
+particular imputation algorithm.
+
+We ﬁnd that imputing with cross-sectional means (as in Kozak et al. 
+(2020); Gu et al. (2020)) does a surprisingly good job of capturing the 
+potential expected returns. Imputing with means and then sorting stocks 
+
+✩ Nikolai Roussanov was the editor for this article. This paper was previously circulated as “Missing Values and the Dimensionality of Expected Returns.” First 
+submitted to arXiv.org: July 20, 2022. This paper originated from many conversations with Fabian Winkler. We thank an anonymous referee, the editor, Heiner 
+Beckmeyer, Charlie Clarke, Harry Mamaysky, Markus Pelger, and Yinan Su for helpful comments. The views expressed herein are those of the authors and do not 
+necessarily reﬂect the position of the Board of Governors of the Federal Reserve or the Federal Reserve System.
+* Corresponding author.
+
+E-mail addresses: andrew.y.chen@frb.gov (A.Y. Chen), jmccoy26@gsb.columbia.edu (J. McCoy).
+
+1 Lewellen (2015) ﬁnds that regressions on 15 predictors lead to an annualized Sharpe Ratio of around 0.8 (excluding micro-caps). Freyberger et al. (2020); Kelly 
+et al. (2023); and Han et al. (2022) ﬁnd Sharpe ratios in excess of 1.8, and as high as 2.4 (excluding micro-caps or value-weighting). Other papers that combine 
+many predictors include Haugen and Baker (1996); Green et al. (2017); DeMiguel et al. (2020); Gu et al. (2020); Lopez-Lira and Roussanov (2020); Kozak et al. 
+(2020); Chen and Velikov (2022); Simon et al. (2022); Chen et al. (2023).
+
+https://doi.org/10.1016/j.jﬁneco.2024.103815
+Received 20 October 2022; Received in revised form 21 February 2024; Accepted 23 February 2024
+
+JournalofFinancialEconomics155(2024)103815Availableonline8March20240304-405X/PublishedbyElsevierB.V.A.Y. Chen and J. McCoy
+
+on return forecasts from a three-layer neural network leads to long-short 
+decile returns of 66% per year equal-weighted or 37% per year value-
+weighted. Imputing with cross-sectional EM leads to nearly identical 
+returns: 67% equal-weighted and 39% value-weighted.2 This invariance 
+is  seen  across  most  forecasting  and  imputation  methods,  despite  the 
+fact that EM has strong theoretical properties and is recommended in 
+textbooks on missing data handling and machine learning (Little and 
+Rubin (2019); Efron and Hastie (2016)).
+
+This invariance is intuitive given three properties of cross-sectional 
+predictor data. The ﬁrst is that missingness occurs in large blocks orga-
+nized by time. For common stocks on major exchanges that are missing 
+book-to-market this month, 81% are also missing book-to-market in ev-
+ery previous month. As a result, there is little time-series information 
+about missing values.
+
+The second key property is that predictors are largely uncorrelated 
+cross-sectionally (Green et al. (2013); Chen and Zimmermann (2022)). 
+Almost all correlations lie between −0.25 and +0.25, and the ﬁrst 10 
+principal components span only 40% of total variance. Thus, most ob-
+served  predictors  contain  little  cross-sectional  information  about  the 
+missing predictors.
+
+The third key property is that missingness tends to occur in blocks 
+organized by the underlying data. For stocks that are missing book-to-
+market, about 90% are also missing earnings-to-price. So even though 
+book-to-market and earnings-to-price have a nontrivial cross-sectional 
+correlation of around 0.3, this correlation can rarely be used for imput-
+ing book-to-market.
+
+Overall, we ﬁnd the observed predictors provide little information 
+about the missing predictors, so one might as well impute with cross-
+sectional means.
+
+In some settings, EM imputation can even lead to underperformance. 
+Our baseline results form forecasts separately for micro-cap, small-cap, 
+and big stocks, motivated by the fact that predictability can diﬀer by 
+market cap and market liquidity (Fama and French (2008); Chen and 
+Velikov (2022)). If we instead form forecasts using all stocks simulta-
+neously, EM often leads to smaller value-weighted returns compared to 
+simple mean imputation, though equal-weighted returns are generally 
+similar.
+
+This underperformance is consistent with the idea that sophisticated 
+imputations introduce estimation noise. This noise can lead to under-
+performance, particularly if the forecasts are not carefully structured. 
+Consistent with this interpretation, we ﬁnd that EM imputation errors 
+are larger among small stocks in random masking exercises.
+
+All together, we recommend using simple cross-sectional mean im-
+putation for handling missing values when applying machine learning 
+to cross-sectional return predictors. In theory, EM should be less biased, 
+more eﬃcient, and thus lead to more accurate forecasts. In practice, 
+the missingness and covariance structures of cross-sectional predictors 
+imply that the improvements are small, and estimation noise can even 
+lead to underperformance.
+
+The high dimensionality of cross-sectional predictors naturally raises 
+the question of how many of these dimensions contribute to expected 
+returns. Our principal components (PC) regression tests ﬁnd that the 
+answer is subtle and depends on multiple measurement choices. Com-
+puting PCs the standard way, we ﬁnd that about 75 PCs contribute to 
+the potential equal-weighted returns of 50% per year, while 40 PCs con-
+tribute to the potential value-weighted returns of about 20%. However, 
+standard  PC  analysis  is  an  unsupervised  method  that  ignores  return 
+information. Using Huang et al. (2022)’s scaled PCA to incorporate re-
+turn information leads to a much smaller dimensionality: about 30 PCs 
+
+are required when equal-weighting while 15 are required when value-
+weighting.
+
+We  also  describe  the  origins  of  missing  values  in  the  Chen  and 
+Zimmermann  (2022) dataset.  We  ﬁnd  there  are  three  main  drivers: 
+(1) missing underlying data, (2) predictors requiring a long history of 
+underlying data, and (3) using missingness as a substitute for interac-
+tion eﬀects. Requiring accounting variables leads to an observed share 
+of around 70% in 1985 and requiring analyst forecasts drops the ob-
+served  share  to  about  50%.  Variables  that  require  a  long  history  of 
+data  includes  5-year  sales  growth,  which  is  observed  for  about  40% 
+of stocks. Interaction eﬀects are implicit in predictors like asset tan-
+gibility and payout yield, which are replaced with missing values for 
+non-manufacturing ﬁrms and stocks with non-positive payout, respec-
+tively. These drivers of missingness can themselves interact and lead 
+to  extremely  low  rates  of  observability.  For  example,  Asquith  et  al. 
+(2005)’s institutional ownership among high short interest stocks pre-
+dictor requires both specialized underlying data and uses missingness 
+to represent interaction eﬀects, leading to a 0.2% of stocks having ob-
+servations in 1985.
+
+We post all of our code at https://github .com /jack -mccoy /missing _
+data. The imputed predictor data can be found at https://sites .google .
+com /site /chenandrewy/.
+
+1.1.  Related literature
+
+In contemporaneous work, Freyberger et al. (2023) (FHNW), Bryz-
+galova et al. (2023) (BLLP), and Beckmeyer and Wiedemann (2023) also 
+study missing values in cross-sectional predictor data. Each paper advo-
+cates a diﬀerent imputation algorithm, though all avoid modeling the 
+missingness process. FHNW uses moment conditions designed for cross-
+sectional predictors, BLLP use Xiong and Pelger (2023)’s latent factor 
+method, and Beckmeyer and Wiedemann use a masked language model. 
+Our paper takes a more neutral approach and compares textbook impu-
+tation methods (Little and Rubin (2019)) with the cross-sectional mean 
+imputation used in asset pricing. Our approach leads us to focus on 
+practical issues, like whether imputation aﬀects inferences made from 
+standard  ML  algorithms  like  neural  networks  and  gradient  boosting 
+(Efron and Hastie (2016)). We also are distinct in providing a detailed 
+discussion of the origins of missingness for 159 predictors and exploring 
+the intuition for why simple mean imputation seems to perform well in 
+ML applications, including using neural network models and FHNW’s 
+regularized non-linear strategies.
+
+The contemporaneous papers also diﬀer in their predictor and stock 
+return datasets. In this respect, FHNW is the most similar to ours. We 
+both use 80+ predictors from the CZ open-source dataset and cover all 
+common stocks in CRSP. Beckmeyer and Wiedemann (2023) examine 
+143 characteristics from the Jensen et al. (2023) open source dataset 
+and  restrict  stock-months  to  those  with  data  on  at  least  20%  of  the 
+predictors. BLLP examines 45 characteristics from Kozak et al. (2020)
+and restrict stocks to those with at least one Compustat characteristic. 
+Given the size and breadth of these data, and the diversity of statistical 
+methods, the empirical results in these studies are complementary.
+
+Our results provide a rigorous justiﬁcation for the ubiquitous use 
+of mean imputation in machine learning papers. Almost every paper 
+that attempts to combine large sets of predictors imputes with cross-
+sectional means or medians, including Gu et al. (2020); Freyberger et 
+al. (2020); Kozak et al. (2020).3 This result is important because the 
+algorithms in these papers are often complex, so a simple imputation 
+algorithm is helpful for transparency.
+
+Our PC analyses relate to the ongoing debate about the factor struc-
+ture of the cross-section of returns. Our ﬁndings are consistent with the 
+
+2 The returns from PCR in mean-imputed data are 51% and 32% (equal- and 
+value-weighted, respectively), compared to 54% and 36%, in EM-imputed data. 
+All results use the usual assumption of no transaction costs, including no short-
+ing fees.
+
+3 Other  machine  learning  style  papers  that  examine  imputing  with  cross-
+sectional averages include Green et al. (2017); DeMiguel et al. (2020); Fulop 
+et al. (2022); Han et al. (2021); Azevedo et al. (2022); Da et al. (2022); Simon 
+et al. (2022); Zhang and Aaraba (2022); Jensen et al. (2022).
+
+JournalofFinancialEconomics155(2024)1038152A.Y. Chen and J. McCoy
+
+idea that there are many dimensions of predictability if one is interested 
+in all stocks (Green et al. (2014); Bessembinder et al. (2021)) and that 
+a moderately strong factor structure is possible if one considers only 
+large stocks (Green et al. (2017); Lettau and Pelger (2020); Kozak et al. 
+(2020)). Our ﬁndings complement Lopez-Lira and Roussanov (2020), 
+who document large Sharpe ratios in strategies that hedge the principal 
+components of individual stock returns.
+
+2.  The structure and origins of missing predictor data
+
+We describe the structure and origins of missingness among pub-
+lished  cross-sectional  predictors.  We  also  explain  why  imputation  is 
+required for large scale machine learning studies.
+
+2.1.  Cross-sectional predictor data
+
+Our predictors data begins with the August 2023 release of the CZ 
+dataset. This release contains 212 cross-sectional predictors published 
+in academic journals. We merge this data with CRSP and keep only com-
+mon stocks (SHRCD 10, 11, or 12) listed on the NYSE, NYSE MKT, or 
+NASDAQ (EXCHCD 1, 2, 3, or 31, 32, 33). This ensures that the missing 
+data problems we study apply to widely-studied common stocks, and 
+do not occur because of the rise of ETFs or other more exotic securities. 
+The screens we use follow Banz (1981), Fama and French (1992), and 
+Bali et al. (2016) among others.4
+
+We drop the 33 discrete predictors because the missing values in 
+this subset are closely related to the interpretation of these predictors 
+by CZ. Many of these predictors draw on event studies (e.g. exchange 
+switch), which CZ interpret as a binary ﬁrm characteristic (following 
+McLean and Pontiﬀ (2016)). Others are based on double-sorts (e.g. an-
+alyst recommendation and short interest). In both cases, CZ use missing 
+values for any stocks that belong in neither the long or short portfolio, 
+though there are other ways to interpret these studies.
+
+We drop an additional 20 predictors because they have months with 
+fewer than 2 stock observations in the 1985-2021 sample. 18 of these 
+predictors use data that does not begin until after 1985. The remaining 
+predictors are junk stock momentum (Mom6mJunk) and ﬁrm age - mo-
+mentum (FirmAgeMom), which have small gaps in recent years. This 
+screen ensures the predictor data is relatively well-behaved and avoids 
+the use of special techniques to handle predictor-months with no data.
+
+The  ﬁnal  159  predictors  include  not only  those  based  on  CRSP 
+and Compustat, but also predictors that use IBES analyst forecast data. 
+This inclusion is important, as analyst forecasts may oﬀer a distinct di-
+mension of predictability. Unfortunately, the list excludes option-based 
+predictors, as option prices are not observed until the 1990s.
+
+2.2.  Where does missingness come from?
+
+Table 1 presents a list of selected predictors that illustrates the ori-
+gins of missingness. The predictors are sorted by the share of stocks 
+with observations in 1985, a year that is fairly representative of other 
+years. The observed share ranges from 99.8% for size all the way down 
+to 0.2% for institutional ownership among high short interest stocks. 
+We curate this list from the full list of 159 predictors, which can be 
+found in the Internet Appendix (Table IA.1).
+
+The most-observed predictors use only recent CRSP data. These pre-
+dictors  include  short-term  reversal,  idiosyncratic  volatility,  and  size, 
+and are observed for nearly 100% of stocks. Requiring a longer history 
+of CRSP data leads to a small but non-trivial share of missing values. 
+12-month momentum is observed for 92% of stocks. A similar amount 
+of CRSP data is required for coskewness, beta, and two of the zero trade 
+predictors.
+
+4 Previous versions of this paper did not apply these screens. We thank Jun 
+Kyung Auh for pointing out this issue.
+
+Requiring accounting variables drops the observed share into the 
+60% to 75% range. Predictors that fall in this range include B/M and 
+asset growth. Many other accounting-based predictors fall in this range, 
+including employee growth, leverage, taxes, external ﬁnancing, and ac-
+cruals.
+
+Rates of observability below 50% are driven by a wide variety of 
+issues. Most of these predictors require a long history of accounting or 
+CRSP data, such as return seasonality in years 11-15 or revenue growth 
+rank, which uses the past 5 years of sales growth. Long histories of data 
+are also required for intangible value, Titman et al. (2004)’s investment 
+predictor, and composite debt issuance.
+
+But many of the less-observable predictors are missing values simply 
+because the data items they require are often missing. Predictors that 
+use analyst forecast data are observed for at most 50% of stocks, such as 
+EPS forecast revision. Earnings surprise streak requires a long history of 
+EPS forecasts, leading to an even smaller share. Data items are also often 
+missing for less-common accounting variables, like advertising expense.
+Still  other  predictors  have  missing  values  due  to  a  diverse  range 
+of  specialized  ﬁlters.  Asset  tangibility  applies  only  to  manufacturing 
+ﬁrms, while IPO and age only applies to recent IPOs. Payout yield drops 
+stocks with non-positive payout. In CZ’s interpretation, turnover volatil-
+ity drops stocks in the top two size quintiles, and operating proﬁtability 
+drops stocks in the bottom size tercile. The original Piotroski F-score 
+(PS) study only examines stocks in the highest BM quintile.
+
+At the bottom of Table 1 are selected predictors that are observed 
+for less than 10% of stocks in 1985. These very low rates of observabil-
+ity are sometimes due to highly specialized data. Conglomerate return 
+uses Compustat segment data and customer momentum uses the BEA 
+input-output tables. Yet others combine specialized data with the use 
+missingness  to  substitute  for  interaction  eﬀects,  such  as  institutional 
+ownership for high short interest.
+
+As seen in these details, missingness is sometimes used as a substi-
+tute for modeling non-monotonicity and interaction eﬀects. Incorporat-
+ing these interactions is non-trivial. It requires going into the code be-
+hind the individual predictors, removing the missingness assignments, 
+and carefully introducing new interaction variables. We leave this work 
+for future research.
+
+2.3.  Summarizing missingness for individual predictors
+
+Table 2 describes missingness at the individual predictor level. For 
+each predictor, we compute the share of stocks that have observed pre-
+dictors in selected months between 1970 and 2000. Panel (a) shows 
+order statistics across predictors.
+
+Though many cross-sectional predictability studies begin in 1963, at 
+least 5% of our 159 predictors have no observations until about 1980. 
+Several of these predictors draw on analyst forecast data, which is not 
+generally observed until 1985 (using IBES).
+
+Missingness reaches a steady state in 1985, as the order statistics are 
+largely unchanged after this date. In this steady state, the typical predic-
+tor is observed for 70% of stocks, and 75% of predictors are observed 
+for roughly 50% of stocks. While this distribution suggests that miss-
+ing values are a relatively modest problem, we will see that combining 
+large sets of predictors compounds the issue.
+
+This steady state suggests that missingness in the time series exhibits 
+structural breaks: predictor data is continually missing until the data 
+begins being published, after which the data is continually observed.
+
+2.4.  Why imputation is often required
+
+When combining predictors, one typically needs a numerical value 
+for all predictors for each stock-month in consideration. This require-
+ment compounds the magnitudes in Panel (a) of Table 2, leading to a 
+dramatically larger missingness problem.
+
+This  problem  is  illustrated  in  Fig. 1,  which  shows  the  “missing-
+ness map” for the 159 predictors among common stocks in June 1990. 
+
+JournalofFinancialEconomics155(2024)1038153A.Y. Chen and J. McCoy
+
+Table 1
+Missingness in 1985 for Selected Predictors. Predictors are selected to illustrate the 
+causes of missingness (see discussion in text). ‘% Obs’ is the mean share of stock-months 
+for which the predictor is observed in 1985, for common stocks listed on the NYSE, 
+NYSE MKT, and NASDAQ. The full list of 159 continuous predictors with at least 2 ob-
+servations in every month between 1985 and 2021 is in the Internet Appendix (Table 
+IA.1). Interpretation: Missingness is due to the availability of the underlying data (ac-
+counting, analyst forecast, etc), the requirement of having a long history of underlying 
+data (Ret Seasonality Yr 11-15), and is also imposed to approximate interaction eﬀects 
+(IPO and Age).
+
+Predictor
+
+Reference
+
+Data Focus
+
+% Obs
+
+Size
+12-Month Momentum
+Book-to-Market
+Asset Growth
+EPS Forecast Revision
+Ret Seasonality Yr 11-15
+Revenue Growth Rank
+Payout Yield
+Asset Tangibility
+Advertising Expense
+IPO and Age
+Earnings Surprise Streak
+Conglomerate Return
+Customer Momentum
+Inst Own for High Short Int
+
+Banz, 1981
+Jegadeesh and Titman 1993
+Stattman 1980
+Cooper, Gulen and Schill 2008
+Hawkins, Chamberlin, Daniel 1984
+Heston and Sadka 2008
+Lakonishok, Shleifer, Vishny 1994
+Boudoukh et al. 2007
+Hahn and Lee 2009
+Chan et al. 2001
+Ritter 1991
+Loh and Warachka 2012
+Cohen and Lou 2012
+Cohen and Frazzini 2008
+Asquith Pathak and Ritter 2005
+
+Price
+Price
+Accounting
+Accounting
+Analyst
+Price
+Accounting
+Accounting
+Accounting
+Accounting
+Other
+Accounting
+Price
+Other
+Other
+
+99.8
+91.6
+74.4
+67.1
+46.0
+45.3
+40.5
+35.9
+34.9
+31.3
+14.2
+14.1
+8.4
+4.9
+0.2
+
+Table 2
+The Missing Value Problem for Large-Scale Predictability Studies. Data consists of 159 
+continuous predictors from Chen and Zimmermann (2022) with at least 2 observations for 
+common stocks listed on major exchanges in every month between 1985 and 2021. Panel 
+(a) computes the % of stocks with observations for individual predictors and then com-
+putes percentiles across predictors. Panel (b) selects the 𝐽 most-observed predictors and 
+then computes the % observed among these using two methods: ‘Predictor-Stocks’ sums 
+predictor-stock observations and then divides by 𝐽 × the number of stocks. ‘Stocks w/all 𝐽 ’ 
+counts the number of stocks with all 𝐽 predictors and divides by the number of stocks. In-
+terpretation: Missing values are a much larger problem when combining many predictors. 
+When combining 75 or more predictors, one must impute missing values or drop most stocks.
+
+Predictor 
+Percentile
+
+Panel (a): Individual Predictors
+% of Stocks With Predictor Data in June
+
+1970
+
+1975
+
+1980
+
+1985
+
+1990
+
+1995
+
+2000
+
+5
+25
+50
+75
+95
+
+0
+25
+67
+82
+100
+
+0
+34
+53
+72
+97
+
+3
+42
+66
+80
+97
+
+14
+43
+66
+78
+99
+
+14
+45
+69
+79
+99
+
+15
+45
+71
+87
+99
+
+16
+50
+74
+89
+99
+
+𝐽
+
+25
+50
+75
+100
+125
+150
+
+Panel (b): Combining 𝐽 Predictors
+
+June 1975
+
+Predictor-
+Stocks w/
+Data (%)
+
+Stocks w/ 𝐽
+Predictors 
+(%)
+
+June 1985
+
+Predictor-
+Stocks w/
+Data (%)
+
+Stocks w/ 𝐽
+Predictors
+(%)
+
+June 1995
+
+Predictor-
+Stocks w/
+Data (%)
+
+Stocks w/ 𝐽
+Predictors
+(%)
+
+89.2
+82.1
+76.2
+71.3
+63.2
+55.8
+
+49.7
+37.4
+9.7
+0.0
+0.0
+0.0
+
+96.2
+87.9
+81.3
+76.7
+70.7
+63.5
+
+86.4
+42.1
+16.1
+10.1
+0.9
+0.0
+
+95.8
+91.0
+85.7
+81.4
+75.0
+67.6
+
+88.1
+53.5
+23.8
+11.2
+0.8
+0.0
+
+Roughly half of the map is non-shaded, indicating that roughly half of 
+the data is observed. This does not mean, however, that roughly half of 
+stocks can be used in a machine learning algorithm without imputation. 
+In general, only stocks with no missing values can be used, correspond-
+ing to columns in the missingness map that are entirely non-shaded. 
+Zero columns satisfy this requirement.
+
+Panel (b) of Table 2 quantiﬁes this problem. This panel examines 
+the prevalence of missing values when combining 𝐽 predictors, where 
+
+𝐽 ranges from 25 to 150. The 𝐽 = 25 row examines the 25 predictors 
+with the most observations in selected months. It shows that one can 
+combine 25 predictors with minimal missing data issues. In June 1985, 
+96% of predictor-stocks have observations and 86% of stocks have pre-
+dictor data for all of these 25 predictors.
+
+But when combining for 75 or more predictors, one needs to take a 
+stand on imputation. As seen in the 𝐽 = 75 row, simply dropping stocks 
+with missing values would result in dropping all but 16% of the data. 
+
+JournalofFinancialEconomics155(2024)1038154A.Y. Chen and J. McCoy
+
+Fig. 1. Missingness Map: June 1990. Vertical axis represents 159 predictors and horizontal axis represents 6,000 common stocks traded on major exchanges. 
+Shading indicates months since the last observation. Lightest shade is currently observed and the darkest indicates the predictor-stock has never been observed. 
+Predictors are sorted by the type of data they focus on (according to the CZ documentation). Interpretation: When combining 159 predictors, a stock can only be 
+used without imputation if it has values for all 159 predictors. No stocks satisfy this requirement. The complexity of missingness suggests assuming Rubin (1976)
+ignorability is required. Missingness occurs in blocks organized around data type and time. There is very little time series information about missing values.
+
+For 𝐽 = 125, essentially the entire dataset is gone if one follows the 
+traditional  missing  value  handling  used  in  individual  predictor  stud-
+ies.
+
+Returning to Fig. 1, the complex missingness patterns show that a 
+general purpose missing data imputation is required. There are dozens 
+of  distinct  shapes  in  Fig. 1,  suggesting  that  dozens  of  equations  are 
+required to model the speciﬁc missingness mechanisms. It is unlikely 
+that an analyst could convincingly present such a complicated model. 
+The only alternative is to assume Rubin (1976) ignorability, which leads 
+to our focus on EM methods (Section 3.2).
+
+3.  Baseline imputation methods
+
+The  missingness  patterns  imply  that  one  must impute  data  when 
+combining more than 100 predictors. This section describes our baseline 
+imputation methods: EM and simple mean.
+
+These imputations are important benchmarks. EM is recommended 
+in  the  inﬂuential  Little  and  Rubin  (2019) textbook  on  missing  data. 
+Simple mean imputation is the most common method in ML-style asset 
+pricing.
+
+We examine several additional imputations in Section 5.
+
+2.5.  The structure of missingness
+
+3.1.  Preprocessing
+
+Fig. 1 sorts the predictors by the type of data they focus on (accord-
+ing to the CZ documentation). This sort shows that missingness occurs 
+in blocks, organized by data type. Stocks that are missing some account-
+ing predictors are often missing every single accounting predictor. The 
+same pattern arises with analyst forecast predictors, as seen in the dark 
+vertical lines that span the “Analyst” section of the plot.
+
+Block structures also occur within data categories, consistent with 
+the fact that missingness often occurs due to the requirement of hav-
+ing a certain amount of historical data. This block structure suggests 
+that extracting information about missing values from cross-sectional 
+observations may be diﬃcult.
+
+Missingness  is  extremely  persistent.  For  predictor-stock  combina-
+tions that are missing in June 1990 (everything except for the lightest 
+shade), the vast majority were never observed before June 1990 (dark-
+est shade). Only a tiny share has observations in the past 12 months. 
+This structure implies that there is very little time-series information 
+about missing values.
+
+This missingness structure leads us to focus on linear cross-sectional 
+imputations in our baseline methods. These methods focus on the part 
+of the data which contains more information about the missing values 
+(the cross-section), and they avoid over-parameterizing the model when 
+the amount of information in the cross-section is likely limited.
+
+Before applying any imputation, we use the following preprocessing. 
+First, we winsorize across stocks symmetrically at the 1% level for each 
+predictor-month. Second, we apply Hawkins and Weisberg (2017)’s ex-
+tension of Box and Cox (1964) to make each predictor approximately 
+normal. Finally, we standardize predictors to have zero mean and unit 
+variance.
+
+The  Box-Cox  transform  is  not  commonly  found  in  asset  pricing, 
+but it is a natural extension of the log transformation that is typically 
+applied to size and B/M (Fama and French (1992)). More broadly, cross-
+sectional predictability studies rarely impose a functional form on the 
+relationship between the predictor predictors and expected returns, so 
+one might as well standardize the predictors to be approximately nor-
+mal.
+
+3.2.  Cross-sectional EM imputation
+
+There are 𝑁 stocks, and stock 𝑖 in month 𝑡 has a vector of predic-
+obs|𝑖,𝑡, 
+
+tor values 𝑋𝑖,𝑡. Missing values are represented by 𝑋
+which are the missing and observed subvectors of 𝑋𝑖,𝑡.5
+
+miss|𝑖,𝑡 and 𝑋
+
+5 For example, if 𝑋𝑖,𝑡 =
+missing, then 𝑋
+
+1 2 3 4
+miss|𝑖,𝑡 = [ 1 3 ] and 𝑋
+
+[
+
+]′
+, and the ﬁrst and third elements are 
+obs|𝑖,𝑡 = [ 2 4 ]. 𝑋𝑖+1,𝑡 may have a diﬀerent 
+
+JournalofFinancialEconomics155(2024)1038155A.Y. Chen and J. McCoy
+
+Suppose  ̂Σ𝑡 is a reasonable estimate for Σ𝑡, the cross-stock covari-
+ance matrix of 𝑋𝑖,𝑡. For example, one could let  ̂Σ𝑡 be the sample covari-
+ance across pairs of stocks that have predictor data, as in BLLP. Then, 
+an intuitive way to impute 𝑋
+miss|𝑖,𝑡 is to use:
+
+̂𝑋
+
+miss|𝑖,𝑡 = ̂𝛽′
+where
+
+𝑖,𝑡𝑋
+
+obs|𝑖,𝑡,
+
+(1)
+
+obs,obs|𝑖,𝑡
+
+̂Σobs,miss|𝑖,𝑡,
+
+̂𝛽𝑖,𝑡 ≡ ̂Σ−1
+(2)
+and ̂Σmiss,obs|𝑖,𝑡 and ̂Σobs,obs|𝑖,𝑡 are the submatrices of ̂Σ𝑡 corresponding to 
+the missing and observed predictors for stock 𝑖. Analogous to the clas-
+sic OLS formula  ̂𝛽 = [𝑋′𝑋]−1𝑋′𝑦, Equations (1)-(2) use the covariance 
+between the LHS and RHS variables to forecast the LHS. Equation (1)
+omits the intercept since we standardize variables to have mean zero 
+(Section 3.1).
+
+The problem with this approach is that it is not self-consistent. That 
+
+is, the imputed data would generally imply
+
+̂Σ𝑡 ≠ 𝑁 −1
+
+𝑁∑
+
+̂𝑋𝑖,𝑡
+
+̂𝑋′
+𝑖,𝑡,
+
+(3)
+
+𝑖=1
+where  ̂𝑋𝑖,𝑡 combines  ̂𝑋
+whether you should be using  ̂Σ𝑡 or 𝑁 −1
+missing values.
+
+miss|𝑖,𝑡 and  𝑋
+
+obs|𝑖,𝑡.  In  this  case,  it  is  unclear 
+𝑖,𝑡 to be imputing 
+
+∑𝑁
+𝑖=1
+
+̂𝑋𝑖,𝑡
+
+̂𝑋′
+
+miss|𝑖,𝑡
+
+miss|𝑖,𝑡. The expected value of 𝑋
+𝑋′
+
+A secondary issue is that Equations (1)-(2) do not tell you how to 
+deal with higher order missing terms. That is, not only is 𝑋
+miss|𝑖,𝑡 un-
+known, but so is 𝑋
+𝑋′
+miss|𝑖,𝑡
+is diﬀerent than the outer product of Equation (1), and is potentially 
+important for a rigorous estimate of Σ𝑡. An intuitive way to estimate 
+this higher order term is to use
+[
+̂𝑋𝑖,𝑡𝑋′
+
+= Σmiss,miss|𝑖,𝑡 − ̂𝛽′
+
+𝑖,𝑡Σobs,miss|𝑖,𝑡 + ̂𝑋
+
+miss|𝑖,𝑡
+
+̂𝑋′
+
+(4)
+
+𝑖,𝑡
+
+]
+
+,
+
+miss|𝑖,𝑡
+
+miss|𝑖,𝑡
+
+miss,miss|𝑖,𝑡
+
+which can be derived from Gaussian updating formulas.
+
+The EM algorithm solves the self-consistency problem by iterating 
+
+between Equations (1)-(2) and Equation (3):
+
+1. E-step: impute missing data with the observed data and the current 
+
+guess  ̂Σ𝑡, using Equations (1) and (2).
+
+2. M-step: estimate a new guess  ̂Σnew
+
+by plugging the imputed data 
+from step 1 into the RHS of Equation (3). Add to  ̂Σnew
+the higher 
+order  correction  implied  by  Equation  (4) for  submatrices corre-
+sponding to  ̂𝑋
+
+̂𝑋′
+
+𝑡
+
+𝑡
+
+miss|𝑖,𝑡
+
+miss|𝑖,𝑡.6
+
+‖
+‖
+‖∞
+
+‖
+‖
+These two steps are repeated until 
+‖
+
+𝑡 − ̂Σ𝑡
+̂Σnew
+≤ 𝛿. We use 𝛿 = 10−4.
+The E- and M-steps can be applied to almost any imputation and es-
+timation formulas. Our main results focus on the simple cross-sectional 
+regression formula (Equations (1)-(2)). This method avoids look-ahead 
+bias and is intuitive given the missingness structure described in Sec-
+tion 2.5. We examine variations that assume a factor structure and take 
+on time-series information in Section 5.
+
+More formally, this EM algorithm can be derived from maximum 
+likelihood (Dempster et al. (1977)), assuming that the process gener-
+ating the missing data is “ignorable” in the sense of (Rubin (1976)). A 
+suﬃcient condition for ignorability is that data is “missing at random,” 
+which is a technical condition that is best described as the weakest gen-
+eral condition that leads to ignorability (Little (2021)). This notion of 
+“missing at random” is diﬀerent than the one used in Xiong and Pel-
+ger (2023), whose notion of “missing at random” is often described as 
+
+set of missing predictors, and thus the length of 𝑋
+diﬀerent compared to 𝑋
+6 Some  descriptions  of  EM  omit  the  higher  order  correction  (e.g.  Roweis 
+(1997); Efron and Hastie (2016)).
+
+obs|𝑖+1,𝑡 may be 
+
+miss|𝑖+1,𝑡 and 𝑋
+
+miss|𝑖,𝑡 and 𝑋
+
+obs|𝑖,𝑡.
+
+“missing completely at random” (Little and Rubin (2019)). We provide 
+a formal derivation of our EM algorithm and discuss these technical 
+issues in the Internet Appendix.
+
+This  EM  algorithm  is  sometimes  described  as  “requiring”  the  as-
+sumption of normality (e.g. Freyberger et al. (2023), BLLP). But while 
+normality along with ignorability are suﬃcient conditions for the va-
+lidity of EM, they are not necessary assumptions. Indeed, simulation 
+studies ﬁnd this algorithm works well even if the data are not normal 
+(Little (1988); Azen et al. (1989); Graham and Schafer (1999); King 
+et al. (2001)). This robustness is consistent with the intuition that EM 
+is an iterative form of OLS, and like OLS, is maximum likelihood un-
+der ideal conditions but works well in real world settings. Little (1988)
+shows that allowing for fat tails leads to the same algorithm but with 
+smaller weights on the extreme observations. As we winsorize our data 
+before imputation, such a fat tail extension should have little eﬀect on 
+our results.
+
+3.3.  Simple mean imputation
+
+Simple  mean  imputation  replaces  missing  values  with  the  mean 
+observed  value  conditional  on  the  predictor-month.  Given  our  pre-
+processing (Section 3.1), simple mean imputation amounts to replacing 
+missing predictor values with zeros, and median imputation is equiva-
+lent.
+
+Mean  imputation  could  lead  to  signiﬁcantly  biased  inferences 
+(BLLP). But Equations (1) and (2) show this may not be the case. Mean 
+imputation is the special case of EM (and thus maximum likelihood) 
+in which the oﬀ-diagonal terms of  ̂Σ𝑡 are zero. In this case,  ̂Σmiss,obs|𝑖,𝑡
+is a matrix of zeros, the imputation slopes  ̂𝛽𝑖,𝑡 is a vector of zeros, and 
+̂𝑋
+
+miss|𝑖,𝑡 is also a vector of zeros.
+More generally, if the oﬀ-diagonal terms of Σ𝑡 are close to zero for 
+predictor pairs that can be used for imputation, then mean imputation 
+should be similar to EM and other algorithms focused on Σ𝑡.
+
+Studies of large sets of cross-sectional predictors ﬁnd that the oﬀ-
+diagonal terms of Σ𝑡 are mostly close to zero (Green et al. (2017); Chen 
+and Zimmermann (2022)). We verify this result in Section 4.3. More-
+over, the predictor pairs that can be used for imputation often cross 
+data  categories  (Fig. 1),  implying  the  relevant  covariances  are  even 
+smaller than those that have been documented. Lastly, assuming the 
+oﬀ-diagonal terms are small can be thought of as a structural restric-
+tion, implied by the idea that predictors need to be novel to be worthy 
+of publishing (Chen and Zimmermann (2020)).
+
+Mean imputation also has the advantages of tractability and trans-
+parency. These advantages are notable in our setting due to the number 
+and complexity of the missingness patterns in Fig. 1. For each missing-
+ness pattern, EM imputation implies a diﬀerent matrix inversion, and 
+every matrix inversion must be done in every iteration of the algorithm. 
+There are other general-purpose algorithms that are more tractable, but 
+it can be diﬃcult to formally derive their statistical properties under 
+general assumptions (e.g. Roweis (1997)’s pPCA). The transparency of 
+mean imputation is also important, given the complexity of the ML pro-
+cedures that are applied to imputed data.
+
+4.  EM vs simple mean imputation
+
+This section provides the main results. We compare the performance 
+of EM vs mean imputation for predicting long-short returns in single 
+sorts (Section 4.1) or PCR portfolios (Section 4.2). We explain why this 
+performance is largely similar (Section 4.3) and why EM can sometimes 
+underperform (Section 4.4).
+
+We  also  show  how  Huang  et  al.  (2022)’s  scaled  PCR  leads  to  a 
+smaller  dimensionality  of  expected  returns,  though  imputations  still 
+have little eﬀect on inferences about expected returns (Section 4.5).
+
+JournalofFinancialEconomics155(2024)1038156A.Y. Chen and J. McCoy
+
+Table 3
+Missing Data Eﬀects on Single Predictor Strategies. Strategies long the 500 
+stocks with the most positive predictor values and short the 500 stocks with 
+the most negative predictor values. ‘EM Imputed’ uses cross-sectional EM im-
+putation (Section 3.2) and ‘Missing Dropped’ drops stock-months with missing 
+predictors. For both methods, we drop predictor-months with less than 1000 
+stock-predictor observations. ‘EM Improvement’ is ‘EM Imputed’ minus ‘Missing 
+Dropped,’ computed at the predictor level. Interpretation: Though EM gener-
+ally improves performance, the typical eﬀect is small, and it comes at the cost 
+of worse performance for many predictors.
+
+Percentile Across Predictors
+
+10
+
+25
+
+50
+
+75
+
+90
+
+Panel (a): Equal-Weighted
+
+Mean Return (% Ann)
+
+EM Imputed
+Missing Dropped
+
+EM Improvement
+
+Sharpe Ratio (Ann)
+
+EM Imputed
+Missing Dropped
+
+EM Improvement
+
+Mean Return (% Ann)
+
+EM Imputed
+Missing Dropped
+
+EM Improvement
+
+Sharpe Ratio (Ann)
+
+EM Imputed
+Missing Dropped
+
+EM Improvement
+
+-1.2
+-0.1
+
+-2.0
+
+-0.05
+-0.01
+
+-0.22
+
+2.9
+3.1
+
+-0.3
+
+0.16
+0.26
+
+-0.04
+
+7.1
+6.2
+
+0.5
+
+0.58
+0.53
+
+0.01
+
+Panel (b): Value-Weighted
+
+-1.9
+-2.1
+
+-1.5
+
+-0.13
+-0.12
+
+-0.10
+
+0.5
+0.8
+
+-0.4
+
+0.04
+0.04
+
+-0.04
+
+3.1
+2.6
+
+0.2
+
+0.22
+0.22
+
+0.00
+
+12.7
+10.2
+
+2.1
+
+0.86
+0.89
+
+0.09
+
+7.0
+5.5
+
+1.5
+
+0.43
+0.36
+
+0.06
+
+17.5
+15.2
+
+4.4
+
+1.21
+1.11
+
+0.18
+
+11.2
+10.4
+
+3.8
+
+0.54
+0.51
+
+0.19
+
+4.1.  Single-predictor strategies
+
+We start with single-predictor strategies because they are so familiar 
+to asset pricing researchers. It is unlikely that missing data handling has 
+a large eﬀect here, but these results are helpful “descriptive” statistics 
+before the main results.
+
+Our single-predictor strategies go long the 500 stocks with the most 
+positive predictor values and short the 500 stocks with the most neg-
+ative  predictor  values  each  month.  We  do  this  for  two  missing  data 
+handling  methods:  (1)  EM  imputation  and  (2)  dropping  stocks  with 
+missing values.
+
+This design allows us to examine the most common method for han-
+dling missing values (dropping missing) while simultaneously removing 
+“predictor dilution” eﬀects that can occur when using imputed data. In-
+tuitively, the imputed data covers more stocks, and if these additional 
+stocks have more neutral predictors, the extreme deciles using imputed 
+data will display less predictability simply because of this additional 
+coverage. Fixing the number of stocks in each leg controls for this issue.
+Table 3 shows the resulting distribution of mean returns and Sharpe 
+ratios. EM generally improves the distribution of performance, but the 
+typical eﬀect is small, and it comes at the cost of worse performance 
+for many predictors. The distribution of mean returns shifts to the right 
+overall, but the left tail shifts to the left, particularly in equal-weighted 
+portfolios. Using Sharpe ratios, the typical improvement is eﬀectively 
+zero, while both tails shifts outward.
+
+4.2.  159-predictor strategies using PCR
+
+We now examine the more compelling setting for studying missing 
+values: strategies that combine information from many predictors. We 
+combine information using principal components regression (PCR), a 
+simple method for handling potentially correlated predictors and po-
+tential overﬁtting problems.
+
+Our PCR analysis forms “real-time” long-short strategies as follows: 
+For each month 𝑡 between January 1995 and December 2021, we apply 
+the following steps:
+
+1. Separate stocks into three size groups (micro, small, and big) ac-
+cording to market cap by month. Micro is below the 20th percentile 
+NYSE market cap and big is above the 50th percentile NYSE market 
+cap, following Fama and French (2008).
+
+2. For each size group, ﬁnd the principal components (PCs) of the 
+predictors using data from the past 120 months. Then use OLS to 
+predict stock returns using the ﬁrst 𝐾 PCs.
+
+3. Form a portfolio that goes long the top decile of predicted returns 
+and short the bottom decile. Hold this position for one month.
+
+We make inferences on each size group separately because predictabil-
+ity diﬀers by market cap (Fama and French (2008)) and market liquidity 
+(Chen and Velikov (2022)). Within each size group, OLS and PCA are 
+run pooling observations.7
+
+Fig. 2 shows the result. It plots the mean returns (Panel (a)) and 
+Sharpe ratios (Panel (b)) as a function of the number of PCs used to 
+forecast returns. The various lines show equal- or value- weighting, and 
+EM or simple mean imputation.
+
+Notably, the results depend relatively little on whether EM or mean 
+imputation is used. Echoing Table 3, EM leads to high mean returns in 
+equal-weighted portfolios, but the improvement is minor to moderate 
+and vanishes if many PCs are used. For value-weighted portfolios, EM 
+and simple mean imputation lead to very similar inferences for most of 
+the plot.
+
+These results suggest that the simple mean imputation used in the 
+machine learning strategies of Freyberger et al. (2020); Gu et al. (2020)
+and others largely captures the potential returns and Sharpe ratios. We 
+verify this robustness for boosted tree and neural network strategies in 
+Section 5.
+
+Fig. 2 also suggests an extremely high dimensionality of expected re-
+turns. Mean returns and Sharpe ratios increase in the number of PCs, up 
+to at least 40 PCs. This dimensionality may be overstated, however, as 
+PCA does not incorporate return information, and can be thought of as 
+an “unsupervised learning” model. We revisit this issue in Section 4.5, 
+where we examine a “supervised” version of PCA.
+
+4.3.  Imputation information and predictor correlations
+
+Why do EM and simple mean imputation lead to similar inferences 
+
+about expected returns?
+
+The answer is that the observed predictors contain little information 
+about the missing predictors. This fact is illustrated in Fig. 3, which 
+shows the distribution of correlations between pairs of predictors. The 
+“Observed” lines use all pairs of stocks that have predictor data in the 
+given month (“available case” or “pairwise complete” correlations). The 
+“EM Algo” lines use the correlations estimated from EM.
+
+The correlations cluster near zero, consistent with Chen and Zim-
+mermann (2022). As a result, mean imputation should be a reasonable 
+approximation of EM (Section 3.3). Intuitively, the low correlations im-
+ply that the observed value of one predictor tells you relatively little 
+about  a  missing  predictor.  Similarly,  principal  components  are  rela-
+tively uninformative. 10 PCs capture only 40% of total variance.8 These 
+results are stable over time and do not depend on whether you use avail-
+
+{
+7 Pooling can be justiﬁed if 
+
+𝑁 −1
+
+∑𝑁
+𝑖=1
+
+𝑋𝑖,𝑡𝑋𝑖,𝑡
+(
+
+}
+
+is weakly dependent, 
+
+so that the pooled estimator converges to 𝐸
+8 The relationship between PCA and imputation slopes is diﬃcult to formalize 
+but we show high dimensionality is associated with small imputation slopes in 
+simulations in the Internet Appendix.
+
+𝑋𝑖,1
+
+)
+𝑡=1,2,3,...
+𝑋′
+𝑖,1
+
+.
+
+JournalofFinancialEconomics155(2024)1038157A.Y. Chen and J. McCoy
+
+Fig. 2. Missing Data Eﬀects in 159-Predictor Strategies using PCR. Each 
+month, we forecast next month’s returns by running PCR on the past 10 years 
+of data by size group (micro, small, big). Strategies go long-short stocks in the 
+extreme deciles of predicted returns. ‘EM Algo’ imputes missing values with 
+cross-sectional EM (Section 3.2). ‘Simple Mean’ imputes with cross-sectional 
+means (Section 3.3). Interpretation: EM and simple mean imputation lead to 
+similar inferences about expected returns and Sharpe ratios.
+
+able case or EM correlations.9 Consistent with the interpretation that 
+the observed data is uninformative, we ﬁnd that the imputation slopes 
+(Equation (2)) cluster close to zero (Internet Appendix Fig. IA.4).
+
+Fig. 3 actually  overstates  the  potential  information  gains.  As  dis-
+cussed in Section 2.4, missingness tends to occur in blocks organized 
+around the data source. If a stock is missing an accounting-based predic-
+tor, it is likely to be missing all accounting-based predictors. So while 
+earnings-to-price and book-to-market may be correlated, this correla-
+tion typically cannot be used to impute book-to-market. Instead, one 
+would need to impute with a more distant predictor like coskewness 
+or trading volume, which are unlikely to tell us much about book-to-
+market.
+
+Similarly, while Fig. 3 focuses on cross-sectional information, one 
+might argue that there is time-series information from, say, the per-
+sistence in book-to-market. However, missingness also tends to occur 
+in blocks organized around time (Fig. 1). If book-to-market is missing 
+now, it is extremely likely to be missing last year, so this time-series 
+correlation is also not informative.
+
+9 Though the observed and EM distributions look identical, we show in the 
+Internet Appendix that they diﬀer slightly.
+
+4.4.  Imputation noise and pitfalls
+
+EM imputation not only adds little information, it also introduces 
+noise. This noise can lead to poor forecasting performance if the data is 
+not carefully handled.
+
+Fig. 4 illustrates the noise introduced by imputation. It shows im-
+putation errors from a masking exercise: we randomly mask 10% of 
+observed stock-predictor values, impute with EM, and calculate the er-
+ror as the diﬀerence between the masked value and the imputed value.
+For stocks with below-median market cap, the RMSE is at least 0.70. 
+For comparison, imputing with simple means would lead to an RMSE of 
+1.00, since the data are standardized (Section 3.1). Thus, the imputation 
+errors are quite large, especially among small stocks.
+
+Indeed,  the  RMSEs  in  Fig. 4 are  surely  understated,  as  our  ran-
+dom  masking  does  not  account  for  the  fact  that  accounting  predic-
+tors  are  typically  missing  together.  To  mask,  we  draw  all  observed 
+predictor-stock combinations with equal probability, so we will often 
+mask book-to-market without masking the other accounting-based pre-
+dictors. Thus, the imputation exercise in Fig. 4 can “cheat,” by imputing 
+book-to-market with earnings-to-price, even though in the real world 
+these variables are almost always missing together.
+
+Imputation noise can lead to poor forecasting performance, as seen 
+in Fig. 5. This ﬁgure repeats the long-short portfolio exercise from Sec-
+tion 4.2, but instead of estimating predicted returns by size group, it 
+runs pooled estimations, estimating a single model for all size groups 
+simultaneously. Thus, it ignores the fact that predictability is stronger 
+in small stocks, as well as the fact that imputation errors are larger for 
+small stocks.
+
+In value-weighted portfolios, EM leads to much worse performance 
+than simple mean imputation if more than 75 PCs are used. Importantly, 
+simple mean imputation leads to value-weighted returns as high as 25% 
+per year, while EM imputation tops out at 20%. This problem is much 
+smaller in equal-weighted portfolios, in which returns top out at around 
+53% per year, regardless of the imputation method.
+
+This underperformance is consistent with the pattern in imputation 
+errors. EM underperformance happens when many PCs are used, fore-
+casts are pooled, and performance is evaluated using value-weighting. 
+In this setting, the large imputation errors in small stocks aﬀect the fore-
+casts of large stocks, and these large-stock forcasts are the focus of the 
+performance evaluation.
+
+These  results  illustrate  a  pitfall  of  sophisticated  imputations.  The 
+noise  introduced  by  sophisticated  imputation  may  outweigh  the  in-
+formation gained. This risk is higher if forecasts are not aligned with 
+performance evaluation, as in Fig. 5’s value-weighted results. Section 5
+shows that this pitfall is not just a property of EM imputation and PCR, 
+but is also seen using other methods.
+
+This pitfall leads us to recommend simple mean imputation for cross-
+sectional asset pricing research. While sophisticated imputations more 
+fully incorporate information, they also introduce noise and can lead 
+to underperformance. Given the complexity of most imputation and ML 
+forecasting methods, our judgment is that the beneﬁts of simple mean 
+imputation outweigh the costs.
+
+4.5.  Huang et al. (2022)’s scaled PCR and the dimensionality of expected 
+returns
+
+The PCR results (Figs. 2 and 5) imply that there are dozens of PCs 
+that  contribute  to  the  cross-section  of  expected  returns.  This  section 
+shows that the dimensionality of expected returns is actually subtle and 
+depends on multiple measurement decisions. To show this result, we 
+repeat the portfolio formation exercise in Section 4.2, but use Huang et 
+al. (2022)’s scaled PCA instead of standard PCA.
+
+We apply Huang et al. (2022)’s scaled PCA as follows: For each pre-
+dictor 𝑗, we estimate 𝑟𝑖,𝑡 = 𝛼𝑗 + 𝛾𝑗 𝑋𝑖,𝑗,𝑡−1 + 𝜀𝑖,𝑗,𝑡 using OLS, where 𝑋𝑖,𝑗,𝑡−1
+is the value of predictor 𝑗 for stock 𝑖 in month 𝑡 − 1. Then we deﬁne the 
+
+JournalofFinancialEconomics155(2024)1038158A.Y. Chen and J. McCoy
+
+Fig. 3. Empirical Distribution of Correlations. All predictors are transformed using an extended Box-Cox algorithm to have approximately normal marginal 
+distributions at the predictor level (Section 3.1). ‘Observed’ uses all available cases at the predictor-pair level (a.k.a. pairwise-complete). ‘EM Algo’ uses the cross-
+sectional EM-estimated covariance matrix. Interpretation: The correlations cluster near zero, implying that imputation slopes are close to zero (Equation (2)), and 
+thus simple mean imputation should be similar to EM imputation.
+
+scaled predictor  ̇𝑋𝑖,𝑗,𝑡 ≡ ̂𝛾𝑗 𝑋𝑖,𝑗,𝑡 and apply standard PCA to  ̇𝑋𝑖,𝑗,𝑡 to ob-
+tained scaled PCs. This rescaling provides a simple and intuitive method 
+for incorporating return information into the PC estimation. Huang et 
+al. (2022) show that scaled PCA outperforms standard PCA using the-
+ory, simulation, and a macroeconomic forecasting exercise.
+
+The performance of scaled-PCR portfolios is shown in Fig. 6. Com-
+pared to Fig. 2, the implied dimensionality is much smaller, especially 
+if it is applied to EM-imputed data. In this speciﬁcation, only 30 PCs are 
+required to capture the potential equal-weighted returns, compared to 
+about 70 PCs using standard PCR. Focusing on very large stocks implies 
+a much smaller dimensionality. Scaled PCR requires only about 15 PCs 
+to capture the potential value-weighted returns (Panel (b)), compared 
+to about 30 PCs using standard PCR.
+
+Still, mean returns depend relatively little on how missing data is 
+handled. Through most of Fig. 6, the lines for EM and simple mean 
+imputation largely overlap. And the potential “real-time” mean returns 
+top out at around 50% per year equal-weighted or 20% value-weighted. 
+Whether the underlying data is imputed with EM or just simple means 
+does not matter. We ﬁnd broadly similar results using CAPM and FF6 
+alphas in the Appendix (Fig. A.2).
+
+An important exception to this invariance is in value-weighted port-
+folios that use more than 125 PCs. Here, EM imputation underperforms, 
+
+consistent with the idea that the estimation noise using EM can exceed 
+the information gained (Section 4.4).
+
+5.  Comparing six imputations using six return forecasting 
+methods
+
+Our baseline results examine just two imputation methods and two 
+return forecasting methods. This section expands the analysis in both 
+directions.
+
+We  examine  four  additional  imputations,  including  ones  that  in-
+corporate time-series information. We examine four additional return 
+forecasting methods, including two based on neural networks.
+
+The  main  results  continue  to  hold:  ad-hoc  imputations  and  more 
+sophisticated imputations lead to largely similar inferences about ex-
+pected returns.
+
+5.1.  Four additional imputation methods
+
+We examine the following additional imputations:
+
+1. Cross-sectional  EM  on  AR1  Residuals: We  estimate  an  AR1 
+model on Box-Cox transformed predictors using the past 60 months 
+of data and apply cross-sectional EM to the residuals. To impute 
+
+JournalofFinancialEconomics155(2024)1038159A.Y. Chen and J. McCoy
+
+Fig. 4. Imputation  Errors  in  a  Random  Masking  Exercise. We  measure 
+out-of-sample imputation errors a la cross-validation as follows: For each cross-
+section, we randomly divide the stock-predictor observations into 10 groups. 
+We mask one of the groups, impute with cross-sectional EM, and ﬁnd the im-
+putation  errors  for  the  masked  stock-predictors.  Masking  and  imputation  is 
+repeated for each of the 10 groups. We then calculate RMSE by market equity 
+decile. Interpretation: Imputations errors are very large among small stocks, 
+nearly as large as the errors from mean imputation, which is about 1.0 by con-
+struction.
+
+missing predictors, we add the AR1 prediction to the cross-sectional 
+EM-imputed residuals. This algorithm takes on time-series informa-
+tion, which BLLP ﬁnd is important in their imputation error tests.
+2. Practical EM for Probabilistic PCA: We assume Box-Cox trans-
+formed  predictors  follow  a  10-dimensional  factor  structure  and 
+impute using Roweis (1997)’s “practical” EM algorithm for missing 
+data. This practical EM algorithm simply imputes missing predic-
+tors using the factor model prediction in the E-step, and as such is 
+not a maximum likelihood estimate (it ignores higher order terms 
+like  Equation  (4)).  However,  it  is  easily  implemented  using  the 
+pcaMethods R library and provides a regularized alternative to our 
+cross-sectional EM imputation.
+
+3. Industry - Size Decile Means: Within each 3-digit SIC code, we 
+sort  stocks  into  size  deciles.  We  then  replace  missing  Box-Cox 
+transformed predictors with their means within each industry-size 
+group. This imputation applies the intuition that industry and size 
+are important determinants of a ﬁrm’s economics.
+
+4. Last  Observed: Replace  missing  values  with  the  last  observed 
+value  within  the  last  12  months.  If  there  is  no  observed  value 
+within the last 12 months, we replace missing values with cross-
+sectional means. This imputation takes on time-series information 
+while avoiding using stale information. It is also easy to implement.
+
+For additional details see Appendix A.1.
+
+5.2.  Four additional return forecasting methods
+
+We examine the following additional return forecasting methods:
+
+1. Simple OLS: We simply regress future stock returns on predictors 
+using OLS without any regularization. Simple OLS provides a help-
+ful benchmark.
+
+2. Gradient-Boosted  Regression  Trees  (GBRT): We  model  future 
+stock returns using as the average of 𝐵 shallow regression trees. 
+The model is ﬁtted by gradient boosting: starting from an existing 
+tree, the tree is “boosted” by adding a new tree, where the new tree 
+is chosen to step along the gradient of a squared-error loss function, 
+and this process is continued 𝐵 times. 𝐵 and other hyperparame-
+ters are tuned following Gu et al. (2020) and Li et al. (2022), and 
+the algorithm is implemented with Microsoft’s open source light-
+GBM library.
+
+Fig. 5. Missing Data Eﬀects in PCR Strategies Using Pooled Forecasts. Like 
+Fig. 2, we form portfolios on PCR return forecasts, but now we forecast all stocks 
+together instead of forecasting micro, small, and big stocks separately. ‘EM Al-
+go’ imputes missing values with the cross-sectional EM algorithm (Section 3.2). 
+‘Simple Mean’ imputes with cross-sectional means (Section 3.3). Interpreta-
+tion: Large imputation errors in small stocks (Fig. 4) lead to poor performance 
+in value-weighted strategies, if micro and big stock returns are assumed to have 
+the same structure. EM introduces estimation noise, which can lead to underper-
+formance relative to mean imputation, particularly if forecasts are not carefully 
+designed.
+
+3. 3-Layer Neural Network (NN3): We model the relationship be-
+tween future stock returns and predictors as the average of an en-
+semble of feed-forward neural networks with three hidden layers. 
+We  ﬁt  the  model  using  an  Adam  optimizer  with  batch  normal-
+ization and early stopping. Tuning and other speciﬁcation details 
+follow Gu et al. (2020), who ﬁnd that neural network performance 
+peaks  at  three  hidden  layers.  We  implement  the  algorithm  with 
+Google’s open source Tensorﬂow and Keras libraries.
+
+4. 1-Layer  Neural  Network  (NN1): This  forecast  uses  the  same 
+model as NN3, but with only one hidden layer. This model high-
+lights  the  robustness  of  NN3,  which  we  ﬁnd  is  by  far  the  best-
+performing forecasting method.
+
+We apply these methods either to all stocks at the same time or by size 
+group. For additional details on the neural network speciﬁcations see 
+Appendix A.2.
+
+5.3.  Out-of-sample forecasting and hyperparameter tuning
+
+We impute missing values using one of the six methods and then 
+construct  “out-of-sample”  portfolios  using  one  of  the  six  forecasting 
+methods.
+
+JournalofFinancialEconomics155(2024)10381510A.Y. Chen and J. McCoy
+
+Fig. 6. Missing Data Eﬀects on 159-Predictor Strategies using Scaled-PCA.
+Like Fig. 2, we form portfolios on PCR return forecasts, but now we construct 
+PCs using Huang et al. (2022)’s scaled-PCA instead of standard PCA. Panel (b) 
+zooms in on the ﬁrst 25 PCs. Interpretation: PCA signiﬁcantly overstates the di-
+mensionality of expected returns. Scaled PCA requires far fewer PCs to capture 
+the potential returns, especially if EM is used. The dimensionality of expected 
+returns is subtle and depends on multiple measurement decisions. Mean impu-
+tation still does a good job capturing the potential mean returns.
+
+Portfolio construction uses the following procedure. For each June 𝑡
+
+between 1995-2021, we
+
+1. Separate the data between January 1985 and 𝑡 into a training sam-
+ple and a validation sample. The validation sample is either the 
+latter half of the data or the past 12 years, whichever sample is 
+shorter. The remainder of the data is the training sample.
+
+2. For each size group (micro, small, big), tune hyperparameters and 
+
+ﬁt the return model.
+(a) For all hyperparameter sets in a pre-selected set-of-sets, ﬁt re-
+turns  to  lagged  imputed  data  using  the  training  sample  and 
+measure the RMSE in the validation sample.
+
+(b) Using the hyperparameter set with the smallest RMSE, ﬁt re-
+
+turns to lagged imputed data from January 1985 to 𝑡.
+
+3. For each month 𝑡, 𝑡 + 1, ..., 𝑡 + 11, sort stocks on the predicted return 
+
+and form long-short decile portfolios.
+
+This procedure follows Gu et al. (2020) closely, though we add the size 
+group separation, which we ﬁnd generally improves performance (see 
+Section 4.4). We also diﬀer in requiring that at least half of the January 
+1985 to 𝑡 subsamples are used for training. Gu et al. do not need this 
+requirement because their data goes back to 1957.
+
+With the exception of OLS, the forecasting methods require hyperpa-
+rameter tuning. We tune hyperparameters following Gu et al. (2020) as 
+closely as possible (see their Appendix Table A.5). For PCR and sPCR, 
+we select the number of PCs from {10, 30, 50, 70, 90}. For GBRT, the 
+depth is 1 or 2, the learning rate is 0.01 or 0.10, and the number of trees 
+is in {1, 250, 500, 750, 1000}. For NN1 and NN3, the L1 penalty is either 
+10−5 or 10−3, the learning rate is 0.001 or 0.010, and other hyperpa-
+rameters are ﬁxed: batch size is 10,000, epochs are 100, early stopping 
+patience is 5, the ensemble number is 10, and we use the Adam opti-
+mizer with default parameters in the Keras interface to TensorFlow.10
+
+5.4.  Results across a broad array of methods
+
+Table 4 shows the result across all combinations of the 6 imputa-
+tions (rows) and 6 forecasting methods (columns). For each forecasting 
+method, we examine estimating separately for micro, small, and big 
+stocks  (“By  Size”)  or  estimating  all  stocks  together  (“Pool”).  We  ex-
+amine both equal-weighted (Panel (a)) and value-weighted (Panel (b)) 
+returns.
+
+5.4.1.  Performance across imputations
+
+The central feature of Table 4 is that returns depend little on the im-
+putation method. Neural networks outperform other forecasting meth-
+ods (columns) and returns are much higher in equal-weighted portfolios 
+(Panel (a)). But moving across imputations (rows), there is little change 
+in  mean  returns.  For  example,  applying  a  one-layer  neural  network 
+(NN1) to mean imputation leads to equal-weighted returns of 65% per 
+year, compared to 64% imputing with EM on AR1 residuals. Similarly, 
+applying a one-layer neural network to mean imputation leads to value-
+weighted returns of 40% per year, compared to 39% per year using EM 
+on AR1 residuals. This strong performance for mean imputation is con-
+sistent with the idea that the observed data provide little information 
+about the missing data (4.3).
+
+Mean imputation outperforms in some settings. This outperformance 
+is concentrated in value-weighted portfolios using pooled return fore-
+casts (Panel (b), “Pool” columns). This result is consistent with the idea 
+that sophisticated imputations can lead to additional noise in small-cap 
+stocks, which can lead to poor forecasting performance if the data is 
+not carefully handled (Section 4.4). This pitfall leads us to recommend 
+simple mean imputation for cross-sectional asset pricing research.
+
+There is one setting in which mean imputation can lead to signiﬁcant 
+underperformance. Using GBRT, mean imputation can lead to notice-
+ably lower returns compared to EM, perhaps because regression trees 
+deal  poorly  with  the  degenerate  distributions  that  result  from  mean 
+imputation. One should not over-interpret this result, however, since 
+tree-based algorithms often have their own specialized methods for han-
+dling missing values, which we do not employ because of our goal of 
+evaluating “general-purpose” imputations.11
+
+Adding time-series information to the imputations has little eﬀect. 
+The “Last Obs” row diﬀers little from the other ad-hoc imputations and 
+similarly the “EM AR1” row diﬀers little from the other EM imputations. 
+This result is consistent with the fact that missingness occurs in large 
+time-series blocks (Fig. 1). It also illustrates the robustness of our main 
+results to the incorporation of time-series information, which BLLP ﬁnd 
+is important for imputation accuracy under simulated missingness pat-
+terns. We also ﬁnd that the BLLP local backward cross-sectional imputa-
+tion has little eﬀect on estimated expected returns (Appendix Fig. A.1).
+
+10 We diﬀer from Gu et al. (2020) by using the standard L2 objective in GBRT 
+rather than a Huber loss. Our implementation of GBRT uses lightGBM, which 
+currently has poor documentation of the objective function, and we ﬁnd that 
+objective = ‘huber’ works poorly on simulated and empirical data. Li et al. 
+(2022) does not mention using Huber loss.
+11 lightGBM can handle missing values by adding a second greedy stage to 
+each split assessment.
+
+JournalofFinancialEconomics155(2024)10381511A.Y. Chen and J. McCoy
+
+Table 4
+Performance Across Several Imputation and Return Forecast Methods. We impute missing values, forecast re-
+turns, and then form long-short decile portfolios recursively each June between 1995-2021. ‘Mean’ imputes with 
+cross-sectional means and ‘EM’ is cross-sectional EM (Section 3.2). Other imputations are deﬁned in Section 5.1. ‘PCR’ 
+and ‘sPCR’ run OLS on PCs or scaled PCs (Section 4.2). Other forecasts are deﬁned in Section 5.2. Tuning is described 
+in Section 5.3. Forecasts are either estimated within market equity groups (‘By Size’) or using all stocks (‘Pool’). In-
+terpretation: Across many forecasting tests, mean imputation performs well compared to other imputations, including 
+imputations that incorporate time-series information and ones that regularize using a factor structure (see also Fig. A.1). 
+Mean imputation can even outperform EM imputation if the forecasts ignore the size dependence of predictability.
+
+Panel (a): Equal-Weighted Mean Return (% Annualized)
+
+Forecasting Methods
+
+Linear
+
+OLS
+
+PCR
+
+sPCR
+
+GBRT
+
+NN1
+
+NN3
+
+Non-Linear
+
+By Size
+
+Pool
+
+By Size
+
+Pool
+
+By Size
+
+Pool
+
+By Size
+
+Pool
+
+By Size
+
+Pool
+
+By Size
+
+Pool
+
+Ad-hoc Imputations
+Mean
+Ind / Size
+Last Obs
+
+55
+56
+56
+
+EM Imputations
+EM
+EM AR1
+pPCA10
+
+58
+56
+57
+
+55
+56
+55
+
+57
+55
+56
+
+51
+53
+52
+
+54
+51
+50
+
+50
+51
+49
+
+52
+49
+49
+
+50
+52
+52
+
+55
+53
+54
+
+50
+50
+51
+
+54
+50
+49
+
+31
+43
+40
+
+52
+49
+54
+
+40
+38
+37
+
+51
+48
+53
+
+65
+64
+65
+
+65
+64
+65
+
+66
+64
+66
+
+65
+64
+65
+
+66
+65
+67
+
+67
+66
+67
+
+68
+67
+68
+
+68
+67
+68
+
+Panel (b): Value-Weighted Mean Return (% Annualized)
+
+Forecasting Methods
+
+Linear
+
+OLS
+
+PCR
+
+sPCR
+
+GBRT
+
+NN1
+
+NN3
+
+Non-Linear
+
+By Size
+
+Pool
+
+By Size
+
+Pool
+
+By Size
+
+Pool
+
+By Size
+
+Pool
+
+By Size
+
+Pool
+
+By Size
+
+Pool
+
+Ad-hoc Imputations
+Mean
+Ind / Size
+Last Obs
+
+31
+31
+30
+
+EM Imputations
+EM
+EM AR1
+pPCA10
+
+28
+34
+30
+
+27
+27
+26
+
+19
+21
+23
+
+32
+31
+38
+
+36
+35
+34
+
+21
+21
+20
+
+16
+18
+20
+
+27
+28
+34
+
+31
+33
+31
+
+23
+22
+21
+
+18
+18
+18
+
+17
+22
+23
+
+32
+27
+32
+
+25
+12
+7
+
+11
+13
+17
+
+40
+37
+38
+
+43
+39
+40
+
+37
+37
+38
+
+34
+33
+33
+
+37
+34
+35
+
+39
+36
+38
+
+40
+40
+45
+
+40
+40
+40
+
+Similarly,  regularizing  EM  by  using  pPCA  has  little  eﬀect.  The 
+“pPCA10” rows diﬀer little from the other EM rows. We also ﬁnd that 
+using industry / size means has little eﬀect.
+
+5.4.2.  Improvements due to forecasting by size group
+
+A second theme in Table 4 is that forecasting by size group signif-
+icantly improves performance in value-weighted portfolios. Using PCR 
+or sPCR, value-weighted mean returns increase from around 20% per 
+year,  to around 33% per year when forecasting by size group.  Non-
+trivial gains from forecasting by size group are also seen in OLS- or 
+GBRT-based value-weighted portfolios.
+
+These results are consistent with the fact that predictability diﬀers 
+by market cap and liquidity (Fama and French (2008); Chen and Ve-
+likov (2022)). We also ﬁnd that the dimensionality of expected returns 
+diﬀers signiﬁcantly across size groups (Section 4.2). Thus, the forecast-
+ing model should vary by size group, and assuming that the expected 
+return structure found among big stocks is the same as those found in 
+small stocks will lead to sub-optimal forecasts.
+
+Indeed, we ﬁnd that our hyperparameter tuning, which is performed 
+by size group (Section 5.2), ﬁnds a much lower dimensionality for large 
+stocks. This variable dimensionality allows the PCR and sPCR value-
+weighted returns in Table 4 to far exceed the value-weighted returns in 
+Figs. 2 and 6, which ﬁx the dimensionality for across size groups.
+
+5.4.3.  Performance across forecasting methods
+
+A  third  theme  from  Table 4 is  that  ML-style  methods  can  un-
+derperform relative to simple OLS. Moving across the columns of Ta-
+
+ble 4, outperformance relative to OLS is only seen using neural network 
+forecasts.
+
+These results may be surprising, given that many papers tout the 
+outperformance of machine learning methods (Gu et al. (2020); Frey-
+berger et al. (2020); Simon et al. (2022)). However, they are consistent 
+with these papers once one examines the details. Gu et al. (2020) ﬁnd 
+that applying PCR and GBRT to 94 predictors leads to returns that are 
+not much larger than those obtained from applying linear regression to 
+just three predictors. Freyberger et al. (2020) and Simon et al. (2022)
+both examine continuous non-linear models of returns, which are dif-
+fered substantially from linear PCR models and the discontinuous GBRT 
+models.
+
+Moreover, the underperformance of PC-based methods is intuitive 
+given the fact that mean returns are largely monotonic in the number 
+of PCs used (Figs. 2, 5, and 6). OLS always uses all PCs in the data. In 
+contrast, PC-based methods need to tune the number of PCs, which can 
+lead to too few PCs being used.
+
+The outperformance of neural network forecasts is large. Mean re-
+turns  increase  from  around  50  percent  per  year  to  65  percent  using 
+equal-weighting, and from around 30 percent per year to 40 percent 
+using value-weighting. In fact, we ﬁnd that other neural network ar-
+chitectures work quite well also, and that performance is fairly robust 
+to ensembling and other tuning choices if early stopping is set follow-
+ing Gu et al. (2020). These results support the strong performance of 
+neural networks found in other papers (Gu et al. (2020); Simon et al. 
+(2022)) and show that this strong performance is robust to imputation 
+methods.
+
+JournalofFinancialEconomics155(2024)10381512A.Y. Chen and J. McCoy
+
+6.  Conclusion
+
+In the age of machine learning, the standard practice of dropping 
+stock-months with missing predictors is often untenable. Previous ML 
+studies apply ad-hoc imputations or data adjustments, with little discus-
+sion of their motivation or study of alternatives. The goal of our paper 
+is to provide guidance on this problem.
+
+We recommend using simple mean imputation for ML studies. This 
+recommendation may seem surprising, since mean imputation essen-
+tially  ignores  all  information  about  the  missing  data.  However,  the 
+missingness and the covariance structures in cross-sectional predictor 
+data imply that there is little information about missing values. As a re-
+sult, one might as well ignore all information. Consistent with this idea, 
+we ﬁnd mean imputation leads to similar portfolio returns and Sharpe 
+ratios across a broad array of imputation and return forecasting meth-
+ods.
+
+Our PC analyses relate to the ongoing debate about the factor struc-
+ture of the cross-section of returns. Our ﬁndings are consistent with a 
+very high dimensionality for all stocks. In contrast, there is the poten-
+tial for a strong factor structure among very large stocks. We also ﬁnd 
+that the results depend on the methodology used to compute PCs, with 
+supervised methods like Huang et al. (2022) implying far fewer PCs are 
+required to fully capture the cross-section.
+
+CRediT authorship contribution statement
+
+Andrew Y. Chen: Writing – review & editing, Writing – original 
+draft,  Visualization,  Validation,  Supervision,  Software,  Methodology, 
+Investigation, Formal analysis, Conceptualization. Jack McCoy: Writ-
+ing – review & editing, Visualization, Validation, Software, Investiga-
+tion, Formal analysis.
+
+Declaration of competing interest
+
+The authors declare that they have no known competing ﬁnancial 
+interests or personal relationships that could have appeared to inﬂuence 
+the work reported in this paper.
+
+Data availability
+
+The  codes  and  data  of  the  article  can  be  found  at  https://data .
+
+mendeley .com /datasets /jcw4xkp886 /1.
+
+Appendix A
+
+A.1.  Additional imputation method details
+
+A.1.1.  Cross-sectional EM with time-series information
+
+Our main EM imputation handles each cross-section independently. 
+
+This imputation incorporates time-series information.
+
+We impute in three steps for each “forecasting month” 𝜏:
+
+1. Using OLS estimate  ̂𝜙𝑗 for the AR1 model
+
+𝑋𝑖,𝑗,𝑡 = 𝜙𝑗 𝑋𝑖,𝑗,𝑡−ℎ + 𝜀𝑖,𝑗,𝑡
+where 𝑋𝑖,𝑗,𝑡 is Box-Cox transformed predictor (as in Section 3.3), 
+ℎ ∈ {1, 3, 12} is  the  periodicity  of  the  underlying  data  updates 
+(based on Chen and Zimmermann (2022)’s documentation), 𝜙𝑗 is 
+the persistence of predictor 𝑗, and 𝜖𝑖,𝑗,𝑡 is a zero mean shock. In this 
+step, we use observed data from month 𝜏 − 59 to 𝜏.
+
+(5)
+
+2. Using EM, estimate  ̂Ω𝜏 for
+
+̂𝜀𝑖,𝜏 ≡
+
+⎡
+⎢
+⎢
+⎢
+⎣
+
+̂𝜀𝑖,1,𝜏
+̂𝜀𝑖,2,𝜏
+...
+̂𝜀𝑖,𝐽 ,𝜏
+
+⎤
+⎥
+⎥
+⎥
+⎦
+
+∼ MVN
+
+)
+
+(
+0, Ω𝜏
+
+,
+
+(6)
+
+where ̂𝜀𝑖,𝑗,𝜏 ≡ 𝑋𝑖,𝑗,𝜏 − ̂𝜙𝑗 𝑋𝑖,𝑗,𝑡−ℎ. Assuming standard regularity con-
+ditions, this two-step estimation is consistent (Wooldridge (1994)).
+3. For missing 𝑋𝑖,𝑗,𝜏 , impute by combining the prediction of the AR1 
+model with the residual estimate—that is, use  ̂𝜙𝑗𝑋𝑖,𝑗,𝑡−ℎ + ̂𝜀𝑖,𝑗,𝜏 (if 
+𝑋𝑖,𝑗,𝑡−ℎ is observed) or ̂𝜀𝑖,𝑗,𝜏 (if 𝑋𝑖,𝑗,𝑡−ℎ is not observed).
+
+A.1.2.  Practical EM for probabilistic PCA
+
+We did not restrict the covariance matrix in our main EM imputa-
+tion. This imputation imposes a factor structure and estimates using a 
+variant of EM (Roweis (1997), see also Tipping and Bishop (1999)).
+
+We estimate the following model:
+
+𝑋𝑖,𝑡 = Λ𝑡𝐹𝑖,𝑡 + 𝜀𝑖,𝑡
+
+(7)
+
+𝐹𝑖,𝑡 ∼ MVN (0, 𝐼)
+
+(
+
+)
+
+0, 𝜎2𝐼
+
+𝜀𝑖,𝑡 ∼ MVN
+where 𝑋𝑖,𝑡 is a 𝐽 -dimensional vector of predictors for stock 𝑖 in month 𝑡, 
+𝐹𝑖,𝑡 is a 𝐾-dimensional vector of factor realizations for stock 𝑖 in month 
+𝑡, Λ𝑡 is a 𝐽 × 𝐾 matrix that maps factors into predictors, and 𝜎2 is a 
+scalar.
+
+(8)
+
+The  estimation  alternates  between  two  steps  for  each  forecasting 
+
+month 𝑡:
+
+1. E-step: Given a guess for Λ𝑡 and 𝐹𝑖,𝑡, replace the missing compo-
+nents of 𝑋𝑖,𝑡 with Λ𝑡𝐹𝑖,𝑡. Find the expectations of 𝐹𝑖,𝑡 and 𝐹𝑖,𝑡𝐹 ′
+𝑖,𝑡
+conditional on Λ𝑡, 𝜎, and 𝑋𝑖,𝑡.
+
+2. M-step:  Plug  the  expectations  of  𝐹𝑖,𝑡 and  𝐹𝑖,𝑡𝐹 ′
+𝑖,𝑡
+
+into  the  log-
+likelihood assuming that all 𝑋𝑖,𝑡 and 𝐹𝑖,𝑡 are observed, and max-
+imize to obtain new Λ𝑡 and 𝐹𝑖,𝑡.
+
+The algorithm iterates these two steps until the objective in the M-step 
+no longer improves.
+
+As in the case of our baseline model (Equation (2)), Equations (7)-(8)
+imply that the ignorable quasi-likelihood can be optimized using EM 
+(Tipping and Bishop (1999)) (see Internet Appendix A.2). This algo-
+rithm does not follow the full EM method, as it does not include higher 
+moments  of  missing  𝑋𝑖,𝑡 in  the  E-step.  However,  the  computer  sci-
+ence literature ﬁnds that less formal variants of EM work well on this 
+model using simulated data (Roweis (1997); Ilin and Raiko (2010)). Our 
+implementation uses the R library pcaMethods, which follows Roweis 
+(1997)’s algorithm.
+
+A.1.3.  Bryzgalova et al. (2023)’s factor model with added time-series 
+information
+
+BLLP’s  local  backward  cross-sectional  model  is  similar  to  the  im-
+putations  we  study  in  that  it  can  be  used  to  form  forecasts  without 
+look-ahead bias. They emphasize the importance of time-series infor-
+mation, so we examine how their method for adding time-series infor-
+mation aﬀects our scaled-PCA results here. We ﬁnd similar results in 
+our other forecasting methods but show just the scaled-PCA results for 
+brevity.
+
+Our implementation of BLLP’s local backward cross-sectional impu-
+
+tation proceeds as follows. For each month of predictor data:
+
+1. Compute  the  available  case  cross-sectional  covariance  matrix  of 
+predictors. If there are no overlapping observations for a pair of 
+predictors, we use zero as the covariance matrix entry.
+
+2. Form a matrix using the 𝐾 eigenvectors with the largest eigenval-
+ues. The rows of this matrix are the “loadings” of each predictor.
+3. Regress predictor-stock values on the predictor loadings. The slopes 
+are called “characteristic factors” and there should be 𝐾 for each 
+stock.
+
+4. Regress  predictors  on  characteristic  factors  and  lagged  predic-
+tors that are observed within the last 24 months. We only used 
+lagged predictors that have signal updates according to the Chen-
+
+JournalofFinancialEconomics155(2024)10381513A.Y. Chen and J. McCoy
+
+Fig. A.1. BLLP’s Imputation and Scaled-PCA Returns. Each month, we fore-
+cast returns using scaled principal components regression and form long-short 
+deciles  portfolios.  ‘BLLP  loc  B-XS’  imputes  using  the  local  backward  cross-
+sectional model in BLLP, where we use six factors to be consistent with Section 
+4.1  of  BLLP,  and  lags  used  in  the  second  stage  regression  are  restricted  to 
+relevant predictor update months based on documentation for the Chen and 
+Zimmermann (2022) dataset. Interpretation: Taking on time-series informa-
+tion following BLLP results in similar estimates as simple mean imputation.
+
+Zimmermann documentation (only use lags 12 and 24 for annual 
+predictors).
+
+5. Use the slopes from step 4 to impute missing values.
+
+We apply scaled-PCA (by size) and form portfolios. The results are in 
+Fig. A.1.
+
+A.2.  Additional forecasting method details
+
+GBRT details are fully described in Sections 5.2 and 5.3.
+Neural network details follow Gu et al. (2020). NN1 has a single hid-
+den layer of 32 neurons and NN3 has hidden layers with 32, 16, and 
+8 neurons. All layers are connected with the ReLU activiation function. 
+The objective is L2 with a L1 penalty to weight parameters and is min-
+imized using the Adam extension of Stochastic Gradient Descent under 
+early stopping with a patience parameter of 5 in batches of 10,000, for 
+100 epochs. The L1 penalty and learning rate are tuned as described 
+in the main text. Last, we form ﬁnal return forecasts as the ensemble 
+average of 10 neural network forecasts.
+
+Appendix B.  Supplementary material
+
+Supplementary material related to this article can be found online 
+
+at https://doi .org /10 .1016 /j .jﬁneco .2024 .103815.
+
+Fig. A.2. Missing Data Eﬀects on Alphas from Scaled PCA. Each month, we 
+forecast returns using scaled principal components regression and form long-
+short deciles portfolios, as in Fig. 6. We then measure CAPM alphas (Panel 
+(a)) or Fama-French 5 factor + momentum alphas (Panel(b)). Interpretation:
+Simple mean imputation also performs well when examining alphas.
+
+References
+
+Asquith, P., Pathak, P.A., Ritter, J.R., 2005. Short interest, institutional ownership, and 
+
+stock returns. J. Financ. Econ. 78, 243–276.
+
+Azen, S.P., van Guilder, M., Hill, M.A., 1989. Estimation of parameters and missing values 
+under a regression model with non-normally distributed and non-randomly incom-
+plete data. Stat. Med. 8, 217–228.
+
+Azevedo, V., Kaiser, S., Müller, S., 2022. Stock market anomalies and machine learning 
+
+across the globe. Available at SSRN 4071852.
+
+Bali, T.G., Engle, R.F., Murray, S., 2016. Empirical Asset Pricing: The Cross Section of 
+
+Banz, R.W., 1981. The relationship between return and market value of common stocks. 
+
+Stock Returns. John Wiley & Sons.
+
+J. Financ. Econ. 9, 3–18.
+
+Beckmeyer,  H.,  Wiedemann,  T.,  2023.  Recovering  missing  ﬁrm  characteristics  with 
+
+attention-based machine learning. Available at SSRN 4003455.
+
+Bessembinder, H., Burt, A., Hrdlicka, C.M., 2021. Time series variation in the factor zoo. 
+In: Aaron Paul and Hrdlicka, Christopher M., Time Series Variation in the Factor Zoo. 
+December 22, 2021.
+
+Box, G.E., Cox, D.R., 1964. An analysis of transformations. J. R. Stat. Soc., Ser. B, 
+
+Bryzgalova, S., Lerner, S., Lettau, M., Pelger, M., 2023. Missing ﬁnancial data. Available 
+
+Chen, A.Y., Velikov, M., 2022. Zeroing in on the expected returns of anomalies. J. Financ. 
+
+Methodol. 26, 211–243.
+
+at SSRN 4106794.
+
+Quant. Anal., 1–83.
+
+Chen, A.Y., Zimmermann, T., 2020. Publication bias and the cross-section of stock returns. 
+
+Rev. Asset Pricing Stud. 10, 249–289.
+
+Chen, A.Y., Zimmermann, T., 2022. Open source cross sectional asset pricing. Crit. Fi-
+
+nance Rev.
+
+Chen, L., Pelger, M., Zhu, J., 2023. Deep learning in asset pricing. Manag. Sci.
+Da, R., Nagel, S., Xiu, D., 2022. The Statistical Limit of Arbitrage. Technical Report. Tech-
+
+nical Report, Chicago Booth.
+
+JournalofFinancialEconomics155(2024)10381514A.Y. Chen and J. McCoy
+
+DeMiguel, V., Martin-Utrera, A., Nogales, F.J., Uppal, R., 2020. A transaction-cost per-
+spective on the multitude of ﬁrm characteristics. Rev. Financ. Stud. 33, 2180–2222.
+Dempster, A.P., Laird, N.M., Rubin, D.B., 1977. Maximum likelihood from incomplete 
+
+data via the em algorithm. J. R. Stat. Soc., Ser. B, Methodol. 39, 1–22.
+
+Efron, B., Hastie, T., 2016. Computer Age Statistical Inference, vol. 5. Cambridge Univer-
+
+Ilin, A., Raiko, T., 2010. Practical approaches to principal component analysis in the 
+
+presence of missing values. J. Mach. Learn. Res. 11, 1957–2000.
+
+Jensen, T.I., Kelly, B.T., Malamud, S., Pedersen, L.H., 2022. Machine learning and the 
+
+implementable eﬃcient frontier. Available at SSRN 4187217.
+
+Jensen, T.I., Kelly, B.T., Pedersen, L.H., 2023. Is there a replication crisis in ﬁnance? J. 
+
+Finance 78 (5), 2465–2518.
+
+sity Press.
+
+1–22.
+
+SSRN.
+
+Fama, E., French, K., 1992. The cross-section of expected stock returns. J. Finance, 
+
+427–465.
+
+Fama, E.F., French, K.R., 2008. Dissecting anomalies. J. Finance 63, 1653–1678.
+Fama, E.F., French, K.R., 2015. A ﬁve-factor asset pricing model. J. Financ. Econ. 116, 
+
+Kelly, B., Malamud, S., Pedersen, L.H., 2023. Principal portfolios. J. Finance.
+King, G., Honaker, J., Joseph, A., Scheve, K., 2001. Analyzing incomplete political science 
+data: an alternative algorithm for multiple imputation. Am. Polit. Sci. Rev. 95, 49–69.
+Kozak, S., Nagel, S., Santosh, S., 2020. Shrinking the cross-section. J. Financ. Econ. 135, 
+
+271–292.
+
+Freyberger, J., Neuhierl, A., Weber, M., 2020. Dissecting characteristics nonparametri-
+
+Lettau, M., Pelger, M., 2020. Factors that ﬁt the time series and cross-section of stock 
+
+cally. Rev. Financ. Stud. 33, 2326–2377.
+
+Freyberger, J., Höppner, B., Neuhierl, A., Weber, M., 2023. Missing data in asset pricing 
+
+panels. University of Chicago Becker Friedman Institute Working Paper.
+
+Fulop, A., Li, J., Wang, M., 2022. Option mispricing and alpha portfolios. Available at 
+
+Graham, J.W., Schafer, J.L., 1999. On the performance of multiple imputation for mul-
+tivariate data with small sample size. In: Statistical Strategies for Small Sample 
+Research, vol. 50, pp. 1–27.
+
+Green, J., Hand, J.R., Zhang, X.F., 2013. The supraview of return predictive signals. Rev. 
+
+Acc. Stud. 18, 692–730.
+
+returns. Rev. Financ. Stud. 33, 2274–2325.
+
+Lewellen, J., 2015. The cross-section of expected stock returns. Crit. Finance Rev. 4, 1–44.
+Li, B., Rossi, A., Yan, S., Zheng, L., 2022. Real-time machine learning in the cross-section 
+
+of stock returns. Working Paper.
+
+Little, R.J., 1988. Robust estimation of the mean and covariance matrix from data with 
+
+missing values. J. R. Stat. Soc., Ser. C, Appl. Stat. 37, 23–38.
+
+Little, R.J., 2021. Missing data assumptions. Annu. Rev. Stat. Appl. 8, 89–107.
+Little, R.J., Rubin, D.B., 2019. Statistical Analysis with Missing Data, vol. 793. Wiley.
+Lopez-Lira, A., Roussanov, N.L., 2020. Do common factors really explain the cross-section 
+
+of stock returns? Available at SSRN 3628120.
+
+Green, J., Hand, J., Zhang, F., 2014. The remarkable multidimensionality in the cross-
+
+McLean, R.D., Pontiﬀ, J., 2016. Does academic research destroy stock return predictabil-
+
+section of expected us stock returns. Available at SSRN 2262374.
+
+Green, J., Hand, J.R., Zhang, X.F., 2017. The characteristics that provide independent 
+information about average us monthly stock returns. Rev. Financ. Stud. hhx019.
+Gu, S., Kelly, B., Xiu, D., 2020. Empirical asset pricing via machine learning. Rev. Financ. 
+
+ity? J. Finance 71, 5–32.
+
+Roweis, S., 1997. Em algorithms for PCA and SPCA. Adv. Neural Inf. Process. Syst. 10.
+Rubin, D.B., 1976. Inference and missing data. Biometrika 63, 581–592.
+Simon, F., Weibels, S., Zimmermann, T., 2022. Deep parametric portfolio policies. Avail-
+
+Haugen, R.A., Baker, N.L., 1996. Commonality in the determinants of expected stock 
+
+Wooldridge,  J.M.,  1994.  Estimation  and  inference  for  dependent  processes.  Handb. 
+
+Stud. 33, 2223–2273.
+
+Han, Y., He, A., Rapach, D., Zhou, G., 2021. Expected stock returns and ﬁrm characteris-
+
+tics: E-lasso, assessment, and implications. Assess. Implic., September 2021.
+
+Han, Y., He, A., Rapach, D., Zhou, G., 2022. Expected stock returns and ﬁrm characteris-
+
+tics: E-enet, assessment, and implications. Working Paper.
+
+returns. J. Financ. Econ. 41, 401–439.
+
+Hawkins, D., Weisberg, S., 2017. Combining the Box-Cox power and generalised log trans-
+formations to accommodate nonpositive responses in linear and mixed-eﬀects linear 
+models. S. Afr. Stat. J. 51, 317–328.
+
+Huang, D., Jiang, F., Li, K., Tong, G., Zhou, G., 2022. Scaled pca: a new approach to 
+
+dimension reduction. Manag. Sci. 68, 1678–1695.
+
+able at SSRN 4150292.
+
+Tipping, M.E., Bishop, C.M., 1999. Probabilistic principal component analysis. J. R. Stat. 
+
+Soc., Ser. B, Stat. Methodol. 61, 611–622.
+
+Titman, S., Wei, K.J., Xie, F., 2004. Capital investments and stock returns. J. Financ. 
+
+Quant. Anal. 39, 677–700.
+
+Econom. 4, 2639–2738.
+
+Xiong, R., Pelger, M., 2023. Large dimensional latent factor modeling with missing obser-
+
+vations and applications to causal inference. J. Econom.
+
+Zhang, C., Aaraba, A., 2022. Dynamic optimal portfolio with trading cost constraints via 
+
+deep reinforcement learning. Available at SSRN.
+
+JournalofFinancialEconomics155(2024)10381515

@@ -1,0 +1,3535 @@
+Journal of Financial Economics 172 (2025) 104132 
+
+Contents lists available at ScienceDirect
+
+Journal of Financial Economics
+
+journal homepage: www.elsevier.com/locate/finec
+
+Maximal extractable value and allocative inefficiencies in public 
+blockchains(cid:73)
+Agostino Capponi a
+a Department of Industrial Engineering and Operations Research, Columbia University, New York, 10027, NY, USA
+b Department of Management Science and Engineering, Stanford University, Palo Alto, CA, USA
+c Department of Computer and Information Science, University of Macau, Macao, China
+d Faculty of Business Administration, University of Macau, Macao, China
+e Asia-Pacific Academy of Economics and Management, University of Macau, Macao, China
+
+,∗, Ruizhe Jia b, Kanye Ye Wang c,d,e
+
+A R T I C L E   I N F O
+
+A B S T R A C T
+
+Dataset  link: https://doi.org/10.17632/wjvzm
+5h764, https://doi.org/10.17632/p83zzprn3b, 
+https://doi.org/10.17632/y2szyjxk6n, https://
+doi.org/10.17632/mjzwvmxhp9, https://doi.o
+rg/10.17632/rkwd4y562x, https://doi.org/10.
+17632/mkv7gx6mx8, https://doi.org/10.1763
+2/44dy5ksvg8, https://doi.org/10.17632/rph9
+vnncdt, https://doi.org/10.17632/xbw37bkfxt
+, https://doi.org/10.17632/hj2fcjfs5j, https://
+doi.org/10.17632/526tksfb62,  https://doi.org
+/10.17632/9m43svx29j, https://doi.org/10.17
+632/y2469pwkx2, https://doi.org/10.17632/8
+9tphpc9ft
+
+Keywords:
+Allocative efficiency
+Market design
+Blockchain
+Maximal extractable value
+Private pool
+
+1. Introduction
+
+The blockchain settlement layer facilitates systematic frontrunning, resulting in inefficient block-space alloca-
+tion. Private transaction pools can reduce these inefficiencies and enhance welfare. However, full adoption 
+is limited by misaligned incentives between users and validators. Validators are reluctant to forgo rents they 
+earn from frontrunning – referred to as maximal extractable value – leading to a partial adoption equilibrium 
+in which frontrunning persists. Our empirical analysis of Ethereums Flashbots private pool supports these 
+findings: validators earn higher revenues, users facing greater frontrunning risk are more likely to use the 
+private pool, and attackers cost-to-revenue ratios in private pools converge to one.
+
+Historically, the settlement and record-keeping of financial transac-
+tions have been managed by trusted, highly regulated central entities 
+such as brokers and clearinghouses. The advent of blockchain technol-
+ogy and smart contracts has paved the way for decentralized finance 
+(DeFi), which seeks to address inefficiencies and opacity in traditional 
+
+financial systems (Harvey et al., 2021; John et al., 2023). DeFi services, 
+such  as  decentralized  exchanges,  lending  protocols,  and  real-world 
+asset tokenization, operate without centralized intermediaries. Instead, 
+they rely on a network of decentralized, pseudonymous validators for 
+transaction execution and settlement. This reliance on self-interested 
+validators introduces a potential misalignment of incentives between 
+
+(cid:73)
+
+Andreas Fuster was the editor for this article. We thank Andreas Fuster for thoughtful comments and guidance, which greatly enhanced the quality of 
+this manuscript. We also thank anonymous referees and seminar participants at Cornell University, UC Berkeley, University of Illinois, the Chinese University 
+of Hong Kong Distinguished Lecture in Quantitative Finance, the 2023 AEA Meeting, Tokenomics 2022, and the 2nd Annual CBER Conference. Chon Kit Lao 
+provided excellent research assistance. Agostino’s research was partially supported by grants from the Ethereum and Stellar Foundations, USA. Kanye’s research 
+was partially supported by the University of Macau, China (Grants APAEM/SG/0003/2025 and APAEM/SG/0017/2025) and by FDCT (Macau SAR), China Grant 
+0129/2022/A. Earlier versions circulated as ‘‘The Evolution of Blockchain: from Lit to Dark’’ and ‘‘Do Private Transaction Pools Mitigate Frontrunning Risk?’’.
+
+∗ Corresponding author.
+
+E-mail addresses:  ac3827@columbia.edu (A. Capponi), ruizhe@stanford.edu (R. Jia), wangye@um.edu.mo (K.Y. Wang).
+
+1 The blockchain architecture consists of multiple layers, each serving specific functions, from running decentralized applications to maintaining system-wide 
+consensus and facilitating transaction execution. Unlike traditional finance, where the underlying infrastructure is often taken for granted, each layer of the 
+blockchain stack introduces unique challenges.
+
+https://doi.org/10.1016/j.jfineco.2025.104132
+Received 8 November 2023; Received in revised form 20 June 2025; Accepted 21 June 2025
+Available online 29 July 2025 
+0304-405X/© 2025 Elsevier B.V. All rights are reserved, including those for text and data mining, AI training, and similar technologies. 
+
+ 
+ 
+ 
+A. Capponi et al.
+
+their  objectives  and  those  of  users  throughout  the  ecosystem,  po-
+tentially undermining social efficiency. This shift marks a significant 
+departure from established financial practices and introduces new eco-
+nomic considerations. Unlike the market infrastructure of traditional 
+finance, which is relatively mature, the blockchain settlement layer 
+–  tasked  with  processing  transactions  –  is  still  evolving.  This  layer 
+presents inefficiencies that pose significant challenges to fully realizing 
+DeFi’s potential.1
+
+In this paper, we investigate a critical inefficiency in the blockchain 
+settlement layer: systematic frontrunning. This problem arises from two 
+key characteristics of the blockchain infrastructure. First, the decen-
+tralized  structure  of  blockchain  networks  prevents  the  effective  en-
+forcement of time priority in transaction execution. Instead, transac-
+tion  inclusion  is  solely  determined  by  validators,  typically  through 
+a fee-based auction that prioritizes higher-fee transactions (Buterin, 
+2015; Nakamoto, 2008). Second, the decentralized and pseudonymous 
+nature  of  validators  necessitates  the  network-wide  broadcasting  of 
+transactions. As a result, pending transactions become visible in public 
+memory  pools  before  block  inclusion,  allowing  malicious  actors  to 
+observe and exploit transaction information by submitting higher-fee 
+transactions ahead of the original ones (Park, 2023; Daian et al., 2020).
+These infrastructural features give rise to various forms of fron-
+trunning that are uncommon in traditional finance and impact critical 
+market functions such as trading, market making, and price discovery 
+through arbitrage. For example, traders exchanging assets may experi-
+ence slippage exceeding 90%—a severe loss due to frontrunning. When 
+liquidity providers try to quote near the current mid-price, they may 
+encounter frontrunners who manipulate the mid-quote, forcing them 
+to offer liquidity at highly unfavorable prices.2 Arbitrageurs seeking 
+to align prices across markets and contribute to price discovery might 
+find their transactions preempted by frontrunners, effectively nullifying 
+their arbitrage opportunities.
+
+The economic impact of frontrunning is significant, as evidenced 
+in Fig.  1, which documents the frequency and associated costs of such 
+attacks in Uniswap V2, one of the largest decentralized exchanges on 
+Ethereum during our sample period. In Panel (a), we document the 
+widespread prevalence of frontrunning on the Ethereum blockchain. 
+Our analysis shows that among all blocks containing Ether transactions 
+submitted via Uniswap V2, 90% included transactions vulnerable to 
+frontrunning, while 16.1% contained confirmed sandwich attacks. In 
+Panel  (b),  we  examine  the  distribution  of  revenue  earned  by  fron-
+trunners, finding that, on average, a frontrunner earns 0.108 Ether 
+per successful attack. In Panel (c), we track the accumulation of user 
+losses  over  time,  revealing  that  total  losses  exceed  130,000  Ether, 
+underscoring the substantial economic costs imposed by these attacks.3
+
+2 For  a  description  of  realized  slippage  attacks,  see  https://blog.
+developerdao.com/the-worst-sandwich-how-to-lose-90-in-one-swap; for a dis-
+cussion of frontrunning attacks on liquidity providers, refer to https://medium.
+com/@alexanderzaidelson/the-reverse-lp-sandwich-arbitrage-73a081e68f1f.
+
+3 Auer et al. (2022) estimate maximal extractable value (MEV) for a period 
+extending until June 2022, and their estimates fall within a similar range 
+to ours. For instance, Panel C of Fig.  1 illustrates that by the end of 2021, 
+cumulative losses had reached approximately 110,000 Ether—equivalent to 
+$220  million  if  we  use  an  exchange  rate  of  $2000  per  Ether.  Given  that 
+Ether’s price has been above $2000 throughout our study period, this is a 
+conservative estimate. Their $500 million estimate is of the same order of 
+magnitude as ours but higher, likely because it encompasses a broader range of 
+MEV activities, including arbitrage across liquidity pools and loan liquidations, 
+whereas our analysis is strictly limited to frontrunning. Moreover, while Auer 
+et al. (2022) consider frontrunning across approximately 50,000 tokens, we 
+focus exclusively on Ether transactions. This choice is justified, as Ether-based 
+sandwich attacks dominate the market, accounting for approximately 96.28% 
+of such attacks, as shown in Wang et al. (2022). Lastly, whereas  Auer et al. 
+(2022) analyze five decentralized exchanges, our study concentrates on the 
+two most dominant exchanges during the sample period—Uniswap V2 and 
+Sushiswap.
+
+Journal of Financial Economics 172 (2025) 104132 
+
+However,  these  direct  financial  losses  represent  only  a  fraction 
+of  a  larger  problem.  Frontrunning  introduces  significant  allocative 
+inefficiencies into the blockchain ecosystem, creating a high-risk en-
+vironment for transaction submissions. This not only excludes poten-
+tially  valuable  transactions  from  being  included  in  blocks  but  also 
+distorts the efficient allocation of blockspace. The frontrunning activity 
+benefits validators who extract infrastructure fees and increase their 
+revenues from ordering transactions, a phenomenon known as Maximal 
+Extractable Value (MEV).4 As controllers of the settlement infrastruc-
+ture, validators prioritize high-fee frontrunning transactions, thereby 
+profiting significantly from these opportunities.
+
+The  problems  in  the  transaction  settlement  layer  of  blockchains 
+have attracted significant attention, with experts arguing that it poses a 
+challenge to the industry itself (see Auer et al., 2022) and threatens the 
+integrity of smart-contract-enabled blockchains (as highlighted in Da-
+ian et al., 2020 and Obadia, 2020). This concern is further underscored 
+by IOSCO (2023), which published an extensive 128-page report con-
+taining recommendations for regulating the DeFi ecosystem. The report 
+emphasizes frontrunning as a key risk that must be identified, managed, 
+and regulated to ensure the sustainability of the DeFi ecosystem.5
+
+To address the issue of systematic frontrunning in the settlement 
+layer, private transaction pools have been introduced and implemented 
+as a potential solution across major blockchains. These private pools 
+allow users to submit transactions directly to validators monitoring 
+the pool, thereby reducing the risks and adverse effects of frontrun-
+ning (Daian, 2022). While the technological infrastructure for private 
+pools is in place, the question of their adoption by ecosystem partici-
+pants remains underexplored. Do validators and users have sufficient 
+incentives to participate in private pools? Will validators be willing to 
+forgo rents from frontrunning activities? Can private pools effectively 
+mitigate frontrunning risks and enhance overall welfare? Our paper 
+aims to address these fundamental questions.
+
+We  develop  a  sequential  game-theoretical  model  of  blockchain 
+transaction processing featuring three types of agents: validators, users, 
+and attackers. In the first stage, a discrete set of homogeneous val-
+idators  allocate  their  validation  power  between  public  and  private 
+pools.  The  second  stage  features  a  population  of  users,  comprising 
+a  continuum  of  frontrunnable  users  –  vulnerable  to  attacks  when 
+using the public pool – and a continuum of non-frontrunnable users. 
+These users are heterogeneous in their valuation of transactions and 
+choose between public and private pools for transaction submission. In 
+the final stage, attackers compete to frontrun transactions submitted 
+through the public pool.
+
+We  analyze  the  prevailing  equilibrium  in  a  blockchain  that  re-
+lies  solely  on  a  public  pool  to  identify  the  allocative  inefficiencies 
+caused by frontrunning. We show that frontrunning leads to suboptimal 
+blockspace allocation and a reduction in aggregate welfare through 
+three interconnected mechanisms. First, high frontrunning costs dis-
+courage marginal frontrunnable users from participating, resulting in 
+the exclusion of potentially valuable transactions. Second, attackers 
+
+4 MEV, originally standing for Miner Extractable Value, has evolved to 
+denote  the  maximum  value  that  can  be  extracted  from  block  production, 
+exceeding standard rewards and fees, through strategic actions like including, 
+excluding, or reordering transactions. This expanded definition acknowledges 
+that  these  profits  can  be  distributed  among  multiple  parties  within  the 
+settlement layer.
+
+5 Quoting directly from their report: ‘‘Regulators should seek to hold a 
+provider of a DeFi product or service responsible for identifying and, to the 
+extent practicable, managing and mitigating the impact of MEV strategies used 
+by miners/validators on the underlying blockchain on which the provider 
+chooses to operate or offer the product or service. For example, for a DeFi 
+arrangement that facilitates the trading of regulated financial instruments, 
+the design of the trading mechanism could mitigate the impact of MEV to 
+users/investors trading these instruments’’.
+
+2 
+
+A. Capponi et al.
+
+Journal of Financial Economics 172 (2025) 104132 
+
+Fig. 1.  Frontrunning attacks on Ether transactions in Uniswap V2 from May 15, 2020, to September 15, 2022. Panel (a) compares three metrics: the total number of blocks 
+containing Ether transactions submitted through Uniswap V2 router contracts, the number of blocks containing transactions vulnerable to frontrunning based on their slippage 
+parameters and market conditions, and the number of blocks with confirmed sandwich attacks. Of the 4,150,440 blocks containing Uniswap V2 router transactions, 2,621,819 
+blocks (63%) included frontrunnable transactions, and 610,710 blocks (14.7%) contained confirmed sandwich attacks.  Panel (b) presents the distribution of frontrunning attack 
+revenue, with each bin representing the number of attacks whose associated revenue falls within the specified range. The average gross revenue per attack is approximately 0.108 
+Ether. Panel (c) illustrates the cumulative losses (denominated in Ether) suffered by victims due to frontrunning attacks over time. Given that the price of Ether has hovered around 
+$2000 for much of the sample period, the total estimated loss amounts to approximately $220 million ($2000 × 1.1 × 105). We provide a detailed description of the dataset and 
+methodology used to compute these figures – including attackers’ profits from frontrunning and the number of blocks containing both frontrunnable and attacked transactions – 
+in Section 6.1 and Section A of the online appendix.
+
+consume blockspace without contributing to social value, merely ap-
+propriating wealth from frontrunnable users. Third, this misallocation 
+of blockspace is further exacerbated as space that could have accom-
+modated the excluded frontrunnable transactions is instead allocated 
+to non-frontrunnable transactions with lower valuations.
+
+Transactions submitted to the private pool are subject to execution 
+risk, with the likelihood of non-execution directly proportional to the 
+amount of validation power not allocated to monitoring the private 
+pool. In equilibrium, attackers strategically submit their transactions 
+to both pools: they utilize the private pool to secure execution priority 
+while using the public pool to reduce the risk of non-execution. In 
+the private pool, attackers bid their true valuation of the frontrun-
+ning opportunity, effectively transferring all potential revenues to the 
+validators.
+
+Frontrunnable users weigh the risk of being frontrun in the public 
+pool against the risk of non-execution in the private pool. Their equilib-
+rium decision is influenced by two key factors: the adoption rate of the 
+private pool by validators, which determines the execution risk, and the 
+expected costs of frontrunning in the public pool. As validator adoption 
+of the private pool increases and frontrunning costs in the public pool 
+rise, more users are incentivized to submit transactions through the 
+private pool.
+
+Validators must balance competing economic forces when decid-
+ing  whether  to  adopt  private  pools.  On  one  hand,  allocating  vali-
+dation power to the private pool enhances payoffs through two pri-
+mary channels: increased demand from users seeking protection against 
+frontrunning and the ability to extract rents from attackers through 
+true-value bidding. On the other hand, greater private pool adoption 
+reduces execution risk, drawing more users away from the public pool 
+
+3 
+
+A. Capponi et al.
+
+and  thereby  diminishing  frontrunning  opportunities.  This  shift  may 
+lower validators’ overall payoffs by reducing aggregate demand for 
+blockspace, decreasing transaction fees, and lessening revenues from 
+attackers’  competition.  Our  analysis  shows  that  integrating  private 
+pools  into  public  blockchains  generally  enhances  welfare,  with  the 
+extent of improvement depending on the severity of frontrunning risk.
+We demonstrate that a unique subgame perfect equilibrium with 
+full adoption of private pools emerges when frontrunning risk is high. 
+Under these circumstances, frontrunnable users are driven to the pri-
+vate pool, leaving validators with no incentive to allocate validation 
+power to the public pool. This equilibrium leads to efficient blockspace 
+allocation, effectively eliminating frontrunning and preventing the ex-
+clusion of valuable transactions. However, when frontrunning risk is 
+moderate, a unique partial adoption equilibrium arises. In this scenario, 
+partial adoption of the private pool introduces execution risk, caus-
+ing some frontrunnable users to continue submitting transactions to 
+the public pool despite the risk of being frontrun. Validators, in this 
+equilibrium, are indifferent to allocating additional validation power 
+to the private pool, as the direct gains are counterbalanced by indirect 
+losses due to an aggregate reduction in block rewards. This partial 
+adoption equilibrium is inefficient because it fails to fully eliminate 
+the frontrunning friction, leading to wasted blockspace and incomplete 
+inclusion of valuable transactions.
+
+The failure to achieve full adoption of private pools mirrors the clas-
+sic hold-up problem: the benefits of monitoring private pools primarily 
+accrue to frontrunnable users, leaving validators with reduced incen-
+tives to allocate their validation power. To realign these incentives, we 
+propose a contractual solution where frontrunnable users commit ex-
+ante to pay validators an additional fee for executing their transactions 
+in  the  private  pool.  This  mechanism  establishes  a  unique,  socially 
+efficient equilibrium with full private pool adoption. By utilizing pre-
+signed transactions sent to the private pool, this approach effectively 
+addresses commitment problems that are typically more difficult to 
+manage  in  traditional  bilateral  trade  settings,  where  maintaining  a 
+commitment to non-renegotiation is often unfeasible.
+
+Empirically, we test our main model predictions by analyzing data 
+from Flashbots, a platform that supported the vast majority of privately 
+submitted transactions on the Ethereum blockchain over the period we 
+study.6
+
+We construct a unique and comprehensive dataset that combines 
+transaction-level frontrunning information, mempool data, and block-
+level statistics. Our analysis reveals direct evidence of partial adoption 
+of private pools, with a stable adoption rate of 50%–60% following an 
+initial adjustment period after the introduction of Flashbots. We further 
+validate the three key implications of our model concerning validators, 
+attackers, and frontrunnable users.
+
+Using a difference-in-differences strategy, we exploit the staggered 
+adoption of Flashbots by the two largest Ethereum mining pools. We 
+find that the first miner to adopt Flashbots – Spark Pool – earned 
+an  additional  0.066  Ether  per  block  after  adoption,  relative  to  the 
+control miner, Ethermine. Our triple difference regression confirms that 
+this increase is attributed to private blocks, supporting our model’s 
+implication that private blocks generate higher revenue than public 
+blocks for miners.
+
+Consistent  with  the  partial  adoption  equilibrium,  users  continue 
+to submit transactions to both private and public pools. Our analysis 
+confirms that higher expected frontrunning costs significantly increase 
+the likelihood of users opting for private pools. Specifically, a 1 Ether 
+
+6 With Ethereum’s introduction of the proposer-builder separation (PBS) 
+framework  on  September  15,  2022,  the  private  pool  market  has  become 
+more fragmented. New private pools have emerged, enabling users to submit 
+transactions directly to builders, while some builders have established their 
+own private pools. This shift has intensified competition among private pool 
+service providers. For further details, see Section 2.2.
+
+Journal of Financial Economics 172 (2025) 104132 
+
+increase in expected loss corresponds to a 0.35–0.41 increase in the 
+probability of using a private pool. This finding aligns with our model’s 
+implication that users are more likely to prefer private pools when 
+frontrunning risk is high.
+
+We further provide evidence that the cost-to-revenue ratio for fron-
+trunning attacks submitted through private pools quickly concentrates 
+around 1, especially following Flashbots’ initial adoption period. This 
+supports our model’s prediction that, in the sealed-bid, first-price auc-
+tion format of the private pool, the cost-to-revenue ratio would stabilize 
+at 1. Our regression results indicate that sandwich transactions submit-
+ted via Flashbots are associated with a 12.4-percentage-point increase 
+in the cost-to-revenue ratio, further supporting the model’s implication 
+that the private pool option leads to higher fees bid by attackers for 
+transaction execution.
+
+Literature review.  Our work contributes to the growing literature on 
+inefficiencies in public blockchains, focusing particularly on frontrun-
+ning  and  MEV.  Existing  studies  in  this  stream  of  literature  include 
+Park (2023) who examines ‘‘sandwich’’ attacks in automated market 
+makers, and Lehar and Parlour (2023) who analyze competition be-
+tween ‘‘good’’ and ‘‘bad’’ arbitrage bots, arguing that private settlement 
+can mitigate under-investment in arbitrage aimed at price discovery. 
+Capponi et al. (2023a) analyze private pools’ effects on price discovery, 
+focusing on a single agent type: informed traders. Informed traders con-
+ceal orders, thereby limiting the information revealed through pending 
+orders.  In  contrast,  our  study  examines  how  private  pools  shift  in-
+centives  as  settlement  layers  affect  overall  welfare,  while  explicitly 
+accounting for the implications of frontrunning frictions.
+
+Other  studies  have  explored  protocol-level  solutions  to  mitigate 
+frontrunning risk. Gans and Holden (2022) propose a simultaneous 
+report mechanism, while Canidio and Danos (2024) advocate for a 
+commit-reveal protocol. These approaches aim to assess how changes 
+in  the  blockchain  infrastructure  at  the  protocol  level  can  mitigate 
+or prevent frontrunning. In contrast, our study focuses on the settle-
+ment layer, analyzing the economic implications of private pools—an 
+existing solution already implemented in major blockchains. This per-
+spective enables us to assess the welfare implications of private pools 
+and the allocative efficiency of blockspace.
+
+A related strand of literature examines frictions in blockchain sys-
+tems, focusing on different aspects of validator behavior. Chung and 
+Shi  (2023)  and  Roughgarden  (2021)  analyze  manipulations  in  the 
+transaction fee market, while Biais et al. (2019) investigates fork incen-
+tives in proof-of-work blockchains. These studies, while also examining 
+validator incentives, differ from our work in two key aspects: they 
+abstract away from the frontrunning problem and consider only public 
+transaction submission channels.
+
+Our  paper  is  also  related  to  the  literature  on  the  economics  of 
+transaction fees (Huberman et al., 2021; Easley et al., 2019), mining 
+strategies (Capponi et al., 2023b; Cong et al., 2020; Prat and Walter, 
+2021), and consensus protocols (Saleh, 2020; John et al., 2020; Hinzen 
+et al., 2022; Bakos and Halaburda, 2021). While some studies have 
+analyzed validators’ incentives, block formation mechanisms, and se-
+curity implications, our work focuses on the economics of transaction 
+submission mechanisms. Moreover, we show that private pools change 
+transaction fee bidding and validator strategies as validators, including 
+miners, gain the option to monitor private pools.
+
+From  a  broader  perspective,  our  work  contributes  to  the  study 
+of market design under frictions. Roth (2008) argues that to achieve 
+efficiency, a market needs to provide thickness (Roth et al., 2004), 
+overcome congestion (Roth and Xing, 1997), and be safe for partici-
+pants (Niederle et al., 2006). These principles apply to the design of 
+transaction submission pools for public blockchains, except that agents 
+cannot be restrained from certain behavior such as frontrunning, and 
+are not forced to participate in new mechanisms, such as private pools. 
+We  discuss  how  to  improve  the  market  design  of  private  pools  to 
+attain adoption, reduce waste in blockspace, eliminate frontrunning 
+
+4 
+
+A. Capponi et al.
+
+and execution risks, improve allocative efficiency, and make blockchain 
+transactions safer for users.
+
+The paper proceeds as follows. We provide the institutional back-
+ground of private transaction pools in Section 2. We develop the game 
+theoretical  model  in  Section  3.  We  solve  for  the  subgame  perfect 
+equilibrium,  and  analyze  its  implications  in  Section  4.  We  analyze 
+welfare in Section 5. Section 6 provides empirical support for our model 
+implications.  Proofs  of  technical  results  are  relegated  to  the  online 
+appendix Section D.
+
+2. Institutional details
+
+We start this section by highlighting the vulnerability to frontrun-
+ning  inherent  in  the  design  of  public  blockchain  settlement  layers. 
+We  then  introduce  the  concept  of  private  transaction  pools,  using 
+Flashbots  –  a  technological  infrastructure  that  establishes  a  private 
+communication  channel  between  Ethereum  users  and  validators  for 
+secure transaction submission – as a concrete example.
+
+2.1. Blockchain structure and frontrunning vulnerability
+
+A  blockchain  is  a  decentralized  ledger  technology  operating  on 
+a peer-to-peer network. In this system, participants broadcast trans-
+actions  that  are  executed  by  validators  and  subsequently  added  to 
+blocks. These blocks are then appended to the existing chain, creat-
+ing a chronological record of transactions maintained by all network 
+participants. The probability of a validator appending the next block 
+is proportional to their validation power, which depends on the type 
+of  consensus  mechanism  employed.  In  Proof  of  Work  systems,  this 
+power is determined by computational capacity, known as hash power, 
+whereas in Proof of Stake systems, it is based on the amount of cryp-
+tocurrency staked. Typically, the selected validator has sole discretion 
+over the content of the next block.
+
+Executing a transaction typically incurs a fee that is paid to the 
+validator who incorporates the transaction into a block. The higher 
+the fee, the stronger the incentive for the validator to prioritize that 
+transaction over others in the queue. This pay-for-priority mechanism 
+operates similarly to an auction, where participants bid to have their 
+transactions executed first, with validators acting as auctioneers.
+
+Each user must attach a unique sequence number, known as a nonce, 
+to every transaction they send. Nonces are essential for maintaining the 
+integrity of user accounts by preventing transaction duplication and 
+ensuring proper sequential processing. Without this mechanism, the 
+same transaction could potentially be executed multiple times, creating 
+accounting inconsistencies and enabling unauthorized transfers. The 
+execution order of a user’s transaction follows the sequential order of 
+their nonces. Specifically, the first transaction a user submits has a 
+nonce of 0, and transactions are executed in increasing nonce order. 
+The system will not execute two transactions from the same user with 
+the  same  nonce,  and  a  transaction  with  nonce  𝑘 + 1  will  only  be 
+processed after the transaction with nonce 𝑘 has been executed.
+
+The decentralized nature of blockchain necessitates a unique trans-
+action  processing  mechanism.  Each  node  maintains  a  mempool—a 
+repository  of  unconfirmed  transactions  awaiting  inclusion  in  the
+blockchain.  Due  to  the  random  selection  of  pseudonymous  valida-
+tors for transaction execution, users must broadcast their transactions 
+broadly  to  ensure  they  are  considered.  However,  this  broadcasting 
+mechanism creates an unintended consequence: it enables all network 
+participants to see pending transactions before they are executed, thus 
+introducing a systematic vulnerability to frontrunning attacks. These 
+attacks typically manifest in three primary forms: displacement, sand-
+wich, and suppression (Torres et al., 2021). Transactions susceptible to 
+these types of attacks are referred to as frontrunnable.
+
+Displacement attacks occur when an attacker observes a profitable 
+transaction and broadcasts a similar one with a higher fee. By doing 
+so, the attacker secures priority in execution, effectively ‘‘stealing’’ the 
+
+Journal of Financial Economics 172 (2025) 104132 
+
+arbitrage opportunity and diverting the profit away from the original 
+user. For example, an arbitrageur aiming to align prices across ex-
+changes might find their opportunity exploited by a frontrunner who 
+copies the transaction from the mempool and submits it with a higher 
+fee to ensure it is executed first.
+
+In a sandwich attack, also known as an insertion attack, the attacker 
+places transactions both before and after the victim’s transaction. For 
+example, if the attacker spots a market buy order for a token on a 
+decentralized exchange, they may place a buy order with a higher fee 
+before the victim’s transaction and a sell order immediately after. This 
+frontrunning transaction purchases the same token, thus impacting the 
+price. Once the victim’s transaction executes, further increasing the 
+token’s price, the attacker’s subsequent transaction sells the token at 
+this elevated price. This sequence effectively transfers wealth from the 
+victim to the attacker, causing slippage for the victim’s trade.7 In a 
+similar scenario, if a market maker on a decentralized exchange tries to 
+set quotes close to the current rate, a frontrunner can manipulate these 
+quotes to a higher price. This manipulation forces liquidity providers 
+to adjust their bids and offers upward, allowing the attacker to trade 
+against these inflated prices and capitalize on the manipulated price. 
+As empirically demonstrated by Torres et al. (2021), sandwich attacks 
+constitute the most prevalent type of frontrunning attacks.
+
+In a suppression attack, attackers flood the network with high-fee 
+transactions to delay or prevent the inclusion of a specific transaction in 
+a block. While this strategy is costly – consuming valuable block space 
+– it can be highly profitable in scenarios such as preventing a borrower 
+from repaying a loan, thereby triggering a forced and potentially costly 
+liquidation.
+
+2.2. Private pools in blockchain
+
+Private pools have emerged as a market-driven solution to reduce 
+frontrunning risk in public blockchains. These pools enhance the ex-
+isting settlement layer by offering an alternative transaction channel, 
+enabling users to bypass the public network and submit transactions 
+directly to a selected group of authenticated validators.
+
+Users  submit  their  transactions  to  designated  network  addresses 
+provided  by  the  service  providers,  ensuring  that  these  transactions 
+are visible only to the collaborating validators and service providers. 
+This restricted visibility maintains transaction privacy away from the 
+broader  public  blockchain  network,  and  effectively  protects  against 
+potential frontrunners.
+
+Collaborating  validators  place  transactions  submitted  to  private 
+pools at the top of validated blocks, ensuring they are executed with 
+priority. These validators are compensated through transaction fees 
+and direct coinbase transfers. Additionally, an important service offered 
+within private pools is the simulation of transactions before inclusion, 
+allowing validators to screen out those likely to fail or be reverted. 
+This pre-validation process helps prevent the inclusion of unprofitable 
+transactions—a safeguard not typically available in public pools, where 
+failed transactions can still be executed and incur unnecessary user 
+costs.
+
+The pioneering private pool service provider, Flashbots,8 operat-
+ing on the Ethereum blockchain, launched its operations in January 
+2021. Of the more than two million transactions submitted exclusively 
+through Flashbots, only eight have experienced frontrunning, as de-
+tailed in Yang et al. (2022).9 In this system, blockchain users do not 
+
+7 In practice, several factors determine whether a market order sent to a 
+liquidity pool is susceptible to sandwich attack. These include: (i) the liquidity 
+reserves  of  the  input  and  output  tokens  in  the  pool;  (ii)  the  size  of  the 
+transaction at risk; and (iii) the tolerance for price slippage. We provide a 
+detailed explanation of how these factors can be integrated into a methodology 
+for identifying frontrunnable transactions in Section A of the online appendix.
+8 See https://docs.flashbots.net/flashbots-auction/overview for a detailed 
+
+introduction to the Flashbots Auction platform.
+
+5 
+
+A. Capponi et al.
+
+see the transaction fees bid by others within the private pool, leading 
+to a one-round, sealed-bid, first-price auction format (refer to Flashbots, 
+2021).
+
+The emergence of private pools is not confined to Ethereum; similar 
+services  have  developed  in  other  major  public  blockchain  systems 
+where  transaction  privacy  is  a  concern.  For  instance,  Polygon  has 
+introduced FastLane and Marlin Protocol, while Solana users can access 
+Jito for private transaction submission.10
+
+Ethereum’s shift from Proof-of-Work (PoW) to Proof-of-Stake (PoS), 
+known as the ‘‘Merge’’, altered the blockchain’s market structure. This 
+transition led to a new division of roles in block production: builders 
+and  validators.  Builders  assemble  blocks  by  selecting  transactions, 
+while validators primarily focus on choosing the most profitable block 
+proposed by builders to add to the chain, a departure from their previ-
+ous role of constructing blocks themselves (see Section B of the online 
+appendix for details). Consequently, the role of some validators has 
+evolved to delegate block construction to these new agents, builders, 
+although some continue to construct and validate their own blocks. As 
+a result, private pools now mainly facilitate interactions between users 
+and builders (Fig.  2), who then pass these transactions to associated 
+validators. Furthermore, builders have largely established their own 
+private pools, enabling direct user submissions of transactions. This 
+restructuring has sparked increased competition among private pool 
+service providers (Yang et al., 2022).11
+
+From a user perspective, the network of private pools effectively 
+functions as a single large pool, as users are typically incentivized to 
+submit transactions to all pools to ensure execution. Similarly, valida-
+tors are incentivized to monitor all private pools to maximize block 
+rewards when allocating validation power to privately produced blocks. 
+This allows us to conceptualize the system as a single private pool for 
+analytical purposes, thereby focusing on the fundamental incentives 
+for users, validators, and attackers within the blockchain settlement 
+layer.12
+
+3. Model setup
+
+Our model consists of three types of agents: validators, users, and 
+
+attackers. All agents are risk-neutral.
+
+Public and private pools.  Users and attackers can submit transactions to 
+blockchain validators through two channels: public and private pools. 
+Transactions sent to the public pool are visible to all participants, while 
+those sent through a private pool are only visible to the validators who 
+joined the private pool.
+
+9 See Table 5 of Yang et al. (2022). These attacks occurred through forks 
+that placed the transactions on alternative branches of the blockchain, a risk 
+known as ‘‘uncle bandit risk’’. The exposure of transaction information to 
+attackers in these cases is exceptionally rare and can be effectively mitigated, 
+as described in Robinson and Konstantopoulos (2020).
+10 For more details on Fastlane, Marlin, and Jito, please see, respectively, 
+https://www.fastlane.xyz/,  https://blog.marlin.org/introducing-mev-support-
+for-polygon, and https://www.dlnews.com/articles/defi/solana-users-use-jito-
+to-stop-sandwich-attacks-and-mev/.
+11 This new market structure also requires intermediary services to enable 
+private transmissions of blocks between builders and validators. For example, 
+the MEV-Boost software allows validators to connect with multiple builders 
+and receive their blocks securely. The design of credible auctions for builders 
+to compete in offering blocks to validators falls outside the scope of our paper.
+12 While  the  industrial  organization  of  private  pools,  their  competitive 
+dynamics, and the potential for centralization are critical considerations in 
+blockchain economics, they also raise concerns about censorship and rent 
+extraction. These issues are essential for a thorough understanding of the 
+broader blockchain market structure. However, they fall outside the scope of 
+our current analysis, which is concentrated on the core economic mechanisms 
+of private pools in transaction settlement.
+
+Journal of Financial Economics 172 (2025) 104132 
+
+Validators.  There are 𝑁 > 2 rational and homogeneous validators, 
+indexed by 𝑘 ∈ {1, 2, 3, … , 𝑁}, each controlling 1∕𝑁 of the total valida-
+tion power. Each validator allocates a portion of their validation power 
+to monitor both private and public transaction pools simultaneously, 
+at zero cost.13 The remaining validation power is dedicated solely to 
+monitoring the public pool. We denote by 𝛼𝑘 ∈ [0, 1
+] the fraction 
+𝑁
+of validation power that validator 𝑘 assigns to monitoring the private 
+pool in addition to the public pool. Let 𝛼 = ∑𝑁
+𝑘=1 𝛼𝑘 represent the total 
+proportion of validation power allocated to the private pool.
+
+With  probability  𝛼,  the  next  block  is  produced  using  validation 
+power allocated to monitor both pools. We refer to such blocks as 
+private blocks, and denote the corresponding validator’s revenue as 
+𝑟𝑝𝑟𝑖𝑣𝑎𝑡𝑒(⋅). These blocks include transactions from both pools, with those 
+submitted through the private pool receiving execution priority.14
+
+Conversely, with probability 1 − 𝛼, the next block is produced by 
+validation power allocated to monitor the public pool only; we refer 
+to this as a ‘‘public block’’, with the corresponding validator’s revenue 
+denoted as 𝑟𝑝𝑢𝑏𝑙𝑖𝑐(⋅). Public blocks contain only transactions from the 
+public pool. Each validator 𝑘 maximizes their expected utility: 
+
+𝑉𝑘 = 𝛼𝑘 ⋅ 𝑟𝑝𝑟𝑖𝑣𝑎𝑡𝑒
+
+)
+
+𝛼𝑛
+
++
+
+( 𝑁
+∑
+
+𝑛=1
+
+( 1
+𝑁
+
+)
+
+− 𝛼𝑘
+
+⋅ 𝑟𝑝𝑢𝑏𝑙𝑖𝑐
+
+)
+
+𝛼𝑛
+
+, 𝛼𝑘 ∈ [0,
+
+( 𝑁
+∑
+
+𝑛=1
+
+1
+𝑁
+
+], (1)
+
+where the first term represents the validator’s expected reward from the 
+private pool, and the second term represents the expected reward from 
+the public pool. The aggregate validation power allocated to the private 
+pool influences the decisions of both users and attackers regarding 
+whether  to  submit  transactions  through  the  public  or  private  pool, 
+thereby affecting the payoffs for validators. In other words, validators 
+internalize  the  impact  of  their  private  pool’s  adoption  rate  on  the 
+actions of users and attackers.
+
+Users.  The model includes a continuum of users with total measure 
+(1 + 𝑚). These users are divided into two distinct groups based on the 
+characteristics of their transactions. The first group, with measure 𝑚, 
+consists of users whose transactions are vulnerable to frontrunning, 
+indexed by 𝑖 ∈ [0, 𝑚]. For a user 𝑖 in this group, a successfully executed 
+transaction provides a value 𝑣𝑖 = 𝑖 (i.e., their valuations are uniformly 
+distributed over [0, 𝑚]). However, if their transaction is frontrun in the 
+public pool, the user incurs a fixed loss of 𝑐.
+
+The second group, with a measure of 1, comprises users whose 
+transactions are not vulnerable to frontrunning, indexed by 𝑗 ∈ [0, 1]. 
+Each user 𝑗 in this group derives a valuation 𝑣𝑗 = 𝑗 from the execution 
+of their transaction.
+
+Each user, regardless of their group, needs to decide whether to 
+submit their transaction to the public pool or the private pool. We 
+denote by 𝑃𝓁 ∈ {Private, Public} the pool choice for user 𝓁 ∈ {𝑖, 𝑗}. 
+̄𝑓𝓁 they are willing to pay. 
+Each user also specifies a maximum fee15
+
+13 The zero-cost assumption aligns with current practice, as Flashbots pro-
+vides open-source software free of charge, as noted in https://docs.Flashbots.
+net/Flashbots-auction/miners/faq/. Similar to how miners can allocate hash 
+rate across different mining pools (Cong et al., 2020), validators can allocate a 
+portion of their validation power to private pools by using different software 
+across their stakes/machines or by splitting their validation power between 
+clients connected to private pools and those that are not.
+14 This prioritization is consistent with protocols implemented by services 
+like Eden and Flashbots, where it is standard practice to reserve the top block 
+space for transactions submitted through the private pool.
+15 This mirrors the ‘‘max fee’’ feature in Ethereum-like systems, where users 
+specify the maximum amount they are willing to pay for their transaction. The 
+Ethereum transaction fee system consists of a base fee (determined by network 
+congestion) and a priority fee (tip to validators). The max fee represents the 
+upper limit a user will pay for both components combined.  If the actual 
+required fee is lower than this maximum, the user only pays the actual fee, 
+with the difference refunded. This mechanism allows users to express their 
+urgency while protecting them from unexpectedly high fees during periods of 
+congestion.
+
+6 
+
+A. Capponi et al.
+
+Journal of Financial Economics 172 (2025) 104132 
+
+Fig. 2.  Panel (a) illustrates the implementation of private pools for transactions prior to the ‘‘Merge’’, while Panel (b) depicts the implementation of private transaction submission 
+pools after the ‘‘Merge’’.
+
+The actual transaction fee they pay is the uniform market-clearing fee 
+𝑓 (detailed below), provided 𝑓 ≤ ̄𝑓𝓁 so that the user’s transaction is 
+included. If 𝑓 exceeds  ̄𝑓𝓁, the user is excluded from the block.
+
+The expected payoff of a user 𝓁 (frontrunnable or not) depends on 
+whether their transaction gets executed and added to the block (i.e., if 
+their  transactions  are  observed  by  validators  and  𝑓 ≤ ̄𝑓𝓁)  and  on 
+whether they incur a frontrunning cost 𝑐 when using the public pool. 
+Formally, 
+
+𝑈𝓁 =
+
+E [ 𝑣𝑖 𝟏(Executed, 𝑖) − 𝑓 𝟏(Executed, 𝑖)
+]
+− 𝑐 𝟏(Frontrun, 𝑖)
+]
+E[ 𝑣𝑗 𝟏(Executed, 𝑗) − 𝑓 𝟏(Executed, 𝑗)
+
+⎧
+⎪
+⎨
+⎪
+⎩
+
+if 𝓁 = 𝑖 ∈ [0, 𝑚],
+if 𝓁 = 𝑗 ∈ [0, 1].
+
+(2)
+
+Above, 𝟏(Executed,𝓁) is an indicator function equal to 1 if user 𝓁’s 
+transaction  is  included  in  the  block,  and  𝟏(Frontrun,𝑖)  equals  1  if 
+frontrunnable user 𝑖 is actually subjected to a frontrunning attack in 
+the public pool. 
+
+Attackers.  The model features two competing attackers, indexed by 
+𝑎 ∈ {1, 2}, who monitor the public pool for frontrunnable transactions. 
+The attacker’s profit per frontrun transaction is 𝑐, so he earns a total 
+profit of 𝑐𝑑 when a mass 𝑑 < 𝑚 of these transactions is successfully 
+frontrun. Each frontrunning opportunity can be exploited by only one 
+attacker. When a frontrunnable transaction is submitted to the public 
+pool, it is either detected by both attackers or missed by both. The 
+detection probability is 𝑝 ∈ (0, 1].
+
+Remark 1.  It may be surprising that we allow for 𝑝 < 1, but this 
+reflects the practical reality that while the search for frontrunnable 
+transactions is automated and executed by arbitrage bots, these bots 
+cannot  guarantee  successful  frontrunning  of  any  given  transaction. 
+Several factors contribute to these limitations, including the capital 
+required for frontrunning and the distributed architecture of blockchain 
+networks.16
+
+16  Capital constraints pose a significant barrier to systematic frontrunning. 
+Strategies such as sandwich attacks require substantial capital to induce the 
+necessary price movements, making them particularly challenging in large 
+liquidity pools where small trades have minimal price impact. Additionally, 
+attackers  often  face  inventory  constraints,  especially  with  highly  volatile 
+tokens, which limit their ability to exploit every available opportunity. Beyond 
+capital  and  inventory  limitations,  the  decentralized  nature  of  blockchain 
+networks introduces technical uncertainties in transaction propagation. Victim 
+transactions originate from individual nodes and spread through the network, 
+leading to significant variation in the timing of their receipt across different 
+
+Transactions submitted through the private pool are unobservable 
+to  attackers,  reflecting  the  real-world  de  facto  safety  of  exclusively 
+private user submissions, as demonstrated in Yang et al. (2022). Given 
+the aggregate private pool adoption rate 𝛼, upon identifying a fron-
+trunnable transaction, each attacker decides on their bidding strategy 
+for both pools. The attackers can choose to participate in the private 
+pool,  the  public  pool,  or  both  by  adjusting  their  bids  accordingly. 
+Each pool determines the winning bidder through a distinct auction 
+mechanism. In the private pool, bidders compete in a first-price sealed-
+bid auction, where only the winning transaction is included. In the 
+public pool, they participate in an all-pay auction, where both the 
+winner and the loser must pay their bids. The all-pay auction captures 
+the reality that while frontrunners can avoid paying transaction fees 
+twice  in  a  dynamic  auction  by  using  the  same  sequential  number, 
+referred to as a nonce (see Section 2.1), they cannot prevent validators 
+in public pools from including an unsuccessful frontrunning transaction 
+in a block. For example, a frontrunning attempt may fail if the trans-
+action is not successfully placed before the victim transaction, yet it 
+can still be included in the block, incurring costs for the frontrunner. 
+As shown in Daian et al. (2020), two bidders may place around 100 
+bids during the dynamic auction, with both successful and unsuccessful 
+frontrunning transactions ultimately being included in the block by the 
+miner. As a result, these frontrunners are still required to pay the fee, 
+justifying the use of an all-pay auction framework.17 Unlike the public 
+pool, the private pool provides downside protection against transaction 
+failures by excluding losing transactions (i.e., transactions that lost the 
+auction).
+
+nodes. The dynamic topology of blockchain networks further complicates this 
+process, sometimes preventing transactions from reaching certain nodes before 
+block confirmation. Consequently, frontrunners – who typically monitor only 
+a limited subset of nodes – may fail to detect frontrunnable transactions before 
+they are finalized. Empirical evidence from Wang et al. (2022) underscores the 
+challenges attackers face in systematically frontrunning transactions, showing 
+that more than 60% of frontrunnable transactions go unexploited, as shown 
+in Fig.  4 of their paper.
+17 It  is  worth  highlighting  that  there  are  certain  limitations  of  the  all-
+pay auction model. For instance, it does not account for early termination 
+of smart contracts or the low transaction cost of reverted transactions. In 
+practice,  bidding  in  public  pools  is  a  hybrid  of  an  English  auction  with 
+random stopping time and an all-pay auction. Nevertheless, the all-pay auction 
+framework allows us to provide a more streamlined game-theoretical analysis 
+as demonstrated in the following sections.
+
+7 
+
+A. Capponi et al.
+
+When attackers submit identical frontrunning transactions to both 
+private and public pools, they necessarily use the same nonce in both 
+cases. Because blockchains enforce sequential processing of transac-
+tions by nonce, only the first included transaction with a given nonce 
+will be executed. If the transaction with nonce 𝑥 submitted through 
+the private pool is added to the block, any pending transaction with 
+the same nonce in the public pool is automatically invalidated. As a 
+result, the public transaction does not consume blockspace or incur 
+fees, effectively shielding the attacker from paying twice for a single 
+frontrunning attempt.
+
+Attacker 𝑎 chooses fee bids 𝑏𝑝
+
+𝑎 and 𝑏𝑢
+
+𝑎, respectively for the private 
+
+𝑎, 𝑏𝑢
+
+𝑎, 𝑏𝑝
+
+−𝑎, 𝑏𝑢
+
+−𝑎) = E[𝑀𝑎(𝑏𝑝
+
+𝑎, 𝑏𝑝
+−𝑎, 𝑏𝑢
+−𝑎 and 𝑏𝑢
+
+and public pool, to maximize their expected payoff: 
+𝑎, 𝑏𝑢
+
+−𝑎)𝑐 − 𝐹𝑎(𝑏𝑝
+𝐴𝑎(𝑏𝑝
+𝑎, 𝑏𝑢
+where 𝑏𝑝
+−𝑎 are the bids of the other attacker in the private and 
+public pool respectively,  𝑀𝑎(⋅) is a random variable representing the 
+mass of users frontrun by attacker 𝑎, and 𝐹𝑎(⋅) represents the total fees 
+paid by attacker 𝑎. In scenarios where two bidding strategies result in 
+identical payoffs, the tie is resolved by favoring the strategy that leads 
+to frontrunning a larger mass of users.
+
+−𝑎, 𝑏𝑢
+
+𝑎, 𝑏𝑝
+
+−𝑎)]
+
+(3)
+
+Market-clearing condition and blockchain fees.  Each block has a capacity 
+of 1 unit, restricting the total volume of transactions it can accommo-
+date. Users’ transactions consume block space in proportion to their 
+measure,  with  one  unit  of  user  transactions  occupying  one  unit  of 
+block  capacity.  Frontrunning  operations,  whether  successful  or  not, 
+require additional block space. Specifically, each frontrunning attempt 
+occupies  𝑠 − 1  times  more  block  space  than  a  regular  transaction, 
+where 3 ≥ 𝑠 > 1. The parameter 𝑠 represents the total block space 
+consumed by frontrunning transactions, including both successful and 
+failed attempts. For example, in a ‘‘sandwich attack’’, where an attacker 
+places one transaction before and one after the victim transaction, 𝑠
+would equal 3. User 𝓁 is excluded from the block if their specified 
+maximum fee  ̄𝑓𝓁 is lower than the blockchain fee 𝑓 . Otherwise, user 𝓁
+pays the fee 𝑓 . This mechanism is analogous to a uniform-price auction. 
+The blockchain fee 𝑓 is determined by a market-clearing condition, 
+which equates aggregate demand to the block’s capacity: 
+
+1 = (1 − 𝑓 ) + [1 + (𝑠 − 1)𝑝]𝑚𝑝𝑢𝑏𝑙𝑖𝑐(𝑓 ) + 𝑚𝑝𝑟𝑖𝑣𝑎𝑡𝑒(𝑓 )𝟏Private Transaction Block (4)
+The  left-hand  side  of  the  equation  is  the  block  capacity.  The  term 
+(1 − 𝑓 ) denotes the measure of non-frontrunnable users’ transactions 
+with value exceeding the fee. The variables 𝑚𝑝𝑢𝑏𝑙𝑖𝑐(𝑓 ) and 𝑚𝑝𝑟𝑖𝑣𝑎𝑡𝑒(𝑓 )
+represent the measures of frontrunnable users utilizing the public and 
+private  pools,  respectively,  each  with  non-negative  expected  payoff 
+after  fees.  Both  𝑚𝑝𝑢𝑏𝑙𝑖𝑐(𝑓 )  and  𝑚𝑝𝑟𝑖𝑣𝑎𝑡𝑒(𝑓 )  are  functions  of  𝑓 ,  as  the 
+blockchain fee influences users’ decisions to submit transactions and 
+their choice of pool. Since each frontrunnable transaction has a prob-
+ability 𝑝 of being targeted for frontrunning, resulting in an additional 
+(𝑠 − 1) units of block space being consumed by the attacker’s actions, 
+the expected block space occupied by a unit measure of frontrunnable 
+transactions is 1+(𝑠−1)𝑝.18 The indicator function 𝟏Private Transaction Block
+equals 1 for private blocks and 0 for public blocks.
+
+Equilibrium.  We  characterize  a  class  of  symmetric  subgame  perfect 
+equilibria  where  homogeneous  validators  adopt  identical  strategies. 
+The subgame structure arises because users optimize their responses 
+to  the  aggregate  adoption  rate  of  the  private  pool,  while  attackers 
+adopt symmetric best responses to both users’ decisions and the ag-
+gregate adoption rate of the private pool. We provide a tree-based 
+
+18 Formally, let 𝑋𝑖 be i.i.d. Bernoulli random variables with 𝑃 (𝑋𝑖 = 1) = 𝑝, 
+representing whether the 𝑖th transaction is targeted for frontrunning. For 𝑛
+transactions, each occupying 𝑚𝑝𝑢𝑏𝑙𝑖𝑐 (𝑓 )∕𝑛 block space, the total space occupied 
+𝑖=1[1 + (𝑠 − 1)𝑋𝑖]. By the Strong Law of Large Numbers, as 
+is 𝑆𝑛 =
+𝑛 → ∞,  1
+𝑖=1 𝑋𝑖 → 𝑝 almost surely. Thus, 𝑆𝑛 → 𝑚𝑝𝑢𝑏𝑙𝑖𝑐 (𝑓 )[1 + (𝑠 − 1)𝑝] almost 
+surely, justifying the expected block space term in our equation.
+
+𝑚𝑝𝑢𝑏𝑙𝑖𝑐 (𝑓 )
+𝑛
+∑𝑛
+
+∑𝑛
+
+𝑛
+
+Journal of Financial Economics 172 (2025) 104132 
+
+representation of our game theoretical model in the online appendix 
+Section C.
+
+Definition 1.   A symmetric subgame perfect equilibrium (SPE) is a 
+tuple (𝛼, (𝑃𝓁(⋅), ̄𝑓𝓁(⋅))𝓁∈{𝑖,𝑗}, (𝑏𝑝
+
+𝑎)𝑎∈{1,2}, 𝑓 ) such that:
+
+𝑎, 𝑏𝑢
+
+1.
+
+∈ [0, 1
+𝑁
+
+𝛼
+𝑁
+that all other validators choose  𝛼
+𝑁
+
+.
+
+] maximizes each validator’s problem in Eq.  (1), given 
+
+2. Given the aggregate private pool adoption rate 𝛼, (𝑃𝓁(⋅), ̄𝑓𝓁(⋅))
+solve the optimization problem of user 𝓁, whose utility is given 
+in Eq. (2).
+
+3. Given  𝛼  and  (𝑃𝓁(⋅), ̄𝑓𝓁(⋅))𝓁∈{𝑖,𝑗},  the  bids  (𝑏𝑝
+
+𝑎)  solve  the  at-
+tacker’s  optimization  problem,  whose  utility  is  given  in  Eq. 
+(3).
+
+𝑎, 𝑏𝑢
+
+4. 𝑓 satisfies the market-clearing condition given in (4).
+
+We consider strategy profiles where the validator and users employ 
+pure  strategies,  while  attackers  can  use  a  mixed  strategy  in  their 
+bidding across both the private and public pools.
+
+Welfare.  We define aggregate welfare as the sum of expected payoffs of 
+all agents in the model, including validators, users (both frontrunnable 
+and non-frontrunnable), and attackers. Formally,
+
+1
+
+)
+
++ ∫
+0
+
+( 𝛼
+𝑁
+𝐴𝑎(𝑏𝑝, 𝑏𝑢, 𝛼, 𝑃𝓁(⋅)𝓁∈{𝑖,𝑗})
+
+𝑈𝑗 (𝑃𝑗 (⋅), 𝛼, 𝑓 )𝑑𝑗 + ∫
+
+𝑚
+
+0
+
+𝑈𝑖(𝑃𝑖(⋅), 𝛼, 𝑓 )𝑑𝑖
+
+(5)
+
+𝑊 = 𝑁𝑉
+
+∑
+
++
+
+𝑎
+
+where 𝑉 (⋅) is defined in Eq.  (1), 𝑈𝑗 (⋅) and 𝑈𝑖(⋅) are defined in Eq.  (2), 
+and 𝐴(⋅) is defined in Eq.  (3).
+
+Assumption 1.   We impose the assumption: 𝑚 ≤ (2 − 𝑝 +𝑝𝑠)∕(1−𝑝+ 𝑝𝑠).
+
+This assumption is imposed to rule out corner cases where only 
+frontrunnable users get their transactions confirmed on the blockchain.
+
+4. Model equilibrium
+
+In this section, we begin by illustrating how frontrunning can result 
+in  suboptimal  blockspace  allocation  when  a  private  pool  is  absent. 
+We then proceed to solve for the SPE of the game using backward 
+induction. This involves first characterizing the pool selection strategies 
+of both attackers and users, given a specific adoption rate of the private 
+pool by validators. Following this, we analyze the optimal validators’ 
+adoption rate of the private pool, which takes into account the best 
+pool selection strategy response of both attackers and users. All proofs 
+of propositions, lemmas, and theorems are provided in Section D of the 
+online appendix.
+
+4.1. Allocative inefficiency in blockchain systems without private pools
+
+In this section, we examine the allocative inefficiency caused by 
+frontrunning attacks in the benchmark scenario of a blockchain system 
+that operates solely with a public pool.
+
+Attackers’ profits and validators’ fee revenue represent wealth trans-
+fers from users, with attackers’ transaction fees reflecting a portion 
+of the profits extracted from frontrunnable users. Consequently, the 
+aggregate welfare generated by blockchain usage is only determined by 
+the transaction values of the users. We may rewrite Eq. (5) to express 
+aggregate welfare as: 
+
+1
+
+𝑊 = ∫
+
+0
+
+𝑣𝑗 𝟏(Executed,𝑗)𝑑𝑗 + ∫
+
+𝑚
+
+0
+
+𝑣𝑖𝟏(Executed,𝑖)𝑑𝑖,
+
+(6)
+
+where 𝑣𝑗 = 𝑗 and 𝑣𝑖 = 𝑖 represent the values of non-frontrunnable and 
+frontrunnable transactions, respectively, and we recall that 𝟏(Executed,𝑖)
+
+8 
+
+A. Capponi et al.
+
+is an indicator function for the event that the transaction of user i is 
+included in the block.19
+
+An efficient allocation occurs when blockspace is assigned to users 
+with the highest transaction values. In the absence of frontrunning, the 
+market-clearing condition becomes: 
+
+1 = (1 − 𝑓 𝑒) + (𝑚 − 𝑓 𝑒),
+
+(7)
+
+Journal of Financial Economics 172 (2025) 104132 
+
+2. Blockspace waste: attackers occupy (𝑠 − 1)𝑝𝑚𝑏 = 0.14 units of 
+
+blockspace, contributing no social value.
+
+3. Reallocation: non-frontrunnable transactions with lower values 
+(e.g., within the range [0.42, 0.5]) are executed on-chain. Here, 
+0.58 = 1 − 0.28 − 0.14 represents the remaining blockspace after 
+accounting for frontrunnable users and attackers.
+
+where we have used that 𝑠 = 1 and that 𝟏Private Transaction Block = 0
+because of the absence of a private pool. This yields a fee 𝑓 𝑒 = 𝑚∕2
+and aggregate welfare of 𝑊 𝑒 = ∫ 1
+
+𝑚∕2 𝑣𝑗 𝑑𝑗 + ∫ 𝑚
+
+𝑚∕2 𝑣𝑖𝑑𝑖 = 1
+
+The following proposition states that in a public pool-only system, 
+aggregate welfare is diminished compared to an efficient allocation, 
+due to the impact of frontrunning:
+
++ 𝑚2
+4
+
+2
+
+.
+
+Proposition 1 (Public Pool Equilibrium). In a system with only a public 
+pool (𝛼 = 0), there exists an equilibrium that satisfies conditions 2, 3, and 
+4 of Definition  1, such that:
+
+{ 𝑚−𝑐𝑝
+𝑝(𝑠−1)+2
+
+}
+
+< 𝑚
+
+1. Only 𝑚𝑏 = max
+
+2  transactions from frontrunnable 
+users  are  included,  with  attackers  occupying  (𝑠 − 1)𝑝𝑚𝑏  of  the 
+blockspace.
+
+, 0
+
++ 𝑚2
+2. Aggregate welfare 𝑊𝑏 < 1
+.
+2
+4
+3. The equilibrium fee 𝑓𝑏 < 𝑓 𝑒 if 𝑐 > 𝑐𝑒, for some threshold value 𝑐𝑒.
+
+High frontrunning costs deter some frontrunnable users from sub-
+mitting  transactions,  resulting  in  the  exclusion  of  valuable  transac-
+tions. Specifically, frontrunnable transactions with values in the range 
+[ 𝑚
+, 𝑚 − 𝑚𝑏] are excluded from the blockchain. The blockspace that 
+2
+could have been used for these transactions is instead reallocated to 
+non-frontrunnable transactions with lower valuations (below 𝑚
+) and to 
+2
+attackers’ transactions. The latter represent a mere transfer of wealth 
+from frontrunnable users to attackers. Additionally, because each fron-
+trunnable transaction requires extra blockspace for frontrunning, at-
+tackers occupy (𝑠 − 1)𝑝𝑚𝑏 units of blockspace, displacing potentially 
+valuable transactions.
+
+The blockchain fee does not necessarily decrease, as the waste of 
+blockspace may counterbalance the exclusion of valuable transactions. 
+Block demand can remain stable due to increased demand from attack-
+ers, even if demand from frontrunnable users declines. A fee decrease 
+occurs only if the cost 𝑐 is sufficiently high, causing a greater exit 
+of frontrunnable users from the blockchain than the additional space 
+occupied by attackers.
+
+Example:.  In Fig.  3, we illustrate the inefficiencies in the blockspace 
+allocation using the results in Proposition  1. We specify the parameters 
+as  follows:  measure  of  frontrunnable  users  𝑚 = 1,  probability  of 
+frontrunning 𝑝 = 0.5, frontrunning cost 𝑐 = 0.6, and the blockspace 
+required to execute frontrunning 𝑠 − 1 = 1. In the efficient scenario 
+(Panel A), both user types equally share the blockspace (0.5 each), with 
+values uniformly distributed within [0.5, 1.0]. The inefficient scenario 
+(Panel B) demonstrates the following:
+
+1. Transaction exclusion: the frontrunnable users’ blockspace allo-
+= 0.28, leading to the 
+
+= 0.5 to  𝑚−𝑐𝑝
+cation decreases from  𝑚
+𝑝(𝑠−1)+2
+2
+exclusion of transactions with values in the range [0.5, 0.72].
+
+4.2. Attackers’ pool choice and bidding strategies
+
+To maximize their chances of execution, attackers use both private 
+and  public  pools.  The  private  pool  offers  prioritized  execution,  as 
+transactions submitted through it are placed at the top of the block 
+by participating validators. However, anyone who submits through the 
+private pool faces the risk of non-execution, as a public block will not 
+contain their transactions. To mitigate this risk, attackers also submit 
+transactions to the public pool to ensure execution.
+
+The following proposition characterizes attackers’ equilibrium pool 
+
+selection and fee-bidding strategies.
+
+Proposition 2 (Attackers’ Equilibrium Strategies).  Upon detecting a fron-
+trunnable transaction, for 0 < 𝛼 < 1, attackers submit transactions to both 
+the private and public pools. In equilibrium:
+
+1. In the private pool, attackers bid a fee equal to their true valuation: 
+
+𝑏𝑝
+𝑎 = 𝑐.
+
+2. In the public pool, attackers use mixed strategies with bids distributed 
+over the interval 𝑏𝑢
+𝑎 ∈ [0, 𝑐]. One attacker places a mass point at 𝑓
+and uniformly randomizes on [𝑓 , 𝑐], the other places a mass point at 
+0 and uniformly randomizes on [𝑓 , 𝑐].
+
+Frontrunning opportunities create a common-value environment for 
+attackers, as both stand to gain the same amount, 𝑐, by placing their 
+transactions ahead of the victim’s. In the private pool, this setting takes 
+the form of a sealed-bid, first-price auction with two bidders, each 
+possessing a commonly known valuation of 𝑐. A well-known result for 
+such auctions with identical and commonly known values is that the 
+bidders’ unique best response is to bid exactly their valuation.
+
+If a bidder bids below 𝑐, she risks losing the entire frontrunning 
+profit (which is worth 𝑐 if included first). Conversely, if she bids above 
+𝑐, any winning payoff would be zero or negative. Hence, in equilibrium, 
+both attackers submit a fee of exactly 𝑐 in the private pool.
+
+By  contrast,  in  the  public  pool,  attackers  compete  in  an  all-pay 
+format. Here, an attacker who bids a higher transaction fee secures 
+higher priority but must pay that fee regardless of whether they win 
+or lose to an even higher bid. This structure forces each attacker to 
+balance the higher probability of winning (and capturing 𝑐) against the 
+risk of incurring a cost without earning any profit. As a result, bidders 
+do not simply bid 𝑐 outright: bidding all the way up to 𝑐 at all times 
+would involve excessive costs when losing. Instead, in the resulting 
+mixed strategy equilibrium, each attacker randomizes over a range of 
+possible fee levels, strategically placing probability mass below 𝑐 to 
+balance these trade-offs and keep the other attacker indifferent. These 
+distinct bidding behaviors are empirically observable and statistically 
+validated in our analysis, as detailed in Section 6.
+
+4.3. Users’ pool choice equilibrium
+
+19 Unexecuted transactions can result in welfare loss. To see this, consider 
+a repeated game, where each block interval introduces a new set of users 
+– both frontrunnable and non-frontrunnable – submitting transactions from 
+identical value distributions. Low-value transactions that are excluded from 
+one block remain low-value in subsequent blocks, leading to an accumulation 
+of pending low-value transactions. This scenario is observed in practice, as 
+illustrated by data from mempool.guru/leaderboard, which shows transactions 
+waiting years for inclusion. The situation can be even more severe in practice, 
+as many transactions are never included and are eventually canceled by users 
+who submit replacements with the same nonce.
+
+We now analyze the equilibrium pool selection strategies of users in 
+the second stage of the game. Frontrunnable users face a fundamental 
+trade-off: choosing the private pool eliminates the risk of frontrun-
+ning but introduces the possibility that their transaction may not be 
+executed. Importantly, frontrunnable users utilize the private pool as 
+a safeguard against frontrunning, rather than as a strategy to outbid 
+competitors in the auction. A frontrunnable user 𝑖 prefers the private 
+pool if and only if: 
+
+𝛼(𝑣𝑖 − 𝑓𝑝𝑟𝑖𝑣𝑎𝑡𝑒) > (1 − 𝛼)(𝑣𝑖 − 𝑓𝑝𝑢𝑏𝑙𝑖𝑐) + 𝛼(𝑣𝑖 − 𝑓𝑝𝑟𝑖𝑣𝑎𝑡𝑒) − 𝑝𝑐
+
+(8)
+
+9 
+
+A. Capponi et al.
+
+Journal of Financial Economics 172 (2025) 104132 
+
+Fig. 3.  Blockchain space allocation under efficient and inefficient scenarios.
+Notes: This figure illustrates the allocation of blockchain space under two distinct scenarios: efficient (Panel A) and inefficient (Panel B). The analysis is based on the following 
+parameters: the measure of frontrunnable users 𝑚 = 1, the probability of frontrunning 𝑝 = 0.5, the cost of frontrunning 𝑐 = 0.6, and the blockspace occupied by frontrunning 
+transactions 𝑠 − 1 = 1. In the efficient scenario depicted in Panel A, both user types equally share the blockchain space, each occupying 0.5 of the available space, with values 
+uniformly distributed in the range [0.5, 1.0]. In contrast, the inefficient scenario in Panel B reveals a different allocation: non-frontrunnable users occupy 0.58 of the blockchain 
+space with values ranging from [0.42, 1.00], frontrunnable users occupy 0.28 with values in the range of [0.72, 1.00], and attackers occupy 0.14 with a value of zero. This results 
+in an equilibrium blockchain fee of 0.42.
+
+where 𝛼 is the fraction of validators monitoring the private pool, 𝑣𝑖 is 
+the user’s valuation, 𝑓𝑝𝑟𝑖𝑣𝑎𝑡𝑒 and 𝑓𝑝𝑢𝑏𝑙𝑖𝑐
+20 are the fees for the private and 
+public pools respectively, 𝑝 is the probability of being frontrun, and 𝑐 is 
+the cost of being frontrun.  The left-hand side represents the expected 
+payoff for frontrunnable user 𝑖 if she chooses to use the private pool, 
+while the right-hand side represents her expected payoff from using 
+
+20 Because  each  user  is  infinitesimal,  her  decision  does  not  affect  the 
+market-clearing fees.
+
+the public pool, minus the expected cost of being frontrun. Notice that 
+when the frontrunnable user submits through the public pool, there is a 
+probability of 1 − 𝛼 that the next block will be a public block, in which 
+case the user pays 𝑓𝑝𝑢𝑏𝑙𝑖𝑐. Conversely, with probability 𝛼, the next block 
+is a private block, in which case the user pays the private pool fee, 
+𝑓𝑝𝑟𝑖𝑣𝑎𝑡𝑒. 
+
+The  following  proposition  characterizes  users’  equilibrium  pool 
+choices, along with their sensitivities to the primitive model param-
+eters: 
+
+10 
+
+A. Capponi et al.
+
+Journal of Financial Economics 172 (2025) 104132 
+
+effect. The direct effect measures the change in differential fee rev-
+enue between blocks containing privately submitted transactions and 
+those containing both public and private transactions, resulting from 
+allocating an additional unit of validation power to the private pool, 
+assuming the distribution of users between the public and private pools 
+remains unchanged. In contrast, the indirect effect captures how reallo-
+cating validation power to the private pool influences user decisions on 
+transaction submission, thereby affecting the overall fee revenue from 
+blocks. The following lemma allows for a quantification of these effects:
+
+Lemma 1.   For any 𝛼 ∈ [0, 1]:
+
+1. Blocks  containing  private  transactions  yield  higher  rewards  than 
+those containing public transactions only: 𝑟𝑝𝑟𝑖𝑣𝑎𝑡𝑒(𝛼) ≥ 𝑟𝑝𝑢𝑏𝑙𝑖𝑐(𝛼).
+2. Increased  adoption  of  private  pools  lowers  transaction  fees  and 
+
+reduces the measure 𝑝 ⋅ 𝑚𝑝𝑢𝑏𝑙𝑖𝑐 of users who are frontrun: 
+𝜕𝑓𝑝𝑟𝑖𝑣𝑎𝑡𝑒
+𝜕𝛼
+
+𝜕(𝑝 ⋅ 𝑚𝑝𝑢𝑏𝑙𝑖𝑐)
+𝜕𝛼
+
+𝜕𝑓𝑝𝑢𝑏𝑙𝑖𝑐
+𝜕𝛼
+
+≤ 0,
+
+≤ 0,
+
+≤,
+
+(10)
+
+where we recall that 𝑓𝑝𝑟𝑖𝑣𝑎𝑡𝑒 and 𝑓𝑝𝑢𝑏𝑙𝑖𝑐 are the fees in private and 
+public pools.
+
+The first part of the lemma relates to the direct effect and can 
+be understood as follows. Privately submitted transactions come from 
+frontrunnable users seeking protection from frontrunning risk, leading 
+to a higher demand for blockspace compared to the public pool. This 
+increased demand results in higher market-clearing fees. Additionally, 
+in the private pool, attackers bid their true valuation for the frontrun-
+ning opportunity, so that the MEV by validators in the private pool is 
+equal to or greater than that in the public pool. Together, these factors 
+imply that the overall revenue for a validator monitoring the private 
+pool consistently exceeds that of a validator monitoring only the public 
+pool. We empirically verify this model prediction in Section 6.
+
+The second part of the lemma addresses the indirect effect of a 
+marginal allocation of validation power, as formalized in Eq.  (9). This 
+effect arises from two key components: the sensitivity of blockchain fees 
+and the rent extracted from attackers—both with respect to changes 
+in 𝛼, where the rent is proportional to the expected mass 𝑝 ⋅ 𝑚𝑝𝑢𝑏𝑙𝑖𝑐 of 
+users who are frontrun. The signs of these sensitivities are given in Eq. 
+(10). By shifting more validation power to the private pool, validators 
+reduce execution risk within it. This encourages more frontrunnable 
+users to utilize the private pool, thereby decreasing the demand for 
+public blockspace and reducing the space wasted by attackers. Conse-
+quently, overall blockspace demand and fees are further diminished. 
+As more users migrate to the private pool, frontrunnable transactions 
+in  the  public  pool  decline,  leading  to  reduced  bidding  competition 
+among attackers and a decrease in revenue from both pools. While the 
+revenue loss from reduced frontrunning affects all validators, each one 
+is impacted only in proportion to its share of the total validation power, 
+given that each validator has a 1∕𝑁 probability of constructing the next 
+block.
+
+Next, we characterize the subgame perfect equilibria of the game in 
+the following proposition, distinguishing between full adoption (𝛼∗ =
+1), partial adoption (0 < 𝛼∗ < 1), and no adoption (𝛼∗ = 0) equilibria.
+
+Theorem  1  (Characterization  of  SPE).  There  exists  a  unique  subgame 
+perfect equilibrium (up to relabeling of the two attackers), which is char-
+acterized as follows:
+
+1. If 𝑐𝑝 ≥ 𝑚, then 𝛼∗ = 1 ( full adoption). All frontrunnable users submit 
+
+to the private pool, and no frontrunning occurs.
+
+2. If 𝑐𝑝 < 𝑚, then 0 < 𝛼∗ < 1 ( partial adoption). A positive fraction of 
+frontrunnable users (with measure 𝑚∗
+𝑝𝑢𝑏𝑙𝑖𝑐 > 0) continues using the 
+public pool, and the two attackers send frontrunning transactions to 
+both pools following the bidding strategies in Proposition  2.
+
+Moreover, any other ‘‘mirror’’ equilibrium is obtained by swapping the 
+two attackers’ strategies in the public pool ( i.e., permuting which attacker 
+places a mass at 0 versus 𝑓 ).
+
+Fig. 4.  Flashbots private pool adoption rate: For each day, we calculate the adoption 
+rate as the proportion of daily blocks that include transactions submitted through 
+Flashbots private pools.
+
+Proposition 3 (Users’ Equilibrium Pool Choice).  In equilibrium, for any 
+𝛼, we have:
+
+1. The measure of frontrunnable users choosing the public pool, 𝑚𝑝𝑢𝑏𝑙𝑖𝑐 , 
+
+decreases with 𝑐, 𝑝, and 𝛼.
+
+2. Frontrunnable users with valuations in [𝑚 − 𝑚𝑝𝑢𝑏𝑙𝑖𝑐, 𝑚] choose the 
+
+public pool.
+
+3. All non-frontrunnable users choose the public pool.
+
+As 𝛼 increases, a growing number of users opt for the private pool, 
+as a higher 𝛼 lowers the risk of non-execution within the private pool 
+and increases users’ payoffs from using it. Similarly, as the expected 
+cost of frontrunning 𝑝 ⋅ 𝑐 rises, the advantage of lower execution risk 
+is outweighed by the heightened frontrunning risk. Consequently, the 
+expected payoff from using the public pool diminishes, prompting more 
+users  to  shift  to  the  private  pool,  leaving  only  a  smaller  group  of 
+users with high transaction value in the public pool. We empirically 
+validate this model prediction in Section 6. Users with high valuations 
+relative to frontrunning costs tend to favor the public pool; for them, 
+the potential loss from non-execution in the private pool outweighs the 
+expected cost of frontrunning. For non-frontrunnable users, who are not 
+exposed to the risk of frontrunning, the dominant strategy is to use the 
+public pool, so to avoid the non-execution risk inherent in the private 
+pool.
+
+4.4. Validators’ adoption equilibrium
+
+We now characterize the full equilibrium of the game, focusing on 
+validators’ strategic allocation of validation power between private and 
+public pools. Each validator 𝑘 maximizes their total payoff, as specified 
+in  Eq.   (1).  The  marginal  benefit  of  allocating  additional  validation 
+power to the private pool is given by: 
+
+𝜕𝑉𝑘
+𝜕𝛼𝑘
+
+= (𝑟𝑝𝑟𝑖𝑣𝑎𝑡𝑒(𝛼) − 𝑟𝑝𝑢𝑏𝑙𝑖𝑐(𝛼))
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+Direct effect
+
++
+
+(
+
+𝛼𝑘 ⋅
+
+𝜕𝑟𝑝𝑟𝑖𝑣𝑎𝑡𝑒
+𝜕𝛼
+
+( 1
+𝑁
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+Indirect effect
+
+𝜕𝑟𝑝𝑢𝑏𝑙𝑖𝑐
+𝜕𝛼
+
+− 𝛼𝑘
+
++
+
+)
+
+⋅
+
+)
+
+where  𝛼 = ∑𝑁
+𝑛=1 𝛼𝑛  is  the  aggregate  adoption  rate  of  the  private 
+pool. The marginal benefit comprises both a direct and an indirect 
+
+(9)
+
+11 
+
+A. Capponi et al.
+
+The theorem above suggests that validators will at least partially 
+monitor the private pool. The equilibrium outcome depends on the 
+severity of the frontrunning problem.
+
+When the frontrunning problem is severe (𝑐𝑝 ≥ 𝑚), all frontrunnable 
+users face non-positive expected payoffs in the public pool if a private 
+pool is unavailable. The private pool, offering a frontrunning-free envi-
+ronment, attracts all frontrunnable users regardless of the adoption rate 
+𝛼. Consequently, the indirect effect in Eq.  (9) vanishes, as a marginal 
+increase in validation power allocated to the private pool does not alter 
+users’ decisions. In the resulting unique equilibrium, validators fully 
+adopt the private pool to capture transaction fees from frontrunnable 
+users, with the direct effect prevailing over the now-vanished indirect 
+effect.
+
+When frontrunning is less severe (𝑐𝑝 < 𝑚), some frontrunnable 
+users would continue using the public pool even in the presence of 
+a private pool option. In this scenario, the indirect effect of higher 
+private  pool  adoption  on  block  rewards  is  non-zero,  as  a  marginal 
+increase  in  validation  power  allocated  to  the  private  pool  reduces 
+validators’ MEV. Since private pool adoption introduces execution risk, 
+some frontrunnable users may opt for the public pool, accepting the 
+risk of being frontrun in exchange for guaranteed transaction execu-
+tion. In the partial adoption equilibrium, validators are indifferent to 
+allocating additional validation power to the private pool, as the direct 
+effect (immediate payoff differential) is balanced by the indirect effect 
+(impact on overall block rewards).
+
+Implications of proposer-builder separation and multiple private pools.  The 
+transition  from  Proof-of-Work  to  Proof-of-Stake  (referred  to  as  the 
+‘‘Merge’’) introduced builders as new intermediaries in block produc-
+tion but preserved the fundamental economic trade-offs in our model. 
+From users’ perspective, the decision to use private pools still depends 
+on  their  vulnerability  to  frontrunning  relative  to  transaction  value, 
+as  captured  in  Proposition   1.  The  key  difference  lies  in  the  block 
+production  process:  builders,  rather  than  validators,  now  make  the 
+strategic choice of private pool adoption, whose marginal benefit is 
+specified in Eq.  (9). The effective adoption rate of private pools in the 
+post-Merge environment is given by 𝛼𝑒𝑓 𝑓 𝑒𝑐𝑡𝑖𝑣𝑒 = ∑
+𝑖 𝜋𝑖𝛼𝑖, where 𝜋𝑖 is 
+the probability that builder 𝑖’s block is included in the chain and 𝛼𝑖 is 
+their private pool adoption rate. The trade-off identified in Theorem  1 
+remains: higher private pool adoption reduces MEV opportunities, as it 
+redirects more frontrunnable transactions away from public pools. This 
+leads builders, like validators in our model, to balance direct revenue 
+gains from private transactions against the indirect loss of MEV.
+
+Two  new  forces  shape  builders’  adoption  decisions  beyond  the 
+trade-offs captured in our model. First, many builders are vertically 
+integrated with frontrunning entities, enabling them to derive direct 
+profits from frontrunning opportunities. This vertical integration cre-
+ates an incentive to maintain transaction submission through the public 
+mempool, as excessive adoption of private pools would diminish prof-
+itable frontrunning opportunities. Second, builders compete in a first-
+price auction to have their blocks selected, making private transaction 
+submissions highly valuable, as they enable builders to construct more 
+profitable blocks. This competitive pressure encourages higher private 
+pool adoption rates, as builders who can access more private transac-
+tions can construct more valuable blocks and outbid their competitors 
+in the block auction.
+
+5. Welfare implications
+
+This  section  explores  the  welfare  implications  of  introducing  a 
+private pool and considers potential market design enhancements to 
+improve efficiency.
+
+The availability of a private pool offers users the option to submit 
+transactions  privately,  potentially  reducing  inefficiencies  caused  by 
+transaction exclusion. Additionally, it lowers the mass of frontrunnable 
+users sending transactions through the public pool, thereby decreas-
+ing  the  incidence  of  frontrunning  and  associated  blockspace  waste. 
+
+Journal of Financial Economics 172 (2025) 104132 
+
+However, inefficiencies persist in scenarios where only a portion of 
+validators monitor the private pool (partial adoption equilibrium).
+
+The following proposition formalizes these claims by comparing the 
+aggregate welfare in a public pool-only equilibrium 𝑊𝑏 with that in a 
+system comprising both public and private pools 𝑊 ∗.
+
+Proposition 4 (Aggregate Welfare).  The following statements hold:
+
+𝑝𝑢𝑏𝑙𝑖𝑐
+
+1. For any equilibrium characterized in Theorem  1, 𝑊 ∗ > 𝑊𝑏. More-
+over, relative to the benchmark of a public-pool only system char-
+acterized in Proposition  1, a smaller mass of frontrunnable users 
+≤ 𝑚𝑏; the blockspace used by attackers 
+use the public pool: 𝑚∗
+≤ 𝑝(𝑠 − 1)𝑚𝑏; and the expected measure of 
+decreases: 𝑝(𝑠 − 1)𝑚∗
+𝑝𝑢𝑏𝑙𝑖𝑐
+frontrunnable users’ transactions increases: 𝑚∗
+𝑝𝑟𝑖𝑣𝑎𝑡𝑒 > 𝑚𝑏.
+2. If 𝑐𝑝 ≥ 𝑚, the unique equilibrium achieves the welfare-maximizing 
+efficient  allocation:  𝑊 ∗ = 𝑊 𝑒 = 1
+.  If  𝑐𝑝 < 𝑚,  the 
+2
+unique equilibrium results in strictly lower welfare than the efficient 
+allocation: 𝑊 ∗ < 1
+2
+
+𝑝𝑢𝑏𝑙𝑖𝑐 + 𝛼∗𝑚∗
+
++ 𝑚2
+4
+
++ 𝑚2
+4
+
+.
+
+The  introduction  of  a  private  pool  enhances  aggregate  welfare 
+regardless of whether a full adoption or partial adoption equilibrium 
+emerges. With fewer frontrunnable users utilizing the public pool, the 
+total blockspace wasted by attackers decreases. Additionally, a higher 
+proportion of transactions submitted by frontrunnable users can be 
+included in the blockchain, further boosting aggregate welfare.
+
+When the frontrunning problem is severe (𝑐𝑝 ≥ 𝑚), the unique 
+equilibrium features full adoption of the private pool by validators. In 
+this case, frontrunnable users can submit transactions privately without 
+facing execution or frontrunning risks, resulting in a socially optimal 
+allocation of blockspace where each block contains only transactions 
+with the highest private values.
+
+When the frontrunning problem is less severe (𝑐𝑝 < 𝑚), the unique 
+equilibrium features partial adoption. This partial adoption results in 
+inefficient blockspace allocation for two main reasons. First, some of 
+the blockspace is wasted to host frontrunning transactions, and second, 
+valuable transactions submitted to the private pool face the risk of not 
+being executed.
+
+Validators are reluctant to allocate additional validation power to 
+the private pool, as doing so would mean forgoing the rent extracted 
+through MEV. Specifically, allocating more validation power to the pri-
+vate pool would reduce frontrunning opportunities and, consequently, 
+decrease block rewards. Even though there are no upfront investment 
+costs for validators to monitor the private pool, this situation resembles 
+a hold-up problem. Validators are deterred from fully monitoring the 
+private pool because, though socially beneficial, this would primarily 
+benefit frontrunnable users at the expense of validators’ revenues.
+
+5.1. Achieving efficiency
+
+Organizational  remedies  commonly  proposed  for  hold-up  prob-
+lems    (Klein  et  al.,  1978;  Williamson,  1979)  are  poorly  suited  to 
+the blockchain context. The anonymity and decentralization of users 
+make integration and negotiations impractical and inconsistent with 
+blockchain principles. In contrast, validators and attackers, being more 
+centralized and less anonymous, often have stronger incentives for inte-
+gration. This is evidenced by instances of validators renting validation 
+power to frontrun users on major blockchains, such as Solana.21
+
+A more practical approach to resolving the misalignment of incen-
+tives between validators and frontrunnable users is through contractual 
+agreements (Edlin and Reichelstein, 1996), where users and validators 
+establish  ex-ante  commitments  on  fees.  This  strategy  leverages  the 
+strong pre-commitment mechanisms inherent in blockchain systems, 
+
+21 See 
+sandwich-attacks for additional details.
+
+https://cointelegraph.com/news/solana-removes-validators-
+
+12 
+
+A. Capponi et al.
+
+Journal of Financial Economics 172 (2025) 104132 
+
+enabled  by  signed  transactions.22  Unlike  traditional  bilateral  trade 
+settings, where parties can abandon initial contracts and commitment 
+to non-renegotiation may be difficult, blockchain’s pre-commitment is 
+more enforceable.
+
+Proposition 5 (Attaining Full Adoption). There exists 𝑚 ≥ 0 and a function 
+𝜃(𝑖) such that if 𝑚 > 𝑚, and frontrunnable users 𝑖 commit ex-ante to pay 
+validators a protection fee of 𝜃(𝑖) for executing their transactions within the 
+private pool, a full adoption equilibrium is attained, maximizing aggregate 
+welfare. Under the full adoption equilibrium, the expected payoff for all 
+validators is strictly higher, while the expected payoff for the frontrunnable 
+user does not decrease compared to the partial adoption equilibrium.
+
+The pre-commitment mechanism described in the above proposition 
+incentivizes full adoption of the private pool by validators, thereby 
+maximizing  aggregate  welfare.  With  this  mechanism,  frontrunnable 
+users’ expected payoffs either increase or remain unchanged, as they 
+now pay a protection fee that is lower than their potential frontrun-
+ning  losses,  while  avoiding  being  frontrun  altogether.  Additionally, 
+the elimination of attacks reallocates previously wasted blockspace to 
+legitimate users.
+
+One possible implementation involves users pre-signing transactions 
+with higher fees and sending them to private pools. This approach 
+ensures commitment, as validators in the private pool can observe and 
+include the original signed transaction, preventing ex-post renegotia-
+tion to lower transaction fee. Even if users attempt to submit other 
+transactions with the same nonce to revise their choices, validators can 
+still include the original transaction, given that it is already signed. 
+This  strategy  is  similar  to  the  ex-ante  manipulation  of  bargaining 
+power used to address hold-up problems in Chung (1991). Admittedly, 
+implementing this pay-for-protection mechanism requires users to be 
+sophisticated enough to determine appropriate fee levels 𝜃(𝑖), which 
+depend on the composition of order flow and user preferences.
+
+6. Empirical analysis
+
+This section provides a comprehensive empirical analysis to test 
+the key predictions of our theoretical model. We construct a unique 
+and  extensive  dataset  that  integrates  transaction-level  frontrunning 
+information, Flashbots private transaction pool data, and block-level 
+statistics from the Ethereum blockchain.
+
+We document validators’ adoption of Flashbots private pools over 
+time,  with  adoption  rates  stabilizing  below  100%.  This  pattern  is 
+consistent with the partial adoption equilibrium from our model: some 
+validators monitor private pools while others rely exclusively on public 
+mempool transactions, attackers utilize both pools, and users distribute 
+transactions across private and public pools. Our empirical analysis 
+supports three main findings consistent with this equilibrium:
+
+1. Private blocks generate higher revenue for validators than public 
+≥ 𝑟𝑝𝑢𝑏𝑙𝑖𝑐 as shown in Lemma  1). Validators who 
+blocks (𝑟𝑝𝑟𝑖𝑣𝑎𝑡𝑒
+adopt private pools see an increase in their payoffs. Using a 
+difference-in-differences  approach  around  adoption  dates,  we 
+estimate a significant increase in per-block revenue for adopting 
+validators.
+
+2. Attackers in private pools face higher fee-to-revenue ratios for 
+frontrunning transactions compared to those in the public mem-
+pool. In private pools, attackers’ fee-to-revenue ratios approach 
+1 (Proposition  2). Our transaction-level analysis quantifies this 
+increase.
+
+Table 1
+Descriptive statistics of block data.
+
+Mean
+
+SD
+
+Percentile
+
+10th
+
+25th
+
+50th
+
+75th  
+
+10.33
+0.060
+10.3
+
+9.50
+7.183
+25.5
+
+14.94
+0.355
+4.4
+
+0.86
+17.43
+14.8
+
+5.50
+0.028
+3.6
+
+12.54
+0.236
+2.4
+
+18.92
+0.126
+25.9
+
+14.97
+0.607
+8.7
+
+29.77 
+0.271 
+49.5  
+
+14.99 
+1.215 
+17.6  
+
+# Blocks: 394,466
+14.68
+0.960
+13.9
+# Blocks: 1,361,351
+18.76
+0.314
+32.1
+
+  Flashbots
+  Before EIP-1559
+  Gas used (×106)
+  Total fee (Ether)
+  Private fee (%)
+  After EIP-1559
+  Gas used (×106)
+  Total fee (Ether)
+  Private fee (%)
+  Non-Flashbots
+  Before EIP-1559
+  Gas used (×106)
+  Total fee (Ether)
+  After EIP-1559
+18.59 
+  Gas used (×106)
+  Total fee (Ether)
+0.085 
+Notes: This table reports descriptive statistics of block data, including Gas Used, Total 
+Fee, and Private Fee percentages before and after EIP-1559, for Flashbots and Non-
+Flashbots miners. Total Fee (Ether) represents the revenue earned by validators in Ether, 
+excluding block rewards. It consists of transaction fees from each transaction and any 
+coinbase transfers made to the validator. Private Fee (%) shows the percentage of the 
+validator’s revenue derived from Flashbots transactions. With the implementation of 
+EIP-1559, gas fees were divided into base fees and priority fees. Since the base fee is 
+burned, the Total Fee represents only the priority fees paid to validators, along with 
+any coinbase transfers.
+
+# Blocks: 2,467,074
+12.19
+1.204
+# Blocks: 1,211,042
+11.71
+0.131
+
+12.49 
+1.558 
+
+12.47
+0.879
+
+8.80
+0.038
+
+12.37
+0.447
+
+9.81
+2.207
+
+1.10
+0.004
+
+3.38
+0.014
+
+9.998
+0.267
+
+2.32
+9.803
+
+3. Users who anticipate higher frontrunning losses are more likely 
+to opt for private transactions. The probability of private pool 
+usage shows a positive correlation with expected frontrunning 
+losses, aligning with Proposition  3, which predicts that the pro-
+portion of users choosing the private pool increases with both 
+potential losses (𝑐) and the frontrunning probability (𝑝).
+
+The following subsections provide a detailed explanation of our data 
+
+construction, empirical methodology, and results.
+
+6.1. Data
+
+This section describes how we collect and process our data from the 
+Ethereum blockchain to (i) construct a block-level panel of validator 
+revenues, (ii) identify transaction-level frontrunning attacks, and (iii) 
+determine the set of transactions potentially vulnerable to frontrunning 
+(frontrunnable). We also explain how we classify transactions as public 
+or private.
+
+Block information.  We collect data from the Ethereum blockchain span-
+ning blocks 10,103,460 to 15,537,393 (May 2020 to September 2022). 
+To extract block-level data, we run a local geth (Go Ethereum) client, 
+augmented by Flashbots APIs.23 For each block, we collect the valida-
+tor’s address, gas usage, transaction fees, and whether it contains trans-
+actions submitted through Flashbots. Our sample period encompasses 
+the implementation of EIP-1559 in August 2021, which fundamentally 
+changed Ethereum’s fee structure by splitting transaction fees into a 
+base fee (which is burned) and a priority fee (paid to validators). We 
+account for this change by calculating validator revenue differently 
+in the pre- and post-EIP-1559 periods. Table  1 summarizes key statis-
+tics, distinguishing blocks mined by Flashbots (or containing Flashbots 
+transactions) from those mined purely via the public mempool, and 
+splitting the sample further into pre- and post-EIP-1559.
+
+22 Credible commitment on blockchain and its limits are more extensively 
+discussed by John et al. (2023).
+
+23 https://blocks.flashbots.net/
+
+13 
+
+ 
+ 
+ 
+ 
+ 
+ 
+A. Capponi et al.
+
+Journal of Financial Economics 172 (2025) 104132 
+
+Table 2
+Descriptive statistics of transaction data for identifying frontrunning attacks.
+Percentile
+
+Mean
+
+SD
+
+90th
+
+75th
+
+50th
+
+25th
+
+10th
+
+170.1
+106.2
+39.308
+4.49
+
+103.9
+18.2
+0.0317
+0.04
+
+155.5
+373.4
+161.456
+3877.8
+
+99th  
+581.6  
+  Gas used (×103 units)
+550.0  
+  Gas price (×109 Gwei)
+1123.9 
+  Liquidity pool size (×103 Ether)
+55.9  
+  Trading size (Ether)
+Notes: This table presents the summary statistics of DEX transactions involving the Ether token, which are used to identify frontrunning 
+attacks. The sample consists of 73,372,192 transactions. Gas Used refers to the amount of Ethereum gas required to execute the transaction.
+Gas Price is the cost users must pay per unit of Gas. Each sample transaction can consist of multiple swaps between Ether and another 
+cryptocurrency, yielding a total of 88,156,404 swaps.  Liquidity Pool Size refers to the total liquidity in the automated market maker pool, 
+which facilitates swaps between Ether and other cryptocurrencies, and is estimated as the combined value of both cryptocurrencies in the 
+pool, expressed in Ether units. Transaction Size indicates the trading volume of the swap in Ether. The standard deviation of Transaction Size 
+is significantly higher than the difference between the 99th and 10th percentiles, due to the presence of many extreme trades. For instance, 
+transaction 0 × 8bb8dc5c7c830bac85fa48acad2505e9300a91c3ff239c9517d0cae33b595090 involved a trade of 341,217 Ether, while transaction 
+0xa3be61d7b45f7c090bb3829f88e33d84f3857cb9ed669d55dc0cf5da91455258 involved a trade of 100,000 Ether.
+
+114.9
+36.3
+0.1843
+0.15
+
+136.0
+72.6
+0.9955
+0.62
+
+184.1
+125.0
+6.2311
+2.37
+
+252.5
+192.0
+92.501
+7.18
+
+Sample period selection.  We restrict our analysis to the pre-Merge era 
+(i.e., before Ethereum’s switch from Proof-of-Work to Proof-of-Stake in 
+mid-September 2022). During this period, Flashbots was the dominant 
+private pool provider, accounting for over 80% of privately submitted 
+transactions according to Yang et al. (2022).24 Flashbots not only dom-
+inated market share but also maintained comprehensive transaction 
+records, allowing us to directly observe private transaction flows. This 
+data availability is crucial because most other private pools do not pub-
+licly disclose their transaction data, making activity inference rather 
+than direct observation necessary. After the Merge, the proliferation 
+of  new  private  pools,  combined  with  their  limited  data  disclosure 
+and frequent market entry/exit, makes systematic tracking of private 
+transactions  substantially  more  challenging.  These  data  limitations, 
+coupled with concurrent changes in market structure, make the pre-
+Merge period particularly suitable for analyzing the economic impact 
+of private transaction pools.
+
+Transaction data construction.  We construct two complementary trans-
+action  datasets  to  analyze  frontrunning  in  decentralized  exchanges 
+(DEXs).
+
+Our  primary  dataset  comprises  all  transactions  triggering  swap 
+events in Uniswap V2 and Sushiswap smart contracts between May 
+2020 and September 2022, totaling 73,372,192 transactions involving 
+88,156,404 individual swaps. We focus on swaps involving Ether, the 
+native  token  of  Ethereum,  as  transaction  fees  are  denominated  in 
+Ether, allowing precise calculation of attackers’ fee-to-revenue ratios 
+without cryptocurrency exchange rate complications. Table  2 summa-
+rizes key characteristics of these transactions, including their resource 
+consumption (gas usage), economic size (trading volume), and market 
+conditions (liquidity pool size).
+
+We construct a second, specialized dataset by filtering for trans-
+actions submitted directly to three designated DEX router smart con-
+tracts.25 This filtering is necessary because only direct router interac-
+tions include users’ specified slippage tolerance parameters—crucial in-
+formation for assessing frontrunning vulnerability. This filtered dataset 
+contains 29,946,882 transactions executing 29,950,833 swaps. Table  3 
+presents detailed statistics on these router-mediated transactions.
+
+Note that both datasets reveal an extreme skew in trading size and 
+liquidity pool size. Specifically, the 90th percentile is much smaller 
+than the 99th percentile. These observations highlight the significant 
+impact of outliers26 on the distribution of the data.
+
+24 While  Yang et al. (2022)’s sample period does not cover our entire study 
+period, their data strongly indicates Flashbots’ dominance in the private pool 
+ecosystem.
+25 Router contract addresses: Uniswap V2 Router 01 (0xf164fc...), Uniswap 
+V2 Router 02 (0x7a250d...), and Sushiswap Router (0xd9e1ce...).
+26 For instance, transaction 0x8bb8dc5c7c830bac85fa48acad2505e9300a91
+c3ff239c9517d0cae33b595090 involved a trade of 341,217 Ether, while trans-
+action  0xa3be61d7b45f7c090bb3829f88e33d84f3857cb9ed669d55dc0cf5da9
+1455258 involved a trade of 100,000 Ether.
+
+Classifying transaction submissions.  To analyze how users and attack-
+ers interact with private pools, we develop two distinct transaction 
+classifications  based  on  our  merged  dataset  of  blockchain  transac-
+tions, Flashbots records, and Amberdata mempool observations. The 
+first classification distinguishes between private and public submissions 
+from the user’s perspective, while the second tracks whether transac-
+tions are ultimately executed through Flashbots or traditional mempool 
+mechanisms (i.e., Non-Flashbots).
+
+A transaction’s submission type – private or public – is determined 
+by how users initially submit it to the network. We classify a transaction 
+as private if the user submits it exclusively through private channels 
+like Flashbots, never exposing it to the public mempool. Conversely, 
+transactions first appearing in the public mempool are classified as pub-
+lic, as their details become visible to all network participants, including 
+potential attackers. To implement this classification, we cross-reference 
+Flashbots transaction records with Amberdata’s comprehensive mem-
+pool  data  (available  from  block  11,278,560  onward).  Of  the  fron-
+trunnable transactions we identify, 122,415 were submitted privately, 
+while 4,436,242 appeared first in the public mempool.
+
+Separately, we classify transactions based on their execution chan-
+nel (Flashbots or non-Flashbots). A transaction is labeled as Flashbots 
+if it is ultimately included in a Flashbots bundle,27 regardless of its 
+submission type. Notably, many public transactions end up in Flashbots 
+bundles when attackers spot them in the mempool and incorporate 
+them into their frontrunning strategies.
+
+These  classifications  serve  distinct  purposes.  The  private/public 
+submission  distinction  is  essential  for  understanding  user  behavior, 
+particularly  how  users  strategically  protect  vulnerable  transactions. 
+In contrast, the Flashbots/non-Flashbots execution distinction is more 
+relevant for analyzing attacker behavior, as Flashbots bundles operate 
+through  a  sealed-bid  auction  format  that  influences  how  attackers 
+compete  and  bid.  When  attackers  execute  through  Flashbots,  they 
+must adhere to these auction rules, regardless of whether the target 
+transaction was submitted publicly or privately.
+
+We  have  used  these  classifications  to  construct  Table   4,  where 
+we separate the descriptive statistics of realized frontrunning attacks 
+based  on  whether  they  were  executed  via  Flashbots.  Similarly,  we 
+categorize the descriptive statistics of vulnerable transactions according 
+to whether they were submitted privately or publicly.
+
+27 A bundle is a package of multiple related transactions that must be exe-
+cuted in a specific order within the same block. In the context of frontrunning, 
+a typical bundle consists of three transactions: a ‘‘frontrun’’ transaction that 
+establishes a position ahead of the target transaction, the target transaction 
+itself, and a ‘‘backrun’’ transaction that closes the position. Bundling ensures 
+these transactions execute atomically—either all execute in the specified order 
+or none execute at all.
+
+14 
+
+ 
+ 
+A. Capponi et al.
+
+Journal of Financial Economics 172 (2025) 104132 
+
+Table 3
+Descriptive statistics of transaction data for identifying frontrunnable transactions (Transactions sent to DEX router smart contracts).
+
+Mean
+
+SD
+
+Percentile
+
+50th
+
+25th
+
+10th
+
+151.1
+102.3
+45.556
+2.920
+
+51.13
+166.8
+182.065
+17.590
+
+99th  
+325.3  
+  Gas used (×103 units)
+476.0  
+  Gas price (×109 Gwei)
+1234.7 
+  Liquidity pool size (×103 Ether)
+40.3  
+  Trading size (Ether)
+Notes: This table presents the summary statistics of transactions sent to DEX routers, which are used to identify frontrunnable transactions. 
+The sample consists of 29,946,882 transactions. Gas Used refers to the amount of Ethereum gas required to execute the transaction. Gas Price
+is the cost users must pay per unit of Gas. In addition, all sample transactions consist of 29,950,833 swaps. Liquidity Pool Size refers to the 
+total liquidity in the automated market maker pool, which facilitates swaps between Ether and other cryptocurrencies, and is estimated as the 
+combined value of both cryptocurrencies in the pool, expressed in Ether units. Transaction Size indicates the trading volume of the swap in 
+Ether. The standard deviation of Transaction Size is significantly higher than the difference between the 99th and 10th percentiles, due to the 
+presence of many extreme trades.
+
+203.7
+195.0
+106.102
+5.102
+
+109.3
+23.0
+0.0451
+0.039
+
+118.8
+43.0
+0.2249
+0.126
+
+133.9
+82.4
+1.0346
+0.500
+
+173.3
+131.1
+5.5751
+1.900
+
+75th
+
+90th
+
+Table 4
+Descriptive statistics of frontrunning attacks and vulnerable transactions. 
+
+Mean SD
+
+Percentile
+
+10th
+
+25th
+
+50th
+
+75th
+
+90th
+
+99th  
+
+0.044
+0.010
+1.646
+
+0.019
+0.000
+0.767
+
+0.046 0.115 0.280 1.476 
+0.007 0.035 0.104 0.701 
+2.311 6.946 18.50 117.0 
+
+0.082 0.167 0.358 1.520 
+0.022 0.039 0.073 0.498 
+3.723 8.045 16.50 71.46 
+
+  Panel A: Realized frontrunning attacks
+  A1: Attacks executed via flashbots
+  Revenue (Ether)
+0.137 0.457 0.009
+  Cost (Ether)
+0.050 0.204 0.000
+  Capital deployed (Ether) 8.620 23.30 0.276
+  A2: Attacks executed via public mempool
+  Revenue (Ether)
+0.175 0.520 0.026
+  Cost (Ether)
+0.043 0.122 0.000
+  Capital deployed (Ether) 7.634 14.52 0.755
+  Panel B: Vulnerable transactions
+  B1: Private submissions
+  Potential loss (Ether)
+  Required capital (Ether) 2.042 9.225 0.028
+  B2: Public submissions
+0.006 0.023 0.081 0.805 
+  Potential loss (Ether)
+  Required capital (Ether) 1.971 10.95 0.049
+0.505 1.626 3.996 19.98 
+Notes: This table presents statistics for realized frontrunning attacks (Panel A) and 
+transactions vulnerable to frontrunning (Panel B). Panel A includes 703,990 confirmed 
+attacks, of which 233,202 were executed through Flashbots bundles (A1) and 470,788 
+through  the  public  mempool  (A2).  For  each  attack,  Revenue  represents  the  Ether 
+extracted by attackers, Cost captures all fees paid to validators (including gas fees 
+and coinbase transfers), and Capital Deployed measures the Ether value of positions 
+established to execute the attack. Panel B covers 4,558,657 vulnerable transactions 
+identified after block 11,278,560, when Amberdata coverage begins. Of these, 122,415 
+were  submitted  privately  (B1)  and  4,436,242  publicly  (B2).  For  each  vulnerable 
+transaction,  Potential  Loss  represents  the  maximum  Ether  that  could  be  extracted 
+through frontrunning, and Required Capital indicates the Ether needed to execute such 
+an attack.
+
+0.089 1.112 0.0002 0.0007 0.003 0.015 0.077 1.353 
+0.300 0.996 3.515 32.99 
+
+0.063 1.145 0.0004 0.002
+0.177
+
+0.084
+
+Identifying  frontrunning  attacks.  We  analyze  our  primary  dataset  to 
+identify realized frontrunning attacks, focusing on sandwich attacks—
+the most prevalent form of frontrunning in DEXs. Following Wang et al. 
+(2022), we identify attack patterns by examining transaction sequences 
+within blocks, requiring: (i) consecutive transactions in the same liq-
+uidity pool, (ii) matching transaction sizes between the opening and 
+closing legs of the attack, and (iii) directional alignment between the 
+victim’s trade and the attacker’s opening position. This methodology 
+reveals 703,990 attacked transactions, with 239,075 executed through 
+Flashbots bundles.
+
+Panel A of Table  4 presents statistics on realized attacks, distinguish-
+ing between those executed via Flashbots (Panel A1) and the public 
+mempool (Panel A2). The distribution of attack revenues shows signif-
+icant right-skew: while the median revenue through Flashbots is 0.045 
+ETH, the 99th percentile exceeds 1.45 ETH. Notably, attacks executed 
+through Flashbots typically yield lower revenues but incur higher costs, 
+consistent with attackers using private channels for smaller or riskier 
+exploits (avoiding fees for failed attempts).
+
+Identifying  frontrunnable  transactions.  We  next  assess  which  transac-
+tions were vulnerable to frontrunning, regardless of whether they were 
+
+15 
+
+actually attacked. Using our filtered dataset of router-submitted trans-
+actions, we simulate potential sandwich attacks on each transaction 
+before its inclusion in a block. Following Wang et al. (2022), we calcu-
+late the maximum revenue an attacker can extract, accounting for three 
+key parameters: the transaction’s size, the size of the liquidity pool, 
+and the user’s specified slippage tolerance. We classify a transaction 
+as frontrunnable if this simulation yields positive potential revenue for 
+attackers.
+
+Among the 29,946,882 router-submitted transactions, 6,448,986 are 
+identified as frontrunnable. For the 4,558,657 frontrunnable transac-
+tions that occur after Amberdata coverage begins (block 11,278,560), 
+we can determine their submission channel. Panel B of Table  4 presents 
+statistics on these transactions, separating those submitted privately (n 
+= 122,415, Panel B1) from those submitted publicly (n = 4,436,242, 
+Panel B2). Transactions submitted privately tend to have higher po-
+tential revenue for attackers (median 0.003 ETH vs. 0.006 ETH), sug-
+gesting that users may strategically route more vulnerable transactions 
+through  private  channels.  We  also  note  that  the  median  potential 
+revenue from frontrunnable transactions is smaller than the median 
+realized revenue in actual executed frontrunning attacks, suggesting 
+that attackers selectively exploit more profitable opportunities.
+
+6.2. Evidence of partial adoption equilibrium
+
+Our  theoretical  model  predicts  two  possible  equilibria  following 
+the introduction of private transaction pools: full adoption or partial 
+adoption. We empirically investigate these predictions by analyzing 
+the adoption of Flashbots, which was introduced on January 1, 2021. 
+Fig.   4  presents  the  daily  adoption  rate  of  Flashbots,  measured  as 
+the proportion of total daily blocks containing transactions submitted 
+through Flashbots private pools.
+
+The data reveal two distinct phases in Flashbots adoption:
+
+1. Initial adjustment (January 1, 2021–May 28, 2021): This period 
+
+is characterized by rapid growth in adoption.
+
+2. Stabilization (May 29, 2021–September 14, 2022): The adoption 
+rate stabilizes at approximately 50%, providing strong evidence 
+for a partial adoption equilibrium. This stable period persists for 
+nearly 16 months.
+
+The stabilization at approximately 50% adoption during the second 
+phase is more consistent with the partial adoption equilibrium of our 
+model rather than the full adoption equilibrium.
+
+6.3. Validator payoffs in partial adoption equilibrium
+
+One of the testable implications of our model is that private blocks 
+generate higher value than public blocks, and validators who adopt 
+private pools achieve higher payoffs. To empirically test this implica-
+tion, we examine the introduction of Flashbots, the leading private pool 
+solution on the Ethereum blockchain.
+
+ 
+ 
+ 
+ 
+A. Capponi et al.
+
+Journal of Financial Economics 172 (2025) 104132 
+
+Fig. 5.  Distribution of block mining among top 15 miner validators during the Flashbots adjustment period. Miners are ordered by their share of blocks mined, from highest to 
+lowest. The figure illustrates the significant concentration of mining power, with the top two miners accounting for approximately 45% of all blocks mined.
+
+6.3.1. Quasi-experimental evidence from large miners
+
+Our  identification  strategy  leverages  the  staggered  adoption  of 
+Flashbots by the two largest Ethereum mining pools during the initial 
+adjustment  period.  Fig.   5  illustrates  the  distribution  of  block  min-
+ing  among  the  top  15  miners  during  this  period,  highlighting  the 
+concentration of mining power.
+
+The largest miner, Spark Pool, which mined 24.3% of blocks during 
+the adjustment period, first adopted Flashbots on April 4, 2021, at block 
+12,171,844. Ethermine, the second-largest miner responsible for 20.0% 
+of blocks, followed suit on April 23, 2021, at block 12,297,642. The 
+close similarity in size and the proximity of adoption timing between 
+these two mining pools create a quasi-experimental setting for assessing 
+the impact of private pool adoption on validator payoffs.
+
+Our primary identifying assumption is that the nineteen-day differ-
+ence in adoption timing between these two leading miners is effectively 
+random, considering their comparable market positions and the emerg-
+ing nature of Flashbots technology at the time. This assumption enables 
+us to consider the adoption event as a quasi-experiment.
+
+We employ two complementary approaches:
+1.  Difference-in-Differences  (DiD):  We  treat  Spark  Pool  as  the
+treated miner and Ethermine as the control miner, comparing their 
+revenues before and after Spark Pool’s adoption of Flashbots.
+
+2.  Triple  Difference  (DDD):  We  take  advantage  of  the  fact  that 
+Spark Pool, shortly after adopting Flashbots, continued to produce some 
+blocks without utilizing Flashbots.28 This creates an additional control 
+group, and allows us to compare blocks containing Flashbots transac-
+tions, henceforth called Flashbots blocks, to those processed through the 
+
+28 During the initial adoption period, the occurrence of non-Flashbots blocks 
+might also reflect the nascent state of the Flashbots platform, including factors 
+such as varying user demand for private transaction services, intentionally dis-
+abling Flashbots, or even technical considerations related to relay connectivity. 
+However, these early adoption dynamics do not impact our empirical results, 
+as our analysis focuses on the revenue differential when private transactions 
+do occur.
+
+public mempool and containing only public transactions, henceforth 
+called non-Flashbots blocks, within Spark Pool. Additionally, this enables 
+a comparison of Spark Pool’s overall performance against Ethermine’s.
+The  graphical  evidence  in  Fig.   6  indicates  a  positive  impact  of 
+Flashbots adoption on miner revenue, particularly for Flashbots blocks. 
+The revenue difference between Flashbots and non-Flashbots blocks for 
+the treated miner visually supports our hypothesis and reinforces the 
+validity of our identification strategy.
+
+6.3.2. Empirical strategy
+
+To quantify the impact of private pool adoption on validator pay-
+offs, we estimate two main models. Our baseline DiD specification is 
+
+𝑌𝑖,𝑡 = 𝛽0 + 𝛽1Treated𝑖 + 𝛽2Post𝑡 + 𝛽3(Treated𝑖 × Post𝑡) + 𝛾GasUsed𝑖,𝑡 + 𝜖𝑖,𝑡,
+
+(11)
+
+where 𝑌𝑖,𝑡 is the total revenue in Ether for miner 𝑖 in block 𝑡; Treated𝑖
+is a binary indicator equal to 1 for Spark Pool (treated miner) and 0 
+for Ethermine (control miner); Post𝑡 is a binary indicator equal to 1 for 
+blocks after Spark Pool’s Flashbots adoption and 0 otherwise; GasUsed𝑖,𝑡
+is a time-varying control for the amount of gas used in each block; 𝜖𝑖,𝑡 is 
+the error term. The coefficient of interest in the regression is 𝛽3, which 
+captures the average treatment effect of Flashbots adoption on miners’ 
+revenue.
+
+To  leverage  the  additional  variation  provided  by  non-Flashbots 
+blocks post-adoption, we extend our analysis to include a DDD spec-
+ification: 
+𝑌𝑖,𝑡 = 𝛼 + 𝛽1Treated𝑖 + 𝛽2Post𝑡 + 𝛽3(Treated𝑖 × Post𝑡)
+
+(12)
+
++ 𝛽4(Treated𝑖 × Post𝑡 × Flashbots𝑖,𝑡) + 𝛾GasUsed𝑖,𝑡 + 𝜖𝑖,𝑡
+
+where, in addition to the variables in Eq.  (11), Flashbots𝑖,𝑡 is a binary 
+indicator equal to 1 if block 𝑡 by miner 𝑖 uses Flashbots and 0 otherwise. 
+In this specification, the coefficient of primary interest, 𝛽4, captures the 
+differential impact of Flashbots adoption on block revenue – specifically 
+
+16 
+
+A. Capponi et al.
+
+Journal of Financial Economics 172 (2025) 104132 
+
+Fig. 6.  Average revenue for treated (Spark Pool) and control (Ethermine) miners before and after Flashbots adoption. The graph shows centered moving averages of revenue 
+(calculated using 100 blocks before and after each point) for the treated miner’s Flashbots and non-Flashbots blocks, and for the control miner’s blocks. The vertical line indicates 
+Spark Pool’s Flashbots adoption. The marked increase in revenue for Spark Pool’s Flashbots blocks post-adoption, relative to both its non-Flashbots blocks and the control miner’s 
+blocks, provides visual support for both the DiD and DDD strategies.
+
+Table 5
+Descriptive statistics of total revenue (Ether).
+
+Mean
+
+SD
+
+Percentile
+
+10th
+
+25th
+
+50th
+
+75th
+
+90th  
+
+# Blocks: 558
+# Blocks: 1329
+
+  Treated miner
+  Flashbots
+  Non-Flashbots
+  Control miner
+2.0108 
+  Non-Flashbots
+Notes: This table reports descriptive statistics of total revenue in Ether for miners using Flashbots and non-Flashbots, both for the treated and 
+control miner. The number of blocks, mean, standard deviation, and various percentiles (10th, 25th, 50th, 75th, and 90th) are shown.
+
+Total revenue
+Total revenue
+
+# Blocks: 1578
+
+1.9881 
+2.0108 
+
+Total revenue
+
+0.2575
+0.4045
+
+1.4966
+1.4277
+
+1.3447
+1.2564
+
+1.2440
+1.1572
+
+1.6950
+1.9357
+
+1.5360
+1.5126
+
+0.3562
+
+1.6922
+
+1.0997
+
+1.3767
+
+1.4455
+
+1.2055
+
+for blocks that utilize Flashbots – relative to those that do not, and 
+compared to the control miner.
+
+For both models, we estimate specifications with and without the 
+control variable to assess the robustness of our results. The control 
+variable accounts for block-specific characteristics that may influence 
+revenue independent of Flashbots adoption. To mitigate the impact of 
+outliers, we winsorize the continuous variables (total revenue and gas 
+used) at the 1st and 99th percentiles. To address potential heteroskedas-
+ticity, we employ HC3 robust standard errors.
+
+Our  sample  includes  4000  blocks  (around  12  h)  before  and  af-
+ter Spark Pool’s adoption date, providing a short, symmetric window 
+around the treatment event. The descriptive statistics of the response 
+variable of our regressions, i.e., the total fee revenue in Ether, are 
+reported in Table  5.
+
+6.3.3. Regression results
+
+Table  6 presents the results of our difference-in-differences (DiD) 
+and triple difference (DDD) regressions assessing the direct impact of 
+Flashbots adoption on miner revenue. Columns (1) and (2) show the 
+DiD estimates, while columns (3) and (4) display the DDD estimates, 
+with and without adjustments for gas usage.
+
+The DiD estimates reveal a positive effect of Flashbots adoption on 
+miner revenue, as evidenced by the positive and statistically significant 
+coefficient on Treated × Post in both specifications. Specifically, while 
+our estimates indicate that treated miners earned 0.0471 Ether more 
+in the pre-adoption period, this increases by a further 0.0659 Ether 
+per block following Flashbots adoption.  The inclusion of gas usage 
+as a control variable in column (2) slightly reduces this effect from 
+0.0659 to 0.0468 Ether, yet it remains positive and statistically signifi-
+cant.
+
+The DDD estimates in columns (3) and (4) provide a more detailed 
+view by distinguishing between Flashbots and non-Flashbots blocks. 
+The triple interaction term Treated × Post × Flashbots is positive and 
+highly significant in both specifications (0.238 and 0.190 Ether). This 
+suggests that Flashbots-enabled blocks are associated with substantially 
+higher revenues for the treated miners. Interestingly, the Treated ×
+Post coefficient becomes negative (−0.070 and −0.061 Ether) in these 
+specifications, indicating a potential substitution effect where increased 
+revenue  from  Flashbots  blocks  is  partially  offset  by  decreased  rev-
+enue from non-Flashbots blocks. This finding aligns with our model’s 
+prediction  that  private  blocks  are  more  valuable  relative  to  public 
+blocks.
+
+17 
+
+ 
+ 
+ 
+ 
+A. Capponi et al.
+
+Table 6
+Impact of flashbots adoption on miner revenue.
+
+DiD
+
+(1)
+
+(2)
+
+DDD
+
+(3)
+
+  Intercept
+
+  Treated
+
+  Post
+
+  Treated × Post
+
+  Treated × Post × Flashbots
+
+  Gas Used (×106)
+
+(4)
+−0.3825*** 
+(0.0296)
+0.0649***  
+(0.0166)
+
+−0.4215*** 1.5633***
+(0.0255)
+0.0652***
+(0.0166)
+
+1.5633***
+(0.0135)
+0.0471**
+(0.0191)
+−0.2417*** −0.2356*** −0.2417*** −0.2357*** 
+(0.0168)
+0.0659***
+(0.0236)
+
+(0.0135)
+0.0471**
+(0.0191)
+
+(0.0150)
+0.0468**
+(0.0202)
+
+(0.0168)
+−0.0699*** −0.0612*** 
+(0.0262)
+0.2381***
+(0.0185)
+
+(0.0150)
+
+(0.0210)
+0.1899***  
+(0.0147)
+0.1572***  
+(0.0023)
+
+0.1603***
+(0.0019)
+
+3465
+0.3394
+
+3465
+0.0921
+
+  Observations
+  R-squared
+Notes: This table reports results from difference-in-differences (DiD) and triple difference 
+(DDD) regressions. The dependent variable is total miner revenue in Ether. ‘Treated’ 
+is an indicator for miners using Flashbots, ‘Post’ indicates the period after Flashbots 
+introduction, and ‘Flashbots’ is an indicator for Flashbots-enabled blocks. Gas Used is 
+scaled by 106. Robust standard errors are in parentheses. *** 𝑝 < 0.01, ** 𝑝 < 0.05, * 
+𝑝 < 0.1.
+
+3465
+0.3581
+
+3465
+0.1216
+
+The gas usage control, where included (columns 2 and 4), is positive 
+and  highly  significant  (0.1603  and  0.1572),  confirming  that  block 
+utilization is a key determinant of miner revenue.
+
+These results provide strong evidence for the positive impact of 
+Flashbots  adoption  on  miner  revenue,  particularly  for  Flashbots-
+enabled blocks.
+
+6.4. User adoption of private pools
+
+Our theoretical model predicts that users facing higher expected 
+losses from frontrunning or a higher probability of being attacked are 
+more likely to use private pools. We empirically validate this hypothesis 
+using transaction-level data from the Ethereum blockchain, covering 
+block 11,550,019 (January 2021, when Flashbots was introduced) to 
+block 13,804,681 (December 2021). The start date marks the earliest 
+point at which users could choose between public and private pools. We 
+end our sample in December 2021 due to a major infrastructural change 
+in Uniswap: the introduction of Auto Router V2,29 which replaced the 
+Uniswap V2 router contracts we track. While a few transactions through 
+the original Uniswap V2 router still continued after this date, they were 
+predominantly automated trades by arbitrage bots and legacy protocol 
+integrations, rather than typical user transactions. This shift makes the 
+later period less suitable for analyzing users’ pool choice decisions.
+
+6.4.1. Empirical estimation strategy
+Measuring expected loss due to frontrunning.  For each DEX transaction, 
+we calculate 𝑅𝐸𝑇 𝐻 , representing the optimal revenue in Ether that an 
+attacker could generate from a potential sandwich attack, using the 
+methodology detailed in Section A of the online appendix. We then 
+divide transactions into five bins based on the 𝑅𝐸𝑇 𝐻  value, and for 
+each bin calculate the expected loss due to frontrunning. This is done 
+by first determining the probability of being a victim over various time 
+windows using the ratio of the number of frontrun transactions to the 
+number of non-private transactions in the same bin over the specified 
+time window. Formally, 
+∑𝑡−1
+
+,
+
+(13)
+
+𝑃𝑏(𝑖,𝑗),𝑡,𝑤 =
+
+𝑠=𝑡−𝑤 𝑉𝑏,𝑠
+𝑠=𝑡−𝑤 𝑁𝑏,𝑠
+
+∑𝑡−1
+
+29 After this date, typical user flow through the original Uniswap V2 router 
+declines substantially. Moreover, the auto router itself automatically splits 
+trades across different pool types (V2, V3), complicating our ability to measure 
+slippage tolerance and intended trade size.
+
+18 
+
+Journal of Financial Economics 172 (2025) 104132 
+
+where 𝑏 is the bin index, 𝑡 is the current date, 𝑤 is the window size, 
+𝑉𝑏,𝑠 is the number of frontrun transactions in bin 𝑏 on date 𝑠, and 𝑁𝑏,𝑠
+is the number of non-private transactions in bin 𝑏 on date 𝑠. Finally, 
+the expected loss measure is obtained as 𝐸𝐿𝑏(𝑖,𝑗),𝑡,𝑤 = 𝑃𝑏(𝑖,𝑗),𝑡,𝑤 ⋅ 𝑅𝐸𝑇 𝐻 .
+As demonstrated in Section E of the online appendix, the distri-
+bution of 𝑅𝐸𝑇 𝐻  remains stable throughout our sample period. This 
+stability  justifies  the  use  of  time-invariant  bins  for  our  probability 
+estimation.
+
+Regression specification.  To examine the relationship between frontrun-
+ning risk and private pool adoption, we estimate the following panel 
+regression model: 
+
+IsPrivate𝑖,𝑗,𝑡 = 𝛽0 + 𝛽1𝐸𝐿𝑏(𝑖,𝑗),𝑡,𝑤 + 𝛽2𝑍𝑖,𝑗,𝑡 + 𝛼𝑗 + 𝛾𝑡 + 𝜖𝑖,𝑗,𝑡
+
+(14)
+
+Above, IsPrivate𝑖,𝑗,𝑡 is a binary variable indicating whether transaction 
+𝑖  of  token  𝑗  at  time  𝑡  was  private,  that  is,  it  bypassed  the  public 
+pool and was sent directly through Flashbots. The quantity 𝐸𝐿𝑏(𝑖,𝑗),𝑡,𝑤
+represents the expected loss due to frontrunning for transactions in 
+bin 𝑏(𝑖, 𝑗), where transaction 𝑖 of token 𝑗 is placed. 𝑍𝑖,𝑗,𝑡 is a vector 
+of control variables including transaction cost (measured by gas price 
+in thousand Gwei), transaction size (in thousand Ether), and slippage 
+threshold (user-specified maximum price impact). The variables 𝛼𝑗 and 
+𝛾𝑡 represent swapped token and day fixed effects, respectively, while 
+𝜖𝑖,𝑗,𝑡 is the error term. We cluster standard errors at both the day and 
+token levels. We estimate the expected loss due to frontrunning using 
+three different time windows—1 day, 7 days, and 30 days.
+
+The coefficient of primary interest is 𝛽1, which captures the impact 
+of frontrunning risk on the likelihood of using a private pool. A positive 
+and statistically significant 𝛽1 would support our hypothesis that users 
+facing higher frontrunning risks are more likely to adopt private pools.
+Table  7 shows a consistent positive relationship between Expected 
+Loss  (𝐸𝐿𝑏(𝑖,𝑗),𝑡,𝑤)  and  the  use  of  private  pools.  The  coefficient  of
+𝐸𝐿𝑏(𝑖,𝑗),𝑡,𝑤  is  statistically  significant  at  the  1%  level  in  all  models. 
+In our baseline specification without controls or fixed effects, a one-
+unit increase in 𝐸𝐿𝑏(𝑖,𝑗),𝑡,𝑤 (equivalent to 1 Ether, or approximately 
+$3000)  is  associated  with  a  35-  to  37-percentage-point  increase  in 
+the  probability  of  using  a  private  pool.  This  effect  is  economically 
+significant, given that the baseline probability of using a private pool 
+(as indicated by the constant term) is approximately 1.59 percentage 
+points when the expected loss is zero.
+
+Including control variables and fixed effects (Columns 4–6) main-
+tains these relationships, with similar magnitudes and statistical sig-
+nificance. In our most comprehensive specification with controls and 
+fixed effects, a one-unit increase in 𝐸𝐿𝑏(𝑖,𝑗),𝑡,𝑤 is associated with a 38- to 
+41-percentage-point increase in private pool usage. This result is robust 
+across different time windows (7-day and 30-day) as shown in Columns 
+2–3 and 5–6.
+
+The inclusion of control variables provides additional insights into 
+user  behavior.  The  transaction  size  has  a  positive  and  statistically 
+significant correlation with private pool usage, suggesting that larger 
+transactions  are  more  frequently  conducted  through  private  pools, 
+likely as larger trades typically generate higher price impacts and are 
+more vulnerable to frontrunning. Conversely, the slippage threshold 
+exhibits a statistically significant negative correlation with private pool 
+usage.30 A higher slippage threshold allows transactions to complete de-
+spite large slippage, potentially increasing vulnerability to frontrunning 
+
+30 The positive correlation between transaction size and private pool usage 
+may initially seem to contradict our theoretical result that high-value users, 
+given expected frontrunning costs, prefer public pools. However, this reflects 
+the fact that both frontrunning probability and frontrunning costs generally 
+increase with transaction size, with frontrunning costs potentially scaling more 
+rapidly than transaction value. Gas price provides an alternative proxy for user 
+valuation that is less confounded by these scaling effects. Consistent with our 
+theory, we find that users willing to pay higher gas prices – typically indicating 
+higher transaction value – are indeed less likely to use private pools.
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+A. Capponi et al.
+
+Journal of Financial Economics 172 (2025) 104132 
+
+Table 7
+Impact of expected loss on private pool usage.
+Without controls
+𝑤 = 1𝑑
+
+0.3765***
+(0.0251)
+0.0159***
+(0.0003)
+
+  𝐸𝐿𝑏(𝑖,𝑗),𝑡,𝑤
+
+  Intercept
+
+  Gas price
+
+  Transaction size
+
+  Slippage threshold
+
+𝑤 = 7𝑑
+
+0.3526***
+(0.0247)
+0.0159***
+(0.0003)
+
+𝑤 = 30𝑑
+
+0.3556***
+(0.0243)
+0.0158***
+(0.0003)
+
+With controls
+𝑤 = 1𝑑
+
+0.4086***
+(0.1274)
+
+−0.0205**
+(0.0097)
+0.1118**
+(0.0501)
+−0.0951***
+(0.0222)
+
+𝑤 = 7𝑑
+
+0.3834***
+(0.1231)
+
+−0.0204**
+(0.0097)
+0.1146**
+(0.0507)
+−0.0953***
+(0.0223)
+
+𝑤 = 30𝑑
+0.4069***  
+(0.1207)
+
+−0.0206**  
+(0.0097)
+0.1095**
+(0.0489)
+−0.0952*** 
+(0.0222)
+
+0.0008
+3,495,681
+No
+No
+
+  R-squared
+  Observations
+  Token FE
+  Day FE
+Notes: This table reports OLS regression results. The dependent variable is Private Pool Usage (IsPrivate𝑖,𝑗,𝑡), a binary indicator. 𝐸𝐿𝑏(𝑖,𝑗),𝑡,𝑤 is the 
+Expected Loss, and 𝑤 ∈ {1𝑑, 7𝑑, 30𝑑} represents the time window for probability estimation. Control variables include gas price (in thousand 
+Gwei), transaction size (in thousand Ether), and slippage threshold. Specifications with controls include token and day fixed effects. Standard 
+errors, clustered at both the day and token levels, are reported in parentheses. *** 𝑝 < 0.01, ** 𝑝 < 0.05, * 𝑝 < 0.1.
+
+0.1301
+3,495,681  
+Yes
+Yes
+
+0.0007
+3,495,681
+No
+No
+
+0.0007
+3,495,681
+No
+No
+
+0.1301
+3,495,681
+Yes
+Yes
+
+0.1300
+3,495,681
+Yes
+Yes
+
+and sandwich attacks. It is likely because users with a higher toler-
+ance for price slippage are primarily concerned with execution risks 
+over frontrunning risks, leading them to favor public pools for their 
+transactions. In Section E of the online appendix, we conduct a logistic 
+regression to account for the binary nature of the dependent variable. 
+Our results indicate that the expected loss is positively correlated with 
+the probability of using private pools, exhibiting both statistical and 
+economic significance.
+
+6.5. Impact of private pool on attackers’ fee-to-revenue ratios
+
+We examine the impact of private pools on attackers’ fee-to-revenue 
+ratios. Our analysis begins with a visual examination of the distribution 
+of these ratios over time, followed by a transaction-level regression 
+analysis.
+
+6.5.1. Visual evidence
+
+Fig.  7 presents the quarterly distribution of the fee-to-revenue ratio 
+for sandwich attacks submitted through public mempools (Panel (a)) 
+and  private  pools  (Panel  (b)).  For  sandwich  transactions  submitted 
+through the public mempool, we observe substantial variation in the 
+fee-to-revenue ratio. The median ratio fluctuates and is slightly higher 
+in the post-Flashbots period, while the interquartile range remains wide 
+throughout the sample period. This pattern aligns with our model’s 
+prediction for the public mempool, where the fee-to-revenue ratio is 
+expected to be below 1 on average.
+
+In contrast, for sandwich transactions submitted through the private 
+pool, the fee-to-revenue ratio quickly concentrates around 1, particu-
+larly after the initial adoption period of Flashbots. The interquartile 
+range narrows significantly, and the median consistently approaches 
+1. This closely matches our model’s prediction for the private pool, 
+where the sealed-bid, first-price auction format is expected to drive the 
+fee-to-revenue ratio close to 1.
+
+6.5.2. Regression specifications
+
+To quantify the impact of private pools on attackers’ cost-to-revenue 
+ratios, we estimate different models including fixed effects and control 
+variables. Our baseline model is: 
+
+𝑦𝑖,𝑗,𝑡 = 𝛽0 + 𝛽1IsPrivate𝑖,𝑗,𝑡 + 𝜖𝑖,𝑗,𝑡.
+
+(15)
+
+We then enhance the baseline model to allow for period interac-
+
+tions, yielding
+
+𝑦𝑖,𝑗,𝑡 =𝛽0 + 𝛽1AdjustmentPeriod𝑡 + 𝛽2(AdjustmentPeriod𝑡 × IsPrivate𝑖,𝑗,𝑡)+
+𝛽3StabilizationPeriod𝑡 + 𝛽4(StabilizationPeriod𝑡 × IsPrivate𝑖,𝑗,𝑡)
++ 𝜖𝑖,𝑗,𝑡,
+
+(16)
+
+followed by our most comprehensive specification which accounts for 
+controls and two-way fixed effects: 
+
+𝑦𝑖,𝑗,𝑡 =𝛽1(AdjustmentPeriod𝑡 × IsPrivate𝑖,𝑗,𝑡)+
+
+𝛽2(StabilizationPeriod𝑡 × IsPrivate𝑖,𝑗,𝑡) + 𝛽3𝑋𝑖,𝑗,𝑡 + 𝛼𝑗 + 𝛾𝑡 + 𝜖𝑖,𝑗,𝑡
+
+(17)
+
+In these specifications, 𝑦𝑖,𝑗,𝑡 represents the fee-to-revenue ratio for 
+a frontrunning transaction 𝑖 targeting a transaction swapping Ether for 
+token 𝑗 at time 𝑡. We winsorize this ratio at the 1st and 99th percentiles 
+to mitigate the impact of extreme values. The key explanatory variable, 
+IsPrivate𝑖,𝑗,𝑡, is a binary indicator for frontrunning transactions submit-
+ted through private pools, i.e., Flashbots bundles. AdjustmentPeriod𝑡
+and StabilizationPeriod𝑡 are binary variables indicating the 5-month pe-
+riod immediately following Flashbots’ introduction and the subsequent 
+period, respectively.
+
+Our  most  comprehensive  specification  includes  both  token  fixed 
+effects (𝛼𝑗 ) and time fixed effects (𝛾𝑡), which absorb all time-invariant 
+token  characteristics  and  market-wide  daily  variations  respectively. 
+The model also incorporates control variables (𝑋𝑖,𝑗,𝑡) to account for 
+transaction-specific  and  market  conditions.  These  include  attacker’s 
+transaction size in 1000 Ether, the total liquidity in the Ether-token 
+pool, the size of the targeted transaction in 1000 Ether, the attacker’s 
+transaction size relative to pool size, and the gas price of the attacked 
+transaction in 1000 Gwei.
+
+We estimate these models progressively, starting with the baseline 
+model, adding interaction effects, and finally employing the two-way 
+fixed effects specification with controls. We implement two-way clus-
+tering of standard errors at both the token and day level throughout all 
+specifications to account for potential correlation of errors both within 
+tokens and within time periods.
+
+6.5.3. Results
+
+We display the results of these regressions in Table  8. Column (1) 
+(the  baseline  model)  indicates  that  sandwich  transactions  routed
+through  private  pools  are  associated  with  a  12.43-percentage-point 
+
+19 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+A. Capponi et al.
+
+Journal of Financial Economics 172 (2025) 104132 
+
+Fig. 7.  Distribution of fee-to-revenue ratio for sandwich attacks. This figure shows the quarterly distribution of the fee-to-revenue ratio for sandwich attacks submitted through 
+(a) public mempools and (b) private pools. The 𝑥-axis represents quarters relative to the introduction of Flashbots, with negative values indicating quarters before its introduction. 
+The boxes represent the interquartile range, with the median shown as a horizontal line. Whiskers extend to 1.5 times the interquartile range. Vertical dashed lines indicate key 
+events: the introduction of Flashbots (red) and the beginning of the stabilization period approximately 5 months after Flashbots’ introduction (green).  (For interpretation of the 
+references to color in this figure legend, the reader is referred to the web version of this article.)
+
+20 
+
+A. Capponi et al.
+
+Table 8
+Impact of private pool on Attackers’ Fee-to-Revenue ratios.
+(1)
+
+(2)
+
+(3)
+
+(4)
+
+0.3429***
+(0.0052)
+0.1243***
+(0.0212)
+
+0.3308***
+(0.0048)
+
+0.0152
+(0.0106)
+−0.3450***
+(0.0095)
+0.0885***
+(0.0139)
+0.1744***
+(0.0201)
+
+  Intercept
+
+  Is Private
+
+  Adjustment period
+
+  Adjustment × Is Private
+
+  Stabilization period
+
+  Stabilization × Is Private
+
+  Attacker size
+
+  Pool size
+
+  Victim transaction size
+
+  Normalized attacker size
+
+  Gas price
+
+−0.2282***
+(0.0089)
+
+−0.2185*** 
+(0.0087)
+
+0.1949***
+(0.0262)
+
+0.1991***  
+(0.0261)
+−0.0014*** 
+(0.0001)
+0.0022***  
+(0.0006)
+−0.0003*** 
+(0.0001)
+−0.3881*** 
+(0.0342)
+0.0001***  
+(0.00002)  
+703,990
+0.4534
+Yes
+Yes
+
+703,990
+0.0263
+No
+No
+
+703,990
+0.4415
+Yes
+Yes
+
+  Observations
+703,990
+  R-squared
+0.1802
+  Token FE
+No
+  Time FE
+No
+Notes: This table reports OLS regression results estimating the impact of private pools 
+on attackers’ fee-to-revenue ratios. The dependent variable is the fee-to-revenue ratio, 
+winsorized at the 1st and 99th percentiles. Column (1) presents the baseline model 
+with a dummy private pool indicator. Column (2) adds interaction terms between 
+private pool usage and time periods (Adjustment Period: 5 months following Flashbots’ 
+introduction; Stabilization Period: subsequent period). Columns (3) and (4) employ both 
+token and time (daily) fixed effects, with Column (4) adding transaction-level controls. 
+Control variables include Attacker Size (in thousand ETH), Pool Size (total liquidity in 
+thousand ETH), Victim Transaction Size (in thousand ETH), Normalized Attacker Size 
+(attacker’s transaction size relative to pool size), and Gas Price (in thousand Gwei). 
+Standard errors (in parentheses) are two-way clustered by token and day across all 
+specifications. *** 𝑝 < 0.01, ** 𝑝 < 0.05, * 𝑝 < 0.1.
+
+increase in the fee-to-revenue ratio, suggesting that frontrunners gen-
+erally pay higher fees in private pools.
+
+In Column (2), we include interaction terms for two distinct time 
+periods.  During  the  Adjustment  Period,  attacks  routed  through  pri-
+vate pools experience a 34.50-percentage-point reduction in the fee-
+to-revenue ratio. This aligns with Fig.  7 and suggests that relatively 
+limited  competition  in  early  private  pools  allowed  attackers  to  bid 
+lower fees. By contrast, the Stabilization Period interaction is strongly 
+positive (17.44 percentage points).
+
+Columns (3) and (4) incorporate token and time (daily) fixed ef-
+fects to control for unobserved heterogeneity across markets and time. 
+Additionally, Column (4) adds key transaction-level controls, includ-
+ing attacker trade size, victim trade size, pool liquidity, attacker size 
+normalized by pool size, and gas price.  In these specifications, the 
+coefficient on Adjustment × Is Private remains significantly negative, 
+whereas Stabilization × Is Private remains significantly positive.
+
+The control variables in our full specification offer additional in-
+sights.  The  attacker’s  transaction  size  is  negatively  correlated  with 
+the fee-to-revenue ratio (−0.0014), suggesting that larger attacks tend 
+to incur proportionally lower fees—possibly reflecting reduced com-
+petition for capital-intensive opportunities. In contrast, the gas price 
+(measured in Gwei) has a small but statistically significant positive 
+coefficient, indicating that higher base gas fees slightly raise the overall 
+cost-to-revenue ratio for attackers.
+
+Journal of Financial Economics 172 (2025) 104132 
+
+and  financial  innovation.  However,  current  transaction  processing
+mechanisms in the blockchain settlement layer expose users to system-
+atic and costly frontrunning attacks. These attacks not only cause direct 
+losses for affected users but also waste block space and computational 
+resources, leading to significant allocative inefficiencies. This vulnera-
+bility in the settlement layer poses a fundamental challenge to creating 
+an efficient and fair DeFi ecosystem, potentially undermining the entire 
+promise of blockchain-based financial services. Without addressing this 
+critical flaw, the vision of a robust and equitable DeFi ecosystem on 
+public blockchains remains unlikely.
+
+Our  paper  tackles  this  critical  challenge  by  developing  a  game-
+theoretical model to assess the benefits and limitations of augmenting 
+public blockchains with private transaction pools—a leading solution 
+proposed  to  mitigate  frontrunning  risk.  We  demonstrate  that  while 
+private pools can enhance allocative efficiency by shielding some users 
+from frontrunning and increasing the inclusion of valuable transactions, 
+they do not fully resolve the underlying issues. Our analysis uncovers 
+a persistent misalignment of incentives between validators and users, 
+resembling a hold-up problem, where validators are reluctant to fully 
+adopt private pools due to their desire to capture MEV. This reluctance 
+leads to a partial adoption equilibrium that deviates from the welfare-
+maximizing outcome. Moreover, our empirical analysis confirms that 
+frontrunning attacks persist even after the introduction of private pools.
+We  emphasize  that  effective  solutions  must  leverage  the  unique 
+strengths of blockchain technology, particularly its ability to ensure 
+credible commitment. Our proposed approach, which involves ex-ante 
+contractual agreements between users and validators, exemplifies this 
+principle.
+
+More  complex  market-based  solutions,  such  as  those  involving 
+additional agents like executors, may fall short of their intended goals. 
+For  instance,  the  Flashbots  proposal  (see  Flashbots,  2022),  which 
+introduces  executors  to  participate  in  auctions  for  order  flows  and 
+blockspace, heavily relies on the assumption of perfect competition 
+among these sophisticated agents. However, in practice, such designs 
+may inadvertently lead to new forms of centralization and rent extrac-
+tion, as seen in recent implementations like Proposer Builder Separation 
+(Capponi et al., 2024). Economically, these sophisticated, centralized 
+entities often tend towards vertical integration, which enhances their 
+competitive edge but further undermines the assumption of perfect 
+competition  (Gupta et al., 2023).
+
+Despite  these  challenges,  there  is  promise  in  technological  ap-
+proaches that focus on improving communication mechanisms among 
+nodes. These include using zero-knowledge proof technology to en-
+crypt the mempool, implementing fair sequencing mechanisms to mod-
+ify transaction ordering (Yang et al., 2022), or developing verifiable 
+sequencing  rules  that  provide  execution  price  guarantees  for  users 
+(Ferreira and Parkes, 2023).
+
+CRediT authorship contribution statement
+
+Agostino Capponi: Investigation. Ruizhe Jia: Investigation. Kanye 
+
+Ye Wang: Investigation.
+
+Declaration of competing interest
+
+The  authors  declare  that  they  have  no  known  competing  finan-
+cial interests or personal relationships that could have appeared to 
+influence the work reported in this paper.
+
+7. Conclusion
+
+Appendix A. Supplementary material
+
+The growing demand for financial services on public blockchain 
+technology necessitates enhanced accessibility, streamlined operations, 
+
+Supplementary material related to this article can be found online 
+
+at https://doi.org/10.1016/j.jfineco.2025.104132.
+
+21 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+A. Capponi et al.
+
+Data availability
+
+The complete replication packageincluding raw and processed data 
+as  well  as  all  codeis  archived  on  Mendeley  Data.  Due  to  file-size 
+constraints, the materials are distributed across fourteen separate de-
+posits, each with a unique persistent identifier: https://doi.org/10.17
+632/wjvzm5h764, https://doi.org/10.17632/p83zzprn3b, https://doi.
+org/10.17632/y2szyjxk6n, https://doi.org/10.17632/mjzwvmxhp9, ht
+tps://doi.org/10.17632/rkwd4y562x, https://doi.org/10.17632/mkv7
+gx6mx8, https://doi.org/10.17632/44dy5ksvg8, https://doi.org/10.17
+632/rph9vnncdt, https://doi.org/10.17632/xbw37bkfxt, https://doi.or
+g/10.17632/hj2fcjfs5j, https://doi.org/10.17632/526tksfb62, https://
+doi.org/10.17632/9m43svx29j, https://doi.org/10.17632/y2469pwkx
+2, https://doi.org/10.17632/89tphpc9ft. To fully reproduce all tables 
+and figures in the article, users are advised to download all deposits. 
+After that, users should refer to the MASTER_README.md file and 
+the readme_pkgA.md or readme_pkgB.md file included in each 
+deposit (identical in content across deposits with the same filename). 
+These readme documents provide detailed instructions for regenerating 
+all tables and figures.
+
+References
+
+Auer, Raphael, Frost, Jon, Pastor, Jose María Vidal, 2022. Miners as Intermediaries: 
+Extractable Value and Market Manipulation In crypto and DeFi. BIS Bulletins 58, 
+Bank for International Settlements, https://ideas.repec.org/p/bis/bisblt/58.html.
+Bakos, Yannis, Halaburda, Hanna, 2021. Tradeoffs in Permissioned vs Permissionless 
+
+Blockchains: Trust and Performance. Working Paper.
+
+Biais, Bruno, Bisière, Christophe, Bouvard, Matthieu, Casamatta, Catherine, 2019. The 
+
+Blockchain Folk Theorem. Rev. Financ. Stud. 32 (5), 1662–1715.
+
+Buterin, Vitalik, 2015. A Next Generation Smart Contract & Decentralized Application 
+
+Canidio, Andrea, Danos, Vincent, 2024. Commitment against front-running attacks. 
+
+Platform. Ethereum White Paper.
+
+Manag. Sci. 70 (7), 4429–4440.
+
+Capponi, Agostino, Jia, Ruizhe, Olafsson, Sveinn, 2024. Proposer-Builder Separation, 
+Payment for Order Flows, and Centralization in Blockchain. NBER Working Paper 
+403949, Rochester, NY, http://dx.doi.org/10.2139/ssrn.4723674.
+
+Capponi,  Agostino,  Jia,  Ruizhe,  Wang,  Ye,  2023a.  Blockchain  private  pools  and 
+price discovery. In: AEA Papers and Proceedings. Vol. 113, American Economic 
+Association, pp. 253–256.
+
+Capponi, Agostino, Olafsson, Sveinn, Alsabah, Humoud, 2023b. Proof-of-Work Cryp-
+tocurrencies: Does Mining Technology Undermine Decentralization? Manag. Sci. 
+69 (11), 6417–7150.
+
+Chung, Tai-Yeong, 1991. Incomplete contracts, specific investments, and risk sharing. 
+Rev.  Econ.  Stud.  58  (5),  1031–1042,  https://EconPapers.repec.org/RePEc:oup:
+restud:v:58:y:1991:i:5:p:1031-1042.
+
+Chung, Hao, Shi, Elaine, 2023. Dynamic posted-price mechanisms for the blockchain 
+transaction-fee market. In: Proceedings of the 2023 Annual ACM-SIAM Symposium 
+on Discrete Algorithms. SODA, pp. 3856–3899.
+
+Cong, Lin William, He, Zhiguo, Li, Jiasun, 2020. Decentralized Mining in Centralized 
+
+Pools. Rev. Financ. Stud. 34 (3), 1191–1235.
+
+Daian, Phil, 2022. MEV for the next trillion, it’s time to get serious, Flashbots. URL 
+
+https://writings.flashbots.net/mev-for-the-next-trillion.
+
+Daian, P., Goldfeder, S., Kell, T., Li, Y., Zhao, X., Bentov, I., Breidenbach, L., Juels, A., 
+2020. Flash boys 2.0: Frontrunning in decentralized exchanges, miner extractable 
+value, and consensus instability. In: 2020 IEEE Symposium on Security and Privacy. 
+SP, pp. 910–927.
+
+Easley, David, O’Hara, Maureen, Basu, Soumya, 2019. From mining to markets: The 
+
+evolution of bitcoin transaction fees. J. Financ. Econ. 134 (1), 91–109.
+
+Edlin,  Aaron,  Reichelstein,  Stefan,  1996.  Holdups,  standard  breach  remedies,  and 
+optimal investment. Am. Econ. Rev. 86 (3), 478–501,  https://EconPapers.repec.
+org/RePEc:aea:aecrev:v:86:y:1996:i:3:p:478-501.
+
+Ferreira, M., Parkes, D., 2023. Credible decentralized exchange design via verifiable 
+sequencing rules. In: Proceedings of the 55th Annual ACM Symposium on Theory 
+of Computing. ACM, pp. 723—-736.
+
+Flashbots,  2021.  Flashbots  documents.  https://docs.flashbots.net/flashbots-auction/
+
+overview/, 
+
+Journal of Financial Economics 172 (2025) 104132 
+
+Flashbots, 2022. The future of MEV is SUAVE. https://writings.flashbots.net/the-future-
+
+of-mev-is-suave/.
+
+Gans, Joshua, Holden, Richard, 2022. A Solomonic Solution to Ownership Disputes: 
+An  Application  to  Blockchain  Front-Running.  NBER  Working  Paper  4039499, 
+Rochester, NY, https://papers.ssrn.com/abstract=4039499.
+
+Gupta, Tivas, Pai, Mallesh M., Resnick, Max, 2023. The centralizing effects of private 
+order flow on proposer-builder separation. In: 5th Conference on Advances in 
+Financial Technologies.
+
+Harvey, Campbell R., Ramachandran, Ashwin, Santoro, Joey, 2021. DeFi and the Future 
+
+Hinzen, Franz J., John, Kose, Saleh, Fahad, 2022. Bitcoin’s limited adoption problem. 
+
+of Finance. Working Paper.
+
+J. Financ. Econ. 144, 347–369.
+
+Huberman,  Gur,  Leshno,  Jacob  D.,  Moallemi,  Ciamac,  2021.  Monopoly  without  a 
+Monopolist: An Economic Analysis of the Bitcoin Payment System. Rev. Econ. Stud. 
+88 (6), 3011–3040.
+
+IOSCO, 2023. Policy Recommendations for Decentralized Finance. Technical Report, 
+
+The Board of the International Organization of Securities Commissions.
+
+John, Kose, Kogan, Leonid, Saleh, Fahad, 2023. Smart Contracts and Decentralized 
+
+Finance. Annu. Rev. Financ. Econ. 15, 523–542.
+
+John, Kose, Rivera, Thomas J., Saleh, Fahad, 2020. Economic Implications of Scaling 
+
+Blockchains: Why the Consensus Protocol Matters. Working Paper.
+
+Klein, Benjamin, Crawford, Robert G., Alchian, Armen A., 1978. Vertical integration, 
+appropriable rents, and the competitive contracting process. J. Law Econ. 21 (2), 
+297–326.
+
+Lehar,  Alfred,  Parlour,  Christine  A.,  2023.  Battle  of  the  Bots:  Flash  loans,  Miner 
+
+Extractable Value and Efficient Settlement. Working Paper.
+
+Nakamoto, Satoshi, 2008. Bitcoin: A Peer-to-Peer Electronic Cash System. Unpublished 
+
+Manuscript.
+
+Niederle, Muriel, Proctor, Deborah D., Roth, Alvin E., 2006. What will be needed for 
+the new gastroenterology fellowship match to succeed? Gastroenterology 130 (1), 
+218–224. http://dx.doi.org/10.1053/j.gastro.2005.10.058.
+
+Obadia,  Alex,  2020.  Flashbots:  Frontrunning  the  MEV  crisis.  Working  Paper,  In: 
+
+Park, Andreas, 2023. The Conceptual Flaws of Decentralized Automated Market Making. 
+
+Working Paper Series, Medium.
+
+Manag. Sci. 69 (11), 6417–7150.
+
+Prat, Julien, Walter, Benjamin, 2021. An equilibrium model of the market for bitcoin 
+
+mining. J. Political Econ. 129 (8), 2415–2452.
+
+Robinson, Dan, Konstantopoulos, Georgios, 2020. Ethereum is a dark forest. https:
+//www.paradigm.xyz/2020/08/ethereum-is-a-dark-forest (Accessed 4 May 2025).
+Roth, Alvin E., 2008. What have we learned from market design? Econ. J. 118 (527), 
+
+285–310.
+
+119 (2), 457–488.
+
+Roth, Alvin E., Sönmez, Tayfun, Ünver, M. Utku, 2004. Kidney exchange. Q. J. Econ. 
+
+Roth,  Alvin  E.,  Xing,  Xiaolin,  1997.  Turnaround  time  and  bottlenecks  in  market 
+clearing: Decentralized matching in the market for clinical psychologists. J. Political 
+Econ. 105 (2), 284–329.
+
+Roughgarden, Tim, 2021. Transaction fee mechanism design. ACM SIGecom Exch. 19 
+
+Saleh, Fahad, 2020. Blockchain without Waste: Proof-of-Stake. Rev. Financ. Stud. 34 
+
+(1), 52–55.
+
+(3), 1156–1190.
+
+Torres, Christof Ferreira, Camino, Ramiro, et al., 2021. Frontrunner jones and the 
+raiders of the dark forest: An empirical study of frontrunning on the ethereum 
+blockchain.  In:  30th  USENIX  Security  Symposium  (USENIX  Security  21).  pp. 
+1343–1359.
+
+Wang,  Ye,  Zuest,  Patrick,  Yao,  Yaxing,  Lu,  Zhicong,  Wattenhofer,  Roger,  2022. 
+Impact and User Perception of Sandwich Attacks in the DeFi Ecosystem. In: ACM 
+Conference on Human Factors in Computing Systems (CHI), New Orleans, la, USA.
+Williamson, Oliver E., 1979. Transaction-cost economics: The governance of contractual 
+relations. J. Law Econ. 22 (2), 233–261. http://dx.doi.org/10.1086/466942.
+Yang, Sen, Zhang, Fan, Huang, Ken, Chen, Xi, Yang, Youwei, Zhu, Feng, 2022. Sok: 
+MEV countermeasures: Theory and practice. http://dx.doi.org/10.48550/ARXIV.
+2212.05111.
+
+22 
+
+

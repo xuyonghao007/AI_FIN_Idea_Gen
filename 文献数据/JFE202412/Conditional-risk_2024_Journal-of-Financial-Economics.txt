@@ -1,0 +1,4670 @@
+Journal of Financial Economics 162 (2024) 103933 
+
+Contents lists available at ScienceDirect
+
+Journal of Financial Economics
+
+journal homepage: www.elsevier.com/locate/finec
+
+Conditional risk✩
+Niels Joachim Gormsen a,b,∗, Christian Skov Jensen c
+a University of Chicago Booth School of Business, 5807 South Woodlawn Avenue 60637, Chicago, IL, USA
+b National Bureau of Economic Research, Cambridge, MA, USA
+c Bocconi University, Via Roentgen 1 20136, Milan, Italy
+
+A R T I C L E I N F O
+
+A B S T R A C T
+
+JEL classification:
+G10
+G12
+
+Keywords:
+Asset pricing
+Conditional CAPM
+Factor models
+Time-varying discount rates
+
+We study the extent to which time-variation in market betas influence estimates of CAPM alphas. Given
+the observed variation in conditional market betas, market risk premia, and market variance, the required
+compensation for conditional market risk can, in theory, be as large as the unconditional equity premium.
+We implement the conditional CAPM using state-of-the-art methods in a broad global sample. We find that
+accounting for conditional risk helps explain the return on all the major anomalies we consider and that
+conditional risk explains two percentage points of alpha for value, investment, and momentum strategies in
+recent years.
+
+According to the conditional CAPM, assets should have higher
+average returns if they have high market betas during times when the
+market risk premium is high or the variance is low. Following the
+seminal work by Lewellen and Nagel (2006), it is often argued that such
+variation in market betas (conditional risk) cannot plausibly explain the
+return to the major cross-sectional risk factors. The argument is often
+that the time-series variation in conditional market betas, market risk
+premium, and market variance cannot be large enough to materially
+influence the required return in the conditional CAPM.
+
+Over the last decade, however, research in asset pricing suggests
+that conditional moments may be much more volatile than previously
+understood. Kelly and Pruitt (2013) and Martin (2017), for instance,
+provide evidence that the equity premium is ‘‘extremely volatile’’,
+exhibits substantial high-frequency variation, and generally varies more
+than previously understood. Kelly et al. (2021), moreover, argue that
+conditional betas of dynamic trading strategies can be highly volatile,
+even at very short horizons. Finally, Moreira and Muir (2017) find that
+expected returns and volatility on the market are not as highly corre-
+lated as previously expected, which – for technical reasons explained
+below – increases the scope for conditional risk to explain asset returns.
+Motivated by this apparent change in our understanding of the dy-
+namics of conditional moments, it is worthwhile revisiting the question
+
+of how large a role conditional risk plays in the cross-section of stock
+returns. To do so, we first quantify the plausible effect of conditional
+risk in the CAPM. When considering the conditional moments uncov-
+ered by the above literature, conditional risk can in theory explain as
+much as five percentage points of returns per year for a representative
+strategy, depending on the correlation between betas, the risk premium,
+and variance. These five percentage points are similar in magnitude to
+the full equity risk premium and to the unconditional CAPM alphas of
+equity factors studied in the literature, meaning there is, in principle,
+scope for conditional risk to explain some equity factors. Given the
+theoretical possibility of a large role for conditional risk, it becomes
+an empirical question whether or not conditional risk matters for
+equity factors. We, therefore, set out to quantify the exact impact of
+conditional risk on equity anomalies based on state-of-the-art methods.
+We find that conditional risk helps explain a meaningful part of the
+alpha for the major risk factors we consider. For the value factor, one
+of the most intensely studied factors in this context, conditional risk
+explains a fourth of the unconditional alpha. In the most recent period,
+where risk premia are arguably more volatile, conditional risk plays a
+relatively larger role, explaining almost all of the alpha for the value
+factor. Conditional risk also helps explain profitability, investment, low-
+risk, and momentum factors. For most of our regressions, controlling
+
+✩
+
+We are grateful for helpful comments from the editor, Nick Roussanov, two anonymous referees, as well as Malcolm Baker, Thummim Cho, Peter
+Christoffersen, Robin Greenwood, Sam Hanson, Bryan Kelly, Eben Lazerus, Martin Lettau, Dong Lou, Stefan Nagel, Tobias Moskowitz, Lasse Heje Pedersen,
+Andrei Shleifer, Emil Siriwardane, Adi Sunderam, Christian Wagner, and Paul Whelan, and seminar participants at Copenhagen Business School, the American
+Finance Association, and Harvard Business School. Vanessa Hu provided excellent research assistance. Both authors gratefully acknowledge support from the FRIC
+Center for Financial Frictions (grant no. DNRF102) and the European Research Council (ERC grant no. 312417) and Niels Gormsen further acknowledge support
+from the Asness Junior Faculty Fellowship, the Fama Faculty Fellowship, and the Fama-Miller Center at the University of Chicago Booth School of Business.
+
+∗ Corresponding author at: University of Chicago Booth School of Business, 5807 South Woodlawn Avenue 60637, Chicago, IL, USA.
+
+E-mail addresses: niels.gormsen@chicagobooth.edu (N.J. Gormsen), christian.jensen@unibocconi.it (C.S. Jensen).
+
+https://doi.org/10.1016/j.jfineco.2024.103933
+Received 18 September 2021; Received in revised form 23 August 2024; Accepted 29 August 2024
+
+Available online 20 September 2024 
+0304-405X/© 2024 Published by Elsevier B.V. 
+
+N.J. Gormsen and C.S. Jensen
+
+Journal of Financial Economics 162 (2024) 103933 
+
+for conditional risk has a larger impact on alphas than controlling for
+unconditional risk. Taken together, our results suggest that conditional
+risk can be large enough to have a material impact on the alpha of
+equity risk factors.
+
+Despite this impact of conditional risk, the conditional CAPM is eas-
+ily rejected. The tangency portfolio spanned by the major equity factors
+remains highly significant after we control for conditional risk. In this
+sense, our results strongly support the main point of Lewellen and Nagel
+(2006), namely that the conditional CAPM does not explain the cross-
+section of stock returns. Moreover, the tests explained above are tests
+of the unconditional predictions of the conditional CAPM. Testing the
+richer conditional implications leads to even stronger evidence against
+the CAPM (see also Nagel and Singleton 2011 and Roussanov 2014).
+
+However, the rejection of the conditional CAPM does not necessarily
+mean that one should ignore conditional risk: in many factor analyses,
+we want to control for market risk, and to do so properly, even
+though the CAPM itself does not perfectly price assets. Throughout
+our tests, conditional market risk has a bigger impact on alphas than
+unconditional market risk, emphasizing the relevance of controlling for
+conditional risk when implementing the CAPM.
+
+Methodology and high-level summary
+
+Our analysis begins by revisiting the theoretical analysis in Lewellen
+and Nagel (2006) (LN). This analysis studies how much conditional
+risk can explain as a function of the time-series volatility in conditional
+betas, conditional market risk premia, and conditional variance. When
+using the variation in betas assumed by LN, along with estimates of
+market risk premium volatility from Kelly and Pruitt (2013), we find
+that conditional market timing (i.e. covariance between market betas
+and market risk premia) in principle can explain up to 2.9 percentage
+points of annualized return. Similarly, volatility timing can explain up
+to 7 percentage points of annualized return under the most aggressive
+assumptions.
+
+Market and volatility timing can thus be qualitatively relevant in
+factor analysis when considered in isolation. Previous research has ar-
+gued that one cannot easily combine the effects of market and volatility
+timing. In fact, past work has argued that market risk premia and mar-
+ket variance are positively correlated, likely causing market timing and
+volatility timing to mechanically counteract each other. We should thus
+expect a modest impact of conditional risk even if market and volatility
+timing can have a large impact when considered in isolation. Recent
+work by Moreira and Muir (2017), however, provides evidence that the
+two moments are not perfectly correlated. Market and variance timing
+may thus, in principle, work together to create substantial conditional
+risk. In particular, if one is willing to assume that conditional market
+risk premia and variance are uncorrelated, as we find empirically, it is
+possible for market timing and volatility timing to jointly explain up to
+5 percentage points of return. Empirically, we find that the two sources
+indeed tend to strengthen each other, as further elaborated on below.
+Motivated by these simple calculations, we set out to quantify the
+impact of conditional risk on anomalies using state-of-the-art methods.
+Our main methodology implements the CAPM using scaled factors,
+where the conditioning variables (instruments) are the conditional mar-
+ket return, the conditional market variance, and the rolling betas of the
+test assets. In theory, the conditional market risk premium and variance
+should be sufficient to capture conditional risk if we measure the two
+perfectly. However, we include rolling betas in case our measures are
+imperfect.
+
+A key input to our analysis is the conditional market risk premium.
+We rely on state-of-the-art methods that capture all of the variation in
+expected returns, including the very short horizon variation that would
+not be captured by rolling betas. Recent research offers a series of
+candidate estimators of the conditional market risk premium,1 some of
+
+1 See e.g. Lettau and Ludvigson (2001a), Campbell and Thompson (2008),
+
+Binsbergen and Koijen (2010), Kelly and Pruitt (2013) and Martin (2017).
+
+which are limited to the U.S. or the recent sample. In our main analysis,
+we rely on the three-stage estimator of Kelly and Pruitt (2013), because
+this estimator can be implemented in all the countries in our sample
+and over the full sample length, and because it is proven to forecast
+returns well both in- and out-of-sample. As to variance, we estimate
+this based on the assumption that it follows an AR(1) process.
+
+Based on these moments, we quantify the impact of conditional risk
+in the cross-section of U.S. and global equities. We start with the value
+factor, HML, which has been studied extensively in the past. As is well
+known, the HML factor of Fama and French (1993) has substantial
+CAPM alpha in the 1964–2022 sample. Controlling for conditional risk
+explains around 1.25 percentage points of annual return in the US
+sample, which amounts to around 27% of the total alpha on the factor.
+In comparison, controlling for unconditional market exposure explains
+only .86 basis points of annual alpha. As such, conditional risk cannot
+explain the full alpha to the factor, but it explains a meaningful amount.
+We find qualitatively similar results in our broad global sample.
+Conditional risk helps explain the value factor in most of the large
+countries. In France, Germany, and Sweden, conditional risk explains
+essentially the entire value premium, which is around 2 percentage
+points in these countries. In our pooled global sample, conditional risk
+explains half of the alpha for the value strategy.
+
+Conditional risk also matters for other factors than the value factor.
+In our long U.S. sample, we find that the risk factors profitability,
+investment, momentum, and betting against beta all load positively on
+conditional risk, in the sense that controlling for conditional risk lowers
+the estimated alpha. We find similar results in our broad global sample
+of 23 countries. In the global sample, all the major risk factors, except
+profit, load on our conditional-risk factor, and the conditional-risk
+factor explains on average 18% of their unconditional CAPM alpha.
+
+As argued in the introduction, recent research suggests that con-
+ditional moments have been particularly volatile over the last few
+decades. It is thus possible that conditional risk has been pronounced
+over this period. Based on this observation, we study conditional risk in
+the post-1996 sample. This is the period in which the equity premium
+has been documented to be particularly volatile — and it also happens
+to be almost completely out of sample relative to the first analyses of
+conditional risk in the value factor.
+
+When considering this out-of-sample period, we find an even more
+pronounced role for conditional risk. Conditional risk generally ex-
+plains 2 percentage points of annual alpha to the major risk factors.
+This amount is large relative to the unconditional market risk premium
+and the alpha on the factors. For instance, it amounts to almost all
+of the alpha on the value factor and half the alpha on the investment
+factor. For momentum and betting against beta strategies, conditional
+risk explains around 30% and 10%.
+
+As explained above, previous research has argued that market and
+volatility timing generally should counteract each other when estimat-
+ing conditional risk. To test this assumption, we introduce two new
+risk factors that can explicitly detect market and variance timing. Using
+these factors, we find that most equity risk factors exhibit both market
+and volatility timing. That is, contrary to the previous arguments,
+market and volatility timing appear to work together to generate
+conditional risk. This finding may help explain why conditional risk can
+account for a larger fraction of expected returns than previously argued.
+At a technical level, this complimentary role of market and volatility
+timing is possible only because equity premia and variances are not
+perfectly correlated. This view is supported, as mentioned earlier, by
+recent work of Moreira and Muir (2017).
+
+We also implement alternative methods by Boguth et al. (2011)
+and Lewellen and Nagel (2006). Using these methods, we again find
+a large role for conditional risk in our more recent sample. The effect
+is not always as large as our main methods suggest, but the effect of
+conditional risk is similar in magnitude. This finding emphasizes the
+robustness of our results across methodologies, but it also highlights
+
+2 
+
+N.J. Gormsen and C.S. Jensen
+
+Journal of Financial Economics 162 (2024) 103933 
+
+the importance of including the best possible estimates of equity premia
+and variance to properly account for conditional risk.
+
+The paper proceeds as follows. Section 1 covers the theory behind
+conditional risk in factor models, quantifies the plausible impact of
+conditional risk, and develops new factors to account for market and
+variance timing. Section 2 covers data and methodology. Section 3
+quantifies the effect of conditional risk on estimates of alpha for major
+risk factors. Appendix A provides additional tests using managed port-
+folios as tests assets. The section also considers conditional risk with
+respect to other risk factors. Section 5 discusses the results in relation
+to previous implementations of conditional factor models. Section 6
+concludes.
+
+1. Theory
+
+In this section, we first introduce the conditional CAPM and define
+terms in Section 1.1. We next discuss the plausible effect of conditional
+risk on equity factors in Section 1.2. In Section 1.3, we introduce
+conditional-risk factors that researchers can use to quantify conditional
+risk when observing conditional market risk premia and variance.
+These risk factors also allow for precise estimation of the contribution
+of market and volatility timing.
+
+1.1. Conditional risk in the CAPM
+
+The conditional CAPM is the following statement:
+
+𝐸𝑡[𝑟𝑖
+
+𝑡+1] =
+
+cov𝑡(𝑟𝑖
+
+𝑡+1; 𝑟𝑚
+𝑡+1)
+
+var𝑡(𝑟𝑚
+
+𝑡+1)
+
+𝐸𝑡[𝑟𝑚
+
+𝑡+1]
+
+(1)
+
+where 𝑟𝑖
+𝑡+1 is the excess return to asset 𝑖 between period 𝑡 and 𝑡+1, with
+𝑚 indexing the market, and 𝐸𝑡 is the conditional expectation at time 𝑡.
+To quantify the conditional risk in the CAPM, note first that taking
+
+unconditional expectations of (1) gives
+
+𝐸[𝑟𝑖
+
+𝑡+1] = 𝐸[𝛽𝑡]𝐸[𝑟𝑚
+
+𝑡+1] + cov
+
+(𝛽𝑡; 𝐸𝑡[𝑟𝑚
+
+)
+𝑡+1]
+
+We show in the Appendix that the average beta can be written as
+
+(
+
+𝐸[𝛽𝑡] = ̃𝛽 − cov
+
+𝛽𝑡;
+
+)
+
+var𝑡(̃𝑟𝑚
+var(̃𝑟𝑚
+
+𝑡+1)
+𝑡+1)
+
+𝑡+1] is the shock to the market portfolio and
+
+where ̃𝑟𝑚
+
+𝑡+1 − 𝐸𝑡[𝑟𝑚
+𝑡+1)
+
+cov(𝑟𝑖
+
+𝑡+1 = 𝑟𝑚
+𝑡+1; ̃𝑟𝑚
+𝑡+1)
+
+var(̃𝑟𝑚
+
+̃𝛽 =
+
+is the asset’s unconditional shock-beta. Inserting (3) into (2) gives
+
+𝐸[𝑟𝑖
+
+𝑡+1] = ̃𝛽𝐸[𝑟𝑚
+
+𝑡+1] + cov
+
+(𝛽𝑡; 𝐸𝑡[𝑟𝑚
+
+)
+𝑡+1)
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+Conditional Risk
+
+𝑡+1] − 𝑏 var𝑡(̃𝑟𝑚
+
+where the covariance term summarizes the conditional risk and
+
+𝑏 =
+
+𝐸[𝑟𝑚
+𝑡+1]
+var(̃𝑟𝑚
+𝑡+1)
+
+(2)
+
+(3)
+
+(4)
+
+(5)
+
+(6)
+
+is the unconditional price of risk. The expression intuitively conveys
+what conditional risk is: conditional risk is the tendency for an asset to
+have a higher conditional beta when either the conditional market risk
+premium is high or the conditional market variance is low. Lewellen
+and Nagel (2006), and the literature in general refers to these terms as
+market and volatility timing.
+
+The expression for conditional risk in (5) features conditional betas,
+but we do not need to observe these conditional betas to calculate
+conditional risk: we only need the part of conditional betas that is
+spanned by the conditional market risk premium and variance. In fact,
+there is an intuitive factor representation that captures the effect of
+time-varying betas. Defining the conditional risk factor as
+
+𝑐𝑡+1 = ̃𝑟𝑚
+
+𝑡+1(𝑏𝑡 − 𝑏)
+
+(7)
+
+3 
+
+where
+
+𝑏𝑡 =
+
+𝐸𝑡𝑟𝑚
+𝑡+1
+var𝑡(̃𝑟𝑚
+𝑡+1)
+
+is the conditional price of risk, we show in the Appendix that can write
+the covariance term for conditional risk in (5) as
+
+cov
+
+(𝛽𝑡; 𝐸𝑡[𝑟𝑚
+
+𝑡+1] − 𝑏 var𝑡(̃𝑟𝑚
+
+)
+𝑡+1)
+
+= cov(𝑟𝑖
+
+𝑡+1; 𝑐𝑡+1)
+
+and therefore write Eq. (5) as
+
+𝐸[𝑟𝑖
+
+𝑡+1] = ̃𝛽𝐸[𝑟𝑚
+
+𝑡+1] + cov(𝑟𝑖
+
+𝑡+1; 𝑐𝑡+1)
+⏟⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏟
+Conditional Risk
+
+(8)
+
+(9)
+
+Eq. (9) shows that the impact of conditional risk on unconditional
+expected returns can be completely summarized through the covariance
+with a conditional risk factor. This factor is akin to a market timing
+strategy that is more exposed to the shock to the market when the con-
+ditional risk price of risk is high relative to the unconditional average.
+Section 1.3 further expands on how one can use conditional-risk factors
+to capture conditional risk in unconditional implementations of factor
+models. Before doing so, we quantify the plausible effect of conditional
+risk on unconditional risk premia.
+
+1.2. How much can conditional risk explain? revisiting Lewellen and Nagel
+(2006)
+
+The expression in Eq. (5) shows that conditional risk is the sum of
+two components: (1) the unconditional covariance between conditional
+betas and conditional market risk premia and (2) the unconditional
+covariance between conditional market betas and conditional variance,
+
+𝐸[𝑟𝑖
+
+𝑡+1] − ̃𝛽𝐸[𝑟𝑚
+
+𝑡+1] = cov
+= cov
+
+)
+𝑡+1)
+
+(𝛽𝑡; 𝐸𝑡[𝑟𝑚
+𝑡+1] − 𝑏 var𝑡(̃𝑟𝑚
+)
+(𝛽𝑡; 𝐸𝑡[𝑟𝑚
++ cov
+𝑡+1]
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+Market timing
+
+)
+(𝛽𝑡; −𝑏 var𝑡(̃𝑟𝑚
+𝑡+1)
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+Volatility timing
+
+(10)
+
+(11)
+
+The expression states how much of the unconditional return pre-
+mium on a given asset can be accounted for by conditional risk. The
+amount explained by market timing is determined by the volatility
+of conditional market betas, the volatility of the conditional market
+risk premium, and the correlation between the two. Similarly, the
+amount explained by volatility timing is determined by the volatility
+of conditional market betas, the volatility of the conditional market
+variance, the correlation between the two, and the unconditional price
+of risk 𝑏.
+
+To quantify the effect of conditional risk, we first examine how
+much these conditional moments may vary over time. Recent work
+by Kelly and Pruitt (2013) and Martin (2017) suggests that the market
+risk premium is ‘‘extremely volatile’’, even at very short horizons. Mar-
+tin finds that the volatility of the monthly horizon market risk premium
+is around 0.4%. These results are obtained in the post-1996 sample,
+which is the period where the option prices studied by Martin are
+available. In our paper, we instead focus on the measure by Kelly and
+Pruitt (2013), which we describe in detail in the upcoming Section 2.1.
+The market risk premium coming from this measure similarly has a
+standard deviation of 0.4% in the post-1996 sample. In the full sample,
+the standard deviation is 0.35%, reflecting a slightly less volatile equity
+premium in the earlier parts of the sample.
+
+To understand how these estimates relate to previous estimates,
+Fig. 1 plots the expected return from the Kelly and Pruitt-measure along
+with a traditional estimate of expected returns. The traditional estimate
+is the inverse of the CAPE ratio plus the expected inflation from the
+Michigan survey. The figure shows that the measure from Kelly and
+Pruitt (2013) is notably more volatile than the estimate from the CAPE
+ratio. The Kelly and Pruitt-measure has a standard deviation of 0.5%
+in this sample, whereas the measure from the CAPE has a standard
+deviation of only 0.3%. The two estimates comove substantially over
+
+N.J. Gormsen and C.S. Jensen
+
+Journal of Financial Economics 162 (2024) 103933 
+
+Fig. 1. Time-variation in the market risk premium. This figure shows two measures of the (annualized) market risk premium. The solid blue line shows the estimate obtained
+using the methodology in Kelly and Pruitt (2013). The dotted green line is expected returns estimated as the inverse of the CAPE ratio plus expected inflation on the 10-year
+horizon from the Michigan survey. The figure shows the equity premium as of December each year between 1982 (starting date of Michigan survey) and 2022 in the US.
+
+time, with a correlation of 0.5. Importantly, there is much more short-
+horizon variation in the measure by Kelly and Pruitt. This short horizon
+makes it important to use methods that can capture the effects of such
+short-horizon variation in market risk premia.
+
+LN consider the possibility that the volatility of the equity premium
+is as high as documented above. In their calculations, they consider
+a volatility of the equity premium as high as 0.5%. In this sense,
+the new sample does not lead to substantially higher estimates of the
+volatility of the market risk premia than those entertained by past
+research. However, as Fig. 1 shows, this volatility was historically
+considered to come from long-run fluctuations in expected returns (see
+also discussion in Campbell and Cochrane 1999), meaning conditional
+risk could only matter over regressions with long samples. The new
+estimates, however, suggest substantial variation over short horizons,
+which means that conditional risk can matter even in short-period
+regressions and that one must, when estimating conditional risk, use
+methods that can capture the effects of such short-horizon variation in
+market risk premia.
+
+We next consider how much conditional betas may vary over time.
+We use two estimates of conditional market betas: conditional rolling
+betas (calculated using the Fama and French (1992) method) along
+with conditional betas using the state-of-the-art machinery from Kelly
+et al. (2021). Fig. 2 Panel A plots a histogram of the time-series
+volatility in these betas across firms. The figure shows that the volatility
+of conditional betas is around 0.2 on average when using the Kelly et al.
+(2021) betas and 0.3 when using rolling betas. However, we cannot rule
+out a substantially higher variation for subsets of stocks. Considering
+the volatility of strategy-level betas yields roughly similar results.
+
+While Kelly et al. (2021) betas are not more volatile overall than
+rolling betas, they vary more on the very short horizon for the median
+firm. To visualize this, Fig. 2 Panel B plots the standard deviation of
+monthly changes in betas. Here, the volatility of Kelly et al. (2021)
+betas for the median firm is above that obtained using rolling betas. The
+average volatility of the changes is, however, fairly similar across the
+two measures. In addition, Kelly et al. (2021) show that the variation in
+betas is not idiosyncratic across firms and can translate into substantial
+variation in factor portfolios. Taken together, the new research does not
+change our estimates the of volatility of the conditional market betas,
+but they highlight that the betas can be volatility on the very short
+horizon, meaning the methods we use to test for conditional risk must
+be able to account for such variation.
+
+In Table 1, we study how much market and volatility timing can
+plausibly influence estimates of required returns in the CAPM. We
+
+calculate conditional risk for a range of different values of the volatil-
+ity of conditional moments, motivated by the discussion above. We
+first consider the effect of market timing. In our first calculations,
+we consider a correlation between conditional betas and market risk
+premia of 1 to obtain an upper bound on the effect of market timing.
+Assuming that the volatility of market risk premium is 0.6 and the
+volatility of market betas is 0.4, which is at the very high end based
+on the discussions above, conditional market timing can account for
+2.9 percentage points of annual return on the strategies. This is a
+substantial amount, given that the average factor in the Fama and
+French model has an unconditional CAPM alpha of 3.7 percentage
+points per year (and given the unconditional equity premium of 5 to
+6 percentage points).
+
+We next consider volatility timing. The impact of volatility timing is
+given by the negative covariance between conditional market betas and
+conditional market variance, multiplied by the unconditional price of
+risk 𝑏. Empirically, this price of risk is around 2.5. Because variance
+and risk premia vary roughly by the same amount over time, the
+multiplication on the volatility timing term leads to a higher potential
+effect of volatility timing than expected return timing. Table 1 shows
+that, assuming a correlation of −1 between conditional betas and
+variance, volatility timing may explain as much as 7 percentage points
+of annual return under the most aggressive assumptions. This is large
+in magnitude, larger than the alpha to most risk factors, and similar
+to the equity risk premium itself. These estimates are consistent with
+those in Boguth et al. (2011).
+
+As a novel part of the quantification, we consider the joint effect
+of market and volatility timing. When considering the joint effect of
+market and volatility timing, a key determinant is the correlation be-
+tween the conditional market risk premium and variance. If the two are
+perfectly correlated, then market and volatility timing must counteract
+each other: any asset that loads positively on market timing must load
+negatively on volatility timing. However, if the two are imperfectly
+correlated, or even uncorrelated, the two effects need not counteract
+each other. As we shall see in the upcoming empirical analysis, the
+conditional market risk premium and variance are close to uncorrelated
+under our main measure, meaning the two need not counteract each
+other.
+
+To estimate an upper bound on the joint impact of market timing
+and volatility timing, we relax the assumption of a perfectly positive
+correlation between betas and market premia and a perfectly negative
+correlation between betas and variance. We instead assume that the
+
+4 
+
+N.J. Gormsen and C.S. Jensen
+
+Journal of Financial Economics 162 (2024) 103933 
+
+Fig. 2. Standard deviation in levels and changes of conditional betas. For each stock, we compute the monthly horizon conditional market beta in two ways: (1) using a five-year
+rolling window to compute the CAPM beta or (2) using the IPCA method of Kelly et al. (2021). For each stock, we use the conditional betas to compute the unconditional standard
+deviations of the levels and changes in the betas. Subfigure (a) shows the distribution of the unconditional standard deviation of the levels in the conditional betas for individual
+stocks. Subfigure (b) shows the distribution of the unconditional standard deviation of the changes in the conditional betas. The sample is US 1963–2014.
+
+correlation between conditional betas and conditional market risk pre-
+mia is 0.5 and similarly that the correlation between conditional betas
+and conditional variance is −0.5. We note that under such a correlation
+structure, the conditional market premia and conditional variance can
+remain uncorrelated.
+
+Table 1 Panel B shows the joint effect of market and volatility
+timing, i.e. conditional risk, under the above assumptions. Based on
+the exact assumptions about the variance of conditional moments, we
+see conditional risk explains up to 5 percentage points. This is almost
+the entire equity premium, emphasizing that conditional risk can, in
+theory, be a quite powerful force.
+
+Another way to illustrate the potential importance of conditional
+risk is by comparing the Sharpe ratios of the market and a managed
+market portfolio for the market. If there is substantial variation in
+expected returns and variance, and if the variations in these objects
+do not offset each other, we should expect substantial Sharpe ratio
+gains from timing the market (Moreira and Muir, 2017). We indeed
+find that such market timing leads to substantial Sharpe ratio gains.
+When scaling the position in the market by the ratio of the conditional
+market risk premium to the conditional variance, we obtain a portfolio
+that has a Sharpe ratio of 0.68 in our sample. In comparison, the market
+has a Sharpe ratio of 0.34 in our sample. Incorporating the information
+in the conditional moments thus expands the mean–variance frontier
+
+5 
+
+N.J. Gormsen and C.S. Jensen
+
+Journal of Financial Economics 162 (2024) 103933 
+
+Table 1
+Unconditional alphas implied by the conditional CAPM.
+
+Panel A: Upper bounds for market timing and volatility timing
+
+Market timing
+
+Volatility timing
+
+𝜌𝛽𝑡 ,𝐸𝑡
+
+= 1
+
+𝜎𝛽𝑡
+
+0.2
+0.3
+0.4
+
+0.2
+
+0.24
+0.72
+0.96
+
+𝜎𝐸𝑡
+0.4
+
+0.48
+1.44
+1.92
+
+Panel B: Joint effect of market and volatility timing
+
+𝜎𝑣𝑎𝑟𝑡
+
+= 0.5
+
+𝜎𝛽𝑡
+
+0.2
+0.3
+0.4
+
+0.2
+
+1.74
+2.61
+3.48
+
+𝜎𝐸𝑡
+0.4
+
+1.98
+2.97
+3.96
+
+0.6
+
+0.72
+2.16
+2.88
+
+0.6
+
+2.22
+3.33
+4.44
+
+𝜌𝛽𝑡 ,𝑣𝑎𝑟𝑡
+
+= −1
+
+𝜎𝛽𝑡
+
+𝜎𝐸𝑡
+
+= 0.5
+
+𝜎𝛽𝑡
+
+0.2
+0.3
+0.4
+
+0.2
+0.3
+0.4
+
+𝜎𝑣𝑎𝑟𝑡
+0.2
+
+0.60
+1.80
+2.40
+
+0.2
+
+1.20
+1.80
+2.40
+
+0.4
+
+1.20
+3.60
+4.80
+
+0.4
+
+1.80
+2.70
+3.60
+
+0.6
+
+1.80
+5.40
+7.20
+
+0.6
+
+2.40
+3.60
+4.80
+
+𝜎𝑣𝑎𝑟𝑡
+
+This table reports the unconditional alphas in annual percentage points implied by the conditional CAPM for varying values of: (1) 𝜎𝐸𝑡
+unconditional standard deviation of the conditional expected excess return on the market, (2) 𝜎𝑣𝑎𝑟𝑡
+conditional variance of the market, and (3) 𝜎𝛽𝑡
+the conditional CAPM beta and the conditional market risk premia and variance are denoted by 𝜌𝛽𝑡 ,𝐸𝑡
+the conditional CAPM is given by:
+(𝛽𝑡, 𝐸𝑡
+
+, the
+, the unconditional standard deviation of the
+, the unconditional standard deviation of the conditional CAPM beta. The correlations between
+. The unconditional alpha in
+
+and 𝜌𝛽𝑡 ,𝑣𝑎𝑟𝑡
+
+(𝛽𝑡, 𝑣𝑎𝑟𝑡
+
+𝛼𝑢 = covt
+
+− 𝑏 × covt
+
+)
+,
+
+)
+
+where 𝑏 is the ratio of the unconditional market risk premium to the unconditional market variance. Panel A reports the unconditional alphas
+)
+when considering either the market timing strategy, cov𝑡
+, in isolation. Panel B reports
+the total unconditional alpha when combining the market and volatility timing effects. In Panel B, we set 𝜌𝛽𝑡 ,𝐸𝑡
+= 0.5. In the left
+= 0.5 and compute the unconditional alpha for a range of unconditional standard deviations of the conditional
+part of Panel B, we set 𝜎𝑣𝑎𝑟𝑡
+market risk premium and betas. In the right part of Panel B, we set 𝜎𝐸𝑡
+= 0.5 and compute the unconditional alpha for a range of unconditional
+standard deviations of the conditional market variance and the betas. All returns are measured in annualized percentage points.
+
+)
+, or the volatility timing strategy, −𝑏covt
+
+= −𝜌𝛽𝑡 ,𝑣𝑎𝑟𝑡
+
+(𝛽𝑡, 𝑣𝑎𝑟𝑡
+
+(𝛽𝑡, 𝐸𝑡
+
+substantially, highlighting the scope of conditional risk to help explain
+anomalies.
+
+In conclusion, the above estimates suggest that conditional risk
+can, in principle, account for a large fraction of risk premia. Under
+a sufficiently strong correlation structure, the variation in conditional
+moments appears large enough that it can generate substantial condi-
+tional risk. Whether the correlation structure is such that conditional
+risk matters is thus ultimately an empirical question. We will em-
+brace this question in the upcoming sections. We note, based on the
+discussions above, that properly accounting for conditional risk will
+require methods that allow us to account for the potential impact of
+high-frequency variation in conditional risk.
+
+Finally, we emphasize that we use largely similar assumptions as
+LN. The main reason we differ in our conclusions is that we consider
+that market timing and volatility timing both contribute positively to
+conditional risk. We will present evidence of this assumption in the
+upcoming empirical section. Moreover, there is a slight difference in se-
+mantics between our studies: We focus on the impact of conditional risk
+on factor premia, in which case a potential impact of 2.9 percentage
+points from market timing is economically meaningful – particularly
+considering that the equity premium is likely around 5 percentage
+points and the average Fama and French factor has historically had
+an unconditional alpha of 3.7 percentage points. LN, however, focuses
+on whether conditional risk can explain all of the alpha on the value
+premium, in which case the effect of market timing is indeed too small.
+
+1.3. Conditional risk factors
+
+This section introduces a set of conditional risk factors that can
+help researchers account for conditional risk. We also introduce risk
+factors that allow us to explicitly estimate the role of conditional risk
+premia and conditional variance in generating conditional risk (i.e. split
+conditional risk into expected return and volatility timing).
+
+1.3.1. Conditional risk in the CAPM
+
+We can arrive at the above expression for conditional risk more
+easily if we use the stochastic discount factor language instead of the
+beta language. The stochastic discount factor approach is also useful
+when generalizing the results to a multi-factor model.
+
+The stochastic discount factor of the conditional CAPM2 is
+
+𝑚𝑡+1 =
+
+1
+𝑅𝑓
+𝑡
+
+−
+
+1
+𝑅𝑓
+𝑡
+
+𝑏𝑡 ̃𝑟𝑚
+𝑡+1
+
+which can be written as
+
+𝑚𝑡+1 =
+
+1
+𝑅𝑓
+𝑡
+
+−
+
+1
+𝑅𝑓
+𝑡
+
+𝑏̃𝑟𝑚
+
+𝑡+1 −
+
+1
+𝑅𝑓
+𝑡
+
+(𝑏𝑡 − 𝑏)̃𝑟𝑚
+𝑡+1
+
+The law of one price implies that
+
+0 = 𝐸𝑡[𝑚𝑡+1𝑟𝑖
+
+𝑡+1] = 𝐸𝑡[𝑅𝑓
+
+𝑡 𝑚𝑡+1𝑟𝑖
+
+𝑡+1]
+
+By the law of iterated expectations, we have
+
+0 = 𝐸[𝑅𝑓
+
+= 𝐸[𝑟𝑖
+
+𝑡 𝑚𝑡+1𝑟𝑖
+𝑡+1]
+𝑡+1] + cov(𝑟𝑖
+
+𝑡+1; 𝑅𝑓
+
+𝑡 𝑚𝑡+1)
+
+meaning that
+
+𝐸[𝑟𝑖
+
+𝑡+1] = −cov(𝑟𝑖
+= ̃𝛽𝐸[𝑟𝑚
+
+𝑡+1; 𝑅𝑓
+𝑡+1] + cov(𝑟𝑖
+
+𝑡 𝑚𝑡+1)
+
+𝑡+1; 𝑐𝑡+1)
+⏟⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏟
+Conditional Risk
+
+(12)
+
+(13)
+
+(14)
+
+(15)
+
+(16)
+
+(17)
+
+(18)
+
+which is the same expression as in (9). In the following section, we
+use the stochastic discount factor language to more formally derive a
+multi-factor model with conditional risk.
+
+1.3.2. Conditional risk in factor models
+
+We now derive a general statement for conditional risk in factor
+models. Consider the class of factor models captured by the following
+
+2 The notation for the stochastic discount factor for the CAPM in expression
+
+(12) differs slightly from the one usually used. Cochrane (2001) uses
+
+𝑚𝑡+1 = 𝐴𝑡 + 𝐵𝑡𝑅𝑀
+𝑡+1
+where 𝐴𝑡 = 1∕𝑅𝑓
+the same as ours:
+
+𝑡 −𝐵𝑡𝐸𝑡[𝑅𝑀
+
+𝑡+1] and 𝐵𝑡 = −𝑏𝑡∕𝑅𝑓
+
+𝑡 . But this expression is of course
+
+𝑚𝑡+1 = 𝐴𝑡 + 𝐵𝑡𝑅𝑀
+
+𝑡+1 =
+
+1
+𝑅𝑓
+𝑡
+
+6 
+
++ 𝐵𝑡(𝑅𝑀
+
+𝑡+1 − 𝐸𝑡[𝑅𝑀
+
+𝑡+1]) =
+
+1
+𝑅𝑓
+𝑡
+
+−
+
+1
+𝑅𝑓
+𝑡
+
+𝑏𝑡 ̃𝑟𝑚
+
+𝑡+1.
+
+N.J. Gormsen and C.S. Jensen
+
+Journal of Financial Economics 162 (2024) 103933 
+
+stochastic discount factor for 𝑘 = 1, … , 𝐾 traded risk factors:
+
+1
+𝑅𝑓
+𝑡
+
+−
+
+1
+𝑅𝑓
+𝑡
+
+𝐾
+∑
+
+𝑘=1
+
+𝑡 ̃𝑟𝑘
+𝑏𝑘
+𝑡+1
+
+𝑚𝑡+1 =
+
+where
+
+𝑡+1 − 𝐸𝑡[𝑟𝑘
+
+𝑡+1]
+
+𝑡+1 = 𝑟𝑘
+̃𝑟𝑘
+and
+
+𝑏𝑘
+𝑡 =
+
+𝐸𝑡[𝑟𝑘
+var𝑡(̃𝑟𝑘
+
+𝑡+1]
+𝑡+1)
+
+(19)
+
+(20)
+
+While Proposition 1 allows for the estimation of a 𝑘 factor model,
+we will focus on the one-factor CAPM model in most of the empirical
+analysis. We do so because the conditional risk with respect to the
+market portfolio has the most tangible interpretation and because the
+market factor is the most widely used factor. However, we extend the
+analysis in Section 4.2 to also cover multi-factor models.
+
+1.3.3. Expected return and variance timing
+
+Recall that conditional risk comes from covariance between condi-
+tional betas and two terms, namely the conditional expected returns
+and conditional variance (multiplied by a constant):
+
+is the time 𝑡 shock and price of risk for factor 𝑘. The expression in (19)
+can be rewritten as
+
+𝑚𝑡+1 =
+
+1
+𝑅𝑓
+𝑡
+
+−
+
+1
+𝑅𝑓
+𝑡
+
+𝐾
+∑
+
+𝑘=1
+
+𝑏𝑘 ̃𝑟𝑘
+
+𝑡+1 −
+
+1
+𝑅𝑓
+𝑡
+
+𝐾
+∑
+
+𝑘=1
+
+(𝑏𝑘
+
+𝑡 − 𝑏𝑘)̃𝑟𝑘
+𝑡+1
+
+(21)
+
+where 𝑏𝑘 is the unconditional price of risk for factor 𝑘
+
+𝑏𝑘 =
+
+𝐸[𝑟𝑘
+var(̃𝑟𝑘
+
+𝑡+1]
+𝑡+1)
+
+By applying the law of one price and taking unconditional ex-
+pectations, we can state an unconditional model that incorporates
+conditional risk. Before doing so, we define the conditional risk factors
+𝑡+1 = ̃𝑟𝑘
+𝑐𝑘
+
+𝑡 − 𝑏𝑘).
+
+𝑡+1(𝑏𝑘
+
+Proposition 1 (Conditional Risk in Factor Models). The unconditional
+expected excess return on an asset i is given by
+
+𝐾
+∑
+
+𝑘=1
+
+̃𝛽𝑘𝜆𝑘 +
+
+𝐾
+∑
+
+𝑘=1
+
+𝑐 𝜆𝑘
+𝛽𝑘
+𝑐
+
+𝐸[𝑟𝑖
+
+𝑡+1] =
+
+where
+
+̃𝛽𝑘 =
+
+𝛽𝑘
+𝑐 =
+
+cov(𝑟𝑖
+
+var(̃𝑟𝑘
+
+cov(𝑟𝑖
+
+𝑡+1)
+
+𝑡+1)
+
+𝑡+1; ̃𝑟𝑘
+𝑡+1)
+𝑡+1; 𝑐𝑘
+𝑡+1)
+
+var(𝑐𝑘
+
+,
+
+,
+
+𝜆𝑘 = 𝐸[𝑟𝑘
+
+𝑡+1],
+
+𝑐 = var(𝑐𝑘
+𝜆𝑘
+
+𝑡+1)
+
+(22)
+
+(23)
+
+(24)
+
+In the factor model above, each factor 𝑘 is represented by two
+betas: one for its unconditional risk and the other for its conditional
+risk. These factors capture all of the unconditional expected return
+implications of the stochastic discount factor in (19). The following
+proposition summarizes the properties of the conditional-risk factors
+and their betas.
+
+Proposition 2 (Properties of Conditional Risk Factors and Betas). 2.a
+(zero mean factors): The means of all conditional-risk factors are zero:
+
+𝐸[̃𝑟𝑘
+
+𝑡+1] = 𝐸[𝑐𝑘
+
+𝑡+1] = 0
+
+(25)
+
+2.b (uncorrelated factors): For each factor 𝑘, the return and shock to the
+risk factor is uncorrelated with the conditional risk factor:
+
+cov(𝑟𝑘
+
+𝑡+1; 𝑐𝑘
+
+𝑡+1) = cov(̃𝑟𝑘
+
+𝑡+1; 𝑐𝑘
+
+𝑡+1) = 0
+
+(26)
+
+2.c (shock betas for the factors): The factor 𝑘 has a loading of one on its
+own shock:
+𝑡+1; ̃𝑟𝑘
+cov(𝑟𝑘
+𝑡+1)
+
+var(̃𝑟𝑘
+
+𝑡+1)
+
+(27)
+
+= 1
+
+𝐸[𝑟𝑖
+
+𝑡+1] = ̃𝛽𝐸[𝑟𝑚
+
+𝑡+1] + cov
+
+(𝛽𝑡; 𝐸𝑡[𝑟𝑚
+
+)
+𝑡+1)
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+Conditional Risk
+
+𝑡+1] − 𝑏 var𝑡(̃𝑟𝑚
+
+(30)
+
+The conditional risk factors introduced above allow one to estimate
+the net impact of these two terms. We next introduce two factors
+that allow one to effectively separate the two terms. In particular,
+we decompose the 𝑘th conditional-risk factor into two parts, 𝑐𝑘
+𝑡+1 =
+𝑡+1 + 𝑐𝑘,𝑣
+𝑐𝑘,𝑒
+
+𝑡+1, where we define the two factors as
+)
+
+(
+
+𝑐𝑘,𝑒
+𝑡+1 = ̃𝑟𝑘
+
+𝑡+1
+
+𝑏𝑡 −
+
+(
+
+𝑐𝑘,𝑣
+𝑡+1 = −̃𝑟𝑘
+
+𝑡+1
+
+𝑏 −
+
+𝐸[𝑟𝑘
+var𝑡(𝑟𝑘
+𝐸[𝑟𝑘
+var𝑡(𝑟𝑘
+
+𝑡+1]
+𝑡+1)
+𝑡+1]
+𝑡+1)
+
+)
+
+.
+
+(31)
+
+(32)
+
+These two conditional-risk factors can be used to summarize how con-
+ditional betas of test assets covary with expected returns and variance
+for factor 𝑘, as summarized in the next proposition.
+
+Proposition 3 (Market and Volatility Timing). The effect of market timing
+and volatility timing can be captured by the unconditional covariance
+𝑡+1 and 𝑐𝑘,𝑣
+between expected excess return on asset 𝑖 and the two factors 𝑐𝑘,𝑒
+𝑡+1:
+
+cov(𝑟𝑖
+
+cov(𝑟𝑖
+
+𝑡+1; 𝑐𝑘,𝑒
+𝑡+1; 𝑐𝑘,𝑣
+
+𝑡+1) = cov
+𝑡+1) = cov
+
+)
+
+(𝛽𝑘
+(𝛽𝑘
+
+𝑡+1]
+
+𝑡 ; 𝐸𝑡[𝑟𝑘
+𝑡 ; −𝑏 var𝑡(̃𝑟𝑘
+
+) ,
+
+𝑡+1)
+
+(33)
+
+(34)
+
+with total conditional risk given by the sum of the two covariances.
+
+2. Methodology
+
+In our empirical analysis, we control for conditional risk by includ-
+ing a number of conditioning variables in our regressions. Motivated
+by the theory section above, we include estimates of the conditional
+market risk premium, the conditional variance, and conditional betas.
+If we observe these variables perfectly, we can use the conditional-risk
+factors from Proposition 1 and need not include conditional betas or
+the conditional variance and market risk premia in isolation. However,
+given that our measures of these inputs are likely to be imperfect, we
+include both the conditional betas and conditional market moments
+to ensure that we capture as much conditional risk as possible. More
+precisely, we implement the following time-series regression for each
+asset 𝑖:
+
+𝑡+1 + 𝑎2𝑟Mkt
+
+𝑟𝑖
+𝑡+1 = 𝛼 + 𝑎1𝑟Mkt
+We outline our estimation strategy for conditional market betas, risk
+premia, and variance below.
+
+𝑡+1 var𝑡 +𝑎4𝑟Mkt
+
+𝑡+1 𝐸𝑡 + 𝑎3𝑟Mkt
+
+𝑡 + 𝜖𝑡+1.
+
+𝑡+1 𝛽𝑖
+
+(35)
+
+2.d (constant-beta equivalence): If an asset j has a constant conditional beta,
+the expected return is given by the usual unconditional beta. That is, if
+
+2.1. Identifying conditional moments
+
+cov𝑡(𝑟𝑗
+
+𝑡+1; 𝑟𝑘
+𝑡+1)
+
+var𝑡(𝑟𝑘
+
+𝑡+1)
+
+= 𝑐
+
+𝛽𝑘
+𝑡 =
+
+then
+
+̃𝛽𝑘 = 𝛽𝑘
+
+and
+
+𝛽𝑘
+𝑐 = 0
+
+In order to estimate our factor model, we must estimate the condi-
+tional mean and variance of the factors. In this section, we outline the
+identifying assumptions we rely on in doing so.
+
+To estimate the conditional market risk premium, we use the three-
+pass estimator suggested by Kelly and Pruitt (2013). The estimator uses
+the cross-section of valuation ratios to estimate the expected return. By
+
+(28)
+
+(29)
+
+7 
+
+N.J. Gormsen and C.S. Jensen
+
+Table 2
+Summary statistics.
+
+Journal of Financial Economics 162 (2024) 103933 
+
+Exchange
+
+Starting
+year
+
+Median number
+of firms
+
+Mean weight in
+global portfolio
+
+Market risk premium
+
+R2 in predictive regressions
+
+St. dev
+
+Average
+
+Variance
+
+Returns
+
+Excess returns
+
+AUS
+AUT
+BEL
+CAN
+CHE
+DEU
+DNK
+ESP
+FIN
+FRA
+GBR
+HKG
+IRL
+ISR
+ITA
+JPN
+NLD
+NOR
+NZL
+PRT
+SGP
+SWE
+USA
+WOR
+
+1994
+1992
+1991
+1986
+1991
+1991
+1992
+1991
+1991
+1991
+1988
+1995
+1995
+1996
+1992
+1989
+1991
+1991
+1999
+1997
+2000
+1991
+1964
+1990
+
+1 733
+90
+157
+484
+268
+1 208
+165
+154
+140
+766
+2 105
+1 209
+51
+369
+279
+3 612
+160
+244
+131
+56
+699
+380
+4 656
+19 698
+
+0.018
+0.007
+0.009
+0.023
+0.027
+0.084
+0.005
+0.014
+0.004
+0.044
+0.162
+0.052
+0.002
+0.002
+0.018
+0.146
+0.017
+0.004
+0.003
+0.002
+0.009
+0.012
+0.420
+1.000
+
+0.192
+0.185
+0.175
+0.161
+0.149
+0.174
+0.182
+0.204
+0.242
+0.191
+0.162
+0.212
+0.231
+0.206
+0.203
+0.197
+0.181
+0.231
+0.198
+0.214
+0.170
+0.220
+0.174
+0.146
+
+8.0%
+3.5%
+8.0%
+6.7%
+7.9%
+5.0%
+9.0%
+6.7%
+12.1%
+6.6%
+4.4%
+10.9%
+6.0%
+8.4%
+3.9%
+0.7%
+7.7%
+8.8%
+7.9%
+4.3%
+8.0%
+8.4%
+6.3%
+5.3%
+
+0.462
+0.441
+0.419
+0.516
+0.328
+0.379
+0.375
+0.384
+0.530
+0.433
+0.381
+0.380
+0.339
+0.353
+0.389
+0.227
+0.469
+0.454
+0.437
+0.370
+0.398
+0.433
+0.196
+0.188
+
+0.002
+0.020
+0.017
+0.010
+0.025
+0.010
+0.013
+0.005
+0.032
+0.012
+0.013
+0.005
+0.023
+0.008
+0.000
+0.003
+0.039
+0.022
+0.017
+0.011
+0.057
+0.014
+0.007
+0.013
+
+0.004
+0.020
+0.017
+0.011
+0.022
+0.009
+0.014
+0.002
+0.027
+0.011
+0.015
+0.005
+0.015
+0.007
+0.000
+0.011
+0.032
+0.022
+0.020
+0.009
+0.061
+0.015
+0.013
+0.015
+
+This table reports summary statistics for the 24 exchanges in our sample. Our sample consist of the union of all U.S. common stocks on CRSP tape
+(‘‘shrcd’’ equal to 10 or 11) and all global stocks in the Xpressfeed global database (‘‘tcpi’’ equal to 0). The expected market risk premium is calculated
+using the Kelly and Pruitt (2013) estimator. Expected variance is calculated using an AR(1) regression. All returns are in USD. The standard deviation
+of the market risk premium is annualized. The market risk premium is in annual percent. The R2 is based on monthly regressions. Outside the U.S., we
+use the global measures of expected return and variance in all samples. Returns are total log returns. Excess returns are simple returns in excess of the
+risk-free rate.
+
+using the cross-section of valuation ratios rather than just the valuation
+ratio for the market, it is possible to separate the effect of expected
+growth rates and expected discount rates. Accordingly, the methodol-
+ogy consistently recovers the conditional market risk premium based
+on two simple identifying assumptions: (1) the expected log return and
+log growth rates are linear in a set of latent factors, and (2) these factors
+evolve according to a first-order vector autoregression.
+
+We rely on the Kelly and Pruitt estimator for multiple reasons. Most
+importantly, the method is proven to predict the one-month expected
+market return well both in- and out-of-sample, and it is proven to work
+in both the U.S. and internationally. Indeed, Kelly and Pruitt (2013)
+show that the estimator predicts the one-month expected return on
+the U.S. market portfolio with an 𝑅2 of 2.38 in-sample and 0.93 out-
+of-sample, and it predicts the global market portfolio with an 𝑅2 of
+1.5 out-of-sample. In addition, the estimator consistently recovers the
+market risk premium under assumptions that are consistent with the
+null hypothesis we test against when we are testing for conditional risk.
+The estimator by Kelly and Pruitt (2013) is a three-stage estimator
+that extracts the conditional market risk premium using information
+from the cross-section of book-to-market values. By first estimating the
+sensitivity of valuation ratios of different portfolios to changes in ex-
+pected returns, the methodology afterwards aggregates the information
+into a single estimate of expected one-period stock returns.
+
+With respect to the variance, we similarly assume that the market
+variance evolves according to a first-order autoregression. We rely
+on this assumption because it is transparent and in line with re-
+cently published papers revolving around time-varying variance, such
+as Campbell et al. (2018).
+
+2.2. Data
+
+Our sample consists of 75,274 stocks covering 23 countries between
+January 1964 and December 2022. The 23 markets in our sample corre-
+spond to the countries belonging to the MSCI World Developed Index as
+of December 31, 2018. We report summary statistics in Table 2. Stock
+
+returns are from the union of the CRSP tape and the XpressFeed Global
+Database. All returns are in USD and do not include any currency
+hedging. All excess returns are measured as excess returns above the
+U.S. Treasury bill rate.
+
+We study conditional risk in each country in our sample, a broad
+global sample, and an international sample. Our broad sample of global
+equities contains all available common stocks on the union of the CRSP
+tape and the XpressFeed Global database. Our international sample
+excludes U.S. firms from the global sample. For companies traded in
+multiple markets, we use the primary trading vehicle identified by
+XpressFeed. Our global sample runs from June 1990 to December 2022,
+based on factor availability on Ken French’s website. In some individual
+countries, we start our sample earlier if data is available (see Table 2
+for an overview of country-level start dates).
+
+For the U.S. and global samples, we download all risk factors except
+betting against beta from Ken French’s webpage. For other samples, we
+construct our own version of these risk factors.3 We use the version of
+betting against beta from the authors’ webpage.4
+
+The Kelly and Pruitt (2013) estimator takes as input portfolios
+sorted on size and book-to-market. In the U.S., we use 100 portfolios
+sorted unconditionally on size and book-to-market from Ken French’s
+website. In the global sample, we similarly create 100 portfolios sorted
+unconditionally on size and book-to-market. In the individual inter-
+national countries, we create 25 portfolios sorted first on size and
+then conditionally on book-to-market.5 We use only 25 portfolios and
+conditional sorts because some of the countries have few firms at the
+beginning of the sample and the conditional sorts into 25 portfolios
+helps ensure an adequate number of firms in each portfolio.
+
+3 We use the methodology of Asness and Frazzini (2011) for constructing
+Fama and French portfolios outside the U.S., although we use the traditional
+Fama and French measure of value.
+
+4 https://www.aqr.com/Insights/Datasets.
+5 Note that, unless stated otherwise, we use global risk factors on the
+
+right-hand side except in the U.S.
+
+8 
+
+N.J. Gormsen and C.S. Jensen
+
+Journal of Financial Economics 162 (2024) 103933 
+
+We calculate monthly variance as the sum of squared daily residuals
+over the month with a degree of freedom adjustment for the estimation
+of the mean.
+
+̂var𝑡(̃𝑟𝑚
+
+𝑡+1) =
+
+𝑛
+𝑛 − 1
+
+𝑛
+∑
+
+𝑖 − ̄𝑟𝑚)2
+(𝑟𝑚
+
+𝑖=1
+
+(36)
+
+where 𝑛 is the number of trading days in the month. The estimation
+assumes that the expected return is constant during each month.
+
+The expected time 𝑡 variance is then calculated as:
+
+𝑡+1) = ̂𝜃0 + ̂𝜃1 ̂var𝑡−1(̃𝑟𝑚
+𝑡 )
+
+var𝑡(̃𝑟𝑚
+where ̂𝜃0 and ̂𝜃1 are parameter estimates from the following regression:
+
+(37)
+
+̂var𝑡(̃𝑟𝑚
+
+𝑡+1) = 𝜃0 + 𝜃1 ̂var𝑡−1(̃𝑟𝑚
+𝑡 )
+
+(38)
+
+We rely on in-sample estimations for the expected variance, but
+the results are generally robust to using out-of-sample estimates of the
+variance as in Bollerslev et al. (2009).
+
+Finally, in order to estimate the betas of a given portfolio, we use
+what Boguth et al. (2011) refer to as lagged-component betas. These
+are estimated as the portfolio-weighted average of the ex-ante beta of
+the stocks in the portfolio. We follow Fama and French (1996) and use
+60 months of monthly returns to calculate betas on individual stocks.6
+See Boguth et al. (2011) for details.
+
+3. Conditional risk in major risk factors
+
+In this section, we study the effect of conditional market risk on the
+major risk factors studied in the literature. We first study the behavior
+of our estimates of conditional market moments before quantifying the
+impact of conditional risk.
+
+3.1. Variation in conditional moments of market returns
+
+Table 2 offers summary statistics of the 23 exchanges in our sample
+along with the international and global samples. The first three columns
+show the starting year of the sample, the time-series median number
+of firms, and the time-series average weight of the given country in
+the global portfolio. The U.S. has a high average weight in the global
+portfolio, but this is in part driven by the early years where the
+U.S. constitutes most of the sample. The weight of the U.S. market
+is downward trending throughout the sample and towards the end of
+the sample, the weight of the U.S. is closer to .2. The fifth and sixth
+columns in Table 2 show the average standard deviation and market
+risk premium in annualized terms.
+
+The last three columns of Table 2 show the 𝑅2 of the expected vari-
+ance and return to the market portfolio. Regarding the variance, the 𝑅2
+is generally around 20% to 50%, with the U.S. and the global portfolio
+being on the low end. This high 𝑅2 corresponds to previous studies on
+predicting variance (Bollerslev et al., 2009, 2016), suggesting that the
+simple AR(1) method for predicting variance works well.
+
+The two last columns of Table 2 summarize the 𝑅2 of the expected
+return on the market portfolio. The first column shows the 𝑅2 of the
+expected log return to the market portfolio, which is what the Kelly
+Pruitt estimator extracts. The last column shows the expected excess
+returns, which are calculated under the assumption of log-normally
+distributed returns by adding one-half the conditional log-variance to
+the log-return, taking the exponential, and subtracting the risk-free
+rate.
+
+6 An exception is for BAB, where we use the Frazzini and Pedersen (2014)
+betas, which means the conditional beta is always zero (the strategy is hedged
+ex-ante to have a zero beta). Using Fama and French betas means betas are
+not exactly zero, although conceptually they should be.
+
+The table shows that the 𝑅2 for the excess returns in the U.S. and the
+global sample is 1.3% and 1.5%, which is around the same as reported
+by Kelly and Pruitt (2013). Internationally, the 𝑅2 varies between
+0.02% to 3.5%, with the median being 1.5%. The results reported by
+Kelly and Pruitt for the U.S. and global sample thus appear to extend
+to most individual exchanges.
+
+The expected variance and market return are used to calculate
+the relative price of risk 𝑏𝑡 − 𝑏, which is an important input for the
+conditional-risk factors used in Section 3.4. Fig. 3 visually inspects this
+relative price of risk in the U.S. (Panel A) and the global sample (Panel
+B). The price of risk varies substantially on both the short and long
+horizon. The substantial short-horizon variation in the price of risk
+underlines the importance of using a forward-looking measure of the
+price of risk. Indeed, an alternative to our approach is to implement
+the conditional CAPM over short horizons for which the price of risk
+is assumed to be constant. If daily data are available, the horizon is
+often around three to six months, and if daily data are not available,
+the horizon is substantially longer. The price of risk in Fig. 3 exhibits
+substantial variation over these horizons, which, if statistically signif-
+icant and not driven by forecast errors, challenges this nonparametric
+approach.
+
+The price of risk in Fig. 3 also shows the substantial long-run
+variation that appears linked to economic conditions. In the U.S. in
+particular, the price of risk tends to be the highest in the years after
+economic recessions. The price of risk peaks a few years after the
+recessions in 1973–1975, 1981–1982, 1990–1991, 2001, and 2007–
+2009. On the other hand, the price of risk is lowest during the tech
+bubble. The price of risk is also low during the onset of the financial
+crisis. The low price of risk at the onset of the financial crisis appears
+to run counter to the notion of counter-cyclical risk aversion, but it is
+consistent with the findings in Moreira and Muir (2017). Moreira and
+Muir argue that in the beginning of the financial crisis, and crises more
+generally, the variance increases by more than the market risk premium
+which causes the price of risk to go down.
+
+3.2. Conditional risk in major equity risk factors
+
+In this section, we quantify how much of the unconditional alpha to
+major equity factors can be explained by conditional risk. We consider
+six cross-sectional portfolios throughout the section: value (HML), prof-
+itability (RMW), investment (CMA), momentum (UMD), betting against
+beta (BAB), and the tangency portfolio (TAN) spanned by the market
+and these five factors.
+
+Table 3 Panel A shows the results of the U.S. sample. The first row
+shows the unconditional CAPM alpha, revealing the well-known empir-
+ical fact that these factors have substantial CAPM alpha. The next row
+shows the intercept obtained from estimating the model in Eq. (35).
+If our conditioning variables capture all the relevant variation in con-
+ditional market risk premia and variance, this intercept is equal to
+the average conditional alpha over the given sample. Controlling for
+conditional risk lowers the alpha for all strategies.
+
+In the rows below, we specify the conditional risk premia for
+the different factors (in annualized terms). Conditional risk explains
+between 38 basis points and 1.25 percentage points across the factors.
+The t -statistics for these estimates are calculated using the methodology
+in Boguth et al. (2011). The largest effect of conditional risk is for the
+value factor, where conditional risk explains 27% of the unconditional
+alpha.
+
+In Panel B, we zoom in on our the post-1996 sample. We focus
+on this period for two reasons. First, recent research suggests that
+the equity premium may be particularly volatile during this period
+(as can be seen in Fig. 1). Second, it represents essentially an out-of-
+sample analysis relative to the original study by Lewellen and Nagel
+(which ends in June 2001). When considering this sample period, we
+find a substantially larger impact of conditional risk. For the value,
+
+9 
+
+N.J. Gormsen and C.S. Jensen
+
+Journal of Financial Economics 162 (2024) 103933 
+
+Fig. 3. Conditional price of risk. This figure plots the time series of the conditional price of risk minus the unconditional price of risk. The (conditional) price of risk is the
+(conditional) market risk premium relative to the (conditional) variance. Panel A plots the price of risk in the U.S. sample and Panel B plots the price of risk in the global sample.
+
+investment, and momentum factors, we find that conditional risk can
+explain around 2% points of alpha.
+
+The impact of conditional risk in Panel B is large relative to the
+impact of market risk in general. The compensation is close to half the
+market risk premium. Moreover, the compensation for conditional risk
+is substantially higher than the compensation for unconditional risk.
+The conditional risk and unconditional risk appear to work in opposite
+directions. In fact, the raw average returns are substantially closer to
+the true alpha of the factors than the unconditional CAPM alphas are.
+The magnitude is also large relative to the unconditional alpha on
+the factors. For instance, the 2 percentage points represent 83% of the
+unconditional alpha on the HML factor. We note that the unconditional
+alpha to the HML factor is insignificant in this sample even before
+controlling for conditional risk. This is partly because value is slightly
+weaker in the modern sample but of course also because the sample is
+shorter.
+
+For the other factors, conditional risk has a substantial impact as
+well. For the investment factor, the alpha is cut almost in half and
+
+becomes insignificant. For momentum, the impact on the alpha, relative
+to the unconditional alpha, is more modest, although the momentum
+factor also becomes insignificant.
+
+Taken together, the above results from the U.S. sample empha-
+size the importance of controlling for conditional risk when doing
+performance evaluation.
+
+To further illustrate the importance of conditional risk, Fig. 4 plots
+country-level results for the value factor. The figure focuses on the
+G10 countries, excluding Italy because the value factor has negative
+unconditional alpha in this country. The figure plots the compensation
+for conditional risk in the value factor in each country along with the
+percentage of the unconditional alpha that is explained by conditional
+risk. The compensation for conditional risk is as high as 2% in France,
+Germany, and Sweden. This amounts to almost the entire value pre-
+mium in France and Germany and more than the entire premium in
+Sweden. This finding reaffirms one of the key points of the paper: there
+is enough conditional risk in the data to potentially have a material
+influence on estimates of alphas on major risk factors.
+
+10 
+
+N.J. Gormsen and C.S. Jensen
+
+Journal of Financial Economics 162 (2024) 103933 
+
+Table 3
+Conditional risk in equity factors.
+
+Panel A: Full U.S. Sample
+
+Alpha in unconditional CAPM
+
+Alpha in conditional model
+
+Compensation for conditional risk
+
+Fraction of alpha explained by conditional risk
+
+Compensation for unconditional risk
+
+Observations
+Adjusted R2
+
+Panel B: Post 1996 U.S. Sample
+
+Alpha in unconditional CAPM
+
+Alpha in conditional model
+
+Compensation for conditional risk
+
+Fraction of alpha explained by conditional risk
+
+Compensation for unconditional risk
+
+Observations
+Adjusted R2
+
+Panel C: Global Sample
+
+Alpha in unconditional CAPM
+
+Alpha in conditional model
+
+Compensation for conditional risk
+
+Fraction of alpha explained by conditional risk
+
+Compensation for unconditional risk
+
+Observations
+Adjusted R2
+
+HML
+
+RMW
+
+CMA
+
+UMD
+
+BAB
+
+TAN
+
+4.58
+(2.67)
+
+3.33
+(2.08)
+
+1.25
+(2.12)
+0.27
+
+-0.86
+
+708
+0.11
+
+2.45
+(0.77)
+
+0.43
+(0.15)
+
+2.02
+(1.63)
+0.83
+
+-0.48
+
+324
+0.15
+
+3.40
+(1.48)
+
+1.71
+(0.88)
+
+1.69
+(1.89)
+0.50
+
+-0.38
+
+390
+0.15
+
+3.95
+(3.43)
+
+3.57
+(3.55)
+
+0.38
+(0.85)
+0.10
+
+-0.58
+
+708
+0.15
+
+6.29
+(3.30)
+
+5.62
+(3.33)
+
+0.68
+(0.77)
+0.11
+
+-1.64
+
+324
+0.22
+
+4.80
+(5.69)
+
+4.90
+(6.10)
+
+-0.09
+(-0.25)
+-0.02
+
+-0.55
+
+390
+0.17
+
+4.70
+(4.54)
+
+3.80
+(4.02)
+
+0.90
+(2.68)
+0.19
+
+-1.04
+
+708
+0.22
+
+4.43
+(2.50)
+
+2.61
+(1.64)
+
+1.82
+(2.42)
+0.41
+
+-1.17
+
+324
+0.26
+
+3.50
+(2.29)
+
+2.48
+(1.88)
+
+1.03
+(1.85)
+0.29
+
+-0.77
+
+390
+0.21
+
+8.63
+(4.93)
+
+8.05
+(4.61)
+
+0.58
+(0.67)
+0.07
+
+-0.99
+
+708
+0.29
+
+7.25
+(2.62)
+
+5.19
+(1.75)
+
+2.05
+(1.19)
+0.28
+
+-2.63
+
+324
+0.32
+
+8.78
+(3.89)
+
+8.70
+(3.86)
+
+0.08
+(0.09)
+0.01
+
+-1.54
+
+390
+0.23
+
+9.99
+(5.11)
+
+8.95
+(4.91)
+
+1.04
+(1.47)
+0.10
+
+-0.33
+
+708
+0.03
+
+10.42
+(2.92)
+
+9.19
+(2.88)
+
+1.24
+(1.38)
+0.12
+
+-1.74
+
+324
+0.10
+
+9.92
+(4.36)
+
+8.96
+(4.20)
+
+0.95
+(1.60)
+0.10
+
+-0.54
+
+390
+0.06
+
+4.97
+(7.91)
+
+4.24
+(7.87)
+
+0.73
+(1.98)
+0.15
+
+0.58
+
+708
+0.30
+
+5.23
+(4.44)
+
+3.76
+(3.81)
+
+1.47
+(2.25)
+0.28
+
+0.17
+
+324
+0.25
+
+4.90
+(7.06)
+
+4.47
+(7.35)
+
+0.43
+(1.67)
+0.09
+
+0.29
+
+390
+0.11
+
+𝑡+1 + 𝑎2𝑟𝑀𝐾𝑇
+
+This table reports results from the evaluation of different equity trading strategies when controlling for conditional risk. We control for conditional
+risk by including a number of conditioning variables in our regression: 𝐸𝑡, the conditional market premium, 𝑣𝑎𝑟𝑡, the conditional market variance,
+and 𝛽𝑖
+𝑡 , the conditional beta of the factor. For each asset i, we implement the following time-series regression:
+𝑟𝑖
+𝑡+1 = 𝛼𝑖 + 𝑎1𝑟𝑀𝐾𝑇
+𝛽𝑖
+𝑡 + 𝜀𝑡+1
+where 𝑟𝑖
+𝑡+1 is the excess return to the risk factor i. TAN refers to the tangency portfolio spanned by the other five portfolios and the market.
+‘‘Compensation for conditional risk’’ is the difference between the unconditional CAPM alpha of the factor and the alpha stemming from the
+regression above. ‘‘Compensation for unconditional risk’’ is the factor’s unconditional CAPM beta times the market risk premium. Alphas and
+compensation for conditional risk are in annual percentage points. Below parameter estimates we report t -statistics based on Newey-West
+standard errors. Statistical significance at the 5% level is indicated in bold. The Full U.S. sample is 1964–2022 and the global sample is
+1986–2022.
+
+𝑣𝑎𝑟𝑡 + 𝑎4𝑟𝑀𝐾𝑇
+
+𝐸𝑡 + 𝑎3𝑟𝑀𝐾𝑇
+
+𝑡+1
+
+𝑡+1
+
+𝑡+1
+
+We next turn our attention to our broad global sample. In Table 3
+Panel C, we study the effect of conditional in our broad global sample
+spanning 23 countries. We find very similar results to those in the U.S.
+sample. All factors except profitability continue to load on conditional
+risk, in the sense that controlling for conditional risk reduces the
+estimated alpha.
+
+The effect is again most pronounced for the value factor and the
+investment factor. Controlling for conditional risk lowers the alpha
+of HML by 50%. Similarly, controlling for conditional risk lowers the
+alpha of CMA by 30% and makes the alpha insignificant. These findings
+further highlight the ways in which controlling for conditional risk has
+an impact on our estimates of the performance of the major risk factors.
+We also study conditional risk in individual countries. In Table 4,
+we report the impact of conditional risk on the tangency portfolio
+in each country in our sample. For all but 3 countries, we find that
+
+controlling for conditional risk reduces the alpha of the tangency
+portfolio (see also Fig. 5). The median effect of conditional risk is 58
+basis points. However, in none of the countries considered is alpha for
+the tangency portfolio insignificant, emphasizing the clear rejection of
+the conditional CAPM.
+
+3.3. Timing of expected returns and volatility
+
+The previous section documents that conditional risk can have a
+substantial impact on estimates of alphas on major factors. In this sec-
+tion, we study to what extent these results are driven by market timing
+or volatility timing — and whether the two reinforce or counteract each
+other in the generation of conditional risk.
+
+As discussed in Section 1.2, one may be worried that market tim-
+ing and volatility timing counteract each other in the generation of
+
+11 
+
+N.J. Gormsen and C.S. Jensen
+
+Journal of Financial Economics 162 (2024) 103933 
+
+Fig. 4. Compensation for conditional risk in HML for G10 countries. This figure shows the compensation for conditional risk and the fraction of the unconditional CAPM alpha in
+HML that is explained by conditional risk in ten G10 countries. ‘‘Compensation for conditional risk’’ is the difference between the alpha of the unconditional CAPM and the alpha
+of the conditional model in equation (41), measured in annual percentage points. HML is the Fama and French (1993) value factor. We exclude Italy because the value factor has
+negative alpha in this country.
+
+Table 4
+Conditional risk around the world.
+
+Exchange
+
+CAPM
+
+Conditional model
+
+Fraction explained by
+conditional risk
+
+Compensation for
+conditional risk
+
+Unconditional risk
+premium
+
+Observations
+
+Adjusted R2
+
+AUS
+AUT
+BEL
+CAN
+CHE
+DEU
+DNK
+ESP
+FIN
+FRA
+GBR
+HKG
+IRL
+ISR
+ITA
+JPN
+NLD
+NOR
+NZL
+PRT
+SGP
+SWE
+USA
+WOR
+
+alpha
+
+10.83
+6.16
+5.71
+11.70
+4.59
+6.58
+7.86
+4.19
+8.86
+10.95
+3.55
+9.86
+5.13
+11.28
+8.16
+3.75
+5.94
+9.81
+11.09
+12.53
+8.47
+6.88
+4.97
+4.90
+
+𝑡-stat
+
+(7.68)
+(3.34)
+(2.80)
+(6.10)
+(3.94)
+(4.75)
+(5.26)
+(3.44)
+(4.29)
+(5.42)
+(2.72)
+(3.84)
+(2.47)
+(6.28)
+(4.82)
+(3.69)
+(4.66)
+(4.90)
+(8.50)
+(4.51)
+(5.32)
+(3.38)
+(6.54)
+(6.01)
+
+alpha
+
+10.75
+5.13
+4.45
+10.77
+3.67
+5.79
+6.82
+3.96
+8.44
+10.21
+3.27
+8.88
+5.23
+12.15
+8.37
+3.13
+5.51
+9.65
+11.03
+11.98
+7.58
+5.50
+4.24
+4.47
+
+𝑡-stat
+
+(7.39)
+(3.06)
+(2.33)
+(6.45)
+(3.69)
+(4.60)
+(4.37)
+(3.35)
+(4.41)
+(5.83)
+(2.60)
+(3.83)
+(2.54)
+(8.09)
+(5.10)
+(3.62)
+(4.38)
+(4.86)
+(8.23)
+(4.23)
+(5.13)
+(3.37)
+(7.07)
+(6.75)
+
+0.01
+0.17
+0.22
+0.08
+0.20
+0.12
+0.13
+0.05
+0.05
+0.07
+0.08
+0.10
+−0.02
+−0.08
+−0.03
+0.17
+0.07
+0.02
+0.01
+0.04
+0.10
+0.20
+0.15
+0.09
+
+0.08
+1.02
+1.26
+0.93
+0.92
+0.78
+1.05
+0.22
+0.42
+0.74
+0.28
+0.97
+−0.10
+−0.87
+−0.21
+0.62
+0.43
+0.17
+0.06
+0.55
+0.89
+1.39
+0.73
+0.43
+
+0.54
+0.53
+1.87
+0.78
+1.72
+0.44
+2.20
+0.72
+1.86
+0.88
+0.50
+0.79
+0.86
+0.88
+0.53
+0.01
+1.32
+0.84
+0.73
+0.56
+0.55
+1.32
+0.58
+0.29
+
+342.00
+366.00
+378.00
+438.00
+378.00
+378.00
+366.00
+378.00
+378.00
+378.00
+414.00
+330.00
+330.00
+318.00
+366.00
+402.00
+378.00
+378.00
+282.00
+306.00
+270.00
+378.00
+708.00
+390.00
+
+0.09
+0.18
+0.30
+0.16
+0.40
+0.12
+0.30
+0.23
+0.34
+0.11
+0.15
+0.16
+0.25
+0.11
+0.14
+0.08
+0.24
+0.11
+0.06
+0.06
+0.09
+0.32
+0.30
+0.11
+
+This table reports results from the evaluation of the tangency portfolio (TAN) in the unconditional CAPM and in the conditional model across different exchanges. For each
+exchange, we regress the monthly excess returns for the tangency portfolio on the shock to the market factor and the conditional model in equation (41) for the given exchange.
+TAN refers to the tangency portfolio spanned the market and HML, RMW, CMA, UMD, and BAB. ‘‘Compensation for conditional risk’’ is the difference between the unconditional
+CAPM alpha and the alpha of the conditional model. Alphas and compensation for conditional risk are in annual percent. We report t -statistics based on Newey-West standard
+errors. Statistical significance at the 5% level is indicated in bold.
+
+conditional risk. In particular, if the conditional market risk premium
+and variance are perfectly positively correlated, market timing and
+volatility timing will counteract each other and reduce the impact of
+conditional risk. In such a setting, conditional risk is unlikely to have a
+large impact on alphas. However, if the two moments are uncorrelated,
+market timing and volatility timing need not counteract each other. In
+fact, the two may work together to generate variation in conditional
+risk.
+
+To better understand how market timing and volatility timing work
+together in the creation of conditional risk – and thus help assess the
+overall scope for conditional risk in explaining equity returns – we
+directly estimate the two terms using the conditional risk factors from
+Proposition 3. Proposition 3 provides two precisely defined factors, for
+
+which the covariance between these factors and the test asset tells us
+the exact impact of market timing and volatility timing. These factors
+have the advantage that we can estimate the impact of market and
+volatility timing without first estimating conditional betas.
+
+Table 5 shows the loadings of the major risk factors on the market
+timing and the volatility timing factors. The first asset we consider is
+the value factor. The value factor loads positively on the market timing
+factor but negatively on the volatility timing factor. This result suggests
+that volatility timing cannot help explain the return to the value factor,
+consistent with Lewellen and Nagel (2006).
+
+For the other factors, however, we find positive loadings on both
+the market timing factor and the volatility timing factor. This finding
+
+12 
+
+N.J. Gormsen and C.S. Jensen
+
+Journal of Financial Economics 162 (2024) 103933 
+
+Fig. 5. Compensation for conditional risk around the world. This figure shows the annualized compensation for conditional risk in percentage points. We regress the tangency
+portfolio (TAN) in each country on: (i) the unconditional CAPM and (ii) the conditional model in equation (41). The compensation for conditional risk is the difference between
+the unconditional alpha and the conditional alpha. TAN refers to the tangency portfolio spanned by the five equity factors HML, RMW, CMA, UMD, and BAB along with the
+market.
+
+Table 5
+Conditional risk in equity factors: Decomposing conditional risk.
+
+Panel A: U.S. sample
+
+Loading on conditional expected return factor
+
+Loading on conditional market variance factor
+
+Panel B: Global sample
+
+Loading on conditional expected return factor
+
+Loading on conditional market variance factor
+
+HML
+
+RMW
+
+CMA
+
+UMD
+
+BAB
+
+TAN
+
+0.30
+(1.92)
+
+−0.18
+(−0.78)
+
+0.64
+(2.65)
+
+−0.06
+(−0.12)
+
+0.06
+(0.67)
+
+0.24
+(1.86)
+
+0.00
+(0.57)
+
+0.01
+(1.08)
+
+0.26
+(2.77)
+
+0.02
+(0.23)
+
+0.46
+(3.21)
+
+0.15
+(2.42)
+
+0.40
+(1.74)
+
+0.94
+(3.10)
+
+0.06
+(0.79)
+
+0.87
+(2.67)
+
+0.53
+(2.43)
+
+0.55
+(2.13)
+
+0.57
+(3.04)
+
+0.18
+(0.99)
+
+0.21
+(1.50)
+
+0.27
+(2.29)
+
+0.15
+(0.86)
+
+0.14
+(1.04)
+
+This table reports of estimates of market timing and variance timing for the major equity factors. For each of the test assets, we
+regress the monthly excess returns on the factor capturing market timing and the factor capturing variance timing, as defined
+in Proposition 3. A positive loading on these factors reflects that conditional betas for the test assets covary positively with the
+conditional market risk premium or negatively with the conditional market variance, respectively. Below parameter estimates
+of betas we report t -statistics based on Newey-West standard errors. Statistical significance at the 5% level is indicated in
+bold. TAN refers to the tangency portfolio spanned by the other five portfolios and the market. The U.S. sample is 1964–2022
+and the global sample is 1986–2022.
+
+suggests that market and volatility timing contribute to conditional risk,
+i.e., the two factors work together in generating conditional risk.
+
+Table 6 reports similar results using rolling conditional betas instead
+of the conditional risk factors. In this table, we regress the estimates
+of conditional betas at a given time onto the estimate of conditional
+market premia and conditional market variance. The slope coefficients
+on the market risk premium are generally positive in the US sample,
+and the coefficients on the variance are negative. This finding is con-
+sistent with the idea that market and volatility timing work together
+in generating conditional risk (a negative relation between variance
+and betas translates into a positive effect on conditional risk). The
+results are more mixed in the global sample, but this could reflect that
+the methodology based on rolling betas does not perfectly capture the
+behavior of true conditional betas.
+
+3.4. Estimates using alternative methods
+
+The above analysis suggests that conditional risk has a material
+impact on conditional alphas, particularly in recent years. To ensure
+that these conclusions are not driven by the specific implementation of
+the conditional CAPM that we have chosen, we redo the analysis using
+the methods in Lewellen and Nagel (2006) and Boguth et al. (2011).
+
+3.4.1. Conditional risk using methods in Lewellen and Nagel (2006)
+
+Lewellen and Nagel (2006) suggests estimating alphas as the aver-
+age alpha across a long series of short-horizon regressions. The intuition
+behind this method is simple: if betas are constant over the short
+horizon on which the regression is estimated, the average alpha will
+be an unbiased estimate of the true CAPM alpha of the test asset.
+
+Lewellen and Nagel (2006) implement the short-horizon regressions
+over various horizons, finding largely similar results across the hori-
+zons. We consider here the annual horizon, which – unlike the shorter
+horizons considered by the authors – has the advantage that it can be
+implemented using monthly return data.
+
+Table 7 Panel A reports the results in the post-1996 regressions.
+The results are not too dissimilar to those obtained in our main spec-
+ifications: conditional risk explains 1 to 3 percentage points of return
+(annualized) across the different factors. For value, the estimates are
+quite similar, with conditional risk explaining 83% of the unconditional
+alpha. The main difference relative to our main specification is that
+conditional risk has a large effect on profitability effect but a more
+modest effect on momentum and investment. These differences could
+potentially arise from an overconditioning bias identified by Boguth
+et al. (2011).
+
+13 
+
+N.J. Gormsen and C.S. Jensen
+
+Journal of Financial Economics 162 (2024) 103933 
+
+Table 6
+Conditional risk in equity factors.
+
+Panel A: U.S. sample
+
+Loading on conditional market risk premium
+
+Loading on conditional market variance
+
+Observations
+Adjusted R2
+
+Panel B: Global sample
+
+Loading on conditional market risk premium
+
+Loading on conditional market variance
+
+Observations
+Adjusted R2
+
+HML
+
+RMW
+
+CMA
+
+UMD
+
+TAN
+
+5.36
+(0.77)
+
+1.62
+(0.26)
+
+702
+0.01
+
+2.01
+(0.41)
+
+2.93
+(0.27)
+
+384
+0.03
+
+−8.57
+(−1.44)
+
+−2.59
+(−0.42)
+
+702
+0.01
+
+−6.97
+(−2.29)
+
+12.77
+(2.65)
+
+384
+0.04
+
+12.04
+(2.28)
+
+−8.30
+(−2.04)
+
+702
+0.05
+
+−26.65
+(−0.97)
+
+25.33
+(0.62)
+
+384
+0.07
+
+4.02
+(0.44)
+
+−30.06
+(−2.65)
+
+708
+0.03
+
+−7.82
+(−0.80)
+
+−41.29
+(−3.18)
+
+390
+0.02
+
+3.03
+(1.14)
+
+−7.34
+(−2.65)
+
+702
+0.05
+
+−8.88
+(−1.37)
+
+6.46
+(0.78)
+
+384
+0.02
+
+This table reports the results when regressing conditional rolling window betas of equity factors onto the market risk premium
+and the conditional market variance:
+
+𝑟𝑜𝑙𝑙𝑖𝑛𝑔 𝑤𝑖𝑛𝑑𝑜𝑤𝛽𝑖
+
+𝑡 = 𝑎𝑖 + 𝑎1𝐸𝑡 + 𝑎2𝑣𝑎𝑟𝑡 + 𝜖𝑡
+
+where 𝛽𝑖
+𝑡 is the five-year rolling window CAPM beta of factor i, 𝐸𝑡 is the conditional market risk premium, and vart . The table
+reports the parameter estimates 𝑎1 and 𝑎2. Below parameter estimates we report t -statistics based on Newey-West standard
+errors. TAN refers to the tangency portfolio spanned by the other five portfolios and the market. Statistical significance at
+the 5% level is indicated in bold. The U.S. sample is 1964–2022 and the sample is 1986–2022.
+
+Table 7
+Conditional risk using other methods: short-window regressions.
+
+Panel A: Post 1996 U.S. Sample
+
+Alpha in unconditional CAPM
+Alpha in conditional model
+
+Compensation for conditional risk
+Fraction of alpha explained by conditional risk
+
+Panel B: Full U.S. Sample
+
+Alpha in unconditional CAPM
+Alpha in conditional model
+
+Compensation for conditional risk
+Fraction of alpha explained by conditional risk
+
+HML
+
+RMW
+
+CMA
+
+UMD
+
+BAB
+
+TAN
+
+2.00
+0.34
+
+1.66
+0.83
+
+4.47
+2.27
+
+2.20
+0.49
+
+6.50
+3.58
+
+2.91
+0.45
+
+3.98
+3.29
+
+0.69
+0.17
+
+4.24
+3.27
+
+0.97
+0.23
+
+4.65
+3.43
+
+1.22
+0.26
+
+7.74
+6.89
+
+0.85
+0.11
+
+8.96
+7.98
+
+0.99
+0.11
+
+9.22
+7.44
+
+1.78
+0.19
+
+9.10
+8.26
+
+0.84
+0.09
+
+5.11
+3.80
+
+1.31
+0.26
+
+4.88
+4.05
+
+0.83
+0.17
+
+This table reports results from short-horizon CAPM regressions. For each calendar year, we regress monthly excess return on
+a given test asset on the monthly excess returns of the market portfolio. For each test asset, we average across the intercepts
+estimates each year to get the average conditional alpha for the test asset. The unconditional CAPM alpha is the intercept from
+a full-sample regression of excess returns to the test asset onto the excess returns on the market. The sample is 1996–2022
+in Panel A and 1964–2022 in Panel B. All numbers are annualized.
+
+We also consider the alphas in the full sample. As in our main
+specification, the impact of conditional risk is smaller in the full sample.
+But the conditional risk remains substantial. For the value factor,
+conditional risk explains 50% of the unconditional alpha in the long
+sample, again emphasizing a large role for conditional risk in the return
+to the value strategy.
+
+3.4.2. Conditional risk using methods in Boguth et al. (2011)
+
+We next consider the methods of Boguth et al. (2011). Boguth,
+Carlson, Fisher, and Simutin argue that using short-horizon windows
+as Lewellen and Nagel (2006) potentially induces what they refer to as
+an over-conditioning bias, which arises because small-sample estimates
+of beta are different from the ex-ante expected beta. Instead, they use ex
+ante betas as instruments to capture conditional risk. They propose both
+a proxy approach and an IV approach. The proxy method constructs
+an ex ante beta-estimate and estimates average conditional alphas as
+the average difference between the realized excess returns and the
+product of the beta and the realized market excess returns. The IV
+method augments the usual CAPM regressions with the market returns
+times a vector of ex-ante instruments, one of which is the lagged betas.
+See Boguth et al. (2011) page 372 for details on the procedures.
+
+The IV procedure used by Boguth et al. is very similar to our main
+implementation. The only difference is in the choice of conditioning
+
+variables. The authors use conditional betas, like we do, along with
+three measures of equity premia, namely the dividend-price ratio, the
+risk-free rate, and the term premium. We instead use the measure
+from Kelly and Pruitt (2013) to capture the conditional market risk
+premium and we directly include the conditional market variance.
+These choices are guided by the theory discussed in Section 1.
+
+Our measure of conditional betas is what Boguth et al. (2011) refer
+to as lagged-component betas. These are estimated as the portfolio-
+weighted average of the ex ante beta of the stocks in the portfolio.
+As explained earlier, we follow Fama and French (1996) and use 60
+months of monthly returns to calculate betas on individual stocks.7
+
+Table 8 Panel A shows the results in the post-1996 U.S. sample.
+We again find a substantial impact of conditional risk on estimates of
+alpha in this sample. For value, conditional risk explains the entire
+risk premium. The effect is also large for the investment factor, with
+conditional risk explaining 47% of the unconditional alpha in the
+best specifications. The only factor for which the estimated alpha is
+
+7 An exception is for BAB, where we use the Frazzini and Pedersen (2014)
+betas, which means the conditional beta is always zero (the strategy is hedged
+ex ante to have a zero beta). Using Fama and French betas means betas are
+not exactly zero, although conceptually they should be.
+
+14 
+
+N.J. Gormsen and C.S. Jensen
+
+Journal of Financial Economics 162 (2024) 103933 
+
+Table 8
+Conditional risk using other methods: Boguth, Carlson, Fisher, and Simutin (2011).
+
+HML
+
+RMW
+
+CMA
+
+UMD
+
+BAB
+
+TAN
+
+Panel A: Post 1996 U.S. sample
+
+Unconditional alpha
+
+Conditional alpha (proxy)
+Conditional alpha (simple IV)
+Conditional alpha (full IV)
+
+2.45
+
+0.91
+0.92
+0.42
+
+Fraction of alpha explained by conditional risk:
+
+Proxy
+Simple IV
+Full IV
+
+Panel B: Full U.S. sample
+
+Unconditional alpha
+
+Conditional alpha (proxy)
+Conditional alpha (simple IV)
+Conditional alpha (full IV)
+
+0.63
+0.62
+0.83
+
+4.58
+
+3.53
+3.86
+3.14
+
+Fraction of alpha explained by conditional risk:
+
+Proxy
+Simple IV
+Full IV
+
+0.23
+0.16
+0.31
+
+6.29
+
+5.94
+5.97
+5.25
+
+0.06
+0.05
+0.17
+
+3.95
+
+3.91
+3.91
+3.46
+
+0.01
+0.01
+0.12
+
+4.43
+
+2.66
+2.75
+2.35
+
+0.40
+0.38
+0.47
+
+4.70
+
+3.95
+4.16
+3.79
+
+0.16
+0.11
+0.19
+
+7.25
+
+5.87
+5.52
+6.26
+
+0.19
+0.24
+0.14
+
+8.63
+
+8.61
+8.61
+9.53
+
+0.00
+0.00
+−0.10
+
+10.42
+
+10.42
+10.42
+9.01
+
+0.00
+0.00
+0.14
+
+9.99
+
+9.99
+9.99
+9.70
+
+0.00
+0.00
+0.03
+
+5.23
+
+4.37
+3.98
+3.54
+
+0.16
+0.24
+0.32
+
+4.97
+
+4.70
+4.60
+4.58
+
+0.05
+0.07
+0.08
+
+This table reports estimates of conditional risk in equity factors after hedging time-varying betas using the methods in Boguth
+et al. (2011). When using the proxy method to hedge, we subtract from the factor the time-series of conditional betas times
+the time-series of realized excess market returns. When using the IV method, we subtract from the factor the estimated betas in
+the IV regressions times the time-series of the regressors. The simple IV regressions use only the lagged betas as instruments
+and the full IV regressions use lagged betas, the dividend-price ratio, the risk-free rate, and the term spread. Below the
+estimates we report t -statistics based on Newey-West standard errors. The U.S. and global samples run from 1964–2022 and
+1986–2022.
+
+substantially worse using the methods in Boguth et al. (2011) is the
+betting against beta factor. These results emphasize the robustness
+of our empirical finding that conditional risk materially influences
+estimates of alpha in the recent period. For the full sample in Panel
+B, the results are similar as when using our methods, although they are
+slightly weaker.
+
+process and we estimate the conditional expected return using the
+method by Kelly and Pruitt (2013) (see Section 2). These methods
+predict moments fairly well in-sample as shown in Table A.1, although
+the predictability of expected returns on the factors is slightly weaker
+than that on the market reported in Table 2, particularly in the global
+sample.
+
+Table 9 reports results from two sets of regressions. In the first,
+
+4. Conditional risk in managed portfolios and multifactor models
+
+unconditional regressions, we estimate
+
+The previous section documents a large role for conditional market
+risk in explaining the returns to major cross-sectional risk factors. In
+this section, we go beyond the tests of the major risk factors in the
+conditional CAPM. In Section 4.1, we test whether the CAPM can
+price managed portfolios. In Section 4.2, we explore the empirical
+importance of conditional risk with respect to other factors than the
+market.
+
+4.1. Testing the conditional CAPM using managed factors
+
+To go beyond the unconditional tests in Section 3, we next consider
+managed versions of the major risk factors as test asset on the left-hand
+side. For each test asset 𝑖, we consider the managed portfolio,
+
+𝑟𝑖,managed
+𝑡+1
+
+=
+
+𝑏𝑖
+𝑡
+𝑏𝑖 × 𝑟𝑖
+
+𝑡+1.
+
+(39)
+
+These portfolios increase the position in the test asset when the asset
+has a high conditional price of risk. We expect such timing to cause
+the factors to have unconditional alpha with respect to the original test
+asset. The upcoming analysis tests whether such unconditional alpha
+can be explained by conditional market risk. We divide the managed
+portfolios by the unconditional price of risk, such that the average
+weight in the input portfolio is close to one (see discussion in Moreira
+and Muir 2017).
+
+To construct these managed portfolios, we need estimates of the
+conditional expected return and variance on the test assets. We estimate
+these moments in the same way we estimate the moments for the
+market. That is, we estimate conditional variance assuming an AR(1)
+
+𝑟𝑖,managed
+𝑡+1
+
+= 𝛼𝑢 + 𝛽1𝑟𝑖
+
+𝑡+1 + 𝛽2𝑟𝑚
+
+𝑡+1 + 𝜖𝑖
+
+𝑡+1.
+
+(40)
+
+In the second set of regressions, we estimate what we refer to as
+conditional alphas. We do so by implementing our main specification
+(Eq. (35)) augmented with the baseline version of the managed factor 𝑖
+(that is, 𝑟𝑖
+𝑡+1). For the managed version of the value factor, for instance,
+we estimate its alpha in our baseline specification augmented with the
+value factor.
+
+The table shows that most managed portfolios have significant alpha
+with respect to the market and the baseline portfolio. The uncondi-
+tional alpha is significant for the momentum and betting against beta
+factors. In general, the effect of conditional risk is fairly modest for
+the conditional versions of the test assets. Controlling for conditional
+risk lowers the alpha for value, profit, and momentum, but it increases
+the alpha on betting against beta and profitability. The very strong
+performance to the scaled momentum portfolio is consistent with the
+findings in Barroso and Santa-Clara (2015). Overall, the results suggest
+that a large part of the time-series variation in the conditional moments
+of these factors is independent of the movement in the conditional
+moments with respect to the market portfolio.
+
+The results also emphasize an additional dimension along which the
+conditional CAPM is rejected. We refer to Nagel and Singleton (2011)
+and Roussanov (2014) for in-depth tests of the conditional implications
+of the CAPM.
+
+4.2. Conditional risk with respect to other factors
+
+We next study conditional risk with respect to other risk factors
+than the market. To do so, we estimate how much of the return on
+
+15 
+
+N.J. Gormsen and C.S. Jensen
+
+Journal of Financial Economics 162 (2024) 103933 
+
+Table 9
+Managed portfolios.
+
+Alpha in unconditional model
+
+Alpha in conditional model
+
+Compensation for conditional risk
+Fraction of unconditional alpha explained by conditional risk:
+
+Observations
+Adjusted R2
+
+HML
+
+2.39
+(1.41)
+1.77
+(1.04)
+
+0.62
+0.26
+
+708
+0.63
+
+RMW
+
+0.25
+(0.24)
+0.32
+(0.32)
+
+−0.07
+−0.28
+
+708
+0.71
+
+CMA
+
+0.61
+(0.48)
+−0.07
+(−0.05)
+
+0.68
+1.11
+
+708
+0.59
+
+UMD
+
+9.50
+(4.62)
+8.55
+(4.14)
+
+0.95
+0.10
+
+708
+0.62
+
+BAB
+
+11.70
+(7.09)
+11.97
+(7.22)
+
+−0.27
+−0.02
+
+708
+0.61
+
+This table reports results of the performance of managed portfolios in the conditional CAPM. For each of the five major risk
+factors, we construct managed portfolios that scales the position in the portfolio based on the conditional price of risk on the
+portfolio. We regress the excess returns to these portfolios on the market portfolio and the underlying factor, as explained in
+the text, to estimate unconditional alphas. We next estimate alphas in the conditional model by augmenting the unconditional
+model by the conditional market risk factors from our main specification. The table reports t-statistics for the two different
+alphas along with the fraction of conditional risk explained by the inclusion of the conditional factors. The sample is U.S.
+1964–2022.
+
+Table 10
+Conditional risk in multifactor models.
+
+Factor used on the right-hand side:
+
+Alpha without controls for conditional factor risk
+
+Alpha with controls for conditional factor risk
+
+Compensation for conditional factor 𝑘 risk
+Fraction of alpha explained by conditional risk conditional risk:
+
+Observations
+Adjusted R2
+
+Tangency portfolio
+
+HML
+
+4.26
+(8.47)
+
+4.06
+(8.44)
+
+0.20
+0.05
+
+708
+0.31
+
+RMW
+
+4.03
+(8.23)
+
+4.07
+(8.81)
+
+−0.04
+−0.01
+
+708
+0.36
+
+CMA
+
+3.26
+(7.33)
+
+3.14
+(7.62)
+
+0.12
+0.04
+
+708
+0.50
+
+UMD
+
+3.72
+(7.88)
+
+3.69
+(7.73)
+
+0.02
+0.01
+
+708
+0.35
+
+BAB
+
+2.33
+(6.11)
+
+2.47
+(6.46)
+
+−0.14
+−0.06
+
+708
+0.61
+
+This table reports results from evaluation of the tangency portfolio in conditional multifactor models. For each of the factors
+HML, RMW, CMA, UMD, and BAB, we study how much of the return to the tangency portfolio that can be explained by
+the conditional risk with respect to the factors. For each factor, we first estimate the unconditional alpha of the tangency
+portfolio with respect to the market and the given factor. We next estimate alphas in a conditional model by augmenting
+the unconditional model with variables capturing conditional dynamics of the given risk factor. For each factor, we include
+two additional right-hand side variables, namely the factor in question multiplied by the conditional expected return on
+the factor and the conditional variance of the factor. TAN refers to the tangency portfolio spanned by the market, HML,
+RMW, CMA, UMD, and BAB. Compensation for conditional risk is the annualized difference in the alphas estimated with and
+without controlling for conditional factor risk. Statistical significance at the 5% level is indicated in bold. The U.S. sample is
+1964–2022 and the global and international samples are 1986–2022.
+
+the tangency portfolio that can be explained by conditional risk with
+respect to the HML, RMW, CMA, UMD, and BAB factors.
+
+For each factor, we first calculate the unconditional alpha by re-
+gressing the tangency portfolio on the market portfolio and the factor
+in question. We next estimate alphas in the conditional model by
+augmenting the unconditional model with variables capturing condi-
+tional dynamics of the given risk factor. For each factor, we include
+two additional right-hand side variables, namely the factor in question
+multiplied by the conditional expected return on the factor and the con-
+ditional variance of the factor. We continue to estimate the conditional
+moments of the given risk factor as described in the previous section.
+Table 10 reports the results. Conditional risk with respect to the
+major risk factors has a trivial impact on the alpha of the tangency
+portfolio. The largest effect of conditional risk is from conditional risk
+with respect to the value factor, for which the reduction in alphas is
+5%.
+
+The results contrast the results on the market factor. Conditional
+risk with respect to the market factor thus appears unique relative to
+conditional risk with respect to other well-known factors.
+
+5. Further relation to the literature
+
+Our results relate to and extend a long strand of literature on
+conditional CAPM. A large literature including Ferson and Harvey
+(1991), Ferson and Schadt (1996), Ferson and Harvey (1999), and Ja-
+gannathan and Wang (1996) document that a series of conditioning
+variables predict time-variation in returns and betas in the cross-section
+
+of equities and use these conditioning variables as instruments in
+factor models. Lettau and Ludvigson (2001b) show that using the cay
+variable as an instrument in the CAPM explains the returns to size and
+value sorted portfolio, but Lewellen and Nagel (2006) argue that the
+effect is overestimated and that the conditional CAPM cannot explain
+the cross-section of stocks. Lewellen and Nagel further advocate the
+use of short-horizon regressions as an instrument-free way of testing
+the conditional CAPM. However, Boguth et al. (2011) argue that the
+short-horizon regressions have certain small-sample issues and instead
+advocate the use of an instrumental approach that uses past betas and
+state variables as instruments. Using this approach, they show that
+momentum portfolios load on conditional risk. In addition, Cederburg
+and O’Doherty (2016) argue that the conditional CAPM explains the
+low-risk anomaly documented by Black et al. (1972) and Frazzini and
+Pedersen (2014). Going beyond unconditional expected returns, Nagel
+and Singleton (2011) test the additional implication that conditional
+expected returns must be consistent with the conditional factor mod-
+els. More recently, Kelly et al. (2019) and Fama and French (2018)
+advocate the use of characteristics as measures of conditional betas.
+
+Our results on the low-risk effect differ substantially from those
+by Cederburg and O’Doherty, as they find that the low-risk effect
+is statistically insignificant once controlling for conditional risk. One
+potential reason for this discrepancy is that we study the returns to
+the monthly betting against beta factor and not quarterly beta sorted
+portfolios as Cederburg and O’Doherty do. The advantage of studying
+the betting against beta factor is that the factor is hedged ex ante to
+have a conditional beta of zero, mitigating the risk of missing variation
+
+16 
+
+N.J. Gormsen and C.S. Jensen
+
+Journal of Financial Economics 162 (2024) 103933 
+
+in conditional betas. In addition, the fact that the factor is hedged
+conditionally to have a beta of zero, and an alpha of 10 percentage
+points per year, means that it is unlikely that the conditional CAPM
+can explain its average return in the first place. It would require the
+estimated conditional betas to be far from the true betas.
+
+Finally, we note that Liu et al. (2018) redo the analysis in Cederburg
+and O’Doherty (2016) using a slightly different methodology, and,
+consistent with our results, they find that the conditional CAPM does
+not explain the low-risk anomaly.8
+
+6. Conclusion
+
+This paper documents a material impact of conditional risk on the
+alpha for major risk factors. Across 23 developed countries, risk factors
+generally load on conditional risk. The impact of conditional risk is
+substantial in many instances. In the long U.S. sample, conditional risk
+explains around 30% of the unconditional alpha for the value factor.
+For the more recent U.S. sample, as well as the French, German, and
+Swedish samples, conditional risk explains essentially all the alpha to
+the value factor. In the global and recent U.S. sample, conditional
+risk explains half the alpha to the investment factor and in general
+commands premia of around 2 percentage points annualized across the
+major factors. These results challenge the view that conditional risk
+cannot plausibly influence estimates of CAPM alpha.
+
+The conditional CAPM is strongly rejected, in that conditional risk
+does not explain all the alpha to the factors we consider. However,
+this rejection does not necessarily imply that we should not control
+for conditional risk in factor analyses. It is, for instance, very common
+to control for the market factor in factor analysis, even though the
+CAPM is rejected. Overall, the impact of conditional market risk on
+anomaly alphas is larger than the impact of unconditional market risk,
+suggesting that researchers and practitioners should seriously consider
+controlling for conditional risk whenever implementing the CAPM in
+the future.
+
+Controlling for conditional risk in the usual CAPM implementations
+can have broad economic implications. For instance, a CFO of a value
+firm who discounts cash flows using the unconditional CAPM would use
+the company’s beta of, say, 1 times the global market risk premium,
+which gives an annual discount rate of around 5% in excess of the
+appropriate risk-free rate. However, given the conditional risk in global
+value firms, the CFO should in fact use an annual discount rate of
+around 7% in excess of the risk-free rate to also reflect the conditional-
+risk premium. Such an increase in the perceived cost of equity of 2
+percentage points may have a material influence on a firm’s discount
+rate and ultimately its investment decisions (Gormsen and Huber, 2023,
+2024). In addition to influencing corporate investment, controlling for
+conditional risk is also important for judging the economic importance
+of different anomalies, understanding market efficiency, and evaluating
+the performance of asset managers.
+
+CRediT authorship contribution statement
+
+Niels Joachim Gormsen: Writing – review & editing, Writing –
+original draft, Visualization, Validation, Resources, Project adminis-
+tration, Methodology, Investigation, Formal analysis, Data curation,
+Conceptualization. Christian Skov Jensen: Writing – review & editing,
+Writing – original draft, Visualization, Validation, Project adminis-
+tration, Methodology, Investigation, Formal analysis, Data curation,
+Conceptualization.
+
+Declaration of competing interest
+
+The authors declare that they have no relevant or material financial
+
+interests that relate to the research described in the paper.
+
+8 See also Asness et al. (2020) for discussion of the role of conditional betas
+
+in the low-risk anomaly.
+
+Appendix A. Additional tables
+
+Table A.1
+Inputs to conditional-risk factors.
+
+US
+
+World
+
+R2excess returns
+
+R2variance
+
+R2excess returns
+
+R2variance
+
+HML
+RMW
+CMA
+UMD
+BAB
+
+0.02
+0.02
+0.01
+0.01
+0.03
+
+0.51
+0.48
+0.37
+0.48
+0.56
+
+0.00
+0.01
+0.00
+0.01
+0.02
+
+0.43
+0.24
+0.34
+0.48
+0.53
+
+This table shows the R2for the expected return and variance for the individual risk
+factors. These inputs are used for constructing conditional-risk factors for these risk
+factors. The procedure for estimating expected return and variance follows that for the
+market used in the main conditional-risk factor.
+
+Appendix B. Conditional cash flow and discount rate risk
+
+Conditional market risk arises because conditional market betas
+are higher when the price of risk is higher. As shown by Campbell
+and Vuolteenaho (2004), conditional market betas are the sum of the
+given asset’s conditional cash flow and discount rate betas. Accordingly,
+the conditional risk must come from either conditional cash flow or
+discount rate betas being high when the price of risk is high. In this
+section, we show how to estimate these two sources of conditional risk
+by decomposing the conditional risk factor into two.
+First note that shocks to the market portfolio, ̃𝑟𝑚
+
+𝑡+1, are given by cash
+
+flow news and discount rate news (Campbell and Shiller, 1988):
+
+̃𝑟𝑚
+𝑡+1 = 𝑁𝐶𝐹 ,𝑡+1 + 𝑁𝐷𝑅,𝑡+1
+
+The beta of an individual stock can then be expressed as:
+
+𝛽𝑡 = 𝛽𝐶𝐹
+
+𝑡 + 𝛽𝐷𝑅
+
+𝑡
+
+(B.1)
+
+(B.2)
+
+where 𝛽𝐶𝐹
+
+𝑡 =
+
+cov𝑡(𝑟𝑖
+
+;𝑁𝐶𝐹 ,𝑡+1)
+)
+
+𝑡+1
+var𝑡(̃𝑟𝑚
+𝑡+1
+
+and 𝛽𝐷𝑅
+
+𝑡 =
+
+cov𝑡(𝑟𝑖
+
+;𝑁𝐷𝑅,𝑡+1)
+)
+
+𝑡+1
+var𝑡(̃𝑟𝑚
+𝑡+1
+
+.
+
+Similarly, the market’s conditional-risk factor can be decomposed
+
+into two parts:
+
+𝑡 − 𝑏𝑚)
+
+𝑐𝑡+1 = ̃𝑟𝑚
+= 𝑐𝐶𝐹
+
+𝑡+1(𝑏𝑚
+𝑡+1 + 𝑐𝐷𝑅
+
+𝑡+1
+
+(B.3)
+
+(B.4)
+
+𝑡+1 = 𝑁𝐷𝑅,𝑡+1(𝑏𝑚
+
+𝑡+1 = 𝑁𝐶𝐹 ,𝑡+1(𝑏𝑚
+
+where 𝑐𝐶𝐹
+𝑡 − 𝑏𝑚) is the conditional cash-flow-risk factor
+and 𝑐𝐷𝑅
+𝑡 − 𝑏𝑚) is the conditional discount-rate-risk factor.
+Loading on conditional cash flow risk and conditional discount rate
+risk has a tangible economic interpretation. Indeed, the unconditional
+covariance with the two risk factors summarizes the covariance of cash
+flow- and discount rate betas with the expected return and variance:
+
+cov(𝑟𝑖
+
+𝑡+1, 𝑐𝐶𝐹
+
+𝑡+1 ) = cov
+
+and
+
+cov(𝑟𝑖
+
+𝑡+1, 𝑐𝐷𝑅
+
+𝑡+1 ) = cov
+
+(𝛽𝐶𝐹
+𝑡
+
+(𝛽𝐷𝑅
+𝑡
+
+; 𝐸𝑡[𝑟𝑚
+
+𝑡+1] − 𝑏 var𝑡(̃𝑟𝑚
+
+)
+𝑡+1)
+
+; 𝐸𝑡[𝑟𝑚
+
+𝑡+1] − 𝑏 var𝑡(̃𝑟𝑚
+
+)
+𝑡+1)
+
+(B.5)
+
+(B.6)
+
+Table A.2 reports empirical results of the decomposition. Statistical
+significance is generally limited, but we find evidence of conditional
+discount rate risk for the investment and value factors. Both in the
+U.S. and globally, factors load positively on the factor for conditional
+discount rate risk. The loadings on the factor for cash flow risk are, on
+the other hand, generally negative. These results imply that conditional
+risk comes mostly from time variation in conditional discount rate
+betas, not cash-flow betas.
+
+17 
+
+N.J. Gormsen and C.S. Jensen
+
+Journal of Financial Economics 162 (2024) 103933 
+
+Table A.2
+Conditional cash flow- and discount rate risk.
+
+HML
+
+RMW
+
+CMA
+
+UMD
+
+BAB
+
+TAN
+
+Panel A: U.S. sample
+
+Alpha
+
+Market beta
+
+Conditional cash flow beta
+
+Conditional discount rate beta
+
+Observations
+Adjusted R2
+
+Panel B: Global sample
+
+Alpha
+
+Market beta
+
+Conditional cash flow beta
+
+Conditional discount rate beta
+
+Observations
+Adjusted R2
+
+0.93
+(2.04)
+
+−0.29
+(−2.35)
+
+−0.01
+(−0.07)
+
+0.09
+(1.72)
+
+192
+0.08
+
+1.23
+(2.53)
+
+−0.27
+(−1.86)
+
+0.01
+(0.11)
+
+0.07
+(1.83)
+
+102
+0.14
+
+0.75
+(2.43)
+
+−0.17
+(−1.77)
+
+−0.08
+(−1.20)
+
+0.07
+(1.76)
+
+192
+0.10
+
+0.25
+(0.72)
+
+−0.23)
+(−3.24)
+
+−0.02)
+(−0.59)
+
+0.04)
+(2.28)
+
+102
+0.15
+
+0.79
+(2.85)
+
+−0.25
+(−3.03)
+
+−0.02
+(−0.37)
+
+0.09
+(3.44)
+
+192
+0.17
+
+0.60
+(1.89)
+
+−0.17
+(−2.06)
+
+−0.03
+(−0.73)
+
+0.04
+(2.37)
+
+102
+0.14
+
+2.02
+(3.03)
+
+−0.12
+(−0.84)
+
+0.02
+(0.20)
+
+0.06
+(0.84)
+
+192
+0.00
+
+1.69
+(2.08)
+
+−0.14
+(−0.70)
+
+−0.06
+(−0.98)
+
+−0.01
+(−0.29)
+
+102
+−0.01
+
+2.28
+(3.67)
+
+−0.02
+(−0.14)
+
+−0.02
+(−0.26)
+
+0.08
+(1.27)
+
+192
+0.01
+
+1.85
+(2.64)
+
+−0.15
+(−0.97)
+
+0.05
+(1.08)
+
+0.09
+(3.69)
+
+99
+0.12
+
+1.28
+(7.53)
+
+0.07
+(1.31)
+
+−0.03
+(−1.02)
+
+0.04
+(1.65)
+
+192
+0.04
+
+1.21
+(4.41)
+
+0.03
+(0.41)
+
+0.00
+(−0.13)
+
+0.04
+(3.81)
+
+102
+0.10
+
+This table reports results from evaluation of different equity strategies in the conditional CAPM. We regress quarterly excess returns of different
+factors on the shock to the market portfolio, the conditional discount-rate-risk factor and the conditional cash-flow-risk factor. TAN refers to
+the tangency portfolio spanned by the market, HML, RMW, CMA, UMD, and BAB. ‘‘Compensation for conditional risk’’ is the conditional risk
+beta multiplied by the risk premium on the conditional risk factor. Alphas and compensation for conditional risk are in annual percent. Below
+parameter estimates we report t -statistics based on Newey-West standard errors. Statistical significance at the 5% level is indicated in bold.
+The U.S. and global samples run from 1964–2015 and 1986–2015.
+
+Appendix C. Proofs
+
+Proof of (3). Note that we can write the conditional beta as 𝛽𝑡 =
+𝐸[𝛽] + 𝜂𝑡. We can then write the unconditional covariance between the
+excess return to asset 𝑖 and the shock to the market portfolio as
+
+which is equal to zero because the shock to the market portfolio has
+a zero mean and is uncorrelated with (unpredictable by) the ex ante
+price of risk, 𝑏𝑡.
+
+Proof of Proposition 2.b. The covariance between the conditional-risk
+factor and the shock to the market is zero:
+
+cov(𝑟𝑖
+
+𝑡+1; ̃𝑟𝑚
+
+𝑡+1) = cov(𝐸[𝛽]̃𝑟𝑚
+= 𝐸[𝛽] var(̃𝑟𝑚
+
+𝑡+1 + 𝜂𝑡 ̃𝑟𝑚
+𝑡+1; ̃𝑟𝑚
+𝑡+1) + cov(𝜂𝑡; var(̃𝑟𝑚
+
+𝑡+1)
+
+𝑡+1))
+
+𝑡+1; ̃𝑟𝑚
+
+𝑡+1) = 𝐸[𝜂𝑡(̃𝑟𝑚
+𝑡+1)2] + 𝜖𝑡+1 = var𝑡(̃𝑟𝑚
+
+given that cov(𝜂𝑡 ̃𝑟𝑚
+(̃𝑟𝑚
+𝑡+1)2 = 𝐸𝑡[(̃𝑟𝑚
+dividing both sides by the unconditional variance of ̃𝑟𝑚
+expression in (3).
+
+𝑡+1)2] = cov(𝜂𝑡; (̃𝑟𝑚
+𝑡+1)2) and using that
+𝑡+1) + 𝜖𝑡+1 where cov(𝜂𝑡; 𝜖𝑡+1) = 0. By
+𝑡+1 we obtain the
+
+Proof of (9). Note that the covariance term in (5) can be written as
+=𝐸 [𝛽𝑡(𝐸𝑡[𝑟𝑚
+(𝐸 [𝛽𝑡
+
+𝑡+1] − 𝑏 var𝑡(̃𝑟𝑚
+] 𝐸 [
+(𝐸𝑡[𝑟𝑚
+
+]
+𝑡+1))
+𝑡+1] − 𝑏 var𝑡(̃𝑟𝑚
+
+𝑡+1] − 𝑏 var𝑡(̃𝑟𝑚
+
+(𝛽𝑡; 𝐸𝑡[𝑟𝑚
+
+)
+𝑡+1)
+
+𝑡+1))
+
+cov
+
+])
+
+−
+
+where the first term is equal to
+
+𝐸
+
+[ 𝐸𝑡[𝑟𝑖
+
+̃𝑟𝑚
+𝑡+1]
+𝑡+1
+var𝑡(̃𝑟𝑚
+𝑡+1)
+
+(𝐸𝑡[𝑟𝑚
+
+𝑡+1] − 𝑏 var𝑡(̃𝑟𝑚
+
+]
+𝑡+1))
+
++ cov(𝑟𝑖
+
+𝑡+1; ̃𝑟𝑚
+𝑡+1; 𝑐𝑡+1),
+
+= cov(𝑟𝑖
+
+𝑡+1(𝑏𝑡 − 𝑏))
+
+given that 𝐸[𝑐𝑡+1] = 0 (shown later), and the second term is equal to
+zero:
+𝐸 [𝛽𝑡
+
+= 𝐸 [𝛽𝑡
+
+] (𝐸[𝑟𝑚
+
+𝑡+1] − 𝑏 var(̃𝑟𝑚
+
+)
+𝑡+1)
+
+]
+𝑡+1)
+
+] 𝐸 [
+
+= 0
+
+(𝐸𝑡[𝑟𝑚
+
+𝑡+1] − 𝑏 var𝑡 ̃𝑟𝑚
+Finally, to see that 𝐸[𝑐𝑡+1] = 0, note that
+𝐸[𝑐𝑡+1] = 𝐸 [̃𝑟𝑚
+
+] 𝐸[𝑏𝑡 − 𝑏] + cov(̃𝑟𝑚
+
+𝑡+1
+
+𝑡+1; 𝑏𝑡 − 𝑏)
+
+18 
+
+cov(̃𝑟𝑚
+
+𝑡+1; 𝑐𝑡+1) = 𝐸[̃𝑟𝑚
+
+𝑡+1𝑐𝑡+1] = 𝐸 [
+
+]
+(̃𝑟𝑚
+𝑡+1)2(𝑏𝑡 − 𝑏)
+
+= 0
+
+Proof of Proposition 3. Because the conditional-risk factors have zero
+mean, we have that
+
+cov(𝑟𝑖
+
+𝑡+1; 𝑐𝑘,𝑒
+
+𝑡+1) = 𝐸
+
+[
+
+(
+
+𝑟𝑖
+𝑡+1 ̃𝑟𝑘
+
+𝑡+1
+
+𝑏𝑡 −
+
+𝐸[𝑟𝑘
+var𝑡(𝑟𝑘
+
+)]
+
+𝑡+1]
+𝑡+1)
+𝐸[𝑟𝑘
+var𝑡(𝑟𝑘
+)]
+
+𝑡+1]
+𝑡+1)
+
+)]
+
+[
+𝐸𝑡[𝑟𝑖
+
+= 𝐸
+
+(
+
+𝑏𝑡 −
+
+𝑡+1]
+
+𝑡+1 ̃𝑟𝑘
+(𝐸𝑡[𝑟𝑘
+𝑡 ; 𝐸𝑡[𝑟𝑘
+
+= 𝐸 [𝛽𝑡
+= cov(𝛽𝑘
+
+𝑡+1]
+
+𝑡+1] − 𝐸[𝑟𝑘
+𝑡+1]).
+
+cov(𝑟𝑖
+
+𝑡+1; 𝑐𝑘,𝑣
+
+𝑡+1) = −𝐸
+
+[
+
+(
+
+𝑡+1 ̃𝑟𝑘
+𝑟𝑖
+
+𝑡+1
+
+𝑏 −
+
+𝐸[𝑟𝑘
+var𝑡(𝑟𝑘
+
+)]
+
+𝑡+1]
+𝑡+1)
+𝐸[𝑟𝑘
+𝑡+1]
+var𝑡(𝑟𝑘
+𝑡+1)
+)]
+𝑡+1]
+
+)]
+
+[
+
+= −𝐸
+
+= −𝐸 [𝛽𝑡
+(𝛽𝑘
+= cov
+
+(
+
+𝑏 −
+
+𝐸𝑡[𝑟𝑖
+
+𝑡+1 ̃𝑟𝑘
+𝑡+1]
+(𝑏 var𝑡(𝑟𝑘
+𝑡 ; −𝑏 var𝑡(̃𝑟𝑘
+
+𝑡+1) − 𝐸[𝑟𝑘
+) .
+𝑡+1)
+
+=𝐸 [𝑟𝑖
+
+𝑡+1
+
+] 𝐸 [̃𝑟𝑚
+
+]
+𝑡+1(𝑏𝑡 − 𝑏)
+
+Similarly, for the variance factor, we have that
+
+N.J. Gormsen and C.S. Jensen
+
+References
+
+Journal of Financial Economics 162 (2024) 103933 
+
+Fama, Eugene F., French, Kenneth R., 2018. Comparing Cross-Section and Time-Series
+
+Factor Models. Working Paper.
+
+Asness, Cliff, Frazzini, Andrea, 2011. The Devil
+
+in HML’s Details. AQR Capital
+
+Ferson, Wayne E., Harvey, Campbell R., 1991. The variation of economic risk premiums.
+
+Management Paper.
+
+Asness, Cliff, Frazzini, Andrea, Gormsen, Niels Joachim, Pedersen, Lasse Heje, 2020.
+Betting against correlation: Testing theories of the low-risk effect. J. Financ. Econ.
+135 (3), 629–652.
+
+Barroso, Pedro, Santa-Clara, Pedro, 2015. Momentum has its moments. J. Financ. Econ.
+
+116 (1), 111–120.
+
+Binsbergen, Jules H. van, Koijen, Ralph S.J., 2010. Predictive regressions: A present-
+value approach. J. Finance 65 (4), 1439–1471. http://dx.doi.org/10.1111/j.1540-
+6261.2010.01575.x.
+
+Black, Fischer, Jensen, Michael, Scholes, Myron, 1972. The capital asset pricing model:
+
+Some empirical tests. Stud. Theory Cap. Mark..
+
+Boguth, Oliver, Carlson, Murray, Fisher, Adlai, Simutin, Mikhail, 2011. Conditional risk
+and performance evaluation: Volatility timing, overconditioning, and new estimates
+of momentum alphas. J. Financ. Econ. 102 (2), 363–389.
+
+Bollerslev, Tim, Hood, Benjamin, Huss, John, Pedersen, Lasse Heje, 2016. Risk
+
+Everywhere: Modeling and Managing Volatility. Working Paper, Duke.
+
+Bollerslev, Tim, Tauchen, George, Zhou, Hao, 2009. Expected stock returns and variance
+
+risk premia. Rev. Financ. Stud. 22, 4463–4492.
+
+Campbell, John Y., Cochrane, John H., 1999. By force of habit: A consumption based
+explanation of aggregate stock market behavior. J. Polit. Econ. 107 (2), 205–251.
+Campbell, John Y., Giglio, Stefano, Polk, Christopher, Turley, Robert, 2018. An
+intertemporal CAPM with stochastic volatility. J. Financ. Econ. 128 (2), 207–233.
+Campbell, John Y., Shiller, Robert J., 1988. The dividend-price ratio and expectations
+of future dividends and discount factors. Rev. Financ. Stud. 1 (3), 195–228. http://
+dx.doi.org/10.1093/rfs/1.3.195, arXiv:/oup/backfile/content_public/journal/rfs/1/
+3/10.1093/rfs/1.3.195/3/010195.pdf.
+
+Campbell, John Y., Thompson, S., 2008. Predicting excess stock returns out of sample:
+Can anything beat the historical average? Rev. Financ. Stud. 21, 1509—-1531.
+Campbell, John Y., Vuolteenaho, Tuomo, 2004. Bad beta, good beta. Amer. Econ. Rev.
+
+94 (5), 1249–1275.
+
+Cederburg, Scott, O’Doherty, Michael S., 2016. Does it pay to bet against beta? On the
+
+conditional performance of the beta anomaly. J. Finance 71 (2), 737–774.
+
+Cochrane, John H., 2001. Asset pricing.
+Fama, Eugene F., French, Kenneth R., 1992. The cross-section of expected stock returns.
+
+J. Financ. 47 (2), 427–465.
+
+Fama, Eugene F., French, Kenneth R., 1993. Common risk factors in the returns on
+
+stocks and bonds. J. Financ. Econ. 33 (1), 3–56.
+
+Fama, Eugene F., French, Kenneth R., 1996. Multifactor explanations of asset pricing
+
+anomalies. J. Financ. 51 (1), 55–84.
+
+J. Polit. Econ. 99 (2), 385–415.
+
+Ferson, Wayne E., Harvey, Campbell R., 1999. Conditioning variables and the cross
+
+section of stock returns. J. Finance 54 (4), 1325–1360.
+
+Ferson, Wayne E., Schadt, Rudi W., 1996. Measuring fund strategy and performance
+
+in changing economic conditions. J. Financ. 51 (2), 425–461.
+
+Frazzini, Andrea, Pedersen, Lasse Heje, 2014. Betting against beta. J. Financ. Econ. 111
+
+(1), 1–25.
+
+Gormsen, Niels Joachim, Huber, Kilian, 2023. Corporate Discount Rates. NBER Working
+
+Paper.
+
+Gormsen, Niels Joachim, Huber, Kilian, 2024. Firms’ Perceived Cost of Capital. NBER
+
+Working Paper.
+
+Jagannathan, Ravi, Wang, Zhenyu, 1996. The conditional CAPM and the cross-section
+
+of expected returns. J. Finance 51 (1), 3–53.
+
+Kelly, Bryan T., Moskowitz, Tobias J., Pruitt, Seth, 2021. Understanding momentum
+
+and reversal. J. Financ. Econ. 140 (3), 726–743.
+
+Kelly, Bryan, Pruitt, Seth, 2013. Market expectations in the cross-section of expected
+
+values. J. Finance 68 (5), 1721–1756.
+
+Kelly, Bryan, Pruitt, Seth, Su, Yinan, 2019. Characteristics are covariances: A unified
+
+model of risk and return. J. Financ. Econ. 134 (3), 501–524.
+
+Lettau, Martin, Ludvigson, Sydney, 2001a. Consumption, aggregate wealth, and
+
+expected stock returns. J. Finance 56 (3), 815–849.
+
+Lettau, Martin, Ludvigson, Sydney, 2001b. Resurrecting the (C) CAPM: A cross-sectional
+test when risk premia are time-varying. J. Polit. Econ. 109 (6), 1238–1287.
+Lewellen, Jonathan, Nagel, Stefan, 2006. The conditional CAPM does not explain
+
+asset-pricing anomalies. J. Financ. Econ. 82 (2), 289–314.
+
+Liu, Jianan, Stambaugh, Robert F., Yuan, Yu, 2018. Absolving beta of volatility’s effects.
+J. Financ. Econ. 128 (1), 1–15. http://dx.doi.org/10.1016/j.jfineco.2018.01.003,
+URL http://www.sciencedirect.com/science/article/pii/S0304405X18300163.
+Martin, Ian, 2017. What is the expected return on the market? Q. J. Econ. 132,
+
+367–433.
+
+Moreira, Alan, Muir, Tyler, 2017. Volatility-managed portfolios. J. Finance 72 (4),
+
+1611–1644.
+
+Nagel, Stefan, Singleton, Kenneth J., 2011. Estimation and evaluation of conditional
+
+asset pricing models. J. Finance.
+
+Roussanov, Nikolai, 2014. Composition of wealth, conditioning information, and the
+
+cross-section of stock returns. J. Financ. Econ. 111 (2), 352–380.
+
+19 
+
+

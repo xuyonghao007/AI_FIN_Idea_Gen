@@ -1,0 +1,3912 @@
+Journal of Financial Economics 166 (2025) 104008 
+
+Contents lists available at ScienceDirect
+
+Journal of Financial Economics
+
+journal homepage: www.elsevier.com/locate/finec
+
+Strategic arbitrage in segmented markets✩
+Svetlana Bryzgalova a, Anna Pavlova a,b,∗, Taisiya Sikorskaya c
+a London Business School, Regents Park, London, NW1 4SA, United Kingdom
+b CEPR, United Kingdom
+c University of Chicago, Booth School of Business, 5807 S Woodlawn Ave, Chicago, 60637, IL, USA
+
+A R T I C L E I N F O
+
+A B S T R A C T
+
+Dataset link: Replication Package for Bryzgalov
+a, Pavlova, and Sikorskaya (2025) (Reference d
+ata)
+
+JEL classification:
+AG4
+G5
+G11
+G12
+
+Keywords:
+Arbitrage
+Repeated game
+Entry cost
+Dividend play
+Tacit collusion
+Regulatory effectiveness
+Options
+
+1.  Introduction
+
+We propose a model in which arbitrageurs act strategically in markets with entry costs. In a repeated game,
+arbitrageurs choose to specialize in some markets, which leads to the highest combined profits. We present
+evidence consistent with our theory from the options market, in which suboptimally unexercised options create
+arbitrage opportunities for intermediaries. We use transaction-level data to identify the corresponding arbitrage
+trades. Consistent with the model, only 57% of these opportunities attract entry by arbitrageurs. Of those that
+do, 49% attract only one arbitrageur. Finally, we detail how market participants circumvent a regulation
+devised to curtail this arbitrage strategy.
+
+The dominant paradigm in the literature studying limits to arbitrage
+and  arbitrage  in  general  is  the  competitive  arbitrageur  paradigm,
+whereby arbitrageurs are atomistic. Yet in practice, we often observe
+just a handful of large arbitrageurs operating in some markets, because
+of  high  fixed  costs  of  entry  or  owing  to  economies  of  scale.  These
+arbitrageurs  may  act  strategically.  Moreover,  in  many  applications,
+arbitrageurs  interact  repeatedly,  which  gives  rise  to  repeated  game
+considerations. An environment incorporating these features may offer
+
+a better description of arbitrageur interaction in markets that are more
+opaque and concentrated.
+
+In this paper, we contribute to the limits-to-arbitrage literature by
+introducing repeated game considerations. Our intermediaries (acting
+as arbitrageurs) face fixed costs of entry in all markets except for their
+‘‘natural’’ ones, where their per-period fixed costs are low (zero). In a
+one-shot Nash equilibrium, arbitrageurs typically enter all the markets.
+Instead, in a repeated game, (i) they enter their natural markets and
+refrain from entering natural markets of their opponents; (ii) only one
+arbitrageur exploits each remaining market. This is a ‘‘tacit collusion’’
+
+✩
+Nikolai Roussanov was the editor for this article. We thank Nikolai Roussanov, the anonymous referee, Brad Barber, Robert Battalio, Jean-Pierre Benoit,
+Anne Haubo Dyhrberg (discussant), Andrea Eisfeldt (discussant), Tom Ernst (discussant), Can Gao (discussant), Nicolae Garleanu (discussant), Terry Hendershott,
+Antonia Kirilova, Su Li, Emre Ozdenoren, Dmitriy Muravyev, Brian Park, Thomas Poulsen (discussant), Chester Spatt, Dimitri Vayanos, Ingrid Werner, and seminar
+participants at the 2024 AFA meetings, 2024 BI-SHoF conference, 2023 Colorado Finance Summit, 2024 EFA meetings, CEMFI Big Data in Asset Management
+workshop, HEC Paris, HKU, HKUST, Indiana University, King’s College, London Business School, the 2023 NBER Asset Pricing Meeting (Fall), New York Fed,
+NTU, NUS, NYU Stern, SMU, Stockholm Business School, Temple University, UC Irvine, UCL, UCLA, the Universities of Bristol, Central Florida, Houston, Texas at
+Austin, Utah, and Washington, Yale SOM, and the 2023 Women in Microstructure meeting for their thoughtful comments, Miguel Chumbo for excellent research
+assistance, and the AQR Asset Management Institute at London Business School for generous support. We are grateful to Henry Schwartz and Ellen Spiro from
+Cboe for helpful conversations. We thank Nasdaq Global Data Products for generously sharing their historical PHOTO and NOTO End-of-Day and Intraday data
+with us. A part of this paper was previously circulated under the title ‘‘Profiting from Investor Mistakes: Evidence from Suboptimal Option Exercise.’’.
+
+∗ Corresponding author at: London Business School, Regents Park, London, NW1 4SA, United Kingdom.
+
+E-mail addresses: sbryzgalova@london.edu (S. Bryzgalova), apavlova@london.edu (A. Pavlova), Taisiya.Sikorskaya@chicagobooth.edu (T. Sikorskaya).
+
+https://doi.org/10.1016/j.jfineco.2025.104008
+Received 31 March 2023; Received in revised form 16 January 2025; Accepted 18 January 2025
+Available online 30 January 2025 
+0304-405X/© 2025 The Authors. Published by Elsevier B.V. This is an open access article under the CC BY license ( http://creativecommons.org/licenses/by/4.0/ ). 
+
+S. Bryzgalova et al.
+
+Journal of Financial Economics 166 (2025) 104008 
+
+equilibrium, which results in higher (per-period) arbitrageur profits,
+compared to those in one-shot games.
+
+As a laboratory for the study of arbitrageur interactions, we use the
+so-called dividend play, a strategy available to the intermediaries in the
+U.S. options market that produces (virtually) riskless arbitrage profits.
+These  profits  derive  from  call  options  left  suboptimally  unexercised
+before  the  underlying  goes  ex-dividend.  Exploiting  transaction-level
+data, we are able to accurately identify arbitrageur dividend play trades
+in each option contract.
+
+We document that only 57% of arbitrage opportunities – pertinent
+call option contracts – attract entry of arbitrageurs. We argue that this
+does  not  imply  that  the  remaining  arbitrage  profits  are  left  on  the
+table: Our theory predicts that these profits accrue to the incumbent
+intermediary — a natural arbitrageur in that market, already positioned
+to exploit the opportunity without incurring further costs. In line with
+our model, other intermediaries do not enter that market. Furthermore,
+consistent with our model’s predictions, we show that about 50% of the
+opportunities attracting entry are exploited by only one arbitrageur.
+
+Neither costs nor other arbitrageur constraints seem to explain the
+lack  of  entry  in  our  sample.  Strikingly,  it  persists  even  among  the
+most profitable contracts. These findings are puzzling in light of most
+limits-to-arbitrage  theories  because  these  theories  typically  imply  a
+pecking order in the arbitrageur entry decisions based on, for example,
+profitability. Yet, a model of repeated game equilibria with entry costs
+and natural markets provides a simple alternative framework consistent
+with our empirical findings.
+
+Here is how the model works. There are three markets with one
+arbitrage opportunity of fixed value each. There are two risk-neutral
+intermediaries  who  exploit  these  opportunities  and  face  fixed  per-
+period costs of entry in each market. The first (second) market is the
+natural market for the first (second) intermediary. We call a market
+‘‘natural’’  for  an  arbitrageur  if  she  has  (exogenously  given)  zero  or
+lower per-period fixed costs of entry in it. Examples of natural markets
+include securities in which an intermediary is already a market maker
+or  a  major  dealer  and  thus  has  a  natural  advantage  in  monitoring
+and  accessing  potential  arbitrage  opportunities.  An  order  imbalance
+from market-making activities could further position an intermediary
+to  exploit  a  specific  arbitrage  opportunity  without  actively  entering
+it. Economies of scale could also create natural markets. In all other
+markets, intermediaries in our model face higher per-period fixed costs
+of entry. Intermediaries act strategically, choosing which markets to
+enter and, conditional on entry, the amount of resources to commit to
+each market. The share of arbitrage opportunities that is captured by
+them in each market is proportional to their market share. The game
+is symmetric in payoffs and we focus on symmetric equilibria.
+
+We first consider a one-shot game. The only Nash equilibrium in
+that  game  is  one  in  which  the  intermediaries  enter  all  markets  and
+equally split the arbitrage opportunities in them. This split, however,
+does not maximize the joint welfare of the intermediaries. In a welfare-
+maximizing allocation, arbitrageurs specialize in a subset of markets
+and thus reduce the total (per-period) fixed cost paid, while still har-
+vesting  the  same  arbitrage  gains.  A  cooperative  equilibrium  of  this
+type is not a Nash equilibrium of a one-shot game but it becomes a
+subgame perfect equilibrium of an infinitely-repeated game, supported
+by  trigger  strategies  (Green  and  Porter, 1984).  This  equilibrium  is
+known in the literature as a tacit collusion equilibrium. The term ‘‘tacit’’
+conveys that the equilibrium does not require any explicit agreements
+between intermediaries. In a tacit collusion equilibrium in our model,
+intermediaries do not enter each others’ natural markets and alternate
+their entry in the third market. This results in the minimum per-period
+fixed costs. The testable predictions of the model is that in the data, we
+should observe (i) no market entry into intermediaries’ natural markets
+and (ii) entry of a limited number or arbitrageurs – only one in our
+model – in markets that are neither intermediaries’ natural markets.
+
+The  U.S.  options  market  offers  a  unique  laboratory  to  test  our
+theory. We are able to identify an arbitrage opportunity for which we
+
+2 
+
+observe arbitrageur entry and the amount of resources they commit to
+exploiting it. The literature on limits to arbitrage has mostly focused on
+the effects of arbitrage on prices, normally because quantities are not
+observed in non-proprietary data. Our setting is an exception. In fact,
+the effects on prices are not relevant to our application. The arbitrage
+opportunity,  as  in  our  model,  is  best  thought  of  as  a  windfall  gain,
+which accrues to arbitrageurs in proportion to their market shares. The
+opportunity results from a failure of investors to exercise in-the-money
+call options before the underlying goes ex-dividend when it is optimal
+to do so.1 In the U.S., options writers who receive an exercise notice
+and must deliver the underlying are randomly assigned. The writers
+who  are  not  assigned  receive  a  windfall  capital  gain.  To  divert  this
+gain, arbitrageurs engage in ‘‘dividend play’’, which involves writing a
+large number of call option contracts, thus maximizing the probability
+that the gain from suboptimal exercise is assigned to them rather than
+to the original option writer. Arbitrageurs simultaneously establish an
+offsetting large long position in a similar contract to hedge the large
+short position required for the strategy. Dividend play trades are usu-
+ally prearranged by pairs of arbitrageurs who serve as counterparties to
+each others’ long and short positions. So price impact is not a concern
+in our application; the windfall gain is fixed and it is effectively divided
+pro-rata  between  arbitrageurs  who  participate  in  the  dividend  play
+strategy, as in our model.
+
+The  dividend  play  strategy  is  normally  executed  on  a  physical
+exchange floor. This is because some exchanges facilitate this trade by
+capping the fees for this strategy for floor participants,2 and because
+the floor offers pairs of arbitrageurs an opportunity to execute (large)
+bilateral trades on agreed terms, without exposing them to other market
+makers’  quotes.  Our  empirical  strategy  for  classifying  dividend  play
+trades relies on the flags for floor trades in the transaction-level Options
+Price  Reporting  Authority  (OPRA)  data.  With  most  of  the  options
+trading being electronic, exchange floors are more akin to a library
+than  to  a  bustling  trading  floor  of  the  past.  So,  like  in  our  model,
+there is usually a small number of participants in the dividend play
+arbitrage, who interact repeatedly with each other on pre-scheduled
+(last cum-dividend) dates.
+
+The  daily  trading  volume  on  the  last  cum-dividend  dates  in  in-
+the-money call options targeted by the dividend strategy significantly
+exceeds the trading volume on the remaining dates, often by a factor
+of  100.  So  profit-driven  arbitrageurs  do  exploit  the  strategy.  There
+are, however, four striking patterns that emerge from our examination
+of their transactions. First, arbitrageurs enter only 57% of profitable
+arbitrage opportunities (option contracts) and harvest only 44% of total
+potential profits.3 Second, if arbitrageurs do decide to participate in
+dividend play in a given contract, they harvest most of the available
+profits in that contract. Third, 37% of contracts in the top profitability
+
+1 It  has  been  previously  documented  that  not  all  American  options  are
+exercised rationally (e.g., Poteshman and Serbin, 2003). Battalio et al. (2020),
+Cosma et al. (2020), Jensen and Pedersen (2016), Barraclough and Whaley
+(2012) and Rantapuska and Knüpfer (2008) focus on early exercise decisions
+and show in more recent data that a fraction of investors still fail to exercise
+their  options  optimally.  We  also  acknowledge  that  sometimes  call  options
+may be purchased as part of a strategy that involves holding multiple option
+contracts.  In  those  circumstances,  or  whenever  transaction  costs  outweigh
+profits from early exercise, exercising an option may not be optimal.
+
+2 For example, PHLX imposes daily fee caps for floor market makers and
+other floor traders engaging in dividend play. See, e.g., https://listingcenter.
+nasdaq.com/rulebook/phlx/rules/phlx-options-7, accessed July 26, 2023, for
+the dividend strategy fee caps imposed by the PHLX options exchange. More
+than two-thirds of dividend play transactions in our sample are executed on
+PHLX. Dividend play is not the only strategy that benefits from fee caps. For
+example, PHLX offers similar fee caps for five other arbitrage strategies.
+
+3 Table  4 quantifies  forgone  profits  of  arbitrageurs  in  the  top  40  most
+popular underlying stocks and exchange-traded funds (ETFs) for the dividend
+play strategy in our sample.
+
+S. Bryzgalova et al.
+
+Journal of Financial Economics 166 (2025) 104008 
+
+tercile do not attract entry by arbitrageurs. Furthermore, even among
+the contracts on the same underlying, arbitrageurs enter only a subset
+of contracts yet forgo some of the most profitable ones. The first and
+third patterns are quite puzzling in light of the standard explanations
+based on limits to arbitrage. Arbitrageurs’ daily fee on dividend play
+trades is capped by most exchanges on which dividend play trades take
+place,  so  additional  fees  are  not  a  plausible  explanation  for  leaving
+money on the table. Trading costs are quite low because dividend play
+transactions are executed close to the midpoint of the bid–ask spread.
+Capital  constraints  are  also  unlikely  to  explain  the  findings  because
+market participant exposure is normally computed at a ticker level, and
+so the large long and short positions in contracts on the same ticker,
+required for the dividend play trade, are netted to zero.
+
+Fourth, we find that the number of arbitrageurs engaging simultane-
+ously in dividend play in a given contract is strikingly small: In 49% of
+the contracts in which we detect arbitrageur entry, we estimate that the
+entire profit is captured by a single arbitrageur.4 Across all contracts,
+the  number  of  arbitrageurs  simultaneously  participating  in  dividend
+play in a given contract exceeds 4 in only 8% of the cases and exceeds
+10 in less than 1%. If we remove one exchange (PHLX) from the sample,
+over  95%  of  contracts  that  attract  entry  have  only  one  arbitrageur
+participating  in  it.  This  is  surprising  because  there  are  no  obvious
+restrictions on the entry of other arbitrageurs who already engage in
+dividend play in other contracts. Partly owing to their sheer size and
+distinct execution patterns, dividend play trades are easy to detect in
+transaction-level data (e.g., OPRA). Arbitrageurs are, therefore, aware
+of the history of other arbitrageurs’ dividend play activity in a given
+contract before they decide to engage in dividend play in it.
+
+The implications of our model are consistent with all of the above
+patterns. We interpret the contracts in which we observe no entry as
+natural markets of some options market intermediaries, namely market
+makers. If a market maker holds in its inventory a short position in a
+contract that an option buyer fails to exercise, it does not incur any
+fixed costs and simply pockets the windfall gain on this contract unless
+other arbitrageurs enter and compete away this gain. This fits exactly
+our definition of a natural market for an intermediary. In our empirical
+tests, we use two proxies for natural markets of market makers: con-
+tracts with retail buy imbalances (implying that market makers hold
+short positions in these contracts in their inventory) and contracts with
+market maker sell imbalances. The former proxy is further motivated by
+the fact that retail investors are more likely to fail to exercise options
+optimally. Our empirical tests reveal that arbitrageurs are less likely
+to actively enter the natural markets of other intermediaries, forgoing
+profitable arbitrage opportunities. In contrast, in written contracts that
+neither intermediary has in their inventory, we should expect the entry
+of only one arbitrageur, and our empirical results indeed reveal that in a
+large fraction of contracts, we observe the entry of a single arbitrageur.
+These results hold even if we restrict our sample of contracts to the top
+most profitable tercile.
+
+There are other potential explanations of the patterns we document.
+It is possible that the reluctance of some firms to engage in the dividend
+play arbitrage could be explained by the operational risk of the trade.5
+There  is  also  residual  overnight  risk  related  to  the  dividend  play
+execution. However, we show that the risk-related measures have little
+relation to contract selection. It is also possible that there is a stigma
+associated with the dividend play strategy since it is frowned upon by
+the U.S. Securities and Exchange Commission (SEC). However, it is un-
+clear why arbitrageurs that enter some contracts and incur reputational
+
+4 More precisely, we observe entry of one pair of arbitrageurs. One of them
+establishes  a  large  short  position  in  a  profitable  contract  and  harvests  the
+windfall gain, and the other serves as the counterparty to this trade. Since
+only one party receives the gain, we count each pair as one arbitrageur.
+
+5 For example, a human error in the dividend play strategy inflicted a $10
+million loss on Bank of America Merrill Lynch. See https://www.reuters.com/
+article/us-usa-options-apple-idUSKBN0IQ2FA20141106.
+
+costs do not engage in other, often more profitable, contracts on the
+same underlying.
+
+Finally, we discuss the difficulties of devising effective regulation in
+the derivatives market. Concerned about the impact of dividend play
+trades on the orderly functioning of the market, in 2014 the SEC ap-
+proved a new clearing rule designed to make the strategy impractical.6
+As  our  analysis  reveals,  however,  it  took  little  time  for  arbitrageurs
+to find a way to circumvent the barriers created by the SEC rule by
+altering the implementation of the strategy. We propose a rule change
+that may curtail the strategy.
+
+Our  paper  is  related  to  the  limits-to-arbitrage  literature,  such  as
+Gromb and Vayanos (2002) and Shleifer and Vishny (1997). In most of
+this literature, arbitrageurs are competitive, while ours are strategic.7
+Strategic  trading  has  been  emphasized  in  the  influential  strand  of
+market microstructure literature starting from Kyle (1985).8 Our focus
+is  not  on  price  impact  but  on  multi-market  arbitrageur  interactions
+and specialization in a repeated-game setting. Arbitrage opportunities
+are  fully  exploited  in  our  case,  and  limits  to  arbitrage  should  be
+understood as (endogenous) limits on the number of arbitrageurs in a
+given market. Siriwardane et al. (2024), and Boyarchenko et al. (2020)
+document that arbitrageurs specialize in a subset of arbitrage oppor-
+tunities. Eisfeldt  et  al. (2023b)  study  complex  asset  markets  where
+expertise  creates  arbitrageur  specialization.  Our  models  are  similar
+in  terms  of  selective  entry,  but  our  mechanism  relies  on  strategic
+interactions, while in their model, arbitrageurs are competitive.
+
+The closest paper considering a repeated game in financial markets
+is a tacit collusion model of Dutta and Madhavan (1997). As in the
+classical industrial organization literature, the authors consider pric-
+ing strategies that give rise to prices above competitive levels. Their
+model explains the puzzling tendency of NASDAQ market makers in
+equities to avoid odd-eighth quotes, uncovered in an influential paper
+by Christie and Schultz (1994). There is, of course, a vast literature in
+industrial organization on tacit collusion (see Ivaldi et al., 2007 and
+references therein, and especially, Bernheim and Whinston, 1990 for
+multimarket interaction), but it normally studies the behavior of price-
+setting firms. Our mechanism is novel in that the welfare gain to the
+players from tacit collusion is generated by reduced fixed costs from
+selective market entry as opposed to higher prices. The application to
+arbitrage in financial markets is also novel.
+
+Our empirical application, dividend play, has been considered in
+Hao et al. (2009) and Pool et al. (2008), who were the first to de-
+scribe this strategy.9 Unlike us, they do not compute the number of
+arbitrageurs in a given contract and do not document the widespread
+selective  entry  of  arbitrageurs  in  profitable  contracts,  which  is  our
+primary focus. More broadly, financial markets with entry costs and
+economies of scale, intermediated by a limited number of players in
+largely opaque environments, for example, over-the-counter markets,
+may present other applications of our model.
+
+6 See https://www.sec.gov/rules/sro/occ/2014/34-73438.pdf.  According
+to  the  rule,  the  same  contract’s  exposure  must  now  be  netted  before  the
+Options Clearing Corporation (OCC) assigns the exercise. This makes buying
+and selling of the same contract unsuitable for the purposes of dividend play.
+7 Fardeau (2021), Zigrand (2004) and Basak and Croitoru (2000) and also
+consider strategic arbitrageurs. Their focus is different from ours and they do
+not consider repeated games.
+
+8 In this strand of literature, Goldstein and Guembel (2008) discuss market
+manipulation. Hörner et al. (2018) study price setting by strategic dealers who
+possess private information and interact repeatedly. More recently, Dou et al.
+(2023) discuss a possible emergence of tacit collusion equilibria in algorithmic
+trading.
+
+9 In Section 5, we demonstrate how the strategy described in these papers
+
+has evolved in response to the 2014 SEC rule aimed at curtailing it.
+
+3 
+
+S. Bryzgalova et al.
+
+2.  Model
+
+In this section, we develop a game-theoretic model of arbitrage in
+segmented markets with a small number of arbitrageurs, who repeat-
+edly interact with each other. In the empirical part of the paper, we
+focus on a specific application, which is likely to satisfy the model’s
+assumptions – dividend play – and show that the patterns of arbitrage
+we observe in the data are consistent with our model’s predictions. The
+model,  however,  is  applicable  more  broadly  to  environments  which
+feature strategic arbitrage with repeated arbitrageur interactions. We
+elaborate on this in Section 6.
+
+2.1.  Economic environment
+
+Time is discrete and the horizon is infinite. There are three markets,
+𝑀1, 𝑀2, and 𝑀3, each with one arbitrage opportunity. For simplicity,
+the  per-period  value  of  the  arbitrage  opportunities  in  the  first  two
+markets is the same, and we denote it by 𝐴. The per-period value of
+the arbitrage opportunity in the third market is 𝐴∗.
+
+There are two special intermediaries, 1 and 2, who are the natural
+arbitrageurs in markets 𝑀1 and 𝑀2, respectively. That is, Intermediary
+1 has a zero cost of harvesting the arbitrage opportunity in market 𝑀1
+and Intermediary 2 in market 𝑀2. Neither of the two intermediaries is a
+natural arbitrageur in market 𝑀3. Both intermediaries are risk-neutral.
+In what follows, we use the terms ‘‘arbitrageur’’ and ‘‘intermediary’’
+interchangeably.
+
+Each intermediary has 1 unit of resources that she allocates across
+the three markets. Intermediary 1’s per-period costs of exploiting the
+arbitrage opportunities in markets 𝑀1, 𝑀2, and 𝑀3 are 0, 𝑓 , and 𝑓 ∗,
+respectively, and those of Intermediary 2 are 𝑓 , 0, and 𝑓 ∗. The fixed
+cost is incurred only if an intermediary enters a market, i.e., commits
+non-zero resources to the market. If an intermediary does not enter a
+market, its payoff in that market is 0.
+
+Intermediary 1’s per-period payoff is
+𝑘1
+1
+1 + 𝑘1
+𝑘1
+
+𝑘2
+1
+1 + 𝑘2
+𝑘2
+
+) ≡ 𝐴
+
+1, 𝑘2
+
+1, 𝑘3
+
++ 𝐴
+
+(𝑘1
+
+2
+
+1
+
+2
+
++ 𝐴∗
+
+𝜋1
+
+𝑘3
+1
+1 + 𝑘3
+𝑘3
+
+2
+
+− −𝑓 1𝑘2
+
+1
+
+>0 − 𝑓 ∗ 1𝑘3
+
+1
+
+>0,
+
+(1)
+
+where resources allocated to each of the three markets (𝑘1
+1
+choice variables and 𝑘1
+1 + 𝑘3
+per-period payoff is
+
+1) are
+≤ 1. Analogously, Intermediary 2’s
+
+1 + 𝑘2
+
+, 𝑘2
+1
+
+, 𝑘3
+
+1
+
+𝜋2
+
+(𝑘1
+
+2, 𝑘2
+
+2, 𝑘3
+
+2
+
+) ≡ 𝐴
+
+𝑘1
+2
+1 + 𝑘1
+𝑘1
+
+2
+
++ 𝐴
+
+𝑘2
+2
+1 + 𝑘2
+𝑘2
+
+2
+
++ 𝐴∗
+
+𝑘3
+2
+1 + 𝑘3
+𝑘3
+
+2
+
+− 𝑓 1𝑘1
+
+2
+
+>0 − 𝑓 ∗ 1𝑘3
+
+2
+
+>0,
+
+(2)
+
+2
+
+2 + 𝑘2
+
+2 + 𝑘3
+
+≤ 1.  The  intermediaries,  therefore,  harvest  the
+where 𝑘1
+arbitrage opportunities in proportion to their market share of resources
+invested in a given market. In the special case of 𝑘1
+2 = 0, Intermediary 1
+harvests  the  entire  arbitrage  opportunity  in  market 𝑀1,  even  if  she
+commits no resources to that market. Likewise, if Intermediary 1 re-
+frains from entry in market 𝑀2, the entire arbitrage profit 𝐴 accrues to
+Intermediary 2, regardless of the amount of resources in that market. If
+none of the intermediaries enter market 𝑀3, the arbitrage opportunity
+in that market remains unexploited.
+
+Our main focus is on repeated games. The time discount factor is 𝛿.
+The risk-neutral intermediaries act strategically and choose their best
+response per-period resource allocations
+∞
+∑
+
+to maximize
+
+𝑖𝑡, 𝑘3
+𝑖𝑡
+
+𝑖𝑡, 𝑘2
+
+(𝑘1
+
+)
+
+𝛿𝑡𝜋𝑖(𝑘1
+
+𝑖𝑡, 𝑘2
+
+𝑖𝑡, 𝑘3
+
+𝑖𝑡),
+
+𝑡=0
+taking the resource allocation of the other intermediary as given. We
+will also consider Pareto efficient allocations, which maximize social
+welfare, i.e.,
+(𝑘1
+
+∞
+∑
+
+∞
+∑
+
+)
+
+(3)
+
+𝛿𝑡𝜋𝑖(𝑘1
+
+2𝑡, 𝑘2
+
+2𝑡, 𝑘3
+
+2𝑡),
+
+1𝑡, 𝑘2
+
+1𝑡, 𝑘3
+1𝑡
+
+𝛿𝑡𝜋1
+
++ 𝜇2
+
+𝜇1
+
+𝑡=0
+
+𝑡=0
+
+Journal of Financial Economics 166 (2025) 104008 
+
+𝑖𝑡 + 𝑘2
+
+𝑖𝑡 + 𝑘3
+𝑖𝑡
+
+≤ 1, 𝑖 ∈ {1, 2}, where 𝜇1
+subject to the resource constraints 𝑘1
+and 𝜇2 are the Pareto weights. Social welfare here is understood in the
+game-theoretic sense: it takes into account the welfare of the two play-
+ers (the intermediaries) but not any other agents in the economy. With
+a restriction on the time discount factor 𝛿, Pareto efficient equilibria
+can be supported as non-cooperative (subgame perfect) equilibria of a
+repeated game, as we demonstrate below.
+
+The concept of arbitrageurs’ natural markets is new to this paper.
+We think of natural markets as the ones where an arbitrageur incurs
+lower costs than the competition. This can happen if an arbitrageur
+is an intermediary that is close to the order flow in the market (e.g., a
+market maker or a large high-frequency trading firm) or has a structure
+of its balance sheet that gives it a natural advantage in exploiting a
+particular arbitrage opportunity. One example is the options market
+arbitrage  from  the  trading  floor  that  we  use  as  a  laboratory  in  the
+next section.10 In other markets, natural hedges may create a similar
+environment.  For example, Bolton and Oehmke (2013) and Atkeson
+et al. (2015) argue that in credit default swaps (CDS) markets, large
+banks that hedge their exposure by buying/selling CDS contracts are
+naturally placed to act as CDS dealers and possibly arbitrageurs, as they
+are best able to generate enough fee income from trading CDS to cover
+the fixed cost of entry. They can also use their balance sheets to net
+large long and short positions, saving on required collateral. Similarly,
+if intermediaries have structured products on their balance sheets, they
+may be ‘‘naturally’’ exposed to dividend risk (Mixon and Onur, 2017),
+which makes dividend derivatives their natural markets.
+
+Fixed  costs  of  market  access  are  an  important  ingredient  of  our
+model. Recent limits-to-arbitrage literature (Siriwardane et al., 2024)
+stresses that in practice, arbitrage is segmented, whereby arbitrageurs
+specialize in one market or a small handful of markets. Such segmenta-
+tion would naturally happen in the presence of fixed costs of arbitrage.
+We model fixed costs in the natural markets to be zero for simplicity,
+but what is key to our implications is that fixed costs in a given market
+are lower for natural arbitrageurs in that market.
+
+It is important to consider a repeated game for the emergence of
+tacit collusion equilibria as subgame perfect equilibria in our model.
+Repeated interaction of arbitrageurs commonly occurs in practice. If
+arbitrage is indeed segmented, it is practical for the same arbitrageurs
+to  specialize  in  a  given  market  over  time  instead  of  switching  to  a
+different market every period.
+
+Finally, the model focuses on the markets with a fixed number of ar-
+bitrageurs who act strategically. An important macroeconomic trend of
+the past few decades is the rise in industry concentration. (See Grullon
+et  al., 2019; Autor  et  al., 2020; De  Loecker  et  al., 2020.)  Financial
+intermediation and market making are no exception.11 We believe that
+it is important to step away from the competitive arbitrageur paradigm
+and consider strategic interactions, at least in some more opaque and
+in more concentrated markets.
+
+2.2.  Pareto efficient and Nash equilibria of a stage game
+
+We  first  consider  a  one-shot  game  and  derive  its  Nash  equilib-
+rium. Intermediary 1’s best response to Intermediary 2’s actions is the
+
+10 A market maker, most notably a Designated Market Maker, may hold an
+inventory of option contracts because of their market-making activities. This
+makes them a natural arbitrageur in those contracts.
+11 There are numerous financial markets in which intermediaries have been
+shown  to  have  market  power,  such  as  agency  MBS  (An  and  Song, 2023),
+Canadian  government  bonds  (Allen  and  Wittwer, 2023),  foreign  exchange
+derivatives (Wallen, 2022), triparty repo (Huber, 2023), UK government and
+corporate bonds (Pinter and Uslu, 2022), and even the market for catastrophe
+risk  (Froot, 2001).  Those  are  the  markets  that  can  potentially  be  natural
+markets for some intermediaries.
+
+4 
+
+S. Bryzgalova et al.
+
+Journal of Financial Economics 166 (2025) 104008 
+
+solution to the following optimization problem, taking (𝑘1
+2
+given:
+
+, 𝑘2
+2
+
+, 𝑘3
+
+2) as
+
+𝐴
+
+max
+,𝑘3
+,𝑘2
+𝑘1
+1
+1
+1
+
+𝑠.𝑡. 𝑘1
+
+1 + 𝑘2
+
+𝑘1
+1
+1 + 𝑘1
+𝑘1
+1 + 𝑘3
+
+2
+
+1
+
+𝑘2
+𝑖
+1 + 𝑘2
+𝑘2
+
+2
+
++ 𝐴∗
+
+𝑘3
+1
+1 + 𝑘3
+𝑘3
+
+2
+
+− 𝑓 1𝑘2
+
+1
+
+>0 − 𝑓 ∗ 1𝑘3
+
+1
+
+>0,
+
++ 𝐴
+
+≤ 1.
+
+Analogously, Intermediary’s 2 best response is the solution to
+
+𝐴
+
+max
+,𝑘3
+,𝑘2
+𝑘1
+2
+2
+2
+
+𝑠.𝑡. 𝑘1
+
+2 + 𝑘2
+
+𝑘1
+2
+1 + 𝑘1
+𝑘1
+2 + 𝑘3
+
+2
+
+2
+
+𝑘2
+2
+1 + 𝑘2
+𝑘2
+
+2
+
++ 𝐴∗
+
+𝑘3
+2
+1 + 𝑘3
+𝑘3
+
+2
+
+− 𝑓 1𝑘1
+
+2
+
+>0 − 𝑓 ∗ 1𝑘3
+
+2
+
+>0,
+
++ 𝐴
+
+≤ 1,
+
+(4)
+
+(5)
+
+(6)
+
+(7)
+
+where she takes the resource allocation of Intermediary 1, (𝑘1
+, 𝑘3
+1),
+1
+as given. The best responses are presented in Lemmas 1 and 2 in Ap-
+pendix. The intersection of the best responses is a Nash equilibrium
+of  the  one-shot  game.  We  are  particularly  interested  in  the  interior
+equilibria, in which the intermediaries enter all markets.
+
+, 𝑘2
+1
+
+Proposition 1 (Nash Equilibrium). Suppose that a Nash equilibrium in
+which 𝑘𝑗
+𝑖 > 0, 𝑖 ∈ {1, 2}, 𝑗 ∈ {1, 2, 3}, exists. Then it is given by a solution
+to the following system of equations:
+
+𝐴
+𝑘1
+2
+(
+
+𝐴
+𝑘1
+1
+(
+
+𝑘1
+1 =
+
+(
+
+𝛬1
+
+⎡
+⎢
+⎢
+⎣
+
+)1∕2
+
+⎤
+− 1
+⎥
+⎥
+⎦
+
+2,  𝑘2
+𝑘1
+
+1 =
+
+𝑘3
+1 =
+
+⎡
+⎢
+⎢
+⎣
+
+𝛬1
+
+(
+
+𝑘1
+2 =
+
+⎡
+⎢
+⎢
+⎣
+
+𝛬2
+
+𝑘3
+2 =
+
+𝛬2
+
+⎡
+⎢
+⎢
+⎣
+
+)1∕2
+
+𝐴∗
+𝑘3
+2
+)1∕2
+
+⎤
+− 1
+⎥
+⎥
+⎦
+
+𝑘3
+2,
+
+⎤
+− 1
+⎥
+⎥
+⎦
+
+1,  𝑘2
+𝑘1
+
+2 =
+
+)1∕2
+
+𝐴∗
+𝑘3
+1
+
+⎤
+− 1
+⎥
+⎥
+⎦
+
+𝑘3
+1,
+
+)1∕2
+
+(
+
+𝛬1
+
+𝐴
+𝑘2
+2
+
+⎤
+− 1
+⎥
+⎥
+⎦
+
+𝑘2
+2,
+
+)1∕2
+
+(
+
+𝛬2
+
+𝐴
+𝑘2
+1
+
+⎤
+− 1
+⎥
+⎥
+⎦
+
+𝑘2
+1,
+
+⎡
+⎢
+⎢
+⎣
+
+⎡
+⎢
+⎢
+⎣
+
+𝛬1 = 2
+
+𝛬2 = 2
+
+[(𝐴𝑘1
+[(𝐴𝑘1
+
+2
+
+1
+
+)1∕2
+
+)1∕2
+
++
+
++
+
+(𝐴𝑘2
+2
+(𝐴𝑘2
+1
+
+)1∕2
+
+)1∕2
+
++
+
++
+
+(𝐴∗𝑘3
+2
+(𝐴∗𝑘3
+1
+
+)1∕2]−1
+
+)1∕2]−1
+
+,
+
+.
+
+(8)
+
+(9)
+
+(10)
+
+(11)
+
+In this paper, we focus on symmetric Nash equilibria. Substituting
+2 in (8)–(11), we arrive at the following
+
+1 = 𝑘3
+
+2, 𝑘2
+
+2, and 𝑘3
+1 = 𝑘2
+1 = 𝑘1
+𝑘1
+corollary to Proposition 1.
+
+Corollary 1 (Symmetric Nash Equilibrium).
+rium,
+
+In a symmetric Nash equilib-
+
+(i) the resource allocations to markets 𝑀1 and 𝑀2 are
+
+𝐴
+2𝐴 + 𝐴∗
+
+2 =
+
+1 = 𝑘2
+
+𝑘1
+1 = 𝑘1
+2 = 𝑘2
+and to market 𝑀3 are
+1 = 𝑘3
+𝑘3
+
+𝐴∗
+2𝐴 + 𝐴∗
+
+2 =
+
+.
+
+Furthermore, 𝑘1
+1
+
+< 𝑘3
+
+1 iff 𝐴 < 𝐴∗.
+
+(ii) each intermediary’s payoff is 𝐴+𝐴∗∕2 −𝑓 −𝑓 ∗. The symmetric Nash
+
+equilibrium exists if 𝐴∕2 ≥ 𝑓 and 𝐴∗∕2 ≥ 𝑓 ∗.
+
+In what follows, we maintain the assumption that entry costs are
+not prohibitively high, i.e., 𝐴∕2 ≥ 𝑓 and 𝐴∗∕2 ≥ 𝑓 ∗, and hence the
+symmetric Nash equilibrium reported in Corollary 1 exists. Since in this
+equilibrium, the market shares of the two intermediaries in each market
+are the same, each arbitrage opportunity is split equally between the
+two of them. Moreover, the larger the arbitrage opportunity, the more
+resources  an  arbitrageur  is  willing  to  commit  to  exploiting  it.  This
+implication is intuitive. In equilibrium, however, the market shares in
+all three markets end up being the same because the best response to
+
+the opponent who commits more resources to a market is to commit
+more resources herself.
+
+In the symmetric Nash equilibrium, arbitrageurs enter all three mar-
+kets, paying the maximum per-period fixed cost jointly. This allocation
+is clearly not Pareto efficient. For example, an allocation whereby both
+arbitrageurs enter their natural markets but not the natural markets of
+their opponents (while still equally splitting the third market), yields
+exactly the same gain from harvesting the arbitrage opportunities as
+in Corollary 1, but at a lower individual fixed cost. To generalize this
+reasoning, we explore the set of payoffs that maximize social welfare
+in a stage game.
+
+Fig.  1 depicts  the  Pareto  frontier  and  the  symmetric  Nash  equi-
+librium  of  this  game.  The  solid  line  represents  the  Pareto  frontier,
+which is the boundary of the feasible set of payoffs. To understand its
+shape, let us start from its rightmost point, denoted by a triangle (▵),
+corresponding to the highest possible payoff to Intermediary 1 and zero
+to  Intermediary  2.  The  highest  payoff  achievable  by  Intermediary  1
+occurs when she enters all three markets, and Intermediary 2 enters
+none. As Intermediary 2 enters its natural market, 𝑀2 (and no other
+market),  the  share  of  the  arbitrage  opportunity  in  market 𝑀2, 𝐴,
+captured  by  Intermediary  1  decreases,  while  the  value  captured  by
+Intermediary  2  increases  proportionately  to  its  market  share  of  that
+market. The slanted segment on the Pareto frontier originating from
+its rightmost point (▵) corresponds to this case. When Intermediary 1
+exits market 𝑀2 (while remaining in markets 𝑀1 and 𝑀3), the Pareto
+frontier  jumps  up  by  the  value  of  the  fixed  cost 𝑓 ,  because  of  the
+fixed cost savings when market 2 is left to the natural arbitrageur in
+that  market,  Intermediary  2.  This  allocation  is  denoted  by  a  square
+(□).  The  slanted  segment  right  after  the  jump  corresponds  to  the
+case  in  which  Intermediary  1  is  operating  in  markets 𝑀1 and 𝑀3
+and  Intermediary  2  in  markets 𝑀2 and 𝑀3.  To  maximize  the  total
+surplus, it is inefficient for both intermediaries to be present in the
+market 𝑀3 simultaneously, both paying a fixed cost of operating in
+that  market.  Pareto  efficient  equilibria  that  lie  on  the  segment  that
+contains the symmetric Pareto efficient equilibrium, therefore, involve
+randomization, in which Intermediary 1 enters market 𝑀3 half of the
+time and Intermediary 2 the remaining half (denoted by a circle, ●).
+Since (except for the natural markets) the problem is symmetric, the
+remaining part of the Pareto frontier is the mirror image of the right
+part of the frontier.
+
+We are going to focus on the Pareto efficient equilibrium that is
+symmetric in payoffs, denoted by a circle (●) in Fig. 1. The following
+proposition formally derives and characterizes this equilibrium.
+
+Proposition 2 (Symmetric Pareto Efficient Equilibrium).
+efficient equilibrium that is symmetric in payoffs,
+
+In the Pareto
+
+2
+
+, 𝑘2
+
+, 𝑘2
+
+(i) the two intermediaries agree to allocate no resources to markets 𝑀1
+and 𝑀2. That is, (𝑘1
+2)  =  (0, 0). Hence,
+1)  =  (0, 0), and (𝑘1
+1
+the intermediaries fully harvest the arbitrage opportunities in their
+natural markets.
+In market 𝑀3, the intermediaries randomize their market entry and
+agree that only one intermediary enters at a time. Intermediary 1
+1 ∈ (0, 1] and captures the entire market 𝑀3 with probability
+plays 𝑘3
+1 =  0) with probability 1
+1
+.
+2
+Intermediary 2 plays the mirror image of this strategy.
+(ii) each intermediary’s expected payoff is 𝐴 + 𝐴∗∕2 − 𝑓 ∗∕2.
+
+and stays away from the market (𝑘3
+
+2
+
+The Pareto frontier contains a set of cooperative equilibria in this
+game. Comparing the intermediaries’ payoffs in the symmetric Nash
+and Pareto efficient equilibria (Corollary 1 and Proposition 2), denoted
+by a star (❋) and a circle (●) in Fig. 1, we see that the latter is clearly
+higher. The Pareto efficient equilibrium is a cooperative equilibrium
+that involves explicit agreements between players. It is not achievable
+in a one-shot game if the intermediaries are playing non-cooperatively.
+This is because a deviation from playing the Pareto efficient equilibrium
+
+5 
+
+S. Bryzgalova et al.
+
+Journal of Financial Economics 166 (2025) 104008 
+
+Fig. 1. Pareto frontier. The solid line depicts the Pareto frontier of the stage game. The symmetric Nash equilibrium is denoted by the star symbol (❋), and the symmetric
+(cooperative) Pareto efficient equilibrium by a circle (●).
+
+is profitable for each intermediary. Indeed, by entering the other inter-
+mediary’s natural market, the player captures the entire natural market
+of the opponent, increasing its payoff in the stage game by 𝐴 − 𝑓 . The
+unique symmetric equilibrium in a non-cooperative game is the Nash
+equilibrium.
+
+Achieving  a  Pareto  efficient  equilibrium  in  a  one-shot  game  is
+possible only if the intermediaries make explicit agreements with each
+other.  In  an  infinitely  repeated  game,  however,  a  Pareto  efficient
+equilibrium becomes one of the possible equilibria of the stage game,
+and supporting  it does  not require  any explicit agreements  between
+arbitrageurs.
+
+2.3.  Tacit collusion in an infinitely repeated game
+
+We now move from the stage game to the infinitely repeated game.
+Our objective is to support the symmetric Pareto efficient equilibrium
+of the stage game, analyzed in the previous subsection. In the infinitely
+repeated  game,  the  set  of  possible  strategies  expands  considerably,
+and in particular, it now includes strategies that depend on the other
+intermediary’s actions in previous periods. This significantly enlarges
+the  set  of  subgame  perfect  equilibria  if  the  intermediaries  are  suffi-
+ciently patient. Each period’s randomization in the third market is also
+no longer required: the intermediaries can simply implicitly agree to
+alternate  their  entry  in  the  market,  i.e.,  one  of  them  enters  in  odd
+periods while the other in even. An infinite horizon is required because
+if the horizon were finite, the intermediaries would have the incentive
+to deviate from the Pareto efficient equilibrium in the last period, which
+by backward induction implies that they deviate in all previous periods
+and, therefore, the Pareto efficient equilibrium is not subgame perfect
+and the only symmetric non-cooperative equilibrium of this game is the
+Nash equilibrium of the stage game, played every period.
+
+To support the symmetric Pareto efficient equilibrium as a subgame
+perfect equilibrium, we focus on the following trigger strategy: cooperate
+and play the Pareto efficient equilibrium if the other player cooperates
+and  punish  the  opponent  for  any  deviation  from  it  by  playing  the
+non-cooperative stage game strategies thereafter. Considering again the
+symmetric case, in the post-deviation phase, the intermediaries, there-
+fore, play the stage-game Nash equilibrium computed in Corollary 1
+in every stage game forever. The following proposition makes these
+statements more precise.
+
+Proposition  3 (Symmetric  Tacit  Collusion  Equilibrium). Consider  the
+following symmetric trigger strategy:
+Cooperative phase: Cooperate and
+
+(i) allocate no resources to markets 𝑀1 and 𝑀2. That is, (𝑘1
+1𝑡
+
+1𝑡) =
+1𝑡) = (0, 0), so that the natural arbitrageurs capture
+
+(0, 0), and (𝑘1
+1𝑡
+all of the arbitrage opportunities in their natural markets;
+
+, 𝑘2
+
+, 𝑘2
+
+(ii) alternate  entry  in  market 𝑀3,  with  Intermediary 𝑖 entering  the
+market  and  harvesting  the  entire  arbitrage  opportunity 𝐴 in  odd
+𝑖𝑡 > 0, 𝑡 is odd), and Intermediary 𝑗, 𝑗 ≠ 𝑖 in even periods
+periods (𝑘3
+(𝑘3
+
+𝑗 𝑡 > 0, 𝑡 is even).
+
+Punishment  for  deviation: If  the  opponent  deviated  from  the  above
+cooperative strategy in the previous period, enter all markets (𝑀1, 𝑀2, 𝑀3)
+and play purely competitively forever, which results in a Nash equilibrium
+in each stage game thereafter (Proposition 1 and Corollary 1).
+
+If  both  players  play  the  trigger  strategy  above  and 𝛿 ≥ 𝐴−𝑓 −𝑓 ∗∕2
+,
+the symmetric Pareto optimal (or tacit collusion) equilibrium is a subgame
+perfect equilibrium of the repeated game.
+
+𝐴
+
+The result of Proposition 3 is consistent with the Folk Theorem of
+repeated games (see Fudenberg and Maskin, 1986) that for the time
+discount factor sufficiently close to 1, a cooperative equilibrium of the
+stage game can be supported via a purely non-cooperative mechanism
+in a repeated game. An equilibrium of this type is known as a tacit col-
+lusion equilibrium in the industrial organization literature. In contrast
+to the industrial organization literature, where players charge higher
+prices  in  the  cooperative  stage,  in  our  model,  cooperation  involves
+staying away from a subset of markets so as to achieve the highest
+social welfare (3) by paying the minimum combined fixed cost. This
+is the novelty of our tacit collusion mechanism.
+
+We stress that the trigger strategy played by the intermediaries and
+the resulting tacit collusion equilibrium does not involve any explicit
+agreements every period. All that is required to implement the strategy
+is for the intermediaries to observe that there was market entry by other
+intermediaries in the previous period. In our application that follows,
+we  observe  this  information  in  our  commercially  available  dataset.
+Finally, the existence of a tacit collusion equilibrium requires that the
+discount rate between two consecutive rounds of arbitrage trading is
+small — an assumption that is easily satisfied in our empirical appli-
+cation, in which multiple arbitrage opportunities arrive on a weekly
+basis.
+
+6 
+
+S. Bryzgalova et al.
+
+To better fit our empirical analysis, our model requires a straight-
+forward modification. Instead of there being one market that is natural
+for neither intermediary, 𝑀3, we now have two markets, 𝑀3 and 𝑀4,
+with an arbitrage opportunity 𝐴∗ each. The fixed costs of market entry
+into markets 𝑀3 and 𝑀4 are the same and are equal to 𝑓 ∗. In this
+game,  there  is  a  symmetric  tacit  collusion  equilibrium  in  which  (i)
+neither  intermediary  enters  markets 𝑀1 and 𝑀2,  and  therefore  the
+arbitrage opportunity accrues to the natural arbitrageur in that market,
+and (ii) only one of the intermediaries enters market 𝑀3, and the other
+intermediary enters market 𝑀4. This equilibrium is an equilibrium in
+an infinitely repeated game, in which reversion to Nash equilibrium
+upon  a  deviation  acts  as  a  threat.  Proposition  4  in  the  Appendix
+formalizes this discussion.
+
+We conclude the section by presenting several testable predictions
+
+of our model.
+Testable  Prediction  1: The  natural  markets  are  fully  exploited  by
+the incumbent natural arbitrageur(s), and in the data, we should not
+observe entry into those markets.
+Testable  Prediction  2: If  a  market  is  neither  arbitrageur’s  natural
+market, we should observe only one arbitrageur entering that market.
+Testable Prediction 3: If the arbitrageurs are playing one-shot-game
+Nash  equilibrium  strategies,  they  enter  all  markets.  The  higher  the
+value of the arbitrage opportunity in a market, the more resources they
+allocate to that market.
+
+3.  Dividend play
+
+In this section, we describe a specific arbitrage strategy, dividend
+play, for which we can accurately identify trades of arbitrageurs and
+examine the properties of these trades. The environment in which this
+strategy is executed closely resembles the setup of our model.
+
+3.1.  Dataset
+
+Our  options  data  comes  from  two  main  sources:  OPRA  and  Op-
+tionMetrics. Transaction-level data from OPRA LiveVol is provided by
+CBOE. The data ranges from November 4, 2019, to June 30, 2023. It
+contains all transactions in index, ETF, and equity options on 16 U.S.
+options exchanges. In our analysis, we exclude index options and focus
+on single-name options on equities and ETFs.
+
+We  use  daily  option  price,  volume,  and  open  interest  data  from
+OptionMetrics, available at a contract level for the period between Jan-
+uary 4, 1996, and June 30, 2023. We lag open interest for all the data
+after November 28, 2000, to have a series of consistent open interest as
+of the end of day.12 When implied volatility and Greeks are missing in
+OptionMetrics, we use linearly interpolated (and extrapolated) values
+across  contracts  with  different  strikes  but  same  expiration  (for  each
+underlying and date).13 We confirmed that the interpolation method
+choice does not affect our findings.
+
+Our data-cleaning procedure is as follows. Following the literature,
+we  remove  canceled  trades,  trades  with  nonpositive  size  or  price,
+and trades with a negative spread (difference between best ask and
+best  bid),  and  we  keep  only  those  trades  for  which  trade  price  is
+above the best bid minus spread and below the best ask plus spread.
+We aggregate trades of the same contract with the same quote time,
+exchange ID, trade price, and trade condition ID into one line. We do
+not exclude open or close trades from our analysis, but we confirm that
+excluding trades before 9:45 a.m. and after 3:50 p.m. does not change
+our results. To compute trade imbalances, we follow the quote rule,
+
+12 The lag is due to the change in the reporting format of OptionMetrics.
+This implies that end-of-day open interest is measured after option exercises.
+13 We enforce theoretical boundaries in these calculations. In particular, we
+set a call option’s delta to zero (one) when its interpolated value is negative
+(above one).
+
+Journal of Financial Economics 166 (2025) 104008 
+
+which classifies trades with prices above (below) the midpoint as ‘‘buy’’
+(‘‘sell’’) trades.14
+
+We  also  use  data  from  the  Nasdaq  PHLX  Options  Trade  Outline
+(PHOTO)  End-of-Day  files  with  order  classification  and  trade  direc-
+tions  by  the  originating  counterparty  (customers,  professional  cus-
+tomers, market makers, firms, or broker/dealers). The data ranges from
+November 1, 2019, until June 30, 2023.
+
+For all stock data, we use CRSP. We obtain dividend history, stock
+prices and returns, outstanding shares, and rolling monthly volatility
+of daily returns. We rely on the SecId-PERMNO crosswalk provided by
+WRDS to link CRSP with OptionMetrics.
+
+3.2.  Dividend play
+
+Daily trading volume in options on high-dividend underlyings in
+the U.S. exhibits an intriguing seasonality, illustrated in Fig. 2 for the
+SPDR S&P 500 ETF (SPY) case. The spikes in trading volume apparent
+from the figure occur every quarter on the last cum-dividend date, that
+is, the day before SPY pays a dividend. SPY options are some of the
+most traded contracts, and yet the average daily traded notional for
+them is $2409.5 million on the last cum-dividend dates and $235.4
+million on the remaining dates. This pattern is common among options
+on high-dividend-paying stocks and ETFs.
+
+On  the  last  cum-dividend  dates,  arbitrageurs  engage  in  a  trade
+known as the dividend play. This strategy is available only for transac-
+tions originating from the exchange floor, or, in other words, only to
+the market participants who must be physically located on the trading
+floor. Dividend play could be organized off the exchange floor, but it
+would not qualify for transaction fee caps. In our data, most abnormal
+volume on cum-dividend dates goes through floor trades on two ex-
+changes, PHLX and BOX, as discussed below. The distribution of trading
+volume across all exchanges is reported in Table B.11 in Appendix.
+
+The  goal  of  the  dividend  play  strategy  is  to  take  advantage  of
+inattentive  or  constrained  investors  who  fail  to  exercise  their  call
+options on dividend-paying stocks when it is optimal to do so.15 It is
+optimal to exercise a call option if the value of exercising it on the last
+cum-dividend date and collecting a dividend exceeds the value of the
+call the next day when the stock goes ex-dividend. Computing option
+values  involves  using  the  Black–Scholes–Merton  formula  or  a  more
+sophisticated  option  pricing  method,  which  is  typically  difficult  for
+novice investors. Alternatively, some retail investors may be unaware
+of the possibility of early exercise. Since a fraction of in-the-money call
+options remains suboptimally unexercised, the writers of these options
+would not be asked to deliver the stock and would, therefore, receive
+a windfall capital gain on their position. It is a zero-sum game.
+
+If  all  in-the-money  call  option  contracts  on  a  stock  have  been
+exercised on or before the last cum-dividend date, all holders of short
+positions in the same contracts receive a request to deliver the stock.
+However,  if  some  contracts  are  left  unexercised,  the  OCC  randomly
+‘‘assigns’’ short positions that must deliver the stock. The unassigned
+holders  simply  hold  on  to  their  options  and  profit  from  a  windfall
+capital gain. Arbitrageurs can divert this gain to themselves by simulta-
+neously buying and selling many in-the-money call options on the same
+underlying. They exercise all long positions and deliver on all assigned
+short positions. Since some fraction of the options remains unassigned
+(owing to suboptimal exercise by investors), arbitrageurs then capture
+dividends on their net long stock positions while staying fully hedged.
+
+14 Our results hold if we use the Lee and Ready (1991) algorithm (that is,
+applying the tick rule to classify trades at midpoint instead of excluding them).
+The ticker-level imbalances produced by the two methods have a correlation
+of over 90%.
+15 There  might  be  other  reasons  why  investors  do  not  exercise,  such  as
+the costs of unwinding more complex strategies. Hao et al. (2009) show that
+dividend play profits outweigh such costs in most cases.
+
+7 
+
+S. Bryzgalova et al.
+
+Journal of Financial Economics 166 (2025) 104008 
+
+Fig. 2. Abnormal trading volume on last cum-dividend dates for SPDR S&P 500 ETF (SPY). This figure plots daily trading volume for all call option contracts on SPY, in millions
+of U.S. dollars, as reported in OptionMetrics. The dashed lines indicate the last cum-dividend dates.
+
+(A)
+
+𝑂 𝐼𝑡−1
+
+Table 1
+Dividend play: An example.
+New
+positions(t)
+(B)
+Case 1. Optimal exercise
+Customer
+1
+Case 2. Suboptimal exercise
+Case 2.1. Without dividend play
+Customer
+1
+Case 2.2. With dividend play
+1
+Customer
+0
+Arbitrageur
+1
+Total
+
+0
+100
+100
+
+0
+
+0
+
+Available
+for ex.
+(C)
+
+No.
+exercised
+(D)
+
+Prob. non-assign. orig.
+option writer
+(E)
+
+Prob. non-assign.
+arbitrageur
+(F)
+
+Gain per
+share
+(G)
+
+Expected gain orig.
+option writer
+(E*G*100)
+
+Expected gain
+arbitrageur
+(F*G*100)
+
+1
+
+1
+
+1
+100
+101
+
+1
+
+0
+
+0
+100
+100
+
+0
+
+1
+
+1/101
+
+5
+
+5
+
+5
+5
+
+0
+
+500
+
+5
+
+100/101
+
+495
+
+This table illustrates the dividend play strategy. Date 𝑡 refers to the last cum-dividend date, and 𝑂 𝐼𝑡 stands for the open interest on date 𝑡.
+
+Usually, two arbitrageurs agree on a dividend play trade in advance
+and serve as a counterparty to each other on their arbitrage positions.
+Table 1 illustrates the mechanics of the dividend play strategy using
+an example. Suppose there is 1 call option contract outstanding, and
+it  is  optimal  to  exercise  it.16 Case  1  corresponds  to  the  case  when
+the  option  is  exercised,  the  holder  of  the  short  position  is  assigned
+to deliver the underlying, and there is no profit for the dividend play
+strategy to harvest. Case 2 describes what happens if the contract is left
+unexercised. Without arbitrageur involvement, the short position in the
+contract does not get assigned, and the option writer receives a windfall
+gain of $500 for sure.17 Now consider the entry of an arbitrageur. The
+arbitrageur attempts to pocket most of the potentially harvestable profit
+of $500. To do so, the arbitrageur buys and simultaneously sells 100
+contracts and exercises all of their long positions. The probability of
+assignment  increases,  but  because  of  the  OCC’s  random  assignment,
+with a probability of 100/101, the arbitrageur holds the short position
+that does not get assigned and hence yields a gain. For the original
+option writer, this probability is now only 1/101. Hence, the expected
+gain of the arbitrageur is $495 out of the total gain of $500 and that
+of the original option writer drops to $5. Therefore, a dividend play
+strategy dilutes the share of the gain accruing to the original option
+writer.
+
+In what follows, we detect dividend play activity at a contract level
+in the full sample and characterize its importance relative to the overall
+trading volume on the last cum-dividend dates.
+
+3.3.  Arbitrageur activity in dividend play strategy
+
+We first present our measure of arbitrageur activity in the dividend
+play strategy. Through fee caps, exchanges incentivize dividend play
+strategies to originate from the physical floor. To construct our measure
+of dividend play activity, we, therefore, exploit OPRA’s new detailed
+trade type flags to isolate option transactions that are executed on the
+floor. The trade types that cover most of the dividend play transactions
+are SLFT and MLFT, which are single-leg and multi-leg floor trades,
+respectively. (See Appendix B.1 for a more detailed description.) Other
+floor  trade  types  used  infrequently  in  our  sample  are  MLCT,  MSFL,
+SLCN, TLFT, and TLFT. We analyze this measure in detail below and
+show that it accurately captures dividend play trades in our sample. To
+our knowledge, this is the most precise measure of arbitrageur activity
+in  the  dividend  play  strategy  in  the  literature,  which  typically  uses
+trading volume on the last cum-dividend dates in excess of the past
+average volume.18
+
+Table 2 presents descriptive trading activity statistics on the last
+cum-dividend compared to any other dates for dividend-paying stocks
+and ETFs. In this paper, we often refer to the last cum-dividend dates
+on which dividend play trade takes place as dividend play dates. We see
+a considerable difference in floor trading volume and volume of large
+trades on the last cum-dividend dates relative to other dates. Moreover,
+on the last cum-dividend dates, we see colossal spikes in volume on two
+exchanges that cap fees for the dividend play strategy: PHLX and BOX.
+
+16 Appendix B.2 provides another example, in which multiple contracts are
+outstanding, some of which are exercised optimally and some are not.
+17 We assume that, as in the data, each option contract is for 100 shares of
+the underlying.
+
+18 Strictly speaking, we should define our measure of arbitrageur activity in
+dividend play as abnormal floor volume on the last cum-dividend dates, but
+our measure is simpler and our results stay virtually the same if we use the
+abnormal floor volume measure instead.
+
+8 
+
+S. Bryzgalova et al.
+
+Table 2
+Characteristics of activity on last cum-dividend dates.
+
+Journal of Financial Economics 166 (2025) 104008 
+
+Average ticker dollar volume ($ million) on
+Any other date
+Cum-dividend date
+(2)
+(1)
+
+Total market dollar volume share (%) on
+Any other date
+Cum-dividend date
+(4)
+(3)
+
+Effective trade cost as % of total dollar volume on
+Cum-dividend date
+(5)
+
+Any other date
+(6)
+
+Panel A. Floor trade
+Yes
+No
+Panel B. Exchange
+PHLX or BOX
+Any other
+Panel C. Option type
+Call
+Put
+Panel D. Moneyness
+In the money
+At the money
+Out of the money
+Panel E. Trade size
+Large
+Small
+
+65.6
+12.0
+
+50.5
+10.7
+
+54.1
+5.3
+
+48.0
+12.2
+0.9
+
+57.9
+4.2
+
+1.8
+3.8
+
+1.0
+3.5
+
+2.1
+2.4
+
+1.2
+3.2
+0.4
+
+3.9
+1.2
+
+79.7
+20.3
+
+82.1
+17.9
+
+91.3
+8.7
+
+78.1
+20.4
+1.5
+
+92.8
+7.2
+
+10.7
+89.3
+
+20.3
+79.7
+
+48.4
+51.6
+
+20.1
+70.8
+9.0
+
+71.3
+28.7
+
+0.51
+0.69
+
+0.52
+0.67
+
+0.52
+0.78
+
+0.44
+0.85
+1.77
+
+0.53
+0.68
+
+1.05
+0.92
+
+1.03
+0.91
+
+1.04
+0.84
+
+0.57
+0.87
+2.33
+
+0.92
+0.99
+
+This table compares option trading activity for tickers that enter our dividend play sample at least once (1549 stocks and ETFs) on the last cum-dividend date with any other
+date. The dividend play sample is described in detail in Appendix B.4. The average volume in columns (1) and (2) is computed at ticker-day level, and the volume share in
+columns (3) and (4) is for the entire market. In Panel A, we define floor trades as trades with SLFT and MLFT OPRA trade types. In Panel D, we define ‘‘in the money’’ as
+(𝑀 𝑖𝑑 𝑝𝑜𝑖𝑛𝑡 𝑃 𝑟𝑖𝑐 𝑒 − 𝑆 𝑡𝑟𝑖𝑘𝑒)∕𝑆 𝑡𝑟𝑖𝑘𝑒 > 0.1 for call options and (𝑀 𝑖𝑑 𝑝𝑜𝑖𝑛𝑡 𝑃 𝑟𝑖𝑐 𝑒 − 𝑆 𝑡𝑟𝑖𝑘𝑒)∕𝑆 𝑡𝑟𝑖𝑘𝑒 < −0.1 for put options. ‘‘At the money’’ are contracts for which this value is between
+−0.1 and 0.1, and ‘‘out of the money’’ are all other contracts. In Panel E, we define trade as ‘small’ if the trade size is at or below 10 contracts. Effective trade costs are measured
+as daily aggregates of the absolute distances between execution prices and midpoint prices. We scale them by total dollar volume on the day.
+
+Breaking the trades by moneyness, we see that the primary increase in
+volume comes from trading deep-in-the-money calls (which are more
+likely  to  be  optimal  to  exercise).  This  pattern  is  a  signature  of  the
+dividend play strategy. The utter size of the dividend play positions
+is astonishing.
+
+Table  2 also  reveals  an  economically  significant  decrease  in  the
+trading costs on dividend play dates. Executing large trades in options
+becomes considerably cheaper. As Table 2 demonstrates, effective trade
+costs  on  dividend  play  dates  are  almost  twice  lower,  especially  if
+those trades are executed from the floor and on PHLX or BOX. Our
+calculations  reveal  that  the  reduction  in  trade  costs  is  driven  by  a
+dramatic increase in the floor volume executed at the midpoint: 57%
+of volume at the midpoint on dividend play dates is in floor trades,
+as compared to 1.6% on other dates. Trades of the size employed in
+dividend play normally have a significant price impact, but we do not
+see it for the actual dividend play trades, which supports the hypothesis
+that these trades are prearranged by pairs of floor arbitrageurs.
+
+In  our  data,  we  see  bursts  of  simultaneous  buy  and  sell  activity
+in  neighboring-strike  call  option  contracts,  executed  usually  within
+several seconds, all coming from the floor. See Appendix B.8 for more
+details on the nature of the bursts.
+
+Before  2014,  dividend  play  typically  involved  a  long  and  short
+position in the same contract. A clearing rule change in 2014 made
+this  impractical  for  arbitrageurs.  Market  participants  have  adjusted
+their  trading  strategies,  and  since  then  they  buy  and  sell  contracts
+with neighboring strikes, which ultimately achieves the same objective.
+Section 5 below documents such activity in neighboring strikes.
+
+3.4.  Dividend play profits
+
+We now derive exploitable profits from the dividend play strategy.
+Some of these profits come from an increase in the open interest, some
+from investors’ failure to exercise, and some from the value of early
+exercise of each contract. With an inflow of inexperienced investors in
+the options market, we expect the first two components to increase.
+We, therefore, find it useful to decompose the exploitable profit from
+a contract into three parts: (i) open interest, (ii) fraction unexercised,
+and (iii) early exercise value.
+
+The  exploitable  dividend  play  profit  on  all  the  interest  for  each
+
+contract is defined as
+𝜋𝑡 = 𝑂 𝐼𝑡−1 × 𝑓𝑡 × 𝐸 𝐸 𝑉𝑡,
+
+(12)
+
+9 
+
+where 𝑡 − 1 is the day before the last cum-dividend date, 𝑂 𝐼𝑡−1 denotes
+open interest on that date (measured after all trades, exercises, and
+≡ 𝑂 𝐼𝑡∕𝑂 𝐼𝑡−1 is the fraction unexercised,
+assignments on that date), 𝑓𝑡
+and 𝐸 𝐸 𝑉𝑡 is the early exercise value, computed below. Note that the
+fraction unexercised reflects the fraction of open interest in an option
+contract  that  remains  outstanding  after  the  last  cum-dividend  date
+(after all trades, exercises, and assignments on that date). Both 𝐸 𝐸 𝑉𝑡
+and 𝑓𝑡 are  estimated  quantities.  Open  interest  as  of  the  day  before
+the last cum-dividend day (𝑂 𝐼𝑡−1) and fraction not exercised (𝑓𝑡) are
+available from OptionMetrics. In rational and frictionless markets, we
+expect that 𝑓𝑡 = 0 if 𝐸 𝐸 𝑉  > 0.
+
+The early exercise value is model-based, and we rely on the Black–
+Scholes–Merton  option  pricing  formula  to  compute  it.19 Denote  the
+expected ex-dividend price of an option by 𝑐𝑒𝑥, its strike by 𝐾, and
+the current (cum-dividend) underlying stock price by 𝑆. The expected
+option  ex-dividend  price  represents  the  expected  time  value  of  the
+option. Early exercise value (EEV) is, therefore, the difference between
+the  current  stock  price,  strike,  and  this  expected  time  value  of  the
+option: 𝑆 − 𝐾 − 𝑐𝑒𝑥.20 The  details  of  the  computation  of 𝑐𝑒𝑥 are  in
+Appendix B.3.
+
+In  the  following  analyses,  we  restrict  our  sample  to  call  option
+contracts that are optimal to exercise on cum-dates and refer to it as
+the dividend play sample. Further details related to its construction are
+provided in Appendix B.4, and Table B.10 in the Appendix presents the
+descriptive statistics for our dividend play sample.
+
+Using the full dataset from January 1996 to June 2023, available
+from OptionMetrics, we estimate the total value of potential dividend
+play profits at $1.52 billion. While most of our analysis relies on data
+available  since  November  2019,  thus  constituting  only  13%  of  the
+overall time period, this subsample nevertheless accounts for almost
+
+19 To ensure our results are robust to the choice of the underlying pricing
+model, we considered the sample of broad-index ETFs and computed their cor-
+responding option prices with the Merton and Bates models, following Bakshi
+et al. (1997) and Cosma et al. (2020). Options on these ETFs represent over
+10% of contracts in our dividend play sample and 55% of potential dividend
+play profits. All our results hold in that sample.
+20 Note that this definition is from Pool et al. (2008), and it is equivalent
+to  the  definition  in Hao  et  al. (2009).  The  latter  uses  dividend  instead:
+𝐷 𝑖𝑣𝑖𝑑 𝑒𝑛𝑑 − 𝑐𝑒𝑥 + 𝑆𝑒𝑥 − 𝐾.
+
+S. Bryzgalova et al.
+
+Journal of Financial Economics 166 (2025) 104008 
+
+Table 3
+Case study of arbitrageur activity: Two EEM call options on the last cum-dividend date.
+Spread, %
+OI (t − 1)
+1.85
+13,770
+3.90
+6477
+
+Money-ness, %
+12.7
+10.3
+
+Contract 1
+Contract 2
+
+45,000
+46,000
+
+0.39
+0.39
+
+Strike
+
+EEV
+
+a third of all the potential dividend play profits (see Figure B.6 in the
+Appendix). The high profitability of dividend play in recent years is
+largely driven by a sharp increase in options trading and, consequently,
+open interest. In particular, while in the first quarter of 1996, the total
+open interest was below 18,000 contracts, in Q2 2023, it was already
+above 5.5 million contracts.
+
+4.  Selective entry by arbitrageurs
+
+In this section, we present empirical evidence regarding the arbi-
+trageur behavior in the dividend play strategy. We begin with a case
+study in Section 4.1, whereby arbitrageurs fully exploit opportunities
+in one contract but forgo them in another very similar contract on the
+same underlying. In Section 4.2 we further document the general lack
+of entry by arbitrageurs in profitable contracts, and in Section 4.3 we
+explain  why  existing  theories  of  limits  to  arbitrage  do  not  seem  to
+explain these patterns. In Section 4.5 we explore the determinants of
+this puzzling behavior and show that it is consistent with our model.
+In particular, we interpret the lack of entry of arbitrageurs through the
+lens of the natural markets and arbitrage profits being captured by the
+incumbent arbitrageur and provide empirical evidence consistent with
+this explanation.
+
+4.1.  Case study
+
+December  11,  2020,  was  the  last  cum-dividend  date  for  EEM
+(iShares MSCI Emerging Markets), a high-dividend paying ETF, and a
+number of calls on EEM were in-the-money and optimal to exercise on
+that day. Table 3 focuses on a pair of such contracts, both expiring on
+January 15, 2021.
+
+We first compare the trading volume in the contracts on December
+11, 2020. Notice that the trading volume in Contract 1 exceeds that in
+Contract 2 by a factor of 1000. Notice also that Contract 1 has most of
+the orders from the trading floor on that day, while Contract 2 has zero.
+We also see characteristic bursts of floor orders in the transaction-level
+data for Contract 1. This means that arbitrageurs engaging in a dividend
+play trade exploited Contract 1 but not Contract 2.
+
+Why did the arbitrageurs leave money on the table in Contract 2?
+The contract had a high EEV and a significant fraction of open interest
+unexercised. Using Eq. (12) to compute the arbitrageur’s forgone profits
+from  not  participating  in  Contract  1,  we  arrive  at 6477  ×  0.07  ×
+0.39 × 100 ≈ $17, 682, a significant sum.21 This is particularly striking,
+given that the fees for implementing dividend play strategy in all the
+contracts  within  a  given  ticker  on  a  given  day  are  just  $1100  on
+PHLX.22 The  second  contract  does  not  appear  riskier  either,  having
+almost identical delta and vega to the first.
+
+Trading costs do not explain the market participants’ reluctance to
+trade Contract 2. First, exchanges offer daily fee caps for the dividend
+play strategy, and so if market makers (or other arbitrageurs) entered
+Contract 1, they should have also entered Contract 2. Second, contract
+bid–ask spreads in Table 3 are very similar. In the regression framework
+that follows, we further control for the option contract’s liquidity and
+show that trading costs do not explain why arbitrageurs forgo profitable
+opportunities.
+
+21 Each option contract in our sample is for 100 shares of the underlying
+stock or ETF.
+22 See https://listingcenter.nasdaq.com/rulebook/phlx/rules/phlx-options-
+
+7.
+
+10 
+
+Fraction unexercised
+0.10
+0.07
+
+Cum-date volume
+44,883
+35
+
+Floor share
+0.998
+0.000
+
+Delta
+
+0.991
+0.990
+
+Vega
+
+0.243
+0.268
+
+It is puzzling that arbitrageurs fully exploited the arbitrage oppor-
+tunity in Contract  1 but not in Contract 2. In the following section, we
+show that this is the general pattern in our sample. The unexploited
+profit in Contract 2 accrued to the writer of this contract, who could
+be  a  market  maker  or  perhaps  a  retail  investor.  The  latter  is  less
+likely because retail brokerages take an automated action to close short
+positions that have dividend risk on behalf of their clients.23 Appendix
+B.6  presents  an  excerpt  from  Robinhood’s  Terms  and  Conditions  to
+provide an example of such automated action. It is, therefore, more
+likely that the writer of the contract who received the windfall gain was
+a market maker. The market maker, who is a writer of the contract, of
+course, has no incentive to engage in a dividend play strategy in this
+contract because this would mean sacrificing her own profit. But it is
+puzzling that other market makers or arbitrageurs would not wish to
+exploit Contract 2 and reap arbitrage profits.
+
+4.2.  Lack of entry by arbitrageurs
+
+Table 4 expands our case study and reports forgone profits by ticker
+for the top 40 underlying stocks and ETFs sorted by the total size of
+forgone profits in our sample. We aggregate our data to the ticker level
+and  report  the  number  of  profitable  individual  contracts  per  ticker.
+Similar to the EEM example above, we assume that arbitrageurs forgo
+all profits in contracts they do not enter. For the ones they do enter, we
+associate the floor share with harvested profits and the residual share
+with the forgone. The total amount of harvested profits in the top 40
+tickers in our sample is around $109 million, whereas the total amount
+of forgone profit stands at almost $167 million. The amount of money
+left on the table is striking for a virtually riskless arbitrage strategy.
+
+In the full sample, the values of harvested and forgone profits are
+$161 million and $204 million, respectively; hence, the total potential
+arbitrageur profit from the dividend play strategy is a little over $365
+million. To put the total profit from this strategy into perspective, it
+is useful to compare these numbers to arbitrageurs’ profits from other
+strategies that exploit retail investor mistakes. de Silva et al. (2022)
+study retail investor trading in options around earnings announcements
+and find that this trading amounts to a wealth transfer of $360 million
+from retail investors to market makers in their sample that is seven
+times longer than ours, running from 2010 to 2021.
+
+Table  4 does  not  reveal  any  particular  pattern  in  harvested  and
+forgone profits: There is a large variation in arbitrageur activity across
+and within tickers. Next, we examine possible explanations why some
+contracts attract arbitrageur entry, while some do not.
+
+To  examine  drivers  of  arbitrage  activity,  we  start  by  contrasting
+potential  and  harvested  profits  from  the  dividend  play  strategy  on
+the last cum-dividend dates in our sample. Fig. 3 presents potential
+profits  of  the  dividend  play  strategy  across  all  contracts,  computed
+using Eq. (12), and profits harvested by floor traders. It emerges from
+Panel (a) that a large fraction of potential profit, namely 56%, remains
+unharvested. If we restrict the sample, however, to the contracts with
+non-zero floor trading volume – that is, contracts in which we detect
+
+23 Since each option contract is for delivery of 100 shares of the underlying,
+for small retail investors, the cash outlay needed for purchases of the under-
+lying stock and delivering it could be quite significant. A brokerage would,
+therefore, close a short position if there are not enough funds in the account
+to buy and deliver the underlying.
+24 The average floor share is over 99% in Fully harvested contracts and 67%
+in Partly harvested contracts.
+
+S. Bryzgalova et al.
+
+Table 4
+Dividend play profits by ticker.
+Profit, USD
+Ticker
+Harvested
+(1)
+
+Ticker
+
+SPY
+PBR
+AAPL
+XLE
+IWM
+EWZ
+EEM
+EFA
+FXI
+QQQ
+VALE
+XOM
+HYG
+XLF
+STLA
+MSFT
+ZIM
+LQD
+ET
+LMT
+KO
+JPM
+COST
+T
+IBM
+DIA
+SAN
+TLT
+QCOM
+IYR
+AVGO
+XLU
+CSCO
+XLP
+CVX
+GOLD
+BHP
+GILD
+MO
+ABBV
+
+Total
+
+3,814,437.0
+24,307,848.0
+3,594,494.0
+4,535,588.0
+2,063,259.0
+7,592,449.0
+12,967,090.0
+6,402,670.0
+2,167,366.0
+57,656.0
+2,560,822.0
+9,277,319.0
+495,875.7
+1,453,332.0
+903,257.4
+1,994,383.0
+1,246,124.0
+10,451.9
+2,565,170.0
+270,094.5
+489,992.4
+2,090,890.0
+20,985.0
+5,260,609.0
+1,872,265.0
+175,078.0
+–
+80,308.3
+1,188,971.0
+235,536.9
+911,385.9
+70,308.7
+1,041,260.0
+203,193.1
+1,683,582.0
+542,518.3
+270,785.8
+610,051.6
+2,677,554.0
+1,431,013.0
+
+Journal of Financial Economics 166 (2025) 104008 
+
+No. contracts
+Fully harvested
+(3)
+
+Partly harvested
+(4)
+
+Forgone
+(5)
+
+420
+280
+474
+565
+264
+391
+313
+387
+150
+31
+152
+687
+58
+141
+32
+511
+10
+6
+203
+214
+188
+327
+34
+401
+480
+115
+0
+18
+273
+151
+425
+62
+261
+51
+571
+98
+97
+161
+311
+350
+
+111
+64
+212
+92
+21
+9
+14
+19
+8
+28
+26
+234
+14
+9
+2
+79
+184
+2
+58
+56
+56
+106
+7
+79
+251
+18
+0
+7
+97
+25
+97
+15
+54
+9
+173
+7
+11
+59
+100
+85
+
+2474
+96
+489
+279
+503
+119
+103
+87
+66
+797
+77
+321
+192
+136
+12
+139
+185
+75
+118
+160
+169
+221
+98
+161
+282
+360
+19
+333
+219
+106
+198
+145
+139
+107
+274
+96
+35
+134
+168
+195
+
+Traded volume (contracts)
+
+(6)
+
+1,248,234
+10,459,298
+1,667,003
+2,191,948
+1,028,606
+5,978,316
+8,405,748
+5,043,459
+2,878,501
+40,458
+2,848,557
+5,753,019
+351,424
+759,260
+444,892
+1,974,063
+688,872
+25,000
+2,250,512
+143,963
+650,724
+1,833,596
+4,747
+5,564,485
+970,820
+38,864
+–
+7665
+1,025,069
+256,174
+569,295
+205,115
+2,503,283
+121,385
+1,555,946
+118,310
+146,560
+961,184
+1,923,990
+2,176,176
+
+Forgone
+(2)
+
+39,426,292.0
+26,160,422.0
+11,062,548.0
+10,071,232.0
+9,890,123.0
+8,752,541.0
+8,188,594.0
+4,886,018.0
+4,608,664.0
+3,678,813.0
+3,480,946.0
+3,381,380.0
+3,185,476.0
+2,734,343.0
+2,141,401.0
+2,136,713.0
+2,034,154.0
+1,625,507.0
+1,421,305.0
+1,328,768.0
+1,288,311.0
+1,201,065.0
+1,104,033.0
+1,093,420.0
+1,077,777.0
+889,836.5
+888,487.9
+844,574.0
+796,391.3
+789,393.1
+788,075.1
+785,100.8
+774,713.1
+746,480.5
+740,944.6
+707,007.9
+695,873.8
+654,317.3
+617,317.8
+571,759.1
+
+109,135,974.4
+
+167,250,118.8
+
+9663
+
+2498
+
+9887
+
+74,814,521
+
+This table reports the top 40 tickers in terms of dividend play profits forgone by floor traders in our sample. Values are aggregated across all contracts within a ticker in
+11/2019–06/2023. Total dividend play potential profits are computed as in Eq. (12). To compute Harvested profits, we multiply the total profits by the floor volume share on the
+last cum-dividend date and attribute the residual to Forgone profits. No. of Fully harvested contracts in column (3) is the number of contracts with floor share above 90%, and
+in column (5) – with zero floor share.24 Traded volume in column (6) is the total floor trading volume in all contracts.
+
+Fig. 3. Total and floor trader profit from dividend play strategy. This figure illustrates the implied share of potential dividend play profits captured by arbitrageurs on the trading
+floor. The solid plot depicts the potential profit from the dividend play strategy, and the dashed plot depicts the profit harvested by floor traders (arbitrageurs).
+
+11 
+
+S. Bryzgalova et al.
+
+Journal of Financial Economics 166 (2025) 104008 
+
+dividend play activity – most of the potential profit resulting from the
+failure of investors to exercise their options on cum-dividend dates is
+harvested.  In  other  words,  arbitrageurs  selectively  exploit  profitable
+contracts and capture most of the exploitable gains (specifically, 83%)
+in the contracts they enter. This is below 100% and is a likely artifact
+of how we compute their share in profits.
+
+We have now established the following two empirical facts regard-
+ing arbitrageur activity on dividend play dates in profitable contracts.
+
+Fact 1. Only 57% of profitable dividend play arbitrage opportunities (con-
+tracts) attract arbitrageur entry. They harvest only 44% of total potential
+profits.
+
+Fact 2. If an option contract attracts arbitrageur entry, arbitrageurs extract
+most of dividend play profits in that contract.
+
+The selective entry of arbitrageurs in profitable dividend play op-
+portunities  is  puzzling.  In  what  follows,  we  try  to  understand  the
+features of the contracts into which market participants are likely to
+enter.
+
+4.3.  Lack of pecking order
+
+A striking fact about the arbitrageurs’ entry is the lack of pecking
+order, in that arbitrageurs do not exploit the most profitable contracts
+first, followed by the second most profitable, etc. We find that arbi-
+trageurs do not enter 37% of contracts in the top EEV tercile, 38% in
+the top moneyness tercile, and 37% in the top total potential profit
+tercile.25 This helps us establish our next stylized fact.
+
+Fact 3. More profitable arbitrage opportunities do not necessarily attract
+more arbitrage activity.
+
+We provide further evidence supporting Fact 3 in Sections 4.5 and
+4.6, when we condition on the top profitability tercile and find that our
+results regarding (the lack of) arbitrageur entry are similar to those in
+the full sample (see Table 5). Furthermore, Appendix B.12 demonstrates
+that  the  lack  of  arbitrageur  entry  is  similar  across  a  multitude  of
+contract characteristics.
+
+To further highlight the puzzle of arbitrageur’s lack of participation,
+we also pursued an alternative empirical strategy based on propensity
+score matching. Matching is a natural strategy in our setup because
+the set of characteristics on which one should match options to keep
+the expected profitability – the main driver of arbitrageur entry in the
+limits-to-arbitrage literature – constant is well understood. We match
+contracts based on open interest, early exercise value, moneyness, and
+other characteristics that determine profitability. In Appendix B.7, we
+show  that  contracts  with  both  zero  and  positive  floor  volume  exist
+across the whole propensity score spectrum. This result again suggests
+that profitability characteristics do not predict entry well.
+
+4.4.  How many arbitrageurs engage in dividend play?
+
+Earlier in this section, we documented that arbitrageurs do not enter
+some profitable contracts, and when they do, they exploit all available
+profits in a contract. In this subsection, we examine the contracts that
+do attract arbitrageur entry and provide suggestive evidence for the
+number of arbitrageurs simultaneously engaging in the dividend play
+strategy in each contract.
+
+An  advantage  of  our  granular,  transaction-level  data  is  that  we
+can  estimate  the  number  of  arbitrageurs  exploiting  each  arbitrage
+
+25 One caveat to our analysis is that arbitrageurs may be using a profitability
+measure  different  from  ours.  We  observe  some  entry  (in  around  35%  of
+contracts) in cases with EEV between −0.5 and 0. If we include these contracts
+in our sample, however, our results on selective entry become even stronger.
+
+opportunity, which prior literature has not done. As mentioned previ-
+ously, dividend play trades in our data appear as a sequence of trades
+(normally five or more) executed within several seconds from the floor
+of an options exchange. There are two simultaneously executed legs
+of  this  trade  by  each  arbitrageur:  One  leg  is  a  sequence  of  buys  of
+one  call  option  contract,  and  the  other  is  a  sequence  of  sells  of  a
+contract with a neighboring strike. Trade sizes within each sequence
+of trades are typically the same, but they differ across sequences. (See
+an example in Appendix B.8.) Differences in trade sizes across dividend
+play  trade  sequences  are  likely  due  to  the  execution  preferences  of
+individual arbitrageurs. We, therefore, use the number of unique trade
+sizes within each sequence of trades that we classify as dividend play in
+a given contract as a proxy for the number of arbitrageurs engaging in
+dividend play in that contract. A pair of arbitrageurs normally execute
+the  dividend  play  trade,  simultaneously  establishing  long  and  short
+positions in the contract. The latter collects (a share of) the windfall
+gain, and the former facilitates the trade by serving as a counterparty.
+Our measure identifies the number of such pairs, and we count each
+pair as one arbitrageur (because only one party receives the gain).
+
+Fig. 4 plots a percentage split of dividend play trades by the number
+of arbitrageurs exploiting each contract. It is striking that we observe
+only  one  arbitrageur  in  most  contracts.  Only  in  a  small  fraction  of
+contracts is the number of arbitrageurs above three. Since there are
+no obvious impediments to the free entry of other arbitrageurs who
+regularly engage in dividend play, it is puzzling that so few arbitrageurs
+participate in each contract.
+
+The largest gray shaded area in Fig. 4 corresponds to the closure
+of exchange floors in the U.S. due to the COVID-19 pandemic. Fur-
+thermore, the total trading volume on dividend play dates during the
+closures is the same as on any other day, which provides additional
+validation of the measure. Even when PHLX floor was closed but ARCA
+and BOX floors were open, the mean trading volume on dividend play
+was an order of magnitude lower.
+
+From the data behind Fig. 4, we establish the following stylized fact
+
+in our dividend play sample.
+
+Fact  4. Of  all  arbitrage  opportunities  (option  contracts)  that  attract
+arbitrageur entry, 49.1% are exploited by only one arbitrageur.
+
+Dividend play trades are easy to detect in transaction-level data,
+which is available to arbitrageurs from standard data feeds (e.g., OPRA
+or  those  provided  by  exchanges).  There  may  be  some  delays  with
+reporting floor trades, but these delays are hardly significant for our
+application. Arbitrageurs are, therefore, fully aware of the presence of
+other arbitrageurs in a given contract before they decide to engage in
+a dividend play trade in it. According to textbook theories, however,
+this should not deter them from entering and competing for profits in
+the same contract.
+
+It is clearly a possibility that our measure of the number of arbi-
+trageurs is inaccurate because the same arbitrageur may break a large
+dividend play order into trades of unequal size rather than keeping the
+trade size the same. In our data, we see that some of the characteristic
+dividend play ‘‘bursts’’ – a sequence of trades in the same contract on
+the floor broken into smaller trades and executed within a second or
+two – feature trades of unequal size. We, therefore, use an alternative
+proxy for trades executed by the same arbitrageur, in which we ag-
+gregate all trades in the same contract executed within a second and
+then assume that aggregated trades of the same size are executed by
+the same arbitrageur.
+
+Fig. 5 plots the distribution of the number of arbitrageurs engaging
+in dividend play in the same contract and demonstrates that the number
+is small. For our baseline proxy for the number of arbitrageurs, across
+all contracts that attract arbitrageur entry, in only 8% of those con-
+tracts, the number of arbitrageurs exceeds 4 (Figure (a)). The number
+of unique arbitrageurs is even smaller for the alternative proxy (Figure
+(b)). Curiously, there is a large difference in the concentration of arbi-
+trageurs in the same contract across exchanges. While the distribution
+
+12 
+
+S. Bryzgalova et al.
+
+Journal of Financial Economics 166 (2025) 104008 
+
+Fig. 4. Number of arbitrageurs in dividend play trades. This figure depicts the percentage split of trades executed on the exchange floor by the number of unique trade sizes,
+i.e., the number of arbitrageurs. We include only contracts in our dividend play sample. The largest gray-shaded area corresponds to the period of floor closures on all exchanges.
+
+Fig. 5. Distribution of the number of arbitrageurs in dividend play trades. These figures depict the distribution of the number of arbitrageurs in our sample. We include only
+contracts in our dividend play sample in which there was some floor entry. Figure (a) uses our baseline proxy for the number of arbitrageurs, calculated in the full sample. Figure
+(b) is for the alternative proxy, calculated in the full sample. Figures (c) and (d) are for our baseline proxy on the PHLX and all other exchanges, correspondingly. Values above
+4 are set to 4. See the detailed statistics in Tables 12 and 13 in Appendix.
+
+of arbitrageurs in the same contract is similar to that in the full sample
+in the largest exchange that facilitates dividend play trades, PHLX, in
+all other exchanges, over 95% of profitable contracts feature entry of
+only one arbitrageur.
+
+We finish this discussion by acknowledging the limitation of our
+baseline proxy for the number of arbitrageurs. It is possible that mul-
+tiple arbitrageurs use trades of the same size, and hence, our baseline
+measure would underestimate the number of arbitrageurs. However,
+the baseline and the alternative proxies deliver similar results, which
+is reassuring.
+
+4.5.  Model-based explanation of selective arbitrageur participation: Tacit
+collusion
+
+The evidence summarized in Facts 1–4 is consistent with our model.
+We could interpret the contracts that do not attract any arbitrageur
+entry  as  natural  markets  of  some  intermediaries.  Some  of  the  inter-
+mediaries in our application are market makers, who normally have
+access to the trading floors and are aware of the dividend play strategy.
+Due to significant economies of scale in market making, this segment
+
+13 
+
+S. Bryzgalova et al.
+
+is  served  by  a  small  number  of  firms.26 Prior  to  the  dividend  play
+date, market makers may accumulate an inventory of written options.
+Because of early exercise mistakes, they are then set to benefit from the
+windfall gains unless another arbitrageur engages in dividend play in
+these contracts. This parallels exactly our model’s definition of a natural
+market. We test this interpretation below using two proxies for natural
+markets of options market makers.27
+
+Owing  to  daily  fee  caps  on  dividend  play  on  options  exchanges,
+the entry costs are fixed, as in our model. Our model predicts that we
+should, therefore, observe no entry in the natural markets of options
+market makers, and our Fact 1 is consistent with that. For profitable
+contracts that are in neither intermediary’s inventory, we should ob-
+serve  the  entry  of  only  one  arbitrageur.  Consistent  with  the  model,
+Fact 4 indeed documents that, conditional on entry, in the majority of
+the contracts, we observe entry by only one arbitrageur. The version
+of  the  model  that  is  closest  to  the  data  is  the  one  discussed  at  the
+end of Section 2, in which intermediaries enter only one of the last
+two markets, leaving the other to the other intermediary. In the data,
+arbitrageurs operate in pairs, each pocketing a gain in one contract
+while facilitating the other arbitrageur’s gain in another contract.
+
+We  note  that  sometimes  we  observe  entry  by  two  or  more  arbi-
+trageurs in a given contract. We interpret this not as a reversion to Nash
+equilibrium (punishment) but as occasional ‘‘misfires’’. Tacit collusion
+does  not  require  any  explicit  agreements,  so  occasional  misfires  are
+likely to happen. This is especially true in our application because there
+are  many  contracts  that  may  be  profitable  to  exploit  on  a  dividend
+play date (the median in our sample is 53). Also, unlike in our model,
+there is some noise in the data. For example, while arbitrageurs are
+likely to purchase access to a real-time transaction-level datafeed, floor
+transactions are usually reported late and so an arbitrageur may not
+realize that another arbitrageur has already entered that contract.
+
+Fact 3 is also consistent with our model and is inconsistent with
+standard theories of arbitrage. Unless the arbitrageurs are playing a
+cooperative strategy, there should be a pecking order in which they
+enter profitable contracts, with the most profitable being exploited first.
+The repeated game assumption of the model hardly requires any
+defense  in  our  application.  Most  of  the  dividend  play  transactions
+in our sample occur on the floor of only two exchanges, PHLX and
+BOX (Table 2). Given that most of the options trading is electronic,
+modern-day exchange floors are populated by a small number of market
+participants who specialize in floor trading and frequently interact with
+each other.
+
+We now turn to test the natural markets interpretation of Fact 1,
+i.e., that contracts with no entry belong to the natural markets of mar-
+ket makers present on the exchange floor. A contract in our dividend
+play sample belongs to the natural market of a market maker if the
+market maker holds a short position in this contract in its inventory on
+a dividend play date (and hence is set to receive a windfall gain from
+early exercise mistakes).
+
+We have been able to construct two proxies for natural markets. The
+first is a dummy for a (positive) retail buy imbalance in a contract. Retail
+
+26 See,  e.g., https://www.barrons.com/articles/market-makers-in-equity-
+options-are-vanishing-1496459364. In a recent paper, Ernst and Spatt (2022)
+list market makers currently operating in the U.S. options market, and their
+number is small.
+27 In a narrow sense, our model of repeated strategic interaction applies to
+market makers who can potentially participate in the dividend play strategy.
+Therefore, an option contract with a sell imbalance of the market maker would
+be considered a natural market for them only if they are physically present on
+the floor. One limitation of our data under this definition is that we cannot
+distinguish order imbalances of markers that have a seat on the floor of a
+particular exchange and those who do not, introducing a measurement error
+in our proxies. However, given the high concentration of the market making
+activity among a relatively few firms, we suspect the measurement error to
+not be large. Furthermore, its presence is likely to attenuate our findings, not
+make them stronger.
+
+Journal of Financial Economics 166 (2025) 104008 
+
+investors are likely to make early exercise mistakes. In Appendix B.10,
+we confirm this in our sample and also demonstrate that contracts with
+a higher retail presence are more profitable. Furthermore, Bryzgalova
+et al. (2023) argue that (a handful of) market makers that purchase
+retail order flow of retail brokerages take the opposite side of retail
+trades.  To  execute  retail  buy  orders,  they  write  the  corresponding
+options contracts and potentially hold them in their inventory. If so,
+they  receive  windfall  gains  if  these  contracts  are  suboptimally  left
+unexercised. A retail buy imbalances dummy would then proxy for a
+sell imbalance of market makers associated with retail order flow in
+a given contract.28 The retail buy imbalances are computed using the
+methodology in Bryzgalova et al. (2023), and we borrow their acronym
+SLIM for the transactions their algorithm classifies as retail.29
+
+Our second proxy for natural markets of market makers is simply
+a  dummy  for  a market  maker  sell  imbalance in  a  contract.  This  is  a
+contract-level variable computed using Nasdaq’s PHOTO data, which
+covers  PHLX  electronic  trades.  In  contrast  to  OPRA  data,  PHOTO
+classifies trades into those made by market makers and other types of
+market participants, allowing us to compute their imbalances. PHOTO
+data also reports trade directions, so we do not need to impute them.
+We, therefore, simply set the dummy to 1 if the reported sell trade
+volume of market makers is larger than their buy trade volume in a
+given contract.
+
+To test whether natural markets are a deterrent to arbitrageur entry,
+we estimate the following regression in the sample of contracts that
+should optimally be exercised on cum-date:
+𝑠ℎ𝑎𝑟𝑒𝑓 𝑙 𝑜𝑜𝑟
+
+𝑐 ,𝑡 =𝛽1 × 𝑠ℎ𝑎𝑟𝑒𝑆 𝐿𝐼 𝑀
+
+𝑐 ,𝑡−1 + 𝛽2 × 𝐷(𝑆 𝐿𝐼 𝑀 𝑏𝑢𝑦 𝑖𝑚𝑏𝑎𝑙 𝑎𝑛𝑐 𝑒)𝑐 ,𝑡−1
++ 𝐷(𝑀 𝑀 𝑠𝑒𝑙 𝑙 𝑖𝑚𝑏𝑎𝑙 𝑎𝑛𝑐 𝑒)𝑐 ,𝑡−1 + 𝜸′𝑋𝑐 ,𝑡 + 𝛼𝑖,𝑡 + 𝜀𝑐 ,𝑡,
+
+(13)
+
+where the main regressors are 𝑠ℎ𝑎𝑟𝑒𝑆 𝐿𝐼 𝑀
+𝑐 ,𝑡−1 , the average dollar volume
+share in SLIM trades as of one day before the last cum-dividend date
+𝑡,  the dummy for an average buy (volume) imbalance in SLIM trades
+𝐷(𝑅𝑒𝑡𝑎𝑖𝑙  𝑏𝑢𝑦  𝑖𝑚𝑏𝑎𝑙 𝑎𝑛𝑐 𝑒)𝑐 ,𝑡−1, and the dummy for market makers sell
+(volume)  imbalance 𝐷(𝑀 𝑀  𝑠𝑒𝑙 𝑙  𝑖𝑚𝑏𝑎𝑙 𝑎𝑛𝑐 𝑒)𝑐 ,𝑡−1,  computed  over  the
+same period. 𝑋𝑐 ,𝑡 includes the following contract-level variables: log OI,
+EEV, log dollar trading volume, log contract trading volume, relative
+spread,  implied  volatility,  moneyness,  and  days  to  expiration.  Our
+specification also includes the ticker by date fixed effects 𝛼𝑖,𝑡. Table 5
+reports  the  results  of  estimating  the  regression.  Table  B.15  in  the
+Appendix presents this analysis for alternative measures of arbitrageur
+activity and Table B.16 for more horizons over which the regressors are
+measured.
+
+Table  5 reveals  that  arbitrageur  activity,  as  measured  by  floor
+entry, trading share, or volume, is largely unrelated to SLIM Share, the
+measure of retail investor trading over the preceding day (Panels A–C).
+This result adds to our argument that it is surprisingly hard to predict
+arbitrageur  entry.  From  our  findings  in  Appendix  B.10,  one  would
+
+28 The anonymous referee and seminar participants suggested a third proxy
+for natural markets, namely the Designated Market Maker (DMM) in a given
+ticker.  These  market  makers  are  likely  to  hold  an  inventory  of  written
+contracts on that ticker. The issue with options is that contracts on the same
+ticker are unlikely to be intermediated by the same market maker. This is
+because intermediaries who process orders normally can decide to which of 16
+exchanges to route an order for execution. DMMs in a given ticker are not the
+same across exchanges. So it is entirely possible that one contract on Apple
+will belong to a natural market for one market maker and another contract to
+that of a different market maker.
+29 The measure is based on transactions that are likely to be intermediated
+by wholesalers. Wholesalers, such as Citadel, Susquehanna, and Wolverine, in-
+termediate the overwhelming majority of retail order flow in the U.S., and they
+often use the so-called price improvement mechanisms to execute the orders.
+To identify these transactions, we use the OPRA transaction type SLAN, which
+stands for single-leg non-ISO price improvement auctions. See Appendix B.1
+for a description. Ernst and Spatt (2022) and Hendershott et al. (2022) propose
+the same methodology for identifying wholesaler-intermediated transactions.
+
+14 
+
+S. Bryzgalova et al.
+
+Table 5
+Arbitrageur activity and natural market proxies.
+
+Journal of Financial Economics 166 (2025) 104008 
+
+Panel A: D(floor share > 0)
+SLIM Share [t − 1]
+
+D(SLIM buy imbalance) [t − 1]
+
+D(MM sell imbalance) [t − 1]
+
+Adjusted R-squared
+Panel B: Floor trading share
+SLIM Share [t − 1]
+
+D(SLIM buy imbalance) [t − 1]
+
+D(MM sell imbalance) [t − 1]
+
+Floor trading measure on last cum-date
+(3)
+(1)
+
+(2)
+
+(4)
+
+(5)
+
+(6)
+
+(7)
+
+−0.002
+(−0.36)
+
+−0.058***
+(−10.91)
+
+0.028***
+(4.75)
+−0.071***
+(−11.95)
+
+0.017*
+(1.73)
+−0.016*
+(−1.90)
+
+0.000
+(0.07)
+
+0.011
+(1.16)
+
+−0.141***
+(−11.53)
+
+−0.141***
+(−11.53)
+
+−0.035***
+(−2.83)
+
+0.396
+
+0.397
+
+0.397
+
+0.409
+
+0.398
+
+0.398
+
+−0.005
+(−0.89)
+
+−0.059***
+(−11.45)
+
+0.025***
+(4.58)
+−0.071***
+(−12.52)
+
+0.014
+(1.45)
+−0.015**
+(−2.02)
+
+−0.002
+(−0.44)
+
+0.409
+
+0.008
+(0.88)
+
+−0.143***
+(−12.58)
+
+−0.143***
+(−12.57)
+
+−0.042***
+(−3.76)
+
+Adjusted R-squared
+textbfPanel C: Floor trading volume, log
+SLIM Share [t − 1]
+
+0.410
+
+0.046
+(1.62)
+
+D(SLIM buy imbalance) [t − 1]
+
+D(MM sell imbalance) [t − 1]
+
+Adjusted R-squared
+Sample
+Observations
+
+0.411
+
+0.411
+
+0.435
+
+0.412
+
+0.412
+
+−0.212***
+(−6.11)
+
+0.168***
+(5.35)
+−0.289***
+(−7.53)
+
+0.148**
+(2.23)
+−0.091
+(−1.49)
+
+0.056**
+(1.96)
+
+0.435
+
+0.117*
+(1.82)
+
+−0.579***
+(−6.71)
+
+−0.582***
+(−6.74)
+
+−0.296***
+(−3.23)
+
+0.551
+
+All
+72,132
+
+0.552
+
+All
+72,132
+
+0.552
+
+All
+72,132
+
+0.479
+Top profit tercile
+23,103
+
+0.552
+
+All
+72,132
+
+0.552
+
+All
+72,132
+
+0.480
+Top profit tercile
+23,103
+
+This table reports estimates of (13) in our dividend play sample. Floor trading share is the contract-level volume share of trades executed on the trading floor in the total traded
+volume on the last cum-dividend date. SLIM Share is the contract-level volume share of SLIM trades, one day before the last cum-dividend date. D(SLIM buy imbalance) = 1 if
+there was a buy imbalance in SLIM volume as of the day before the dividend play date, and 0 otherwise.D(MM sell imbalance)=1 if there was a sell imbalance in market maker
+trades in PHOTO data as of one day before the last cum-dividend date, and 0 otherwise. All regressions include ticker-by-date fixed effects and contract controls (log OI, EEV, log
+dollar trading volume, log contract trading volume, relative spread, IV, moneyness, and days to expiration). Top profit tercile includes contracts in the top tercile of total potential
+profits. 𝑡-statistics are based on standard errors clustered by contract and date (in parentheses). *** p < 0.01, ** p < 0.05, * p < 0.1.
+
+expect arbitrageurs to enter contracts with a larger SLIM share, all else
+equal, as dividend play is more profitable in these contracts. However,
+this is not the case. Remarkably, our two proxies for natural markets
+do predict entry. Consistent with the natural markets interpretation,
+arbitrageur activity in a contract is negatively related to the SLIM buy
+imbalance, and this result is statistically significant across all specifi-
+cations in Table 5, irrespective of the measure of arbitrageur activity
+(Panels A–C). The same is true for our second proxy for natural markets,
+market maker sell imbalances. Arbitrageurs are less likely to engage in
+dividend play in a profitable contract in which market makers are set
+to receive a windfall gain at zero cost, provided that no arbitrageurs
+enter and compete it away. The tests in Panel A are particularly aligned
+with the model, indicating that arbitrageurs are less likely to enter the
+natural markets of other intermediaries.
+
+The  specifications  in  columns  (4)  and  (7)  of Table  5 restrict  the
+sample to the top tercile of most profitable contracts (by total profits)
+for dividend play arbitrageurs. Standard theories of limits-to-arbitrage
+imply that we should see more arbitrage activity in those contracts.
+This is not what our estimation reveals. We still see a strong negative
+effect of SLIM buy imbalance. The latter is inconsistent with standard
+limits-to-arbitrage theories but consistent with the hypothesis that arbi-
+trageurs selectively enter different contracts, even the most profitable
+ones, avoiding those that represent natural markets for market makers.
+
+4.6.  Alternative explanations and further discussion
+
+Other theories could potentially rationalize the phenomena that we
+document. In the rest of this section, we explore alternative explana-
+tions  of  arbitrageurs’  selective  entry  based  on  the  existing  limits-to-
+arbitrage literature.
+
+15 
+
+Trading  costs  are  the  most  natural  alternative  explanation.  First,
+per-contract exchange fees might prevent arbitrageurs from fully ex-
+ploiting  available  arbitrage  opportunities.  However,  there  exist
+dividend-play  specific  fee  caps  on  PHLX  and,  more  recently,  BOX
+exchanges,  in  which  most  of  the  dividend  play  activity  takes  place
+(Table 2).30 Those fee caps limit the total costs paid by a market maker
+or  other  arbitrageur  on  a  particular  day  at  the  options  class  level:
+Harvesting the profit from an additional contract would not increase
+payments once the limit is reached. Second, given that dividend play
+usually requires two participating parties, it is highly likely that they
+would agree on the transaction price that allows for mutually beneficial
+profit sharing. Therefore, there is no clear reason why they would omit
+any particular contract from their agreement due to its lower market
+liquidity. Finally, in the analysis above, we always either control for
+contract liquidity or match contracts on their relative spreads. It is,
+therefore,  unlikely  that  the  contracts  in  which  arbitrageurs  do  not
+engage in dividend play are systematically less liquid. There can also
+be  financing  costs,  which  would  likely  be  increasing  in  the  time  to
+expiration,  yet  we  do  not  see  significant  differences  in  arbitrageur
+participation across time to expiration in our sample.
+
+Our data shows that traders simultaneously establish offsetting long
+and  short  positions,  and  so  they  are  (ex  ante)  almost  fully  hedged.
+However, since options exercise orders are submitted before the close
+on the last cum-dividend date, while option assignment becomes known
+only in the morning, this implies that a symmetric long-short position
+
+30 See  the  PHLX  pricing  schedule: https://listingcenter.nasdaq.com/
+https:
+rulebook/phlx/rules/phlx-options-7
+//boxoptions.com/regulatory/fee-schedule/.
+
+and  BOX 
+
+schedule:
+
+fee 
+
+S. Bryzgalova et al.
+
+Journal of Financial Economics 166 (2025) 104008 
+
+in  the  neighboring  contracts  could  still  be  exposed  to  two  types  of
+residual (largely) overnight risk: (a) a slight mismatch in risk between
+the long and short legs of the strategy due to the use of neighboring
+contracts,  and  (b)  the  exposure  to  the  price  of  the  underlying  via
+options that remain unassigned in the morning and liquidated later. The
+latter exposure is similar to that of a short covered call position held
+overnight (see Figure B.10 in the Appendix for a detailed illustration.)
+To test the impact of this residual risk, we sort dividend play contracts
+based on various dimensions of risk to see whether this could explain
+the lack of arbitrageurs’ entry.
+
+Table 6 reports our findings. Panel A (Panel B) presents the fraction
+of harvested trades (profits, respectively) in contracts sorted by various
+dimensions of contract risk (delta, gamma, and other Greeks) and that
+of the underlying (stock’s beta and idiosyncratic volatility). None of
+the sorts reveal a strong relationship between arbitrageur entry and
+contract characteristics, making a risk-based explanation for their lack
+of entry unlikely. FigureB.11 further supports these findings by showing
+the cumulative realized profits from the dividend play strategy. They
+remain  remarkably  stable  under  various  assumptions  regarding  the
+trade size. Furthermore, Panels C and D in Table 6 demonstrate that
+none  of  the  risk  characteristics  could  explain  the  small  number  of
+participating  arbitrageurs,  conditional  on  at  least  one  entry.  Model
+risk, introducing uncertainty in expected profits, is unlikely to explain
+arbitrageur  activity  either.  The  lack  of  market  participants’  entry  in
+the contracts belonging to the top group by delta (moneyness), where
+model uncertainty is likely to be fully eliminated, is striking. We report
+these  results  for  delta  in Table  6 and  for  moneyness  in  Table  B.12
+in Appendix.
+
+It  is  also  possible  that  the  arbitrageurs’  capital  constraints  bind.
+Most regulatory requirements involve netted positions, which are rel-
+atively low given the symmetric and (ex ante) virtually fully hedged
+nature of the strategy. Nevertheless, to test this channel and the im-
+portance of the residual overnight exposure, we create a risk–return
+tradeoff proxy for the strategy, equal to the ratio of potential profits
+to that of the total potential delta exposure. (See Figure B.10 in the
+Appendix for a detailed illustration.) Table B.18 (Panels A–D) reveals
+that similar to other dimensions of risk, this exposure does not explain
+arbitrageurs’  activity.  Therefore,  capital  constraints  are  unlikely  to
+drive arbitrageurs’ contract selection.
+
+Our  proxies  for  the  natural  markets  channel,  introduced  in  Sec-
+tion 4.5, remain robust after controlling for contract risk (see Table
+B.17 in the Appendix). Specifically, in columns (1) and (2) of Table
+B.17, we test our proxies for the natural markets, controlling for the
+contract-level values of delta, gamma, and other Greeks. Furthermore,
+given the sensitivity of some of the Greeks to the choice of the option
+pricing  model  used  for  calibration,  in  columns  (3)  and  (4),  we  also
+present results controlling for the quartile of the contract Greeks instead
+of their raw values. This specification is less likely to be affected by
+potential measurement error and model-dependent calibration of the
+Greeks by OptionMetrics.
+
+Table 17 in the Appendix confirms all our existing results on the
+natural markets interpretation. In particular, even after controlling for
+various measures of risk, arbitrageur activity in a contract is strongly
+negatively related to both proxies of the natural markets, SLIM buy
+imbalance and the market maker sell imbalance. In particular, arbi-
+trageurs are less likely to enter a profitable contract in which market
+makers are already set to receive a windfall gain at zero cost, provided
+that no arbitrageurs enter and compete it away. Columns (5)–(8) and
+(9)–(12) further report the results of estimating Eq. (13) on contracts
+within a particular quartile of delta, using both proxies for the natural
+markets.  Even  within  each  bucket  of  contracts,  arbitrageurs  do  not
+engage in dividend play in contracts that are likely to be the natural
+markets of market makers.
+
+Large trades implemented during dividend play could be associated
+with  high  operational  risks.  According  to  SIFMA,  Bank  of  America
+Merrill Lynch incurred a $10 million loss due to a human error when
+
+Table 6
+Contract-level risk and arbitrageur activity.
+Quartile
+
+(1)
+
+(2)
+
+(3)
+
+(4)
+
+54.8
+57.0
+54.4
+53.3
+52.3
+57.3
+55.4
+57.3
+
+58.9
+61.0
+58.8
+57.8
+56.3
+61.6
+59.5
+61.9
+
+Panel A: Fraction of harvested trades, %
+Delta
+49.6
+Gamma
+57.7
+Vega
+58.0
+Theta
+58.7
+IV
+47.7
+Potential profits/Delta exposure 51.5
+CAPM beta
+56.5
+CAPM IVOL
+54.9
+Panel B: Fraction of harvested profits, %
+Delta
+45.3
+Gamma
+53.5
+Vega
+54.1
+Theta
+53.8
+IV
+43.7
+Potential profits/Delta exposure 47.8
+CAPM beta
+51.6
+CAPM IVOL
+50.3
+Panel C: Conditional on entry, fraction of only 1 arbitrageur, %
+Delta
+49.8
+Gamma
+50.2
+Vega
+51.8
+Theta
+47.6
+IV
+49.5
+Potential profits/Delta exposure 60.8
+CAPM beta
+47.3
+CAPM IVOL
+48.7
+Panel D: Conditional on entry, fraction of ≤ 4 arbitrageurs, %
+Delta
+91.1
+Gamma
+93.7
+Vega
+93.1
+Theta
+92.9
+IV
+91.3
+Potential profits/Delta exposure 96.8
+CAPM beta
+91.5
+CAPM IVOL
+92.1
+
+91.6
+91.5
+91.9
+92.2
+91.2
+88.3
+91.2
+91.4
+
+48.8
+47.7
+48.8
+49.2
+48.4
+44.0
+47.9
+46.7
+
+59.3
+58.9
+55.9
+56.5
+63.1
+58.6
+58.8
+59.7
+
+55.1
+54.7
+51.5
+52.5
+58.8
+54.3
+55.1
+55.9
+
+48.2
+48.8
+48.3
+48.7
+47.3
+41.1
+50.2
+49.2
+
+92.1
+91.2
+91.7
+91.4
+91.8
+88.3
+91.8
+91.4
+
+60.7
+50.5
+55.5
+55.1
+61.3
+63.1
+52.5
+52.7
+
+56.5
+46.1
+51.3
+51.7
+56.7
+58.2
+49.3
+49.5
+
+49.9
+50.0
+47.5
+51.3
+51.5
+44.3
+55.8
+54.7
+
+92.9
+91.3
+90.9
+91.2
+93.3
+90.5
+95.1
+93.1
+
+This  table  reports  the  characteristics  of  the  arbitrage  activity  among  the  contracts,
+which are sorted into quartiles by different measures of risk: contract delta, gamma,
+vega,  and  theta,  the  contract-level  ratio  of  potential  dividend  plays  profits  to  the
+dividend play exposure to the underlying risk, contract’s implied volatility (IV), CAPM
+beta of the underlying stock/ETF, and its CAPM-based idiosyncratic volatility (CAPM
+IVOL). Delta exposure is computed as (1-delta) of the contract (see Figure B.10 for
+the detailed illustration). CAPM beta and IVOL are computed using daily data over
+the previous 63 trading days, using CRSP index as the market rate of return. Panel A
+and B report the percentage of harvested trades and profits. Panels C and D report the
+fraction of contracts with only 1 arbitrageur and ≤4 arbitrageurs.
+
+executing the dividend play strategy.31 Still, such explanations cannot
+produce the variation in floor trader activity within and across tickers
+that we document: Table 4 illustrates that there are many profitable
+contracts in which floor traders do not participate at all.
+
+We also rule out an alternative explanation based on arbitrageurs’
+inattention, which could be a characteristic of even sophisticated mar-
+ket players (Kacperczyk et al., 2016). Indeed, there may be hundreds
+of potentially profitable contracts available to dividend play on each
+cum-dividend day (thousands, in the case of SPY), making it difficult
+to keep track of all the relevant information. First, this hypothesis does
+not explain the puzzling amount of variation in contract entry within
+a given ticker. All of our results also contain ticker-date fixed effects.
+Nevertheless, we also used the number of stock-level EPS (Hirshleifer
+et al., 2009) and macroeconomic announcements (Savor and Wilson,
+
+31 See
+
+https://www.reuters.com/article/us-usa-options-apple-
+
+idUSKBN0IQ2FA20141106.
+
+16 
+
+S. Bryzgalova et al.
+
+Journal of Financial Economics 166 (2025) 104008 
+
+2014)  as  proxies  for  limits  to  attention  and  did  not  find  that  those
+mattered for floor trader activity.
+
+Some profits could also be left unexploited because of the stigma
+and reputational costs associated with the dividend play strategy. The
+SEC  clearly  signaled  its  disapproval  of  the  strategy  in  its  2014  rule
+(see  footnote 6).  Reputational  costs  could  explain  the  lack  of  entry
+of new arbitrageurs. However, they cannot explain why arbitrageurs
+who regularly engage in this strategy and hence are willing to incur
+reputation costs do not enter the most profitable contracts first.
+
+Finally, there could be an explanation related to clearing fees. While
+we do not observe all the information regarding clearing fees because
+they are often negotiated bilaterally, we can put an upper bound on
+these fees based on the sizes of the positions arbitrageurs take. As a
+result, any position with a positive profitability net of such fees should
+be exploited, still implying a pecking order in contract selection based
+on profitability. Yet, we do not observe arbitrageur entry even in the
+top tercile of the most profitable contracts.
+
+A  few  remarks  are  in  order.  Identifying  profitable  dividend  play
+contracts does not require a very accurate forecast of the fraction of
+options left unexercised. Given that the fee cap is fairly low, as long as
+some of the contracts are not unexercised optimally, it would still be
+profitable to engage in dividend play. Furthermore, if uncertainty in
+this quantity had any practically relevant impact on the arbitrageur’s
+decision to enter, we would expect to see more entry into the contracts
+recently bought by retail investors, not less.
+
+It may seem puzzling that the arbitrageurs sometimes harvest less
+than  100%  in  a  given  contract.  On  one  hand,  this  could  mean  that
+the remaining share of the profit was earned by other option writers,
+with  arbitrageurs  not  taking  large  enough  positions  to  fully  divert
+the windfall gain from competitors. There is also a small chance that
+these other option writers simply got lucky and happened to hold the
+contracts  that  were  not  assigned  to  deliver  the  underlying.  Last  but
+not least, there could also be a measurement error in the arbitrageur’s
+share of harvested profit. This measurement error could be driven by
+the fact that we do not observe the arbitrageur’s original position and,
+hence, how much they need to engage in dividend play on top of the
+existing exposure to collect all the potential gains. Given that the puzzle
+of the arbitrageur’s lack of participation in dividend play is largely in
+the contract selection, it seems that this measurement error should not
+affect the key empirical findings of the paper.
+
+Some  dividend  play  contracts,  especially  those  very  deep  in  the
+money and close to expiration, occasionally lack the data on implied
+volatility and Greeks in OptionMetrics. We impute missing Greeks from
+those of the nearby contracts on the same underlying with the same
+time  to  expiration,  available  on  that  day  and  subject  to  economic
+constraints (e.g., the delta of an option cannot be above one in absolute
+value). To make sure our results are not affected by the interpolation of
+the Greeks, we also run the analysis on the subsample of contracts with
+fully observed Greeks. Tables 18 and 19 in the Appendix test the risk-
+based explanation of arbitrageurs’ activity on this dataset and find that
+the results are identical. There is no notable pattern consistent with the
+risk–return tradeoff that could explain arbitrageurs’ behavior. Instead,
+all of our key empirical results remain consistent with the notion of
+natural markets of arbitrageurs and the model presented in Section 2.
+
+5.  Difficulties of devising effective regulation and further discus-
+sion
+
+The dividend play arbitrage does not serve any particularly useful
+purpose in financial markets. It neither improves liquidity nor aids price
+discovery. It simply reallocates profits from the original option writers
+to arbitrageurs. In the process of doing so, however, it dramatically in-
+flates trading volume and hence skews various important statistics that
+market participants rely on while exposing arbitrageurs and potentially
+exchanges to large operational risk. With its 2014 regulation, the SEC
+attempted to put an end to this strategy.
+
+Table 7
+Arbitrageur activity in neighboring contracts by strike.
+
+Floor trading measure on last cum-date
+D(floor share > 0)
+(1)
+
+Floor imbalance
+(3)
+
+(2)
+
+(4)
+
+0.036***
+(5.04)
+0.066***
+(10.04)
+
+0.019***
+(2.86)
+0.041***
+(6.34)
+0.039***
+(5.73)
+0.073***
+(11.56)
+
+D(floor share > 0), 𝐾 − 1
+
+D(floor share > 0), 𝐾 + 1
+
+D(floor share > 0), 𝐾 − 2
+
+D(floor share > 0), 𝐾 + 2
+
+Floor imbalance, 𝐾 − 1
+
+Floor imbalance, 𝐾 + 1
+
+Floor imbalance, 𝐾 − 2
+
+Floor imbalance, 𝐾 + 2
+
+−0.077***
+(−8.69)
+−0.085***
+(−10.02)
+
+−0.106***
+(−9.14)
+−0.115***
+(−9.20)
+−0.044***
+(−3.71)
+−0.057***
+(−4.96)
+
+Observations
+Adjusted R-squared
+
+60,306
+0.399
+
+52,383
+0.404
+
+18,694
+0.055
+
+10,565
+0.056
+
+This table compares floor entry (D(floor share > 0)) or floor buy imbalance (Floor
+imbalance) in a given contract with strike 𝐾 with floor entry or floor imbalance in
+contracts with neighboring strikes 𝐾 − 2, 𝐾 − 1, 𝐾 + 1, and 𝐾 + 2 (within ticker and
+date but across expiration dates). We only consider contracts in which dividend play
+is profitable in our dividend play sample. All regressions include ticker-by-date fixed
+effects  and  contract  controls  (log  OI,  EEV,  log  dollar  trading  volume,  log  contract
+trading volume, relative spread, IV, moneyness, and days to expiration). 𝑡-statistics are
+based on standard errors clustered by contract and date (in parentheses). *** p < 0.01,
+** p < 0.05, * p < 0.1.
+
+Our  paper  demonstrates  that  market  participants  found  a  way
+around  the  2014  SEC  regulation.  Two  previous  papers  on  dividend
+play, Hao  et  al. (2009)  and Pool  et  al. (2008),  written  before  the
+SEC  regulation,  argue  that  arbitrageurs  engage  in  dividend  play  by
+simultaneously  opening  long  and  short  positions  in  the same call
+option contract. The 2014 regulation affected clearing rules of netting
+positions  and  execution  of  options  contracts,  and  it  was  no  longer
+beneficial for arbitrageurs to long and short the same contract.
+
+In our transaction-level data, we clearly see that after the regulation,
+dividend  play  arbitrageurs  simultaneously  long  and  short  contracts
+with neighboring strikes. Table 7 presents supportive evidence of this
+change in arbitrageur behavior. If arbitrageurs enter a profitable con-
+tract with a strike 𝐾, they are highly likely to enter profitable contracts
+with neighboring strikes 𝐾 − 2, 𝐾 − 1, 𝐾 + 1, and 𝐾 + 2 on the same
+underlying (columns (1)–(2)). Columns (3)–(4) of Table 7 reveal that
+the trade directions in the neighboring contracts tend to be the oppo-
+site, consistent with the fact that arbitrageurs simultaneously originate
+long  and  short  positions  in  the  neighboring  strikes.  We  observe  the
+same pattern as in columns (3)–(4) if we instead use a dummy equal
+to one if there is a buy imbalance in floor trades and zero if there is
+a sell imbalance in floor trades, indicating that the result is driven by
+the extensive margin. All coefficients in Table 7 are highly statistically
+significant.
+
+For the purposes of computing regulatory risk exposures, an arbi-
+trageur’s positions in the neighboring strikes in the same underlying are
+simply netted to zero. There is some economic risk exposure resulting
+from this trade since the deltas of the long and short positions are not
+exactly the same (as we discussed in Section 4.6), but the short-horizon
+nature of the trade and the ability of arbitrageurs to delta hedge their
+economic exposure, if desired, still makes it a worthwhile strategy.
+
+How  quickly  did  arbitrageurs  find  a  way  around  the  2014  SEC
+regulation? Examining abnormal trading volume on dividend play dates
+from 2014 onwards, we find that it took little time for arbitrageurs to
+switch to a new implementation of the dividend play strategy. Figure
+
+17 
+
+S. Bryzgalova et al.
+
+Journal of Financial Economics 166 (2025) 104008 
+
+B.12  in  the  Appendix  shows  that  already  in  2014  abnormal  trading
+volume in the strategy was sizeable, albeit lower than during its peaks
+of  the  previous  years.  This  experience  highlights  the  difficulties  in
+designing effective regulation in financial markets.
+
+We propose an alternative way to curtail the strategy. The problem
+lies in the OCC’s random assignment of contracts to options writers
+who are required to deliver the underlying. Dividend play relies on
+this random assignment. An alternative would be the First-in, First-out
+(FIFO) rule, similar to a regulation imposed by the National Futures
+Association (NFA) in the U.S. on trading international currencies and
+currency derivatives.32 It requires that currency traders close out their
+oldest positions first, before closing out more recent positions. This rule
+would favor the original option writers over the dividend play arbi-
+trageurs.33 We  should  acknowledge,  however,  the  added  complexity
+and data requirements that come with FIFO rules, in that one would
+be required to keep track of the time a position was established.
+
+Another  possible  way  to  make  the  strategy  impractical  is  to  en-
+courage exchanges to remove fee caps for dividend play trades, which
+would  make  this  high-trading-volume  strategy  very  expensive.  Most
+exchanges, possibly in response to regulatory concerns, removed the
+fee caps around the time of the 2014 SEC regulation or just prior to
+it.34 PHLX remained the only venue with explicit fee caps until 2019,
+when BOX entered the space and introduced similar caps. In our main
+sample that starts in 2019, we observe little trading volume in dividend
+play in all exchanges except for BOX and PHLX.
+
+Our final point concerns investor protection. The new generation of
+investors may be lacking in financial education that is required to trade
+options. Investor mistakes in sophisticated financial decisions, such as
+failures to exercise options early, generate transfers to arbitrageurs or
+market makers. It is not clear whether retail investing platforms have
+the right incentives to prevent their customers from making trading
+mistakes. The question of optimal options exercise requires knowledge
+of option pricing models, which retail investors are likely to lack. One
+possibility would be to require retail brokerages to report options’ early
+exercise values to investors. The early exercise value could be computed
+from the Black–Scholes model. Another possibility is to make automatic
+early exercise on last cum-dividend dates when it is optimal to do so, a
+default option for investors, from which they can opt out if they wish.
+This simple enhancement would prevent retail investor losses of over
+$360 million in our sample.35 More generally, the literature on investor
+protection has long been concerned about complex investment products
+and incentives of intermediaries.36 The complexity of options contracts
+from the viewpoint of an average retail investor and the potentially mis-
+aligned incentives of intermediaries call for enhancements to investor
+protection on retail trading platforms.
+
+6.  Conclusion
+
+In this paper, we contribute to the literature on arbitrage in financial
+markets by introducing repeated game considerations. Arbitrageurs in
+our model are large and their number is limited because of economies
+of scale and entry costs, and they interact repeatedly with each other.
+Repeated game considerations enlarge the set of possible equilibrium
+outcomes and, in particular, give rise to tacit collusion. Arbitrageurs
+enter into only a subset of markets, which reduces their combined entry
+
+32 See
+
+https://www.nfa.futures.org/rulebooksql/rules.aspx?Section=4&
+
+RuleID=RULE%202-43.
+33 We thank Terry Hendershott for suggesting this idea to us.
+34 See
+
+https://www.tradersmagazine.com/departments/options/dividend-
+
+trades-cease-at-three-options-exchanges/.
+35 While $365 million is the total potential profit to be exploited by dividend
+play arbitrageurs, a large fraction of it is likely coming from retail investors,
+as sophisticated investors are likely to exercise their options optimally.
+36 See e.g., Barbu (2022), Bhattacharya et al. (2019), Egan (2019), Heimer
+and Simsek (2019), Célérier and Vallée (2017), and Campbell et al. (2011).
+
+costs and thus increases social welfare.
+
+Our empirical application mimics the setup of the model. We con-
+sider dividend play, a specific arbitrage strategy in the options market
+for which we can accurately track arbitrageur activity. Dividend play
+arbitrageurs execute their trades on the floor of the exchange, which is
+typically populated by a limited number of players, and they interact
+repeatedly. Needless to say, there are entry costs associated with floor
+trading,  although  these  costs  are  lower  for  intermediaries  who  are
+already present  in  the  options  markets,  such  as  for  example market
+makers. We document that arbitrageurs routinely do not take part in
+dividend play in a large number of exploitable options contracts, even
+the most profitable ones. Moreover, if arbitrageurs do decide to engage
+in a dividend play in a given contract, their number is usually limited
+to  only  one  arbitrageur.  These  implications  are  consistent  with  our
+model. We also consider alternative explanations for the selective entry
+of arbitrageurs, most of which we are able to rule out.
+
+While  we  do  not  provide  any  direct  proof  that  a  tacit  collusion
+equilibrium indeed occurs in dividend play, our paper presents a cau-
+tionary tale about its potential presence in financial markets, in this and
+other circumstances. Dividend play arbitrage is not the only setting that
+satisfies our model’s assumptions. For example, in the options market,
+there are five further arbitrage strategies, facilitated by exchanges via
+fee caps, which are also executed on the floor. More broadly, financial
+markets with entry costs and natural economies of scale, intermediated
+by a limited number of players, may present other applications of our
+model, as strategic interactions cannot be ruled out in such markets.
+More opaque and concentrated markets, for example, over-the-counter
+markets, may also present suitable applications, as repeated game con-
+siderations are more likely to arise in those environments. For example,
+Bolton and Oehmke (2013) conjecture that there may be scope for tacit
+collusion in credit derivative markets,37 while the 2012 LIBOR fixing
+scandal has exposed collusion in the interbank lending market (Hou
+and Skeie, 2014).
+
+Whether tacit collusion indeed explains partial market segmentation
+and other patterns we see in financial markets is, of course, an open
+question.  Given  its  crucial  importance  for  market  participants  and
+regulators, it requires significant follow-up work, both theoretical and
+empirical.
+
+CRediT authorship contribution statement
+
+Svetlana Bryzgalova: Writing – review & editing, Writing – original
+draft, Methodology, Investigation, Formal analysis, Conceptualization.
+Anna Pavlova: Writing – review & editing, Writing – original draft,
+Resources, Methodology, Investigation, Formal analysis, Conceptualiza-
+tion. Taisiya Sikorskaya: Writing – review & editing, Writing – original
+draft, Methodology, Investigation, Formal analysis, Conceptualization.
+
+Declaration of competing interest
+
+The  authors  declare  that  they  have  no  known  competing  finan-
+cial  interests  or  personal  relationships  that  could  have  appeared  to
+influence the work reported in this paper.
+
+Appendix A.  Supplementary data
+
+Supplementary material related to this article can be found online
+
+at https://doi.org/10.1016/j.jfineco.2025.104008.
+
+It contains proofs, a detailed descrition of the data, and additional
+
+theoretical and empirical results.
+
+37 The number of dealers in these markets is typically small. For the U.S.
+credit default swap market, Eisfeldt et al. (2023a) estimate it to be around 13
+and that the volumes are highly concentrated.
+
+18 
+
+Barbu, A., 2022. Ex-post loss sharing in consumer financial markets. Available at SSRN:
+
+Hendershott, T.J., Khan, S., Riordan, R., 2022. Option auctions. Available at SSRN: ht
+
+S. Bryzgalova et al.
+
+Data availability
+
+Replication Package for Bryzgalova, Pavlova, and Sikorskaya (2025) (
+Reference data) (Mendeley Data)
+
+References
+
+Allen, J., Wittwer, M., 2023. Centralizing over-the-counter markets? J. Polit. Econ. 131,
+
+3310–3351.
+
+An, Y., Song, Z., 2023. Does the federal reserve obtain competitive and appropriate
+prices in monetary policy implementation? In: Koijen, R. (Ed.), Rev. Financ. Stud.
+36 (10), 4113–4157.
+
+Atkeson,  A.G.,  Eisfeldt,  A.L.,  Weill,  P.-O.,  2015.  Entry  and  exit  in  OTC  derivatives
+
+markets. Econom. 83 (6), 2231–2292.
+
+Autor, D., Dorn, D., Katz, L.F., Patterson, C., Van Reenen, J., 2020. The fall of the
+
+labor share and the rise of superstar firms. Q. J. Econ. 135 (2), 645–709.
+
+Bakshi, G., Cao, C., Chen, Z., 1997. Empirical performance of alternative option pricing
+
+models. J. Finance 52 (5), 2003–2049.
+
+https://ssrn.com/abstract_id=4079524.
+
+Barraclough, K., Whaley, R.E., 2012. Early exercise of put options on stocks. J. Finance
+
+67, 1423–1456.
+
+Basak, S., Croitoru, B., 2000. Equilibrium mispricing in a capital market with portfolio
+
+constraints. Rev. Financ. Stud. 13 (3), 715–748.
+
+Battalio, R., Figlewski, S., Neal, R., 2020. Option investor rationality revisited: The role
+
+of exercise boundary violations. Financ. Anal. J. 76, 82–99.
+
+Bernheim, B.D., Whinston, M.D., 1990. Multimarket contact and collusive behavior.
+
+Rand J. Econ. 21 (1), 1–26.
+
+Bhattacharya, V., Illanes, G., Padi, M., 2019. Fiduciary duty and the market for financial
+
+advice. Available at SSRN: https://ssrn.com/abstract=3281345.
+
+Bolton, P., Oehmke, M., 2013. Strategic conduct in credit derivative markets. Int. J.
+
+Ind. Organ. 31 (5), 652–658.
+
+Boyarchenko,  N.,  Eisenbach,  T.M.,  Gupta,  P.,  Shachar,  O.,  Tassel,  P.V.,  2020.
+Bank-intermediated arbitrage. Available at SSRN: https://ssrn.com/abstract=32000
+41.
+
+Bryzgalova, S., Pavlova, A., Sikorskaya, T., 2023. Retail trading in options and the rise
+
+of the big three wholesalers. J. Finance 78 (6), 3465–3514.
+
+Campbell,  J.Y.,  Jackson,  H.E.,  Madrian,  B.C.,  Tufano,  P.,  2011.  Consumer  financial
+
+protection. J. Econ. Perspect. 25 (1), 91–114.
+
+Célérier, C., Vallée, B., 2017. Catering to investors through security design: Headline
+
+rate and complexity. Q. J. Econ. 132 (3), 1469–1508.
+
+Christie, W.G., Schultz, P.H., 1994. Why do NASDAQ market makers avoid odd-eighth
+
+quotes? J. Finance 49 (5), 1813–1840.
+
+Cosma, A., Galluccio, S., Pederzoli, P., Scaillet, O., 2020. Early exercise decision in
+American options with dividends, stochastic volatility, and jumps. J. Financ. Quant.
+Anal. 55 (1), 331–356.
+
+De  Loecker,  J.,  Eeckhout,  J.,  Unger,  G.,  2020.  The  rise  of  market  power  and  the
+
+macroeconomic implications. Q. J. Econ. 135 (2), 561–644.
+
+de Silva, T., Smith, K., So, E.C., 2022. Losing is optional: Retail option trading and
+earnings announcement volatility. Available at SSRN: https://ssrn.com/abstract=4
+050165.
+
+Dou, W.W., Goldstein, I., Ji, Y., 2023. AI-powered trading, algorithmic collusion, and
+price efficiency. Available at SSRN: https://papers.ssrn.com/abstract_id=4452704.
+Dutta,  P.K.,  Madhavan,  A.,  1997.  Competition  and  collusion  in  dealer  markets.  J.
+
+Journal of Financial Economics 166 (2025) 104008 
+
+Eisfeldt, A.L., Lustig, H., Zhang, L., 2023b. Complex asset markets. J. Finance 78 (5),
+
+2519–2562.
+
+Ernst, T., Spatt, C.S., 2022. Payment for order flow and asset choice. Available at SSRN:
+
+https://ssrn.com/abstract_id=4068065.
+
+Fardeau, V., 2021. Arbitrage with financial constraints and market power. Available at
+
+SSRN: https://ssrn.com/abstract_id=3630914.
+
+Froot, K.A., 2001. The market for catastrophe risk: A clinical examination. J. Financ.
+
+Econ. 60 (2–3), 529–571.
+
+Fudenberg, D., Maskin, E., 1986. The folk theorem in repeated games with discounting
+
+or with incomplete information. Econom. 54 (3), 533–554.
+
+Goldstein, I., Guembel, A., 2008. Manipulation and the allocational role of prices. Rev.
+
+Econ. Stud. 75 (1), 133–164.
+
+Green,  E.J.,  Porter,  R.H.,  1984.  Noncooperative  collusion  under  imperfect  price
+
+information. Econom. 52 (1), 87–100.
+
+Gromb, D., Vayanos, D., 2002. Equilibrium and welfare in markets with financially
+
+constrained arbitrageurs. J. Financ. Econ. 66, 361–407.
+
+Grullon,  G.,  Larkin,  Y.,  Michaely,  R.,  2019.  Are  US  industries  becoming  more
+
+concentrated? Rev. Financ. 23 (4), 697–743.
+
+Hao, J., Kalay, A., Mayhew, S., 2009. Ex-dividend arbitrage in option markets. Rev.
+
+Heimer, R., Simsek, A., 2019. Should retail investors’ leverage be limited? J. Financ.
+
+Financ. Stud. 23 (1), 271–303.
+
+Econ. 132 (3), 1–21.
+
+tps://ssrn.com/abstract=4110516.
+
+Hirshleifer, D., Lim, S.S., Teoh, S.H., 2009. Driven to distraction: Extraneous events
+
+and underreaction to earnings news. J. Finance 64 (5), 2289–2325.
+
+Hörner, J., Lovo, S., Tomala, T., 2018. Belief-free price formation. J. Financ. Econ. 127
+
+(2), 342–365.
+
+Hou, D., Skeie, D.R., 2014. LIBOR: Origins, economics, crisis, scandal, and reform.
+
+Available at SSRN: https://ssrn.com/abstract=2423387.
+
+Huber, A.W., 2023. Market power in wholesale funding: A structural perspective from
+
+the triparty repo market. J. Financ. Econ. 149 (2), 235–259.
+
+Ivaldi, M., Jullien, B., Rey, P., Seabright, P., Tirole, J., 2007. The economics of tacit
+collusion: Implications for merger control. In: Ghosal, V., Stennek, J. (Eds.), the
+Political Economy of Antitrust. Vol. 282, Elsevier, pp. 217–239.
+
+Jensen, M.V., Pedersen, L.H., 2016. Early option exercise: Never say never. J. Financ.
+
+Econ. 121, 278–299.
+
+Kacperczyk, M., Nieuwerburgh, S.V., Veldkamp, L., 2016. A rational theory of mutual
+
+funds’ attention allocation. Econom. 84 (2), 571–626.
+
+Kyle, A.S., 1985. Continuous auctions and insider trading. Econom. 53 (6), 1315–1335.
+Lee, C.M.C., Ready, M.J., 1991. Inferring trade direction from intraday data. J. Finance
+
+Mixon, S., Onur, E., 2017. Dividend swaps and dividend futures: State of play. J. Altern.
+
+46 (2), 733–746.
+
+Invest. 19 (3), 27–39.
+
+Pinter, G., Uslu, S., 2022. Comparing search and intermediation frictions across markets.
+
+Bank of England Staff Working Paper No. 974, Elsevier BV.
+
+Pool, V.K., Stoll, H.R., Whaley, R.E., 2008. Failure to exercise call options: An anomaly
+
+and a trading game. J. Financial Mark. 11 (1), 1–35.
+
+Poteshman,  A.M.,  Serbin,  V.,  2003.  Clearly  irrational  financial  market  behavior:
+Evidence from the early exercise of exchange traded stock options. J. Finance 58
+(1), 37–70.
+
+Rantapuska, E., Knüpfer, S., 2008. Which investors leave money on the table? Evidence
+
+from rights issues. Rev. Financ. 12 (4), 701–733.
+
+Savor, P., Wilson, M., 2014. Asset pricing: A tale of two days. J. Financ. Econ. 113
+
+(2), 171–201.
+
+Shleifer, A., Vishny, R.W., 1997. The limits of arbitrage. J. Finance 52 (1), 35–55.
+Siriwardane, E., Sunderam, A., Wallen, J.L., 2024. Segmented arbitrage. J. Finance
+
+forthcoming. Available at SSRN: https://ssrn.com/abstract=3960980.
+
+Wallen, J.L., 2022. Markups to financial intermediation in foreign exchange markets.
+
+Zigrand, J.-P., 2004. A general equilibrium analysis of strategic arbitrage. J. Math.
+
+Egan, M., 2019. Brokers versus retail investors: Conflicting interests and dominated
+
+Working Paper, Harvard Business School.
+
+Eisfeldt, A.L., Herskovic, B., Rajan, S., Siriwardane, E., 2023a. OTC intermediaries. Rev.
+
+Econom. 40 (8), 923–952.
+
+Finance 52 (1), 245–276.
+
+products. J. Finance 74 (3), 1217–1260.
+
+Financ. Stud. 36 (2), 615–677.
+
+19 
+
+

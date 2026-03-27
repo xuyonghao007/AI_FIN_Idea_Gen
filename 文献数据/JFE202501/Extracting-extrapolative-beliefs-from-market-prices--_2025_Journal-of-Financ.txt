@@ -1,0 +1,4857 @@
+Journal of Financial Economics 164 (2025) 103986 
+
+Contents lists available at ScienceDirect
+
+Journal of Financial Economics
+
+journal homepage: www.elsevier.com/locate/finec
+
+Extracting extrapolative beliefs from market prices: An augmented
+present-value approach✩
+Stefano Cassella a
+a Tilburg University, Warandelaan 2, Tilburg, 5037 AB, The Netherlands
+b Hong Kong Polytechnic University, 11 Yuk Choi Rd, Hong Kong, China
+c Purdue University, 610 Purdue Mall, West Lafayette, 47907, United States
+d Tsinghua University, Huanggang Road, Huafu Street, Shenzhen, China
+
+, Huseyin Gulen c,∗, Yan Liu d
+
+, Te-Feng Chen b
+
+A R T I C L E I N F O
+
+A B S T R A C T
+
+We propose a latent-variables approach to recover extrapolative beliefs from asset prices. We estimate a
+present-value model of the price–dividend ratio of the market that embeds both return extrapolation and
+cash-flow extrapolation, alongside discount rates and rational expectations of dividend growth. This approach
+allows us to measure extrapolation bias without having to rely on survey data, and it inherently guarantees that
+the researcher focuses on a set of beliefs that matter for price formation. We show that extrapolative beliefs
+extracted from prices are highly correlated with surveys and that survey-based and price-based extrapolative
+beliefs share similar predictive properties for future returns, with the former improving upon the latter.
+
+Dataset link: Extracting Extrapolative Beliefs fr
+om Market Prices: An Augmented Present-Valu
+e Approach (Original data)
+
+Keywords:
+Present value
+Structural estimation
+Expectations
+Extrapolation bias
+Behavioral
+Sentiment
+Predictive regressions
+Discount rate
+Dividend growth
+
+1.  Introduction
+
+Using  survey  expectations  to  elicit  investor  beliefs,  recent  work
+shows widespread evidence that investors extrapolate past investment
+performance. In particular, Greenwood and Shleifer (2014) document
+that  survey  expectations  of  future  returns  rise  on  the  back  of  good
+stock market returns (i.e., return extrapolation), while Bordalo et al.
+(2019), De la O and Myers (2021), and Nagel and Xu (2022) show
+evidence consistent with investors’ expectations of future fundamen-
+tals rising on the back of strong recent fundamentals (i.e., cash-flow
+extrapolation).1
+
+Extrapolation  of  stock-market  performance  is  likely  to  result  in
+biases in expectations since, in the data, there is only a weak relation
+between the past and future performance of the market (e.g., Barberis
+2018).  Following  this  insight,  recent  theory  work  has  demonstrated
+
+that extrapolation bias can have a sizable impact on stock prices and
+can  help  reconcile  a  number  of  stylized  facts  about  the  stock  mar-
+ket (Barberis et al., 2015; Cassella and Gulen, 2018; Choi and Mertens,
+2019; Jin and Sui, 2022; Atmaz et al., 2024).
+
+While the availability of survey data on investor beliefs has shed
+light  on  the  impact  of  extrapolation  on  investor  beliefs,  the  use  of
+survey data to test theories of biased beliefs has its limitations. First,
+researchers need comprehensive and preferably long-running surveys,
+which are lacking at present. Second, surveys only rarely allow to link
+respondents’  expectations  to their  holdings or trading behavior,  and
+survey coverage is limited to a selected subpopulation of the market.
+This makes it difficult to draw strong inferences on the extent to which
+
+✩
+Nikolai Roussanov is the editor. We thank Zhaojing Chen, Zhi Da, Lawrence Jin, and Cam Harvey for helpful comments. We thank Marydell Forbes for
+editorial assistance. Te-Feng Chen acknowledges financial support from the Research Grants Council of the Hong Kong Special Administrative Region, China
+(GRF15506719). All errors are our responsibility.
+
+∗ Corresponding author.
+
+E-mail address: hgulen@purdue.edu (H. Gulen).
+
+1 Earlier evidence of extrapolation both in the lab and in surveys is in De Bondt (1993). The tendency toward extrapolation may have multiple sources. It can
+be due to the representativeness heuristic (Barberis et al., 1998; Bordalo et al., 2018), or the law of small numbers (Rabin, 2002). It can also be due to bounded
+rationality (Hong and Stein, 1999; Fuster et al., 2012; Glaeser and Nathanson, 2017).
+
+https://doi.org/10.1016/j.jfineco.2024.103986
+Received 4 October 2021; Received in revised form 9 December 2024; Accepted 11 December 2024
+Available online 26 December 2024 
+0304-405X/© 2024 Elsevier B.V. All rights are reserved, including those for text and data mining, AI training, and similar technologies. 
+
+S. Cassella et al.
+
+Journal of Financial Economics 164 (2025) 103986 
+
+extrapolation bias affects investor behavior.2 Third, several researchers
+(e.g., Prescott 1977, Lamont 2003, Cochrane 2011)  have  criticized
+the  use  of  surveys  in  testing  expectations  formation  on  the  basis  of
+surveys being noisy and survey responses being sensitive to how survey
+questions are framed.3 Fourth, concerns regarding measurement aside,
+if arbitrageurs act swiftly to profit from investors’ biases, extrapolation
+may be widespread and yet have little impact on asset prices. Fifth, as of
+yet, return extrapolation and cash-flow extrapolation have largely been
+studied separately, possibly owing to the fact that surveys often only
+elicit either return or cash-flow expectations. As a result, it is unclear
+what the relative contribution of cash-flow extrapolation and return
+extrapolation is to equilibrium asset prices. Overall, the extent to which
+extrapolation bias truly matters for asset prices is still an open empirical
+question.
+
+In  this  paper,  we  overcome  the  challenges  faced  in  prior  work
+and assess the joint importance of cash-flow extrapolation and return
+extrapolation for asset prices by structurally estimating an augmented
+version of the present-value identity. In our present-value model, we
+allow the price–dividend ratio of the market to respond to variation in
+risk preferences as well as variation in rational expectations of dividend
+growth, as is standard in the literature (Campbell and Shiller 1988,
+Van Binsbergen and Koijen 2010). The novelty of our approach is that
+we also allow for fluctuations in asset valuation to stem from return
+extrapolation and cash-flow extrapolation.
+
+Our empirical analysis builds on earlier work by Van Binsbergen
+and  Koijen (2010)  (henceforth  VBK).  They  use  standard  Kalman  fil-
+tering  techniques  to  structurally  estimate  a  model  of  stock  market
+valuation  where  variation  in  the  market  price–dividend  ratio  is  due
+to both the time variation in the discount rate and dividend growth
+expectations. We conjecture that the valuation of the stock market can
+also emanate from extrapolative beliefs held by some investors in the
+market. We thus augment the original VBK framework by modeling the
+variation in the price–dividend ratio as dependent on not only rational
+investors’ discount rates and cash-flow growth expectations but also on
+extrapolators’ sentiment about stocks.
+
+Like prior research (Greenwood and Shleifer, 2014; Barberis et al.,
+2015),  we  model  extrapolative  beliefs  of  future  stock  returns  as  a
+weighted sum of past stock returns with decaying weights. Similarly,
+we model cash-flow extrapolative expectations following the literature
+as a weighted sum of past dividend-growth realizations (e.g., Nagel and
+Xu 2022).
+
+The  intuition  for  why  our  structural  model  is  able  to  simulta-
+neously  identify  cash-flow  extrapolation  (henceforth 𝑊 )  and  return
+extrapolation (henceforth 𝑆) in the data is simple: while both forms
+of expectations are weighted sums of past market performance, they
+are  ultimately  weighted  sums  of  different  quantities.  Similarly,  the
+time series of rational expectations of growth (henceforth 𝑔) can be
+separated from extrapolative beliefs since 𝑔 captures investors’ forward-
+looking expectations of future dividend growth. Finally, the discount
+rate (henceforth 𝜇) takes the role of a residual in our decomposition
+since it is used to match the variation in the price–dividend ratio of
+the market that cannot be accounted for by either extrapolative beliefs
+or rational expectations of dividend growth.4
+
+In  our  decomposition,  the  inclusion  of  other  traditional  drivers
+of stock valuations, such as discount rates and rational expectations
+of  dividend  growth  alongside  extrapolative  beliefs,  helps  to  further
+strengthen the identification of extrapolative expectations in the data.
+It  is  important  to  explicitly  model  rational  expectations  of  dividend
+growth alongside cash-flow extrapolation because a rise in dividends
+that causes cash-flow extrapolative expectation to rise is also likely to
+coincide with a positive shock to future dividend-growth expectations.
+Thus, explicitly controlling for rational cash-flow expectations in the
+model frees the estimate of cash-flow extrapolation from the confound-
+ing role of rational expectations of growth in fundamentals. Similarly,
+a stock price rise that leads to an increase in extrapolative expectations
+can coincide with a decline in discount rates, so that without modeling
+discount rates explicitly, one has to worry about over-stating the role
+of  extrapolative  expectations  for  asset  prices.  The  joint  modeling  of
+𝑆 and 𝜇 helps to deal with this concern and thus helps improve the
+identification of the different forces at play in shaping asset prices.
+
+Given the novelty of our approach, we perform an extensive analysis
+to validate our model. Multiple independent pieces of evidence indicate
+that our model is indeed able to estimate at once the aforementioned
+drivers of asset prices. First, we conduct an extensive simulation anal-
+ysis aimed at investigating how well the model can identify the four
+latent variables of interest for different values of the model parameters.
+We find strong evidence that the model is very successful in recover-
+ing the latent variables for a large set of parameters. Second, while
+the extrapolative beliefs in our model are consistent with theoretical
+models  of  extrapolation,  we  acknowledge  that  our  model  estimates
+these  time  series  with  the  aim  of  matching  asset  prices  rather  than
+beliefs. This raises the question of whether our price-based extrapola-
+tion metrics indeed match the dynamics of extrapolative beliefs from
+survey  data.  To  answer  this  question,  we  first  compare  raw  survey
+expectations of returns (cash-flows) with our structural estimates and
+find an encouraging positive correlation of 25% (50%). We then note
+that survey expectations need not capture just extrapolative beliefs.5
+Therefore,  we  perform  a  more  informative  comparison  between  the
+extrapolative  component  of  surveys  and  our  estimates.  Our  return-
+extrapolation measure has a 70% correlation with return-extrapolative
+beliefs extracted from surveys, whereas it has a correlation that is close
+to zero with surveys of cash-flow growth expectations. Similarly, our
+cash-flow extrapolation time series shares a correlation of 50% with
+cash-flow extrapolation from surveys and only a small correlation of
+10% or less with return-extrapolation data from surveys.6 The fact that
+the model can recover beliefs in a way that is consistent with survey
+data is important in that it lends credence to our approach. Moreover,
+since  our  measures  are  extracted  from  asset  prices,  this  result  also
+provides support for behavioral theories looking to connect fluctuations
+in asset prices to extrapolative beliefs.
+
+In the last part of the paper, we use our estimated time series of
+investor  beliefs  about  returns  and  cash  flows  to  conduct  aggregate
+return predictability tests. Since our econometric approach does not
+aim, like recent work involving machine learning techniques, to build
+new  and  robust  predictors  of  stock  returns,  the  goal  of  this  part  of
+the analysis is not to break new ground in the aggregate time-series
+
+2 Two notable exceptions are Giglio et al. (2021), and Liu et al. (2022).
+3 Greenwood  and  Shleifer (2014)  provide  evidence  that  alleviates  these
+concerns.  First,  they  show  that  return  expectations  are  highly  correlated
+across various surveys, suggesting that survey expectations contain valuable
+information and not just noise. Second, subsequent mutual fund flows are in
+the  same  direction  as  survey  expectations,  supporting  the  idea  that  survey
+responses reflect true investor expectations.
+
+4 Of course, the fact that the discount-rate component of our model is a
+residual implies that it could capture drivers of beliefs that are unrelated to
+risk preferences. In our extension of our main model, presented in the Internet
+Appendix, we tackle this issue by explicitly allowing the discount-rate process
+to depend on some observable proxy for discount rates.
+
+5 For instance, evidence in Greenwood and Shleifer (2014) suggests that
+extrapolative beliefs explain about 30% of variation in survey expectations of
+returns.
+
+6 This  positive  correlation  is  somewhat  to  be  expected:  after  all,  both
+the survey-based extrapolation and the structural estimates are sums of past
+returns or cash-flow growth realizations. However, the correlation need not
+be high if the structural decay parameter of extrapolative expectations differs
+from  the  decay  parameter  in  extrapolative  beliefs  from  surveys.  Thus,  the
+finding  of  a  high  correlation  between  structural  measures  of  extrapolative
+expectations and survey-based measures amounts to stating that the structural
+model recovers a decay parameter that is in line with the one measured using
+survey data.
+
+2 
+
+S. Cassella et al.
+
+Journal of Financial Economics 164 (2025) 103986 
+
+predictability literature. Rather, the primary purpose of the predictabil-
+ity  tests  we  conduct  is  to  compare  the  predictive  performance  of
+surveys-based  extrapolation  metrics  with  our  structurally  estimated
+beliefs time series. If our structural approach is successful at measuring
+extrapolative beliefs rather than other drivers of asset prices, we expect
+surveys  and  structurally  estimated  beliefs  metrics  to  exhibit  similar
+predictive  abilities.  Indeed,  we  find  similar  predictive  properties  for
+survey-based  extrapolation  and  our  extrapolation  metrics,  both  in-
+sample and out-of-sample. As a matter of fact, in the in-sample tests,
+price-based extrapolative beliefs have a stronger predictive power than
+survey-based  metrics  based  on  the  size  of  the  predictive  coefficient,
+the  statistical  significance  of  the  predictability  coefficients,  and  the
+𝑅2 of the predictive regressions. The improved predictability that is
+observed using price-based extrapolative beliefs is particularly evident
+at short and intermediate horizons, while survey-based metrics exhibit
+somewhat better predictive power at a longer horizon of three years,
+making the overall predictive ability of two sets of metrics for extrap-
+olation comparable. Out-of-sample tests, either based on Campbell and
+Thompson (2008) out-of-sample 𝑅2 or Clark and West (2007) statistic,
+deliver similar insights.
+
+Our predictive tests also serve a secondary purpose: both theories
+of cash-flow extrapolation and return extrapolation predict that when
+extrapolative expectations rise, future returns will be lower. One way
+of assessing whether return or cash-flow extrapolation matters for asset
+prices is to compare the ability of these two belief systems to predict
+future  stock  returns.  In  principle,  this  type  of  comparison  could  be
+done using surveys.7 However, different surveys collect return expecta-
+tions and cash-flow expectations, often using different types of survey
+participants, different sample sizes, and different sample periods. All
+these differences lead to the possibility that differences in the predictive
+ability  of  survey-based  return-  and  cash-flow  extrapolation  are  due
+to differences in the quality of the data and could not appropriately
+portray  the  role  of  the  two  forms  of  extrapolation  for  asset  prices.
+Our empirical approach allows us to circumvent these issues in that
+we  estimate  both  return  extrapolation  and  cash-flow  extrapolation
+jointly as part of a unified econometric approach. When comparing the
+predictive ability of cash-flow extrapolation and return extrapolation
+using our metrics, we find that both share a similar ability to predict
+future returns, and each has a marginal predictive power for future
+returns vis-a-vis the other.
+
+All in all, our empirical evidence points to a great degree of simi-
+larity between existing survey-based extrapolation metrics and our new
+price-based extrapolation time series. As such, this evidence lends cred-
+ibility to our new approach, and it reinforces the notion that surveys
+elicit beliefs that matter for asset prices. While our results indicate the
+survey-based approach and our structural approach provide answers
+that are in line with each other, we argue that a cautious interpretation
+of our results is in order. Simply put, survey data offers direct insights
+into belief formation, whereas recovering beliefs from market prices
+as we do constitutes an indirect approach. Our approach to recovering
+extrapolation asks what is the combination of past return and cash-flow
+realizations that best matches variation in asset prices rather than what
+is the combination of such realizations that drives beliefs. Therefore, we
+argue that both surveys and asset prices should be used jointly in future
+work looking to extend the framework presented in this paper.
+
+Our paper contributes to two strands of literature. Our first con-
+tribution  is  methodological,  as  we  show  how  to  extend  a  standard
+present-value model of asset prices to incorporate behavioral factors. In
+this regard, we contribute to a growing literature that uses structural es-
+timation in asset pricing to extract latent quantities of interest (e.g., Van
+Binsbergen and Koijen 2010, Koijen and Yogo 2019, Gabaix and Koijen
+2020).  Two  features  mark  our  new  present-value  framework.  First,
+we  propose  a  new  guess-and-verify  approach  to  solving  for  market
+
+7 See McCarthy and Hillenbrand (2021) for an example.
+
+equilibrium that complements the VBK solution and makes the inclu-
+sion  of  additional  state  dynamics  straightforward  in  a  present-value
+relation. Second, our econometric specification allows us to assess the
+differential impacts of extrapolators versus rational traders, capturing
+the  main  insight  in  theoretical  behavioral  models.  We  believe  our
+framework can be extended to test other theories of belief formation
+and can potentially spur a new stream of academic research.
+
+Our  second  contribution  is  to  a  longstanding  debate  on  the  role
+of irrational beliefs for asset prices. In traditional models of financial
+markets, asset prices reflect only rational expectations and irrational
+investors are irrelevant for prices due to the presence of deep-pocketed
+arbitrageurs.8 In contrast to this view, behavioral finance posits that
+investors’  biased  beliefs  do  impact  asset  prices  (e.g., Shleifer 2000,
+Barberis  and  Thaler 2005, Barberis 2018, Bordalo  et  al. 2024).  The
+recent  steps  taken  by  empirical  research  in  the  field  to  directly  in-
+vestigate  the  role  of  biases  for  price  formation  involve  survey  data,
+but researchers worry about the quality of the data and are limited
+by the sparse nature of surveys. We avoid these concerns and offer a
+new structural approach to extracting information on biases in beliefs
+directly from asset prices. Our approach inherently captures biases to
+the extent that they matter in equilibrium.
+
+The rest of the paper is structured as follows. Section 2 presents
+our structural framework and estimates the model using US data. In
+Section 3, we provide evidence to help validate our approach. Section 4
+presents possible model extensions. Section 5 concludes.
+
+2.  A model of market valuation with extrapolative investors
+
+2.1.  The rational benchmark: Van Binsbergen and Koijen (2010)
+
+We first describe the model in Van Binsbergen and Koijen (2010)
+(henceforth  VBK),  which  we  treat  as  the  rational  benchmark  that
+) denote the log
+motivates our framework. Let 𝑟𝑡+1 =  log(
+
+𝑃𝑡+1 + 𝐷𝑡+1
+𝑃𝑡
+
+return of the market, 𝑝𝑑𝑡+1 = log(
+
+𝑃𝑡+1
+𝐷𝑡+1
+
+) denote the log price–dividend
+
+𝐷𝑡+1
+𝐷𝑡
+
+) denote the log dividend
+≡ 𝐸𝑡(𝑟𝑡+1)) and the
+≡ 𝐸𝑡(𝛥𝑑𝑡+1)) as latent variables that
+
+ratio (hereafter pd ratio), and 𝛥𝑑𝑡+1 = log(
+growth rate. VBK model the expected return (𝜇𝑡
+expected dividend growth rate (𝑔𝑡
+follow separate AR(1) processes:
+𝜇𝑡+1 = 𝜇0 + 𝜌𝜇(𝜇𝑡 − 𝜇0) + 𝜀𝜇 ,𝑡+1,
+𝑔𝑡+1 = 𝑔0 + 𝜌𝑔(𝑔𝑡 − 𝑔0) + 𝜀𝑔 ,𝑡+1,
+(2)
+where 𝜇0 (𝑔0), 𝜌𝜇 (𝜌𝑔), and 𝜀𝜇 ,𝑡+1 (𝜀𝑔 ,𝑡+1) are the unconditional mean,
+the persistence parameter, and the innovation to the expected return
+(the expected dividend growth) process, respectively.
+
+(1)
+
+Using the Campbell and Shiller (1988) approximation, the log return
+
+can be linearized as:
+
+𝑟𝑡+1 = 𝜅 + 𝜌𝑝𝑑𝑡+1 − 𝑝𝑑𝑡 + 𝛥𝑑𝑡+1,
+where 𝜌 = exp(𝑝𝑑)
+, 𝜅 =  log(1 + exp(𝑝𝑑)) − 𝜌𝑝𝑑,  and 𝑝𝑑 denotes
+1+exp(𝑝𝑑)
+the unconditional mean of the log price–dividend ratio. Iterating the
+Campbell–Shiller approximation over the log price–dividend ratio and
+taking conditional expectation at time 𝑡, it follows that:
+
+(3)
+
+∞
+∑
+
+𝑝𝑑𝑡 = 𝐸𝑡[
+
+𝑗=0
+
+𝜌𝑗 (𝜅 + 𝛥𝑑𝑡+1+𝑗 − 𝑟𝑡+1+𝑗 )],
+
+= 𝐴 + 𝐵𝑔(𝑔𝑡 − 𝑔0) − 𝐵𝜇(𝜇𝑡 − 𝜇0),
+
+(4)
+
+(5)
+
+1−𝜌
+
+1−𝜌𝜌𝜇
+
+where 𝐴 = 𝜅+𝑔0−𝜇0
+. As such, the log price–
+dividend ratio is linear in the two state variables (i.e., 𝜇𝑡 and 𝑔𝑡), and
+loads positively on 𝑔𝑡 and negatively on 𝜇𝑡.
+
+, and 𝐵𝑔 = 1
+
+, 𝐵𝜇 = 1
+
+Eq. (5) is the fundamental equation in VBK that links the observ-
+able  price–dividend  ratio  to  the  two  latent  state  variables.  It  states
+that the variation in the price–dividend ratio is completely driven by
+
+1−𝜌𝜌𝑔
+
+8 Examples of work on the rational-expectations paradigm in asset pricing
+are Sharpe (1964), Fama (1970), Campbell and Cochrane (1999), and Bansal
+and Yaron (2004).
+
+3 
+
+S. Cassella et al.
+
+the  variation in the  discount rate and the variation  in the  expected
+dividend growth rate (and possibly their covariance). Note that there
+is a one-to-one mapping between (𝐵1, 𝐵2) and (𝜌𝜇, 𝜌𝑔). As a result, an
+alternative approach to derive the VBK representation is to first specify
+the log price–dividend ratio as a linear function of the two latent state
+variables and then derive the dynamics of expected returns through
+the Campbell–Shiller decomposition. In the next section, we take this
+alternative approach to derive the market equilibrium in the presence
+of extrapolators.
+
+2.2.  A present-value model with extrapolative beliefs
+
+In this section, we extend the present-value model described in the
+previous section by incorporating extrapolative beliefs, which are stud-
+ied in Greenwood and Shleifer (2014), Barberis et al. (2015), Cassella
+and Gulen (2018), and Nagel and Xu (2022). Our primary focus on
+return extrapolation as an irrational belief formation process is war-
+ranted by the evidence of its pervasiveness in the laboratory and in
+the  field  (e.g., De  Bondt  and  Thaler 1985, De  Bondt 1993, Vissing-
+Jorgensen 2003, Nagel 2012, Dominitz  and  Manski 2011, Amromin
+and Sharpe 2014, Greenwood and Shleifer 2014, Cassella and Gulen
+2018, Malmendier et al. 2020). More recent literature also points to
+the extrapolation of past cash flows as a source of incorrect expectations
+(e.g., Bordalo et al. 2019, De la O and Myers 2021, Nagel and Xu 2022).
+Following  this  literature,  we  present  a  model  that  allows  for  both
+cash flow extrapolation and return extrapolation, as well as rational
+dividend growth expectations and time-varying risk preferences, i.e., a
+time-varying discount rate.
+
+2.2.1.  Model assumptions
+
+To simplify our presentation, we deamean all variables and present
+our model economy in terms of demeaned quantities (denoted with a
+hat). There are some ‘‘rational traders’’ in the economy who trade a
+risky asset whose supply is fixed as in the rational benchmark of Van
+Binsbergen  and  Koijen (2010).  Following Barberis  et  al. (2015),  we
+assume that there are ‘‘return extrapolators’’ in the economy who form
+beliefs of future market returns based on past stock market returns.
+Further, following Nagel and Xu (2022), we assume that there are also
+‘‘cash flow extrapolators’’ in the economy who form beliefs of future
+fundamentals based on past fundamentals.9
+
+We first specify the dynamics of the beliefs of return extrapolators.
+Following prior work, we model the (demeaned) time-series of extrapo-
+lators’ return expectation ( ̂𝑆𝑡) as follows (e.g., Greenwood and Shleifer,
+2014; Barberis et al., 2015):
+̂𝑆𝑡+1 = (1 − 𝛽𝑆 ) ̂𝑆𝑡 + 𝛽𝑆 ̂𝑟𝑡+1,
+
+(6)
+
+where 𝛽𝑆 is the weighting parameter. We can rewrite
+
+∑∞
+
+̂𝑆𝑡 = 𝛽𝑆
+
+𝑗=0(1 − 𝛽𝑆 )𝑗̂𝑟𝑡−𝑗 , where ̂𝑆𝑡 is a weighted average of all past
+returns. A higher 𝛽𝑆 indicates more weight is placed on more recent
+returns.
+
+We then specify the dynamics of the beliefs of cash-flow extrap-
+olators,  and  we  model  the  (demeaned)  time-series  of  extrapolators’
+cash-flow expectation ( ̂𝑤𝑡) as follows (e.g., Nagel and Xu 2022):
+̂𝑤𝑡+1 = (1 − 𝛽𝑤) ̂𝑤𝑡 + 𝛽𝑤
+
+̂𝛥𝑑𝑡+1
+
+(7)
+
+Journal of Financial Economics 164 (2025) 103986 
+
+𝛽𝑤 implies more weights on the distant realizations of past dividend
+growth.10
+
+Rational traders hold time-varying preferences for risk. Similar to
+the specification in (1) of VBK, we model the (demeaned) variation in
+rational investors’ required compensation for risk via an autoregressive
+process that tracks time-varying discount rates:
+
+̂𝜇𝑡+1 = 𝜌𝜇 ̂𝜇𝑡 + 𝜀𝜇 ,𝑡+1,
+where 𝜌𝜇 is  the  persistence  parameter.
+̂𝜇𝑡 can  be  interpreted  as  the
+expected market return in the absence of extrapolators. However, this
+quantity will differ from actual expected returns (i.e., 𝐸𝑡(̂𝑟𝑡+1)) when
+extrapolators are present in the market. Hereafter, to better distinguish
+̂𝜇𝑡 from 𝐸𝑡(̂𝑟𝑡+1), we refer to ̂𝜇𝑡 as the discount rate and 𝐸𝑡(̂𝑟𝑡+1) as the
+(overall) expected return for the market.
+
+(8)
+
+Another way to distinguish ̂𝜇𝑡 from the overall expected return of
+the market is through a frequency decomposition. Because ̂𝜇𝑡 is highly
+persistent and can be thought of as the required rate of return for long-
+term buy-and-hold investors, it is the primary driver of returns in the
+long run (e.g., over five years). In contrast, the one-year-ahead overall
+expected market return 𝐸𝑡(̂𝑟𝑡+1) is relatively short-run and, therefore,
+will be affected (or ‘‘contaminated’’) by extrapolators’ sentiment. Our
+formulation succinctly captures this distinction in the investment hori-
+zon by modeling the discount rate as a self-contained process. While
+alternative formulations are possible (e.g., directly modeling 𝐸𝑡(̂𝑟𝑡+1)
+as the ‘‘discount rate’’), they unnecessarily complicate the analysis as
+well as the intuition because, due to the dependence of extrapolation on
+returns, alternative formulations imply the reliance of discount rates on
+extrapolators’ sentiment. To maintain model parsimony and ease model
+interpretation, we focus on our current formulation.
+
+Next, the (demeaned) expected dividend growth rate ( ̂𝑔𝑡) is assumed
+
+to follow an AR(1) process:
+
+̂𝑔𝑡+1 = 𝜌𝑔 ̂𝑔𝑡 + 𝜀𝑔 ,𝑡+1,
+where the model parameter 𝜌𝑔 and the shock 𝜀𝑔 ,𝑡+1 carry the same in-
+terpretations as those in (2) of VBK. The (demeaned) realized dividend
+growth rate is assumed to follow:
+̂𝛥𝑑𝑡+1 = ̂𝑔𝑡 + 𝜀𝑑 ,𝑡+1.
+
+(10)
+
+(9)
+
+̂𝑆𝑡+1,
+
+̂𝑤𝑡+1,
+
+Note  that  the  four  state  variables
+
+̂𝑔𝑡+1,  and ̂𝜇𝑡+1 are
+assumed to only depend on their lagged values. One can easily extend
+our  model  by  assuming  a  general  vector-autoregression  (i.e.,  VAR),
+where  state  variables  may  load  on  other  lagged  state  variables.  We
+focus on our specification to maintain model parsimony (given we have
+limited time series data to estimate our model) and to achieve model
+identification. Also note that we model the three shocks in the model
+(i.e., 𝜀𝜇 ,𝑡+1, 𝜀𝑔 ,𝑡+1,  and 𝜀𝑑 ,𝑡+1)  as  homoscedastic  normal  shocks  that
+are cross-sectionally independent. We do not allow shock correlations,
+again to maintain model parsimony. The standard deviations for these
+shocks are given by 𝜎𝜇, 𝜎𝑔, and 𝜎𝑑 , respectively.
+
+Both types of extrapolators trade in the direction of their beliefs
+so  that  when  past  aggregate  returns  (cash-flow  growth)  are  higher,
+return-extrapolators  (cash-flow  extrapolators)  become  optimistic  and
+increase their demand for stocks. Faced with extrapolators’ irrational
+demand for stocks and with prices that are higher than justified by
+fundamentals, rational traders could, in principle, counter the mispric-
+ing generated by extrapolators by shorting the overpriced asset, thus
+leading  prices  to  immediately  revert  to  the  value  that  is  warranted
+by fundamentals. However, rational traders who understand the law
+
+where 𝛽𝑤 is the weighting parameter. Similarly to what we point out for
+𝑗=0(1 − 𝛽𝑤)𝑗 ̂𝛥𝑑𝑡−𝑗 , where
+return extrapolation, one can write ̂𝑤𝑡 = 𝛽𝑤
+̂𝑤𝑡 is a weighted average of all past dividend growth rates. A lower
+
+∑∞
+
+9 For  simplicity,  we  are  modeling  cash  flow  extrapolators  and  return
+
+extrapolators as two separate sets of investors.
+
+10 Cassella  and  Gulen (2018)  allow  time-varying  weights  (i.e., 𝛽𝑆 )  and
+extract them from survey expectations. We focus on time-invariant weights to
+preserve the analytical tractability of our present-value model (in particular,
+the linear dependence of equilibrium quantities on the state variables). Such
+tractability aids with an intuitive interpretation of our model, as well as a
+standard (linear) Kalman-Filtering approach to estimate our model.
+
+4 
+
+S. Cassella et al.
+
+of  motion  of  extrapolative  beliefs  anticipate  that  bullish  extrapola-
+tive expectations are likely to persist in the near future. As a result,
+rational  market  participants  only  partially  counter  the  overpricing
+caused by either type of extrapolators. In equilibrium, the presence of
+over-optimistic extrapolators generates over-pricing.11
+
+In Barberis et al. (2015), an increase in return extrapolators’ senti-
+ment S generates variation in the price–dividend ratio of the market.
+Similarly, Nagel and Xu (2022) propose that cash-flow extrapolators’
+optimism about stocks can lead to fluctuations in the valuation of the
+market.  We  combine  this  behavioral  view  about  the  price–dividend
+ratio of the market with the standard present-value decomposition and
+postulate the following additive linear structure of the (demeaned) pd
+ratio as:
+̂𝑝𝑑𝑡 = −𝐵𝜇 ̂𝜇𝑡 + 𝐵𝑔 ̂𝑔𝑡 + 𝐵𝑆
+where the loading coefficients are either constrained or to be estimated,
+as we will specify later. All coefficients 𝐵𝜇, 𝐵𝑔, 𝐵𝑆 , and 𝐵𝑤 will be
+shown  to  be  positive.  As  such, −𝐵𝜇 captures  the  negative  contem-
+poraneous correlation between the discount rate ̂𝜇𝑡 and the pd ratio
+̂𝑝𝑑𝑡.12
+
+̂𝑆𝑡 + 𝐵𝑤 ̂𝑤𝑡,
+
+(11)
+
+Eq. (11) is  our  main  econometric  specification  for  the  impact  of
+extrapolators’ sentiment on asset prices. The sign and the magnitude of
+such impact are captured by the coefficients 𝐵𝑆 and 𝐵𝑤, which will be
+estimated empirically. These coefficients determine the direction and
+the  extent  to  which  extrapolative  beliefs  affect  the  valuation  of  the
+stock market. When both 𝐵𝑆 and 𝐵𝑤 are zero, our decomposition of the
+pd ratio coincides with the one in VBK, where asset prices are purely
+driven by discount rates and expectations of dividend growth, and ex-
+trapolation has no impact on equilibrium prices. Conversely, the finding
+that 𝐵𝑆 and 𝐵𝑤 are different from zero and positive, as the estimation
+results presented later indicate, makes (11) consistent with theories of
+asset prices with return and cashflow extrapolation (e.g., Barberis et al.
+2015, Nagel and Xu 2022). In these theories, extrapolators’ sentiment
+leads to a deviation of stock market valuation from the level that is
+warranted by fundamentals. As the earlier Eq. (6) shows, this deviation
+is  fueled  by  past  stock  returns  or  past  dividend-growth  realizations.
+High recent stock market performance causes extrapolators’ sentiment
+to become excessively optimistic and stock prices to become too high
+relative to a rational benchmark. Similarly, a streak of negative news
+about the market leads to pessimism among extrapolators, which in
+turn pushes prices too low relative to what would be observed in the
+absence of extrapolators. Importantly, our formulation of extrapolative
+sentiment  in (6) indicates  that  sentiment  displays  an  autoregressive
+behavior, such that optimistic (pessimistic) extrapolative expectations
+today can be predicted to correct in the future, leading to implications
+for time-series predictability that are the subject of empirical tests later
+in the paper.
+
+Our  formulation  for  the pd ratio  in (11) posits  a  linear  relation
+between  the  price–dividend  ratio  and  extrapolators’  sentiment.  This
+relation  suggests  that  one  could  study  the  impact  of  extrapolators’
+sentiment on prices by simply regressing the price–dividend ratio on
+a weighted sum of past returns. However, we argue that this procedure
+is  not  appropriate  and  can  generate  biased  estimates  of  the  impact
+of  extrapolation  on  asset  prices.  The  reason  is  that  such  a  simple
+procedure would suffer from an omitted variable problem because the
+
+11 It is worth noting that extrapolators might be thinking about asset prices
+via the present-value relation. De la O and Myers (2021) provide evidence
+consistent with this view. However, for simplicity, we abstract from this aspect
+and model return extrapolation and cash flow extrapolation separately.
+12 One  interpretation  of  the  equation  above  is  that  the  loadings  of  the
+price–dividend ratio on different components reflect the probability masses
+of different types of investors in the market place. Note, however, that this
+interpretation is based on intuitive grounds and that the mapping between
+our specification of the price–dividend ratio and the behavior of the pd ratio
+in theoretical models with extrapolators is meant to be qualitative.
+
+5 
+
+Journal of Financial Economics 164 (2025) 103986 
+
+other latent variables, such as the discount rate and expected dividend
+growth, would be absent from the regression. For this reason, we focus
+on the structural approach in our paper.
+
+2.2.2.  Solving the model economy
+
+We take a different approach from VBK to derive the market equilib-
+rium. First, given the postulated solution for the pd ratio, we derive the
+implied return dynamics (as perceived by rational traders) through the
+Campbell–Shiller approximation. Next, we use the implied return dy-
+namics to succinctly represent our model economy within a state-space
+framework. Lastly, we use the state-space representation to confirm our
+solution for the pd ratio.
+
+Using Campbell–Shiller decomposition (3), demeaned realized re-
+turn equals ̂𝑟𝑡+1 = 𝜌̂𝑝𝑑𝑡+1 − ̂𝑝𝑑𝑡 + ̂𝛥𝑑𝑡+1. By substituting in the postulated
+solution for the pd ratio and the expression for ̂𝛥𝑑𝑡+1 (i.e., (10)), we
+have:
+
+− [−𝐵𝜇 ̂𝜇𝑡 + 𝐵𝑔 ̂𝑔𝑡 + 𝐵𝑆
+
+̂𝑟𝑡+1 = 𝜌[−𝐵𝜇 ̂𝜇𝑡+1 + 𝐵𝑔 ̂𝑔𝑡+1 + 𝐵𝑆
+
+̂𝑆𝑡+1 + 𝐵𝑤 ̂𝑤𝑡+1]
+̂𝑆𝑡 + 𝐵𝑤 ̂𝑤𝑡] + ̂𝛥𝑑𝑡+1.
+Note  that  the  left-hand  side  return  at 𝑡 + 1 is  not  exogenously
+̂𝑆𝑡+1
+determined by the right-hand side variables. The reason is that
+itself,  being  extrapolators’  sentiment  at  the  end  of  the  time  period,
+depends on market return over this period through Eq. (6). In other
+words, return extrapolators observe the most recent market return and
+update  their  extrapolative  beliefs  accordingly.  Solving ̂𝑟𝑡+1 from  the
+above equation, we can express ̂𝑟𝑡+1 in terms of time 𝑡 state variables
+and innovations as:
+̂𝑟𝑡+1 = (1 − 𝜌𝐵𝑆 𝛽𝑆 )−1[𝐵𝜇(1 − 𝜌𝜌𝜇)]
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+𝜆𝜇
+
+̂𝜇𝑡
+
++ (1 − 𝜌𝐵𝑆 𝛽𝑆 )−1[1 + 𝜌𝐵𝑤𝛽𝑤 − 𝐵𝑔(1 − 𝜌𝜌𝑔)]
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+𝜆𝑔
+
+̂𝑔𝑡
+
++ (1 − 𝜌𝐵𝑆 𝛽𝑆 )−1[−𝐵𝑆 (1 − 𝜌 + 𝜌𝛽𝑆 )]
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+𝜆𝑠
++ (1 − 𝜌𝐵𝑆 𝛽𝑆 )−1[−𝐵𝑤(1 − 𝜌 + 𝜌𝛽𝑤)]
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+𝜆𝑤
+
+̂𝑆𝑡
+
+̂𝑤𝑡
+
++ (1 − 𝜌𝐵𝑆 𝛽𝑆 )−1[(1 + 𝜌𝐵𝑤𝛽𝑤)𝜀𝑑 ,𝑡+1 + 𝜌𝐵𝑔𝜀𝑔 ,𝑡+1 − 𝜌𝐵𝜇𝜀𝜇 ,𝑡+1]
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+𝜀𝑟,𝑡+1
+
+, (12)
+
+which implies that ̂𝑟𝑡+1 = 𝐸𝑡(̂𝑟𝑡+1) + 𝜀𝑟,𝑡+1, where
+𝐸𝑡(̂𝑟𝑡+1) = 𝜆𝜇 ̂𝜇𝑡 + 𝜆𝑔 ̂𝑔𝑡 + 𝜆𝑆
+
+̂𝑆𝑡 + 𝜆𝑤 ̂𝑤𝑡.
+
+(13)
+
+We interpret (13) by comparing it to VBK. In VBK, the (demeaned)
+expected market return is simply ̂𝜇𝑡. In our model, expected market
+returns load on ̂𝜇𝑡 with a coefficient of (1 − 𝜌𝐵𝑆 𝛽𝑆 )−1, in addition to
+𝐵𝜇(1 − 𝜌𝜌𝜇), which is later set to 1 to achieve model identification.
+This  coefficient  is  larger  than  one  so  as  to  reflect  the  amplification
+of discount rate shocks caused by the presence of extrapolators in the
+market.
+
+1
+1−𝜌𝜌𝑔
+
+1
+1−𝜌𝜌𝜇
+
+, and 𝐵𝑔 =
+
+The  intuition  is  as  follows.  In  a  market  with  no  extrapolators,
+𝐵𝑆 =  0 and 𝐵𝑤 =  0,  so  that  a  one-unit  increase  in  discount  rates
+̂𝜇𝑡 raises the expected market return by the same unit. This implies,
+. So, in our estimation, we
+like in VBK, 𝐵𝜇 =
+fix 𝐵𝜇 and 𝐵𝑔 accordingly.  The  presence  of  return  extrapolators  in
+the market exacerbates market movements in response to changes in
+discount rates. This is because an increase (decline) in discount rates
+today lowers (increases) contemporaneous prices and returns, leading
+to pessimistic (optimistic) extrapolative expectations and, hence, even
+lower  (higher)  prices  and  returns  today.  Therefore,  the  equilibrium
+outcome  is  a (1 − 𝜌𝐵𝑆 𝛽𝑆 )−1-unit  (which  is  larger  than  1)  change  in
+expected market return following a unit change in discount rates. Note
+the same amplification mechanism applies to the other state variables
+(i.e., ̂𝑔𝑡,
+
+̂𝑆𝑡, and ̂𝑤𝑡).
+
+S. Cassella et al.
+
+The  coefficient 𝜆𝑆 in  Eq.  (12) captures  the  link  between  return
+extrapolators’ sentiment and future returns. Besides the amplification
+effect (i.e., (1 − 𝜌𝐵𝑆 𝛽𝑆 )−1) discussed above, two other offsetting effects
+contribute to 𝜆𝑆 . The first effect is quantified by −𝐵𝑆 , later estimated
+to be negative, and captures the fact that when current extrapolators’
+beliefs are high, they push up current prices, implying a lower return in
+the future. The second effect is quantified by 𝐵𝑆 𝜌(1 −𝛽𝑆 ), later estimated
+to be positive, and captures the fact that due to extrapolators’ persistent
+beliefs, a higher current bias raises the next period bias by a factor
+of (1 − 𝛽𝑆 ),  thereby  increasing  the  next  period pd ratio  by  a  factor
+of 𝐵𝑆 (1 − 𝛽𝑆 ). Through the Campbell–Shiller decomposition (3), the
+corresponding increase in expected return is 𝐵𝑆 𝜌(1 − 𝛽𝑆 ). The negative
+current effect and the positive future effect negate each other, leading
+to a negative effect overall.
+
+The coefficient 𝜆𝑤 in Eq. (12) captures the link between cash-flow
+extrapolators’  sentiment  and  future  returns.  On  the  one  hand,  high
+cash-flow  extrapolation  raises  prices  today,  leading  to  lower  returns
+in the future as cash-flow extrapolation reverts to the mean. On the
+other  hand,  high  cash  flow  extrapolation  today  leads  prices  to  stay
+high in the future through the persistence of this latent process. The
+overall  relationship  between 𝑤 and  future  returns  is  negative.  The
+coefficient 𝜆𝑔 is  positive  in  our  model  due  to  the  presence  of  cash-
+flow extrapolators: as expectations of growth in fundamentals rise, we
+expect cash-flow extrapolation to rise in the future, leading to a positive
+relation between 𝑔 and future returns.
+
+Since dividend growth in our model is exogenous, the dynamics of
+cash-flow extrapolation are already fully described by Eq. (7). Instead,
+return  extrapolation  and  asset  prices  are  contemporaneously  deter-
+mined. Thus, to obtain the dynamics of return extrapolation given (12),
+we substitute out market returns in (6) and write down the dynamics
+of return extrapolators’ sentiment in terms of lagged state variables and
+innovations:
+̂𝑆𝑡+1 = (1 − 𝛽𝑆 ) ̂𝑆𝑡 + 𝛽𝑆 [𝜆𝜇 ̂𝜇𝑡 + 𝜆𝑔 ̂𝑔𝑡 + 𝜆𝑆
+
+̂𝑆𝑡 + 𝜆𝑤 ̂𝑤𝑡] + 𝛽𝑆 𝜀𝑟,𝑡+1
+
+= (1 − 𝛽𝑆 (1 − 𝜆𝑆 )) ̂𝑆𝑡 + 𝛽𝑆 [𝜆𝜇 ̂𝜇𝑡 + 𝜆𝑔 ̂𝑔𝑡 + 𝜆𝑤 ̂𝑤𝑡]
+
++ 𝛽𝑆 (1 − 𝜌𝐵𝑆 𝛽𝑆 )−1[(1 + 𝜌𝐵𝑤𝛽𝑤)𝜀𝑑 ,𝑡+1 + 𝜌𝐵𝑔𝜀𝑔 ,𝑡+1 − 𝜌𝐵𝜇𝜀𝜇 ,𝑡+1].(14)
+Eq. (14) makes  two  things  clear  about  the  dynamics  of  return-
+extrapolative beliefs. First, although beliefs themselves appear to have
+an autocorrelation coefficient of (1 − 𝛽𝑆 ) from Eq. (6), their endogenous
+dependence on returns leads to a de facto lower level of persistence as
+given by (1 − 𝛽𝑆 + 𝛽𝑆 𝜆𝑆 ).13 Second, the reliance of extrapolative beliefs
+on contemporaneous returns also implies that all the innovations that
+affect returns also drive the innovations in extrapolative beliefs, as seen
+from the shock decomposition in Eq. (14).
+
+To represent our model economy in a state-space framework, we
+collect the state variables into 𝑋𝑡 = [ ̂𝜇𝑡, ̂𝑔𝑡, ̂𝑆𝑡, ̂𝑤𝑡]′. Based on (8), (9),
+and (14), the evolution of 𝑋𝑡 is given by:
+𝑋𝑡+1 = 𝛤 𝑋𝑡 + 𝛷𝑋 𝜀𝑋 ,𝑡+1,
+where 𝛤 and 𝛷𝑋 are given by
+0 
+0 
+0 
+𝜌𝑔
+1 − 𝛽𝑆 (1 − 𝜆𝑆 )
+𝛽𝑆 𝜆𝑔
+0 
+𝛽𝑤
+
+𝜌𝜇
+0
+𝛽𝑆 𝜆𝜇
+0
+
+(15)
+
+(16)
+
+𝛤 =
+
+⎡
+⎢
+⎢
+⎢
+⎢
+⎣
+
+𝛷𝑋 =
+
+0 
+⎡
+⎢
+0 
+⎢
+𝛽𝑆 (1 − 𝜌𝐵𝑆 𝛽𝑆 )−1[1 + 𝜌𝐵𝑤𝛽𝑤
+⎢
+⎢
+𝛽𝑤
+⎣
+
+,
+
+⎤
+⎥
+⎥
+⎥
+⎥
+⎦
+
+0
+0
+𝛽𝑆 𝜆𝑤
+1 − 𝛽𝑤
+0 
+⎤
+⎥
+1 
+⎥
+𝜌𝐵𝑔 −𝜌𝐵𝜇]
+⎥
+0 
+⎥
+⎦
+
+1
+0
+
+0
+
+,
+
+and the shock vector 𝜀𝑋 ,𝑡+1 is given by: 𝜀𝑋 ,𝑡+1 = [𝜀𝑑 ,𝑡+1, 𝜀𝑔 ,𝑡+1, 𝜀𝜇 ,𝑡+1]′.
+The two observation equations are given by (10) and (11). Note that
+the return Eq. (12) does not constitute a separate observation equation
+
+Journal of Financial Economics 164 (2025) 103986 
+
+because it can be derived under the above two observation equations
+and the state dynamics.
+
+As  the  last  step  for  the  presentation  of  our  model  economy,  we
+confirm the postulated solution for the pd ratio through the Campbell–
+Shiller decomposition. In particular, we ask: given the return dynamics
+specified  in (12) and  the  evolution  of  the  state  variables  in (15),
+and assuming rational expectations (from the perspective of rational
+traders), can we arrive at (11)?
+
+We have:
+∞
+∑
+
+̂𝑝𝑑𝑡 =
+
+𝜌𝑗 𝐸𝑡( ̂𝛥𝑑𝑡+1+𝑗 − ̂𝑟𝑡+1+𝑗 ),
+
+𝑗=0
+∞
+∑
+
+𝑗=0
+
+=
+
+𝜌𝑗 [−𝜆𝜇, 1 − 𝜆𝑔, −𝜆𝑆 , −𝜆𝑤]𝐸𝑡(𝑋𝑡+𝑗 ),
+
+= [−𝜆𝜇, 1 − 𝜆𝑔, −𝜆𝑆 , −𝜆𝑤]
+
+∞
+∑
+
+𝑗=0
+
+𝜌𝑗 𝛤 𝑗 𝑋𝑡,
+
+= [−𝜆𝜇, 1 − 𝜆𝑔, −𝜆𝑆 , −𝜆𝑤](𝐼4 − 𝜌𝛤 )−1𝑋𝑡,
+= −𝐵𝜇 ̂𝜇𝑡 + 𝐵𝑔 ̂𝑔𝑡 + 𝐵𝑆
+
+̂𝑆𝑡 + 𝐵𝑤 ̂𝑤𝑡,
+
+(17)
+
+(18)
+
+(19)
+
+where 𝐼4 is  a  four-by-four  identity  matrix.  In  the  above  derivation,
+Eq. (17) follows the dynamics for dividend growth (i.e., (9)) and market
+return (i.e., (12)). Eq. (18) follows the VAR representation for the state
+vector 𝑋𝑡. Finally, we detail the derivation of Eq. (19) in the Appendix,
+Appendix A.
+
+The notion of rational expectations necessitates some further clarifi-
+cation. In our model, risk-averse rational traders have forward-looking
+beliefs about future market returns. However, their beliefs about the fu-
+ture account for the (temporary) impact of extrapolators. In particular,
+by observing ̂𝑆𝑡 and ̂𝑤𝑡 and considering their impacts on the current
+pd ratio  through (11),  rational  investors  have  rational  expectations
+for the next period return through (12). This means they understand
+̂𝑆𝑡+1 and ̂𝑤𝑡+1) on
+the impact of the next period’s extrapolation (i.e.,
+the next period’s price level through (11) (applied to 𝑡 + 1), thereby
+endogeneously  solving  the  return  dynamics  as  given  by (12).  They
+continue in this fashion to solve future returns, accounting for the fact
+̂𝑆𝑡+𝑗 and ̂𝑤𝑡+𝑗 (𝑗 ≥ 2) will have the same impact
+that future values of
+on future returns as in (12). Finally, by iterating (6) and (12), rational
+investors form forecasts of future returns and extrapolators’ sentiment,
+leading to a current pd ratio given by (19) (also (11)).
+
+2.2.3.  An alternative state-space representation
+
+We derive an alternative state-space representation to facilitate the
+estimation  of  our  model.  Since  the pd ratio  is  perfectly  spanned  by
+the state variables, we substitute out one of the state variables (which
+we  choose  to  be ̂𝜇𝑡)  in (11) with pd ratio  and  derive  a  state-space
+representation with only three states. In particular, the new observation
+equation for pd ratio is:
+̂𝑝𝑑𝑡+1 = (1 − 𝜌𝐵𝑆 𝛽𝑆 )−1(𝜌𝜇 − 𝐵𝑆 𝛽𝑆 )
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+𝐿𝑝𝑑
+
+̂𝑝𝑑𝑡
+
++ (1 − 𝜌𝐵𝑆 𝛽𝑆 )−1(𝐵𝑔(𝜌𝑔 − 𝜌𝜇) + 𝐵𝑆 𝛽𝑆 + 𝐵𝑤𝛽𝑤)
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+𝐿𝑔
+
+̂𝑔𝑡
+
++ (1 − 𝜌𝐵𝑆 𝛽𝑆 )−1(𝐵𝑆 (1 − 𝜌𝜇 − 𝛽𝑆 ))
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+𝐿𝑆
++ (1 − 𝜌𝐵𝑆 𝛽𝑆 )−1(𝐵𝑤(1 − 𝜌𝜇 − 𝛽𝑤))
+⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏞⏟
+𝐿𝑤
+
+̂𝑆𝑡
+
+̂𝑤𝑡
+
++ (1 − 𝜌𝐵𝑆 𝛽𝑆 )−1[(𝐵𝑆 𝛽𝑆 + 𝐵𝑤𝛽𝑤)𝜀𝑑 ,𝑡+1 + 𝐵𝑔𝜀𝑔 ,𝑡+1 − 𝐵𝜇𝜀𝜇 ,𝑡+1]
+
+= 𝐿𝑝𝑑
+
+̂𝑝𝑑𝑡 + 𝐿𝑔 ̂𝑔𝑡 + 𝐿𝑆
+
+̂𝑆𝑡 + 𝐿𝑤 ̂𝑤𝑡 + 𝛷′
+
+𝑝𝑑 𝜀𝑋 ,𝑡+1,
+
+13 The  lower  persistence  is  due  to  the  fact  that,  as  our  estimates  later
+indicate, the parameter 𝜆𝑆 is negative in the data.
+
+where  the  loadings  on  shocks  are  collected  into  the  vector 𝛷𝑝𝑑 as
+defined by:
+
+6 
+
+S. Cassella et al.
+
+𝛷𝑝𝑑
+
+≡
+
+𝐿𝜀,𝑑
+⎡
+𝐿𝜀,𝑔
+⎢
+⎢
+𝐿𝜀,𝜇
+⎣
+
+⎤
+⎥
+⎥
+⎦
+
+= (1 − 𝜌𝐵𝑆 𝛽𝑆 )−1
+
+𝐵𝑆 𝛽𝑆 + 𝐵𝑤𝛽𝑤
+𝐵𝑔
+−𝐵𝜇
+
+⎡
+⎢
+⎢
+⎣
+
+⎤
+⎥
+⎥
+⎦
+
+.
+
+Given this alternative specification, we substitute out market returns
+in (6) using the Campbell–Shiller return approximation identity (3) and
+rewrite the dynamics of extrapolators’ sentiment in (14) in terms of the
+pd ratio and other lagged state variables:
+̂𝑆𝑡+1 = −𝛽𝑆 (1 − 𝜌𝐿𝑝𝑑 )̂𝑝𝑑𝑡 + 𝛽𝑆 (1 + 𝜌𝐿𝑔) ̂𝑔𝑡 + (1 − 𝛽𝑆 (1 − 𝜌𝐿𝑆 )) ̂𝑆𝑡
+
++ 𝜌𝛽𝑆 𝐿𝑤 ̂𝑤𝑡 + 𝛽𝑆 (1 + 𝜌𝐿𝜀,𝑑 )𝜀𝑑 ,𝑡+1 + 𝜌𝛽𝑆 𝐿𝜀,𝑔𝜀𝑔 ,𝑡+1 + 𝜌𝛽𝑆 𝐿𝜀,𝜇𝜀𝜇 ,𝑡+1.
+Now let the expanded state vector be 𝐹𝑡 = [ ̂𝑔𝑡−1, ̂𝑆𝑡−1, ̂𝑤𝑡−1, 𝜀𝑑 ,𝑡, 𝜀𝑔 ,𝑡,
+𝜀𝜇 ,𝑡]′ and let the observation vector be 𝑌𝑡 = [ ̂𝛥𝑑𝑡, ̂𝑝𝑑𝑡]′ and the control
+variable  be 𝑈𝑡 = ̂𝑝𝑑𝑡−1.  The  dynamics  of  the  state  vector  can  be
+described as:
+
+𝐹𝑡+1 = 𝛤𝐹 𝐹𝑡 + 𝛤𝑈 𝑈𝑡+1 + 𝛷𝐹 𝜀𝑋 ,𝑡+1,
+
+(20)
+
+where
+
+𝛤𝐹 =
+
+𝛤𝐹 ,𝑋 =
+
+𝛤𝐹 ,𝜀 =
+
+𝛤𝑈 ,𝑋 =
+
+⎡
+⎢
+⎢
+⎣
+
+⎡
+⎢
+⎢
+⎣
+
+⎡
+⎢
+⎢
+⎣
+
+[𝛤𝐹 ,𝑋
+03×3
+
+]
+
+𝛤𝐹 ,𝜀
+03×3
+
+, 𝛤𝑈 =
+
+𝜌𝑔
+
+𝛽𝑆 (1 + 𝜌𝐿𝑔)  1 − 𝛽𝑆 (1 − 𝜌𝐿𝑆 )
+
+]
+
+[𝛤𝑈 ,𝑋
+03×1
+0 
+
+0 
+
+, 𝛷𝐹 =
+
+[03×3
+𝐼3
+0
+𝜌𝛽𝑆 𝐿𝑤
+1 − 𝛽𝑤
+
+]
+
+,
+
+,
+
+⎤
+⎥
+⎥
+⎦
+
+𝛽𝑤
+1 
+𝛽𝑆 (1 + 𝜌𝐿𝜀,𝑑 )
+0 
+0
+⎤
+−𝛽𝑆 (1 − 𝜌𝐿𝑝𝑑 )
+⎥
+⎥
+0
+⎦
+
+0 
+𝜌𝛽𝑆 𝐿𝜀,𝑔
+0
+
+0
+𝜌𝛽𝑆 𝐿𝜀,𝜇
+𝛽𝑤
+
+⎤
+⎥
+⎥
+⎦
+
+, and
+
+.
+
+The dynamics of the observation vector are given by:
+
+𝑌𝑡 = 𝐺𝑌 𝑌𝑡−1 + 𝐺𝐹 𝐹𝑡,
+
+where
+
+𝐺𝑌 =
+
+[0 
+0
+0 𝐿𝑝𝑑
+
+]
+
+, and 𝐺𝐹 =
+
+0 
+
+[ 1 
+0
+𝐿𝑔 𝐿𝑆 𝐿𝑤 𝐿𝜀,𝑑 𝐿𝜀,𝑔 𝐿𝜀,𝜇
+
+0 
+
+1 
+
+0 
+
+(21)
+
+]
+
+.
+
+Eqs. (20) and (21) constitute the state-space system that we choose
+
+to estimate in our follow-up analysis.
+
+2.3.  Model identification and estimation
+
+We impose several parameter constraints to ensure that our model is
+identified. First, we address the issue that the two loadings 𝐵𝜇 and 𝐵𝑔
+cannot, in general, be distinguished from the persistence parameters
+in  the  model.  In  this  respect,  we  follow  VBK  and  impose  the  same
+parameter constraints in our model. In particular, we set 𝐵𝑔 at (1 −
+𝜌𝜌𝑔)−1. This implies that 𝜆𝑔 =  0 when 𝐵𝑆 =  0 and 𝐵𝑤 =  0 in the
+economy  studied  by  VBK,  in  which ̂𝑔𝑡 does  not  affect  the  expected
+return.  We  also  set 𝐵𝜇 at (1 − 𝜌𝜌𝜇)−1 so  that 𝜆𝜇 =  (1 − 𝜌𝐵𝑆 𝛽𝑆 )−1.
+As a result, if extrapolators are absent from the market or are made
+irrelevant through arbitrage activities (i.e., if 𝐵𝑆 =  0 and 𝐵𝑤 =  0),
+𝜆𝜇 collapses  to  one,  and 𝐸𝑡[𝑟𝑡+1]  = 𝜇𝑡.  In  other  words,  the  model
+easily accommodates the irrelevance of extrapolators as a special case,
+and in such a case, the usual result that expected returns equal the
+discount rate applies. Overall, among the four loadings of our latent
+processes on the pd ratio, 𝐵𝑆 and 𝐵𝑤 are the only free parameters to
+be estimated. Both 𝐵𝜇 and 𝐵𝑔 are tied to the persistent parameters 𝜌𝜇
+and 𝜌𝑔, respectively.
+
+Our model is identified after imposing the above parameter con-
+straints. To see this, when 𝐵𝑆 = 0 and 𝐵𝑤 = 0, extrapolators’ sentiment
+(i.e., ̂𝑆𝑡 and ̂𝑤𝑡) disappear from both the pd ratio (i.e., (11)) and market
+return dynamics (i.e., (12)). Our model collapses to VBK and is thus
+≠ 0, 𝛽𝑆 and 𝛽𝑤 are identified from
+identified.  With 𝐵𝑆
+a projection of the pd ratio on a geometrically weighted average of
+past  returns  and  a  geometrically  weighted  average  of  past  dividend
+
+≠ 0 or 𝐵𝑤
+
+Journal of Financial Economics 164 (2025) 103986 
+
+growth  rates,  respectively.  A  simple  univariate  regression  of  the  pd
+ratio on lagged returns or lagged dividend growth would not be able
+to recover extrapolative beliefs correctly, due to an omitted-variable
+problem. Simply put, such an approach would neglect the co-existence
+of  both  return  extrapolation  and  cash-flow  extrapolation,  leading  to
+biased estimates of either belief formation process. Our structural ap-
+proach  circumvents  this  issue.  At  the  same  time,  the  intuition  for
+why our structural model is able to simultaneously identify cash-flow
+extrapolation (henceforth 𝑊 ) and return extrapolation (henceforth 𝑆)
+in the data is simple: while both forms of expectations are weighted
+sums of past market performance, they are ultimately weighted sums of
+different quantities. Similarly, the time series of rational expectations
+of dividend growth can be separated from extrapolative beliefs since
+it captures investors’ forward-looking expectations of future dividend
+growth. Finally, the discount rate takes the role of a residual in our
+decomposition  since  it  is  used  to  match  the  variation  in  the  price–
+dividend ratio of the market that cannot be accounted for by either
+extrapolative beliefs or rational expectations of dividend growth. Since
+our  discount-rate  variable  effectively  is  assigned  all  variation  in  the
+price–dividend  ratio  that  cannot  be  matched  by  other  drivers,  it  is
+possible  that  it  captures  something  other  than  discount  rates.  Later,
+in Section 4, we present an extension of the model that incorporates
+observable proxies for discount rates in our estimation.
+To summarize, the parameter vector for our model is
+
+𝛩 = [𝐵𝑆 , 𝛽𝑆 , 𝐵𝑤, 𝛽𝑤, 𝜌𝜇, 𝜌𝑔, 𝜎𝑑 , 𝜎𝑔, 𝜎𝜇]′
+
+To maintain model parsimony (since we have only 76 annual observa-
+tions), in the main model, we do not allow shock correlations.14 All
+mean parameters are set at their sample means so we can focus on
+demeaned  variables  to  estimate  our  model.  The  state  equations  are
+given by (20), and the observation equations are given by (21). We
+use the standard Kalman-Filtering technique to estimate our model. We
+detail our estimation procedure in the Appendix, Appendix A.
+
+2.4.  Data
+
+To perform our analysis, we rely on several sources of data. First
+and foremost, we use returns on the CRSP value-weighted index from
+WRDS. These allow us to back out both the pd ratio of the market as
+well as the monthly dividend payments. We define dividend growth as
+the year-over-year growth in cumulative 12-month dividends, assuming
+no dividend reinvestment. Given the seasonality in dividend payments,
+we follow the present-value literature and focus on market dynamics
+at the annual frequency. This leads to 76 annual observations in our
+sample,  spanning  the  1946  to  2022  period.  Our  use  of  1946  as  the
+starting year is to avoid data errors in the earlier periods, as emphasized
+by VBK. Given our focus on extrapolation bias, another benefit of using
+a simple dividend growth process (as opposed to the more complicated
+market-reinvested dividend growth, for example) is that the dividend
+process  is  not  confounded  with  the  past  return-driven  extrapolation
+process.
+
+To validate our novel measure of extrapolative sentiment, we also
+make use of survey expectations. We focus on surveys that have been
+used extensively in prior work. These are (i) the American Association
+of Individual Investors (AAII); (ii) the Gallup Survey of Investor Op-
+timism; (iii) the Investor Intelligence Survey (II); (iv) and surveys of
+cash-flow extrapolation from Nagel and Xu (2022).15
+
+14 In Section 4, we introduce an extension of the model that accounts for
+cross-equation correlations in shocks. As showed in the Internet Appendix, our
+results remain unchanged.
+15 For prior research that has used these data, see De Bondt (1993), Vissing-
+Jorgensen (2003), Greenwood  and  Shleifer (2014), Barberis  et  al. (2015),
+and Cassella and Gulen (2018).
+
+7 
+
+S. Cassella et al.
+
+Journal of Financial Economics 164 (2025) 103986 
+
+Finally, in studying predictive regressions, we also consider several
+controls from the return predictability literature that are sourced from
+Amit Goyal’s website.
+
+Given  the  large  number  of  possible  controls  and  the  relatively
+small number of observations in our sample, we follow the approach
+in Ludvigson and Ng (2009), who propose the use of principal compo-
+nents in predictive regressions.
+
+2.5.  Model estimates and implications
+
+2.5.1.  Model estimates
+
+Table 1 presents the estimation results. Panel A reports results for
+the model parameters. For parameters common to our paper and VBK,
+our  estimates  are  close  to  those  reported  in  VBK.  For  instance,  we
+estimate 𝜌𝜇 (i.e., persistence in discount rate) to be 0.907, while VBK’s
+estimate  is  0.932.  Our  estimate  of  the  persistence  in  the  expected
+dividend growth rate (i.e., 𝜌𝑔) is 0.179, somewhat lower than VBK’s
+corresponding estimate of 0.354.16 Taking into account the difference
+in the sample and the modeling framework, we consider our estimates
+for the baseline parameters close to those obtained in VBK.
+
+Next,  we  turn  to  parameters  that  are  specific  to  our  model.  Our
+estimate of the parameter 𝛽𝑆 determining decay in return extrapolative
+expectations  is  0.464,  which  is  highly  significant  (𝑡-stat =  18.56  =
+0.464∕0.025). This implies that extrapolators allocate a weight of 0.536
+̂𝑆𝑡) and a weight of 0.464 to most recent returns
+to lagged bias (i.e.,
+(i.e., ̂𝑟𝑡+1), per (6). The coefficient estimate suggests that recent returns
+matter  considerably  for  return-extrapolative  beliefs  and  that  lagged
+yearly  returns  matter  about  half  as  much  as  the  most  recent  ones.
+Thus, this result is qualitatively consistent with Greenwood and Shleifer
+(2014) evidence of return extrapolation from surveys of returns. The
+key parameter that captures the loading of the pd ratio on the extrapo-
+lators’ sentiment, 𝐵𝑆 , is estimated to be 0.100 and is highly statistically
+significant  (𝑡-stat =  4.20  =  0.1∕0.0238).  A  positive 𝐵𝑆 implies  that
+positive sentiment is associated with an inflated pd ratio, consistent
+with the role of return extrapolation in theory work by Barberis et al.
+(2015).
+
+Turning  to  cash-flow  extrapolation,  our  estimate  of 𝛽𝑤,  the  pa-
+rameter determining decay in cash-flow extrapolative expectations, is
+0.0004, which is small and not statistically different from zero. This
+implies  that  cash-flow  extrapolators’  beliefs  have  a  much  stronger
+persistence than the beliefs of return extrapolators and that the relevant
+history of past cash flows that cash-flow extrapolators rely on is much
+longer than the history of past returns that enters return-extrapolative
+beliefs. This result resonates with the evidence of Nagel and Xu (2022),
+who  point  out  the  much  longer  memory  that  is  embedded  in  cash-
+flow extrapolative beliefs vis-a-vis return-extrapolation. As far as the
+loading of cash-flow extrapolation on the price–dividend ratio 𝐵𝑤, it is
+large and highly statistically significant (t-stat 5.70 = 232.70/40.80),
+underscoring the importance of cash-flow extrapolation in rationalizing
+variation in the price–dividend ratio.
+
+The other estimated parameters reported in Table 1 are consistent
+with the intuition of our model. For example, both 𝐵𝜇 and 𝐵𝑔 are esti-
+mated to be positive. This result implies a negative (positive) response
+of the pd ratio to discount rate (dividend-growth) news, respectively. As
+another example, as in (13), the expected one-year market return loads
+positively on the discount rate (through 𝜆𝜇), while it loads negatively
+on  return  extrapolators’  sentiment  (through  a  negative  value  of 𝜆𝑆 )
+and on cash-flow extrapolators’ sentiment (through a negative value
+of 𝜆𝑤), and positively on dividend news. Note that both 𝜆𝑆 and 𝜆𝑤 are
+statistically significant, hinting at a role of extrapolation in predictive
+regressions. We examine such a role in detail later in the paper.
+
+16 All  comparisons  are  based  on Table  2 in  VBK  for  the  case  of
+cash-reinvested dividends, which is the relevant case for model comparison.
+
+In Panel C of Table 1, we investigate how important the different
+sources of variation in the pd ratio are. When we ask what is the con-
+tribution of, say, cash-flow extrapolators, to the variance of aggregate
+valuations,  we  are  inherently  asking  by  how  much  the  variance  of
+the price–dividend ratio would change relative to the one observed in
+the data in the counterfactual scenario where there are no cash-flow
+extrapolators in the market. To answer this question, we consider, as
+it is standard in other applications of structural estimation in finance,
+a  counterfactual  scenario  in  which  cash-flow  extrapolators  have  left
+the  market.  This  scenario  corresponds  to  measuring  the  variance  of
+the pd ratio that is implied by our model when 𝐵𝑤 =  0. In such a
+counterfactual scenario, we find that the variance of the pd ratio would
+drop by close to 20%. This 20% contribution of cash-flow extrapolation
+to the variance of the pd ratio is remarkably close to the simulation
+results in Nagel and Xu (2022), Table 5.17
+
+When  applying  the  same  approach  to  return  extrapolation,  our
+results are also broadly in line with Nagel and Xu (2022). They argue
+that return extrapolation is unlikely to account for much of the vari-
+ation in the log price–dividend ratio, owing to the transitory nature
+of  the  former,  which  makes  it  not  a  good  candidate  to  explain  the
+latter.  Consistent  with  them,  we  find  that  a  counterfactual  scenario
+in which return extrapolators have left the market (𝐵𝑆 =  0) implies
+a  very  small  decline  in  the  variance  of  the  price–dividend  ratio.  Of
+course,  this  need  not  mean  that  return  extrapolators  do  not  matter.
+In fact, it is possible that there are periods of intensified extrapola-
+tion  in  which,  for  instance,  the  degree  of  extrapolation  is  high  and
+the  dynamics  of  the  dividend–price  ratio  change  considerably  as  a
+result of return-extrapolative beliefs (e.g., Cassella and Gulen 2018).
+These are, however, conditional effects that our approach, estimating
+unconditional model parameters and full-sample relationships, would
+not be able to account for. Finally, when considering discount rates and
+rational expectations of cash-flow growth, our approach suggests that
+discount rates are important, in that the variance of the price–dividend
+ratio would decline by more than 90% with constant discount rates,
+while the importance of rational cash-flow expectations is much more
+modest. These results accord well with past work (e.g., Van Binsbergen
+and Koijen 2010).
+
+2.5.2.  Impulse response
+
+We  also  examine  our  model  estimates  through  the  lens  of  im-
+pulse  responses.  This  part  of  the  analysis  allows  us  to  compare  the
+insights of our econometric models with the predictions of theories of
+extrapolation in the market.
+
+Fig. 1 plots the impulse responses for both the state variables ( ̂𝑆𝑡,
+̂𝜇𝑡, and ̂𝑔𝑡) and the model-implied quantities (̂𝑝𝑑𝑡, 𝐸𝑡(̂𝑟𝑡+1), and ̂𝑟𝑡)
+̂𝑤𝑡
+between  one  and  five  years  after  a  one-standard-deviation  positive
+shock in one of the state variables at time 0. Panels A and B report
+dynamics  following  shocks  to  return  extrapolation.  Panels  C  and  D
+report dynamics following shocks to cash flow extrapolation. Panels E
+and F report dynamics following shocks to the discount rate, and Panels
+G and H present dynamics following shocks to rational expectations
+of dividend growth. The response variables are also standardized with
+respect to their respective standard deviations.
+
+17 They find that in a model where variation in prices comes mainly from
+cash-flow  extrapolation,  the  variance  of  the pd ratio  is  between  16%  and
+36% of the actual variance of the pd ratio observed in the data. They report
+results in terms of volatility of the log price–dividend ratio (0.30) versus the
+model-implied volatilities of 0.12 and 0.18, depending on the model param-
+eterization. When cast in terms of variance, the model-generated variance of
+the pd ratio is between 16% (i.e., 0.122∕0.302) and 36% (0.182∕0.302) of the
+actual variance of the pd ratio observed in the data. Said differently, this result
+suggests that cash-flow extrapolation can explain about 20% of the observed
+variance in the price–dividend ratio. Thus, we obtain a similar result with a
+completely distinct empirical analysis.
+
+8 
+
+S. Cassella et al.
+
+For brevity, we concentrate on shocks to extrapolation. As Fig. 1
+shows, a positive shock in return extrapolation at time 0 implies an
+increase in the price–dividend ratio. Such an increase is rather modest,
+and it reverts to the mean quickly due to the relatively high value of the
+structural parameter 𝛽𝑆 governing return extrapolation. Moreover, an
+increase in return extrapolation leads to lower expected and realized
+returns  in  the  future.  Finally,  a  movement  in  return  extrapolation
+does not per se generate changes to the other state variables. When
+comparing  the  implications  of  return-extrapolation  shocks  and  cash-
+flow extrapolation shocks for returns and the pd ratio, there are several
+similarities, but there are also important differences. First, an increase
+in extrapolative beliefs about cash flows has a spillover effect on return
+extrapolation,  in  that  an  increase  in  cash-flow  extrapolation  raises
+prices today. Such an increase boosts return extrapolation today, but
+lowers extrapolation in the future due to the negative relation between
+cash-flow extrapolation and future returns.18 Second, since cash-flow
+extrapolation is a rather persistent process, a shock today leads cash
+flow extrapolation to remain high for a long time in the future. This
+high  persistence  in  extrapolative  beliefs  about  cash  flows  generates
+persistence in the behavior of the log price–dividend ratio, which grows
+following a rise in cash flow extrapolation and remains high for many
+years afterward.
+
+Shocks to discount rates cause a decline in prices and returns today,
+leading  to  lower  return  extrapolation  today  and  a  slow  increase  in
+the future, as higher discount rates turn into higher future returns on
+average. On the other hand, discount rates have no impact on cash flow
+extrapolation. Finally, in our model, shocks to expectations of dividend
+growth lead to an increase in prices today, as in the traditional present-
+value relation. However, due to the low persistence in 𝑔, the impact on
+the price–dividend ratio is rather mild, and so is the impact on asset
+returns, leading to only a small response by return extrapolation. The
+main takeaway of this part of the analysis is that shocks to different
+state variables will have different implications for the behavior of asset
+valuation, returns, and expected returns.
+
+2.6.  Model extensions
+
+2.6.1.  Incorporating observable proxies for discount rates
+
+One limitation of our approach concerns the modeling of the dis-
+count rate. In our model, the discount rate process is identified from
+the variation in the price–dividend ratio of the market that cannot be
+accounted for with the other three latent processes that we consider.
+As such, what we refer to as a discount rate can capture drivers of
+asset  valuations  that  are  rather  distinct  from  risk  preferences.  One
+solution  to  this  problem  is  to  extend  our  model  to  explicitly  link
+variation  in  the  discount-rate  process  to  some  observable  proxy  for
+risk preferences. We pursue this solution and present, in the Internet
+Appendix, Section IA1, an extended model that incorporates observable
+metrics for discount rates in our analysis. We discuss the implications
+on predictive regressions of this extended model in Section 4.
+
+2.6.2.  Correlated innovations
+
+One  caveat  in  interpreting  our  main  results  is  that  our  model
+shuts  down  potential  correlations  in  innovations  to  maintain  model
+parsimony. While this approach eases estimation, it may lead to over-
+simplified dynamics. In our Internet Appendix Section IA1 we present
+an  extended  version  of  our  model  that  allows  shock  correlations  in
+the state variables. There, we also report our model estimates. These
+estimates do not differ much from the estimates in our main analysis.
+We discuss the implications on predictive regressions of this extended
+model in Section 4.
+
+18 Specifically, in Eq. (16), the cell (3,4) of Matrix 𝛤 matrix capturing the re-
+lation between lagged cash-flow extrapolation and future return extrapolation
+is negative, due to a negative value of the estimated parameter 𝜆𝑤 in Table 1.
+
+Journal of Financial Economics 164 (2025) 103986 
+
+3.  Validating the model
+
+The purpose of this section is to investigate the properties of our
+newly estimated time series of extrapolative expectations, 𝑆 and 𝑊 .
+Since our approach to obtaining extrapolative beliefs is based on prices
+rather  than  surveys,  we  are  particularly  interested  in  how  well  our
+model can recover underlying unobservable extrapolative beliefs. To
+this end, we perform three pieces of analysis. In Section 3.1, we present
+the results of simulations aimed at assessing how well our model is
+able to jointly recover extrapolative beliefs alongside discount rates and
+rational expectations of dividend growth for a broad set of possible
+model parameters. In Section 3.2 we use another form of validation
+of our approach to measuring extrapolative beliefs through prices. In
+particular, having estimated our model based on the US stock market,
+we can rely on several surveys collected in the US and ask how well our
+structural measures of extrapolation track survey-based extrapolative
+metrics. Finally, Section 3.3 investigates the predictive properties of
+our price-based gauges of extrapolative beliefs for future returns. Like
+in the previous section, the focus is on comparing the ability to predict
+future returns using survey-based measures with the ability to do so
+using our price-based metrics for extrapolation.
+
+3.1.  Simulation analysis
+
+3.1.1.  Setup
+
+To study the performance of the Kalman-Filtering-based estimation
+in the context of our model of Section 2.2, we conduct an extensive
+simulation analysis. We first set the true population parameters at ̂𝛩—
+the parameter estimates given in Table 1, Panel A. For each simulation
+run (indexed by 𝑑, 𝑑 =  1, 2, … , 𝐷 =  500), we start from the steady
+state; that is, all state variables are set at their unconditional means (or,
+equivalently, all demeaned state variables are set at zero). We simulate
+76 years of data by randomly generating normally and independently
+(both cross-sectionally and across time) distributed shocks for the three
+innovations in our model (i.e., 𝜀𝜇 ,𝑡+1, 𝜀𝑔 ,𝑡+1, and 𝜀𝑑 ,𝑡+1). Ultimately, in
+each simulation, we create an artificial time series of the pd ratio based
+on Eq. (11). We then use the same Kalman-filtering techniques used
+in  the  analysis  of  the  actual  data  in  the  paper  to  extract  the  latent
+processes in our model. We repeat the simulation 500 times so as to
+obtain  a  mean  and  median  pairwise  correlation  between  the  latent
+variables created as part of the simulations and the latent time series
+filtered from the data.
+
+We base our main simulations on the model parameters estimated
+from  the  data  in Table  1.  Of  course,  these  parameters  are  only  es-
+timates, and we are interested in how robust our methodology is to
+different values of model parameters. Therefore, we probe our results
+for robustness to alternative parameterizations of the data. Since there
+are  many  model  parameters,  it  is  difficult  to  experiment  with  all
+possible  combinations  of  such  parameters.  To  offer  a  parsimonious
+description of the simulation results, we focus on varying only a subset
+of model parameters. We argue that, for some parameters, such as the
+persistence of the discount-rate process or the persistence of the ratio-
+nal dividend-growth expectations, our estimates align fairly well with
+estimates from other studies. Thus, there is less of a need to perform
+simulations with alternative values of these parameters. Instead, given
+that  the  novelty  of  our  approach  lies  in  incorporating  extrapolative
+beliefs in the present-value relation, we perform simulations for dif-
+ferent combinations of the extrapolators’ decay parameters 𝛽𝑆 and 𝛽𝑤.
+In some of these simulations, we make the two parameters closer to
+each other than in the data. Effectively, this amounts to changing the
+persistence of these two series so as to ascertain how much the success
+of our model depends on differences in the time-series properties of
+these two distinct latent processes. We are also interested in how robust
+the identification of different latent processes is to the nature of the
+shocks in our model, particularly with respect to the heterogeneity in
+the variance of such shocks. To this end, unlike in the data, in all our
+additional simulations, we assume the three shocks in our system to
+have an equal standard deviation of 1%.
+
+9 
+
+S. Cassella et al.
+
+3.1.2.  Simulation results
+
+Table  3 shows  the  results  of  the  simulations.  In  the  Table,  the
+column labeled ‘‘Data’’ is meant to represent the results of simulations
+involving the exact values of model parameters that are estimated from
+the data in Table 1. All other statistics refer to additional simulations
+where 𝜎𝜇 = 𝜎𝑑 = 𝜎𝑔 = 1%, 𝜌𝜇 = 0.9, 𝜌𝑔 = 0.2, 𝐵𝑆 = 0.1, and 𝐵𝑤 = 200,
+and where extrapolation weight parameters are varied as indicated on
+the top of the Table.
+
+The table shows that all latent time series can be jointly recovered
+by our estimation procedure quite accurately. Across different param-
+eterizations of the model, the mean (median) correlation between the
+actual discount rate and the recovered one is around 81%. Similarly,
+the mean (median) correlation between actual and estimated return-
+extrapolation sentiment is around 83%, while it is 90% for cash-flow
+extrapolation.  Results  are  very  similar  when  focusing  only  on  the
+data-based parameterizations of the model. Overall, the results of the
+simulation  showcase  the  ability  of  our  model  to  jointly  recover  the
+latent variables in our augmented present-value identity.
+
+3.2.  Relation between survey-based and structurally estimated extrapolation
+metrics
+
+to 
+
+refer 
+
+three 
+
+Aside from using simulation analysis to validate our estimation, we
+also ask how well our price-based measures of extrapolation match the
+survey data. Table 2 reports pairwise correlations between our price-
+based return extrapolation metric 𝑆 and three widely used surveys of
+return expectations, the American Association of Individual Investors
+Survey (AAII ), the Gallup Survey of Investor Optimism (GALLUP), and
+the Investor Intelligence Surveys (II). We also construct a combination
+of 
+these 
+as
+𝑆 𝑈 𝑅𝑉 𝐸 𝑌 𝑆𝑅𝐸 𝑇 .19
+
+time-series,  which  we 
+
+Across surveys, and as the left picture of Fig. 2, Panel A confirms,
+the correlation between 𝑆 and survey-based expectations is generally
+positive.  While  the  correlation  between 𝑆 and  raw  survey  data  on
+return expectations is positive, it is also the case that not all variation in
+the time series of survey expectations comes from return extrapolation.
+For  instance,  Greenwood  and  Shleifer  (2014), Table  4,  estimates  a
+regression  of  survey  expectations  on  a  weighted  sum  of  past  stock
+returns. Across surveys, the average 𝑅2 of this model is only 37.5%,
+indicating  that  there  is  a  large  fraction  of  the  variation  in  survey
+beliefs that is unrelated to extrapolation. Thus, we argue that a more
+informative comparison is between 𝑆 and the extrapolative component
+of surveys of return expectations,20 To that end, we also construct a
+survey-based extrapolation time series that is the more relevant survey-
+based  counterpart  to  our  structurally  estimated  return-extrapolation
+measure. To this end, we follow Greenwood and Shleifer (2014), who
+gauge the extrapolative nature of survey expectations by means of a
+regression of survey expectations on past stock market returns 𝑅(𝑡−𝑗):
+
+SURVEYS𝑅𝐸 𝑇 𝑡 = 𝑎 + 𝑏
+
+60
+∑
+
+𝑤𝑗 𝑅(𝑡−𝑗+1) + 𝜖𝑡,
+
+𝑤𝑗 =
+
+𝑗=1
+(𝜆)(𝑗−1)
+𝑘=1(𝜆)(𝑘−1)
+
+∑𝑁
+
+.
+
+(22)
+
+The left-hand side is represented by the survey expectations principal
+component SURVEYS𝑅𝐸 𝑇 , which is available between 1996 and 2011 at
+the monthly frequency. On the right-hand side, the weight assigned to
+𝑗-quarter lagged returns, 𝑤𝑗 , accommodates the possibility that recent
+returns have a larger impact on expectations. Like prior literature, we
+set 𝑁 =  60,  i.e.,  we  use  15  years  of  past  return  history.  Then  we
+use the in-sample parameter estimates { ̂𝑎, ̂𝑏, ̂𝜆} jointly with past stock
+
+19 See Atmaz et al. (2024), Appendix D, for more details.
+20 One can think of the component of expectations that is orthogonal to
+extrapolation as due to other behavioral biases, or to noise and measurement
+error.
+
+10 
+
+Journal of Financial Economics 164 (2025) 103986 
+
+market returns to construct a long time series of extrapolative beliefs
+that span the sample period 1946–2022. We refer to the resulting time-
+series as SURVEYS𝑋
+𝑅𝐸 𝑇 . When we estimate the correlation between 𝑆
+and SURVEYS𝑋
+𝑅𝐸 𝑇 in Table 2, we find it is almost 70%, underscoring the
+high degree to which our price-based extrapolation measure resembles
+the survey-based direct measure of extrapolation. This high correlation
+is evident in the left graph Fig. 2, Panel B.
+
+We  perform  a  similar  comparison  concerning  cash  flow  extrapo-
+lation.  We consider two relevant comparisons in this case.  The first
+comparison is between our structural measure of cash flow extrapo-
+lation 𝑊 and raw survey data on cash flow expectations from Nagel
+and Xu (2022). We refer to this time series as SURVEYS𝐶 𝐹 . The sec-
+ond  comparison  concerns  the  extrapolative  component  of  cash-flow
+expectations, which we label SURVEYS𝑋
+𝐶 𝐹 , and which is obtained based
+on the model of asset pricing with fading memory of Nagel and Xu
+(2022).21 We  find  our  price-based  extrapolation  metric  to  be  highly
+correlated with both the cash flow expectations survey (59%) and its
+extrapolation component (46%). The two right figures in Panel A and
+Panel B of Fig. 2 speak to the high degree of comovement between
+our  price-based  cash  flow  extrapolation  metric  and  its  survey-based
+counterpart.
+
+To  complement  the  analysis  above, Fig.  2 Panel  C  overlays  the
+price–dividend ratio of the market with our price-based extrapolation
+time series. The figure shows the high degree of correlation between
+cash-flow extrapolation and the pd ratio (79%), while the correlation
+of the pd ratio with return extrapolation is rather small (below 1%),
+resonating with prior evidence (e.g., Nagel and Xu 2022). In sum, the
+correlation  analysis  indicates  that 𝑆 and 𝑤 are  consistent  with  the
+evidence of extrapolative expectations from surveys.
+
+3.3.  Return predictability tests
+
+One key tenet of theories of extrapolation in financial markets is
+that extrapolative beliefs lead to mispricing and thus hold a negative
+relation  with  future  market  returns.  This  is  also  an  outcome  in  our
+model, as shown earlier in (13). So far, the evidence of predictability by
+extrapolative beliefs in the literature is rather mixed.22 The evidence is
+also fragmented in that some studies analyze the predictive properties
+of  return  expectations,  while  others  examine  the  role  of  cash-flow
+expectations  for  returns.  This  fragmentation  can,  in  part,  be  due  to
+the fact that data on return expectations and cash flow expectations
+is often collected using heterogeneous means and survey populations
+or over heterogeneous sample periods, making it difficult to conduct a
+unified assessment of the predictive properties of extrapolative beliefs
+for  future  returns.  The  aim  of  this  section  is  to  use  our  estimated
+extrapolation time series to test for the role of extrapolation in return
+predictability. Our primary goal is to compare the performance of our
+price-based  extrapolation  measures  with  the  survey-based  measures.
+Our second goal is to offer a comparison of the predictive ability of
+return extrapolation and cash flow extrapolation in a setting where the
+measurement of both processes happens jointly.
+
+We begin by performing, in Table 4, in-sample predictability tests
+of  future  aggregate  stock  returns  for  horizons  of  3  months  (Panel
+A),  12  months  (Panel  B),  and  36  months  (Panel  C).  In  the  table,
+we  regress  future  annualized  log  cumulative  market  returns  on  our
+four  time  series: 𝑆 (return  extrapolation), 𝜇 (rational  expectations),
+𝑔 (expected dividend growth), and 𝑤 (cashflow extrapolation). In all
+
+21 Data for these two additional time-series is from Zhengyang Xu’s website,
+https://sites.google.com/view/zhengyxu/data.
+22 Greenwood  and  Shleifer (2014)  find  only  mixed  evidence  that  return
+expectations can predict future market returns, in that some surveys are able
+to predict subsequent realized market returns, while others do not. In another
+study, Nagel and Xu (2022) show evidence of predictability of future market
+returns by survey-based cash flow extrapolation.
+
+S. Cassella et al.
+
+Journal of Financial Economics 164 (2025) 103986 
+
+tests, we standardize the regressors to a mean of zero and a standard
+deviation of one. We use 𝜇 and 𝑔 as estimated by our model, while 𝑆
+𝑅𝐸 𝑇 and SURVEY𝑋
+and 𝑤 are either sourced from surveys (SURVEYS𝑋
+𝐶 𝐹 ,
+respectively) or from our own structural estimation as indicated in the
+heading  of  each  panel.  Since  regressions  are  run  using  yearly  data,
+some of our results are based on the use of overlapping observations.
+Therefore,  we  use  a  block-bootstrapping  approach  for  inference.  In
+addition to the OLS coefficient estimates, we also report bootstrapped
+95%  confidence  intervals  and  bootstrapped 𝑝-values.  For  our  main
+variables of interest, 𝑆 and 𝑤, we are interested in testing the null of
+no predictability against the one-sided behavioral hypothesis that over-
+reaction in extrapolative beliefs is followed by correction and lower
+returns. To this end, we also report one-sided left-tail bootstrapped 𝑝-
+values. The table measures each model’s goodness-of-fit by means of
+the adjusted 𝑅2 statistic, which allows us to compare the performance
+of different models in the presence of a different number of regressors
+across models. Moreover, in each of the regressions where we include
+extrapolative  beliefs  on  the  right-hand  side,  we  test  the  hypothesis
+that extrapolative beliefs have no predictive power for future returns
+by means of an F-test of the joint hypothesis that the predictability
+coefficients of 𝑆 and 𝑤 are jointly equal to zero.
+
+Column  (1)  in  each  panel  of Table  4 provides  estimation  results
+for  a  baseline  specification  that  only  contains 𝜇 and 𝑔.  In  Columns
+(2)  and  (5),  we  predict  returns  in  a  regression  that  only  includes
+extrapolative beliefs. In Columns (3) and (6), we estimate a predictive
+model  featuring  the  four  latent  processes  estimated  as  part  of  our
+model. Finally, Columns (4) and (7) augment the full specification with
+a control variable that, in the spirit of Ludvigson and Ng (2009), is
+the first principal component of a large set of time-series predictors of
+future stock returns.23
+
+We start by describing the results of quarter-ahead predictability
+regressions. In Column (1), neither 𝜇 nor 𝑔 predict future stock returns
+at the standard level of statistical significance. Moreover, the adjusted
+𝑅2 is small. In Columns (2) and (5), we find evidence of short-term
+predictability by cash flow extrapolation. Return extrapolation loads
+negatively on future returns, but the predictive coefficient is not sta-
+tistically significant at conventional levels. The predictive properties of
+survey-based and price-based extrapolation metrics are rather similar,
+although the model using price-based metrics is better able at matching
+variation of future returns, with an 𝑅2 that is almost three times as large
+as  the  one  obtained  when  using  survey-based  extrapolation  metrics.
+When estimating the full model in Columns (3) and (6), we notice a
+decline in the adjusted 𝑅2, and the loadings on 𝜇 and 𝑔 remain not
+statistically  significant.  Moreover,  whereas  when  using  survey  data,
+there is no statistical evidence of a relationship between extrapolation
+and  future  returns,  our  price-based  return  extrapolation  proxy  is  a
+significant negative predictor of future returns with a one-sided 𝑝-value
+of 0.08, and cash flow extrapolation is significantly negatively linked
+to future returns with a one-sided 𝑝-value of 0.01. In addition, when
+using our price-based extrapolation proxies in Column (5), the null of
+no role of extrapolation for future returns is rejected at the 5% level
+of significance. The predictability by 𝑆 and 𝑤 becomes weaker when
+
+23 The principal component is obtained based on the following predictors.
+These include default yield spread (dfy), inflation (infl), stock return variance
+(svar), aggregate payout ratio (de), long-term yield (lty), term spread (tms),
+the 𝑡-bill rate (tbl), long-term returns (ltr), aggregate earnings-to-price (ep),
+aggregate book-to-market (bm), the investment-to-capital ratio (ik), net equity
+expansion  (ntis),  percent  equity  issuing  (eqis),  the  aggregate  consumption-
+wealth  ratio  (cay),  the  default  return  spread  (dfr),  and  the  cross-sectional
+premium  (csp).  Details  on  the  construction  of  these  variables  are  in Goyal
+and  Welch (2008).  We  follow  the  approach  of Ludvigson  and  Ng (2009)
+because we have a finite sample, and including all control variables would
+result in overfitting. Predictors are from Amit Goyal’s website. Later in the
+Appendix, , for robustness we also estimate the predictive regressions using
+the aforementioned individual predictors in lieu of their principal component.
+
+introducing controls, although cash flow extrapolation appears to still
+predict  returns  with  a  one-sided 𝑝-value  of  0.04  when  we  measure
+extrapolation using our approach.
+
+Overall,  the  quarter-ahead  results  underscore  the  similar  predic-
+tive  properties  of  survey-based  metrics  and  price-based  proxies  for
+extrapolation,  and  they  provide  suggestive  evidence  that  the  latter
+offer stronger predictive power for future returns than the former. This
+evidence  is  reinforced  in  Panel  B  of Table  4,  in  which  we  perform
+the predictability analysis at the yearly forecasting horizon. These tests
+show that 𝜇 has predictive power for future returns. 𝜇 retains its pre-
+dictive power when we introduce survey-based extrapolators metrics
+in the regression, but it becomes insignificant when we control for our
+price-based extrapolation measures. Moreover, while both survey-based
+and proxy-based return-extrapolation measures are significant predic-
+tors of future returns, cash-flow extrapolation has predictive power for
+future  returns  only  when  it  is  measured  via  our  price-based  proxy.
+The joint significance of price-based cashflow- and return-extrapolation
+measures  in  predicting  returns  is  underscored  by  the  F-test  of  joint
+significance,  which,  across  specifications,  rejects  the  null  of  no  pre-
+dictability by extrapolation with an average 𝑝-value of 0.04. Finally, the
+overall goodness of fit of the model is higher when using price-based
+proxies. For instance, when comparing Columns (2) and (5), where we
+predict returns only using extrapolative beliefs, the adjusted 𝑅2 is 4%
+if we use survey-based extrapolation measures, but it rises to 11% with
+our filtered time series of extrapolative beliefs.
+
+In summary, the results of the predictive tests at the yearly horizon
+strengthen  the  view  that  survey-based  and  price-based  measures  of
+extrapolation have similar predictive properties and that price-based
+measures  can  be  somewhat  more  successful  at  predicting  returns  at
+the intermediate prediction horizon of a year. The last set of results
+concerns the long-term predictability of 3-year ahead returns. In this
+last  set  of  tests,  the  predictive  power  of  the  discount  rate  strength-
+ens considerably across specifications. Moreover, we note that there
+is  stronger  evidence  of  return  predictability  by  survey-based  return
+extrapolation as opposed to our price-based return extrapolation, while
+the evidence in favor of the predictive power of cash flow extrapolation
+is  comparable  across  metrics.  Overall,  across  horizons,  our  results
+indicate that survey-based and price-based extrapolation proxies share
+similar predictive properties. The results also indicate that there may be
+benefits in integrating these alternative metrics into a unified measure.
+This is an interesting topic that we leave to future research.
+
+Lastly, as far as the relative importance of return extrapolation and
+cash-flow extrapolation for the predictability of returns is concerned,
+our results indicate that both are important. The size of the predictabil-
+ity, represented by the magnitude of the predictability coefficients, is
+quite comparable, and there are several specifications in which both
+cash  flow  extrapolation  and  return  extrapolation  exhibit  predictive
+power for future returns. There is also some evidence that predictability
+by  return  extrapolation  may  be  stronger  at  short  and  intermediate
+horizons and be weak or absent at longer horizons. In contrast, cash
+flow extrapolation appears to predict returns at all prediction horizons.
+
+3.4.  Out-of-sample predictability
+
+We  complement  the  in-sample  analysis  of  the  previous  section
+with out-of-sample (OOS) predictability statistics. These are Campbell
+and  Thompson (2008)  and Goyal  and  Welch (2008)  out-of-sample
+𝑅2,  and Clark  and  West (2007)  statistic  for  the  comparison  of  the
+out-of-sample performance of nested models. When comparing the out-
+of-sample fit of two predictive models, 𝑀𝑗 and 𝑀𝑘, over a sample of 𝑇
+observations, the OOS 𝑅2 is obtained as
+
+𝑅2
+𝑂 𝑂 𝑆(𝑗 ,𝑘) = 1 −
+
+∑𝑇 −1
+
+𝑡=0 (𝑟𝑡+1 − ̂𝑟𝑘𝑡)2
+𝑡=0 (𝑟𝑡+1 − ̂𝑟𝑗 𝑡)2
+
+∑𝑇 −1
+
+,
+
+(23)
+
+where 𝑟𝑡+1 is the next-period realized return, ̂𝑟𝑘𝑡 is the prediction of 𝑟𝑡+1
+that model 𝑀𝑘 casts at time t, and ̂𝑟𝑗 𝑡 is the prediction of 𝑟𝑡+1 made by
+
+11 
+
+S. Cassella et al.
+
+model 𝑀𝑗 . A positive value of 𝑅2
+𝑂 𝑂 𝑆(𝑗 ,𝑘) indicates that the out-of-sample
+mean-squared forecasting error obtained under model 𝑀𝑘 is smaller
+than  the  mean-squared  forecasting  error  of  model 𝑀𝑗 ,  and,  hence,
+𝑀𝑘 has  a  better  out-of-sample  performance  than 𝑀𝑗 .  Conversely,  a
+negative value of 𝑅2
+𝑂 𝑂 𝑆(𝑗 ,𝑘) suggests better out-of-sample predictability
+is obtained using model 𝑀𝑗 .
+
+Having outlined in (13) the Equation for expected returns in our
+model, we consider three models of returns that are relevant in our
+setting:
+𝑀0 ∶ 𝑟𝑡+1 = 𝑎 + 𝜖0(𝑡+1)
+𝑀1 ∶ 𝑟𝑡+1 = 𝑎 + 𝑏(𝜆𝜇 ̂𝜇𝑡 + 𝜆𝑔 ̂𝑔𝑡) + 𝜖1(𝑡+1)
+𝑀2 ∶ 𝑟𝑡+1 = 𝑎 + 𝑏(𝜆𝜇 ̂𝜇𝑡 + 𝜆𝑔 ̂𝑔𝑡 + 𝜆𝑆
+
+̂𝑆𝑡 + 𝜆𝑤 ̂𝑤𝑡) + 𝜖2(𝑡+1)
+
+Model 𝑀0 is the naive forecast, i.e., the prediction that the future
+stock  market  return  is  equal  to  the  historical  average.  Model 𝑀1 is
+a model of future returns that only relies on discount rates (𝜇𝑡) and
+expected dividend growth (𝑔𝑡) to predict future returns but neglects
+extrapolative expectations. In other words, 𝑀1 is a model where we
+restrict 𝜆𝑆 and 𝜆𝑤 in (13) to be equal to zero. 𝑀2 is the full model that
+augments 𝑀1 with 𝑆𝑡 and 𝑤𝑡, as per (13).
+
+When considering model 𝑀2, we follow the same approach adopted
+in the in-sample tests of Table 4, in that we present results both when
+𝑆 and 𝑤 are structurally estimated and when they are based on survey
+data.
+
+Each model’s time-𝑡 forecast of 𝑟𝑡+1 is based on the in-sample pa-
+rameter estimates obtained with the data available between the sample
+start date (i.e., 1946) and time 𝑡 − 1. These estimates are then used
+jointly with the values of the model regressors a and b at time 𝑡 to cast
+an out-of-sample one-period ahead prediction.24 Once all forecast errors
+are available, they are used in the calculation of the out-of-sample 𝑅2
+as in (23). VBK set the minimum in-sample size to be equal to half
+the sample. On the other hand, since the out-of-sample 𝑅2 is sensitive
+to the choice of the out-of-sample period, we report results for two
+alternative OOS start dates, 1973 (i.e., first out-of-sample estimation
+based on 25 years of in-sample data) and 1998 (i.e., first out-of-sample
+estimation based on 50 years of in-sample data).
+
+The results of this part of the analysis are in Panel A of Table 5. Like
+VBK, we concentrate on out-of-sample predictability of year-ahead cu-
+mulative log market returns. In the table, the column labeled 𝑀1𝑣𝑠𝑀0
+reports the out-of-sample 𝑅2 of the bivariate model vis-a-vis the naive
+forecasting. Similarly, 𝑀2𝑣𝑠𝑀0 refers to a comparison of the full model
+with the naive forecast. Finally, to gauge the benefit of modeling an
+extrapolative expectations component in addition to discount rates and
+expected dividend growth, we also report results for the comparison
+𝑀2𝑣𝑠𝑀1.
+
+We consider two types of out-of-sample statistics. The first, labeled
+as ‘‘FS’’, is based on filtering over the full sample (1946 to 2022). The
+second, labeled ‘‘OOS’’, takes a more conservative approach, as it is
+based on the econometrician’s use of the recursively estimated model
+parameters to back out the time-𝑡 values of the filtered time-series based
+on information available up to time 𝑡 only.25
+
+We start by describing the comparison 𝑀2𝑣𝑠𝑀1, which is the most
+relevant case in light of the in-sample results reported earlier. We first
+focus on the results of the analysis based on our structural estimates
+of  extrapolative  beliefs.  Across  different  out-of-sample  starting  dates
+and  different  measurements  of  the  filtered  states,  the  out-of-sample
+𝑅2 is  consistently  positive  and  large,  ranging  from  0.76%  to  about
+2.42%.  This  resonates  with  our  in-sample  finding  on  the  usefulness
+of incorporating extrapolative expectations into a model of expected
+returns.  These  results  are  qualitatively  similar  to  the  ones  that  we
+
+Journal of Financial Economics 164 (2025) 103986 
+
+obtain when using survey-based extrapolation metrics as opposed to
+our structurally estimated measures. This result further reinforces the
+view that our approach is able to render an accurate representation of
+extrapolative beliefs in the market.
+
+The second metric we consider is Clark and West (2007) statistic.
+The statistic is used to compare the out-of-sample forecasting accuracy
+of a linear predictive model (𝑀𝑘) with the accuracy of a more parsi-
+monious model 𝑀𝑗 where some of the predictability coefficients are
+restricted to be equal to 0. Since this statistic is meant to be used for
+nested models, we can use it to compare 𝑀0 with 𝑀1 and with 𝑀2, but
+we cannot use it to compare 𝑀1 with 𝑀2, since neither model nests the
+other one.
+
+The statistic is formally defined as
+
+𝐶 𝑊𝑂 𝑂 𝑆(𝑗 ,𝑘) = 2
+
+1
+𝑇
+
+𝑇 −1
+∑
+
+𝑡=0
+
+𝐹 𝐸𝑗 𝑡[𝐹 𝐸𝑗 𝑡 − 𝐹 𝐸𝑘𝑡],
+
+where 𝐹 𝐸𝑗 𝑡 and 𝐹 𝐸𝑘𝑡 are the forecast errors of model 𝑀𝑗 and model
+𝑀𝑘,  respectively.  Under  the  null,  the  parsimonious  model  generates
+the data, and hence model 𝑀𝑘 will generate, on average larger mean-
+squared out-of-sample forecast errors (FE) than model 𝑀𝑗 , i.e., 𝐶 𝑊𝑂 𝑂 𝑆
+is negative. Under the alternative hypothesis, the out-of-sample forecast
+errors  from  the  augmented  model 𝑀𝑘 are  smaller  than  the  forecast
+errors from model 𝑀𝑗 , i.e., 𝐶 𝑊𝑂 𝑂 𝑆 is positive. Moreover, Clark and
+West (2007) show that testing the alternative hypothesis of a higher
+forecasting accuracy by model 𝑀𝑘 can be accomplished by regressing
+the time-series of 𝐹 𝐸𝑗 𝑡[𝐹 𝐸𝑗 𝑡 − 𝐹 𝐸𝑘𝑡] on a constant and comparing the
+obtained 𝑡-statistic with standard one-sided critical values of 1.28 (10%
+rejection rate), 1.64 (5% rejection rate), or 1.96 (1% rejection rate).
+
+Panel B of Table 5 reports the results for this part of the analysis. We
+focus on 𝑀2𝑣𝑠𝑀0, that is, the comparison between the bivariate model
+that neglects extrapolative beliefs, and the full model that accounts for
+such beliefs. Across the eight different versions of the test, we find that
+the Clark and West (2007) statistic is always positive. This indicates
+that  incorporating  extrapolative  expectations  into  a  model  of  short-
+term market returns is useful. Moreover, echoing the results involving
+the  OOS 𝑅2,  the  performance  of  the  models  is  rather  comparable
+when  using  our  structural  approach  to  recovering  beliefs  and  when
+using survey-based measures of beliefs. Overall, these results give us
+additional confidence about the ability of our model to recover beliefs
+from market valuations.
+
+4.  Model extensions and discussion
+
+The most straightforward extension of our baseline model is to allow
+the innovations in Eq. (15) to be cross-correlated. We present this ex-
+tended model in the Internet Appendix, Section IA1, where we refer to
+this model as 𝑀𝑐 𝑐 𝑒. The second extension concerns modeling discount
+rates by incorporating some observable proxy for risk preferences in the
+model. This second model, which we refer to as 𝑀𝑍 , is also presented
+in detail in Section IA1 of the Internet Appendix. Table A3.1 in the
+Appendix shows pairwise correlations between the estimates of return
+extrapolation obtained using our main model of Section 2, as well as
+𝑀𝑐 𝑐 𝑒 and 𝑀𝑍 . We find the time series of extrapolative beliefs extracted
+from the main model of Section 2.2 and the time series of extrapolative
+beliefs  obtained  from  the  extended  models  to  be  more  than  99%
+correlated. This result underscores the robustness of our results. Table
+IA.2 in the Internet Appendix also repeats the return-predictability tests
+using the alternative measures of extrapolative beliefs from 𝑀𝑐 𝑐 𝑒 and
+𝑀𝑍 . The results are similar to the one in our main Table 4.
+
+4.1.  Discussion
+
+24 This procedure guarantees that no overlap exists between the in-sample
+parameter estimation and the out-of-sample prediction.
+25 FS corresponds to full-sample filtering with hindsight. OOS corresponds
+to progressive filtering (without hindsight).
+
+Our approach to measuring extrapolative beliefs from market prices
+has three main benefits. First and foremost, our methodology does not
+rely on survey data, whose coverage is often limited to only a small set
+of investors, some sample periods, and some markets and countries. In
+
+12 
+
+S. Cassella et al.
+
+contrast, since our estimation only relies on observable market quanti-
+ties (i.e., pd ratios and market returns), the approach proposed in this
+paper is portable and can be applied to multiple settings where surveys
+are  lacking.  Second  and  related,  several  researchers  have  expressed
+concerns in the past over the use of surveys in asset pricing tests due
+to  the  potential  lack  of  quality  of  survey  data  and  a  limited  time-
+series sample. Our market-based approach circumvents these concerns
+because we extract investors’ beliefs from prices. Third, surveys do not
+only measure extrapolative beliefs but also other biases. By comparison,
+our  structural  approach  imposes  economically  motivated  functional
+forms for extrapolative beliefs, thus allowing us to recover a component
+of beliefs that is only due to extrapolation as opposed to other sources
+of deviations from rationality. Of course, this strength of our approach
+also represents a limitation: if other drivers of beliefs exist that lead
+to deviations from rationality and mispricing, then our model is going
+to miss these drivers, and the relevance of extrapolation for aggregate
+valuation may not be fully representative of how much, as a whole,
+biases in beliefs matter in the market. There is recent evidence that
+biases in beliefs other than extrapolation can affect asset prices in the
+aggregate (e.g., Bordalo et al. 2024). For this reason, we caution the
+reader that the survey-based approach does not only entail difficulties
+but can rather offer advantages that the narrower scope of our approach
+cannot easily match.
+
+4.2.  Preferences or beliefs
+
+Setting aside the benefits of our approach, we acknowledge there
+are also some reasons why, if survey data was available in real time
+for any given market of interest, one could prefer to test behavioral
+theories  using  surveys.  The  main  reason  why  surveys  could  be  pre-
+ferred over a market-based measure of beliefs is that there is a widely
+held view in financial economics that, given market prices alone, we
+cannot separate preferences and beliefs. Thus, when recovering beliefs
+from  prices,  one  must  be  concerned  that  some  of  the  variation  in
+extrapolative beliefs that we measure is not, in fact, due to incorrect
+beliefs but may instead stem from some preferences. With respect to
+this  concern,  we  notice  that  structurally  estimating  a  very  specific
+functional  form  for  extrapolative  beliefs  in  the  way  we  do  may,  to
+some  extent,  help  alleviate  this  concern.  Moreover,  our  structurally
+estimated extrapolation time-series accord well with survey-based data
+on investor beliefs about future fundamentals and future returns. That
+said, we acknowledge the importance of surveys as a direct gauge of
+survey beliefs, and we leave the task of integrating survey data with
+our structural estimates of extrapolative beliefs to future research.
+
+5.  Conclusion
+
+The question of whether behavioral biases matter in financial mar-
+kets is one of the most debated issues in academic finance. On the one
+hand, a rational expectations view of the market dismisses biases as
+irrelevant.  This  is  either  because  biases  are  idiosyncratic  and  hence
+disappear in the aggregate or because arbitrage forces quickly correct
+any mispricing induced by behavioral agents, thus marginalizing the
+role of biases for price formation. The alternative view is that arbitrage
+faces severe constraints and that biases are not idiosyncratic. Rather,
+biases are driven by common heuristic rules of belief formation, which
+systematically lead investors to deviate from rational expectations and
+lead prices to deviate from fundamentals.
+
+This paper provides a key contribution to this extant debate as we
+set out to assess the role of a common source of biased beliefs in the
+equity market, namely, extrapolation for stock prices. Existing work
+that attempts to shed light on the role of extrapolation in the market is
+fraught with empirical limitations. The paucity of long-running surveys
+on  expectations,  as  well  as  the  lack  of  a  direct  connection  between
+survey  data  on  beliefs,  investor  behavior,  and  asset  prices,  hinders
+researchers’  ability  to  test  behavioral  theories.  Our  novel  approach
+
+Journal of Financial Economics 164 (2025) 103986 
+
+addresses these limitations head-on as we aim to extract the time series
+of extrapolative beliefs in the marketplace directly from asset prices.
+Our  methodology  inherently  nests  the  traditional  finance  view  as  a
+special case and identifies biases only to the extent that these biases
+matter.
+
+Our results provide evidence consistent with recent behavioral the-
+ories of asset prices. In these theories, some investors’ extrapolative
+beliefs  generate  temporary  deviations  of  prices  from  the  level  war-
+ranted by fundamentals, and the predictability of asset returns arises
+as  a  result.  Aside  from  its  direct  contribution  to  the  extrapolation
+literature, we take our methodological and empirical contribution as
+the first step toward a new stream of literature that tests behavioral
+theories of asset prices without relying solely on survey data or data
+on investor behavior. We demonstrate that by imposing a theory-based
+structure on the belief formation process of interest, one can recover
+evidence and variation in biases purely from prices. We believe our
+proposed  methodological  shift  unlocks  many  promising  avenues  for
+future research in behavioral finance.
+
+CRediT authorship contribution statement
+
+Stefano Cassella: Writing – review & editing, Writing – original
+draft,  Formal  analysis,  Conceptualization. Te-Feng  Chen: Writing  –
+review & editing, Writing – original draft, Formal analysis, Conceptual-
+ization. Huseyin Gulen: Writing – review & editing, Writing – original
+draft, Formal analysis, Conceptualization. Yan Liu: Writing – review &
+editing, Writing – original draft, Formal analysis, Conceptualization.
+
+Declaration of competing interest
+
+The  authors  declare  that  they  have  no  known  competing  finan-
+cial  interests  or  personal  relationships  that  could  have  appeared  to
+influence the work reported in this paper.
+
+Appendix A.  Model derivation and estimation
+
+A.1.  Model derivation
+
+We derive (19) in this section. Note
+
+(𝐼4 − 𝜌𝛤 )−1 =
+
+1 − 𝜌𝜌𝜇
+0 
+−𝛽𝑆 𝜌𝜆𝜇
+0 
+
+⎡
+⎢
+⎢
+⎢
+⎢
+⎣
+
+0 
+1 − 𝜌𝜌𝑔
+−𝛽𝑆 𝜆𝑔
+−𝜌𝛽𝑤
+
+0
+0
+1 − 𝜌(1 − 𝛽𝑆 (1 − 𝜆𝑆 )) 
+0 
+
+−1
+⎤
+⎥
+⎥
+⎥
+⎥
+⎦
+
+.
+
+−𝛽𝑆 𝜌𝜆𝑤
+1 − 𝜌(1 − 𝛽𝑤)
+
+We calculate [−𝜆𝜇, 1 −𝜆𝑔, −𝜆𝑆 , −𝜆𝑤](𝐼4 −𝜌𝛤 )−1 to obtain the loadings
+
+with respect to the state variables (denoted as 𝐿1, 𝐿2, 𝐿3, and 𝐿4):
+𝐿1 = −
+
+−𝛽𝑆
+
+) ((𝜆𝑔 − 1
+) (𝜌 + 𝜌𝛽𝑆
+
+) (
+)
+(𝜆𝑆 − 1
+
+)
+−𝜌 + 𝜌𝛽𝑆 + 1
+− 1
+
+)
+
++ 𝜌𝛽𝑆 𝜆𝑆
+
+)
+
+,
+
+𝜆𝜇
+(1 − 𝜌𝜌𝜇)
+𝜌𝛽𝑤𝜆𝑤
+
+(𝜌 + 𝜌 (
+
+)
+)
+(𝜌 + 𝜌 (
+− 1
+(𝜆𝑆 − 1
+)
+(𝜌 + 𝜌𝛽𝑆
+− 1
+)
+(
+)
+−𝜌 + 𝜌𝛽𝑤 + 1
+− 1
+−𝛽𝑆
+−
+) (
+(𝜌𝜌𝑔 − 1
+−𝜌 + 𝜌𝛽𝑤 + 1
+
+) ,
+
+𝜌 + 𝜌𝛽𝑆
+
+𝜆𝑆
+)
+(𝜆𝑆 − 1
+(
+𝜆𝑤
+(
+−𝜌 + 𝜌𝛽𝑤 + 1
+
+, and
+
+− 1
+)
+−𝜌 + 𝜌𝛽𝑆 + 1
+) (𝜌 + 𝜌𝛽𝑆
+(𝜆𝑆 − 1
+
+)
+
+) .
+
+− 1
+
+𝐿2 =
+
+𝐿3 =
+
+𝐿4 =
+
+Using the Eqs. (12) and (13), we confirm that 𝐿1 =  −𝐵𝜇, 𝐿2 = 𝐵𝑔,
+𝐿3 = 𝐵𝑆 , and 𝐿4 = 𝐵𝑤.
+
+13 
+
+S. Cassella et al.
+
+Journal of Financial Economics 164 (2025) 103986 
+
+Fig. 1.  Impulse Response. We plot the impulse response functions for both the state variables ( ̂𝑆𝑡,
+̂𝑤𝑡, ̂𝜇𝑡, and ̂𝑔𝑡) and the model-implied quantities (̂𝑝𝑑𝑡, 𝐸𝑡(̂𝑟𝑡+1), and ̂𝑟𝑡) following
+a one-standard-deviation shock in one of the state variables at time 0. The response variables are standardized. Year 1 in the figure represents one period after the initial shock.
+
+A.2.  Model estimation
+
+where the covariance matrix for the shocks 𝛴 is taken to be a diagonal
+matrix:
+
+Given the state-space representation given in (20) and (21), we first
+
+write down the Kalman iteration as:
+𝐹00 = 06×1,
+𝑃00 = 𝐸[𝐹𝑡𝐹 ′
+𝑡 ],
+𝐹𝑡𝑡−1 = 𝛤𝐹 𝐹𝑡−1𝑡−1 + 𝛤𝑈 𝑈𝑡,
+𝑃𝑡𝑡−1 = 𝛤𝐹 𝑃𝑡−1𝑡−1𝛤 ′
+
+𝐹 + 𝛷𝐹 𝛴 𝛷′
+𝐹 ,
+𝜉𝑡 = 𝑌𝑡 − 𝐺𝑌 𝑌𝑡−1 − 𝐺𝐹 𝐹𝑡𝑡−1,
+𝑆𝑡 = 𝐺𝐹 𝑃𝑡𝑡−1𝐺′
+𝐹 ,
+𝐾𝑡 = 𝑃𝑡𝑡−1𝐺′
+𝐹 𝑆−1
+𝑡
+𝐹𝑡𝑡 = 𝐹𝑡𝑡−1 + 𝐾𝑡𝜉𝑡,
+𝑃𝑡𝑡 = (𝐼6×6 − 𝐾𝑡𝐺𝐹 )𝑃𝑡𝑡−1,
+
+,
+
+𝛴 = diag([𝜎2
+
+𝑑 , 𝜎2
+
+𝑔 , 𝜎2
+
+𝜇]′)
+
+.
+
+The log likelihood function based on the prediction errors (𝜉𝑡) is
+
+given by:
+𝑇
+∑
+
+𝐿 = −
+
+𝑡=1
+
+log(det (𝑆𝑡)) −
+
+𝑇
+∑
+
+𝑡=1
+
+𝑡 𝑆−1
+𝜉′
+
+𝑡 𝜉𝑡.
+
+Our goal for the estimation is to maximize the log likelihood func-
+tion  numerically.  We  achieve  this  by  taking  several  steps.  First,  we
+demean  all  variables  to  achieve  model  parsimony  and  perform  the
+model estimation only to the demeaned state-space system as given in
+(20) and (21). Second, for the numerical search, we use simulated an-
+nealing (SA) to estimate the baseline model. We then use the parameter
+
+14 
+
+S. Cassella et al.
+
+Journal of Financial Economics 164 (2025) 103986 
+
+Fig. 2.  Extrapolative Beliefs, Surveys, and Prices. Panel A compares our filtered time-series of return extrapolation (𝑆, left) and cash-flow extrapolation (𝑤, right) with survey
+expectations of future returns (SURVEYS𝑅𝐸 𝑇 ) and expectations of future long-term earnings growth (SURVEY𝐶 𝐹 ), respectively. Panel B repeats the comparison, but uses only the
+extrapolative component of survey expectations (SURVEYS𝑋
+𝐶 𝐹 ). For return expectations, we obtain such a component following the procedure in Greenwood and
+Shleifer (2014). For cash-flow expectations, we rely on the metric of investors’ experiences of past growth with fading memory from Nagel and Xu (2022). Panel C overlays our
+two time series of investor extrapolative expectations with the price–dividend ratio of the market. More details are in Section 3.
+
+𝑅𝐸 𝑇 and SURVEY𝑋
+
+estimates from the baseline model as starting values to re-optimize the
+objective function under our extended model.
+
+Appendix C.  Alternative  structural  models  of  extrapolation  and
+the present-value relation
+
+Let  us  call  the  above  estimation  procedure  the  sequential  search
+method (SSM) to estimate the parameters for a state-space represen-
+tation. The final solution is given by the solution that generates the
+largest value for the objective function. We then set the starting values
+at their unconditional means (i.e., zeros for the demeaned variables)
+and simulate the normally distributed innovations, generating 1,000
+artificial data sets. For each set, we perform model estimation to obtain
+the  corresponding  set  of  parameter  estimates.  We  summarize  across
+these 1,000 sets of estimates to provide standard error estimates.
+
+See Table A3.1.
+
+Appendix D.  Supplementary data
+
+Supplementary material related to this article can be found online
+
+at https://doi.org/10.1016/j.jfineco.2024.103986.
+
+Data availability
+
+Appendix B.  Extrapolative and predictability: alternative controls
+
+Extracting Extrapolative Beliefs from Market Prices: An Augmented Pr
+esent-Value Approach (Original data) (Mendeley Data)
+
+See Table A2.1.
+
+15 
+
+S. Cassella et al.
+
+Journal of Financial Economics 164 (2025) 103986 
+
+Table 1
+Model estimates.
+
+Parameters
+
+Panel A: Parameter Estimates
+𝜌𝜇
+
+𝜌𝑔
+
+𝛽𝑆
+
+𝐵𝑆
+
+𝛽𝑤
+
+𝐵𝑤
+
+𝜎𝑑
+
+𝜎𝑔
+
+𝜎𝜇
+Panel B: Derived Parameters
+𝐵𝜇
+
+𝐵𝑔
+
+𝜆𝜇
+
+𝜆𝑔
+
+𝜆𝑆
+
+𝜆𝑤
+Panel C: Variance of the pd ratio - counterfactual scenarios
+
+Estimate
+
+Stderr.
+
+0.9068
+
+0.1786
+
+0.4639
+
+0.1000
+
+0.0004
+
+232.70
+
+0.0289
+
+0.0550
+
+0.0179
+
+8.4440
+
+1.2101
+
+1.0473
+
+0.0962
+
+(0.0013)
+
+(0.0503)
+
+(0.0250)
+
+(0.0238)
+
+(0.0004)
+
+(40.80)
+
+(0.0118)
+
+(0.0057)
+
+(0.0015)
+
+(0.4124)
+
+(0.0678)
+
+(0.0136)
+
+(0.0489)
+
+−0.0502
+
+(0.0149)
+
+−6.8824
+
+(2.1935)
+
+1 − 𝜎2 (̃𝑝𝑑)
+𝜎2 (̂𝑝𝑑)
+
+0.9751
+
+Scenario
+𝐵𝜇 = 0
+𝐵𝑔 = 0
+𝐵𝑆 = 0
+𝐵𝑤 = 0
+We estimate our model as described by the state-space representation given in (20) and (21). Details for
+the model estimation are explained in Appendix A1. Panel A reports the primitive parameters. Panel B
+reports the derived parameters that can be written as functions of the primitive parameters. Standard errors
+(‘‘Stderr’’) are provided in the parenthesis. Based on our model parameters, Panel C reports by how much
+the variance of the price–dividend ratio would decline in the event we shut down any of the four drivers
+of the pd ratio in our model. We measure such a reduction as one minus the ratio of variance of the pd
+ratio in the counterfactual scenario (𝜎2(̃𝑝𝑑)) over the variance of the price–dividend ratio observed in the
+data (𝜎2(̂𝑝𝑑)). More details are in Section 2.5.1
+
+0.0000
+
+0.0343
+
+0.1897
+
+16 
+
+S. Cassella et al.
+
+Journal of Financial Economics 164 (2025) 103986 
+
+Table 2
+Extrapolative expectations: Pairwise correlations.
+S
+
+w
+
+𝜇
+
+g
+
+AAII
+
+II
+
+GALLUP
+
+SURVEYS𝑅𝐸 𝑇
+
+SURVEYS𝑋
+
+𝑅𝐸 𝑇
+
+SURVEY𝐶 𝐹
+
+SURVEY𝑋
+𝐶 𝐹
+
+scr
+
+cay
+
+dfy
+
+g
+
+w
+
+S
+
+AAII
+
+II
+
+GALLUP
+
+SURVEYS𝑅𝐸 𝑇
+
+SURVEYS𝑋
+
+𝑅𝐸 𝑇
+
+SURVEY𝐶 𝐹
+
+SURVEY𝑋
+𝐶 𝐹
+
+scr
+
+cay
+
+dfy
+
+−0.27
+(0.02)
+−0.74
+(0.01)
+0.05
+(0.65)
+−0.56
+(0.01)
+−0.39
+(0.01)
+−0.64
+(0.05)
+−0.4
+(0.01)
+−0.11
+(0.36)
+−0.73
+(0.01)
+−0.35
+(0.01)
+0.34
+(0.01)
+0.02
+(0.86)
+0.08
+(0.48)
+−0.25
+(0.03)
+
+0.22
+(0.05)
+0.83
+(0.01)
+0.40
+(0.02)
+0.45
+(0.01)
+0.91
+(0.01)
+0.47
+(0.01)
+0.75
+(0.01)
+0.11
+(0.5)
+0.14
+(0.23)
+−0.19
+(0.09)
+0.05
+(0.64)
+−0.42
+(0.01)
+−0.01
+(0.92)
+
+−0.06
+(0.63)
+0.26
+(0.14)
+0.45
+(0.01)
+0.68
+(0.03)
+0.42
+(0.01)
+0.06
+(0.59)
+0.59
+(0.01)
+0.46
+(0.01)
+−0.61
+(0.01)
+−0.20
+(0.09)
+−0.2
+(0.08)
+0.09
+(0.45)
+
+0.14
+(0.41)
+0.23
+(0.09)
+0.85
+(0.01)
+0.25
+(0.06)
+0.69
+(0.01)
+−0.01
+(0.94)
+0.05
+(0.69)
+−0.05
+(0.68)
+0.11
+(0.34)
+−0.46
+(0.01)
+−0.19
+(0.1)
+
+0.59
+(0.01)
+0.74
+(0.01)
+0.73
+(0.01)
+0.55
+(0.01)
+0.07
+(0.69)
+−0.15
+(0.39)
+−0.05
+(0.79)
+0.03
+(0.88)
+−0.37
+(0.03)
+0.32
+(0.06)
+
+0.81
+(0.01)
+0.99
+(0.01)
+0.43
+(0.01)
+0.23
+(0.19)
+0.12
+(0.38)
+−0.22
+(0.11)
+−0.06
+(0.64)
+−0.26
+(0.05)
+0.28
+(0.03)
+
+0.93
+(0.01)
+0.97
+(0.01)
+0.43
+(0.21)
+0.06
+(0.87)
+0.25
+(0.49)
+0.18
+(0.62)
+−0.88
+(0.01)
+−0.12
+(0.74)
+
+0.47
+(0.01)
+0.36
+(0.04)
+0.1
+(0.48)
+−0.15
+(0.27)
+−0.03
+(0.82)
+−0.29
+(0.03)
+0.3
+(0.03)
+
+0.08
+(0.64)
+−0.14
+(0.22)
+−0.16
+(0.17)
+−0.07
+(0.53)
+−0.35
+(0.01)
+0.02
+(0.85)
+
+0.27
+(0.1)
+−0.04
+(0.79)
+−0.24
+(0.15)
+−0.27
+(0.1)
+−0.24
+(0.15)
+
+−0.08
+(0.52)
+0.04
+(0.73)
+−0.11
+(0.36)
+−0.37
+(0.01)
+
+0.36
+(0.01)
+−0.06
+(0.58)
+−0.23
+(0.05)
+
+−0.05
+(0.69)
+0.19
+(0.11)
+
+tms
+
+0.21
+(0.07)
+Pairwise correlations between return-extrapolative expectations (𝑆), the discount rate (𝜇), expected dividend growth (𝑔), cash-flow extrapolative expectations, 𝑤 and the following
+time-series:  (i)  survey  expectations  of  stock  returns  (AAII,  Gallup,  II);  (ii)  a  linear  combination  of  survey  expectations  of  stock  returns  (SURVEYS𝑅𝐸 𝑇 )  and  its  extrapolative
+𝐶 𝐹 ), from Nagel and Xu (2022));
+component (SURVEYS𝑋
+(iv) macroeconomic variables such as the term spread (tms), the default yield spread (dfy), the surplus-consumption ratio (scr, Campbell and Cochrane 1999) and the aggregate
+consumption-wealth ratio (cay, Lettau and Ludvigson 2001).
+
+𝑅𝐸 𝑇 ); (iii) survey expectations of fundamentals (SURVEY𝐶 𝐹 ) and survey cash-flow expectations with fading memory (SURVEY𝑋
+
+Table 3
+Simulation analysis.
+𝛽𝑆
+𝛽𝑤
+𝐶 𝑜𝑟𝑟(𝜇𝐸 𝑠𝑡, 𝜇𝑇 𝑟𝑢𝑒)
+𝐶 𝑜𝑟𝑟(𝑔𝐸 𝑠𝑡, 𝑔𝑇 𝑟𝑢𝑒)
+𝐶 𝑜𝑟𝑟(𝑆 𝐸 𝑠𝑡, 𝑆 𝑇 𝑟𝑢𝑒)
+𝐶 𝑜𝑟𝑟(𝑤𝐸 𝑠𝑡, 𝑤𝑇 𝑟𝑢𝑒)
+
+True
+True
+
+0.200
+0.010
+
+0.100
+
+0.200
+
+0.300
+0.010
+
+0.100
+
+0.200
+
+0.400
+0.010
+
+0.100
+
+0.200
+
+Data
+
+0.773
+0.840
+0.693
+0.701
+0.881
+0.917
+0.992
+0.995
+
+0.901
+0.937
+0.703
+0.711
+0.801
+0.806
+0.793
+0.874
+
+0.714
+0.776
+0.693
+0.710
+0.861
+0.893
+0.979
+0.988
+
+Mean
+Median
+Mean
+Median
+Mean
+Median
+Mean
+Median
+
+0.908
+0.961
+0.938
+0.972
+0.699
+0.885
+0.712
+0.890
+0.781
+0.733
+0.805
+0.727
+0.816
+0.726
+0.891
+0.818
+We investigate the ability of our approach to recover the four latent processes in our model via a simulation analysis. Each cell in the table refers to a summary statistic obtained
+from a sample of 500 simulations pertaining a given set of underlying model parameters {𝛽𝑆 , 𝛽𝑤 }. The table shows the mean and the median pairwise-correlation across simulations
+between each estimated time-series and the underlying latent process created as part of the simulation. Throughout the table, we refer to the artificial latent process created as
+part of the simulation with a superscript ‘‘True’’ (e.g., 𝑤𝑇 𝑟𝑢𝑒 refers to the latent process for cash-flow extrapolation that is imposed as part of the simulation setup), whereas we
+use the superscript ‘‘Est’’ to indicate the filtered time-series that is recovered by our econometric approach. In the column labeled ‘‘Data’’, we perform simulations that are based
+on the exact model parameters estimated from the data in Table 1. We also repeat the analysis for several combinations of the structural parameters governing extrapolation 𝛽𝑆
+and 𝛽𝑤 as reported. In all these simulations, the shocks used to generate the simulated processes are assumed to have a 1% standard deviation. All other model parameters are
+set to resemble the model parameters estimated in the data: 𝜌𝜇 = 0.9, 𝜌𝑔 = 0.2, 𝐵𝑆 = 0.1, 𝐵𝑤 = 200. More details on the simulation setup are in Section 3.1.
+
+0.739
+0.784
+0.696
+0.705
+0.857
+0.887
+0.981
+0.990
+
+0.768
+0.827
+0.684
+0.711
+0.903
+0.937
+0.990
+0.994
+
+0.896
+0.940
+0.701
+0.712
+0.742
+0.784
+0.804
+0.878
+
+0.735
+0.784
+0.699
+0.707
+0.887
+0.934
+0.980
+0.987
+
+0.782
+0.827
+0.698
+0.714
+0.925
+0.953
+0.992
+0.995
+
+17 
+
+S. Cassella et al.
+
+Journal of Financial Economics 164 (2025) 103986 
+
+Table 4
+Extrapolative expectations and return predictability.
+
+(1)
+
+0.049
+[−0.02,0.12]
+(0.21)
+−0.016
+[−0.08,0.06]
+(0.67)
+
+0.50
+(n.a.)
+
+76
+No
+
+0.042
+[0.01,0.08]
+(0.03)
+−0.021
+[−0.05,0.02]
+(0.23)
+
+𝜇
+
+𝑔
+
+𝑆
+
+𝑤
+
+CI
+𝑝-value
+
+CI
+𝑝-value
+
+CI
+1sided 𝑝-value
+
+CI
+1sided 𝑝-value
+
+𝐴𝑑 𝑗 .𝑅2 (%)
+𝐹 -test 𝑝-value
+
+N
+Controls
+
+𝜇
+
+𝑔
+
+𝑆
+
+𝑤
+
+CI
+𝑝-value
+
+CI
+𝑝-value
+
+CI
+1sided 𝑝-value
+
+CI
+1sided 𝑝-value
+
+𝐴𝑑 𝑗 .𝑅2 (%)
+𝐹 -test 𝑝-value
+
+7.38
+(n.a.)
+
+0.040
+[0.02,0.06]
+(0.00)
+−0.015
+[−0.03,0.00]
+(0.08)
+
+𝜇
+
+𝑔
+
+𝑆
+
+𝑤
+
+CI
+𝑝-value
+
+CI
+𝑝-value
+
+CI
+1sided 𝑝-value
+
+CI
+1sided 𝑝-value
+
+𝐴𝑑 𝑗 .𝑅2 (%)
+𝐹 -test 𝑝-value
+
+25.68
+(n.a.)
+
+Surveys
+
+(2)
+
+(3)
+
+(4)
+Panel A: h = 3
+
+Structural
+
+(5)
+
+(6)
+
+(7)
+
+0.044
+[−0.04,0.12]
+(0.27)
+0.048
+[−0.10,0.18]
+(0.51)
+−0.078
+[−0.21,0.06]
+(0.10)
+−0.052
+[−0.13,0.02]
+(0.06)
+1.77
+(0.46)
+
+−0.012
+[−0.13,0.11]
+(0.86)
+0.034
+[−0.10,0.17]
+(0.62)
+−0.074
+[−0.21,0.06]
+(0.13)
+−0.042
+[−0.12,0.03]
+(0.14)
+2.09
+(0.84)
+
+76
+No
+
+76
+PC1
+Panel B: h = 12
+
+0.053
+[0.01,0.09]
+(0.01)
+0.038
+[−0.03,0.11]
+(0.28)
+−0.067
+[−0.14,−0.00]
+(0.03)
+−0.005
+[−0.04,0.03]
+(0.39)
+9.30
+(0.09)
+
+0.058
+[−0.01,0.12]
+(0.07)
+0.039
+[−0.03,0.11]
+(0.27)
+−0.067
+[−0.14,0.00]
+(0.03)
+−0.006
+[−0.04,0.03]
+(0.36)
+8.04
+(0.13)
+
+Panel C: h = 36
+
+0.038
+[0.02,0.06]
+(0.00)
+0.009
+[−0.02,0.04]
+(0.49)
+−0.030
+[−0.06,−0.00]
+(0.02)
+−0.021
+[−0.04,0.00]
+(0.03)
+31.45
+(0.03)
+
+0.044
+[0.01,0.08]
+(0.01)
+0.011
+[−0.02,0.04]
+(0.47)
+−0.031
+[−0.06,−0.00]
+(0.02)
+−0.022
+[−0.04,−0.00]
+(0.03)
+30.73
+(0.03)
+
+−0.040
+[−0.11,0.03]
+(0.13)
+−0.064
+[−0.14,0.01]
+(0.03)
+2.87
+(0.09)
+
+76
+No
+
+−0.039
+[−0.07,0.00]
+(0.01)
+−0.021
+[−0.06,0.01]
+(0.11)
+4.08
+(0.05)
+
+−0.025
+[−0.04,−0.01]
+(0.00)
+−0.034
+[−0.06,−0.01]
+(0.00)
+18.58
+(0.00)
+
+−0.005
+[−0.10,0.10]
+(0.94)
+0.072
+[−0.07,0.20]
+(0.31)
+−0.094
+[−0.22,0.04]
+(0.08)
+−0.111
+[−0.21,−0.01]
+(0.02)
+5.20
+(0.06)
+
+76
+No
+
+0.029
+[−0.03,0.09]
+(0.29)
+0.033
+[−0.04,0.11]
+(0.37)
+−0.059
+[−0.14,0.02]
+(0.06)
+−0.041
+[−0.10,0.01]
+(0.06)
+10.22
+(0.07)
+
+0.025
+[−0.01,0.06]
+(0.17)
+0.002
+[−0.03,0.04]
+(0.91)
+−0.019
+[−0.06,0.02]
+(0.16)
+−0.028
+[−0.06,0.01]
+(0.05)
+28.90
+(0.20)
+
+−0.036
+[−0.16,0.10]
+(0.63)
+0.055
+[−0.09,0.20]
+(0.48)
+−0.083
+[−0.22,0.07]
+(0.11)
+−0.100
+[−0.21,0.01]
+(0.04)
+4.45
+(0.12)
+
+76
+PC1
+
+0.049
+[−0.02,0.12]
+(0.17)
+0.044
+[−0.04,0.12]
+(0.26)
+−0.066
+[−0.14,0.01]
+(0.04)
+−0.049
+[−0.11,0.01]
+(0.04)
+9.80
+(0.05)
+
+0.034
+[−0.01,0.07]
+(0.11)
+0.007
+[−0.03,0.04]
+(0.69)
+−0.022
+[−0.06,0.02]
+(0.12)
+−0.031
+[−0.06,0.00]
+(0.03)
+28.45
+(0.12)
+
+−0.033
+[−0.10,0.03]
+(0.16)
+−0.088
+[−0.15,−0.02]
+(0.00)
+6.35
+(0.02)
+
+76
+No
+
+−0.031
+[−0.06,0.00]
+(0.03)
+−0.054
+[−0.09,−0.02]
+(0.00)
+11.01
+(0.00)
+
+−0.017
+[−0.04,0.01]
+(0.05)
+−0.046
+[−0.07,−0.02]
+(0.00)
+27.20
+(0.00)
+
+76
+No
+
+N
+Controls
+We regress future annualized h-month cumulative log returns of the value-weighted stock market on lagged discount rate (𝜇), expected dividend growth (𝑔), return extrapolative
+expectations (𝑆), and cash-flow extrapolative expectations (𝑤). We also construct the first principal component of these predictors, and use it as the control in columns 4 and 7. As
+indicated in each panel, the analysis involving return extrapolation (S) and cash-flow extrapolation (w) is performed both using surveys and using our own structurally estimated
+belief time-series. The table reports coefficient estimates, as well as 95% confidence intervals (CI) and two-sided and one-sided 𝑝-values as indicated. Whenever applicable, we also
+report the 𝑝-value from a F-test of the joint hypothesis of no predictability by return extrapolation and cash-flow extrapolation.
+
+76
+PC1
+
+76
+PC1
+
+76
+No
+
+76
+No
+
+76
+No
+
+76
+No
+
+18 
+
+S. Cassella et al.
+
+Journal of Financial Economics 164 (2025) 103986 
+
+Table 5
+Out-of-Sample Return Predictability.
+
+FS
+OOS
+
+FS
+OOS
+
+FS
+
+OOS
+
+FS
+
+OOS
+
+𝑀1vs𝑀0
+
+7.71%
+3.16%
+
+10.31%
+3.58%
+
+𝑀1vs𝑀0
+
+0.0045
+[1.83]
+0.0046
+[1.58]
+
+0.0068
+[1.49]
+0.0045
+[0.99]
+
+Panel A: OOS 𝑅2
+
+OOS start = 1973
+
+OOS start = 1998
+
+Surveys
+
+𝑀2vs𝑀0
+
+8.57%
+4.76%
+
+11.22%
+6.13%
+
+𝑀2vs𝑀1
+
+0.93%
+1.65%
+
+1.01%
+2.65%
+
+Panel B: CW (2007) statistic
+
+OOS start = 1973
+
+OOS start = 1998
+
+Surveys
+
+𝑀2vs𝑀0
+
+0.0051
+[1.93]
+0.0052
+[1.78]
+
+0.0075
+[1.56]
+0.0056
+[1.23]
+
+Structural
+
+𝑀2vs𝑀0
+
+8.41%
+4.41%
+
+11.10%
+5.91%
+
+Structural
+
+𝑀2vs𝑀0
+
+0.0051
+[1.93]
+0.0054
+[1.77]
+
+0.0076
+[1.57]
+0.0058
+[1.24]
+
+𝑀2vs𝑀1
+
+0.76%
+1.29%
+
+0.88%
+2.42%
+
+̂𝑆𝑡 + 𝜆𝑤 ̂𝑤𝑡) + 𝜖2(𝑡+1)
+
+We consider three return predictability models:
+𝑀0 ∶ 𝑟𝑡+1 = 𝑎 + 𝜖0(𝑡+1)
+𝑀1 ∶ 𝑟𝑡+1 = 𝑎 + 𝑏(𝜆𝜇 ̂𝜇𝑡 + 𝜆𝑔 ̂𝑔𝑡) + 𝜖1(𝑡+1)
+𝑀2 ∶ 𝑟𝑡+1 = 𝑎 + 𝑏(𝜆𝜇 ̂𝜇𝑡 + 𝜆𝑔 ̂𝑔𝑡 + 𝜆𝑆
+where 𝜇𝑡, 𝑔𝑡, 𝑆𝑡, and 𝑤𝑡 are respectively the filtered time series of the discount rate, the expected dividend growth, and extrapolative return
+and cash-flow expectations; 𝜆𝜇, 𝜆𝑔 , 𝜆𝑆 , and 𝜆𝑤 are the loadings of the conditional return on the filtered variables obtained from the structural
+model. In Panel A, we perform pairwise comparisons of the out-of-sample performance of these models based on Campbell and Thompson
+(2008) out-of-sample 𝑅2 statistic. In Panel B, the pairwise comparison is based on Clark and West (2007) test of equal out-of-sample forecasting
+accuracy for nested models. The out-of-sample analysis is based on two out-of-sample starting dates. The analysis is conducted using two versions
+of the filtered time-series (both use our model parameter estimates based on the full sample). FS refers to full-sample filtering, whereas OOS
+refers to progressive filtering that only relies on information up to 𝑡 to filter out the time-𝑡 state variables. More details are in Section 3.4.
+
+19 
+
+S. Cassella et al.
+
+Table A2.1
+Alternative controls.
+
+𝜇
+
+𝑔
+
+𝑆
+
+𝑤
+
+CI
+𝑝-value
+
+CI
+𝑝-value
+
+CI
+1sided 𝑝-value
+
+CI
+1sided 𝑝-value
+
+𝐴𝑑 𝑗 .𝑅2 (%)
+𝐹 -test 𝑝-value
+N
+Controls
+
+𝜇
+
+𝑔
+
+𝑆
+
+𝑤
+
+CI
+𝑝-value
+
+CI
+𝑝-value
+
+CI
+1sided 𝑝-value
+
+CI
+1sided 𝑝-value
+
+𝐴𝑑 𝑗 .𝑅2 (%)
+𝐹 -test 𝑝-value
+N
+Controls
+
+𝜇
+
+𝑔
+
+𝑆
+
+𝑤
+
+CI
+𝑝-value
+
+CI
+𝑝-value
+
+CI
+1sided 𝑝-value
+
+CI
+1sided 𝑝-value
+
+𝐴𝑑 𝑗 .𝑅2 (%)
+𝐹 -test 𝑝-value
+N
+Controls
+
+𝜇
+
+𝑔
+
+𝑆
+
+𝑤
+
+CI
+𝑝-value
+
+CI
+𝑝-value
+
+CI
+1sided 𝑝-value
+
+CI
+1sided 𝑝-value
+
+𝐴𝑑 𝑗 .𝑅2 (%)
+𝐹 -test 𝑝-value
+N
+Controls
+
+Journal of Financial Economics 164 (2025) 103986 
+
+(1)
+
+(2)
+
+(3)
+
+(4)
+
+Panel A: h = 3
+(5)
+
+(6)
+
+(7)
+
+(8)
+
+−0.008
+[−0.11,0.11]
+(0.89)
+0.072
+[−0.07,0.21]
+(0.33)
+−0.104
+[−0.24,0.04]
+(0.08)
+−0.119
+[−0.22,−0.02]
+(0.01)
+4.23
+(0.05)
+76
+dfy
+
+0.010
+[−0.09,0.12]
+(0.84)
+0.088
+[−0.05,0.23]
+(0.23)
+−0.115
+[−0.26,0.02]
+(0.05)
+−0.125
+[−0.22,−0.03]
+(0.01)
+6.99
+(0.02)
+76
+infl
+
+−0.003
+[−0.10,0.10]
+(0.97)
+0.076
+[−0.07,0.22]
+(0.29)
+−0.092
+[−0.23,0.05]
+(0.09)
+−0.112
+[−0.21,−0.01]
+(0.01)
+3.93
+(0.06)
+76
+svar
+
+0.000
+[−0.12,0.10]
+(0.99)
+0.039
+[−0.11,0.18]
+(0.59)
+−0.077
+[−0.21,0.06]
+(0.13)
+−0.109
+[−0.21,−0.02]
+(0.02)
+5.33
+(0.09)
+76
+de
+
+−0.106
+[−0.24,0.04]
+(0.13)
+0.092
+[−0.05,0.23]
+(0.19)
+−0.114
+[−0.25,0.02]
+(0.05)
+−0.280
+[−0.46,−0.10]
+(0.00)
+9.52
+(0.00)
+76
+lty
+
+0.006
+[−0.11,0.10]
+(0.92)
+0.060
+[−0.09,0.19]
+(0.42)
+−0.078
+[−0.21,0.06]
+(0.12)
+−0.103
+[−0.21,−0.00]
+(0.03)
+4.92
+(0.12)
+76
+tms
+
+−0.059
+[−0.18,0.05]
+(0.31)
+0.069
+[−0.07,0.20]
+(0.34)
+−0.084
+[−0.21,0.05]
+(0.10)
+−0.215
+[−0.35,−0.08]
+(0.00)
+9.26
+(0.00)
+76
+tbl
+
+0.007
+[−0.10,0.12]
+(0.91)
+0.072
+[−0.07,0.22]
+(0.33)
+−0.092
+[−0.24,0.05]
+(0.11)
+−0.100
+[−0.21,0.00]
+(0.03)
+4.61
+(0.10)
+76
+ltr
+
+(9)
+
+(10)
+
+(11)
+
+(12)
+
+(13)
+
+(14)
+
+(15)
+
+−0.044
+[−0.19,0.10]
+(0.54)
+0.052
+[−0.10,0.20]
+(0.45)
+−0.082
+[−0.22,0.06]
+(0.12)
+−0.098
+[−0.20,0.00]
+(0.03)
+4.62
+(0.12)
+76
+ep
+
+0.055
+[−0.09,0.20]
+(0.46)
+0.088
+[−0.05,0.22]
+(0.24)
+−0.121
+[−0.26,0.02]
+(0.05)
+−0.139
+[−0.25,−0.03]
+(0.01)
+5.50
+(0.02)
+76
+bm
+
+−0.032
+[−0.14,0.08]
+(0.57)
+0.061
+[−0.08,0.20]
+(0.40)
+−0.083
+[−0.22,0.05]
+(0.12)
+−0.129
+[−0.23,−0.02]
+(0.01)
+5.86
+(0.05)
+75
+ik
+
+−0.003
+[−0.10,0.10]
+(0.96)
+0.064
+[−0.09,0.20]
+(0.34)
+−0.082
+[−0.21,0.05]
+(0.11)
+−0.121
+[−0.21,−0.02]
+(0.01)
+5.74
+(0.06)
+76
+ntis
+
+0.025
+[−0.08,0.13]
+(0.63)
+0.024
+[−0.12,0.17]
+(0.75)
+−0.048
+[−0.19,0.09]
+(0.25)
+−0.125
+[−0.22,−0.03]
+(0.01)
+11.34
+(0.09)
+76
+eqis
+Panel B: h = 12
+(5)
+
+−0.007
+[−0.11,0.10]
+(0.90)
+0.071
+[−0.08,0.21]
+(0.33)
+−0.092
+[−0.23,0.05]
+(0.08)
+−0.114
+[−0.21,−0.01]
+(0.01)
+3.93
+(0.06)
+76
+cay
+
+−0.004
+[−0.11,0.10]
+(0.94)
+0.073
+[−0.08,0.21]
+(0.35)
+−0.095
+[−0.22,0.04]
+(0.10)
+−0.111
+[−0.21,−0.01]
+(0.01)
+3.85
+(0.06)
+76
+dfr
+
+(6)
+
+(7)
+
+(8)
+
+(1)
+
+(2)
+
+(3)
+
+(4)
+
+0.031
+[−0.02,0.09]
+(0.25)
+0.033
+[−0.05,0.10]
+(0.35)
+−0.054
+[−0.13,0.02]
+(0.06)
+−0.037
+[−0.09,0.02]
+(0.07)
+9.27
+(0.13)
+76
+dfy
+
+0.041
+[−0.02,0.09]
+(0.11)
+0.046
+[−0.02,0.11]
+(0.19)
+−0.076
+[−0.14,−0.01]
+(0.01)
+−0.052
+[−0.11,−0.00]
+(0.03)
+15.91
+(0.02)
+76
+infl
+
+0.036
+[−0.02,0.09]
+(0.21)
+0.045
+[−0.03,0.12]
+(0.25)
+−0.054
+[−0.12,0.01]
+(0.06)
+−0.045
+[−0.09,0.01]
+(0.04)
+12.04
+(0.08)
+76
+svar
+
+0.028
+[−0.03,0.08]
+(0.29)
+0.039
+[−0.04,0.11]
+(0.33)
+−0.062
+[−0.13,0.02]
+(0.04)
+−0.042
+[−0.09,0.01]
+(0.05)
+9.08
+(0.07)
+76
+de
+
+−0.035
+[−0.11,0.04]
+(0.32)
+0.046
+[−0.03,0.11]
+(0.18)
+−0.072
+[−0.14,−0.00]
+(0.02)
+−0.148
+[−0.24,−0.06]
+(0.00)
+16.88
+(0.00)
+76
+lty
+
+0.034
+[−0.02,0.09]
+(0.22)
+0.028
+[−0.05,0.10]
+(0.46)
+−0.052
+[−0.12,0.02]
+(0.07)
+−0.038
+[−0.09,0.02]
+(0.08)
+9.64
+(0.13)
+76
+tms
+
+−0.002
+[−0.06,0.06]
+(0.94)
+0.031
+[−0.05,0.10]
+(0.37)
+−0.054
+[−0.12,0.02]
+(0.05)
+−0.101
+[−0.17,−0.03]
+(0.01)
+15.23
+(0.01)
+76
+tbl
+
+0.037
+[−0.02,0.10]
+(0.21)
+0.033
+[−0.04,0.11]
+(0.38)
+−0.058
+[−0.13,0.01]
+(0.06)
+−0.034
+[−0.09,0.02]
+(0.12)
+10.15
+(0.11)
+76
+ltr
+
+(9)
+
+(10)
+
+(11)
+
+(12)
+
+(13)
+
+(14)
+
+(15)
+
+0.041
+[−0.03,0.12]
+(0.27)
+0.040
+[−0.04,0.11]
+(0.30)
+−0.063
+[−0.13,0.01]
+(0.04)
+−0.045
+[−0.10,0.01]
+(0.04)
+9.21
+(0.06)
+76
+ep
+
+0.082
+[0.01,0.16]
+(0.03)
+0.048
+[−0.02,0.12]
+(0.20)
+−0.084
+[−0.16,−0.01]
+(0.02)
+−0.066
+[−0.13,−0.01]
+(0.01)
+13.57
+(0.01)
+76
+bm
+
+0.011
+[−0.04,0.07]
+(0.72)
+0.026
+[−0.04,0.09]
+(0.48)
+−0.052
+[−0.12,0.02]
+(0.07)
+−0.053
+[−0.10,0.01]
+(0.02)
+12.75
+(0.08)
+75
+ik
+
+0.030
+[−0.02,0.08]
+(0.27)
+0.031
+[−0.04,0.10]
+(0.43)
+−0.055
+[−0.12,0.02]
+(0.05)
+−0.045
+[−0.10,0.00]
+(0.05)
+9.62
+(0.08)
+76
+ntis
+
+20 
+
+0.047
+[−0.01,0.10]
+(0.08)
+0.004
+[−0.06,0.07]
+(0.90)
+−0.031
+[−0.10,0.04]
+(0.19)
+−0.050
+[−0.10,−0.00]
+(0.03)
+18.90
+(0.16)
+76
+eqis
+
+0.031
+[−0.03,0.09]
+(0.28)
+0.034
+[−0.04,0.11]
+(0.34)
+−0.061
+[−0.14,0.00]
+(0.04)
+−0.038
+[−0.09,0.02]
+(0.07)
+9.34
+(0.09)
+76
+cay
+
+0.030
+[−0.03,0.09]
+(0.26)
+0.036
+[−0.05,0.10]
+(0.35)
+−0.061
+[−0.13,0.02]
+(0.03)
+−0.041
+[−0.10,0.01]
+(0.06)
+9.00
+(0.07)
+76
+dfr
+
+(continued on next page)
+
+S. Cassella et al.
+
+Table A2.1 (continued).
+
+𝜇
+
+𝑔
+
+𝑆
+
+𝑤
+
+CI
+𝑝-value
+
+CI
+𝑝-value
+
+CI
+1sided 𝑝-value
+
+CI
+1sided 𝑝-value
+
+𝐴𝑑 𝑗 .𝑅2 (%)
+𝐹 -test 𝑝-value
+N
+Controls
+
+𝜇
+
+𝑔
+
+𝑆
+
+𝑤
+
+CI
+𝑝-value
+
+CI
+𝑝-value
+
+CI
+1sided 𝑝-value
+
+CI
+1sided 𝑝-value
+
+Journal of Financial Economics 164 (2025) 103986 
+
+Panel C: h = 36
+(1)
+
+(2)
+
+0.024
+[−0.01,0.06]
+(0.20)
+0.002
+[−0.04,0.04]
+(0.89)
+−0.023
+[−0.06,0.02]
+(0.10)
+−0.031
+[−0.07,0.00]
+(0.04)
+28.59
+(0.13)
+76
+dfy
+
+0.031
+[−0.00,0.06]
+(0.06)
+0.009
+[−0.03,0.04]
+(0.63)
+−0.027
+[−0.06,0.01]
+(0.08)
+−0.033
+[−0.07,−0.00]
+(0.03)
+34.28
+(0.06)
+76
+infl
+
+(3)
+
+(4)
+
+(5)
+
+(6)
+
+(7)
+
+(8)
+
+0.026
+[−0.01,0.06]
+(0.16)
+0.003
+[−0.03,0.04]
+(0.87)
+−0.019
+[−0.06,0.02]
+(0.19)
+−0.028
+[−0.06,0.01]
+(0.05)
+27.92
+(0.19)
+76
+svar
+
+0.026
+[−0.01,0.06]
+(0.15)
+0.000
+[−0.03,0.03]
+(0.99)
+−0.018
+[−0.05,0.02]
+(0.18)
+−0.028
+[−0.06,0.00]
+(0.05)
+27.97
+(0.20)
+76
+de
+
+−0.002
+[−0.04,0.04]
+(0.94)
+0.008
+[−0.03,0.04]
+(0.66)
+−0.024
+[−0.06,0.02]
+(0.10)
+−0.073
+[−0.13,−0.01]
+(0.01)
+32.84
+(0.01)
+76
+lty
+
+0.030
+[−0.00,0.06]
+(0.08)
+−0.004
+[−0.04,0.03]
+(0.84)
+−0.011
+[−0.05,0.03]
+(0.27)
+−0.024
+[−0.06,0.01]
+(0.09)
+31.18
+(0.34)
+76
+tms
+
+0.007
+[−0.03,0.04]
+(0.68)
+0.001
+[−0.04,0.04]
+(0.95)
+−0.016
+[−0.05,0.02]
+(0.20)
+−0.063
+[−0.10,−0.02]
+(0.00)
+35.23
+(0.01)
+76
+tbl
+
+0.029
+[−0.01,0.06]
+(0.09)
+0.002
+[−0.04,0.04]
+(0.90)
+−0.018
+[−0.06,0.02]
+(0.20)
+−0.025
+[−0.06,0.01]
+(0.08)
+28.77
+(0.26)
+76
+ltr
+
+(9)
+
+(10)
+
+(11)
+
+(12)
+
+(13)
+
+(14)
+
+(15)
+
+0.025
+[−0.02,0.06]
+(0.24)
+0.002
+[−0.03,0.04]
+(0.91)
+−0.019
+[−0.06,0.02]
+(0.16)
+−0.028
+[−0.06,0.01]
+(0.06)
+27.89
+(0.20)
+76
+ep
+
+0.076
+[0.04,0.12]
+(0.00)
+0.016
+[−0.02,0.05]
+(0.33)
+−0.042
+[−0.08,−0.01]
+(0.01)
+−0.052
+[−0.09,−0.02]
+(0.00)
+42.54
+(0.00)
+76
+bm
+
+0.015
+[−0.02,0.05]
+(0.44)
+−0.002
+[−0.04,0.03]
+(0.91)
+−0.015
+[−0.05,0.02]
+(0.25)
+−0.035
+[−0.07,0.00]
+(0.03)
+32.29
+(0.13)
+75
+ik
+
+0.026
+[−0.01,0.06]
+(0.14)
+0.000
+[−0.04,0.04]
+(1.00)
+−0.015
+[−0.06,0.02]
+(0.22)
+−0.031
+[−0.07,0.00]
+(0.04)
+29.66
+(0.18)
+76
+ntis
+
+0.033
+[0.00,0.07]
+(0.05)
+−0.010
+[−0.05,0.03]
+(0.56)
+−0.006
+[−0.04,0.04]
+(0.39)
+−0.032
+[−0.06,0.00]
+(0.02)
+34.58
+(0.19)
+76
+eqis
+
+0.031
+[−0.00,0.06]
+(0.06)
+0.004
+[−0.03,0.04]
+(0.81)
+−0.023
+[−0.06,0.01]
+(0.11)
+−0.019
+[−0.05,0.01]
+(0.12)
+37.10
+(0.21)
+76
+cay
+
+0.025
+[−0.01,0.06]
+(0.15)
+0.003
+[−0.03,0.05]
+(0.88)
+−0.019
+[−0.06,0.02]
+(0.17)
+−0.028
+[−0.06,0.00]
+(0.05)
+27.90
+(0.19)
+76
+dfr
+
+𝐴𝑑 𝑗 .𝑅2 (%)
+𝐹 -test 𝑝-value
+N
+Controls
+Predictive regressions of aggregate future log market returns.
+
+Table A3.1
+Alternative structural models of extrapolation and the present-value relation: Correlation analysis.
+
+Main Model w/CCE
+
+Model 𝑀𝑍
+
+Main Model w/CCE
+
+Model 𝑀𝑍
+
+Panel A: Cashflow Extrapolation
+Main Model
+0.992
+(0.01)
+0.999
+(0.01)
+
+Panel B: Return Extrapolation
+Main Model
+0.995
+(0.01)
+0.999
+(0.01)
+
+Main Model w/ CCE
+
+0.992
+(0.01)
+
+Main Model w/ CCE
+
+0.995
+(0.01)
+
+Pairwise correlations between the measures of extrapolations obtained in: (i) the main model of Section
+2; (ii) a modified model that allows for cross-correlations between the shocks in the model (Main Model
+w/ CCE, Section 4); and (iii) an extended model that allows to incorporate observable proxies for risk-
+preferences in the discount-rate dynamics (Model 𝑀𝑍 , Section 4 and Appendix IA1). Panel A focuses on
+cashflow extrapolation, Panel B focuses on return extrapolation.
+
+References
+
+Barberis, N., Thaler, R., 2005. A Survey of Behavioral Finance. Princeton University
+
+Amromin, G., Sharpe, S.A., 2014. From the horse’s mouth: Economic conditions and
+
+investor expectations of risk and return. Manage. Sci. 60 (4), 845–866.
+
+Atmaz, A., Gulen, H., Cassella, S., Ruan, F., 2024. Contrarians, extrapolators, and stock
+
+market momentum and reversal. Manage. Sci. 70 (9), 1509–5949.
+
+Bansal, R., Yaron, A., 2004. Risks for the long run: A potential resolution of asset
+
+pricing puzzles. J. Finance 59 (4), 1481–1509.
+
+Barberis,  N.,  2018.  Psychology-based  models  of  asset  prices  and  trading  volume.
+In: Handbook of Behavioral Economics: Applications and Foundations 1, vol. 1,
+Elsevier, pp. 79–175.
+
+Barberis,  N.,  Greenwood,  R.,  Jin,  L.,  Shleifer,  A.,  2015.  X-CAPM:  An  extrapolative
+
+capital asset pricing model. J. Financ. Econ. 115 (1), 1–24.
+
+Barberis, N., Shleifer, A., Vishny, R., 1998. A model of investor sentiment. J. Financ.
+
+Econ. 49 (3), 307–343.
+
+21 
+
+Press.
+
+Bordalo, P., Gennaioli, N., La Porta, R., Shleifer, A., 2024. Belief overreaction and stock
+
+market puzzles. J. Policital Econ. 132 (5), 1450–1484.
+
+Bordalo, P., Gennaioli, N., Porta, R.L., Shleifer, A., 2019. Diagnostic expectations and
+
+stock returns. J. Finance 74 (6), 2839–2874.
+
+Bordalo, P., Gennaioli, N., Shleifer, A., 2018. Diagnostic expectations and credit cycles.
+
+J. Finance 73 (1), 199–227.
+
+Campbell,  J.Y.,  Cochrane,  J.H.,  1999.  By  force  of  habit:  A  consumption-based
+explanation of aggregate stock market behavior. J. Polit. Econ. 107 (2), 205–251.
+Campbell, J.Y., Shiller, R.J., 1988. The dividend-price ratio and expectations of future
+
+dividends and discount factors. Rev. Financ. Stud. 1 (3), 195–228.
+
+Campbell, J.Y., Thompson, S.B., 2008. Predicting excess stock returns out of sample:
+Can anything beat the historical average? Rev. Financ. Stud. 21 (4), 1509–1531.
+Cassella, S., Gulen, H., 2018. Extrapolation bias and the predictability of stock returns
+
+by price-scaled variables. Rev. Financ. Stud. 31 (11), 4345–4397.
+
+S. Cassella et al.
+
+Journal of Financial Economics 164 (2025) 103986 
+
+Choi, J.J., Mertens, T.M., 2019. Extrapolative expectations and the equity premium.
+
+Jin, L.J., Sui, P., 2022. Asset pricing with return extrapolation. J. Financ. Econ. 145
+
+Clark, T.E., West, K.D., 2007. Approximately normal tests for equal predictive accuracy
+
+Koijen, R.S., Yogo, M., 2019. A demand system approach to asset pricing. J. Polit.
+
+(2), 273–295.
+
+Econ. 127 (4), 1475–1515.
+
+Available at SSRN 3462056.
+
+in nested models. J. Econometrics 138 (1), 291–311.
+
+Cochrane,  J.H.,  2011.  Presidential  address:  Discount  rates.  J.  Finance  66  (4),
+
+De Bondt, W.P., 1993. Betting on trends: Intuitive forecasts of financial risk and return.
+
+Int. J. Forecast. 9 (3), 355–371.
+
+1047–1108.
+
+793–805.
+
+De la O, R., Myers, S., 2021. Subjective cash flow and discount rate expectations.
+J. Finance 76 (3), 1339–1387. http://dx.doi.org/10.1111/jofi.13016, URL: https:
+//onlinelibrary.wiley.com/doi/abs/10.1111/jofi.13016.
+
+Dominitz, J., Manski, C.F., 2011. Measuring and interpreting expectations of equity
+
+returns. J. Appl. Econometrics 26 (3), 352–370.
+
+Lamont, O.A., 2003. Perspectives on behavioral finance: Does ‘‘Irrationality’’ disappear
+with wealth? Evidence from expectations and actions: Comment. NBER Macroecon.
+Annu. 18, 200–207.
+
+Lettau, M., Ludvigson, S., 2001. Consumption, aggregate wealth, and expected stock
+
+Liu, H., Peng, C., Xiong, W.A., Xiong, W., 2022. Taming the bias zoo. J. Financ. Econ.
+
+Ludvigson, S.C., Ng, S., 2009. Macro factors in bond risk premia. Rev. Financ. Stud.
+
+143 (2), 716–741.
+
+22 (12), 5027–5067.
+
+Malmendier, U., Pouzo, D., Vanasco, V., 2020. Investor experiences and financial market
+
+dynamics. J. Financ. Econ. 136 (3), 597–622.
+
+De Bondt, W.F., Thaler, R., 1985. Does the stock market overreact? J. Finance 40 (3),
+
+returns. J. Finance 56 (3), 815–849.
+
+Fama, E.F., 1970. Efficient capital markets: A review of theory and empirical work. J.
+
+McCarthy,  O.,  Hillenbrand,  S.,  2021.  Heterogeneous  investors  and  stock  market
+
+Finance 25 (2), 383–417.
+
+fluctuations. Available at SSRN 3944887.
+
+Fuster,  A.,  Hebert,  B.,  Laibson,  D.,  2012.  Natural  expectations,  macroeconomic
+
+Nagel, S., 2012. Macroeconomic experiences and expectations: A perspective on the
+
+dynamics, and asset pricing. NBER Macroecon. Annu. 26 (1), 1–48.
+
+great recession. Working paper.
+
+Gabaix, X., Koijen, R.S., 2020. In search of the origins of financial fluctuations: The
+
+Nagel, S., Xu, Z., 2022. Asset pricing with fading memory. Rev. Financ. Stud. 35 (5),
+
+inelastic markets hypothesis. Available at SSRN 3686935.
+
+Giglio,  S.,  Maggiori,  M.,  Stroebel,  J.,  Utkus,  S.,  2021.  Five  facts  about  beliefs  and
+portfolios. Amer. Econ. Rev. 111 (5), 1481–1522. http://dx.doi.org/10.1257/aer.
+20200243, URL: https://www.aeaweb.org/articles?id=10.1257/aer.20200243.
+Glaeser, E.L., Nathanson, C.G., 2017. An extrapolative model of house price dynamics.
+
+J. Financ. Econ. 126 (1), 147–170.
+
+2190–2245.
+
+(3), 775–816.
+
+Prescott,  E.C.,  1977.  Should  control  theory  be  used  for  economic  stabilization?  In:
+Carnegie-Rochester Conference Series on Public Policy, vol. 7, Elsevier, pp. 13–38.
+Rabin, M., 2002. Inference by believers in the law of small numbers. Q. J. Econ. 117
+
+Sharpe,  W.F.,  1964.  Capital  asset  prices:  A  theory  of  market  equilibrium  under
+
+Goyal, A., Welch, I., 2008. A comprehensive look at the empirical performance of equity
+
+conditions of risk. J. Finance 19 (3), 425–442.
+
+premium prediction. Rev. Financ. Stud. 21 (4), 1455–1508.
+
+Shleifer, A., 2000. Inefficient Markets: An Introduction to Behavioral Finance. OUP
+
+Greenwood, R., Shleifer, A., 2014. Expectations of returns and expected returns. Rev.
+
+Oxford.
+
+Financ. Stud. 27 (3), 714–746.
+
+Van  Binsbergen,  J.H.,  Koijen,  R.S.,  2010.  Predictive  regressions:  A  present-value
+
+Hong, H., Stein, J.C., 1999. A unified theory of underreaction, momentum trading, and
+
+approach. J. Finance 65 (4), 1439–1471.
+
+overreaction in asset markets. J. Finance 54 (6), 2143–2184.
+
+Vissing-Jorgensen, A., 2003. Perspectives on behavioral finance: Does ‘‘irrationality’’
+disappear with wealth? Evidence from expectations and actions. NBER Macroecon.
+Annu. 18, 139–194.
+
+22 
+
+

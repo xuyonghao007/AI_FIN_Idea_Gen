@@ -1,0 +1,9222 @@
+Contents lists available at ScienceDirect
+
+Journal of Financial Economics
+
+journal homepage: www.elsevier.com/locate/finec
+
+Block trade contracting✩
+Markus Baldauf a, Christoph Frei b, Joshua Mollner c,∗
+a University of British Columbia, Sauder School of Business, 2053 Main Mall, Vancouver, BC, V6T 1Z2, Canada
+b University of Alberta, 621 Central Academic Building, Edmonton, AB, T6G 2G1, Canada
+c Northwestern University, Kellogg School of Management, 2211 Campus Drive, Evanston, IL, 60657, USA
+
+A R T I C L E I N F O
+
+A B S T R A C T
+
+We study the optimal execution problem in a principal–agent setting. A client contracts to purchase from
+a dealer. The dealer hedges, buying from the market, creating temporary and permanent price impact. The
+client chooses a contract, which specifies payment as a function of market prices; hidden action precludes
+conditioning on the dealer’s hedging trades. We show the first-best benchmark is theoretically achievable with
+an unrestricted contract set. We then consider weighted-average-price contracts, which are commonly used.
+In the continuous-time limit, the optimal weighting entails a constant density at interior times and discrete
+masses at the extremes.
+
+JEL classification:
+G11
+G14
+G23
+D82
+D86
+
+Keywords:
+Agency conflict
+Block trading
+Contracting
+Dealer–client relationship
+Price impact
+
+1. Introduction
+
+When trading large volumes in financial markets, two frictions play important roles: price impact and agency conflicts. Owing to price impact,
+it is typically desirable to split a larger ‘parent order’ into a number of smaller ‘child orders’ rather than to trade all at once. Determining precisely
+how to create that split is a complex problem, as one must assess how each child order will affect prices obtained for future child orders. A literature
+on optimal execution considers that problem, addressing how an institution ought to proceed if handling execution in house. Yet, pension funds
+and other institutions often outsource execution, in which case agency conflicts also arise. Although these agency conflicts are deeply appreciated
+by practitioners and regulators, they have so far received little attention in the literature. Analyzing a setting with both price impact and agency
+conflict, we show that these frictions interact in important and subtle ways.
+
+Specifically, we model a situation in which an institution (‘the client’ henceforth) contracts with a dealer, agreeing to conduct a block trade:
+a single, large off-market transaction. The dealer would then pursue offsetting trades on the market, effectively assuming the complexities of
+execution. It remains to determine how the block trade between the client and dealer will be priced. In practice, many trading arrangements use
+some weighted average of the market prices prevailing over the execution window. For example, block trades are often priced at the time-weighted
+average price (TWAP) prevailing on the market, as in a guaranteed TWAP contract, or at the price prevailing at the end of the execution window,
+
+✩
+
+Nikolai Roussanov was the editor for this article. An earlier version was circulated under the title ‘‘Principal Trading Arrangements: Optimality under
+Temporary and Permanent Price Impact.’’ For helpful comments, we thank Torben Andersen, Sandeep Baliga, Eric Budish, Georgy Egorov, Péter Eső, Timothy
+Feddersen, Michael Fishman, Lewen Guo (discussant), John Kuong (discussant), Nicolas Lambert, W. Scott Langford (discussant), Peter Klibanoff, James Schummer,
+Andrzej Skrzypacz, Duane Seppi, Chester Spatt, Alireza Tahbaz-Salehi, Dimitri Vayanos, Yajun Wang (discussant), Haoxiang Zhu, and various seminar participants,
+as well as an anonymous referee. We also thank a number of industry participants for sharing their views. Markus Baldauf and Christoph Frei gratefully
+acknowledge support by the Social Sciences and Humanities Research Council of Canada (grant numbers are IDG 430-2018-00100, IG 435-2018-0049, IG 435-
+2021-1142, and IG 435-2022-0507). Markus Baldauf thanks the University of Chicago, Booth School of Business, where he was visiting when large parts of this
+paper were written.
+
+∗ Corresponding author.
+
+E-mail addresses: baldauf@mail.ubc.ca (M. Baldauf), cfrei@ualberta.ca (C. Frei), joshua.mollner@kellogg.northwestern.edu (J. Mollner).
+URLs: https://sites.google.com/site/mbaldauf/ (M. Baldauf), https://www.math.ualberta.ca/~cfrei/ (C. Frei), https://sites.google.com/site/joshuamollner/
+
+(J. Mollner).
+
+https://doi.org/10.1016/j.jfineco.2024.103901
+Received 15 June 2023; Received in revised form 20 June 2024; Accepted 21 June 2024
+
+JournalofFinancialEconomics160(2024)103901Availableonline19July20240304-405X/©2024TheAuthors.PublishedbyElsevierB.V.ThisisanopenaccessarticleundertheCCBY-NC-NDlicense(http://creativecommons.org/licenses/by-nc-nd/4.0/).M. Baldauf, C. Frei and J. Mollner
+
+as in a guaranteed market-on-close (MOC) contract.1 Because these contracts transfer some of the price risk burden onto the client, one economic
+justification for them is risk aversion on the part of the dealer. Indeed, it is appropriate to account for risk aversion because these trades are often
+large, and because dealers may be reluctant to take on risk due to regulation requiring them to hold capital in amounts corresponding to their
+exposure. Yet, questions remain: Are either of these common contracts optimal for the client—or at least optimal in some class? If not, how could
+she do better for herself?
+
+To answer these questions, we formulate this interaction as a problem of contracting under moral hazard, with the client as the principal and the
+dealer as the agent. The friction is that the client cannot directly observe the offsetting on-market trades that the dealer makes, but only the realized
+time series of market prices. Because the dealer’s trading creates price impact, market prices are signals of the dealer’s actions, but only noisy ones.
+We first solve the model in discrete time, then characterize the continuous-time limit. Although the contract that we derive is in general neither of
+the commonly-used contracts mentioned above, interestingly and perhaps surprisingly, it does incorporate features of both: in the continuous-time
+limit, the optimal contract puts discrete weights on the initial and terminal prices, and it weights interior prices with a constant density.
+
+These results apply to situations faced by pension funds, mutual funds, endowments, or other institutions when outsourcing execution of their
+large trades in fixed income, foreign exchange, or equity blocks. These large trades typically entail large transactions costs: for example, Nasdaq
+(2022) and SIFMA (2021) estimate institutional transaction costs for U.S. equities of around $70 billion per year, nearly all of which are attributable
+to price impact. Given the complexities of order execution and the sums involved, this setting is rife with potential conflict between the interests of
+dealers and clients. Cognizant of this, FINRA Rule 5270 prohibits dealers from trading on ‘‘non-public market information concerning an imminent
+block transaction’’, also called ‘‘front-running’’. However, that same rule provides an exemption ‘‘for the purpose of fulfilling, or facilitating the
+execution of, the customer block order’’ (FINRA, 2013), leaving ample scope for conflict regarding the timing of trades made for this purpose. The
+potential for conflict is also recognized by umbrella agreements between dealers and their institutional clients.2 Furthermore, ample anecdotal
+evidence highlights that these conflicts of interest have real and sizable implications for transaction costs (e.g., Traders Magazine, 2005a,b;
+Bloomberg, 2020, 2022a,b, 2024a,b; The Wall Street Journal, 2022a, 2024). These transaction costs might be reduced if prevailing arrangements
+were modified to more closely resemble the contractual arrangements that we derive.
+
+Model. The client seeks to buy a fixed amount of some security. (Symmetric results apply for selling.) At time zero, the client offers a contract
+to the dealer. A contract is an agreement that the client and dealer will conduct an off-market trade at time 𝑇 + 1, the price of which will be a
+function of market prices (𝑝1, … , 𝑝𝑇 )⊤. If the dealer accepts the offered contract, then he hedges with offsetting trades on the market during the
+trading periods {1, … , 𝑇 }. In modeling how these trades affect the dynamics of prices, we assume a canonical market model: essentially the baseline
+version of Almgren and Chriss (2001), with additive price shocks and linearity in both permanent and temporary price impact.
+
+Mathematically, the client’s problem is to choose a contract and a recommended trading strategy for the dealer to pursue subject to individual
+rationality and incentive compatibility constraints. The first-best benchmark is what would be optimal in lieu of the hidden-action friction, that is,
+if the dealer’s on-market trades were observable to the client. In that case, the problem in fact reduces to a well-known optimal execution problem
+whose classic solution entails trading an equal amount in each period. Our main results highlight how outcomes change due to agency conflicts,
+as well as which contracts perform well in light of them.
+
+Results. What is an optimal contract? Our main analysis optimizes over contracts that are weighted averages of market prices. This is for both
+analytical tractability and realism. Indeed, as a benchmark, we consider the situation without any restrictions on the contract’s functional form.
+In that case, the client could approximate her first-best payoff arbitrarily closely via contracts that impose very large penalties with very low
+probability. Such contracts, however, seem impractical and especially vulnerable to model misspecification. Weighted-average-price contracts,
+in contrast, seem more realistic. In fact, many contracts used in practice are in this class. What is not obvious, however, is whether these
+commonly-used contracts are optimal in this class—and if not, what the optimum is.
+
+Our main result for the discrete-time formulation characterizes the optimal weighted-average-price contract in terms of the parameters of the
+𝑇 )⊤, where 𝜏∗
+model: the market parameters that govern price impact and the dealer’s degree of risk aversion. We denote this contract 𝝉 ∗ = (𝜏∗
+𝑡
+1
+represents the weight on the period-𝑡 price. Although in closed form, the general formula for 𝝉 ∗ is complicated and difficult to analyze. Nevertheless,
+numerical experimentation suggests a great deal of interesting structure (all of which is consistent with what we subsequently prove to hold in
+the continuous-time limit). It suggests that the optimal contract is U-shaped (i.e., 𝜏∗
+𝑇 ), with a severity that is
+1
+strengthened by permanent price impact, weakened by temporary price impact, and weakened by the dealer’s risk aversion. We also show formally
+that the optimal contract is symmetric (i.e., 𝜏∗
+𝑇 +1−𝑡 for all 𝑡). Finally, we derive a closed-form solution for the trading behavior that the dealer
+selects in response to the optimal weighted-average-price contract 𝝉 ∗. It is described by a vector of trades 𝒙∗ = (𝑥∗
+𝑡 is the volume
+1
+traded in period 𝑡.
+
+𝑇 )⊤, where 𝑥∗
+
+≥ ⋯ ≥ 𝜏∗
+
+≤ ⋯ ≤ 𝜏∗
+
+𝑡 = 𝜏∗
+
+, … , 𝑥∗
+
+, … , 𝜏∗
+
+≥ 𝜏∗
+2
+
+≤ 𝜏∗
+
+⌈𝑇 ∕2⌉
+
+𝑇 −1
+
+To understand the intuition for these patterns, consider first the dealer’s trading incentives. His profit is the difference between what he receives
+from the client (specified by the contract) and the costs of his on-market hedging trades. So, given an offered weighted-average-price contract, he
+can guarantee himself a profit of zero by selecting trading weights that perfectly mirror the contract weights. But he can do better by shifting some
+trading volume from periods with high expected prices to periods with low expected prices. Permanent price impact raises later prices relative to
+earlier ones and consequently generates a frontloading motive for the dealer—an incentive to select a trading strategy that differs from the offered
+contract by weighting early periods more heavily. This incentive to frontload is consistent with dealer behavior observed in various asset classes,
+including foreign exchange (Bloomberg, 2016), interest rates swaps (Risk.net, 2021), and options (Bloomberg, 2019).
+
+Turning now to the client’s problem, the optimal contract reflects a balance between two forces. On the one hand, permanent price impact
+leads prices to rise over the trading interval. Thus, if the dealer’s trading strategy – and hence price dynamics – were fixed, the client would prefer
+
+1 In practice, it is sometimes more common to use the volume-weighted average price (VWAP). Our analysis does not consider this, however, as we do not
+have market volumes in our model. The reason is that, while we build on a canonical, off-the-shelf model of price impact, there is no analogously canonical
+model to specify how market volumes are determined. Within our model, TWAP is the closest analogue to VWAP.
+
+2 For example, regarding orders of institutional equities clients, HSBC Securities Inc. (HSI) states that ‘‘[p]rior to the execution of a guaranteed price order, HSI
+may establish a hedge through single or multiple trades that serve to offset HSI market risk associated with facilitating these transactions. This hedge will usually
+involve principal trades (possibly throughout the day) in the same security. . . such activity may ultimately affect the agreed guaranteed benchmark price’’ (HSBC,
+2022). Such disclosures are standard (e.g., Goldman Sachs, 2017; Morgan Stanley, 2022).
+
+JournalofFinancialEconomics160(2024)1039012M. Baldauf, C. Frei and J. Mollner
+
+weighting earlier periods in her contract. On the other hand, the dealer’s trading strategy is endogenous. Moreover, permanent price impact means
+that frontloaded trading strategies raise all prices. The client would therefore prefer for the dealer to use a less frontloaded strategy, but, given the
+dealer’s aforementioned frontloading motive, this requires the client to weight later periods in her contract. The combination of these incentives
+to weight early and late periods leads to a symmetric and U-shaped optimal contract. Moreover, because permanent price impact drives these
+incentives, it tends to strengthen the severity of both the U-shape and the dealer’s ultimate frontloading. In contrast, temporary price impact and
+risk aversion induce other motives for the dealer and opposite effects.
+
+Finally, we turn to the continuous-time limit of our discrete-time model. In this limit, the optimal contract takes a strikingly simple form, which
+can be seen as an extreme U-shape: atoms of equal mass at the two extreme times and a constant density at interior times. The dealer’s best response
+is similarly simple: it entails the same constant density at interior times, as well as atoms at the extreme times where, reflecting his frontloading
+motive, the initial atom is three times the terminal atom. We also prove comparative statics for this continuous-time limit that are consistent with
+the aforementioned numerical experimentation for the discrete-time model. The mass at the extreme times – and hence the severity of the optimal
+contract’s U-shape – is increasing in permanent price impact and decreasing in the dealer’s risk aversion. Interestingly, temporary price impact
+does not affect the solution in this limit, because two opposing forces offset each other: on the one hand, temporary price impact raises prices and
+hence the client’s costs (if the dealer’s trades are held fixed), but on the other hand, temporary price impact also partially counteracts the dealer’s
+frontloading motive, reducing the client’s costs.
+
+To quantify our findings, we perform a back-of-the-envelope calculation in which we compare our optimal contract against the two commonly-
+used contracts mentioned before. We argue that, for realistic parameters, transaction costs (as measured by implementation shortfall) under our
+optimal contract are 9.8 percent lower than those under the guaranteed TWAP contract and 40.1 percent lower than those under the guaranteed
+MOC contract. For a trade valued at $100 million, the cost savings could be hundreds of thousands of dollars. While we hesitate, in this paper,
+to precisely quantify these gains, this analysis highlights potential for substantial improvement upon the status quo, even while staying within the
+class of weighted-average-price contracts.
+
+Related literature. A long tradition of models study contracting in financial settings. Often studied are delegated portfolio management, where the
+agent selects a financial portfolio (e.g., Bhattacharya and Pfleiderer, 1985; Carpenter, 2000; Buffa et al., 2022), and delegated asset management,
+where the agent manages capital invested in a risky asset and can secretly divert returns (e.g., DeMarzo and Fishman, 2007; Di Tella and Sannikov,
+2021). In this paper, the agent performs a different financial task—namely, scheduling the execution of a large trade. These actions are unobserved
+by the client, and, therefore, this problem belongs to the large literature on moral hazard.3
+
+Another connection is to principal–agent models in which the agent controls when an action is taken. For example, this is the case if the agent
+makes an irreversible stopping decision (e.g., Kruse and Strack, 2015; Grenadier et al., 2016) or chooses the timing of a disclosure (e.g., Curello
+and Sinander, 2024) or report (e.g., Madsen, 2022). Such problems also arise in the literature on revenue management (e.g., Board and Skrzypacz,
+2016; Garrett, 2016), in which consumers decide when to buy.
+
+The trading aspects of our model closely relate to the literature on optimal execution (e.g., Bertsimas and Lo, 1998; Almgren and Chriss, 2001;
+Obizhaeva and Wang, 2013). In that literature, a trader solves how to optimally work an order across time, taking as given an exogenously-specified
+‘market model’ that governs how her trades affect price dynamics. Solving for the first-best benchmark of our model is equivalent to such a problem.
+Moreover, our specification of the market model follows the baseline cases of some of those classic models. Our derivation of the first-best trading
+strategy therefore replicates classic results from that literature. Nevertheless, we depart from that literature in that our primary focus is on the
+second-best problem, where the key friction is that the dealer’s on-market trades are actions hidden from the client.
+
+The most related paper is Baldauf et al. (2022).4 It begins with a certain commonly-used contract (the guaranteed VWAP contract, cf. footnote 1),
+then derives conditions on the market model that would rationalize this contract as optimal. Among the conditions required for that contract’s
+optimality is that price impact has no permanent component. This paper takes the opposite approach: it begins instead with a canonical market
+model that allows for both permanent and temporary price impact, then derives the optimal weighted-average-price contract. Outside of special
+cases, this optimum is not a commonly-used contract in itself—nevertheless, it suggests simple and useful modifications to prevailing arrangements.
+The key innovation is allowing for a permanent component of price impact. This makes the problem conceptually different: it becomes genuinely
+dynamic in the sense that the ordering of time periods matters. Allowing for permanent price impact is also valuable because of its prominent role
+in theoretical models (e.g., Kyle, 1985) and because of its empirical importance (Biais et al., 2005).
+
+Outline. The remainder of the paper is organized as follows. Section 2 formulates the model in discrete time. Section 3 solves for the first-best
+benchmark. Section 4 derives a general discrete-time solution for the second-best, discusses its comparative statics, and considers several special
+cases. Section 5 analyzes the continuous-time limit. Section 6 concludes.
+
+2. Model
+
+Roughly speaking, our model combines a canonical model of price impact (à la Bertsimas and Lo, 1998; Almgren and Chriss, 2001) with
+a canonical model of contracting with hidden actions (à la Holmström, 1979). A client (the principal) offers her dealer (the agent) a contract
+regarding a trade between them.5 If the dealer accepts, he prepares for the trade by acquiring an offsetting position from the market. The main
+friction is hidden action: the client cannot observe the dealer’s precise sequence of on-market trades.
+
+3 Particularly related are models set in continuous time (e.g., Holmström and Milgrom, 1987; Sannikov, 2008) and, especially, analyses of the continuous-time
+
+limits of discrete-time models (e.g., Hellwig and Schmidt, 2002; Biais et al., 2007).
+
+4 Edelen and Kadlec (2012) study a related problem involving delegated trading. The primary difference is that they study agency trading (where the client
+pays the realized execution costs). The friction is that effort, which can lead to a better execution price, is unobservable to the client. In contrast, we study
+principal trading (where the payment is contracted in advance and need not equate to realized execution costs). The friction is that the on-market trades, which
+influence the contracted payment, are unobservable to the client.
+
+5 In modeling only a single dealer and a single client, we abstract away from the possibility that, in practice, a dealer could receive potentially offsetting
+orders from separate clients. We also abstract away from the question of how the client should select a dealer. See Baldauf and Mollner (2024) for an analysis
+of the latter issue.
+
+JournalofFinancialEconomics160(2024)1039013M. Baldauf, C. Frei and J. Mollner
+
+2.1. Contracting environment
+
+Client. The client needs to trade a fixed quantity of a particular security, which we normalize to a purchase of one share. She is risk-neutral.
+
+Dealer. The dealer has constant absolute risk aversion (CARA), with coefficient 𝜆. To simplify notation, we use 𝑢(𝑤) = −exp(−𝜆𝑤) for the dealer’s
+utility function. In addition to the usual sources, the dealer’s risk aversion might also originate from leverage/margin constraints or from constraints
+on equity capital, as in the literature on limits to arbitrage (surveyed by Gromb and Vayanos, 2010).
+
+Time. At time 0, the client offers a contract, which the dealer either accepts or rejects. The contract specifies a price at which the client will
+purchase one share from the dealer at time 𝑇 + 1. In between are a discrete number of trading periods 𝑡 ∈ {1, … , 𝑇 }, where 𝑝𝑡 denotes the market
+price in period 𝑡.
+
+Contracts. The client can contract only on market prices.6 In particular, she cannot contract directly on the dealer’s trades. This assumption reflects
+the fact that on-market trading is anonymous in most settings. Moreover, the client could not reasonably ask the dealer to disclose a complete record
+of his trading, as that would expose the dealer’s unmodeled trade secrets and trading relationships.7 Formally,  will denote a (possibly strict)
+subset of the measurable real-valued functions with argument 𝒑 = (𝑝1, … , 𝑝𝑇 )⊤. And 𝜏 ∈  will denote a typical contract. We discuss several
+candidates for  in Section 2.4.
+
+2.2. Market model
+
+On-market trades.
+shares purchased by the dealer in period 𝑡, we therefore require ∑𝑇
+
+𝑡=1 𝑥𝑡 = 1.
+
+If the dealer accepts the contract, then he must purchase the required share on the market. Letting 𝑥𝑡 denote the number of
+
+Price dynamics. Recalling that 𝑝𝑡 denotes the market price in period 𝑡, we assume the dynamics
+
+𝑝𝑡 = 𝑝0 + 𝛾𝑥𝑡 + 𝜃
+
+𝑡
+∑
+
+𝑠=1
+
+𝑥𝑠 +
+
+𝑡
+∑
+
+𝑠=1
+
+𝜀𝑠.
+
+Thus, 𝜃 ≥ 0 parametrizes permanent price impact,8 𝛾 ≥ 0 temporary price impact, and 𝑝0 the initial price level. Finally, 𝜀𝑠 represents the price
+shock in period 𝑠, which we assume is an independent draw from 𝑁(0, 𝜎2), where 𝜎 > 0. To avoid degenerate solutions, we assume throughout
+that at least one of 𝜃 and 𝛾 is strictly positive.
+
+Remark 1. This type of specification is widely used by practitioners, mainly because it is simple, tractable, and because it captures many empirical
+facts about markets (e.g., that liquidity is limited over the trading horizon, even when trade is for reasons other than information). This specification
+is, furthermore, canonical and standard in the literature. For example, it nests the basic case of Bertsimas and Lo (1998), it is nested by Gârleanu
+and Pedersen (2013), and it closely relates to the linear case of Almgren and Chriss (2001). Finally, although our analysis takes these price dynamics
+as exogenous, both these and related dynamics can be readily micro-founded (as in, e.g., Gârleanu and Pedersen, 2016; Kyle et al., 2018).9
+
+Trading strategies. We denote by 
+such that 𝑥𝑡 is 
+assumption on 𝒙, 
+the prices realized in previous periods.
+
+𝑡−1-measurable for all 𝑡 and ∑𝑇
+
+𝑡 the 𝜎-algebra generated by the price shocks 𝜀1, 𝜀2, … , 𝜀𝑡. A trading strategy is a random vector 𝒙 = (𝑥1, … , 𝑥𝑇 )⊤
+𝑡=1 𝑥𝑡 = 1 almost surely. We denote the set of trading strategies by . Due to the measurability
+𝑡 is also the 𝜎-algebra generated by 𝑝1, 𝑝2, … , 𝑝𝑡 and therefore corresponds to the dealer’s information at period 𝑡 available from
+
+Remark 2. A special class of trading strategies are those in which the dealer does not use any information in selecting his on-market trades, so
+that the entire trajectory of trades is determined ex ante. Such a trading strategy can also be thought of as a vector 𝒙 ∈ R𝑇 . We refer to these as
+the deterministic trading strategies.
+
+Remark 3. The requirement ∑𝑇
+𝑡=1 𝑥𝑡 = 1 precludes any net change in the dealer’s inventory. The dealer merely intermediates between the client
+and the market, neither trading with the client out of his own inventory nor taking on a proprietary position of his own. We therefore shut down
+certain dealer misbehavior: the dealer’s trading in our model does not meet the definition of illegal front-running, but rather that of permitted
+transactions for the purpose of fulfilling a client block order, under FINRA Rule 5270. This also distinguishes our model from the literature on dual
+trading (e.g., Röell, 1990; Fishman and Longstaff, 1992; Bernhardt and Taub, 2008), which considers dealer–client conflicts that arise if the dealer
+can either front-run or trade alongside a client order. Instead, our analysis focuses on conflicts pertaining to timing of the dealer’s hedging trades.
+
+6 We therefore assume that the client can observe the full sequence of market prices. This is appropriate for modeling asset classes that are transparent,
+with publicly available trading data (e.g., equities). But other asset classes are more opaque, with less accessible data (e.g., foreign exchange), which precludes
+contracting on prices in arbitrary ways. Nevertheless, a third party with access to data – perhaps a platform or regulator – could compute a pricing benchmark
+and make it available for contracting. For such asset classes, our analysis can be reinterpreted to have implications for the design of those benchmarks. See
+Section 5.1 of Baldauf et al. (2022) for a more detailed discussion of the connection.
+
+𝑡=1 𝑥disclose
+𝑡
+
+7 In principle, the client might ask the dealer to disclose a redacted record of his trading. However, the client should not expect this to help, as the dealer
+could costlessly generate any disclosure. To make this formal, suppose the trades that the dealer discloses must sum to the one share that he sells to the client,
+i.e., ∑𝑇
+= 1. And he can disclose only trades that he actually conducted. But he need not disclose a complete record of all trades he conducted. As claimed,
+the dealer can costlessly generate any disclosure. Indeed, suppose he wishes to pursue trading strategy 𝒙, yet disclose a trading record 𝒙disclose. He can do this by
+making three child trades in each period 𝑡: (i) buy 𝑥𝑡 shares, (ii) buy 𝑥disclose
+shares. He would then disclose only the components (ii).
+Yet, because components (ii) and (iii) offset, price dynamics and the dealer’s net trading are equivalent to those under 𝒙.
+
+shares, and (iii) sell 𝑥disclose
+
+𝑡
+
+𝑡
+
+8 As is common in the literature, we intend ‘‘permanent’’ to refer to whatever price impact does not revert over the trading horizon. For example, if the trading
+
+horizon is one day, then price impact that reverts the next morning can be called permanent for our purposes, even though it does not literally last forever.
+
+9 Other models micro-found only the permanent component of price impact (e.g., Kyle, 1985). Accordingly, purely permanent price impact is a relevant special
+case (which we analyze in Section 4.3). As we will see, this special case is a theoretically interesting one also, because permanent price impact is what underlies
+the model’s primary economic forces.
+
+JournalofFinancialEconomics160(2024)1039014M. Baldauf, C. Frei and J. Mollner
+
+2.3. The client’s problem
+
+The client’s problem is to choose a contract and a recommended trading strategy for the dealer to pursue subject to individual rationality and
+incentive compatibility constraints.10 There is hidden action in that the client cannot directly observe the dealer’s trades; hence, the contract must
+make the recommended trading strategy incentive compatible. Although the client observes prices, they constitute only a noisy signal of the dealer’s
+trades because they are also affected by shocks. Mathematically, the client solves the program
+
+E[𝜏(𝒑)]
+
+min
+𝝉∈ ,𝒙∈
+E[𝑢(𝜏(𝒑) − 𝒙 ⋅ 𝒑)] ≥ 𝑢(0),
+
+subject to
+
+𝒙 ∈ arg max
+
+̂𝒙∈
+
+E[𝑢(𝜏(𝒑) − ̂𝒙 ⋅ 𝒑)].
+
+(IR)
+
+(IC)
+
+The form of the (IR) and (IC) constraints follow from the facts that the dealer’s revenue (from the client) is 𝜏(𝒑) and his cost (from on-market
+trading) is 𝒙 ⋅ 𝒑.11
+
+2.4. The contract set
+
+All that remains is to specify the set of contracts over which the client optimizes.
+
+Unrestricted set. A potential baseline is the setting in which a contract can be any measurable, real-valued function of market prices. We denote
+this contract set  all. Although this unrestricted set may be interesting from a theoretical perspective, it would permit contracts that are unrealistic,
+either in their complexity or in the severity of the punishments they impose for certain price-path realizations. Indeed, Mirrlees has observed that
+in classic moral hazard settings with normally-distributed noise and no restrictions on the contract’s functional form, the agency friction essentially
+disappears, in the sense that the first-best outcome can be approximated arbitrarily closely using contracts that prescribe massive punishments
+for very low realizations of output (Bolton and Dewatripont, 2004, Sec. 4.3). Given the structure of our model, similar issues arise here when
+optimizing over an unrestricted set of contracts. See Section 3.2 for details.
+
+{
+
+(𝜏1, … , 𝜏𝑇 )⊤ ∈ R𝑇 |
+|
+|
+
+Weighted-average-price contracts. Motivated by the unrealistic contracts that emerge when optimizing over an unrestricted contract set, it seems
+appropriate to impose some restrictions. In particular, our main analysis will optimize over contracts that are weighted averages of market prices.
+Although these weights will be nonnegative in the optimum, we do not constrain them to be. Thus, a contract can be thought of as a vector
+𝝉 ∈
+
+, which stipulates that the client will pay the dealer ∑𝑇
+
+𝑡=1 𝜏𝑡𝑝𝑡. We denote this contract set  wa.
+
+}
+𝑡=1 𝜏𝑡 = 1
+
+Although it is restrictive to focus only on contracts that are weighted averages of market prices (rather than on arbitrary functions), this does
+and 𝝉 MOC = (0, … , 0, 1)⊤, which correspond
+nest some important examples of commonly-used contracts: special cases include 𝝉 TWAP =
+to what are known in practice as a guaranteed TWAP contract and a guaranteed MOC contract. We interpret our analysis as a search for the best
+contract among those comparable in complexity to those already in use.
+
+, … , 1
+𝑇
+
+( 1
+𝑇
+
+∑𝑇
+
+)⊤
+
+Affine contracts. Whereas our baseline analysis optimizes over the set of weighted-average-price contracts, an alternative would have been to
+instead optimize over the set of affine functions of market prices, which is a superset. We do this in Online Appendix A. We denote this contract set
+ affine. One reason it is interesting is that it contains fixed-price contracts (i.e., contracts specifying a payment that is constant in the market prices).
+And fixed-price contracts are interesting because, in the special case where the dealer is risk neutral, some fixed-price contract achieves the client’s
+first-best payoff. This is for the same reason that, in classic models of contracting under moral hazard, a ‘sell-the-firm’ contract achieves first-best
+when the agent is risk-neutral. Nevertheless, the optimal affine contract is qualitatively similar in many ways to the optimal weighted-average-price
+contract.
+
+3. First-best benchmark
+
+3.1. First-best entails trading at a constant rate
+
+Before solving the client’s problem itself, we begin with the first-best benchmark. To that end, we remove the friction of hidden action—that
+is, we assume the client observes the dealer’s trades. We also exclude any frictions that might arise from restrictions on the contract’s functional
+form. Mathematically, a contract is – for this section only – a measurable real-valued function with argument (𝒑, 𝒙) ∈ R𝑇 × R𝑇 for ∑𝑇
+
+𝑡=1 𝑥𝑡 = 1.12
+
+In this setting, the client can implement any trading strategy she desires with a ‘forcing contract’ that imposes a large penalty if the dealer
+deviates from the recommended trading strategy. And given concavity of 𝑢, it is optimal to satisfy (IR) by choosing 𝜏(𝒑, 𝒙) = 𝒙 ⋅ 𝒑 when the dealer
+does follow the recommendation. Plugging 𝜏(𝒑, 𝒙) = 𝒙 ⋅ 𝒑 into her objective, the client’s problem becomes
+
+E[𝒙 ⋅ 𝒑].
+
+min
+𝒙∈
+
+In short, solving for the first-best trading strategy reduces to a problem of optimal execution.
+
+10 In allowing the client to recommend a trading strategy to the dealer, this formulation follows classical models of moral hazard (e.g., Holmström, 1979).
+Effectively, it assumes that the client can break the dealer’s indifference however she likes. This assumption is, however, irrelevant for our analysis. In particular,
+the dealer will have a unique best response to most contracts we consider (cf. Lemma 3).
+
+11 Alternatively, we can define a dynamic incentive compatibility constraint: for all 𝑡 = 1, 2, … , 𝑇 and 𝐴 ∈ 
+
+𝑡−1 with 𝑃 [𝐴] > 0, 𝒙 ∈ arg max
+
+̂𝒙∈ 𝒙
+𝑡
+
+E[𝑢(𝜏(𝒑) − ̂𝒙 ⋅ 𝒑)|𝐴]
+
+where  𝒙
+
+𝑡 = { ̂𝒙 ∈  ∶ ̂𝑥𝑠 = 𝑥𝑠 for 𝑠 < 𝑡}. This is equivalent to (IC). For details, see Online Appendix B.
+
+12 For situations where the second-best analysis entails optimizing over a restricted contract space  ⊊  all, a perhaps more appropriate benchmark would be
+to remove the friction of hidden action while preserving any frictions due to restrictions on functional form. Mathematically, a contract (for this benchmark only)
+would be a measurable real-valued function with argument (𝒑, 𝒙) ∈ R𝑇 × R𝑇 for ∑𝑇
+𝑡=1 𝑥𝑡 = 1, where for any fixed 𝒙, 𝜏(⋅, 𝒙) ∈  . If  ⊇  wa, then this benchmark
+coincides with what we derive below. One way to achieve the first-best in this setting is with a contract that, for any 𝒙, simply pays the dealer a weighted
+average of the market prices 𝒑 with weights that exactly mirror 𝒙. Under such a contract, 𝜏(𝒑, 𝒙) = 𝒙 ⋅ 𝒑 for all 𝒙 and 𝒑, meaning that (IC) is satisfied (albeit only
+with equality) by rendering the dealer indifferent over all trading policies.
+
+JournalofFinancialEconomics160(2024)1039015M. Baldauf, C. Frei and J. Mollner
+
+In fact, because our market model is essentially the baseline case considered by Almgren and Chriss (2001), their results apply to this problem.
+The first-best solution corresponds to what they would derive as the optimal trading strategy in the case where all weight is put on minimizing
+the mean of implementation shortfall (and no weight on the variance). The classic result (also obtained by others, e.g., Bertsimas and Lo, 1998) is
+that under these baseline conditions, the optimal strategy is to trade an equal amount in each period. We therefore have the following result:
+
+Proposition 1. The first-best trading strategy is
+
+𝒙FB =
+
+( 1
+𝑇
+
+, … ,
+
+)⊤
+
+.
+
+1
+𝑇
+
+In the first best, the client’s expected costs of execution are 𝑝0 + 𝛾
+
+𝑇
+
++ 𝜃(𝑇 +1)
+2𝑇
+
+.
+
+For completeness, we also include a proof of this classic result in Appendix A.
+
+Remark 4. Note that this first-best trading strategy is deterministic; that is, the entire trajectory of trades is determined ex ante. As we will see
+with Lemma 3 in the next section, an analogous result holds for the second-best problem.
+
+Remark 5.
+In the same way that canonical contracting models take it as an exogenous constraint that the principal cannot herself perform the
+agent’s action, we assume that the client cannot access the market and directly implement 𝒙FB.13 Several considerations justify this approach. First,
+the client might lack the dealer’s infrastructure, including market access, order-handling capabilities, low-latency trading technology, subscriptions
+to exchange direct data feeds, risk management, trade reporting, and compliance—all of which require substantial fixed-cost investments. The client
+might also lack the dealer’s qualification for volume-based discounts on exchange fees. Second, on-market trading might be more complex than
+its reduced-form representation in our model (e.g., it might entail order splitting across multiple venues in each period), so that optimal trading
+might not be as simple as the expression for 𝒙FB suggests. Rather, optimal trading might depend on specialized knowledge of market structure,
+which the dealer is more likely to possess. Relative to a typical dealer, a typical client simply will not have invested nearly as many resources into
+developing or fine-tuning smart-order routers and trading algorithms. One way to cast this idea within the language of the model is to suppose
+that when the dealer trades, he creates price impact according to the dynamics described above (with price impact coefficients 𝛾 and 𝜃), but if the
+client were to trade directly on the market, she would do so less efficiently (with price impact coefficients 𝛾 client > 𝛾 and 𝜃client > 𝜃).
+
+3.2. First-best is achievable with an unrestricted contract set
+
+Having solved for the first-best benchmark, we now turn to the second-best problem (as formulated in Section 2.3). Our first observation is that
+when the contract set is  all, the client can approximate her first-best payoff arbitrarily well. However, doing so may require contracts that are
+complex, impractical, and unrealistic.
+
+A special case. To illustrate, consider the special case of 𝛾 = 0, 𝜃 = 1, 𝜎 = 1, and 𝑇 = 2 periods. In this special case, we have 𝑝1 − 𝑝0 = 𝑥1 + 𝜀1, which
+is normally distributed with mean 𝑥1 and unit variance. This suggests a contract scheme inspired by arguments Mirrlees has made in settings of
+classic moral hazard: (i) pay the dealer the TWAP, 1
+(𝑝1 +𝑝2), (ii) pay also a flat commission 𝛿, but (iii) also impose a penalty of 𝐾 if 𝑝1 −𝑝0 exceeds a
+2
+threshold 𝜁. As derived above, first-best entails a choice of 𝑥1 = 1
+. Without the penalty, the dealer would frontload his trading by choosing 𝑥1 > 1
+.
+2
+2
+(Proposition 4 will show this formally.) The penalty, however, counteracts this frontloading motive. Of course, a dealer who does not frontload is
+also exposed to the penalty—which is why 𝛿 > 0 is needed to ensure that 𝑥1 = 1
+is compatible with (IR). But the key is that normal distributions
+2
+have the property that extreme right-tail realizations are much more likely under a higher mean relative to a lower mean. Consequently, by setting
+𝜁 and 𝐾 both very large, the penalty can be designed to deter frontloading by imposing a relatively large risk on a dealer who frontloads by
+choosing 𝑥1 > 1
+2
+
+(which permits 𝛿 to be set very close to zero).
+Formally, we would proceed as follows in this special case. Consider a class of contracts indexed by (𝜁, 𝛿, 𝐾), specifying payment
+
+yet at the same time virtually no risk on a dealer who chooses 𝑥1 = 1
+2
+
+𝜏(𝒑) = 𝛿 +
+
+1
+2
+
+(𝑝1 + 𝑝2) − 𝐾1[𝑝1 − 𝑝0 > 𝜁].
+
+Using 𝑥2 = 1 − 𝑥1, the dealer’s monetary payoff is
+( 1
+2
+
+𝜏(𝒑) − 𝒙 ⋅ 𝒑 = 𝛿 +
+
+− 𝑥1
+
+)
+
+(𝑝1 − 𝑝2) − 𝐾1[𝑝1 − 𝑝0 > 𝜁] = 𝛿 +
+
+( 1
+2
+
+)
+
+− 𝑥1
+
+(𝑥1 − 1 − 𝜀2) − 𝐾1[𝜀1 > 𝜁 − 𝑥1].
+
+We then compute the dealer’s expected utility, differentiate with respect to 𝑥1, and evaluate at 𝑥1 = 1
+2
+
+to obtain
+
+𝑑
+𝑑𝑥1
+
+log
+
+−E[𝑢(𝜏(𝒑) − 𝒙 ⋅ 𝒑)])|
+(
+|
+|
+|𝑥1=1∕2
+
+= −
+
+𝜆
+2
+
++
+
+𝜙(𝜁 − 1∕2)
+
+1
+1−exp(−𝜆𝐾)
+
+− 𝛷(𝜁 − 1∕2)
+
+,
+
+where 𝛷 and 𝜙 denote the standard normal CDF and pdf. See Online Appendix C for details.
+
+For this contract to induce first-best trading, 𝑥1 = 1
+2
+exists a 𝐾 that does this. Formally, choose ̄𝜁 to ensure
+as 𝑥 increases. Let 𝜁 ≥ ̄𝜁. Setting the above derivative equal to zero and solving for 𝐾, we obtain
+
+must satisfy (IC), hence this derivative must equal zero. For all sufficiently large 𝜁, there
+𝜙( ̄𝜁−1∕2)
+1−𝛷( ̄𝜁−1∕2)
+
+; this is possible because the inverse Mills ratio 𝜙(𝑥)
+1−𝛷(𝑥)
+
+grows without bound
+
+> 𝜆
+2
+
+(
+
+log
+
+1 +
+
+𝐾 =
+
+1
+𝜆
+
+𝜆∕2
+[
+
+𝜙(𝜁 − 1∕2) − 𝜆
+2
+
+1 − 𝛷(𝜁 − 1∕2)
+
+)
+
+,
+
+]
+
+(1)
+
+13 For a model of endogenous choice between doing a block trade with a dealer versus working an order on the market, see Seppi (1990).
+
+JournalofFinancialEconomics160(2024)1039016M. Baldauf, C. Frei and J. Mollner
+
+which is well-defined because 𝜁 ≥ ̄𝜁 ensures that
+expected utility
+
+E[𝑢(𝜏(𝒑) − 𝒙 ⋅ 𝒑)]|
+|
+|
+|𝑥1=1∕2
+
+= −
+
+exp (−𝜆𝛿)
+
+1 − 𝜆
+2
+
+1−𝛷(𝜁−1∕2)
+𝜙(𝜁−1∕2)
+
+.
+
+Again, see Online Appendix C for details.
+
+𝜙(𝜁−1∕2)
+1−𝛷(𝜁−1∕2)
+
+≥ 𝜙( ̄𝜁−1∕2)
+1−𝛷( ̄𝜁−1∕2)
+
+> 𝜆
+2
+
+. Given this value for 𝐾, choosing 𝑥1 = 1
+2
+
+leaves the dealer with
+
+For this contract to satisfy (IR), the dealer’s expected utility must be at least 𝑢(0) = −1. Choosing 𝛿 to make this constraint hold with equality,
+
+we obtain
+
+𝛿 = −
+
+1
+𝜆
+
+[
+
+log
+
+1 −
+
+𝜆
+2
+
+1 − 𝛷(𝜁 − 1∕2)
+𝜙(𝜁 − 1∕2)
+
+]
+
+.
+
+(2)
+
+Finally, note that the client can approximate her first-best payoff arbitrarily closely by setting 𝜁 ≥ ̄𝜁 sufficiently large, setting 𝐾 according to (1),
+and setting 𝛿 according to (2). Indeed, because 𝛿 is set to satisfy (IR), the dealer accepts such a contract. The client’s expected costs of execution
+E[𝜏(𝒑)
+]
+satisfies (IC), this bound becomes 𝛿 + 𝑝0 + 3
+.
+4
+Applying Proposition 1, the client’s first-best costs are exceeded by at most 𝛿. However, according to (2), 𝛿 can be made arbitrarily close to zero
+by setting 𝜁 sufficiently large.
+
+(𝑥1 + 1). Because 𝐾 is set so that 𝑥1 = 1
+2
+
+are bounded above by E[𝛿 + 1
+
+= 𝛿 + 𝑝0 + 1
+2
+
+]
+(𝑝1 + 𝑝2)
+
+2
+
+As we demonstrate in the proof of the following result, this construction can be extended to accommodate the model in its full generality.
+
+Proposition 2. When the set of feasible contracts is  all, the client’s expected costs of execution can be made arbitrarily close to her first-best costs of
+𝑝0 + 𝛾
+
+.
+
++ 𝜃(𝑇 +1)
+2𝑇
+
+𝑇
+
+Discussion. Although we have derived contracts that, within this model, permit the client to approximate her first-best payoff arbitrarily closely, we
+do not view these contracts as realistic or practical. One issue is that the penalty size 𝐾 and penalty threshold 𝜁 must be fine-tuned to the economic
+environment with an extraordinary degree of accuracy, leaving these contracts extremely susceptible to model misspecification.14 Moreover, to our
+knowledge, these contracts do not bear even a remote resemblance to arrangements used in practice, which suggests that they might be prohibitively
+complex to write or to enforce.
+
+We therefore think it more meaningful to search for the optimum within a restricted contract set. As to how, precisely, to restrict the contract
+set, it may be useful to return to the question of which arrangements are used in practice. Many contracts use some weighted average of the market
+prices within the execution window (e.g., the guaranteed TWAP and guaranteed MOC contracts mentioned earlier). This motivates us to optimize
+over weighted-average-price contracts, to see if we can improve on contracts that are in use while staying within this class of relatively simple
+contracts.15
+
+4. Discrete-time solution
+
+We now turn to the optimal weighted-average-price contract. Although we are predominantly interested in the continuous-time limit, we find
+it helpful to begin by deriving the general discrete-time solution and discussing its features. To that end, we consider several special cases, which
+illuminate the economic forces underpinning the comparative statics of this general solution.
+
+4.1. The dealer’s best response
+
+Our first step in solving the client’s problem is to note that the (IR) constraint can be eliminated. Indeed, for any weighted-average-price contract
+𝝉 ∈  wa, the dealer can guarantee himself the payoff 𝑢(0) by selecting the deterministic trading strategy 𝒙 = 𝝉. Intuitively, under this choice of 𝒙,
+the dealer’s costs (his on-market trades) are the same weighted average of market prices that determines his revenue (his payment from the client).
+He would then obtain a profit of zero—regardless of the realized price shocks. Because the dealer can in this way always guarantee himself his
+outside option, it follows that (IC) actually implies (IR).
+
+Our second step is to characterize the (IC) constraint. Lemma 3 states that, for any contract 𝝉 ∈  wa, the dealer has a unique best response.
+
+Thus, (IC) simply requires the recommended trading strategy to be this best response.
+
+Lemma 3.
+and 𝐹 are 𝑇 × 𝑇 matrices explicitly given in terms of the parameters 𝜆, 𝜃, 𝛾 and 𝜎, as stated in Eq. (A.8) of Appendix A.
+
+For any contract 𝝉 ∈  wa, the dealer has a unique best response in , which is the deterministic trading strategy 𝒙 = 𝐹 𝐴−1𝐸𝝉, where 𝐴, 𝐸,
+
+For the special case of 𝑇 = 2 periods, Lemma 3 simplifies considerably. Using 𝜏2 = 1 − 𝜏1, the dealer’s best response is
+
+𝑥1 = 𝜏1 +
+
+(1 − 𝜏1)𝜃 + (1 − 2𝜏1)𝛾
+𝜆𝜎2 + 2𝜃 + 4𝛾
+
+,
+
+14 Discussing essentially the same point, Holmström and Milgrom (1987) write:
+
+[These] near-optimal [contracts] are disturbing. In practice, one feels, schemes that adjust compensation only when rare events occur are not likely
+to provide correct incentives for the agent in ordinary, high probability circumstances. Moreover, to construct the scheme, the principal requires very
+precise knowledge about the agent’s preferences and beliefs, and about the technology that he controls. The [. . . ] scheme performs ideally if the model’s
+assumptions are precisely met, but can be made to perform quite poorly if small deviations in the assumptions about the variance or (especially) about
+the agent’s ability to control the probability of rare events are introduced. (p. 305)
+
+15 Studying a different problem – how to formulate a manipulation-resistant benchmark price from a set of transactions – Duffie and Dworczak (2021) take a
+
+related approach, restricting attention to benchmarks that are weighted averages of transaction prices.
+
+JournalofFinancialEconomics160(2024)1039017M. Baldauf, C. Frei and J. Mollner
+
+and 𝑥2 = 1 − 𝑥1. We can see the following in this special case: (i) lim𝜃→∞ 𝑥1 = 1
+(𝜏1 + 1), which for 𝜏1 ∈ [0, 1] exceeds 𝜏1, which we interpret to mean
+2
+)
+that permanent price impact creates a frontloading motive for the dealer; (ii) lim𝛾→∞ 𝑥1 = 1
+, which we interpret to mean that temporary
+2
+price impact creates a smoothing motive for the dealer; and (ii) lim𝜆→∞ 𝑥1 = 𝜏1, which we interpret to mean that risk aversion creates a mirroring
+motive for the dealer. Sections 4.3–4.5 show that these forces generalize beyond the special case of 𝑇 = 2.
+
+(𝜏1 + 1
+
+2
+
+According to the lemma, the dealer’s best response is in fact a deterministic trading strategy. To see the intuition, suppose that after accepting
+a contract 𝝉 ∈  wa, the dealer makes a tentative plan to pursue a particular deterministic trading strategy 𝒙. After implementing 𝑥1, the dealer
+observes 𝑝1, which reveals the realized 𝜀1. Would he want to re-optimize (𝑥2, … , 𝑥𝑇 )? The answer is no. The intuition is that 𝜀1 affects not only 𝑝1
+but also every future price. Then, given that the dealer’s revenue 𝝉 ⋅ 𝒑 and costs 𝒙 ⋅ 𝒑 are both weighted averages of the prices, 𝜀1 does not affect his
+terminal wealth, so learning it is irrelevant. More generally, suppose that after implementing 𝑥𝑡, the dealer learns 𝜀𝑡. Would he want to re-optimize
+(𝑥𝑡+1, … , 𝑥𝑇 )? Again, no. This is because 𝜀𝑡 shifts the dealer’s terminal wealth by the constant 𝜀𝑡
+(
+
+𝑠=1(𝑥𝑠 − 𝜏𝑠):
+
+∑𝑡−1
+
+(
+
+)
+
+)
+
+𝑇
+∑
+
+𝑇
+∑
+
+(𝜏𝑡 − 𝑥𝑡)𝑝𝑡 =
+
+(𝜏𝑡 − 𝑥𝑡)
+
+𝑝0 + 𝛾𝑥𝑡 + 𝜃
+
+𝑥𝑠 +
+
+𝜀𝑠
+
+=
+
+𝜀𝑡
+
+(𝜏𝑠 − 𝑥𝑠)
+
++
+
+(𝜏𝑡 − 𝑥𝑡)
+
+𝑝0 + 𝛾𝑥𝑡 + 𝜃
+
+𝑥𝑠
+
+.
+
+𝑡
+∑
+
+𝑡
+∑
+
+𝑇
+∑
+
+𝑇
+∑
+
+𝑇
+∑
+
+𝑡
+∑
+
+𝑡=1
+
+𝑡=1
+
+𝑠=1
+
+𝑠=1
+
+𝑡=1
+
+𝑡=1
+
+𝑠=𝑡
+⏟⏞⏞⏞⏞⏟⏞⏞⏞⏞⏟
+=∑𝑡−1
+𝑠=1(𝑥𝑠−𝜏𝑠)
+
+𝑠=1
+
+And because the dealer has CARA utility, this constant shift in the distribution of his terminal wealth does not affect his preferences over his
+remaining choices (𝑥𝑡+1, … , 𝑥𝑇 ).16
+
+One implication of Lemma 3 is that the (IC) constraint generally renders the first-best unachievable. Indeed, it follows from the analysis in
+Section 3 that if the client could choose a contract and a recommended trading policy free of the (IC) constraint, then she would select 𝝉 TWAP
+and 𝒙FB, both of which are the equally-weighted vectors
+. These choices implement the efficient action, while also leaving the dealer
+perfectly insured and with zero surplus. Unfortunately for the client, it is not generally true that 𝐹 𝐴−1𝐸𝝉 TWAP = 𝒙FB, so that by Lemma 3, these
+choices are inconsistent with (IC). In particular, inequality obtains whenever 𝜃 > 0, and the departure from equality has a particular structure: it
+is frontloaded in the sense of first-order stochastic dominance.
+
+, … , 1
+𝑇
+
+( 1
+𝑇
+
+)⊤
+
+Definition. Given two 𝑇 -dimensional vectors 𝒂 and 𝒃, each of whose elements sum to 1, 𝒂 is frontloaded relative to 𝒃 if ∑𝑡
+
+𝑠=1 𝑎𝑠
+
+≥ ∑𝑡
+
+𝑠=1 𝑏𝑠 for all 𝑡.
+
+Proposition 4. 𝐹 𝐴−1𝐸𝝉 TWAP is frontloaded relative to 𝒙FB, with equality iff 𝜃 = 0.
+
+Proposition 4 implies that permanent price impact creates a frontloading motive for the dealer, in the sense that if 𝜃 > 0, then the client cannot
+obtain her first-best payoff. The intuition is as follows. Suppose the dealer is offered 𝝉 TWAP . If he selects 𝒙FB, then his trading costs and his payment
+from the client are both a simple average of prices, so that regardless of the realized prices, he is guaranteed a profit of zero. But he can do better
+by frontloading his trading. Suppose the dealer deviates from 𝒙FB by shifting a small amount of volume from a period 𝑡′′ to a period 𝑡′ < 𝑡′′. The
+direct effect of this deviation (i.e., holding prices fixed) is to reduce his expected costs at the rate E[𝑝𝑡′′ ]−E[𝑝𝑡′ ] = 𝜃 ∑𝑡′′
+𝑡′ ) = 𝜃 𝑡′′−𝑡′
+.
+And the indirect effect (through price changes) is vanishing, because as we have noted, 𝒙FB insures the dealer against price fluctuations. Moreover,
+the effect on the variance of his profit is second-order for small deviations. It follows that when 𝜃 > 0, some sufficiently small deviation from 𝒙FB
+allows the dealer to make himself better off. In general, the dealer’s best response trades off this incentive to frontload against increased exposure
+to price shocks and excess temporary-impact costs.
+
+𝑡 +𝛾(𝑥FB
+
+𝑡=𝑡′+1 𝑥FB
+
+𝑡′′ −𝑥FB
+
+𝑇
+
+In the special case of 𝜃 = 0, this incentive to frontload does not arise, and the proposition implies that the first-best outcome is in fact achieved
+via 𝝉 TWAP , the (IC) constraint notwithstanding.17 Hence, our model predicts that 𝝉 TWAP might yield reasonably good outcomes when applied to
+settings or securities for which permanent price impact is relatively small. However, when permanent price impact is a major factor then 𝝉 TWAP
+ought not be expected to perform as well, which is what motivates the subsequent analysis.
+
+4.2. The general solution
+
+Having eliminated the (IR) constraint and characterized the (IC) constraint, the client’s problem reduces to
+
+E[𝝉 ⋅ 𝒑]
+
+subject to 𝒙 = 𝐹 𝐴−1𝐸𝝉.
+
+min
+𝝉∈ wa
+
+Our next result concerns the solution to this problem. It provides explicit formulas for the optimal weighted-average-price contract 𝝉 ∗ (henceforth,
+simply the ‘‘optimal contract’’) and the incentive-compatible trading strategy 𝒙∗ = 𝐹 𝐴−1𝐸𝝉 ∗ that the client recommends to the dealer. The formulas
+are complicated, but they are fully explicit and easy to compute.
+
+Proposition 5.
+1⊤𝑀 −11 𝐹 𝐴−1𝐸𝑀 −11, where 1 = (1, 1, … , 1)⊤ denotes a 𝑇 -dimensional vector of ones and
+
+1
+
+The weights of the optimal contract and the dealer’s best-responding trading strategy are given by 𝝉 ∗ =
+
+𝑀 = 𝜃𝐴−1𝐸 + 𝜃𝐸⊤(𝐴−1)⊤ + 𝛾𝐹 𝐴−1𝐸 + 𝛾𝐸⊤(𝐴−1)⊤𝐹 ⊤.
+
+The client’s expected costs of execution are 𝑝0 +
+
+1
+21⊤𝑀 −11 .
+
+1
+
+1⊤𝑀 −11 𝑀 −11 and 𝒙∗ =
+
+(3)
+
+16 Several model components therefore combine to imply optimality of a deterministic trading policy. For example, the dealer’s best response might not be
+deterministic if he had non-constant absolute risk aversion, if he were facing a nonlinear contract, or if the random walk component of the price process were
+instead an AR(1).
+
+17 This aspect of the result and the economic forces behind it are similar to why the guaranteed VWAP contract – under which the client pays the dealer at the
+market’s volume-weighted average price (VWAP) – is optimal in the setting of Baldauf et al. (2022). One subtlety is that in that paper, each trading period has
+an associated ‘market condition,’ about which the dealer has superior information. The optimal contract weights prices by market volume so as to incentivize
+the dealer to properly trade on his information about market conditions. In contrast, this paper uses a canonical market model in which such market conditions
+do not feature (or do not differ across periods). Hence, the optimal contract need not weight by volumes, and a simple average of prices achieves the optimum.
+
+JournalofFinancialEconomics160(2024)1039018M. Baldauf, C. Frei and J. Mollner
+
+1
+2
+constraint then implies 𝝉 ∗ =
+
+To establish this as the optimal contract, the proof shows that the client’s expected payment under a contract 𝝉 ∈  wa can be expressed as
+𝝉 ⊤𝑀𝝉. By symmetry of 𝑀, the optimal contract weights satisfy 𝑀𝝉 ∗ = 𝜇1, where 𝜇 is the Lagrange multiplier on the constraint 𝝉 ⊤1 = 1. The
+
+1
+
+1⊤𝑀 −11 𝑀 −11, as the proposition says. Applying Lemma 3, we obtain 𝒙∗ =
+
+1
+
+1⊤𝑀 −11 𝐹 𝐴−1𝐸𝑀 −11.
+
+The problem and its solution are mathematically complex, and so it is difficult to provide intuition for the precise form of the general solution
+exhibited in Proposition 5. Nevertheless, the logic of the solution can be explained through three special cases: (i) when permanent price impact is
+the only influence (i.e., 𝜃 → ∞), (ii) when temporary price impact is the only influence (i.e., 𝛾 → ∞), and (iii) when price risk is the only influence
+(i.e., 𝜆 → ∞).18 We next consider each of these special cases in turn, then build upon them to explain the features and the comparative statics of
+the general solution.
+
+4.3. When permanent price impact is the only influence
+
+For the case in which permanent price impact is the only influence, assume away temporary price impact, and make the dealer risk-neutral.
+
+Corollary 6. Assume that there is no temporary price impact (𝛾 = 0) and that the dealer is risk-neutral (𝜆 = 0).
+
+(i) For any 𝝉 ∈  wa, the dealer’s best response is 𝑥𝑡 = 1
+𝑇
+(ii) The weights of the optimal contract are 𝝉 ∗ =
+
+− ∑𝑇
+, 0, … , 0, 1
+2
+
+𝑠=1
+)⊤
+
+𝜏𝑠 + ∑𝑇
+𝑠
+𝑇
+, so that the dealer’s best-responding trading strategy is 𝒙∗ =
+
+𝑠=𝑡 𝜏𝑠.
+
+( 𝑇 +1
+2𝑇
+
+, 1
+2𝑇
+
+, … , 1
+2𝑇
+
+)⊤
+
+. The
+
+client’s expected costs of execution are 𝑝0 + 𝜃(3𝑇 +1)
+
+.
+
+( 1
+2
+
+4𝑇
+
+Let us highlight two differences relative to the first-best solution given by Proposition 1. First, the client must now respect the (IC) constraint,
+which implies a particular relationship between the contract and the dealer’s trading strategy that in this case is given by Corollary 6(i). Second,
+the client must now sacrifice some rent to the dealer. As a result, her expected costs increase from 𝑝0 + 𝜃(𝑇 +1)
+
+to 𝑝0 + 𝜃(3𝑇 +1)
+
+.
+
+2𝑇
+
+4𝑇
+
+For the discussion below, let us assume that both contract weights 𝝉 and the dealer’s trading strategy 𝒙 are restricted to entail nonnegative
+weights. This is only for simplicity of the exposition. Indeed, given Corollary 6(ii), this restriction does not bind, and in fact, many of the arguments
+below could be formulated in reverse to rule out putative solutions entailing negative weights. With this in hand, we proceed by backward induction:
+
+The dealer’s problem. Consider how the dealer would respond to an arbitrary contract 𝝉 ∈  wa. Beginning from any deterministic trading strategy
+𝒙, consider a perturbation that shifts volume from 𝑥𝑡+1 to 𝑥𝑡. The dealer’s expected profit E[𝝉 ⋅ 𝒑 − 𝒙 ⋅ 𝒑] is affected in two ways:
+
+• Direct effect (holding prices fixed). The direct effect is positive: E[𝑝𝑡+1] − E[𝑝𝑡] = 𝜃𝑥𝑡+1. Intuitively, prices tend to increase over time because of
+permanent price impact of the dealer’s trades. Thus, if prices were held fixed, the dealer would reduce the cost of his on-market trading by
+shifting volume to earlier periods.
+
+• Indirect effect (through price changes). Of course, prices will not hold fixed. In particular, this shift affects E[𝑝𝑡], creating the following indirect
+
+effect: (𝜏𝑡 − 𝑥𝑡)
+
+= (𝜏𝑡 − 𝑥𝑡)𝜃.19
+
+)
+
+( 𝜕E[𝑝𝑡]
+𝜕𝑥𝑡
+⏟⏟⏟
+=𝜃
+
+− 𝜕E[𝑝𝑡]
+𝜕𝑥𝑡+1
+⏟⏟⏟
+=0
+
+Note that if 𝑥𝑡 = 𝜏𝑡, then the indirect effect is zero – intuitively, the dealer is perfectly insured with respect to 𝑝𝑡 if 𝑥𝑡 = 𝜏𝑡 – leaving the
+positive direct effect to dominate. It follows that the optimal 𝑥𝑡 must exceed 𝜏𝑡. This argument applies for any 𝑡 < 𝑇 , implying that the dealer has
+a frontloading motive in this case: his best response is to choose an 𝒙 that is frontloaded relative to the offered 𝝉.20
+
+Summing both effects, the total derivative is 𝜃[𝑥𝑡+1 + 𝜏𝑡 − 𝑥𝑡]. Thus, if 𝒙 best responds to 𝝉, we must have 𝑥𝑡+1 = 𝑥𝑡 − 𝜏𝑡 for all 𝑡 < 𝑇 . Having
+𝑡=1 is a weakly decreasing sequence. These
+
+assumed that all entries of 𝝉 are nonnegative, we conclude from these first-order conditions that (𝑥𝑡)𝑇
+conditions moreover imply
+
+𝑥𝑡 =
+
+1
+𝑇
+
+−
+
+𝑇
+∑
+
+𝑠=1
+
+𝑠
+𝑇
+
+𝜏𝑠 +
+
+𝑇
+∑
+
+𝑠=𝑡
+
+𝜏𝑠,
+
+as claimed by Corollary 6(i).
+
+(4)
+
+The client’s problem. For intuition into why 𝝉 ∗ =
+is optimal in this case of a risk-neutral dealer and no temporary price impact, we
+first explain why the optimal contract puts weight only on the extremal prices. Starting from an arbitrary 𝝉, consider a perturbation that implements
+a mean-preserving spread of the contract weights. Both the direct and indirect effects of this perturbation benefit the client:
+
+, 0, … , 0, 1
+2
+
+( 1
+2
+
+)⊤
+
+• Direct effect (holding prices fixed). As mentioned while analyzing the dealer’s problem, (𝑥𝑡)𝑇
+
+affine transformation of the partial sums of (𝑥𝑡)𝑇
+client’s payment would be weakly lower under a mean-preserving spread of 𝝉.
+
+𝑡=1, (E[𝑝𝑡])𝑇
+
+𝑡=1 is a weakly decreasing sequence. As a positive
+𝑡=1 is therefore a weakly concave sequence. Thus, if the prices were held fixed, the
+
+18 Case (i) is equivalent to what obtains if 𝜃 > 0 and 𝛾 = 𝜆 = 0. Likewise, case (ii) is equivalent to what obtains if 𝛾 > 0 and 𝜃 = 𝜆 = 0. Because the exposition
+is simpler if limits are avoided, this is what Sections 4.3 and 4.4 consider. On the other hand, Section 4.5 does treat the limiting case of 𝜆 → ∞. Although 𝜆 > 0
+and 𝜃 = 𝛾 = 0 leads to the same dealer’s best response, it does not lead to a unique optimal contract, as without price impact, all contracts lead to identical
+outcomes for the dealer. Mathematically, if 𝜃 = 𝛾 = 0, the matrix 𝑀 in (3) is the zero matrix so that the inverse (needed in the formula for 𝝉 ∗ in Proposition 5)
+is not well defined. Thus, Section 4.5 maintains the assumption that at least one of 𝜃 and 𝛾 is strictly positive, instead considering the limit as 𝜆 → ∞.
+
+19 There are no other indirect effects: (i) this shift does not affect the earlier prices 𝑝1, … , 𝑝𝑡−1; and (ii) because price impact is purely permanent, it also does
+
+not affect the later prices 𝑝𝑡+1, … , 𝑝𝑇 .
+
+20 This is for any 𝝉 and is therefore a stronger conclusion than that of Proposition 4, which applies only if the offered contract is 𝝉 TWAP . On the other hand,
+
+Proposition 4 holds for general parameters, whereas this section specializes to the case of 𝛾 = 𝜆 = 0.
+
+JournalofFinancialEconomics160(2024)1039019M. Baldauf, C. Frei and J. Mollner
+
+• Indirect effect (through price changes). Of course, prices will not hold fixed, as a change in 𝝉 changes the dealer’s best response 𝒙, affecting
+
+price dynamics. Using (4), we compute
+
+𝑡
+∑
+
+𝑠=1
+
+𝑥𝑠 =
+
+𝑡
+𝑇
+
++
+
+𝑡
+∑
+
+𝑠=1
+
+𝑠
+
+(
+
+1 −
+
+)
+
+𝑡
+𝑇
+
+𝜏𝑠 +
+
+𝑇
+∑
+
+𝑠=𝑡+1
+
+(
+
+𝑡
+
+1 −
+
+)
+
+𝑠
+𝑇
+
+𝜏𝑠.
+
+(5)
+
+Observe that for all 𝑡, the coefficients on (𝜏1, … , 𝜏𝑇 )⊤ in this expression form a weakly concave sequence.21 Thus, a mean-preserving spread
+of 𝝉 leads the dealer to backload his trading, in the sense of first-order stochastic dominance (i.e., reduce ∑𝑡
+𝑠=1 𝑥𝑠 for all 𝑡). Given that
+E[𝑝𝑡] = 𝑝0 + 𝜃 ∑𝑡
+
+𝑠=1 𝑥𝑠, such backloading weakly reduces each price, which benefits the client.
+
+The client therefore unambiguously benefits from mean-preserving spreads of the contract weights. It follows that 𝜏∗
+𝑇 −1 = 0, so that the
+optimal contract is a U-shape.22 To see that it is also symmetric, begin from an arbitrary contract whose interior weights are all zero and consider a
+perturbation that shifts weight from period 𝑇 to period 1. Unlike the mean-preserving perturbation considered above, here the direct and indirect
+effects have opposite signs:
+
+2 = ⋯ = 𝜏∗
+
+• Direct effect (holding prices fixed). On the one hand, owing to permanent price impact, prices are expected to rise over the trading interval.
+
+Thus, if the dealer’s trading strategy – and hence price dynamics – were fixed, the client would put full weight on the first period.
+
+• Indirect effect (through price changes). On the other hand, price dynamics will respond to the contract. All else equal, the client prefers low
+prices. Owing to permanent price impact, each price is lowest when the dealer backloads his trading as much as possible. Given the contract’s
+influence on the dealer’s trading strategy (i.e., that his trading will be frontloaded relative to the contract), prices are lowest when the client
+puts full weight on the last period.
+
+The optimal contract must balance these two considerations. Due to the linearity of price impact, these two effects offset when 𝜏1 = 𝜏𝑇 = 1
+2
+
+.23
+
+4.4. When temporary price impact is the only influence
+
+For the case in which temporary price impact is the only influence, assume away permanent price impact, and make the dealer risk-neutral. In
+this case, the client optimally offers the guaranteed TWAP contract, which weights each period equally. It induces the dealer to use the first-best
+trading strategy, which similarly puts equal weight on each period. And in this case, the client obtains her first-best payoff.
+
+Corollary 7. Assume that there is no permanent price impact (𝜃 = 0) and that the dealer is risk-neutral (𝜆 = 0).
+
+( 1
+𝝉 + 1
+, … , 1
+(i) For any 𝝉 ∈  wa, the dealer’s best response is 𝒙 = 1
+𝑇
+𝑇
+2
+2
+)⊤
+, … , 1
+, so that the dealer’s best-responding trading strategy is 𝒙∗ =
+(ii) The weights of the optimal contract are 𝝉 ∗ =
+𝑇
+
+( 1
+𝑇
+
+.
+
+)⊤
+
+expected costs of execution are 𝑝0 + 𝛾
+
+.
+
+𝑇
+
+( 1
+𝑇
+
+, … , 1
+𝑇
+
+)⊤
+
+. The client’s
+
+Claim (i) says that the dealer has a smoothing motive in this case: his best response is to choose an 𝒙 that partially smooths the offered 𝝉. To
+understand this, suppose that the dealer did not smooth at all, selecting the trading strategy 𝒙 = 𝝉. His trading costs and his payment from the
+client would both therefore be the same weighted average of the prices, so that he would be guaranteed a profit of zero. But he can do better by
+smoothing his trading. Suppose the dealer deviates from 𝒙 = 𝝉 by shifting volume from a period 𝑡′′ to a period 𝑡′ where 𝜏𝑡′ < 𝜏𝑡′′ . The direct effect
+of this deviation is to reduce his expected costs at the rate E[𝑝𝑡′′ ] − E[𝑝𝑡′ ] = 𝛾(𝑥𝑡′′ − 𝑥𝑡′ ) = 𝛾(𝜏𝑡′′ − 𝜏𝑡′ ) > 0. And the indirect effect (through prices)
+is vanishing, because as we have noted, 𝒙 = 𝝉 insures the dealer against price fluctuations. That a risk-neutral dealer optimally smooths precisely
+one half of the variation in 𝝉 is due to the linearity of price impact.
+In particular, if offered the guaranteed TWAP contract 𝝉 TWAP =
+
+, … , 1
+, which is in fact the efficient
+𝑇
+action (i.e., 𝒙FB). This outcome also leaves the dealer with zero surplus. It follows that 𝝉 TWAP gives the client her first-best payoff. Clearly, nothing
+can do better than that, and this contract must be optimal.
+
+, the dealer selects 𝒙 =
+
+, … , 1
+𝑇
+
+( 1
+𝑇
+
+( 1
+𝑇
+
+)⊤
+
+)⊤
+
+21 More precisely, the coefficients on (𝜏1, … , 𝜏𝑇 )⊤ constitute an inverted-𝑉 , which is maximized at the coefficient on 𝜏𝑡. The intuition is that ∑𝑡
+𝑠=1 𝑥𝑠 is increasing
+in each of (𝑥1, … , 𝑥𝑡), and given the dealer’s frontloading motive, an increase in 𝜏𝑡 leads each of (𝑥1, … , 𝑥𝑡) to increase. Let us contrast that with 𝜏𝑡−1 and 𝜏𝑡+1. An
+increase in 𝜏𝑡−1 leads (𝑥1, … , 𝑥𝑡−1) to increase but does not lead 𝑥𝑡 to increase. An increase in 𝜏𝑡+1 also leads (𝑥1, … , 𝑥𝑡) to increase, but the effect is more muted
+because 𝜏𝑡+1 also works to increase 𝑥𝑡+1.
+
+22 That the optimal contract puts relatively less weight on prices of interior periods is also intuitive because these prices are the easiest for the dealer to
+manipulate, in the following sense. Fixing any deterministic trading strategy ̄𝒙 as a baseline, imagine that in choosing his trading strategy 𝒙, the dealer is
+constrained not only by ∑𝑇
+𝑠=1 ̄𝑥𝑠 + 𝛿 min{𝑡, 𝑇 − 𝑡}, so that
+the dealer can manipulate 𝑝𝑡 by 𝜃𝛿 min{𝑡, 𝑇 − 𝑡} in either direction.
+]
+23 Indeed, we have E[𝑝𝑡] = 𝑝0 + 𝜃 ∑𝑡
+, using Eq. (5) and 𝜏2 = ⋯ = 𝜏𝑇 −1 = 0. Thus, the direct effect of perturbing 𝝉 = (𝜏1, 0, … , 0, 𝜏𝑇 )⊤
+𝜏1
+𝑠=1 𝑥𝑠 = 𝑝0 + 𝜃
+so as to shift weight from period 𝑇 to period 1 is
+[ 1
+𝑇
+
+𝑠=1 𝑥𝑠 = 1 but also by 𝑥𝑡 ∈ [ ̄𝑥𝑡 − 𝛿, ̄𝑥𝑡 + 𝛿] for all 𝑡. This means that ∑𝑡
+)
+
+𝑠=1 ̄𝑥𝑠 − 𝛿 min{𝑡, 𝑇 − 𝑡} ≤ ∑𝑡
+
+E[𝑝1] − E[𝑝𝑇 ] = 𝜃
+
+)
+𝜏1 − 1
+
+(1 − 𝜏1).
+
+1 − 𝑡
+𝑇
+
+𝑠=1 𝑥𝑠
+
+≤ ∑𝑡
+
+[ 𝑡
+𝑇
+
+= −𝜃
+
+1 −
+
+1 −
+
+1
+𝑇
+
+1
+𝑇
+
++
+
++
+
+)
+
+(
+
+(
+
+(
+
+]
+
+And the indirect effect is
+( 𝑑E[𝑝1]
+𝑑𝜏1
+
+𝜏1
+
+−
+
+𝑑E[𝑝1]
+𝑑𝜏𝑇
+⏟⏟⏟
+=0
+
+)
+
++ 𝜏𝑇
+
+( 𝑑E[𝑝𝑇 ]
+𝑑𝜏1
+⏟⏟⏟
+=0
+
+−
+
+𝑑E[𝑝1]
+𝑑𝜏𝑇
+⏟⏟⏟
+=0
+
+)
+
+(
+
+1 −
+
+= 𝜏1𝜃
+
+)
+.
+
+1
+𝑇
+
+JournalofFinancialEconomics160(2024)10390110M. Baldauf, C. Frei and J. Mollner
+
+4.5. When price risk is the only influence
+
+For the case in which price risk is the only influence, fix 𝜃 and 𝛾, and consider the limit as 𝜆 → ∞. According to claim (ii) of the following
+result, the outcome resembles the case in which temporary price impact is the only influence: the guaranteed TWAP contract is optimal, it induces
+the dealer to use the first-best trading strategy, and the client obtains her first-best payoff. But it is for a different reason, as according to claim (i),
+there is a difference in the dealer’s best response function.
+
+Corollary 8. Consider the limit as the dealer becomes infinitely risk averse (𝜆 → ∞).
+
+(i) For any 𝝉 ∈  wa, the dealer’s best response converges to 𝒙 = 𝝉.
+)⊤
+(ii) The weights of the optimal contract converge to 𝝉 ∗ =
+
+( 1
+𝑇
+
+, … , 1
+𝑇
+
+The client’s expected costs of execution converge to 𝑝0 + 𝛾
+
++ 𝜃(𝑇 +1)
+2𝑇
+
+.
+
+𝑇
+
+, so that the dealer’s best-responding trading strategy converges to 𝒙∗ =
+
+( 1
+𝑇
+
+, … , 1
+𝑇
+
+)⊤
+
+.
+
+Claim (i) says that the dealer has a mirroring motive in this case: his best response is to choose an 𝒙 equal to the offered 𝝉. The intuition is the
+following. As the dealer becomes more risk averse, he places greater emphasis on insuring himself against price shocks. In fact, he can perfectly
+insure himself by selecting a deterministic trading strategy with weights that mirror the contract he is offered. In the limit of infinite risk aversion,
+this is exactly what he does. In particular, 𝝉 TWAP =
+. This outcome
+moreover leaves the dealer perfectly insured and with zero surplus. It follows that 𝝉 TWAP gives the client her first-best payoff, and must therefore
+be optimal.
+
+induces the dealer to select the efficient action 𝒙FB =
+
+, … , 1
+𝑇
+
+, … , 1
+𝑇
+
+( 1
+𝑇
+
+( 1
+𝑇
+
+)⊤
+
+)⊤
+
+This result reflects an interesting contrast relative to classical models of moral hazard (e.g., Holmström, 1979). Those classical models feature
+an insurance-incentives tradeoff: the agent can be induced to take the efficient action (i.e., high effort) only if he is exposed to risk. And if the agent
+is very risk averse, then he must be paid a significant risk premium for that. The principal’s payoff then typically declines as the agent becomes
+more risk averse. In contrast, given the special structure of our setting, inducing the efficient action (i.e., 𝒙FB) does not always require exposing
+induces the dealer to select 𝒙FB without exposing him to
+the dealer to risk. In fact, in this limit of an infinitely risk averse dealer, 𝝉 =
+any risk at all. In consequence, the client’s payoff is not monotonically decreasing in 𝜆.
+
+, … , 1
+𝑇
+
+( 1
+𝑇
+
+)⊤
+
+4.6. Discussion of the general solution
+
+The general model can be viewed as a combination of the three aforementioned special cases. Accordingly, the general formula for the dealer’s
+best response reflects a mixture of the frontloading, smoothing, and mirroring motives respectively discussed in the previous sections. Likewise,
+the general formula for the optimal contract combines the features of the optimal contracts from those special cases. One notable feature shared
+by all three special cases is that the optimal contract is symmetric, in the sense that 𝜏∗
+𝑇 +1−𝑗 for all 𝑗. In fact, such symmetry holds in general.
+
+𝑗 = 𝜏∗
+
+Corollary 9. The optimal contract weights are symmetric: 𝜏∗
+
+𝑗 = 𝜏∗
+
+𝑇 +1−𝑗 for all 𝑗 = 1, … , 𝑇 .
+
+The intuition for why symmetry obtains in general can be thought of as a combination of the various reasons for why it obtains in each of the
+
+three special cases discussed before.
+
+To illustrate the general solution provided by Proposition 5, Figs. 1–3 display 𝝉 ∗ and 𝒙∗ for various choices of the parameters 𝜃, 𝛾, and 𝜆.24 The
+left panels of these figures depict the optimal contract weights; consistent with Corollary 9, they are indeed symmetric. The right panels depict the
+dealer’s best-responding trading strategy.
+
+𝜏∗
+1
+∑𝑡
+
+≥ ⋯ ≥ 𝜏∗
+≥ ∑𝑡
+𝑠=1 𝜏∗
+
+Figs. 1–3 suggest that the general solution exhibits several additional qualitative patterns. First, the optimal contract weights are U-shaped:
+≥ 𝜏∗
+𝑇 .25 Second, the dealer responds with a trading strategy that is frontloaded relative to the contract:
+2
+𝑠=1 𝑥∗
+𝑠 for all 𝑡 = 1, … , 𝑇 . Third, the severity of both this U-shape and this frontloading is strengthened by 𝜃 (the coefficient of
+𝑡
+permanent price impact), weakened by 𝛾 (the coefficient of temporary price impact), and weakened by 𝜆 (the dealer’s coefficient of absolute risk
+aversion).
+
+≤ ⋯ 𝜏∗
+
+≤ 𝜏∗
+
+⌈𝑇 ∕2⌉
+
+𝑇 −1
+
+)⊤
+
+( 1
+2
+
+( 1
+𝑇
+
+, 0, … , 0, 1
+2
+
+, which is the maximally-severe U-shape, and 𝒙∗ =
+
+These patterns can be understood through the aforementioned special cases. With permanent price impact as the only influence, we have
+( 𝑇 +1
+, which is strictly frontloaded (relative to the contract).
+2𝑇
+, … , 1
+𝑇
+
+, … , 1
+𝝉 ∗ =
+2𝑇
+With either temporary price impact or price risk as the only influence, we have 𝝉 ∗ =
+, which is the minimally-severe U-shape, and
+𝒙∗ =
+, which represents minimally-severe frontloading. The intuition for why the U-shape in 𝝉 ∗ and frontloading in 𝒙∗ (weakly) obtain
+in general can be thought of as a combination of the different reasons for why they obtain in each of the three special cases discussed before.
+The comparative statics can also be understood in these terms. An increase in 𝜃 moves us toward the limiting case of Section 4.3, so it increases
+both the severity of the U-shape and the severity of the frontloading. Increases in 𝛾 and 𝜆 reduce those severities because they move us toward the
+limiting cases of Sections 4.4 and 4.5, respectively.
+
+, … , 1
+𝑇
+
+, 1
+2𝑇
+
+( 1
+𝑇
+
+)⊤
+
+)⊤
+
+)⊤
+
+24 Note that 𝜆 and 𝜎 affect the solution only through the quantity 𝜆𝜎2. Hence, Fig. 3, which depicts how the solution changes with 𝜆, speaks also to how the
+
+solution changes with 𝜎.
+
+25 In fact, a stronger property appears to hold. The figures suggest that the optimal contract weights are convex in the sense that 𝜏 ∗
+≥ 𝜏 ∗
+2
+
+𝑇 . Given that the weights are symmetric (cf. Corollary 9), this convexity condition implies the U-shape condition 𝜏∗
+
+𝑇 −1 − 𝜏 ∗
+
+≥ 𝜏∗
+
+𝜏 ∗
+𝑇 −1
+
+1
+
+≥ 𝜏 ∗
+1 − 𝜏∗
+2
+≥ ⋯ ≥ 𝜏 ∗
+
+2 − 𝜏 ∗
+⌈𝑇 ∕2⌉
+
+≥ ⋯ ≥ 𝜏∗
+3
+≤ ⋯ 𝜏∗
+
+𝑇 −1
+
+𝑇 −2 −
+≤ 𝜏∗
+𝑇 .
+
+JournalofFinancialEconomics160(2024)10390111M. Baldauf, C. Frei and J. Mollner
+
+Fig. 1. The optimal contract weights and best-responding trading strategy for different levels of permanent price impact. Without permanent price impact (𝜃 = 0), both the optimal
+weights and the trading strategy are constant over time. As permanent price impact grows, the optimal weights become more U-shaped, and the dealer’s trading strategy becomes
+more frontloaded. The other parameters are 𝛾 = 1, 𝜆 = 1, 𝜎 = 0.5, and 𝑇 = 20.
+
+Fig. 2. The optimal contract weights and best-responding trading strategy for different levels of temporary price impact. Without temporary price impact (𝛾 = 0), the optimal
+weights are the same for all periods except for the first and last periods, and the dealer’s trading strategy is frontloaded. As temporary price impact grows, the curves for the
+optimal weights become smoother, and the dealer’s trading strategy becomes less frontloaded. The other parameters are 𝜃 = 1, 𝜆 = 1, 𝜎 = 0.5, and 𝑇 = 20.
+
+Fig. 3. The optimal contract weights and best-responding trading strategy for different levels of risk aversion. As risk aversion grows, the optimal weights become less U-shaped,
+and the dealer’s trading strategy becomes less frontloaded. The other parameters are 𝜃 = 1, 𝛾 = 1, 𝜎 = 0.5, and 𝑇 = 20.
+
+JournalofFinancialEconomics160(2024)10390112M. Baldauf, C. Frei and J. Mollner
+
+We stress that these observations about the U-shape of the optimal contract and the frontloading of the dealer’s trading come only from
+numerical experimentation and do not correspond to any formal result that we have been able to derive from our closed-form solution to the
+general discrete-time model. We do, however, prove analogues of these observations for the continuous-time limit analyzed in the next section.
+
+5. Continuous-time limit
+
+In light of ambiguity regarding what precisely a trading period represents, as well as recent trends toward progressively high-frequency trading,
+we are motivated to study the continuous-time limit of our discrete-time model. For this limit, we consider a sequence of models, indexed by 𝑘.
+Along this sequence, we let the number of periods diverge (i.e., 𝑇𝑘 → ∞). At the same time, the distance between consecutive periods should
+vanish, so as to hold the execution horizon constant. To capture this, we shrink the variance of price shocks to zero (i.e., 𝜎2
+𝑘 → 0) in such a way
+that 𝑇𝑘𝜎2
+
+𝑘 remains equal to a constant, which we denote 𝑇 𝜎2.26
+
+5.1. The optimal contract
+
+To illuminate the underlying patterns, we state the following result in terms of cumulative values through quantiles 𝑞 of the execution period:
+
+∑⌈𝑞𝑇 ⌉
+𝑡=1
+
+𝑡 and ∑⌈𝑞𝑇 ⌉
+𝜏∗
+
+𝑡=1
+
+𝑥∗
+𝑡 . To ensure that the convergence is well behaved, we focus on the case of a strictly risk-averse dealer.
+
+𝑘=1 such that lim𝑘→∞ 𝑇𝑘 = ∞ and
+𝑘 = 𝑇 𝜎2 for all 𝑘. For each 𝑘, let 𝝉 ∗𝑘 be the associated optimal contract, and let 𝒙∗𝑘 be the dealer strategy that best responds to 𝝉 ∗𝑘. Assume also that
+
+Proposition 10. Consider a sequence of execution horizons (𝑇𝑘)∞
+𝑇𝑘𝜎2
+the dealer is strictly risk-averse (𝜆 > 0). For all 𝑞 ∈ [0, 1],
+
+𝑘=1 and a sequence of price-shock variances (𝜎2
+
+𝑘)∞
+
+⌈𝑞𝑇𝑘⌉∑
+
+𝑡=1
+
+lim
+𝑘→∞
+
+𝜏∗𝑘
+𝑡 =
+
+0
+1−𝑎
+2
+
+1
+
+⎧
+⎪
+⎨
+⎪
+⎩
+
+if 𝑞 = 0
+
++ 𝑎𝑞
+
+if 𝑞 ∈ (0, 1)
+
+and
+
+if 𝑞 = 1
+
+⌈𝑞𝑇𝑘⌉∑
+
+𝑡=1
+
+lim
+𝑘→∞
+
+𝑥∗𝑘
+𝑡 =
+
+0
+3(1−𝑎)
+4
+
+1
+
+⎧
+⎪
+⎨
+⎪
+⎩
+
+if 𝑞 = 0
+
++ 𝑎𝑞
+
+if 𝑞 ∈ (0, 1)
+
+if 𝑞 = 1
+
+where 𝑎 =
+
+1
+1+ 4𝜃
+𝜆𝑇 𝜎2
+
+. The client’s expected costs of execution converge to 𝑝0 + 3−𝑎
+
+4
+
+𝜃.
+
+The optimal contract in the continuous-time limit takes a surprisingly simple form, which can in fact be viewed as an extreme U-shape: interior
+times are weighted with a constant density of 𝑎, and the two boundary instants are weighted with atoms of 1−𝑎
+each.27 For the dealer’s best
+2
+response, interior times are also weighted with a constant density of 𝑎, but there is frontloading in terms of the boundary weights: the initial atom
+is three times the terminal atom.
+
+Comparative statics. This density 𝑎 is increasing in (𝜆, 𝑇 𝜎2) and decreasing in 𝜃. As 𝑎 relates inversely to the severity of the optimal contract’s
+U-shape, these relationships accord with what the earlier numerical experimentation suggests holds in general. To explain the intuition, note
+that permanent price impact generates an expected gap between the initial and terminal prices, creating a frontloading motive for the dealer:
+by frontloading, the dealer expects to buy low and sell high. A larger 𝜃 implies a larger expected gap, hence a larger frontloading motive. On
+the other hand, frontloading exposes the dealer to price risk owing to variance in this gap. Larger 𝑇 𝜎2 implies a larger variance, hence a smaller
+frontloading motive. Larger 𝜆 means less risk-bearing capacity, hence a similarly smaller frontloading motive. Finally, to see the connection between
+the frontloading motive and 𝑎, consider what would happen if the frontloading motive were to disappear entirely so that the dealer’s trades perfectly
+mirrored the weights of the offered contract. In that case, the client obtains her first-best payoff from a guaranteed TWAP contract (i.e., with 𝑎 = 1).
+Analogously, smaller (larger) frontloading motives imply larger (smaller) values of 𝑎.
+
+Temporary price impact.
+price impact costs are 𝛾 ∑𝑇𝑘
+condition for vanishing temporary price impact is that max1≤𝑡≤𝑇𝑘 |𝑥𝑘
+
+If trading were everywhere sufficiently diffuse, then temporary price impact would vanish in the limit. Indeed, temporary
+𝑡=1(𝑥𝑘
+. More generally, a sufficient
+
+𝑡 )2, which, for example, vanish under the first-best trading policy, 𝒙FB,k =
+
+)⊤
+
+( 1
+𝑇𝑘
+
+, … , 1
+𝑇𝑘
+
+1∕
+However, under the best response to the optimal contract, trading is not everywhere diffuse in this sense (unless 𝜃 = 0), and temporary price
+impact does not vanish. So it is for subtle reasons that 𝛾 does not affect the limit characterized by Proposition 10. This invariance obtains because
+temporary price impact creates two effects. On the one hand, if the dealer’s trading schedule were held fixed, then an increase in 𝛾 would raise
+prices and hence the client’s payment. But on the other hand, an increase in 𝛾 creates a smoothing motive for the dealer, which reduces the extent
+of the dealer’s frontloading and hence the client’s payment. In the continuous-time limit, these two considerations offset under the optimal contract.
+
+𝑡 | is 𝑜(
+
+√𝑇𝑘
+
+)
+.
+
+Convergence. Although temporary price impact has no effect on the continuous-time limit, it does affect convergence to this limit. Without
+temporary price impact, the first and last contract weights converge to the atoms of the continuous-time limits so that
+
+lim
+𝑘→∞
+
+𝜏∗𝑘
+1 = lim
+𝑘→∞
+
+𝜏∗𝑘
+𝑇𝑘
+
+=
+
+1 − 𝑎
+2
+
+and lim
+𝑘→∞
+
+𝜏∗𝑘
+𝑗+1 = lim
+𝑘→∞
+
+𝜏∗𝑘
+𝑇𝑘−𝑗 = 0 for any fixed 𝑗 ≥ 1.
+
+In contrast, with temporary price impact, we have a sequence of discrete weights
+
+lim
+𝑘→∞
+
+𝜏∗𝑘
+𝑗+1 = lim
+𝑘→∞
+
+𝜏∗𝑘
+𝑇𝑘−𝑗 =
+
+𝜃𝛾 𝑗
+(𝜃 + 𝛾)𝑗+1
+
+1 − 𝑎
+2
+
+for any fixed 𝑗 ≥ 0.
+
+26 This type of limit is classical in the study of continuous-time limits of discrete-time models, going back to Cox et al. (1979).
+27 Studying an optimal execution problem, Obizhaeva and Wang (2013) derive a very similar form for the optimal trading strategy: interior times weighted
+with a constant density and boundary instants weighted with equal atoms. But the similarity is only coincidental. They solve a different problem (a problem of
+optimal execution rather than one of optimal contracting) under a different set of assumptions.
+
+JournalofFinancialEconomics160(2024)10390113M. Baldauf, C. Frei and J. Mollner
+
+Fig. 4. The optimal contract for a large 𝑘 (such that 𝑇𝑘 = 2,000). There are two sequences of discrete weights at the beginning and end, while the weights are smooth for interior
+(
+1 + 4𝜃
+times. Parameters are 𝜃 = 1, 𝛾 = 1, 𝜆 = 1, and 𝑇 𝜎2 = 1. The limit features a constant density at interior times of 𝑎 = 1∕
+= 0.2, as well as initial and terminal atoms of
+𝜆𝑇 𝜎2
+1−𝑎
+2
+
+= 0.4 each.
+
+)
+
+Note that the sum of each of the two sequences equals
+
+∞
+∑
+
+𝑗=0
+
+𝜃𝛾 𝑗
+(𝜃 + 𝛾)𝑗+1
+
+1 − 𝑎
+2
+
+=
+
+𝜃
+𝜃 + 𝛾
+
+1
+1 − 𝛾
+𝜃+𝛾
+
+1 − 𝑎
+2
+
+=
+
+1 − 𝑎
+2
+
+,
+
+which coincides with what Proposition 10 specifies for the jumps of lim𝑘→∞
+
+∑⌈𝑞𝑇𝑘⌉
+𝑡=1
+
+𝜏∗𝑘
+𝑡
+
+at 𝑞 = 0 and 𝑞 = 1. Fig. 4 illustrates this convergence.28
+
+Interestingly, the optimal trading strategy has a different form: a sequence of discrete weights only at the beginning, but not at the end of the
+
+trading times. Without temporary price impact, only the first element of the trading strategy converges to a nonzero value
+
+lim
+𝑘→∞
+
+𝑥∗𝑘
+1 =
+
+1 − 𝑎
+2
+
+,
+
+lim
+𝑘→∞
+
+𝑥∗𝑘
+𝑗+2 = 0,
+
+lim
+𝑘→∞
+
+𝑥∗𝑘
+𝑇𝑘−𝑗 = 0 for any fixed 𝑗 ≥ 0.
+
+With temporary price impact, we have
+
+lim
+𝑘→∞
+
+𝑥∗𝑘
+𝑗+1 =
+
+𝜃𝛾 𝑗
+(𝜃 + 𝛾)𝑗+1
+
+1 − 𝑎
+2
+
+,
+
+lim
+𝑘→∞
+
+𝑥∗𝑘
+𝑇𝑘−𝑗 = 0 for any fixed 𝑗 ≥ 0.
+
+(6)
+
+∑⌈𝑞𝑇𝑘⌉
+𝑡=1
+
+𝑥∗𝑘
+𝑡
+
+However, the jumps of lim𝑘→∞
+Proposition 10, the jump at 𝑞 = 0 is 3(1−𝑎)
+individually converge to zero but whose sum converges to 1−𝑎
+4
+zero and a piece of the curve near zero that converges to a vertical line as 𝑘 → ∞. Likewise, the jump at 𝑞 = 1 is 1−𝑎
+4
+an infinite sum of terms that individually all converge to zero.
+
+at 𝑞 = 0 and 𝑞 = 1 are not determined only by these sequences of discrete weights. As stated in
+, consisting of not only ∑∞
+𝑗=0
+
+. This is illustrated in Fig. 5, where we see both the sequence of discrete weights at
+, which comes entirely from
+
+from (6), but also another infinite sum whose terms
+
+𝜃𝛾𝑗
+(𝜃+𝛾)𝑗+1
+
+= 1−𝑎
+2
+
+1−𝑎
+2
+
+4
+
+Supplemental material. See Online Appendix D for supplemental details on this continuous-time limit, including an overview of our strategy for
+proving Proposition 10 and a discussion of the wedge between the first-best and second-best.
+
+5.2. Discussion of outcomes under common contracts
+
+Although not optimal in our model, two contracts that are nevertheless commonly used are 𝝉 TWAP and 𝝉 MOC . Natural questions include: What
+trading behavior is induced by these contracts? By how much do they underperform the optimal contract? Under what situations, if any, do they
+deliver outcomes close to the client’s second-best payoff? The following result provides answers.
+
+Proposition 11. Consider a sequence of execution horizons (𝑇𝑘)∞
+𝑇𝑘𝜎2
+
+𝑘 = 𝑇 𝜎2 for all 𝑘. Assume also that the dealer is strictly risk-averse (𝜆 > 0).
+(i) For each 𝑘, let 𝒙TWAP,𝑘 be the dealer strategy that best responds to 𝝉 TWAP,𝑘. For all 𝑞 ∈ [0, 1],
+
+𝑘=1 and a sequence of price-shock variances (𝜎2
+
+𝑘)∞
+
+𝑘=1 such that lim𝑘→∞ 𝑇𝑘 = ∞ and
+
+⌈𝑞𝑇𝑘⌉∑
+
+𝑡=1
+
+lim
+𝑘→∞
+
+𝑥TWAP,𝑘
+𝑡
+
+=
+
+0
+𝜃
+𝜆𝑇 𝜎2 + 𝑞
+1
+
+⎧
+⎪
+⎨
+⎪
+⎩
+
+if 𝑞 = 0
+
+if 𝑞 ∈ (0, 1)
+
+if 𝑞 = 1
+
+(7)
+
+28 Although 𝜆 affects 𝑎, and hence the total amount of weight in these sequences, it does not affect how this total is divided across the elements of the sequences
+(in the limit). This is intuitive because when the time periods become shorter, price fluctuations between consecutive periods become smaller, so that for purposes
+of these periods around the boundary times, the dealer behaves in the limit as if he were risk-neutral (regardless of 𝜆). The role of 𝛾 is exactly the opposite: it
+affects the division of weight across the sequences, but not the weight assigned to the sequences in total.
+
+JournalofFinancialEconomics160(2024)10390114M. Baldauf, C. Frei and J. Mollner
+
+Fig. 5. The dealer’s best-responding trading strategy for a large 𝑘 (such that 𝑇𝑘 = 2,000). There is a sequence of discrete weights at the beginning, while the weights are smooth
+for interior times and toward the end (although part of the smooth curve converges to a vertical line). Parameters are 𝛾 = 1, 𝜃 = 1, 𝜆 = 1, and 𝑇 𝜎2 = 1. The limit features a
+(
+1 + 4𝜃
+constant density at interior times of 𝑎 = 1∕
+𝜆𝑇 𝜎2
+
+= 0.6, and a terminal atom of 1−𝑎
+4
+
+= 0.2, an initial atom of 3(1−𝑎)
+
+= 0.2.
+
+)
+
+4
+
+The client’s expected costs of execution converge to 𝑝0 + 1
+2
+
+𝜃 + 𝜃2
+
+𝜆𝑇 𝜎2 .
+
+(ii) For each 𝑘, let 𝒙MOC,𝑘 be the dealer strategy that best responds to 𝝉 MOC,𝑘. For all 𝑞 ∈ [0, 1],
+
+⌈𝑞𝑇𝑘⌉∑
+
+𝑡=1
+
+lim
+𝑘→∞
+
+𝑥MOC,𝑘
+𝑡
+
+=
+
+{
+
+0 if 𝑞 ∈ [0, 1)
+
+1 if 𝑞 = 1
+
+The client’s expected costs of execution converge to 𝑝0 + 𝜃 + 𝛾2
+
+𝜃+2𝛾
+
+.
+
+(8)
+
+According to part (i) of the proposition, 𝝉 TWAP leads the dealer to frontload his trading so much that he actually overbuys, before selling a
+discrete amount at the terminal instant. The client can deter this overbuying – and consequently do better – by collecting contract weights from
+interior times near the end of the window into an atom on the terminal instant. Hence, its terminal atom is one way by which the optimal contract
+improves upon 𝝉 TWAP . According to part (ii) of the proposition, 𝝉 MOC leads the dealer to concentrate all his trading at the terminal instant, behavior
+sometimes termed ‘banging the close.’ Such extraordinarily concentrated trading is inefficient, and one way by which the optimal contract improves
+upon 𝝉 MOC is to deter it.
+
+Back-of-the-envelope calculation. To quantify our findings, we consider a reasonable parametrization for our model’s continuous-time limit. Consider
+a client who desires to trade a position, currently valued at 𝑉 = $100 million, in a certain stock. Let the parameters be 𝑝0 = $100, 𝜃 = 2 × 10−6,
+𝛾 = 0, 𝜆 = 2 × 10−6, 𝑇 = 1, and 𝜎2 = 6.1.29 Under these parameters, the optimal contract puts 19.8 percent of its weight on the opening price, 19.8
+percent on the closing price, and 60.4 percent on the intraday time-weighted average price.
+
+We then use our results to compute model-implied transaction costs under various scenarios. Our metric is implementation shortfall: the client’s
+expected costs net of what it would have cost to trade her entire volume at 𝑝0 per share. Whereas our theoretical analysis normalized trade size to
+one share, we are now contemplating a trade of 𝑉 ∕𝑝0 = 1 million shares. In our model, transaction costs grow with the square of volume, so we
+therefore scale up by a factor of one trillion. Doing so, we find the following. First-best transaction costs are 1012
+= $1 million, or 100 bps of
+the value of the trade, which is the correct order of magnitude for trades of block sizes (e.g., US Securities and Exchange Commission, 2005; Abel
+Noser, 2021; The Wall Street Journal, 2022a,b). Second-best transaction costs are 1012( 1
+= $1.2 million (or 120 bps). Under 𝝉 TWAP ,
+)
+transaction costs are 1012( 1
+
+𝜃2
+4𝜃+𝜆𝑇 𝜎2
+= $1.33 million (or 133 bps). Under 𝝉 MOC , they are 1012(𝜃 + 𝛾2
+𝜃+2𝛾
+
+= $2 million (or 200 bps).
+
+𝜃 + 𝜃2
+𝜆𝑇 𝜎2
+
+The calculations reported in the previous paragraph indicate that switching to the optimal contract from 𝝉 TWAP would reduce transaction costs
+by 13 bps. Gains of a switch from 𝝉 MOC would be even larger, 80 bps. In either case, such a switch closes a sizable portion of the gap relative to the
+first-best and represents a cost saving on the order of hundred(s) of thousands of dollars per trade. Scaling up by the market-wide volume of such
+trades, these cost savings could extrapolate to billions of dollars per year.30 Of course, additional savings might be possible with more complex
+contracts (e.g., the set of affine contracts as in Online Appendix A, or the fully general set as in Section 3.2). Nevertheless, it is striking that such
+substantial cost savings can be obtained, even while staying within the relatively simple class of weighted-average-price contracts.
+
+( 1
+2
+
+𝜃 +
+
+)
+
+𝜃
+
+)
+
+)
+
+2
+
+2
+
+29 These parameter values are consistent with the following facts. Abel Noser (2021) describes a dataset of portfolio transitions, with a median size of $145
+million. The median S&P 500 stock price was $112 as of April 27, 2022. Cartea and Jaimungal (2016, Tables 7 and 8) estimate the coefficient of permanent price
+impact for 17 stocks, with results ranging from 0.63 × 10−6 to 2.03 × 10−4. Choosing 𝛾 = 0 is to be maximally conservative, biasing our analysis in favor of finding
+a small difference between the performance of 𝝉 MOC and our optimal contract. Campo, Guerre, Perrigne, and Vuong (2011, Table 2) estimate a coefficient of
+absolute risk aversion of 2 × 10−6. 𝑇 = 1 reflects an execution window of one day. Avramov, Chordia, and Goyal (2006, Table 1) find that the standard deviation
+of daily returns is 2.47%, which for a $100 stock equates to a variance of 6.10.
+
+30 A conservative estimate of institutional transaction costs is $70 billion per year (Nasdaq, 2022; SIFMA, 2021). Assuming that this figure represents 133 bps
+(200 bps) of the traded value and that a switch to our optimal contract would save 13 bps (80 bps) of that value implies total cost savings of $6.8 billion ($28
+billion) per year.
+
+JournalofFinancialEconomics160(2024)10390115M. Baldauf, C. Frei and J. Mollner
+
+6. Conclusion
+
+This paper formulates a contracting problem in which a client (the principal) contracts to purchase a position from a dealer (the agent) at some
+future time. In the interim, the dealer acquires the position from the market. The friction is hidden action, in that the client cannot observe the
+dealer’s on-market trades, but only the evolution of market prices, so that the dealer has an incentive to frontload his trading. Eliminating this
+friction and solving for the first-best benchmark, the problem becomes one of optimal execution. Indeed, our analysis of the first-best problem
+recovers classic results from that literature about optimality of trading at a constant rate.
+
+However, we depart from the optimal execution literature by analyzing the implications of these agency conflicts. Focusing on contracts that
+are weighted averages of market prices, we characterize the second-best solution in discrete time, then take the continuous-time limit. The optimal
+contract in this limit is an extreme U-shape: atoms of equal mass at the two extreme times and a constant density at interior times. The mass at
+the extreme times – and hence the severity of the U-shape – is increasing in permanent price impact, decreasing in the dealer’s risk aversion, and
+constant in temporary price impact.
+
+These results shed light on the interplay between price impact and agency conflicts in financial markets. They could also aid in reducing
+the transaction costs of pension funds, endowments, or other institutional traders who sometimes outsource the execution of large trades. In
+particular, guaranteed TWAP contracts (and similar guaranteed VWAP contracts) are common in practice. Although our results rationalize the
+practice of putting equal weight on interior prices, they also indicate that these contracts themselves are unlikely to be optimal unless price
+impact is predominantly temporary or the dealer is highly risk averse. Guaranteed MOC contracts, which put full weight on the closing price, are
+also commonly used. Although our results rationalize the practice of putting substantial weight on the closing price, they also recommend that
+the opening price receive equally substantial weight, so that the contract more closely resembles the U-shape that is optimal in the model. As
+regulators review best practices in relation to over-the-counter block trading, they may revisit the wisdom of various pricing benchmarks in light
+of our analysis.
+
+CRediT authorship contribution statement
+
+Markus Baldauf: Writing – review & editing, Writing – original draft, Formal analysis, Conceptualization. Christoph Frei: Writing – review &
+editing, Writing – original draft, Formal analysis, Conceptualization. Joshua Mollner: Writing – review & editing, Writing – original draft, Formal
+analysis, Conceptualization.
+
+Declaration of competing interest
+
+The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the
+
+work reported in this paper.
+
+Data availability
+
+Block Trade Contracting (code for reproducing figures) https://data.mendeley.com/datasets/5gp82wtfjc/1.
+
+Appendix A. Proofs of results stated in the main text
+
+How the parameter 𝝈 is handled in the proofs. Except for the proofs of Propositions 10 and 11, where 𝜎𝑘 depends on 𝑘, we assume for all proofs that
+𝜎 = 1 without loss of generality. Indeed, any parametrization of the model with 𝜎 ≠ 1 is economically-equivalent to an alternative parametrization
+in which the price-shock variance is 1 (instead of 𝜎2) and in which the dealer’s risk aversion is 𝜆𝜎2 (instead of 𝜆).
+
+We begin with a lemma that will be used in the proof of Proposition 1.
+
+Lemma 12. For any trading strategy 𝒙 ∈ ,
+]
+
+[ 𝑇
+∑
+
+E
+
+𝑡
+∑
+
+𝑥𝑡
+
+𝜀𝑠
+
+= 0.
+
+𝑡=1
+
+𝑠=1
+
+Proof of Lemma 12. We start by writing
+
+[ 𝑇
+∑
+
+E
+
+𝑡
+∑
+
+𝑥𝑡
+
+𝑡=1
+
+𝑠=1
+
+]
+
+𝜀𝑠
+
+= E
+
+[ 𝑇
+∑
+
+𝑥𝑡
+
+( 𝑇
+∑
+
+𝜀𝑠 −
+
+𝑇
+∑
+
+𝑡=1
+
+𝑠=1
+
+𝑠=𝑡+1
+
+)]
+
+𝜀𝑠
+
+= E
+
+[ 𝑇
+∑
+
+𝑇
+∑
+
+𝑥𝑡
+
+𝑡=1
+
+𝑠=1
+
+]
+
+𝜀𝑠
+
+− E
+
+[ 𝑇
+∑
+
+𝑇
+∑
+
+]
+
+𝜀𝑠
+
+.
+
+𝑥𝑡
+
+𝑡=1
+
+𝑠=𝑡+1
+
+We complete the proof by showing that each of these two terms evaluates to zero:
+
+[ 𝑇
+∑
+
+𝑡=1
+[ 𝑇
+∑
+
+E
+
+E
+
+𝑥𝑡
+
+𝑥𝑡
+
+𝑇
+∑
+
+]
+
+𝜀𝑠
+
+= E
+
+[ 𝑇
+∑
+
+𝜀𝑠
+
+𝑠=1
+𝑇
+∑
+
+𝑠=1
+[ 𝑇
+∑
+
+]
+
+𝜀𝑠
+
+= E
+
+𝑇
+∑
+
+𝑡=1
+
+]
+
+𝑥𝑡
+
+= E
+
+[ 𝑇
+∑
+
+]
+
+𝜀𝑠
+
+= 0,
+
+𝑇
+∑
+
+𝑥𝑡
+
+𝑠=1
+]
+]
+
+E [𝜀𝑠|𝑥𝑡
+
+= 0. □
+
+𝑡=1
+
+𝑠=𝑡+1
+
+𝑡=1
+
+𝑠=𝑡+1
+
+JournalofFinancialEconomics160(2024)10390116M. Baldauf, C. Frei and J. Mollner
+
+Proof of Proposition 1. Given an arbitrary trading strategy 𝒙 ∈ , the expected costs of execution are
+
+[ 𝑇
+∑
+
+E
+
+𝑡=1
+
+]
+
+𝑥𝑡𝑝𝑡
+
+= E
+
+[ 𝑇
+∑
+
+𝑡=1
+
+(
+
+𝑥𝑡
+
+𝑝0 + 𝛾𝑥𝑡 + 𝜃
+
+)]
+
+𝑡
+∑
+
+𝑠=1
+
+𝑥𝑠 +
+
+𝑡
+∑
+
+𝑠=1
+
+𝜀𝑠
+
+= 𝑝0
+
+E
+
+[ 𝑇
+∑
+
+𝑡=1
+
+]
+
+𝑥𝑡
+
++ 𝛾E
+
+[ 𝑇
+∑
+
+𝑡=1
+
+]
+
+𝑥2
+𝑡
+
++ 𝜃E
+
+[ 𝑇
+∑
+
+𝑡
+∑
+
+𝑥𝑡
+
+𝑡=1
+
+𝑠=1
+
+]
+
+𝑥𝑠
+
++ E
+
+[ 𝑇
+∑
+
+𝑡
+∑
+
+]
+
+𝜀𝑠
+
+.
+
+𝑥𝑡
+
+𝑡=1
+
+𝑠=1
+
+The first term evaluates to 𝑝0. The last term evaluates to zero by Lemma 12. Observe that 𝜺 has fallen out of the expression. Thus, the first-best
+trading strategy, which minimizes this expression, will not be a function of 𝜺—in other words, it will be deterministic. This first-best trading strategy
+solves the program
+
+min
+(𝑥1,…,𝑥𝑇 )⊤∈R𝑇
+
+𝑝0 + 𝛾
+
+𝑇
+∑
+
+𝑡=1
+
+𝑥2
+𝑡 + 𝜃
+
+𝑇
+∑
+
+𝑥𝑡
+
+𝑡
+∑
+
+𝑡=1
+
+𝑠=1
+
+𝑥𝑠
+
+subject to
+
+𝑇
+∑
+
+𝑡=1
+
+𝑥𝑡 = 1.
+
+Taking the Lagrangian (with 𝜇 as the multiplier on the constraint), we obtain
+
+2𝛾𝑥FB
+
+𝑡 + 2𝜃𝑥FB
+
+𝑡 + 𝜃
+
+∑
+
+𝑠≠𝑡
+
+𝑥FB
+𝑠 = 𝜇 for all 𝑡 = 1, … , 𝑇 .
+
+1 = ⋯ = 𝑥FB
+These imply 𝑥FB
+this strategy, we compute
+
+𝑇 . And from the constraint, we must therefore have 𝑥FB
+
+1 = ⋯ = 𝑥FB
+
+𝑇 = 1
+
+𝑇
+
+. To obtain the expected costs of execution under
+
+[ 𝑇
+∑
+
+E
+
+𝑡=1
+
+]
+
+𝑥FB
+𝑡 𝑝𝑡
+
+= 𝑝0 + 𝛾
+
+𝑇
+∑
+
+𝑡=1
+
+( 1
+𝑇
+
+)2
+
++ 𝜃
+
+𝑇
+∑
+
+𝑡=1
+
+1
+𝑇
+
+𝑡
+∑
+
+𝑠=1
+
+1
+𝑇
+
+= 𝑝0 +
+
+𝛾
+𝑇
+
++
+
+𝜃(𝑇 + 1)
+2𝑇
+
+. □
+
+Proof of Proposition 2. Consider a class of contracts indexed by (𝜁, 𝛿, 𝐾1, … , 𝐾𝑇 −1), where the payment is
+
+𝜏(𝒑) = 𝛿 +
+
+1
+𝑇
+
+𝑇
+∑
+
+𝑡=1
+
+𝑝𝑡 −
+
+𝑇 −1
+∑
+
+𝑡=1
+
+𝐾𝑡
+
+1[𝑝𝑡 − 𝑝𝑡−1 > 𝜁].
+
+The dealer’s monetary payoff is
+
+𝜏(𝒑) − 𝒙 ⋅ 𝒑 = 𝛿 +
+
+𝑇
+∑
+
+𝑡=1
+
+(
+
+𝑝𝑡
+
+1
+𝑇
+
+)
+
+− 𝑥𝑡
+
+−
+
+𝑇 −1
+∑
+
+𝑡=1
+
+𝐾𝑡
+
+1[𝑝𝑡 − 𝑝𝑡−1 > 𝜁].
+
+The dealer’s expected utility is therefore
+
+E[𝑢(𝜏(𝒑) − 𝒙 ⋅ 𝒑)]
+(
+
+[
+𝑢
+
+= E
+
+𝑇
+∑
+
+𝛿 +
+
+𝑡=1
+
+[
+
+(
+
+= −E
+
+exp
+
+−𝜆𝛿 − 𝜆
+
+[
+
+(
+
+= −E
+
+exp
+
+−𝜆𝛿 − 𝜆
+
+𝑡=1
+𝑇
+∑
+
+(
+
+(
+
+1
+𝑇
+
+)
+
+− 𝑥𝑡
+
+−
+
+𝑇 −1
+∑
+
+𝑡=1
+
+[
+𝑝𝑡 − 𝑝𝑡−1 > 𝜁
+
+]
+
+1
+
+𝐾𝑡
+
+)]
+
+𝑝𝑡
+
+𝑇
+∑
+
+(
+
+𝑝𝑡
+
+)
+
+− 𝑥𝑡
+
++ 𝜆
+
+1
+𝑇
+
+𝑇 −1
+∑
+
+𝑡=1
+
+)]
+
+𝐾𝑡
+
+1[𝑝𝑡 − 𝑝𝑡−1 > 𝜁]
+
+𝑝0 + 𝛾𝑥𝑡 + 𝜃
+
+)(
+
+𝑡
+∑
+
+𝑠=1
+
+𝑥𝑠 +
+
+𝑡
+∑
+
+𝑠=1
+
+𝜀𝑠
+
+1
+𝑇
+[
+
+𝑡=1
+(
+
+(
+
+= −exp
+
+−𝜆𝛿 − 𝜆
+
+𝑇
+∑
+
+(
+
+= −exp
+
+−𝜆𝛿 − 𝜆
+
+𝑡=1
+
+(
+
+𝑇
+∑
+
+[
+
+(
+
+× E
+
+exp
+
+−𝜆
+
+𝑡=1
+𝑇 −1
+∑
+
+𝜀𝑡
+
+(
+
+= −exp
+
+−𝜆𝛿 − 𝜆
+
+𝑡=2
+
+(
+
+𝑇 −1
+∑
+
+𝑡=1
+
+𝑝0 + 𝛾𝑥𝑡 + 𝜃
+
+𝑝0 + 𝛾𝑥𝑡 + 𝜃
+
+𝑡
+∑
+
+𝑠=1
+
+𝑡
+∑
+
+𝑠=1
+
+( 𝑡−1
+∑
+
+𝑠=1
+
+𝑥𝑠 −
+
+𝑡 − 1
+𝑇
+
+𝑝0 + 𝛾𝑥𝑡 + 𝜃
+
+𝑡
+∑
+
+𝑠=1
+
+[
+
+(
+
+exp
+
+−𝜆𝜀𝑡
+
+( 𝑡−1
+∑
+
+𝑠=1
+
+𝑥𝑠 −
+
+𝑡 − 1
+𝑇
+
+1
+𝑇
+
+1
+𝑇
+
+)(
+
+𝑥𝑠
+
+)(
+
+𝑥𝑠
+
+)
+
++ 𝜆
+
+)(
+
+𝑥𝑠
+
+)
+
+= −exp
+
+−𝜆𝛿 − 𝜆
+
+(
+
+𝑇 −1
+∑
+
+𝑡=1
+
+𝑝0 + 𝛾𝑥𝑡 + 𝜃
+
+)(
+
+1
+𝑇
+
+𝑡
+∑
+
+𝑠=1
+
+𝑥𝑠
+
+(
+
+𝑇 −1
+∏
+
+E
+
+×
+
+𝑡=1
+(
+
+(
+
+𝑇 −1
+∏
+
+×
+
+𝑡=1
+
+)
+
+− 𝑥𝑡
+
++ 𝜆
+
+𝑇 −1
+∑
+
+𝐾𝑡
+
+1[𝛾(𝑥𝑡 − 𝑥𝑡−1) + 𝜃𝑥𝑡 + 𝜀𝑡 > 𝜁]
+
+)]
+
+))
+
+− 𝑥𝑡
+
+[
+
+(
+
+E
+
+E
+
+exp
+
+𝑡=1
+𝑇
+∑
+
+−𝜆
+
+𝑡=2
+
+𝜀𝑡
+
+)
+
+− 𝑥𝑡
+
++
+
+𝜆2
+2
+
+(𝑇 −1
+∑
+
+𝑠=1
+
+𝑥𝑠 −
+
+𝑇 − 1
+𝑇
+
+𝑥𝑠 −
+
+𝑡 − 1
+𝑇
+
+)
+
++ 𝜆
+
+𝑇 −1
+∑
+
+𝑡=1
+
+( 𝑡−1
+∑
+
+𝑠=1
+)2)
+
+𝐾𝑡
+
+1[𝛾(𝑥𝑡 − 𝑥𝑡−1) + 𝜃𝑥𝑡 + 𝜀𝑡 > 𝜁]
+
+)
+
+]]
+
+|
+|
+
+|
+|
+|
+
+𝑇 −1
+
+𝐾𝑡
+
+1[𝛾(𝑥𝑡 − 𝑥𝑡−1) + 𝜃𝑥𝑡 + 𝜀𝑡 > 𝜁]
+
+)]
+
+𝑇 −1
+∑
+
+𝑡=1
+
+)
+
+(
+
+(
+
+− 𝑥𝑡
+
+− 𝜆
+
+𝑝0 + 𝛾
+
+1 −
+
+1
+𝑇
+
+𝑇 −1
+∑
+
+𝑠=1
+
+)
+
+)(
+
+𝑥𝑠
+
++ 𝜃
+
+1
+𝑇
+
+− 1 +
+
+)
+
+𝑥𝑠
+
++
+
+𝑇 −1
+∑
+
+𝑠=1
+
+𝜆2
+2
+
+(𝑇 −1
+∑
+
+𝑠=1
+
+𝑥𝑠 −
+
+𝑇 − 1
+𝑇
+
+)2)
+
+1
+
+[
+𝛾(𝑥𝑡 − 𝑥𝑡−1) + 𝜃𝑥𝑡 + 𝜀𝑡 > 𝜁
+
+]
+
+)]
+
++ 𝜆𝐾𝑡
+
+)
+
+(
+
+(
+
+− 𝑥𝑡
+
+− 𝜆
+
+𝑝0 + 𝛾
+
+1 −
+
+)
+
+𝑇 −1
+∑
+
+𝑠=1
+
+𝑥𝑠
+
+− 1 +
+
+)
+
+𝑥𝑠
+
++
+
+𝜆2
+2
+
+𝑇 −1
+∑
+
+𝑠=1
+
+𝑇
+∑
+
+( 𝑡−1
+∑
+
+𝑡=1
+
+𝑠=1
+
+𝑥𝑠 −
+
+𝑡 − 1
+𝑇
+
+)2)
+
++ 𝜃
+
+)(
+
+1
+𝑇
+)))
+,
+
+( 𝑡−1
+∑
+
+𝑠=1
+
+𝑥𝑠 −
+
+𝑡 − 1
+𝑇
+
+exp(𝜆𝐾𝑡) − (exp(𝜆𝐾𝑡) − 1)𝛷
+
+𝜁 − 𝛾(𝑥𝑡 − 𝑥𝑡−1) − 𝜃𝑥𝑡 + 𝜆
+
+using for the last equality that 𝜀𝑡 is normally distributed with standard deviation one and mean −𝜆( ∑𝑡−1
+( ∑𝑡−1
+𝑄𝑡 given by
+𝑠 gives
+
+𝑠=1 𝑥𝑠 − 𝑡−1
+. Taking the logarithm and the derivative with respect to 𝑥𝑗 at 𝑥𝑠 = 1∕𝑇 for all
+
+under the probability measure
+
+𝑠=1 𝑥𝑠 − 𝑡−1
+
+𝑠=1 𝑥𝑠 − 𝑡−1
+
+− 𝜆2
+2
+
+( ∑𝑡−1
+
+− 𝜆𝜀𝑡
+
+= exp
+
+𝑑𝑄𝑡
+𝑑𝑃
+
+)2)
+
+)
+
+(
+
+)
+
+𝑇
+
+𝑇
+
+𝑇
+
+(
+
+𝜆
+
+𝑝0 + 𝛾
+
+1
+𝑇
+
++ 𝜃
+
+𝑗
+𝑇
+
+)
+
+(
+
+− 𝜆
+
+𝑝0 + 𝛾
+
+)
+
++ 𝜃
+
+1
+𝑇
+
+JournalofFinancialEconomics160(2024)10390117M. Baldauf, C. Frei and J. Mollner
+
+𝑑
+𝑑𝑥𝑗
+
+−
+
+𝑇 −1
+∑
+
+𝑡=1
+
+𝛷(𝜁 − 𝛾(𝑥𝑡 − 𝑥𝑡−1) − 𝜃𝑥𝑡 + 𝜆(∑𝑡−1
+
+𝑠=1 𝑥𝑠 − 𝑡−1
+
+𝑇
+
+))|
+|
+|𝑥𝑠=1∕𝑇 ∀𝑠
+
+1
+1−exp(−𝜆𝐾𝑡)
+
+− 𝛷(𝜁 − 𝛾∕𝑇 1[𝑡 = 1] − 𝜃∕𝑇 )
+
+= 𝜆𝜃
+
+𝑗 − 𝑇
+𝑇
+
++
+
+(𝛾 + 𝜃)𝜙(𝜁 − 𝛾∕𝑇 1[𝑗 = 1] − 𝜃∕𝑇 )
+1
+1−exp(−𝜆𝐾𝑗 )
+
+− 𝛷(𝜁 − 𝛾∕𝑇 1[𝑗 = 1] − 𝜃∕𝑇 )
+
+−
+
+(𝛾 + 𝜆)𝜙(𝜁 − 𝜃∕𝑇 )
+
+1
+1−exp(−𝜆𝐾𝑗+1)
+
+− 𝛷(𝜁 − 𝜃∕𝑇 )
+
+1[𝑗 < 𝑇 − 1] −
+
+𝑇 −1
+∑
+
+𝑡=𝑗+2
+
+𝜆𝜙(𝜁 − 𝜃∕𝑇 )
+
+1
+1−exp(−𝜆𝐾𝑡)
+
+− 𝛷(𝜁 − 𝜃∕𝑇 )
+
+.
+
+We set these expressions to zero and solve for 𝐾𝑗 iteratively for 𝑗 = 𝑇 − 1, 𝑇 − 2, … , 1. To this end, we write
+
+𝑎𝑛 =
+
+(𝛾 + 𝜃)𝜙(𝜁 − 𝛾∕𝑇 1[𝑛 = 𝑇 − 1] − 𝜃∕𝑇 )
+1
+1−exp(−𝜆𝐾𝑇 −𝑛)
+
+− 𝛷(𝜁 − 𝛾∕𝑇 1[𝑛 = 𝑇 − 1] − 𝜃∕𝑇 )
+
+for 𝑛 = 1, 2, … , 𝑇 − 1, and find
+
+𝑎1 =
+
+𝑎2 =
+
+𝑎3 =
+
+𝑎𝑛 =
+
+𝑎𝑛−1 =
+
+𝜆𝜃
+𝑇
+𝜆𝜃
+𝑇
+
+𝜆𝜃
+𝑇
+
+𝜆𝜃
+𝑇
+
+𝜆𝜃
+𝑇
+
+(
+
+2 +
+
+(
+
+3 +
+
+𝛾 + 𝜆
+𝛾 + 𝜃
+𝛾 + 𝜆
+𝛾 + 𝜃
+
+)
+
+(
+
+2 +
+
+𝑛 +
+
+𝛾 + 𝜆
+𝛾 + 𝜃
+
+𝑎𝑛−1 +
+
+)
+
+𝛾 + 𝜆
+𝛾 + 𝜃
+
++
+
+𝜆
+𝛾 + 𝜃
+
+)
+
+𝜆
+𝛾 + 𝜃
+
+𝑛−2
+∑
+
+𝑗=1
+
+𝑎𝑗
+
+(𝑛 − 1) +
+
+𝛾 + 𝜆
+𝛾 + 𝜃
+
+𝑎𝑛−2 +
+
+𝜆
+𝛾 + 𝜃
+
+𝑛−3
+∑
+
+𝑗=1
+
+𝑎𝑗 .
+
+Combining the last two formulae yields
+
+𝑎𝑛 =
+
+=
+
+𝜆𝜃
+𝑇
+𝜆𝜃
+𝑇
+
+𝑛 +
+
++
+
+𝛾 + 𝜆
+𝛾 + 𝜃
+2𝛾 + 𝜆 + 𝜃
+𝛾 + 𝜃
+
+𝑎𝑛−1 +
+
+𝑎𝑛−1 −
+
+𝛾
+𝛾 + 𝜃
+
+𝑎𝑛−2,
+
+𝜆
+𝛾 + 𝜃
+
+𝑎𝑛−2 + 𝑎𝑛−1 −
+
+𝜆𝜃
+𝑇
+
+(𝑛 − 1) −
+
+𝛾 + 𝜆
+𝛾 + 𝜃
+
+𝑎𝑛−2
+
+which we can write as
+( 𝑎𝑛
+𝑎𝑛−1
+
+)
+
+=
+
+)
+
+( 𝜆𝜃
+𝑇
+0
+( 2𝛾+𝜆+𝜃
+
++
+
+𝛾+𝜃
+1
+
+=
+
+𝑛−3
+∑
+
+𝑗=0
+
+( 2𝛾+𝜆+𝜃
+
+− 𝛾
+𝛾+𝜃
+0
+)𝑗 ( 𝜆𝜃
+𝑇
+0
+
+)
+
+) ( 𝑎𝑛−1
+𝑎𝑛−2
+( 2𝛾+𝜆+𝜃
+
+)
+
++
+
+𝛾+𝜃
+1
+
+− 𝛾
+𝛾+𝜃
+0
+
+)𝑛−2 ( 𝜆𝜃
+𝑇
+
+)
+
+)
+
+.
+
+(
+2 + 𝛾+𝜆
+𝛾+𝜃
+𝜆𝜃
+𝑇
+
+𝛾+𝜃
+1
+
+− 𝛾
+𝛾+𝜃
+0
+
+(A.1)
+
+(A.2)
+
+This shows that 𝑎𝑛 is uniquely defined in terms of 𝑛, 𝑇 , 𝜆, 𝛾, and 𝜃. Note that 𝑎𝑛 is strictly positive and increasing in 𝑛, which follows from (A.2)
+by induction.
+
+𝜙( ̄𝜁−𝛾∕𝑇 −𝜃∕𝑇 )
+1−𝛷( ̄𝜁−𝛾∕𝑇 −𝜃∕𝑇 )
+
+> 𝑎𝑇 −1
+𝛾+𝜃
+
+; this is possible because the inverse Mills ratio 𝜙(𝑥)
+1−𝛷(𝑥)
+
+grows without bound as 𝑥 increases. It implies
+
+Let ̄𝜁 be such that
+> 𝑎𝑛
+𝛾+𝜃
+
+𝜙( ̄𝜁−𝜃∕𝑇 )
+1−𝛷( ̄𝜁−𝜃∕𝑇 )
+
+for all 𝑛 = 1, 2, … , 𝑇 − 1. Let 𝜁 ≥ ̄𝜁. Solving (A.1) for 𝐾𝑇 −𝑛 gives
+
+(
+
+log
+
+1 +
+
+𝐾𝑇 −𝑛 =
+
+1
+𝜆
+
+𝑎𝑛
+(𝛾 + 𝜃)𝜙(𝜁 − 𝛾∕𝑇 1[𝑛 = 𝑇 − 1] − 𝜃∕𝑇 ) − 𝑎𝑛
+
+)
+(
+1 − 𝛷(𝜁 − 𝛾∕𝑇 1[𝑛 = 𝑇 − 1] − 𝜃∕𝑇 )
+
+)
+
+.
+
+This choice leaves the dealer with expected utility
+
+E[𝑢(𝜏(𝒑) − 𝒙 ⋅ 𝒑)]|
+|
+|
+|𝑥𝑠=1∕𝑇 ∀𝑠
+
+= −exp(−𝜆𝛿)
+
+𝑇 −1
+∏
+
+𝑡=1
+
+1
+
+1 − 𝑎𝑇 −𝑡
+𝛾+𝜃
+
+1−𝛷(𝜁−𝛾∕𝑇 1[𝑡=1]−𝜃∕𝑇 )
+𝜙(𝜁−𝛾∕𝑇 1[𝑡=1]−𝜃∕𝑇 )
+
+.
+
+For this contract to satisfy (IR), this must be at least 𝑢(0) = −1. Choosing 𝛿 to make this constraint hold with equality, we obtain
+
+𝛿 = −
+
+1
+𝜆
+
+𝑇 −1
+∑
+
+𝑡=1
+
+(
+
+log
+
+1 −
+
+𝑎𝑇 −𝑡
+𝛾 + 𝜃
+
+1 − 𝛷(𝜁 − 𝛾∕𝑇 1[𝑡 = 1] − 𝜃∕𝑇 )
+𝜙(𝜁 − 𝛾∕𝑇 1[𝑡 = 1] − 𝜃∕𝑇 )
+
+)
+
+.
+
+(A.3)
+
+(A.4)
+
+Finally, we argue that the client can approximate her first-best payoff arbitrarily closely by setting 𝜁 ≥ ̄𝜁 sufficiently large, setting 𝐾𝑇 −𝑛 according
+to (A.3), and setting 𝛿 according to (A.4). Indeed, because 𝛿 is set to satisfy (IR), the client accepts such a contract. Hence, the client’s expected
+)⊤
+]
+costs of execution E[𝜏(𝒑)
+satisfies (IC), this bound becomes 𝛿 + 𝑝0 + 𝛾
+according to (A.4), 𝛿 can be made arbitrarily close to zero by setting 𝜁 sufficiently large. □
+
+𝑇
+. Applying Proposition 1, the client’s first-best costs are exceeded by at most 𝛿. However,
+
+are bounded above by E[𝛿 + 1
++ 𝜃(𝑇 +1)
+2𝑇
+
+𝑠=1 𝑥𝑠. Because 𝐾1, … , 𝐾𝑇 −1 are set so that 𝒙 =
+
+= 𝛿 + 𝑝0 + 𝛾
+
+, … , 1
+𝑇
+
+𝑡=1 𝑝𝑡
+
++ 𝜃
+𝑇
+
+( 1
+𝑇
+
+∑𝑇
+
+∑𝑇
+
+∑𝑡
+
+𝑡=1
+
+]
+
+𝑇
+
+𝑇
+
+Proof of Lemma 3. The dealer’s expected utility equals
+
+E[𝑢(𝝉 ⋅ 𝒑 − 𝒙 ⋅ 𝒑)] = −E
+
+exp
+
+𝜆
+
+[
+
+(
+
+[
+
+(
+
+= −E
+
+exp
+
+𝜆
+
+𝑇
+∑
+
+𝑡=1
+𝑇
+∑
+
+𝑡=1
+
+)]
+
+(𝑥𝑡 − 𝜏𝑡)𝑝𝑡
+
+( 𝑡
+∑
+
+(𝑥𝑡 − 𝜏𝑡)
+
+(𝜃𝑥𝑗 + 𝜀𝑗 ) + 𝛾𝑥𝑡
+
+))]
+
+𝑗=1
+
+JournalofFinancialEconomics160(2024)10390118M. Baldauf, C. Frei and J. Mollner
+
+[
+
+(
+
+= −E
+
+exp
+
+𝜆
+
+𝑇
+∑
+
+𝑡=1
+
+( 𝑡
+∑
+
+(𝑥𝑡 − 𝜏𝑡)
+
+𝑗=1
+
+)
+
+𝜃𝑥𝑗 + 𝛾𝑥𝑡
+
++ 𝜆
+
+𝑇
+∑
+
+𝑗=1
+
+𝜀𝑗
+
+𝑇
+∑
+
+𝑡=𝑗
+
+)]
+.
+
+(𝑥𝑡 − 𝜏𝑡)
+
+Instead of maximizing this expression over 𝑥𝑡 subject to ∑𝑇
+[
+
+(
+
+− E[𝑢(𝝉 ⋅ 𝒑 − 𝒙 ⋅ 𝒑)] = E
+
+exp
+
+𝜆
+
+(𝑋𝑡 − 𝑋𝑡−1 − 𝜏𝑡)
+
+)
+(𝜃𝑋𝑡 + 𝛾(𝑋𝑡 − 𝑋𝑡−1)
+
+𝑇
+∑
+
+𝑡=1
+
+𝑡=1 𝑥𝑡 = 1, we set 𝑋𝑗 = ∑𝑗
+
+𝑡=1
+
+𝑥𝑡 with 𝑋0 = 0 and 𝑋𝑇 = 1, and minimize
+
+− 𝜆
+
+𝑇
+∑
+
+𝑡=1
+
+(
+
+𝜀𝑡
+
+𝑋𝑡−1 −
+
+𝑡−1
+∑
+
+𝑗=1
+
+𝜏𝑗
+
+))]
+
+(A.5)
+
+over 𝑋1, 𝑋2, … , 𝑋𝑇 −1. Because 𝑋𝑡 needs to be chosen before the price in period 𝑡 is observable, 𝑋𝑡 is 
+(A.5) on 
+𝑇 −1 and will then go backward subsequently. From the law of iterated expectations, we obtain
+
+𝑡−1-measurable. We start by conditioning
+
+− E[𝑢(𝝉 ⋅ 𝒑 − 𝒙 ⋅ 𝒑)]
+
+[
+
+[
+
+(
+
+= E
+
+E
+
+exp
+
+𝜆
+
+𝑇
+∑
+
+𝑡=1
+
+(𝑋𝑡 − 𝑋𝑡−1 − 𝜏𝑡)
+
+)
+(𝜃𝑋𝑡 + 𝛾(𝑋𝑡 − 𝑋𝑡−1)
+
+− 𝜆
+
+𝑇 −1
+∑
+
+𝑡=1
+
+(
+
+𝜀𝑡+1
+
+𝑋𝑡 −
+
+𝑡
+∑
+
+𝑗=1
+
+𝜏𝑗
+
+))
+
+]]
+
+𝑇 −1
+
+(
+
+(
+
+|
+|
+
+|
+|
+|
+[
+
+𝑇
+∑
+
+𝑡=1
+
+𝑇
+∑
+
+(𝑋𝑡 − 𝑋𝑡−1 − 𝜏𝑡)
+
+(𝜃𝑋𝑡 + 𝛾(𝑋𝑡 − 𝑋𝑡−1)
+
+)
+
+− 𝜆
+
+(𝑋𝑡 − 𝑋𝑡−1 − 𝜏𝑡)
+
+)
+(𝜃𝑋𝑡 + 𝛾(𝑋𝑡 − 𝑋𝑡−1)
+
+− 𝜆
+
+(𝑋𝑡 − 𝑋𝑡−1 − 𝜏𝑡)
+
+)
+(𝜃𝑋𝑡 + 𝛾(𝑋𝑡 − 𝑋𝑡−1)
+
+− 𝜆
+
+(
+
+𝜀𝑡+1
+
+𝑋𝑡 −
+
+(
+
+𝜀𝑡+1
+
+𝑋𝑡 −
+
+(
+
+𝜀𝑡+1
+
+𝑋𝑡 −
+
+𝑇 −2
+∑
+
+𝑡=1
+
+𝑇 −2
+∑
+
+𝑡=1
+
+𝑇 −2
+∑
+
+𝑡=1
+
+𝑡
+∑
+
+𝑗=1
+
+𝑡
+∑
+
+𝑗=1
+
+𝑡
+∑
+
+𝑗=1
+
+))
+
+E
+
+𝜏𝑗
+
+exp
+
+−𝜆𝜀𝑇
+
+𝑋𝑇 −1 −
+
+𝑗=1
+)2)]
+
+(
+
+)
+
+𝜏𝑗
+
++
+
+𝜆2
+2
+
+𝑋𝑇 −1 −
+
+𝑇 −1
+∑
+
+𝑗=1
+
+𝜏𝑗
+
+))
+
+𝜏𝑗
+
+[
+
+(
+
+= E
+
+exp
+
+𝜆
+
+[
+
+(
+
+= E
+
+exp
+
+𝜆
+
+[
+
+(
+
+= E
+
+exp
+
+𝜆
+
+𝑡=1
+
+𝑇 −2
+∑
+
+𝑡=1
+(
+
+× exp
+
+𝜆
+
+𝑇
+∑
+
+𝑡=𝑇 −1
+
+(𝑋𝑡 − 𝑋𝑡−1 − 𝜏𝑡)
+
+)
+(𝜃𝑋𝑡 + 𝛾(𝑋𝑡 − 𝑋𝑡−1)
+
+(
+
++
+
+𝜆2
+2
+
+𝑋𝑇 −1 −
+
+)2)]
+,
+
+𝜏𝑗
+
+𝑇 −1
+∑
+
+𝑗=1
+
+𝑇 −1
+∑
+
+𝜏𝑗
+
+]]
+
+
+
+𝑇 −1
+
+))
+|
+|
+|
+|
+|
+
+where we used that 𝑋𝑇 −1 is 
+𝑇 −1. We note that
+𝑋𝑇 −1 appears only in the last line, but not in the penultimate line, and the dependence on 𝑋𝑇 −1 is quadratic. Therefore, the optimal 𝑋𝑇 −1 is given
+by the first-order condition
+
+𝑇 −1-measurable, along with the fact that 𝜀𝑇 is independent of 
+
+𝑇 −2-measurable and thus also 
+
+)
+− 𝜆(𝜃𝑋𝑇 + 𝛾(𝑋𝑇 − 𝑋𝑇 −1)
+
+which we rewrite as
+
+− 𝜆𝛾(𝑋𝑇 − 𝑋𝑇 −1 − 𝜏𝑇 ) + 𝜆(𝜃𝑋𝑇 −1 + 𝛾𝑋𝑇 −1 − 𝛾𝑋𝑇 −2) + 𝜆(𝜃 + 𝛾)(𝑋𝑇 −1 − 𝑋𝑇 −2 − 𝜏𝑇 −1) + 𝜆2
+
+𝑋𝑇 −1 −
+
+(
+
+(𝜃 + 2𝛾)𝑋𝑇 +
+
+(𝜆 + 2𝜃 + 4𝛾)𝑋𝑇 −1 − (𝜃 + 2𝛾)𝑋𝑇 −2 = −𝛾𝜏𝑇 + (𝜃 + 𝛾)𝜏𝑇 −1 + 𝜆
+
+−
+
+𝑇 −1
+∑
+
+𝑗=1
+
+𝜏𝑗 ,
+
+)
+
+𝜏𝑗
+
+= 0,
+
+𝑇 −1
+∑
+
+𝑗=1
+
+(A.6)
+
+𝑇 −3-measurable because so is 𝑋𝑇 −2 and all other terms are deterministic. Next, we condition on 
+
+𝑇 −2 to obtain
+
+This implies that 𝑋𝑇 −1 is 
+(
+
+[
+
+𝑇 −2
+∑
+
+E
+
+exp
+
+𝜆
+
+(𝑋𝑡 − 𝑋𝑡−1 − 𝜏𝑡)
+
+)
+(𝜃𝑋𝑡 + 𝛾(𝑋𝑡 − 𝑋𝑡−1)
+
+− 𝜆
+
+𝑇 −2
+∑
+
+𝑡=1
+
+(
+
+𝜀𝑡+1
+
+𝑋𝑡 −
+
+))
+
+𝑡
+∑
+
+𝑗=1
+
+𝜏𝑗
+
+𝑡=1
+(
+
+× exp
+
+𝜆
+
+𝑇
+∑
+
+𝑡=𝑇 −1
+
+(𝑋𝑡 − 𝑋𝑡−1 − 𝜏𝑡)
+
+)
+(𝜃𝑋𝑡 + 𝛾(𝑋𝑡 − 𝑋𝑡−1)
+
+(
+
++
+
+𝜆2
+2
+
+𝑋𝑇 −1 −
+
+𝑇 −1
+∑
+
+𝑗=1
+
+𝜏𝑗
+
+)2)]
+
+[
+
+[
+
+(
+
+= E
+
+E
+
+exp
+
+𝜆
+
+𝑇 −2
+∑
+
+(𝑋𝑡 − 𝑋𝑡−1 − 𝜏𝑡)
+
+)
+(𝜃𝑋𝑡 + 𝛾(𝑋𝑡 − 𝑋𝑡−1)
+
+(
+
+× exp
+
+𝜆
+
+𝑡=1
+
+𝑇
+∑
+
+𝑡=𝑇 −1
+
+(𝑋𝑡 − 𝑋𝑡−1 − 𝜏𝑡)
+
+)
+(𝜃𝑋𝑡 + 𝛾(𝑋𝑡 − 𝑋𝑡−1)
+
+(
+
++
+
+𝜆2
+2
+
+𝑋𝑇 −1 −
+
+𝑇 −1
+∑
+
+𝑗=1
+
+𝜏𝑗
+
+− 𝜆
+
+𝑇 −2
+∑
+
+𝑡=1
+
+(
+
+𝜀𝑡+1
+
+𝑋𝑡 −
+
+𝑡
+∑
+
+𝑗=1
+
+]
+
+𝑇 −2
+
+𝜏𝑗
+
+))
+
+|
+|
+
+|
+|
+|
+)2)]
+
+[
+
+(
+
+= E
+
+exp
+
+𝜆
+
+𝑇
+∑
+
+(𝑋𝑡 − 𝑋𝑡−1 − 𝜏𝑡)
+
+)
+(𝜃𝑋𝑡 + 𝛾(𝑋𝑡 − 𝑋𝑡−1)
+
+𝑇 −3
+∑
+
+− 𝜆
+
+(
+
+𝜀𝑡+1
+
+𝑋𝑡 −
+
+(
+
+𝑡=1
+(
+
+𝜆2
+2
+
+× exp
+
+𝑋𝑇 −2 −
+
+𝑇 −2
+∑
+
+𝑗=1
+
+𝜏𝑗
+
+)2
+
+(
+
++
+
+𝜆2
+2
+
+𝑋𝑇 −1 −
+
+𝑇 −1
+∑
+
+𝑗=1
+
+𝜏𝑗
+
+𝑡=1
+)2)]
+.
+
+))
+
+𝑡
+∑
+
+𝑗=1
+
+𝜏𝑗
+
+The terms within the exponential function that depend on 𝑋𝑇 −2 are
+
+𝑇 −1
+∑
+
+𝜆
+
+(𝑋𝑡 − 𝑋𝑡−1 − 𝜏𝑡)
+
+)
+(𝜃𝑋𝑡 + 𝛾(𝑋𝑡 − 𝑋𝑡−1)
+
+𝑡=𝑇 −2
+
+(
+
++
+
+𝜆2
+2
+
+𝑋𝑇 −2 −
+
+)2
+
+𝑇 −2
+∑
+
+𝑗=1
+
+𝜏𝑗
+
+so that the first-order condition implies
+
+−(𝜃 + 2𝛾)𝑋𝑇 −1 + (𝜆 + 2𝜃 + 4𝛾)𝑋𝑇 −2 − (𝜃 + 2𝛾)𝑋𝑇 −3 = −𝛾𝜏𝑇 −1 + (𝜃 + 𝛾)𝜏𝑇 −2 + 𝜆
+
+𝑇 −2
+∑
+
+𝑗=1
+
+𝜏𝑗 .
+
+Because 𝑋𝑇 −1 is a function of 𝑋𝑇 −2 in the optimum by (A.6) and 𝑋𝑇 −3 is 
+that 𝑋𝑇 −2 is 
+
+𝑇 −4-measurable. And, using again that 𝑋𝑇 −1 is a function of 𝑋𝑇 −2, this implies that 𝑋𝑇 −1 is 
+
+𝑇 −4-measurable while all other terms are deterministic, this implies
+𝑇 −4-measurable as well. Continuing this
+
+JournalofFinancialEconomics160(2024)10390119M. Baldauf, C. Frei and J. Mollner
+
+procedure, we obtain in the end that all 𝑋𝑡 are deterministic and satisfy
+
+− (𝜃 + 2𝛾)𝑋𝑡+1 + (𝜆 + 2𝜃 + 4𝛾)𝑋𝑡 − (𝜃 + 2𝛾)𝑋𝑡−1 = −𝛾𝜏𝑡+1 + (𝜃 + 𝛾)𝜏𝑡 + 𝜆
+
+𝑡
+∑
+
+𝑗=1
+
+𝜏𝑗 ,
+
+𝑡 = 1, 2, … , 𝑇 − 1.
+
+(A.7)
+
+This linear system of equations can be written as 𝐴𝑿 = 𝐸𝝉, hence 𝒙 = 𝐹 𝑿 = 𝐹 𝐴−1𝐸𝝉, using the 𝑇 × 𝑇 matrices 𝐴, 𝐸, and 𝐹 (written here with
+general 𝜎, for reference in the main text) given by
+
+𝐴 =
+
+𝐸 =
+
+𝐹 =
+
+⎛
+⎜
+⎜
+⎜
+⎜
+⎜
+⎜
+⎝
+
+⎛
+⎜
+⎜
+⎜
+⎜
+⎜
+⎜
+⎝
+
+⎛
+⎜
+⎜
+⎜
+⎜
+⎜
+⎝
+
+𝜆𝜎2 + 2𝜃 + 4𝛾
+−(𝜃 + 2𝛾)
+0
+⋮
+
+−(𝜃 + 2𝛾)
+𝜆𝜎2 + 2𝜃 + 4𝛾
+−(𝜃 + 2𝛾)
+
+0
+−(𝜃 + 2𝛾)
+𝜆𝜎2 + 2𝜃 + 4𝛾
+⋱
+− (𝜃 + 2𝛾)
+
+0
+0
+−(𝜃 + 2𝛾)
+⋱
+
+⋯
+⋯
+
+⋱
+
+𝜆𝜎2 + 2𝜃 + 4𝛾 −(𝜃 + 2𝛾)
+
+0
+
+1
+
+,
+
+⎞
+⎟
+⎟
+⎟
+⎟
+⎟
+⎟
+⎠
+
+0
+𝜃 + 𝛾 + 𝜆𝜎2
+𝜆𝜎2
+𝜆𝜎2
+⋮
+𝜆𝜎2
+1
+
+0
+1
+−1
+
+1
+−1
+0
+⋮
+0 ⋯
+
+⋯
+
+−𝛾
+𝜃 + 𝛾 + 𝜆𝜎2
+𝜆𝜎2
+⋮
+𝜆𝜎2
+⋯
+
+0 ⋯
+0 ⋯
+0 ⋯
+
+0
+0
+1
+⋱ ⋱
+−1
+
+1
+
+0
+−𝛾
+
+0
+0
+𝜃 + 𝛾 + 𝜆𝜎2 −𝛾
+⋱
+
+0
+0
+0
+⋱
+
+⋯
+⋯
+⋯
+
+𝜃 + 𝛾 + 𝜆𝜎2 −𝛾
+1
+
+1
+
+,
+
+⎞
+⎟
+⎟
+⎟
+⎟
+⎟
+⎟
+⎠
+
+. □
+
+⎞
+⎟
+⎟
+⎟
+⎟
+⎟
+⎠
+
+Proof of Proposition 4. We can write 𝐴 = ̃𝐼 ̃𝐴, where
+
+̃𝐴 =
+
+−(𝜃 + 2𝛾)
+𝜆𝜎2 + 2𝜃 + 4𝛾
+−(𝜃 + 2𝛾)
+
+𝜆𝜎2 + 2𝜃 + 4𝛾
+−(𝜃 + 2𝛾)
+0
+⋮
+
+⎛
+⎜
+⎜
+⎜
+⎜
+⎜
+⎜
+⎝
+̃𝐴 is a Z-matrix (i.e., a square matrix where all off-diagonal entries are nonpositive). In fact,
+
+0
+0
+−(𝜃 + 2𝛾)
+⋱
+𝜆𝜎2 + 2𝜃 + 4𝛾
+0
+
+0
+−(𝜃 + 2𝛾)
+𝜆𝜎2 + 2𝜃 + 4𝛾
+⋱
+− (𝜃 + 2𝛾)
+
+⋱
+−(𝜃 + 2𝛾)
+𝜆𝜎2 + 2𝜃 + 4𝛾
+
+⎞
+⎟
+⎟
+⎟
+⎟
+⎟
+⎟
+⎠
+
+̃𝐼 =
+
+⎛
+⎜
+⎜
+⎜
+⎜
+⎜
+⎝
+
+⋯
+⋯
+
+⋯
+
+0
+
+,
+
+Note that
+̃𝐴 = (𝜆𝜎2 + 2𝜃 + 4𝛾)𝐼 − ̃𝐵, where
+
+(A.8)
+
+0 ⋯ 0
+1
+0
+1 ⋯ 0
+⋮ ⋱ ⋱ ⋮
+0 ⋯ 1
+0
+0 ⋯ 0
+0
+
+0
+0
+⋮
+0
+1
+𝜆𝜎2+2𝜃+4𝛾
+
+.
+
+⎞
+⎟
+⎟
+⎟
+⎟
+⎟
+⎠
+
+̃𝐴 is an M-matrix. Indeed, we can express
+
+̃𝐵 =
+
+⎛
+⎜
+⎜
+⎜
+⎜
+⎜
+⎜
+⎝
+
+𝜃 + 2𝛾
+0
+𝜃 + 2𝛾
+
+0
+𝜃 + 2𝛾
+0
+⋮
+
+0
+
+⋯
+
+0
+𝜃 + 2𝛾
+0
+⋱
+𝜃 + 2𝛾
+
+0
+0
+𝜃 + 2𝛾
+⋱
+0
+0
+
+⋯
+⋯
+
+⋱
+𝜃 + 2𝛾
+0
+
+⎞
+⎟
+⎟
+⎟
+⎟
+⎟
+⎟
+⎠
+
+is a matrix whose eigenvalues (i.e., ±(𝜃 + 2𝛾)
+a nonnegative matrix. Hence, 𝐴−1 = ̃𝐴−1 ̃𝐼 −1 is also nonnegative. Next, observe that 𝐸𝝉 TWAP = 1
+𝑇
+𝐴𝐹 −1𝒙FB = 1
+𝑇
+
+2 and 0) are bounded in magnitude by 𝜆𝜎2 + 2𝜃 + 4𝛾. Because ̃𝐴 is an M-matrix, its inverse is
+(𝜃 + 𝜆𝜎2, 𝜃 + 2𝜆𝜎2, … , 𝜃 + (𝑇 − 1)𝜆𝜎2, 𝑇 )⊤, and
+(𝜆𝜎2, 2𝜆𝜎2, … , (𝑇 −1)𝜆𝜎2, 𝑇 )⊤, so 𝐸𝝉 TWAP ≥ 𝐴𝐹 −1𝒙FB (where ≥ is in the component-wise sense). Using the fact that 𝐴−1 is nonnegative,
+
+√
+
+𝐹 −1𝐹 𝐴−1𝐸𝝉 TWAP = 𝐴−1𝐸𝝉 TWAP ≥ 𝐹 −1𝒙FB,
+
+which is precisely what it means for 𝐹 𝐴−1𝐸𝝉 TWAP to be frontloaded relative to 𝒙FB. For the final claim, note that all the inequalities can be replaced
+with equalities if and only if 𝜃 = 0. □
+
+Proof of Proposition 5. The client’s expected cost under a contract 𝝉 is
+
+[ 𝑇
+∑
+
+E[𝝉 ⋅ 𝒑] = E
+
+]
+
+𝜏𝑡𝑝𝑡
+
+= E
+
+[ 𝑇
+∑
+
+(
+
+𝜏𝑡
+
+𝑝0 +
+
+)]
+
+(𝜃𝑥𝑗 + 𝜀𝑗 ) + 𝛾𝑥𝑡
+
+= 𝑝0 +
+
+𝑡
+∑
+
+𝑗=1
+
+𝑇
+∑
+
+𝑡=1
+
+𝜏𝑡
+
+( 𝑡
+∑
+
+𝑗=1
+
+)
+
+𝜃𝑥𝑗 + 𝛾𝑥𝑡
+
+𝑡=1
+
+= 𝑝0 + 𝜃
+
+𝑇
+∑
+
+𝑡=1
+
+𝑡=1
+
+𝑇
+∑
+
+𝑡=1
+
+𝜏𝑡𝑋𝑡 + 𝛾
+
+𝜏𝑡(𝑋𝑡 − 𝑋𝑡−1) = 𝑝0 + 𝜃𝝉 ⊤𝐴−1𝐸𝝉 + 𝛾𝝉 ⊤𝐹 𝐴−1𝐸𝝉 = 𝑝0 +
+
+𝝉 ⊤𝑀𝝉
+
+1
+2
+
+(A.9)
+
+where 𝐹 and 𝑀 are defined in (A.8) and (3), respectively. Therefore, we minimize 1
+2
+𝑇 -dimensional vector of ones. From the Lagrange method (and using the symmetry of 𝑀), it follows that
+
+𝝉 ⊤𝑀𝝉 subject to 𝝉 ⊤1 = 1, where 1 = (1, 1, … , 1)⊤ denotes a
+
+𝑀𝝉 ∗ − 𝜇1 = 0,
+
+hence 𝝉 ∗ = 𝜇𝑀 −11 and 1⊤𝝉 ∗ = 𝜇1⊤𝑀 −11 = 1. We obtain 𝜇 =
+using Lemma 3. We can compute the client’s expected costs of execution under 𝝉 ∗ =
+
+1⊤𝑀 −11 and thus 𝝉 ∗ =
+
+1
+
+1
+
+1⊤𝑀 −11 𝑀 −11 as
+
+1
+
+1⊤𝑀 −11 𝑀 −11 and 𝒙∗ = 𝐹 𝐴−1𝐸𝝉 ∗ =
+
+1
+
+1⊤𝑀 −11 𝐹 𝐴−1𝐸𝑀 −11,
+
+𝑝0 +
+
+1
+2
+
+(𝝉 ∗)⊤𝑀𝝉 ∗ = 𝑝0 +
+
+1
+2
+
+(1⊤𝑀 −11)−21⊤(𝑀 −1)⊤𝑀𝑀 −11 = 𝑝0 +
+
+1
+21⊤𝑀 −11
+
+. □
+
+JournalofFinancialEconomics160(2024)10390120M. Baldauf, C. Frei and J. Mollner
+
+Proof of Corollary 6. Claim (i): It follows from (A.7) with 𝛾 = 𝜆 = 0 that
+
+−𝑥𝑡+1 + 𝑥𝑡 = 𝜏𝑡
+
+for 𝑡 = 1, 2, … , 𝑇 − 1,
+
+which implies
+
+𝑥𝑡 = 𝑥𝑡+1 + 𝜏𝑡 = 𝑥𝑡+2 + 𝜏𝑡 + 𝜏𝑡+1 = ⋯ = 𝑐 +
+
+𝑇
+∑
+
+𝑠=𝑡
+
+𝜏𝑠
+
+for some constant 𝑐 and all 𝑡. To determine 𝑐, we use that ∑𝑇
+
+𝑡=1 𝑥𝑡 = 1, hence
+
+𝑐 =
+
+1
+𝑇
+
+−
+
+1
+𝑇
+
+𝑇
+∑
+
+𝑇
+∑
+
+𝑡=1
+
+𝑠=𝑡
+
+𝜏𝑠 =
+
+1
+𝑇
+
+−
+
+𝑇
+∑
+
+𝑠=1
+
+𝑠
+𝑇
+
+𝜏𝑠.
+
+Claim (ii): Define 𝐺 as the 𝑇 × 𝑇 matrix whose first column and last row are all 1, and otherwise the 𝑖𝑗 entry is 𝑖(𝑇 + 1 − 𝑗)∕𝑇 for 𝑗 ≥ 𝑖 and
+
+𝑖(𝑇 + 1 − 𝑗)∕𝑇 − 𝑖 + 𝑗 for 𝑗 < 𝑖. In this case of 𝛾 = 𝜆 = 0, it can be checked that 𝐸 = 𝐴𝐺. It follows that 𝐴−1𝐸 = 𝐺. Note that for all 𝑡:
+
+𝐺𝑡1 + 𝐺⊤
+
+𝑡1 + 𝐺𝑡𝑇 + 𝐺⊤
+
+𝑡𝑇 = 𝐺𝑡1 + 𝐺1𝑡 + 𝐺𝑡𝑇 + 𝐺𝑇 𝑡 = 1 + (𝑇 + 1 − 𝑡)∕𝑇 + 𝑡∕𝑇 + 1 = 3 + 1∕𝑇 .
+
+Next, define 𝒗 =
+
+( 1
+2
+
+, 0, … , 0, 1
+2
+
+)⊤
+
+. We compute
+
+𝑀𝒗 = 𝜃(𝐴−1𝐸 + 𝐸⊤(𝐴−1)⊤)𝒗 = 𝜃(𝐺 + 𝐺⊤)𝒗 =
+
+(3 + 1∕𝑇 )1.
+
+𝜃
+2
+
+This implies that 𝑀 −11 = 2𝑇
+
+𝜃(3𝑇 +1)
+
+𝒗 and 1⊤𝑀 −11 = 2𝑇
+
+𝜃(3𝑇 +1)
+
+. Thus, 𝝉 ∗ =
+
+1
+
+1⊤𝑀 −11 𝑀 −11 = 𝒗, as claimed. We also compute
+
+𝒙∗ = 𝐹 𝐴−1𝐸𝒗 = 𝐹 𝐺𝒗 =
+
+1
+2
+
+𝐹 (1 + 1∕𝑇 , 1 + 2∕𝑇 , … , 2)⊤ =
+
+(1 + 1∕𝑇 , 1∕𝑇 , … , 1∕𝑇 )⊤,
+
+1
+2
+
+as claimed. Finally, the client’s expected costs of execution are 𝑝0 +
+
+1
+
+21⊤𝑀 −11 = 𝑝0 + 𝜃(3𝑇 +1)
+
+4𝑇
+
+, as claimed. □
+
+Proof of Corollary 7. Claim (i): It follows from (A.7) with 𝜃 = 𝜆 = 0 that
+
+−2𝑥𝑡+1 + 2𝑥𝑡 = −𝜏𝑡+1 + 𝜏𝑡
+
+for 𝑡 = 1, 2, … , 𝑇 − 1,
+
+which implies
+
+𝑥𝑡 = 𝑥𝑡+1 −
+
+1
+2
+for some constant 𝑐 and all 𝑡. To determine 𝑐, we use that ∑𝑇
+
+𝜏𝑡 = ⋯ = 𝑐 +
+
+𝜏𝑡 = 𝑥𝑡+2 −
+
+𝜏𝑡+2 +
+
+𝜏𝑡+1 +
+
+1
+2
+
+1
+2
+
+1
+2
+
+1
+2
+
+𝜏𝑡
+
+𝑡=1 𝑥𝑡 = 1, hence
+
+𝑐 =
+
+1
+𝑇
+
+−
+
+1
+2𝑇
+
+𝑇
+∑
+
+𝑡=1
+
+𝜏𝑡 =
+
+1
+2𝑇
+
+.
+
+Claim (ii): For additional generality in this part of the proof, we deliberately do not use the assumption that 𝜆 = 0. To prove 𝝉 ∗ =
+1 by Proposition 5. To aid in showing that, we first define
+
+it is enough to show that 1 is an eigenvector of 𝑀 because 𝑀𝝉 ∗ =
+
+1
+1⊤𝑀 −11
+
+( 1
+𝑇
+
+, … , 1
+𝑇
+
+)⊤
+
+,
+
+𝒗1 =
+
+(𝜆, 2𝜆, … , (𝑇 − 1)𝜆, 𝑇 )⊤
+
+, 𝒗2 = (0, … , 0, 1)⊤ and 𝒗3 = (1, 2, … , 𝑇 )⊤.
+
+In this case of 𝜃 = 0, observe that 𝒗1 = 𝐴𝒗3, which implies 𝐴−1𝒗1 = 𝒗3. Observe also that 𝒗⊤
+
+2 = 𝒗⊤
+
+2
+
+𝐴, which implies (𝐴−1)⊤𝒗2 = 𝒗2. We then compute
+
+𝑀1 = 𝛾𝐹 𝐴−1𝐸1 + 𝛾𝐸⊤(𝐴−1)⊤𝐹 ⊤1 = 𝛾𝐹 𝐴−1𝒗1 + 𝛾𝐸⊤(𝐴−1)⊤𝒗2 = 𝛾𝐹 𝒗3 + 𝛾𝐸⊤𝒗2 = 𝛾1 + 𝛾1 = 2𝛾1,
+
+(A.10)
+
+establishing that 1 is an eigenvector of 𝑀, as required. For the dealer’s trading strategy, we deduce from Proposition 5 that
+
+𝒙∗ =
+
+1
+1⊤𝑀 −11
+
+𝐹 𝐴−1𝐸𝑀 −11 =
+
+2𝛾
+𝑇
+
+𝐹 𝐴−1𝐸
+
+1
+2𝛾
+
+where the second equality uses (A.10) to obtain
+𝑝0 +
+
+21⊤𝑀 −11 = 𝑝0 + 𝛾
+
+. □
+
+𝑇
+
+1
+
+1,
+
+1 =
+
+1
+𝑇
+1⊤𝑀 −11 = 2𝛾
+
+𝑇
+
+1
+
+and 𝑀 −11 = 1
+2𝛾
+
+1. Finally, we compute the client’s expected costs of execution as
+
+Proof of Corollary 8. Claim (i): Dividing (A.7) by 𝜆 and then letting 𝜆 go to infinity gives 𝑋𝑡 = ∑𝑡
+𝑡 = 1, 2, … , 𝑇 .
+
+𝑗=1 𝜏𝑗 for 𝑡 = 1, 2, … , 𝑇 − 1, hence 𝑥𝑡 = 𝜏𝑡 for all
+
+Claim (ii): Let 𝑄 be the lower-triangular matrix with all entries of 1 on and below the diagonal; let 𝛬 be the diagonal matrix that has 𝜆 everywhere
+
+on its diagonal except for the last entry, which equals 1:
+
+𝑄 =
+
+1
+1
+⋮
+1
+
+⎛
+⎜
+⎜
+⎜
+⎜
+⎝
+
+0 ⋯ 0
+1 ⋯ 0
+⋱ ⋮
+1 ⋯ 1
+
+⎞
+⎟
+⎟
+⎟
+⎟
+⎠
+
+, 𝛬 =
+
+𝜆
+0
+⋮
+0
+
+⎛
+⎜
+⎜
+⎜
+⎜
+⎝
+
+0 ⋯ 0
+𝜆 ⋯ 0
+⋱ ⋮
+0 ⋯ 1
+
+.
+
+⎞
+⎟
+⎟
+⎟
+⎟
+⎠
+
+JournalofFinancialEconomics160(2024)10390121M. Baldauf, C. Frei and J. Mollner
+
+We begin by showing lim𝜆→∞ 𝐴−1𝐸 = 𝑄. To this end, we note that 𝛬−1 is a diagonal matrix that has 1∕𝜆 everywhere on its diagonal except for the
+last entry which equals 1, and we then compute
+
+lim
+𝜆→∞
+
+𝛬−1𝐸 = lim
+𝜆→∞
+
+lim
+𝜆→∞
+
+𝛬−1𝐴 = lim
+𝜆→∞
+
+⎛
+⎜
+⎜
+⎜
+⎜
+⎜
+⎜
+⎝
+
+⎛
+⎜
+⎜
+⎜
+⎜
+⎜
+⎜
+⎝
+
+(𝜃 + 𝛾 + 𝜆)∕𝜆
+1
+1
+⋮
+1
+1
+
+−𝛾∕𝜆
+(𝜃 + 𝛾 + 𝜆)∕𝜆
+1
+⋮
+1
+⋯
+
+0
+−𝛾∕𝜆
+
+0
+0
+
+(𝜃 + 𝛾 + 𝜆)∕𝜆 −𝛾∕𝜆
+
+⋱
+
+0
+0
+0
+⋱
+
+⋯
+⋯
+⋯
+
+(𝜆 + 2𝜃 + 4𝛾)∕𝜆
+−(𝜃 + 2𝛾)∕𝜆
+0
+⋮
+
+−(𝜃 + 2𝛾)∕𝜆
+(𝜆 + 2𝜃 + 4𝛾)∕𝜆
+−(𝜃 + 2𝛾)∕𝜆
+
+0
+−(𝜃 + 2𝛾)∕𝜆
+(𝜆 + 2𝜃 + 4𝛾)∕𝜆
+⋱
+− (𝜃 + 2𝛾)∕𝜆
+
+0
+
+⋯
+
+= 𝑄,
+
+⎞
+⎟
+⎟
+⎟
+⎟
+⎟
+⎟
+⎠
+
+⋯
+⋯
+
+⋱
+
+1
+
+= 𝐼,
+
+⎞
+⎟
+⎟
+⎟
+⎟
+⎟
+⎟
+⎠
+
+(𝜃 + 𝛾 + 𝜆)∕𝜆 −𝛾∕𝜆
+
+1
+
+1
+
+0
+0
+−(𝜃 + 2𝛾)∕𝜆
+⋱
+
+(𝜆 + 2𝜃 + 4𝛾)∕𝜆 −(𝜃 + 2𝛾)∕𝜆
+
+0
+(𝛬−1𝐴)−1
+
+= 𝐼. Thus, we obtain
+
+where 𝐼 denotes the 𝑇 × 𝑇 identity matrix. The latter implies lim𝜆→∞ 𝐴−1𝛬 = lim𝜆→∞
+
+lim
+𝜆→∞
+
+𝐴−1𝐸 = lim
+𝜆→∞
+
+𝐴−1𝛬𝛬−1𝐸 =
+
+(
+
+lim
+𝜆→∞
+
+𝐴−1𝛬
+
+)(
+
+lim
+𝜆→∞
+
+)
+
+𝛬−1𝐸
+
+= 𝐼𝑄 = 𝑄.
+
+So from (3), we deduce
+
+lim
+𝜆→∞
+
+𝑀 = 𝜃
+
+(
+
+lim
+𝜆→∞
+
+𝐴−1𝐸
+
+)
+
++ 𝜃
+
+(
+
+lim
+𝜆→∞
+
+)⊤
+
+𝐴−1𝐸
+
++ 𝛾
+
+(
+
+𝐹 lim
+𝜆→∞
+
+𝐴−1𝐸
+
+)
+
++ 𝛾
+
+(
+
+𝐹 lim
+𝜆→∞
+
+)⊤
+
+𝐴−1𝐸
+
+= 𝜃𝑄 + 𝜃𝑄⊤ + 𝛾𝐹 𝑄 + 𝛾(𝐹 𝑄)⊤ = 𝜃𝑄 + 𝜃𝑄⊤ + 2𝛾𝐼 =
+
+Thus,
+
+lim𝜆→∞ 𝑀) 1 = [2𝛾 + 𝜃(𝑇 + 1)]1, which implies that
+(
+(
+
+)
+
+𝑀 −11 =
+
+lim
+𝜆→∞
+
+1
+2𝛾 + 𝜃(𝑇 + 1)
+
+lim
+𝜆→∞
+
+𝑀
+
+lim
+𝜆→∞
+
+1 =
+
+𝑀 −1) (
+
+and hence lim𝜆→∞
+
+1⊤𝑀 −11 =
+
+. We can then compute
+
+𝑇
+2𝛾+𝜃(𝑇 +1)
+)
+
+𝑀 −11
+
+=
+
+2𝜃 + 2𝛾
+𝜃
+⋮
+𝜃
+
+⎛
+⎜
+⎜
+⎜
+⎜
+⎝
+
+𝜃
+
+⋯
+2𝜃 + 2𝛾 ⋯
+⋱
+⋯ 2𝜃 + 2𝛾
+
+𝜃
+𝜃
+⋮
+
+𝜃
+
+.
+
+⎞
+⎟
+⎟
+⎟
+⎟
+⎠
+
+1
+2𝛾 + 𝜃(𝑇 + 1)
+
+(
+
+lim
+𝜆→∞
+
+𝑀 −1𝑀
+
+)
+
+1 =
+
+1
+2𝛾 + 𝜃(𝑇 + 1)
+
+1,
+
+lim
+𝜆→∞
+
+𝝉 ∗ = lim
+𝜆→∞
+
+(
+
+1
+1⊤𝑀 −11
+
+lim
+𝜆→∞
+
+𝒙∗ = lim
+𝜆→∞
+
+𝐹 𝐴−1𝐸𝝉 ∗ = 𝐹
+
+(
+
+lim
+𝜆→∞
+
+lim𝜆→∞
+) (
+𝐴−1𝐸
+
+1
+1⊤𝑀 −11
+𝝉 ∗)
+
+lim
+𝜆→∞
+
+𝑀 −11 =
+
+lim
+𝜆→∞
+
+2𝛾 + 𝜃(𝑇 + 1)
+𝑇
+
+1
+2𝛾 + 𝜃(𝑇 + 1)
+
+1 =
+
+1,
+
+1
+𝑇
+
+= 𝐹 𝑄
+
+)
+
+1
+
+( 1
+𝑇
+
+= 𝐼
+
+)
+
+1
+
+=
+
+( 1
+𝑇
+
+1,
+
+1
+𝑇
+
+each of which is as claimed. Finally, the client’s expected costs of execution converge to
+2𝛾 + 𝜃(𝑇 + 1)
+𝑇
+
+𝜃(𝑇 + 1)
+2𝑇
+
+1
+21⊤𝑀 −11
+
+= 𝑝0 +
+
+= 𝑝0 +
+
+lim
+𝜆→∞
+
+𝑝0 +
+
+𝛾
+𝑇
+
+1
+2
+
++
+
+)
+
+(
+
+,
+
+which is also as claimed. □
+
+Proof of Corollary 9. Define the 𝑇 × 𝑇 anti-diagonal matrix
+
+𝑃 =
+
+1
+0 ⋯ 0
+0
+0 ⋯ 1
+⋱
+⋮
+0 ⋯ 0
+
+1
+
+⎛
+⎜
+⎜
+⎜
+⎜
+⎝
+
+,
+
+⎞
+⎟
+⎟
+⎟
+⎟
+⎠
+
+and we begin by showing that 𝐴(𝜃𝐼 + 𝛾𝐹 )−1𝑃 𝐸⊤ is symmetric. To that end, define 𝑇 × 𝑇 matrices
+
+𝐴1 =
+
+1
+0
+⋮
+0
+
+⎛
+⎜
+⎜
+⎜
+⎜
+⎝
+
+0 ⋯ 0
+0
+1
+⋱ ⋮
+0 ⋯ 0
+
+⎞
+⎟
+⎟
+⎟
+⎟
+⎠
+
+, 𝐴2 =
+
+1
+0
+1
+
+0
+1
+0
+⋮
+0 ⋯
+
+⎛
+⎜
+⎜
+⎜
+⎜
+⎜
+⎝
+
+0 ⋯ 0
+1
+⋮
+0 ⋱ 0
+⋱ ⋱ 1
+0
+0
+
+⎞
+⎟
+⎟
+⎟
+⎟
+⎟
+⎠
+
+, 𝐴3 =
+
+0
+0
+⋮
+0
+
+⎛
+⎜
+⎜
+⎜
+⎜
+⎝
+
+0 ⋯ 0
+0
+0
+
+⋱
+0 ⋯ 1
+
+so that 𝐴 = (𝜆 + 2𝜃 + 4𝛾)𝐴1 − (𝜃 + 2𝛾)𝐴2 + 𝐴3. Define also the 𝑇 × 𝑇 matrices
+
+𝐸1 =
+
+1
+0
+⋮
+0
+
+⎛
+⎜
+⎜
+⎜
+⎜
+⎝
+
+0 ⋯ 0
+0
+1
+
+⋱
+0 ⋯ 0
+
+⎞
+⎟
+⎟
+⎟
+⎟
+⎠
+
+, 𝐸2 =
+
+0
+1
+0
+⋮
+0
+
+⎛
+⎜
+⎜
+⎜
+⎜
+⎜
+⎝
+
+0 ⋯ 0
+0
+⋮
+1 ⋱ 0
+⋱ 0
+0 ⋯ 0
+
+⎞
+⎟
+⎟
+⎟
+⎟
+⎟
+⎠
+
+, 𝐸3 =
+
+1
+0
+
+1 ⋯ 0
+0
+1
+0
+0
+⋮
+⋱ ⋱ ⋮
+0 ⋯ ⋯ ⋯ 0
+
+⎛
+⎜
+⎜
+⎜
+⎜
+⎝
+
+so that 𝐸⊤ = (𝜆 + 𝛾 + 𝜃)𝐸1 − 𝛾𝐸2 + 𝜆𝐸3 + 𝐸4. Observe that we can also write
+
+⎞
+⎟
+⎟
+⎟
+⎟
+⎠
+
+⎞
+⎟
+⎟
+⎟
+⎟
+⎠
+
+,
+
+, 𝐸4 =
+
+0
+0
+⋮
+0
+
+⎛
+⎜
+⎜
+⎜
+⎜
+⎝
+
+0 ⋯ 1
+1
+0
+⋱ ⋮
+0 ⋯ 1
+
+,
+
+⎞
+⎟
+⎟
+⎟
+⎟
+⎠
+
+(𝜃𝐼 + 𝛾𝐹 )−1𝑃 =
+
+0 ⋯
+0
+
+0
+𝑏1
+
+⋱
+𝑏1 ⋯ 𝑏𝑇 −1
+
+⎛
+⎜
+⎜
+⎜
+⎜
+⎝
+
+𝑏1
+𝑏2
+⋮
+𝑏𝑇
+
+,
+
+⎞
+⎟
+⎟
+⎟
+⎟
+⎠
+
+JournalofFinancialEconomics160(2024)10390122M. Baldauf, C. Frei and J. Mollner
+
+where 𝑏𝑡+1 = 𝛾∕(𝛾 + 𝜃)𝑏𝑡 for all 𝑡 ∈ {1, 2 … , 𝑇 − 1}.31 Each of the following matrices is symmetric:
+
+𝐴1(𝜃𝐼 + 𝛾𝐹 )−1𝑃 𝐸1 =
+
+𝐴1(𝜃𝐼 + 𝛾𝐹 )−1𝑃 𝐸2 =
+
+𝐴1(𝜃𝐼 + 𝛾𝐹 )−1𝑃 𝐸3 =
+
+𝐴2(𝜃𝐼 + 𝛾𝐹 )−1𝑃 𝐸1 =
+
+𝐴2(𝜃𝐼 + 𝛾𝐹 )−1𝑃 𝐸2 =
+
+𝐴2(𝜃𝐼 + 𝛾𝐹 )−1𝑃 𝐸3 =
+
+𝐴3(𝜃𝐼 + 𝛾𝐹 )−1𝑃 𝐸4 =
+
+⎛
+⎜
+⎜
+⎜
+⎜
+⎜
+⎝
+
+⎛
+⎜
+⎜
+⎜
+⎜
+⎜
+⎝
+
+⎛
+⎜
+⎜
+⎜
+⎜
+⎜
+⎜
+⎝
+
+⎛
+⎜
+⎜
+⎜
+⎜
+⎜
+⎜
+⎜
+⎜
+⎝
+
+⎛
+⎜
+⎜
+⎜
+⎜
+⎜
+⎜
+⎝
+
+⎛
+⎜
+⎜
+⎜
+⎜
+⎜
+⎝
+
+⎛
+⎜
+⎜
+⎜
+⎜
+⎝
+
+0
+0
+⋮
+0
+0
+
+0 ⋯
+0
+0 ⋯ 𝑏1
+⋱
+⋮
+𝑏1 ⋯ 𝑏𝑇 −2
+0 ⋯
+
+0
+
+𝑏1
+𝑏2
+⋮
+
+0 ⋯ 0
+0 ⋯ 𝑏1
+⋮ ⋱ ⋮
+𝑏1
+0
+
+𝑏2 ⋯ 𝑏𝑇 −1
+0 ⋯
+
+0
+
+0
+0
+⋮
+0
+0
+
+⎞
+⎟
+⎟
+⎟
+⎟
+⎟
+⎠
+
+0
+0
+
+0
+0
+
+⎞
+⎟
+⎟
+⎟
+⎟
+⎟
+⎠
+
+0
+0
+0
+
+0 ⋯
+0 ⋯
+𝑏1 ⋯
+⋱
+
+0 ⋯ ∑𝑇 −3
+𝑡=1 𝑏𝑡
+0
+0 ⋯
+
+0
+0
+0
+⋮
+0
+0
+
+⎞
+⎟
+⎟
+⎟
+⎟
+⎟
+⎟
+⎠
+
+0
+0
+0
+⋮
+0
+0
+
+0
+0
+0
+
+0
+0
+
+0 ⋯
+0 ⋯
+0 ⋯
+0 ⋯
+⋮ ⋱
+𝑏2
+𝑏1
+0
+0
+
+0
+𝑏1
+𝑏2
+𝑏1 + 𝑏3
+⋱
+⋯
+⋯
+
+𝑏1
+𝑏2
+𝑏1 + 𝑏3
+𝑏2 + 𝑏4
+⋮
+𝑏𝑇 −3 + 𝑏𝑇 −1
+0
+
+0
+0
+0
+0
+⋮
+0
+0
+
+⎞
+⎟
+⎟
+⎟
+⎟
+⎟
+⎟
+⎟
+⎟
+⎠
+
+⋱
+𝑏1 + 𝑏3
+0
+
+⋱
+𝑏2 + 𝑏4
+0
+
+0
+0
+0
+𝑏1
+𝑏2
+0
+
+0
+0
+⋮
+0
+0
+
+0
+0
+⋮
+0
+
+⋯
+
+⋱
+⋱
+𝑏1 + 𝑏3
+0
+
+0
+𝑏1
+𝑏2
+⋱
+𝑏2 + 𝑏4
+0
+
+𝑏1
+𝑏2
+𝑏1 + 𝑏3
+⋱
+⋯
+⋯
+
+𝑏2
+𝑏1 + 𝑏3
+𝑏2 + 𝑏4
+⋮
+𝑏𝑇 −2 + 𝑏𝑇
+0
+
+0
+0
+0
+⋮
+0
+0
+
+⎞
+⎟
+⎟
+⎟
+⎟
+⎟
+⎟
+⎠
+
+0
+0
+⋮
+0
+0
+
+⎞
+⎟
+⎟
+⎟
+⎟
+⎟
+⎠
+
+0 ⋯
+0
+𝑏1
+0 ⋯
+⋮
+⋱
+𝑏1 ⋯ ∑𝑇 −2
+𝑡=1 𝑏𝑡
+0
+0 ⋯
+
+0 ⋯
+0
+
+0
+0
+⋱
+⋮
+0 ⋯ ∑𝑇
+𝑡=1 𝑏𝑡
+
+⎞
+⎟
+⎟
+⎟
+⎟
+⎠
+
+To show that 𝐴(𝜃𝐼 + 𝛾𝐹 )−1𝑃 𝐸⊤ is indeed symmetric, it only remains to show that [(𝜆 + 2𝜃 + 4𝛾)𝐴1 − (𝜃 + 2𝛾)𝐴2](𝜃𝐼 + 𝛾𝐹 )−1𝑃 𝐸4 is the transpose
+of 𝐴3(𝜃𝐼 + 𝛾𝐹 )−1𝑃 [(𝜆 + 𝛾 + 𝜃)𝐸1 − 𝛾𝐸2 + 𝜆𝐸3]. The former has nonzero entries only in the first 𝑇 − 1 entries of its last column, while the
+latter has nonzero entries only in the first 𝑇 − 1 entries of its last row. We check these nonzero entries. For 𝑡 < 𝑇 , the (𝑡, 𝑇 )-element of
+[(𝜆 + 2𝜃 + 4𝛾)𝐴1 − (𝜃 + 2𝛾)𝐴2](𝜃𝐼 + 𝛾𝐹 )−1𝑃 𝐸4 is
+𝑡−1
+∑
+
+[ 𝑡+1
+∑
+
+𝑡
+∑
+
+𝑡−1
+∑
+
+]
+
+(𝜆 + 2𝜃 + 4𝛾)
+
+𝑏𝑠 − (𝜃 + 2𝛾)
+
+𝑏𝑠 +
+
+𝑏𝑠
+
+= −(𝜃 + 2𝛾)𝑏𝑡+1 + (𝜆 + 𝜃 + 2𝛾)𝑏𝑡 + 𝜆
+
+𝑏𝑠.
+
+𝑠=1
+For 𝑡 < 𝑇 , the (𝑇 , 𝑡)-element of 𝐴3(𝜃𝐼 + 𝛾𝐹 )−1𝑃 [(𝜆 + 𝛾 + 𝜃)𝐸1 − 𝛾𝐸2 + 𝜆𝐸3] is
+
+𝑠=1
+
+𝑠=1
+
+𝑠=1
+
+(𝜆 + 𝛾 + 𝜃)𝑏𝑡 − 𝛾𝑏𝑡+1 + 𝜆
+
+𝑡−1
+∑
+
+𝑠=1
+
+𝑏𝑠.
+
+Computing the difference:
+
+[
+
+(𝜆 + 𝛾 + 𝜃)𝑏𝑡 − 𝛾𝑏𝑡+1 + 𝜆
+
+𝑡−1
+∑
+
+𝑠=1
+
+]
+
+[
+
+𝑏𝑠
+
+−
+
+−(𝜃 + 2𝛾)𝑏𝑡+1 + (𝜆 + 𝜃 + 2𝛾)𝑏𝑡 + 𝜆
+
+]
+
+𝑏𝑠
+
+= (𝜃 + 𝛾)𝑏𝑡+1 − 𝛾𝑏𝑡,
+
+𝑡−1
+∑
+
+𝑠=1
+
+which equals zero because 𝑏𝑡+1 = 𝛾∕(𝛾 + 𝜃)𝑏𝑡. We conclude that 𝐴(𝜃𝐼 + 𝛾𝐹 )−1𝑃 𝐸⊤ is symmetric, as claimed. Mathematically,
+
+𝐴(𝜃𝐼 + 𝛾𝐹 )−1𝑃 𝐸⊤ = 𝐸𝑃 ⊤(𝜃𝐼 ⊤ + 𝛾𝐹 ⊤)−1𝐴⊤ = 𝐸𝑃 (𝜃𝐼 + 𝛾𝐹 ⊤)−1𝐴⊤,
+
+which implies
+
+𝑃 𝐸⊤(𝐴−1)⊤(𝜃𝐼 + 𝛾𝐹 ⊤) = (𝜃𝐼 + 𝛾𝐹 )𝐴−1𝐸𝑃 .
+
+31 We also have 𝑏1 = 1∕(𝛾 + 𝜃), although that will not be relevant for the following arguments.
+
+JournalofFinancialEconomics160(2024)10390123M. Baldauf, C. Frei and J. Mollner
+
+Letting 𝑀1 = (𝜃𝐼 + 𝛾𝐹 )𝐴−1𝐸, we can rewrite this as 𝑀1𝑃 = 𝑃 𝑀 ⊤
+(𝑀1 + 𝑀 ⊤
+we conclude
+
+)
+. Then using 𝑀 = 𝑀1 + 𝑀 ⊤
+
+)𝑃 = 𝑃 (𝑀1 + 𝑀 ⊤
+
+1
+
+1
+
+𝑃 . Together, these imply
+1 , we conclude 𝑀𝑃 = 𝑃 𝑀, hence 𝑀𝑃 𝑀 −11 = 1, and hence 𝑃 𝑀 −11 = 𝑀 −11. Therefore,
+
+1 . Because 𝑃 −1 = 𝑃 , we also have 𝑃 𝑀1 = 𝑀 ⊤
+
+1
+
+𝑃 𝝉 ∗ =
+
+1
+1⊤𝑀 −11
+
+𝑃 𝑀 −11 =
+
+1
+1⊤𝑀 −11
+
+𝑀 −11 = 𝝉 ∗,
+
+hence 𝜏𝑗 = 𝜏𝑇 +1−𝑗 for all 𝑗 = 1, … , 𝑇 . □
+
+Proof of Proposition 10. Throughout, we assume 𝜃 > 0 since the results for 𝜃 = 0 follow from Corollary 7(ii), whose proof does not require
+assuming 𝜆 = 0. We note that a model with price-shock variance 𝜎2
+is equivalent to a model with price-shock variance normalized to 1 while
+𝜆 is replaced by 𝜆𝑇 𝜎2
+𝑇𝑘
+
+. Therefore, (A.7) becomes
+
+𝑘 = 𝑇 𝜎2
+𝑇𝑘
+
+𝑋𝑘
+
+𝑞 +
+
+𝜃 + 2𝛾
+𝜆𝑇 𝜎2
+
+2𝑋𝑘
+
+𝑞 − 𝑋𝑘
+
+− 𝑋𝑘
+
+𝑞− 1
+𝑇𝑘
+
+𝑞+ 1
+𝑇𝑘
+1∕𝑇𝑘
+𝑞 = ∑⌈𝑞𝑇𝑘⌉
+
+=
+
+𝛾
+𝜆𝑇 𝜎2
+𝑞 = ∑⌈𝑞𝑇𝑘⌉
+
+for all 𝑞 ∈ (0, 1), where 𝑋𝑘
+assume that the limiting processes 𝑋𝑞 = lim𝑘→∞ 𝑋𝑘
+Thus, given any 𝑞 ∈ (0, 1),
+
+𝑥𝑘
+𝑡 and 𝑉 𝑘
+
+𝑡=1
+
+2𝑉 𝑘
+
+𝑞 − 𝑉 𝑘
+
+− 𝑉 𝑘
+
+𝑞− 1
+𝑇𝑘
+
++
+
+𝜃
+𝜆𝑇 𝜎2
+
+𝑞 − 𝑉 𝑘
+𝑉 𝑘
+
+𝑞− 1
+𝑇𝑘
+
+1∕𝑇𝑘
+
++ 𝑉 𝑘
+𝑞
+
+(A.11)
+
+𝑞+ 1
+𝑇𝑘
+1∕𝑇𝑘
+
+𝜏𝑘
+𝑡
+
+𝑡=1
+𝑞 and 𝑉𝑞 = lim𝑘→∞ 𝑉 𝑘
+
+for 𝝉 𝑘 ∈ 𝛥𝑇𝑘 and a dealer strategy 𝒙𝑘 in the 𝑘th model. Throughout this analysis, we
+𝑞 exist and are continuously differentiable, except for jumps at 0 and 1.
+
+lim
+𝑘→∞
+𝑞 − 𝑉 𝑘
+
+2𝑉 𝑘
+
+𝑞 − 𝑉 𝑘
+𝑉 𝑘
+
+𝑞− 1
+𝑇𝑘
+
+1∕𝑇𝑘
+− 𝑉 𝑘
+
+𝑞− 1
+𝑇𝑘
+
+𝑞+ 1
+𝑇𝑘
+1∕𝑇𝑘
+
+lim
+𝑘→∞
+
+= lim
+𝜖→0
+
+𝑉𝑞 − 𝑉𝑞−𝜖
+𝜖
+
+= ̇𝑉𝑞
+
+( 𝑉𝑞 − 𝑉𝑞−𝜖
+𝜖
+
+−
+
+𝑉𝑞+𝜖 − 𝑉𝑞
+𝜖
+
+)
+
+= lim
+𝜖→0
+
+= ̇𝑉𝑞 − ̇𝑉𝑞 = 0,
+
+2𝑋𝑘
+
+𝑞 − 𝑋𝑘
+
+𝑞+ 1
+𝑇𝑘
+1∕𝑇𝑘
+
+lim
+𝑘→∞
+
+− 𝑋𝑘
+
+𝑞− 1
+𝑇𝑘
+
+= lim
+𝜖→0
+
+−(𝑋𝑞+𝜖 − 𝑋𝑞) + (𝑋𝑞 − 𝑋𝑞−𝜖)
+𝜖
+
+= − ̇𝑋𝑞 + ̇𝑋𝑞 = 0.
+
+Thus, it follows from (A.11) that
+
+𝑋𝑞 =
+
+𝜃
+𝜆𝑇 𝜎2
+
+̇𝑉𝑞 + 𝑉𝑞
+
+for all 𝑞 ∈ (0, 1). Furthermore, the jumps of 𝑉𝑞 at 0 and 1 are given by
+
+(A.12)
+
+𝑉0+ = lim
+𝑞↘0
+
+𝑉𝑞 = lim
+𝑘→∞
+
+𝑆𝑘∑
+
+𝑡=1
+
+𝜏𝑘
+𝑡 = lim
+𝑘→∞
+
+𝑆𝑘∑
+
+𝑡=1
+
+(
+𝑉 𝑘
+𝑡
+𝑇𝑘
+
+𝑉1 − 𝑉1− = 𝑉1 − lim
+𝑞↗1
+
+𝑉𝑞 = lim
+𝑘→∞
+
+𝑆𝑘∑
+
+𝑡=1
+
+𝜏𝑘
+𝑇𝑘−(𝑡−1) = lim
+𝑘→∞
+
+− 𝑉 𝑘
+𝑡−1
+𝑇𝑘
+𝑆𝑘∑
+(
+
+𝑡=1
+
+)
+
+,
+
+𝑉 𝑘
+1− 𝑡−1
+𝑇𝑘
+
+− 𝑉 𝑘
+
+1− 𝑡
+𝑇𝑘
+
+)
+
+,
+
+where 𝑆𝑘 is a sequence chosen so that both 𝑆𝑘 → ∞ and 𝑆3
+
+𝑘 ∕𝑇𝑘 → 0. From (A.11), it follows that
+
+2𝑋𝑘
+1
+𝑇𝑘
+
+− 𝑋𝑘
+2
+𝑇𝑘
+
+− 𝑋𝑘
+𝑡+1
+𝑇𝑘
+
+2𝑋𝑘
+𝑡
+𝑇𝑘
+where 𝑎𝑘 = 𝑏𝑘 + 𝑂( 1
+𝑇𝑘
+
+− 𝑋𝑘
+𝑡−1
+𝑇𝑘
+
+=
+
+=
+
+𝛾
+𝜃 + 2𝛾
+
+𝛾
+𝜃 + 2𝛾
+
+(
+2𝑉 𝑘
+1
+𝑇𝑘
+
+(
+2𝑉 𝑘
+𝑡
+𝑇𝑘
+
+− 𝑉 𝑘
+2
+𝑇𝑘
+
+)
+
++
+
+𝜃
+𝜃 + 2𝛾
+
+𝑉 𝑘
+1
+𝑇𝑘
+
++ 𝑂
+
+(
+
+)
+
+,
+
+1
+𝑇𝑘
+
+− 𝑉 𝑘
+𝑡+1
+𝑇𝑘
+
+− 𝑉 𝑘
+𝑡−1
+𝑇𝑘
+
+)
+
++
+
+(
+
+𝜃
+𝜃 + 2𝛾
+
+𝑉 𝑘
+𝑡
+𝑇𝑘
+
+− 𝑉 𝑘
+𝑡−1
+𝑇𝑘
+
+)
+
++ 𝑂
+
+(
+
+)
+
+,
+
+1
+𝑇𝑘
+
+)
+
+means lim sup𝑘→∞
+
+|𝑎𝑘−𝑏𝑘
+1∕𝑇𝑘
+
+|
+
+< ∞, and thus
+
+1 − 𝑥𝑘
+𝑥𝑘
+
+2 =
+
+𝑥𝑘
+𝑡 − 𝑥𝑘
+
+𝑡+1 =
+
+𝛾
+𝜃 + 2𝛾
+𝛾
+𝜃 + 2𝛾
+
+(𝜏𝑘
+
+1 − 𝜏𝑘
+
+2
+
+)
+
++
+
+𝜃
+𝜃 + 2𝛾
+
+𝜏𝑘
+1 + 𝑂
+
+(𝜏𝑘
+
+𝑡 − 𝜏𝑘
+𝑡+1
+
+)
+
++
+
+𝜃
+𝜃 + 2𝛾
+
+𝜏𝑘
+𝑡 + 𝑂
+
+(
+
+)
+,
+
+1
+𝑇𝑘
+(
+1
+𝑇𝑘
+
+)
+
+.
+
+Assuming 𝑥𝑘
+𝑆𝑘
+
+= 𝑂( 1
+𝑇𝑘
+
+)
+
+and 𝜏𝑘
+𝑆𝑘
+
+= 𝑂( 1
+𝑇𝑘
+
+)
+, we obtain
+
+𝑥𝑘
+𝑡 = 𝑥𝑘
+
+𝑡+1 +
+
+(𝜏𝑘
+
+𝑡 − 𝜏𝑘
+𝑡+1
+
+)
+
++
+
+𝛾
+𝜃 + 2𝛾
+𝑆𝑘∑
+
+(𝜏𝑘
+
+𝑗=𝑡
+
+=
+
+=
+
+𝛾
+𝜃 + 2𝛾
+
+𝑗 − 𝜏𝑘
+𝑗+1
+
+)
+
++
+
+𝜃
+𝜃 + 2𝛾
+
+𝛾
+𝜃 + 2𝛾
+
+𝜏𝑘
+𝑡 +
+
+𝜃
+𝜃 + 2𝛾
+
+𝑆𝑘∑
+
+𝑗=𝑡
+
+𝜏𝑘
+𝑗 + 𝑂
+
+𝜏𝑘
+𝑡 + 𝑂
+
+𝜏𝑘
+𝑗 + 𝑂
+
+(
+
+)
+
+1
+𝑇𝑘
+( 𝑆𝑘
+𝑇𝑘
+
+)
+
+𝜃
+𝜃 + 2𝛾
+𝑆𝑘∑
+
+𝑗=𝑡
+( 𝑆𝑘
+𝑇𝑘
+
+)
+
+,
+
+(A.13)
+
+and likewise if 𝑥𝑘
+
+𝑇𝑘−𝑆𝑘
+
+= 𝑂( 1
+𝑇𝑘
+
+)
+
+and 𝜏𝑘
+
+𝑇𝑘−𝑆𝑘
+
+= 𝑂( 1
+𝑇𝑘
+
+)
+,
+
+𝑇𝑘−𝑡 = 𝑥𝑘
+𝑥𝑘
+
+𝑇𝑘−(𝑡+1) −
+
+𝛾
+𝜃 + 2𝛾
+
+(𝜏𝑘
+
+𝑇𝑘−(𝑡+1) − 𝜏𝑘
+
+𝑇𝑘−𝑡
+
+)
+
+−
+
+𝜃
+𝜃 + 2𝛾
+
+𝜏𝑘
+𝑇𝑘−(𝑡+1) + 𝑂
+
+)
+
+(
+
+1
+𝑇𝑘
+
+JournalofFinancialEconomics160(2024)10390124M. Baldauf, C. Frei and J. Mollner
+
+= −
+
+𝛾
+𝜃 + 2𝛾
+
+𝑆𝑘∑
+
+𝑗=𝑡
+
+(𝜏𝑘
+
+𝑇𝑘−(𝑗+1) − 𝜏𝑘
+
+𝑇𝑘−𝑗
+
+)
+
+−
+
+𝜃
+𝜃 + 2𝛾
+
+=
+
+𝛾
+𝜃 + 2𝛾
+
+𝜏𝑘
+𝑇𝑘−𝑡 −
+
+𝜃
+𝜃 + 2𝛾
+
+𝑆𝑘∑
+
+𝑗=𝑡+1
+
+𝜏𝑘
+𝑇𝑘−𝑗 + 𝑂
+
+Therefore, the expected costs for the client are
+
+( 𝑆𝑘
+𝑇𝑘
+
+𝑆𝑘∑
+
+𝑗=𝑡+1
+)
+
+.
+
+𝜏𝑘
+𝑇𝑘−𝑗 + 𝑂
+
+)
+
+( 𝑆𝑘
+𝑇𝑘
+
+− 𝑋𝑘
+𝑡−1
+𝑇𝑘
+
+)(
+
+)
+
+𝑉 𝑘
+𝑡
+𝑇𝑘
+
+− 𝑉 𝑘
+𝑡−1
+𝑇𝑘
+
+E[𝝉 𝑘 ⋅ 𝒑] = 𝑝0 + 𝜃
+
+𝑇𝑘∑
+
+𝑡=1
+
+𝑋𝑘
+𝑡
+𝑇𝑘
+
+(
+𝑉 𝑘
+𝑡
+𝑇𝑘
+
+)
+
++ 𝛾
+
+𝑇𝑘∑
+
+𝑡=1
+
+− 𝑉 𝑘
+𝑡−1
+𝑇𝑘
+𝑆𝑘∑
+
+𝑋𝑘
+𝑡
+𝑇𝑘
+
+𝑡=1
+
+(
+𝑋𝑘
+𝑡
+𝑇𝑘
+𝑆𝑘∑
+
+𝑡=1
+
+1
+
+= 𝑝0 + 𝜃 ∫
+0
+
+𝑋𝑞 𝑑𝑉𝑞 + 𝜃
+
+𝜏𝑘
+𝑡 + 𝛾
+
+𝑡 𝜏𝑘
+𝑥𝑘
+
+𝑡 + 𝜃
+
+𝑆𝑘∑
+
+𝑡=1
+
+𝑋𝑘
+
+1− 𝑡−1
+𝑇𝑘
+
+𝜏𝑘
+𝑇𝑘−(𝑡−1) + 𝛾
+
+𝑆𝑘∑
+
+𝑡=1
+
+𝑇𝑘−(𝑡−1)𝜏𝑘
+𝑥𝑘
+
+𝑇𝑘−(𝑡−1) + 𝑂
+
+(
+
+)
+.
+
+1
+𝑇𝑘
+
+We next analyze each of the following three terms:
+
+1. 𝜃 ∫ 1
+2. 𝜃 ∑𝑆𝑘
+𝑡=1
+3. 𝜃 ∑𝑆𝑘
+𝑡=1
+
+0 𝑋𝑞 𝑑𝑉𝑞,
+𝑡 + 𝛾 ∑𝑆𝑘
+𝑋𝑘
+𝜏𝑘
+𝑡
+𝑇𝑘
+𝑋𝑘
+
+𝑡 𝜏𝑘
+𝑥𝑘
+𝑡 ,
+𝑇𝑘−(𝑡−1) + 𝛾 ∑𝑆𝑘
+𝜏𝑘
+
+𝑡=1
+
+𝑡=1
+
+1− 𝑡−1
+𝑇𝑘
+
+𝑥𝑘
+𝑇𝑘−(𝑡−1)
+
+𝜏𝑘
+𝑇𝑘−(𝑡−1).
+
+For the first term, we use (A.12) to write
+)
+
+(
+
+1
+
+1
+
+∫
+0
+
+𝑋𝑞 𝑑𝑉𝑞 = ∫
+
+0
+
+𝜃
+𝜆𝑇 𝜎2
+
+̇𝑉𝑞 + 𝑉𝑞
+
+̇𝑉𝑞 𝑑𝑞 =
+
+1
+
+𝜃
+𝜆𝑇 𝜎2 ∫
+
+0
+
+̇𝑉 2
+𝑞 𝑑𝑞 +
+
+1
+2
+
+𝑉 2
+1− −
+
+1
+2
+
+𝑉 2
+0+,
+
+(A.14)
+
+(A.15)
+
+(A.16)
+
+where the second equality is implied by
+
+1
+
+∫
+0
+
+𝑉𝑞
+
+̇𝑉𝑞 𝑑𝑞 =
+
+1
+2
+
+𝑉 2
+1− −
+
+1
+2
+
+𝑉 2
+0+,
+
+which in turn follows from integration by parts
+
+1
+
+𝑉𝑞
+
+∫
+0
+
+̇𝑉𝑞 𝑑𝑞 = 𝑉 2
+
+1− − 𝑉 2
+
+0+ − ∫
+
+1
+
+0
+
+̇𝑉𝑞𝑉𝑞 𝑑𝑞.
+
+Set 𝑎 = 𝑉1− − 𝑉0+. By Corollary 9, optimal contract weights are symmetric, so we have 𝑉0+ = 1 − 𝑉1− = (1 − 𝑎)∕2. Moreover, the minimizer of
+∫ 1
+0
+
+𝑞 𝑑𝑞 subject to 𝑎 = 𝑉1− − 𝑉0+ is ̇𝑉𝑞 = 𝑎 almost everywhere on (0, 1) by Jensen’s inequality. Therefore, (A.16) in the optimum becomes
+̇𝑉 2
+
+1
+
+∫
+
+0
+
+𝑋𝑞 𝑑𝑉𝑞 =
+
+1
+
+𝜃
+𝜆𝑇 𝜎2 ∫
+0
+
+̇𝑉 2
+𝑞 𝑑𝑞 +
+
+1
+2
+
+𝑉 2
+1− −
+
+1
+2
+
+𝑉 2
+0+ =
+
+𝜃2
+𝜆𝑇 𝜎2
+
+𝑎2 +
+
+𝜃(1 + 𝑎)2
+8
+
+−
+
+𝜃(1 − 𝑎)2
+8
+
+.
+
+Using 𝑉0+ = 1 − 𝑉1− = (1 − 𝑎)∕2, we also have
+
+𝑆𝑘∑
+
+𝑡=1
+
+𝜏𝑘
+𝑡 =
+
+1 − 𝑎
+2
+
++ 𝑂
+
+(
+
+)
+,
+
+1
+𝑇𝑘
+
+𝑆𝑘∑
+
+𝑡=1
+
+𝜏𝑘
+𝑇𝑘−(𝑡−1) =
+
+1 − 𝑎
+2
+
++ 𝑂
+
+(
+
+)
+
+.
+
+1
+𝑇𝑘
+
+Next, we analyze the minimization of
+
+𝑆𝑘∑
+
+𝜃
+
+𝑋𝑘
+𝑡
+𝑇𝑘
+subject to ∑𝑆𝑘
+𝑡=1
+
+𝑡=1
+
+𝜃
+
+𝑆𝑘∑
+
+𝑡=1
+
+𝑋𝑘
+𝑡
+𝑇𝑘
+
+𝜏𝑘
+𝑡 + 𝛾
+
+𝑆𝑘∑
+
+𝑡=1
+
+𝑡 𝜏𝑘
+𝑥𝑘
+𝑡 .
+
+2
+
+𝑡 = 1−𝑎
+𝜏𝑘
+𝑆𝑘∑
+
+𝜏𝑘
+𝑡 + 𝛾
+
+. Using (A.13), we write
+
+We can simplify two terms
+
+𝑡=1
+
+(
+
+𝑆𝑘∑
+
+𝑡
+∑
+
+𝑥𝑘
+𝑡 𝜏𝑘
+
+𝑡 = 𝜃
+
+𝑡=1
+
+= 𝜃
+
+𝓁=1
+(
+
+𝑡=1
+𝑆𝑘∑
+
+𝛾
+𝜃 + 2𝛾
+
+𝜏𝑘
+𝓁 +
+
+𝜃
+𝜃 + 2𝛾
+
+𝛾
+𝜃 + 2𝛾
+
+𝑡
+∑
+
+𝓁=1
+
+𝜏𝑘
+𝓁 +
+
+𝜃
+𝜃 + 2𝛾
+
+)
+
+𝜏𝑘
+𝑗
+
+𝜏𝑘
+𝑡 + 𝛾
+
+(
+
+𝑆𝑘∑
+
+𝑡=1
+)
+
+min{𝑗, 𝑡}𝜏𝑘
+𝑗
+
+𝜏𝑘
+𝑡 + 𝛾
+
+𝑆𝑘∑
+
+𝑗=𝓁
+𝑆𝑘∑
+
+𝑗=1
+
+𝛾
+𝜃 + 2𝛾
+
+𝜏𝑘
+𝑡 +
+
+𝜃
+𝜃 + 2𝛾
+
+)
+
+𝜏𝑘
+𝑗
+
+𝜏𝑘
+𝑡 + 𝑂
+
+𝑆𝑘∑
+
+𝑗=𝑡
+
+(
+
+𝑆𝑘∑
+
+𝑡=1
+
+𝛾
+𝜃 + 2𝛾
+
+𝜏𝑘
+𝑡 +
+
+𝜃
+𝜃 + 2𝛾
+
+𝑆𝑘∑
+
+𝑗=𝑡
+
+)
+
+( 𝑆3
+𝑘
+𝑇𝑘
+
+)
+
+𝜏𝑘
+𝑗
+
+𝜏𝑘
+𝑡 + 𝑂
+
+(A.17)
+
+(A.18)
+
+)
+
+.
+
+( 𝑆3
+𝑘
+𝑇𝑘
+
+𝜃
+
+𝑆𝑘∑
+
+𝑡=1
+
+𝛾
+𝜃 + 2𝛾
+
+𝑡
+∑
+
+𝓁=1
+
+𝜏𝑘
+𝓁
+
+𝜏𝑘
+𝑡 + 𝛾
+
+𝑆𝑘∑
+
+𝑡=1
+
+𝜃
+𝜃 + 2𝛾
+
+𝑆𝑘∑
+
+𝑗=𝑡
+
+𝜏𝑘
+𝑗 𝜏𝑘
+
+𝑡 =
+
+=
+
+=
+
+𝜏𝑘
+𝓁
+
+𝜏𝑘
+𝑡 +
+
+𝜃𝛾
+𝜃 + 2𝛾
+
+𝜃𝛾
+𝜃 + 2𝛾
+
+𝜃𝛾
+𝜃 + 2𝛾
+
+𝑆𝑘∑
+
+𝑆𝑘∑
+
+𝓁=1
+
+𝑡=1
+𝑆𝑘∑
+
+𝑡=1
+
+1 − 𝑎
+2
+
+𝜏𝑘
+𝑡 +
+
+𝜃𝛾
+𝜃 + 2𝛾
+
+(1 − 𝑎)2
+4
+
++
+
+𝜃𝛾
+𝜃 + 2𝛾
+
+𝜃𝛾
+𝜃 + 2𝛾
+𝑆𝑘∑
+
+𝑡=1
+
+𝑆𝑘∑
+
+(𝜏𝑘
+𝑡
+
+)2
+
+)2
+
+𝑡=1
+𝑆𝑘∑
+
+(𝜏𝑘
+𝑡
+
+𝑡=1
+
+(𝜏𝑘
+𝑡
+
+)2.
+
+Therefore, the optimization problem (A.18) becomes
+
+𝜃𝛾
+𝜃 + 2𝛾
+
+(1 − 𝑎)2
+4
+
++
+
+𝜃2
+𝜃 + 2𝛾
+
+𝑆𝑘∑
+
+𝑆𝑘∑
+
+𝜏𝑘
+𝑡
+
+𝑡=1
+
+𝑗=1
+
+min{𝑗, 𝑡}𝜏𝑘
+
+𝑗 +
+
+𝜃𝛾 + 𝛾 2
+𝜃 + 2𝛾
+
+)2
+
+𝑆𝑘∑
+
+(𝜏𝑘
+𝑡
+
+𝑡=1
+
+JournalofFinancialEconomics160(2024)10390125. The first-order condition from the Lagrange multiplier method implies
+
+M. Baldauf, C. Frei and J. Mollner
+
+subject to ∑𝑆𝑘
+𝑡=1
+
+2
+
+𝑡 = 1−𝑎
+𝜏𝑘
+𝑆𝑘∑
+
+(
+
+𝜃2
+
+𝜏𝑘
+𝑡
+
+𝑡=1
+
+𝑗=1
+
+0 =
+
+𝜕
+𝜕𝜏𝑘
+𝑠
+
+𝑆𝑘∑
+
+min{𝑗, 𝑡}𝜏𝑘
+
+𝑗 + (𝜃𝛾 + 𝛾 2)
+
+)
+
+)2
+
+𝑆𝑘∑
+
+(𝜏𝑘
+𝑡
+
+𝑡=1
+
++ 𝜆1
+
+𝑆𝑘∑
+
+= 𝜃2
+
+min{𝑗, 𝑠}𝜏𝑘
+
+𝑗 + 𝜃2
+
+𝑆𝑘∑
+
+𝑡=1
+
+𝑡 min{𝑠, 𝑡} + 2(𝜃𝛾 + 𝛾 2)𝜏𝑘
+𝜏𝑘
+
+𝑠 + 𝜆1
+
+𝑗=1
+𝑆𝑘∑
+
+= 2𝜃2
+
+𝑗=1
+
+min{𝑗, 𝑠}𝜏𝑘
+
+𝑗 + 2(𝜃𝛾 + 𝛾 2)𝜏𝑘
+
+𝑠 + 𝜆1
+
+for all 𝑠 = 1, 2, … Specifically, for 𝛾 = 0, this implies with 𝑠 = 1 that 𝜆1 = −𝜃2(1 − 𝑎); with 𝑠 = 2 that 𝜆1 = −𝜃2(1 − 𝑎) − ∑𝑆𝑘
+iteratively comparing different 𝑠, we obtain 𝜏𝑘
+
+𝑗 = 0 for all 𝑗 > 1. For 𝛾 > 0, we deduce
+
+and 𝜏𝑘
+
+1 = 1−𝑎
+
+𝑗=2
+
+2
+
+0 = 2𝜃2
+
+𝑆𝑘∑
+(
+min{𝑗, 𝑠 + 1} − min{𝑗, 𝑠}
+
+)𝜏𝑘
+
+𝑗 + 2(𝜃𝛾 + 𝛾 2)
+
+(𝜏𝑘
+
+𝑠+1 − 𝜏𝑘
+
+𝑠
+
+)
+
+𝜏𝑘
+𝑗 + 2(𝜃𝛾 + 𝛾 2)
+
+(𝜏𝑘
+
+𝑠+1 − 𝜏𝑘
+
+𝑠
+
+)
+
+𝑗=1
+𝑆𝑘∑
+
+= 2𝜃2
+
+= 2𝜃2
+
+𝑗=𝑠+1
+(
+
+1 − 𝑎
+2
+
+)
+
+−
+
+𝑠
+∑
+
+𝑗=1
+
+𝜏𝑘
+𝑗
+
++ 2(𝜃𝛾 + 𝛾 2)
+
+(𝜏𝑘
+
+𝑠+1 − 𝜏𝑘
+
+𝑠
+
+)
+
+for all 𝑠 = 1, 2, …, so that
+
+𝜏𝑘
+𝑠+1 = 𝜏𝑘
+
+𝑠 −
+
+(
+
+𝜃2
+𝛾𝜃 + 𝛾 2
+
+1 − 𝑎
+2
+
+−
+
+)
+,
+
+𝜏𝑘
+𝑗
+
+𝑠
+∑
+
+𝑗=1
+
+𝑠 = 1, 2, …
+
+Its solution is
+
+𝜏𝑘
+𝑗 =
+
+𝜃𝛾 𝑗−1
+(𝜃 + 𝛾)𝑗
+
+1 − 𝑎
+2
+
+,
+
+𝑗 = 1, 2, … ,
+
+which satisfies
+
+𝑠
+∑
+
+𝑗=1
+
+𝜏𝑘
+𝑗 =
+
+𝑠
+∑
+
+𝑗=1
+
+𝜃𝛾 𝑗−1
+(𝜃 + 𝛾)𝑗
+
+1 − 𝑎
+2
+
+=
+
+𝜃
+𝜃 + 𝛾
+
+1 − 𝛾𝑠
+(𝜃+𝛾)𝑠
+1 − 𝛾
+𝜃+𝛾
+
+1 − 𝑎
+2
+
+𝑠→∞
+→
+
+1 − 𝑎
+2
+
+.
+
+We also note that it follows from (A.13), (A.14), and (A.20) that
+
+𝑥𝑘
+𝑡 =
+
+𝛾
+𝜃 + 2𝛾
+
+𝜏𝑘
+𝑡 +
+
+𝜃
+𝜃 + 2𝛾
+
+𝑆𝑘∑
+
+𝑗=𝑡
+
+𝜏𝑘
+𝑗 + 𝑂
+
+𝛾
+𝜃 + 2𝛾
+
+𝜃𝛾 𝑡−1
+(𝜃 + 𝛾)𝑡
+
+1 − 𝑎
+2
+
++
+
+𝜃
+𝜃 + 2𝛾
+
+𝛾
+𝜃 + 2𝛾
+
+𝜃𝛾 𝑡−1
+(𝜃 + 𝛾)𝑡
+
+𝜃𝛾 𝑡−1
+(𝜃 + 𝛾)𝑡
+
+1 − 𝑎
+2
+
++
+
+1 − 𝑎
+2
+( 𝑆𝑘
+𝑇𝑘
+
++ 𝑂
+
+𝜃
+𝜃 + 2𝛾
+)
+,
+
+)
+
+( 𝑆𝑘
+𝑇𝑘
+𝑆𝑘∑
+
+𝑗=𝑡
+𝜃𝛾 𝑡−1
+(𝜃 + 𝛾)𝑡
+
+𝜃𝛾 𝑗−1
+(𝜃 + 𝛾)𝑗
+
+1 − 𝑎
+2
+
++ 𝑂
+
+)
+
+( 𝑆𝑘
+𝑇𝑘
+
+1
+1 − 𝛾
+𝜃+𝛾
+
+1 − 𝑎
+2
+
++ 𝑂
+
+)
+
+( 𝑆𝑘
+𝑇𝑘
+
+𝑥𝑘
+𝑇𝑘−𝑡 =
+
+𝛾
+𝜃 + 2𝛾
+
+𝜏𝑘
+𝑇𝑘−𝑡 −
+
+𝜃
+𝜃 + 2𝛾
+
+𝜏𝑘
+𝑇𝑘−𝑗 + 𝑂
+
+)
+
+( 𝑆𝑘
+𝑇𝑘
+
+𝛾
+𝜃 + 2𝛾
+
+𝜏𝑘
+𝑡+1 −
+
+𝜃
+𝜃 + 2𝛾
+
+𝜏𝑘
+𝑗 + 𝑂
+
+𝛾
+𝜃 + 2𝛾
+
+𝜃𝛾 𝑡
+(𝜃 + 𝛾)𝑡+1
+
+1 − 𝑎
+2
+
+𝜃
+𝜃 + 2𝛾
+
+( 𝑆𝑘
+𝑇𝑘
+𝑆𝑘∑
+
+𝑗=𝑡+2
+
+)
+
+𝜃𝛾 𝑗−1
+(𝜃 + 𝛾)𝑗
+
+1 − 𝑎
+2
+
++ 𝑂
+
+)
+
+( 𝑆𝑘
+𝑇𝑘
+
+𝑆𝑘∑
+
+𝑗=𝑡+1
+𝑆𝑘∑
+
+𝑗=𝑡+2
+
+−
+
+−
+
+=
+
+=
+
+=
+
+=
+
+=
+
+=
+
+𝜃
+𝜃 + 2𝛾
+
+𝜃𝛾 𝑡+1
+(𝜃 + 𝛾)𝑡+2
+
+1
+1 − 𝛾
+𝜃+𝛾
+
+1 − 𝑎
+2
+
++ 𝑂
+
+)
+
+( 𝑆𝑘
+𝑇𝑘
+
+𝛾
+𝜃 + 2𝛾
+( 𝑆𝑘
+𝑇𝑘
+
+= 𝑂
+
+1 − 𝑎
+2
+
+𝜃𝛾 𝑡
+(𝜃 + 𝛾)𝑡+1
+)
+.
+
+For 𝑠 = 1, (A.19) simplifies to
+𝑆𝑘∑
+
+0 = 2𝜃2
+
+𝑗 + 2(𝜃𝛾 + 𝛾 2)𝜏𝑘
+𝜏𝑘
+
+1 + 𝜆1,
+
+𝑗=1
+
+which implies
+
+𝜆1 = −2𝜃2
+
+𝑆𝑘∑
+
+𝑗=1
+
+𝑗 − 2(𝜃𝛾 + 𝛾 2)𝜏𝑘
+𝜏𝑘
+
+1 = −2𝜃2 1 − 𝑎
+2
+
+− 2(𝜃𝛾 + 𝛾 2)
+
+𝜃
+𝜃 + 𝛾
+
+1 − 𝑎
+2
+
+= −2(𝜃2 + 𝛾𝜃)
+
+1 − 𝑎
+2
+
+.
+
+(A.19)
+
+𝜏𝑗 , implying ∑𝑆𝑘
+
+𝑗=2
+
+𝜏𝑗 ; and
+
+(A.20)
+
+(A.21)
+
+JournalofFinancialEconomics160(2024)10390126M. Baldauf, C. Frei and J. Mollner
+
+We also derive from (A.19) that
+
+2𝜃2
+
+𝑆𝑘∑
+
+𝑗=1
+
+min{𝑗, 𝑡}𝜏𝑘
+
+𝑗 = −2(𝜃𝛾 + 𝛾 2)𝜏𝑘
+
+𝑡 − 𝜆1 = −2(𝜃𝛾 + 𝛾 2)𝜏𝑘
+
+𝑡 + 2(𝜃2 + 𝛾𝜃)
+
+1 − 𝑎
+2
+
+,
+
+hence the optimization problem becomes
+
+𝜃𝛾
+𝜃 + 2𝛾
+
+(1 − 𝑎)2
+4
+
++
+
+𝜃2
+𝜃 + 2𝛾
+
+𝑆𝑘∑
+
+𝑆𝑘∑
+
+𝜏𝑘
+𝑡
+
+𝑡=1
+
+𝑗=1
+
+min{𝑗, 𝑡}𝜏𝑘
+
+𝑗 +
+
+𝜃𝛾 + 𝛾 2
+𝜃 + 2𝛾
+
+)2
+
+𝑆𝑘∑
+
+(𝜏𝑘
+𝑡
+
+𝑡=1
+
+𝜃𝛾 + 𝛾 2
+𝜃 + 2𝛾
+
+𝑆𝑘∑
+
+(𝜏𝑘
+𝑡
+
+)2
+
++
+
+1
+𝜃 + 2𝛾
+
+𝑆𝑘∑
+
+𝑡=1
+
+𝜏𝑘
+𝑡 (𝜃2 + 𝛾𝜃)
+
+1 − 𝑎
+2
+
++
+
+𝜃𝛾 + 𝛾 2
+𝜃 + 2𝛾
+
+𝑆𝑘∑
+
+𝑡=1
+
+)2
+
+(𝜏𝑘
+𝑡
+
+𝑡=1
+𝑆𝑘∑
+
+1
+𝜃 + 2𝛾
+
+𝜏𝑘
+𝑡 (𝜃2 + 𝛾𝜃)
+
+1 − 𝑎
+2
+
+𝑡=1
+(1 − 𝑎)2
+4
+
+𝜃2 + 𝛾𝜃
+𝜃 + 2𝛾
+
+−
+
++
+
++
+
+=
+
+=
+
+=
+
+𝜃𝛾
+𝜃 + 2𝛾
+
+(1 − 𝑎)2
+4
+
+𝜃𝛾
+𝜃 + 2𝛾
+
+(1 − 𝑎)2
+4
+
+(1 − 𝑎)2
+4
+
+𝜃𝛾
+𝜃 + 2𝛾
+(1 − 𝑎)2
+4
+
+= 𝜃
+
+.
+
+(A.22)
+
+Finally, we analyze the minimization problem
+
+𝜃
+
+𝑆𝑘∑
+
+𝑡=1
+
+𝑋𝑘
+
+1− 𝑡−1
+𝑇𝑘
+
+𝜏𝑘
+𝑇𝑘−(𝑡−1) + 𝛾
+
+𝑆𝑘∑
+
+𝑡=1
+
+𝑇𝑘−(𝑡−1)𝜏𝑘
+𝑥𝑘
+
+𝑇𝑘−(𝑡−1)
+
+subject to ∑𝑆𝑘
+𝑡=1
+
+𝑇𝑘−(𝑡−1) = 1−𝑎
+𝜏𝑘
+= 1 + 𝑂( 𝑆2
+)
+𝑘
+. Therefore, the value of the minimization problem becomes
+𝑇𝑘
+
+2
+
+𝑋𝑘
+
+1− 𝑡−1
+𝑇𝑘
+
+. However, as per (A.21), the jumps of the trading strategy in the limit disappear so that 𝑥𝑘
+
+𝑇𝑘−(𝑡−1) = 𝑂( 𝑆𝑘
+
+𝑇𝑘
+
+)
+
+and
+
+𝜃
+
+𝑆𝑘∑
+
+𝑡=1
+
+𝑋𝑘
+
+1− 𝑡−1
+𝑇𝑘
+
+𝜏𝑘
+𝑇𝑘−(𝑡−1) + 𝛾
+
+𝑆𝑘∑
+
+𝑡=1
+
+𝑥𝑘
+𝑇𝑘−(𝑡−1)𝜏𝑘
+
+𝑇𝑘−(𝑡−1) = 𝜃
+
+𝑆𝑘∑
+
+𝑡=1
+
+𝜏𝑘
+𝑇𝑘−(𝑡−1) + 𝑂
+
+)
+
+( 𝑆3
+𝑘
+𝑇𝑘
+
+= 𝜃
+
+1 − 𝑎
+2
+
++ 𝑂
+
+)
+.
+
+( 𝑆3
+𝑘
+𝑇𝑘
+
+In summary, using (A.17), (A.22), and (A.23), the expected costs from (A.15) in the optimum are
+
+1
+
+𝑋𝑞 𝑑𝑉𝑞 + 𝜃
+
+𝑆𝑘∑
+
+𝑡=1
+𝜃(1 + 𝑎)2
+8
+
+𝑎2 +
+
+𝜏𝑘
+𝑡 + 𝛾
+
+𝑋𝑘
+𝑡
+𝑇𝑘
+𝜃(1 − 𝑎)2
+8
+
+−
+
+𝑆𝑘∑
+
+𝑡=1
+
+𝑡 𝜏𝑘
+𝑥𝑘
+
+𝑡 + 𝜃
+
+𝑆𝑘∑
+
+𝑡=1
+
+𝑋𝑘
+
+1− 𝑡−1
+𝑇𝑘
+
++ 𝜃
+
+(1 − 𝑎)2
+4
+
++ 𝜃
+
+1 − 𝑎
+2
+
+𝑇𝑘−(𝑡−1)𝜏𝑘
+𝑥𝑘
+
+𝑇𝑘−(𝑡−1) + 𝑂
+
+)
+
+( 𝑆3
+𝑘
+𝑇𝑘
+
+𝑆𝑘∑
+
+𝑡=1
+
+𝜏𝑘
+𝑇𝑘−(𝑡−1) + 𝛾
+
++ 𝑂
+
+)
+
+( 𝑆3
+𝑘
+𝑇𝑘
+
+E[𝝉 𝑘 ⋅ 𝒑] = 𝑝0 + 𝜃 ∫
+
+0
+
+= 𝑝0 +
+
+= 𝑝0 +
+
+𝜃2
+𝜆𝑇 𝜎2
+
+𝜃2
+𝜆𝑇 𝜎2
+
+𝑎2 + 𝜃
+
+(1 − 𝑎)2
+4
+
++
+
+𝜃
+2
+
++ 𝑂
+
+)
+
+,
+
+( 𝑆3
+𝑘
+𝑇𝑘
+
+minimized over 𝑎. The first-order condition gives
+
+𝜃2
+𝜆𝑇 𝜎2
+
+2𝑎 − 𝜃
+
+1 − 𝑎
+2
+
+= 0
+
+so that
+
+𝑎 =
+
+𝜃
+2
++ 2𝜃2
+𝜆𝑇 𝜎2
+
+𝜃
+2
+
+=
+
+1
+1 + 4𝜃
+𝜆𝑇 𝜎2
+
+.
+
+We conclude for 𝑞 ∈ (0, 1) that
+
+𝑉𝑞 = 𝑉0+ + (𝑉𝑞 − 𝑉0+) =
+
+1 − 𝑎
+2
+
++ 𝑎𝑞,
+
+𝑋𝑞 =
+
+𝜃
+𝜆𝑇 𝜎2
+
+̇𝑉𝑞 + 𝑉𝑞 =
+
+𝜃𝑎
+𝜆𝑇 𝜎2
+
++
+
+1 − 𝑎
+2
+
++ 𝑎𝑞,
+
+(A.23)
+
+(A.24)
+
+(A.25)
+
+using (A.12), which implies the formulas for the limits of the optimal contract and dealer’s trading strategy. Thanks to (A.24) and (A.25), the
+client’s expected costs converge to
+
+𝑝0 +
+
+𝜃2
+𝜆𝑇 𝜎2
+
+𝑎2 + 𝜃
+
+(1 − 𝑎)2
+4
+
++
+
+𝜃
+2
+
+= 𝑝0 +
+
+(
+
+1 +
+
+𝜃
+4
+
+4𝜃
+𝜆𝑇 𝜎2
+
+)
+
+𝑎2 −
+
+𝑎
+2
+
+𝜃 +
+
+3
+4
+
+𝜃 = 𝑝0 +
+
+3 − 𝑎
+4
+
+𝜃. □
+
+Proof of Proposition 11. This proof builds on the first half of the proof of Proposition 10.
+
+Claim (i): In the case of a TWAP contract, we have
+
+𝑉 TWAP
+𝑞
+
+= lim
+𝑘→∞
+
+𝑉 TWAP,𝑘
+𝑞
+
+= lim
+𝑘→∞
+
+⌈𝑞𝑇𝑘⌉∑
+
+𝑡=1
+
+𝜏TWAP,𝑘
+𝑡
+
+= 𝑞
+
+for all 𝑞 ∈ (0, 1) so that (A.12) becomes
+
+𝑋TWAP
+𝑞
+
+=
+
+𝜃
+𝜆𝑇 𝜎2
+
+̇𝑉 TWAP
+𝑞
+
++ 𝑉 TWAP
+𝑞
+
+=
+
+𝜃
+𝜆𝑇 𝜎2
+
++ 𝑞
+
+JournalofFinancialEconomics160(2024)10390127M. Baldauf, C. Frei and J. Mollner
+
+for all 𝑞 ∈ (0, 1). Along with the conditions 𝑋TWAP,𝑘
+follows from (A.15) that the expected costs for the client under a TWAP contract are
+
+= 0 and 𝑋TWAP,𝑘
+
+1
+
+0
+
+= 1 for all 𝑘, this shows (7). Because 𝑉 TWAP
+
+does not have any jumps, it
+
+𝑞
+
+lim
+𝑘→∞
+
+E[𝝉 TWAP,𝑘 ⋅ 𝒑] = 𝑝0 + 𝜃 ∫
+
+1
+
+0
+
+𝑋TWAP
+𝑞
+
+𝑑𝑉 TWAP
+𝑞
+
+= 𝑝0 + 𝜃 ∫
+
+(
+
+1
+
+0
+
+𝜃
+𝜆𝑇 𝜎2
+
+)
+
++ 𝑞
+
+𝑑𝑞 = 𝑝0 +
+
+𝜃2
+𝜆𝑇 𝜎2
+
++
+
+1
+2
+
+𝜃.
+
+Claim (ii): In the case of a MOC contract, we have
+
+𝑉 MOC
+𝑞
+
+= lim
+𝑘→∞
+
+𝑉 MOC,𝑘
+𝑞
+
+= lim
+𝑘→∞
+
+⌈𝑞𝑇𝑘⌉∑
+
+𝑡=1
+
+𝜏MOC,𝑘
+𝑡
+
+= 0
+
+for all 𝑞 ∈ (0, 1) so that (A.12) becomes
+
+𝑋MOC
+𝑞
+
+=
+
+𝜃
+𝜆𝑇 𝜎2
+
+̇𝑉 MOC
+𝑞
+
++ 𝑉 MOC
+𝑞
+
+= 0
+
+for all 𝑞 ∈ (0, 1). Along with the conditions 𝑋MOC
+
+0
+
+= 0 and 𝑋MOC
+
+1
+
+= 1, this shows (8). The expected costs for the client are
+
+E[𝝉 MOC,𝑘 ⋅ 𝒑] = 𝑝0 + 𝜃
+
+𝑇𝑘∑
+
+𝑋MOC,𝑘
+𝑡
+𝑇𝑘
+= 𝑝0 + 𝜃𝑋MOC,𝑘
+
++ 𝛾
+
+𝑡=1
+
+1
+
+(
+
+𝑉 MOC,𝑘
+𝑡
+𝑇𝑘
+(
+𝑋MOC,𝑘
+1
+
+)
+
+)
+
+− 𝑉 MOC,𝑘
+𝑡−1
+𝑇𝑘
+− 𝑋MOC,𝑘
+𝑇𝑘 −1
+𝑇𝑘
+
+= 𝑝0 + 𝜃 +
+
+𝛾 2
+𝜃 + 2𝛾
+
++ 𝑂
+
+( 𝑆𝑘
+𝑇𝑘
+
+)
+,
+
++ 𝛾
+
+𝑇𝑘∑
+(
+
+𝑡=1
+
+𝑋MOC,𝑘
+𝑡
+𝑇𝑘
+
+− 𝑋MOC,𝑘
+𝑡−1
+𝑇𝑘
+
+)(
+
+𝑉 MOC,𝑘
+𝑡
+𝑇𝑘
+
+)
+
+− 𝑉 MOC,𝑘
+𝑡−1
+𝑇𝑘
+
+using that
+
+𝑋MOC,𝑘
+1
+
+− 𝑋MOC,𝑘
+𝑇𝑘 −1
+𝑇𝑘
+
+= 𝑥MOC,𝑘
+𝑇𝑘
+
+=
+
+𝛾
+𝜃 + 2𝛾
+
++ 𝑂
+
+)
+
+( 𝑆𝑘
+𝑇𝑘
+
+by (A.14). □
+
+Appendix B. Supplementary data
+
+Supplementary material related to this article can be found online at https://doi.org/10.1016/j.jfineco.2024.103901.
+
+References
+
+Abel Noser, 2021. Hidden figures–Introducing a portfolio transition & event universe. https://bit.ly/3zE5Lhl.
+Almgren, Robert, Chriss, Neil, 2001. Optimal execution of portfolio transactions. J. Risk 3, 5–40.
+Avramov, Doron, Chordia, Tarun, Goyal, Amit, 2006. The impact of trades on daily volatility. Rev. Financ. Stud. 19 (4), 1241–1277.
+Baldauf, Markus, Frei, Christoph, Mollner, Joshua, 2022. Principal trading arrangements: When are common contracts optimal? Manage. Sci. 68 (4), 3112–3128.
+Baldauf, Markus, Mollner, Joshua, 2024. Competition and information leakage. J. Polit. Econ. 132 (5), 1603–1641.
+Bernhardt, Dan, Taub, Bart, 2008. Front-running dynamics. J. Econom. Theory 138 (1), 288–296.
+Bertsimas, Dimitris, Lo, Andrew W., 1998. Optimal control of execution costs. J. Financial Mark. 1 (1), 1–50.
+Bhattacharya, Sudipto, Pfleiderer, Paul, 1985. Delegated portfolio management. J. Econom. Theory 36 (1), 1–25.
+Biais, Bruno, Glosten, Larry, Spatt, Chester, 2005. Market microstructure: A survey of microfoundations, empirical results, and policy implications. J. Financ. Mark. 8 (2), 217–264.
+Biais, Bruno, Mariotti, Thomas, Plantin, Guillaume, Rochet, Jean-Charles, 2007. Dynamic security design: Convergence to continuous time and asset pricing implications. Rev. Econ.
+
+Stud. 74 (2), 345–390.
+
+Bloomberg, 2016. Cairn energy said to be victim of HSBC currency frontrunning. https://bloom.bg/3sBA14k.
+Bloomberg, 2019. Barclays trader beats U.S. prosecution of front-running charges. https://bloom.bg/3Dzbcy0.
+Bloomberg, 2020. Hedge funds press for crackdown on front-running loophole in EU. https://bloom.bg/3LrOiul.
+Bloomberg, 2022a. Japan’s SMBC Nikko, staff charged with market manipulation. https://bloom.bg/3F8zRIJ.
+Bloomberg, 2022b. Morgan Stanley’s Passi faces U.S. block-trading probe. https://bloom.bg/3OJQoXL.
+Bloomberg, 2024a. Citadel among hedge funds that got Morgan Stanley’s block-trading leaks. https://bloom.bg/4bBj93z.
+Bloomberg, 2024b. Morgan Stanley to pay $249 million to end block trade probes. https://bloom.bg/44Edqrg.
+Board, Simon, Skrzypacz, Andrzej, 2016. Revenue management with forward-looking buyers. J. Polit. Econ. 124 (4), 1046–1087.
+Bolton, Patrick, Dewatripont, Mathias, 2004. Contract Theory. MIT Press.
+Buffa, Andrea M., Vayanos, Dimitri, Woolley, Paul, 2022. Asset management contracts and equilibrium prices. J. Polit. Econ. 130 (12), 3025–3342.
+Campo, Sandra, Guerre, Emmanuel, Perrigne, Isabelle, Vuong, Quang, 2011. Semiparametric estimation of first-price auctions with risk-averse bidders. Rev. Econ. Stud. 78 (1),
+
+112–147.
+
+Carpenter, Jennifer N., 2000. Does option compensation increase managerial risk appetite? J. Finance 55 (5), 2311–2331.
+Cartea, Alvaro, Jaimungal, Sebastian, 2016. Incorporating order-flow into optimal execution. Math. Financ. Econ. 10 (3), 339–364.
+Cox, John C., Ross, Stephen A., Rubinstein, Mark, 1979. Option pricing: A simplified approach. J. Financ. Econ. 7 (3), 229–263.
+Curello, Gregorio, Sinander, Ludvig, 2024. Screening for breakthroughs. Working Paper, https://arxiv.org/abs/2011.10090.
+DeMarzo, Peter M., Fishman, Michael J., 2007. Optimal long-term financial contracting. Rev. Financ. Stud. 20 (6), 2079–2128.
+Di Tella, Sebastian, Sannikov, Yuliy, 2021. Optimal asset management contracts with hidden savings. Econometrica 89 (3), 1099–1139.
+Duffie, Darrell, Dworczak, Piotr, 2021. Robust benchmark design. J. Financ. Econ. 142 (2), 775–802.
+Edelen, Roger M., Kadlec, Gregory B., 2012. Delegated trading and the speed of adjustment in security prices. J. Financ. Econ. 103 (2), 294–307.
+Financial Industry Regulatory Authority, 2013. FINRA rule 5270. Front running of block transactions. https://www.finra.org/rules-guidance/rulebooks/finra-rules/5270.
+Fishman, Michael J., Longstaff, Francis A., 1992. Dual trading in futures markets. J. Finance 47 (2), 643–671.
+Gârleanu, Nicolae, Pedersen, Lasse Heje, 2013. Dynamic trading with predictable returns and transaction costs. J. Finance 68 (6), 2309–2340.
+Gârleanu, Nicolae, Pedersen, Lasse Heje, 2016. Dynamic portfolio choice with frictions. J. Econom. Theory 165, 487–516.
+Garrett, Daniel F., 2016. Intertemporal price discrimination: Dynamic arrivals and changing values. Amer. Econ. Rev. 106 (11), 3275–3299.
+Goldman Sachs, 2017. Disclosure regarding FINRA rule 5270. https://www.goldmansachs.com/disclosures/disclosure-regarding-finra-rule-5270.pdf.
+Grenadier, Steven R., Malenko, Andrey, Malenko, Nadya, 2016. Timing decisions in organizations: Communication and authority in a dynamic environment. Amer. Econ. Rev. 106
+
+(9), 2552–2581.
+
+Gromb, Denis, Vayanos, Dimitri, 2010. Limits of arbitrage. Annu. Rev. Finan. Econ. 2 (1), 251–275.
+
+JournalofFinancialEconomics160(2024)10390128M. Baldauf, C. Frei and J. Mollner
+
+Hellwig, Martin F., Schmidt, Klaus M., 2002. Discrete-time approximations of the Holmström-Milgrom Brownian-motion model of intertemporal incentive provision. Econometrica
+
+70 (6), 2225–2264.
+
+Holmström, Bengt, 1979. Moral hazard and observability. Bell J. Econ. 10 (1), 74–91.
+Holmström, Bengt, Milgrom, Paul, 1987. Aggregation and linearity in the provision of intertemporal incentives. Econometrica 55 (2), 303–328.
+HSBC Global Banking and Markets, 2022. Equities. https://www.gbm.hsbc.com/solutions/markets/equities.
+Kruse, Thomas, Strack, Philipp, 2015. Optimal stopping with private information. J. Econom. Theory 159, 702–727.
+Kyle, Albert S., 1985. Continuous auctions and insider trading. Econometrica 53 (6), 1315–1335.
+Kyle, Albert S., Obizhaeva, Anna A., Wang, Yajun, 2018. Smooth trading with overconfidence and market power. Rev. Econ. Stud. 85 (1), 611–662.
+Madsen, Erik, 2022. Designing deadlines. Amer. Econ. Rev. 112 (3), 963–997.
+Morgan Stanley, 2022. Wealth management disclosures. https://www.morganstanley.com/wealth-disclosures/disclosures#5.
+Nasdaq, 2022. How much does trading cost the buy side? https://bit.ly/3U1O2Gw.
+Obizhaeva, Anna A., Wang, Jiang, 2013. Optimal trading strategy and supply/demand dynamics. J. Financial Mark. 16 (1), 1–32.
+Risk.net, 2021. Page 19901: The benchmark that time forgot. https://www.risk.net/7818166.
+Röell, Ailsa, 1990. Dual-capacity trading and the quality of the market. J. Financ. Intermediat. 1 (2), 105–124.
+Sannikov, Yuliy, 2008. A continuous-time version of the principal-agent problem. Rev. Econ. Stud. 75 (3), 957–984.
+Securities Industry and Financial Markets Association, 2021. Global equity markets primer: Market costs. https://bit.ly/3eGr5IL.
+Seppi, Duane J., 1990. Equilibrium block trading and asymmetric information. J. Finance 45 (1), 73–94.
+The Wall Street Journal, 2022a. Big stock sales are supposed to be secret. The numbers indicate they aren’t. https://on.wsj.com/3LrYQZy.
+The Wall Street Journal, 2022b. How we analyzed Wall Street block trades. https://on.wsj.com/3vwaLjP.
+The Wall Street Journal, 2024. Morgan Stanley agrees to pay $249 million to settle block-trading probes. https://on.wsj.com/3UIn6N5.
+Traders Magazine, 2005a. NYSE & NASD investigate guaranteed VWAP. https://bit.ly/3BSsu8f.
+Traders Magazine, 2005b. VWAP debate divides the trading industry. https://bit.ly/3vmUspm.
+US Securities and Exchange Commission, 2005. Regulation NMS: Final rules and amendments to joint industry plans. Federal Register 70, 124.
+
+JournalofFinancialEconomics160(2024)10390129

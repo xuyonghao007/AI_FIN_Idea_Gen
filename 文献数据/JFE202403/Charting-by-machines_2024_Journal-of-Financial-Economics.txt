@@ -1,0 +1,6813 @@
+Contents lists available at ScienceDirect
+
+Journal of Financial Economics
+
+journal homepage: www.elsevier.com/locate/jfec
+
+Charting by machines
+Scott Murray ∗, Yusen Xia, Houping Xiao
+Georgia State University, Robinson College of Business, 35 Broad Street, Atlanta, GA, 30303, United States
+
+A  R  T  I  C  L  E 
+
+I  N  F  O
+
+A  B  S  T  R  A  C  T
+
+We test the eﬃcient market hypothesis by using machine learning to forecast stock returns from historical 
+performance. These forecasts strongly predict the cross-section of future stock returns. The predictive power 
+holds in most subperiods and is strong among the largest 500 stocks. The forecasting function has important 
+nonlinearities and interactions, is remarkably stable through time, and captures eﬀects distinct from momentum, 
+reversal, and extant technical signals. These ﬁndings question the eﬃcient market hypothesis and indicate that 
+technical analysis and charting have merit. We also demonstrate that machine learning models that perform well 
+in optimization continue to perform well out-of-sample.
+
+Dataset link: https://
+dx .doi .org /10 .17632 /x63r376783 .2
+
+JEL classiﬁcation:
+G11
+G12
+
+Keywords:
+Eﬃcient market hypothesis
+Machine learning
+Deep learning
+Charting
+Technical analysis
+Cross-section of stock returns
+
+1.  Introduction
+
+The weak form of the eﬃcient market hypothesis (EMH hereafter) 
+stipulates that the construction of a proﬁtable portfolio based only on 
+information discernable from plots depicting the historical performance 
+of stocks (price plots hereafter) should not be possible. As such, techni-
+cal  analysis,  or  charting,  should  be  a  fruitless  investment  technique. 
+Academic  research  on  technical  analysis  has  broadly  supported  this 
+prediction. Despite the broad dismissal of technical analysis in the aca-
+demic literature, it remains widely used by investment managers. The 
+continued widespread use of technical analysis suggests that its merit 
+may not be fully discovered in academic research, and that further in-
+vestigation is warranted.
+
+In  this  paper,  we  test  the  weak  form  of  the  EMH  by  examining 
+whether forecasts produced by machine learning (ML hereafter) predict 
+the cross-section of future stock returns. The forecasts are based only 
+on data that are easily discernable from historical price plots, specif-
+ically the cumulative stock returns over the past 12 months. We ﬁnd 
+strong evidence that the ML-based forecasts have economically impor-
+
+tant and highly statistically signiﬁcant predictive power. This predictive 
+power prevails in most subperiods of our focal 196307-202212 test pe-
+riod, including the most recent 201501-202212 subperiod, and remains 
+strong among the largest 500 stocks. The forecasting function is remark-
+ably stable through time and highly complex, with substantial nonlinear 
+and interaction components that are important for prediction. Finally, 
+the predictive power of our ML-based forecasts is not explained by the 
+well-known momentum (Jegadeesh and Titman (1993)) and reversal 
+(Jegadeesh (1990)) eﬀects, nor by previously studied technical or ML-
+based signals.
+
+Execution of the ML process requires us to make several implemen-
+tation decisions. To alleviate concerns related to data mining (Harvey 
+et al. (2016)) or out-of-sample forecasting power (McLean and Pontiﬀ 
+(2016), Green et al. (2017)), we use data from 192701-196306, which 
+we refer to as the “optimization period”, to select our ML model.1 Our 
+analyses lead us to use a convolutional neural network with long short-
+term memory as the ML architecture, mean-squared error as the loss 
+function, a weighting scheme that assigns the same total weight to ob-
+servations from each month and equal weight to each stock within a 
+
+* Corresponding author.
+
+E-mail addresses: smurray19@gsu.edu (S. Murray), ysxia@gsu.edu (Y. Xia), hxiao@gsu.edu (H. Xiao).
+
+1 Lo and MacKinlay (1990) and Fama (1991) also raise concerns about falsely signiﬁcant relations between predictive variables and the cross-section of future 
+stock returns. Giglio et al. (2021) propose a methodology to address the issue of multiple testing, raised by Harvey et al. (2016), in the context of linear asset pricing 
+models. Schwert (2003) shows that the magnitudes of the size and value eﬀects decrease after the period examined by the initial research on these eﬀects.
+
+https://doi.org/10.1016/j.jﬁneco.2024.103791
+Received 27 May 2022; Received in revised form 12 January 2024; Accepted 13 January 2024
+
+JournalofFinancialEconomics153(2024)103791Availableonline24January20240304-405X/©2024ElsevierB.V.Allrightsreserved.S. Murray, Y. Xia and H. Xiao
+
+month, and a normalized measure of future return as the dependent 
+variable.2 Our use of data from only the optimization period to make 
+these ML model decisions ensures that our main test results truly reﬂect 
+out-of-sample predictive power.
+
+We use the optimized ML model to generate stock return forecasts 
+during the 196307-202212 period, which we refer to as the “test peri-
+od”. Our main analyses examine the performance of portfolios formed 
+by sorting stocks on the ML-based forecasts, which we denote 𝑀𝐿𝐸𝑅. 
+We ﬁnd that 𝑀𝐿𝐸𝑅 is a strong predictor of the cross-section of future 
+stock returns. The average excess returns of value-weighted decile port-
+folios constructed using breakpoints calculated from only NYSE-listed 
+stocks increase from −0.14% per month for the decile one portfolio to 
+0.93% per month for the decile 10 portfolio. The 1.08% per month gen-
+erated by the portfolio that is long the decile 10 portfolio and short the 
+decile one portfolio is not only economically large, but highly statis-
+tically signiﬁcant, with a 𝑡-statistic of 5.51. While our methodology is 
+designed to ensure that our results reﬂect out-of-sample performance, 
+this and other 𝑡-statistics from our asset pricing tests far surpass the 
+benchmark 𝑡-statistics proposed by Harvey et al. (2016). We ﬁnd no 
+evidence  that  variation  in  the  average  returns  of  the  𝑀𝐿𝐸𝑅-sorted 
+portfolios is attributable to risk. Alphas of the decile portfolios with 
+respect to several established factor models exhibit patterns similar to 
+those of the average excess returns. Risk metrics such as volatility, skew-
+ness, value at risk, and expected shortfall do not support a risk-based 
+explanation for the patterns in average returns.
+
+The  predictive  power  of  𝑀𝐿𝐸𝑅 is  strong  throughout  most  of 
+our 196307-202212 sample period. The portfolio that is long (short) 
+stocks with high (low) values of 𝑀𝐿𝐸𝑅 generates a large and highly-
+signiﬁcant average excess return of more than 1% per month during 
+most subperiods. The exception is the 200501-201412 subperiod, dur-
+ing which the average excess return is close to zero due to a small num-
+ber of very large monthly losses in 2009. These losses are attributable to 
+the portfolio’s unusually large momentum tilt, combined with large mo-
+mentum strategy losses, in 200904 and 200908. During the most recent 
+201501-202212  subperiod,  the  portfolio  generates  1.20% per  month 
+with an associated 𝑡-statistic of 2.13. The predictive power of 𝑀𝐿𝐸𝑅
+remains remarkably strong when the sample is restricted to only large 
+stocks. Most notably, when using only the top 500 stocks by market 
+capitalization, the average excess return of the long-short portfolio is 
+0.72% per month (𝑡-statistic = 4.37).
+
+The objective of our next tests is to characterize the predictive power 
+of the ML-based forecasts. The main challenge in this is that the ML pro-
+cess is a black box methodology and the forecasting function generated 
+by the learning process is diﬃcult to interpret.
+
+The ﬁrst such tests examine whether the relation between past price 
+patterns and future stock returns is stable through time. We ﬁnd that 
+this is indeed the case. Forecasts based on ﬁts of subsets of the data 
+that are separated by long periods of time are highly-correlated, and 
+the associated long-short portfolios have substantial common holdings 
+and high return correlation. Furthermore, the performance of the ML-
+based forecasts is slightly better when the ML model is ﬁt to all available 
+past data compared to when the ﬁtting process is applied to data from 
+rolling-window subperiods.
+
+We then investigate the importance of nonlinearities and interaction 
+terms in the forecasting function, and ﬁnd them to be responsible for a 
+substantial portion of the variation in forecasts and important for pre-
+diction. Nearly two thirds of variation in the forecasts is attributable to 
+nonlinearities and interactions in the forecasting function, and nearly 
+half  of  this  variation  is  driven  by  interactions.  Regressions  of  future 
+
+2 We  rely  on  the  machine  learning  literature  (see  e.g.  Goodfellow  et  al. 
+(2016)) to motivate our choices of hyperparameters, such as the number of 
+layers in the neural network, the number of epochs used for early stopping to 
+prevent overﬁtting, etc. The details of the conﬁgurations of our neutral net-
+works are described in Section I and Figure A1 of the Internet Appendix.
+
+returns  on  𝑀𝐿𝐸𝑅,  historical  cumulative  returns,  and  terms  captur-
+ing nonlinearities in the forecasts, indicate that the predictive power of 
+𝑀𝐿𝐸𝑅 remains strong after controlling for these terms.
+
+Our  next  tests  examine  whether  the  predictive  power  of  the  ML-
+based  forecasts  is  subsumed  by  previously-documented  relations  be-
+tween variables calculated from historical market data and future stock 
+returns. First, we ﬁnd that while the ML-based forecasts do include com-
+ponents related to the momentum (Jegadeesh and Titman (1993)) and 
+reversal (Jegadeesh (1990), Lehmann (1990)) eﬀects, a large portion 
+of the ML-based forecasts’ predictive power is unrelated to these phe-
+nomena. We next show that our ML-based forecasts have a positive but 
+relatively weak relation with the image-based ML forecasts of Jiang et 
+al. (2022) and that the predictive power of our forecast remains strong 
+after controlling for the image-based forecasts. We also ﬁnd that none 
+of the 14 technical signals examined by Neely et al. (2014) or 14 trad-
+ing friction variables examined by Freyberger et al. (2020) explain the 
+relation between our ML-based forecasts and future stock returns. Fi-
+nally, we visually examine plots associated with high and low future 
+returns and ﬁnd that even among stocks with similar values of momen-
+tum and reversal, there are diﬀerences in such charts that can easily be 
+discerned by a human chart reader.
+
+Our last tests examine the eﬀectiveness of our optimization proce-
+dure. Speciﬁcally, we investigate whether ML models that performed 
+well during the 192701-196306 optimization period continued to per-
+form well during the 196307-202212 test period. To assess whether this 
+is the case, we construct long-short portfolios by sorting stocks based on 
+forecasts generated from each of the candidate ML models considered 
+in our optimization exercise. We ﬁnd that the correlation between val-
+ues of the metric used to assess model performance in our optimization 
+procedure and the associated Sharpe ratios of the long-short portfolios 
+during the test period is 0.69. This strong positive correlation indicates 
+that the optimization process successfully identiﬁed which ML models 
+would produce better out-of-sample forecasts.
+
+Our work contributes to three broad strands of research. First, we 
+add to the literature examining whether past returns contain informa-
+tion useful for predicting future returns, which is tantamount to the 
+literature on the weak form of the EMH. The most prominent ﬁndings in 
+this literature are the aforementioned momentum and reversal eﬀects. A 
+subset of this literature explicitly investigates the validity of technical 
+analysis and charting. Several papers examine the ability of technical 
+signals to predict the performance of broad market indices or diver-
+siﬁed portfolios. Brock et al. (1992) ﬁnd that simple technical signals 
+predict the future returns of the Dow Jones Index, but subsequent work 
+attributes this ﬁnding to data snooping (Sullivan et al. (1999), Ready 
+(2002), and Bajgrowicz and Scaillet (2012)) and nonsynchronous trad-
+ing (Bessembinder and Chan (1998)). Allen and Karjalainen (1999) use 
+genetic algorithms (a form of ML) to identify technical rules for trad-
+ing the S&P 500 index and ﬁnd that they do not work out of sample. 
+More recently, Zhu and Zhou (2009) ﬁnd that technical analysis can 
+be useful for making asset allocation decisions, Moskowitz et al. (2012)
+ﬁnd time-series momentum in a large number of asset classes, Neely et 
+al. (2014) show that technical indicators are useful for predicting the 
+market risk premium, and Han et al. (2013) ﬁnd evidence that moving 
+average strategies work well for timing investment in volatility-sorted 
+portfolios.3
+
+Despite  the  wide-spread  use  of  technical  analysis  in  practice 
+(Menkhoﬀ (2010), Lo and Hasanhodzic (2010)), research on the pre-
+dictive power of technical signals is sparse. Most recently, Jiang et al. 
+
+3 Sweeney (1986), Levich and Thomas (1993), Neely et al. (1997), Chang and 
+Osler (1999), and Gehrig and Menkhoﬀ (2006) ﬁnd evidence that investment 
+strategies based on technical analysis are proﬁtable in foreign exchange mar-
+kets, a ﬁnding that Osler (2003) attributes to the clustering of stop-loss and 
+take-proﬁt orders. LeBaron (1999) argues that the proﬁtability of such strate-
+gies is due to central bank intervention in currency markets, but Neely (2002)
+concludes the opposite.
+
+JournalofFinancialEconomics153(2024)1037912S. Murray, Y. Xia and H. Xiao
+
+(2022) use ML to predict whether a stock will generate a positive or 
+negative future return based on image representations of past price and 
+volume data.4 Their forecasts diﬀer from ours in many ways. First, the 
+input to their ML-based forecasts is an image of a chart that depicts 
+daily open, close, high, and low prices, as well as trading volume and 
+moving average prices over a past period of between ﬁve days and 3 
+months. Our approach is simpler in that we use only 12 past monthly 
+cumulative return observations as the basis for our forecasts. Further-
+more, Jiang et al. (2022) scale their images to reﬂect only the shape, 
+but not the magnitude, of patterns in historical price and volume plots. 
+We do not scale the data upon which our forecasts are based, thereby 
+allowing  our  ML  process  to  learn  patterns  based  on  both  the  shape 
+and magnitude of past returns. Not surprisingly given the diﬀerence in 
+our approaches, the predictive power of our ML-based forecasts is not 
+subsumed by that of the forecasts generated by Jiang et al. (2022). Ad-
+ditionally, while Jiang et al. (2022) ﬁnd that the predictive patterns are 
+context-independent, meaning that the same patterns hold in diﬀerent 
+markets and using diﬀerent time scales, we ﬁnd that the predictive pat-
+terns we detect are persistent through time, suggesting that it is possible 
+for a chartist to learn the patterns over a relatively long period. Our pa-
+per is most similar to Lo et al. (2000), who use smoothing estimators 
+to extract nonlinear relations between historical price patterns and fu-
+ture stock returns. This ﬁnding has been the subject of much scrutiny, 
+most notably by Jegadeesh (2000), who argues that Lo et al. (2000)’s 
+ﬁndings are not robust to variation in the bandwidth parameter used 
+for smoothing, a subjective empirical decision, and that the proﬁtability 
+of trading strategies based on the patterns detected by Lo et al. (2000)
+is close to zero. Our paper is similar in spirit to Lo et al. (2000), ex-
+cept we use a more modern technology (ML) than they do (smoothing 
+estimators) to detect the relations between past price patterns and fu-
+ture returns. Our paper overcomes the robustness critique of Jegadeesh 
+(2000) by  implementing  a  systematic  procedure  to  optimize  our  ML 
+model using only data from the period prior to our main test period. 
+Our use of portfolio analyses as our main empirical methodology ad-
+dresses Jegadeesh (2000)’s proﬁtability critique. The main contribution 
+of our paper, therefore, is to demonstrate the merit of technical analy-
+sis, and thus provide evidence contradicting the EMH, in a manner that 
+overcomes the critiques of previous work in this area.
+
+Second, we add to the growing literature using ML to understand 
+the cross-section of stock returns.5 Messmer (2017), Messmer and Au-
+drino (2020), and Freyberger et al. (2020) use ML to identify relations 
+between stock-level characteristics and expected stock returns. Kelly et 
+al. (2019), Gu et al. (2020, 2021), Kozak et al. (2020), Lettau and Pel-
+ger (2020), Bryzgalova et al. (2023), Chen et al. (2023), and Feng et 
+al. (2023) use ML to extract latent factors, factor exposures, and risk 
+premia from characteristics. Guijarro-Ordonez et al. (2023) use deep 
+learning to construct optimal arbitrage portfolios.6 A consistent theme 
+in this work is the use of ML to synthesize the information in a broad 
+set of stock-level variables that previous work has already found to be 
+related  to  expected  stock  returns.  Our  work  diﬀers  in  that  our  fore-
+
+4 Moritz and Zimmermann (2016) apply tree-based conditional portfolio sorts 
+to past return deciles and ﬁnd that the associated forecasts predict the cross-
+section of future stock returns. Their use of past return deciles, instead of the 
+actual cumulative returns, makes it diﬃcult to reach a conclusion about the 
+eﬃcacy of traditional charting from their results.
+5 Earlier work includes Allen and Karjalainen (1999), who use genetic pro-
+gramming to search for proﬁtable technical patterns in the S&P 500 index, and 
+ﬁnd none. In related work, Feng et al. (2018) and Rossi (2018) use ML to pre-
+dict S&P 500 index returns, and Bianchi et al. (2021) use ML to predict bond 
+returns.
+6 Rapach et al. (2013) use ML to generate forecasts of international stock 
+returns based on past US market returns. Chinco et al. (2019) use ML to generate 
+forecasts of one-minute-ahead future stock returns based on returns in the past 
+three minutes. Bali et al. (2022) use ML to generate forecasts of corporate bond 
+and stock returns.
+
+casts are based only on 12 past monthly cumulative returns. The main 
+beneﬁt of ML in our setting is its ability to detect highly complex re-
+lations between past and expected future returns.7 This contrasts with 
+previous work that harnesses ML’s ability to generate meaningful fore-
+casts from a large number of predictive variables. Unlike the work that 
+identiﬁes factors and arbitrage portfolios, which uses ML to identify 
+optimal tradeoﬀs between risk and expected return, our objective of 
+assessing the eﬃcacy of technical analysis for predicting future stock 
+returns leads us to use ML to forecast only the expected return.
+
+Finally, we contribute to the broader literature that uses ML for asset 
+pricing applications by demonstrating the eﬀectiveness of model selec-
+tion via ex-ante optimization. Most research using ML to predict returns 
+uses some form of model optimization procedure to select model pa-
+rameters. Gu et al. (2020) compare the performance of diﬀerent ML 
+models in generating estimates of risk premia from a large number of 
+stock-level characteristics but do not examine whether out-of-sample 
+performance correlates with performance in the optimization process. 
+Our ﬁnding of a strong correlation between optimization period and 
+test period performance of diﬀerent ML models shows that such opti-
+mization processes are eﬀective.
+
+The remainder of this paper is organized as follows. Section 2 de-
+scribes  the  construction  of  our  sample.  Section 3 describes  how  we 
+optimize our ML model and the calculation of the ML-based return fore-
+casts. Section 4 presents our main evidence that the ML-based forecasts 
+successfully predict the cross-section of future stock returns. Section 5
+characterizes the nature of the predictive power of the ML-based fore-
+casts. In Section 6 we conduct an evaluation of our optimization proce-
+dure. Section 7 concludes.
+
+2.  Sample and variables
+
+In this section we describe our sample and the variables used in our 
+
+tests.
+
+2.1.  Sample
+
+The  stock  data  used  in  our  study  come  from  CRSP.  Our  sample 
+contains stock, month observations for months 𝑡 from 192701-202212 
+(inclusive). In each month 𝑡, the sample contains all stocks that, on the 
+last trading day of month 𝑡 − 1, are common shares of US-based ﬁrms 
+listed on the NYSE, AMEX, or NASDAQ. To ensure that the construc-
+tion  of  a  one-year  historical  price  plot  for  each  stock  in  the  sample 
+would have been feasible, we require that each included stock has a 
+non-missing return for each of months 𝑡 − 12 through 𝑡 − 1, inclusive. 
+Finally,  because  our  focal  analyses  weight  stocks  by  market  capital-
+ization, we require that the market capitalization of each stock in the 
+sample as of the end of month 𝑡 − 1, which we deﬁne as the number of 
+shares outstanding times the price of each share, can be calculated. Our 
+focal tests examine the ability of ML-based forecasts calculated as of the 
+end of month 𝑡 − 1 to predict the cross-section of month 𝑡 stock returns.
+To ensure that the results of our focal tests reﬂect out-of-sample pre-
+dictive power, we use sample months 𝑡 from 192701-196306, inclusive, 
+to optimize our ML model, and refer to this period as the “optimization 
+period”. The ﬁrst month of the optimization period is 192701 because 
+return data in CRSP begin in 192601, making 192701 the ﬁrst month 
+for which a full year of prior return data are available. Our focal asset 
+pricing tests cover months 𝑡 from 196307 through 202212, which we 
+refer to as the “test period”. We begin the test period in 196307 (and 
+end the optimization period in 196306) to conform with the start date 
+of the sample in Fama and French (1992, 1993) and several subsequent 
+asset pricing studies.
+
+7 We ﬁnd similar results when we using 60 months’ past cumulative returns 
+to generate the forecasts.
+
+JournalofFinancialEconomics153(2024)1037913S. Murray, Y. Xia and H. Xiao
+
+2.2.  Variables
+
+For each stock 𝑖 in each month 𝑡, we calculate several variables. The 
+focal dependent variable is the month 𝑡 excess stock return, calculated 
+as the delisting-adjusted stock return minus the return of the risk-free 
+security  in  month  𝑡.8 The  independent  variables,  which  are  used  to 
+predict the cross-section of month 𝑡 returns, are calculated from data 
+available as of the end of month 𝑡 − 1. The focal independent variable 
+is the ML-based return forecast, 𝑀𝐿𝐸𝑅. Section 3 describes in detail 
+how we calculate 𝑀𝐿𝐸𝑅. For now, we simply note that the forecast 
+of stock 𝑖’s month 𝑡 return is calculated by applying the function gener-
+ated by the ML process to the cumulative returns of stock 𝑖 over months 
+12. Speciﬁcally, 𝐶𝑅𝑘
+𝑡 − 12 through 𝑡 − 1, which we denote 𝐶𝑅
+1
+is the cumulative stock return over the 𝑘-month period covering months 
+𝑡 − 12 through 𝑡 − 12 + 𝑘 − 1. This notation is motivated from the point 
+of view of an investor looking at a one-year price plot created at the 
+end of month 𝑡 − 1. 𝐶𝑅
+1 is the stock return in the ﬁrst month that ap-
+pears on the plot, and more generally 𝐶𝑅𝑘 is the cumulative return of 
+the stock during the ﬁrst 𝑘 months that appear on the plot.
+
+, … , 𝐶𝑅
+
+3.  ML model and forecasts
+
+In this section we describe how we select our ML model using data 
+from the optimization period and how we use the selected ML model to 
+generate forecasts of future stock returns.
+
+3.1.  Optimizing the ML model
+
+Our objective in using ML is to generate a function 𝑓 that, given val-
+ues of input variables discernable from a historical price plot of a stock, 
+will produce a forecast of the stock’s future return. Very generally, the 
+ML process takes a panel data set that includes one or more input vari-
+ables, a dependent variable, and a weight variable, which combined we 
+refer to as the ﬁtting data, and attempts to “learn” the function 𝑓 that 
+describes the relation between the input variables and the expectation 
+of the dependent variable. The ML process attempts to learn 𝑓 by min-
+imizing the value of a loss function . Once the function 𝑓 has been 
+learned, it can be applied to data not included in the ﬁtting data to 
+generate forecasts.
+
+ML  is  a  broad  term  that  encapsulates  several  diﬀerent  empirical 
+methods, including linear dimension reduction techniques such as prin-
+cipal components regression and partial least squares, nonlinear meth-
+ods such as group LASSO that both perform dimension reduction and 
+allow the forecast to be nonlinear in the inputs, nonparametric meth-
+ods such as boosted regression trees and random forests that account 
+for interactions between input variables, and neural networks, which 
+accommodate most features of all other models and are therefore the 
+most complex but most general and ﬂexible learning tool.9 We choose 
+to use neural networks to generate our ML-based forecasts for two rea-
+sons. First, the learning process underlying neural networks is intended 
+to mimic that of the human brain. We want our empirical design to be 
+well-suited for capturing any predictive power discernable by the type 
+of human chartist described in Lo et al. (2000), who learns complex pat-
+terns in stock returns from observation of historical price plots. Second, 
+since our forecasts are based on only 12 input variables, the main ben-
+eﬁt of ML in our context is its ability to account for both nonlinearities 
+and interactions in the forecasting function. Methods whose main ben-
+eﬁt is dimension reduction or variable selection, therefore, are likely to 
+be less useful in our context.
+
+8 The  month  𝑡 delisting-adjusted  stock  return  is  calculated  following 
+Shumway (1997). Details of the calculation are in Section II of the Internet 
+Appendix. Monthly risk-free security returns are from Ken French’s website: 
+https://mba .tuck .dartmouth .edu /pages /faculty /ken .french /data _library .html.
+9 Gu et al. (2020) provide an excellent overview of the diﬀerent machine 
+learning models.
+
+, … , 𝐶𝑅
+
+As  input  variables,  we  use  the  monthly  cumulative  stock  returns 
+over  the  12  months  prior  to  the  month  whose  return  is  to  be  fore-
+casted, 𝐶𝑅
+12. While return predictability based on past returns 
+1
+of any frequency or horizon violates the EMH, we use one year of past 
+monthly cumulative returns for several reasons. Our use of one year of 
+past data follows previous technical analysis research, which typically 
+uses at most one year of data to generate signals.10 The use of a year’s 
+worth of past returns also ensures that our input variables contain the 
+same information as the standard measure of momentum, which is the 
+cumulative return over months 𝑡 − 12 through 𝑡 − 2. We use monthly 
+(instead of daily or some other shorter frequency) cumulative returns 
+to ensure that any patterns detected by our ML process could plausi-
+bly be detected by a human chartist, who may only be able to discern 
+relatively coarse data from a one-year price plot. This decision follows 
+previous ML research that uses data measured at the monthly frequency 
+when calculating most historical return-based variables (see e.g. Neely 
+et al. (2014), Gu et al. (2020), and Freyberger et al. (2020)). The use of 
+monthly data also alleviates the need to address challenges associated 
+with diﬀerent years having diﬀerent numbers of days when implement-
+ing our ML model. In Section III and Table A1 of the Internet Appendix, 
+we show that the results of tests that use ML-based forecasts based on 
+60 months of past return data are qualitatively similar to those of our 
+main measure. While our focal tests use cum dividend returns to gen-
+erate forecasts of future returns, traditional chartists frequently work 
+with price histories that do not account for the impact of dividends on 
+prices. Therefore, in Section IV and Table A2 of the Internet Appendix, 
+we show that our results hold when using price-based cumulative re-
+turns, instead of cum dividend cumulative returns, to forecast future 
+returns.
+
+The remaining decisions related to selection of our ML model are 
+based on analysis of data from the optimization period, which covers 
+sample months 𝑡 from 192701-196306. We aim to ﬁnd the combination 
+of neural network architecture, loss function, loss function weight vari-
+able, and dependent variable that generates the best forecasts of future 
+stock returns.
+
+Following LeCun et al. (2015) and Goodfellow et al. (2016), we con-
+sider four neural network architectures: a feed-forward neural network 
+(FNN), a convolutional neural network (CNN), a long short-term mem-
+ory  network  (LSTM),  and  a  convolutional  neural  network  with  long 
+short-term memory (CNNLSTM). To avoid the curse of dimensionality, 
+we rely on the ML literature to motivate our choices of hyperparam-
+eters,  such  as  the  number  of  layers  in  the  neural  network,  etc.  The 
+neutral networks’ conﬁguration details, along with graphical depictions 
+of each neural network architecture, are provided in Section I and Fig-
+ure A1 of the Internet Appendix. All four architectures are widely used 
+representation-based deep learning methods designed to learn complex 
+relations in the data. Here, we give a very brief comparison of the dif-
+ferent  architectures.  We  refer  the  reader  to  LeCun  et  al.  (2015) and 
+Goodfellow et al. (2016) for more technical discussions.
+
+FNN is the most general of the four architectures, but it does not 
+explicitly consider the grid topology or variable dependency that fre-
+quently  characterize  sequential  and  time-series  data.  The  CNN  and 
+LSTM  architectures are  designed  to  overcome  this  shortfall  of  FNN. 
+CNN is a specialized type of neural network designed to process data 
+with a grid-like topology, such as our cumulative return data, which 
+can be interpreted as a one-dimensional grid. Previous work (Hosein-
+zade and Haratizadeh (2019)) has shown CNNs to be highly successful 
+at time-series prediction. LSTM is a form of recurrent neural network 
+(RNN).  RNNs  are  explicitly  designed  to  process  one-dimensional  se-
+quential  data.  However,  conventional  RNNs  have  been  shown  to  be 
+
+10 Brock et al. (1992), Zhu and Zhou (2009), and Han et al. (2013) consider 
+moving average prices of up to 200 days, whereas Neely et al. (2014) use data 
+from the past year to calculate many technical signals. Allen and Karjalainen 
+(1999) use a 250 day moving average to scale S&P 500 index levels.
+
+JournalofFinancialEconomics153(2024)1037914S. Murray, Y. Xia and H. Xiao
+
+ineﬀective at discerning relations at lags greater than ﬁve (Goodfellow 
+et al. (2016)), a drawback that LSTM overcomes. The CNNLSTM archi-
+tecture combines the features of both the CNN and LSTM architectures.
+The neural network learning process aims to minimize a loss func-
+tion  that aggregates forecast errors through iterative, gradient-based 
+optimizers (Goodfellow et al. (2016)). The two loss functions we con-
+sider are mean squared error (MSE,  =
+𝑗 ) and mean absolute 
+𝑤𝑗 |𝜖𝑗 |), where 𝑤𝑗 is the weight assigned to obser-
+error (MAE,  =
+vation 𝑗 in the training data, 𝜖𝑗 is the error, deﬁned as the diﬀerence 
+between the forecast value and the actual observed value of the depen-
+dent variable, and the summation is taken over all observations in the 
+training data. Qualitatively, the main diﬀerence between MSE and MAE 
+is that MSE is more sensitive to outliers than MAE.
+
+𝑤𝑗 𝜖2
+
+∑
+
+∑
+
+The ML process uses panel data to determine the function 𝑓 that best 
+describes the relation between the input and dependent variables. How-
+ever, our objective is to forecast the cross-section of future stock returns. 
+As shown in Section V and Figure A2 of the Internet Appendix, the num-
+ber of stocks in our sample varies substantially across months. Thus, 
+giving the same weight in the loss function to each observation would 
+cause months with more stocks to carry more total weight. To address 
+this concern, in addition to the equal-weighting (EW) approach, we con-
+sider two alternative weighting methodologies. The ﬁrst alternative is 
+to equally-weight each month, and within each month, equally-weight 
+each stock (EWPM for equal weight per month). The second alterna-
+tive is to equally-weight each month, but consistent with our intent to 
+use value-weighted portfolios as our primary test methodology, weight 
+each stock within a given month according to its market capitalization 
+at the end of the previous month (EWPMVW for equal weight per month 
+value-weighted).
+
+The use of panel data may also cause the learned function 𝑓 to be 
+determined, in part, by time-series relations between historical and fu-
+ture returns of the aggregate market. To illustrate, consider the price 
+plots shown in Fig. 1, which depict the cumulative return of the mar-
+ket portfolio during the 12-month periods prior to 193304 (Panel A) 
+and 193109 (Panel B). These are the one-year periods leading up to 
+the highest (38.95% in 193304) and lowest (−29.10% in 193109), re-
+spectively, monthly market portfolio returns during our sample period. 
+Given that there is strong covaration in returns of individual stocks, 
+many stocks likely exhibited price patterns similar to those in the plots 
+during the corresponding periods. The high (low) market portfolio re-
+turn in the next month suggests that most stocks had a high (low) return 
+during this month.11 The ML algorithm is therefore likely to associate 
+price patterns similar to that in Panel A (Panel B) with a high (low) 
+future return.
+
+To  ensure  that  the  ML  process  does  not  generate  the  function  𝑓
+based on this sort of aggregate time-series pattern, in addition to the ex-
+cess stock return, 𝑟, we consider three transformations of 𝑟 as potential 
+dependent variables. The ﬁrst is the standardized excess return, 𝑟𝑆𝑡𝑑 , 
+calculated by taking the excess return, subtracting the mean excess re-
+turn, and then dividing this diﬀerence by the standard deviation of the 
+excess stock returns, with the mean and standard deviation calculated 
+from the excess returns of all stocks in the given month. Using 𝑟𝑆𝑡𝑑 guar-
+antees that the mean and standard deviation of the dependent variable 
+in any given month are zero and one, respectively, thereby making it 
+unlikely that the function generated by the ML process is based largely 
+on aggregate time-series patterns.
+
+A potential concern with both 𝑟 and 𝑟𝑆𝑡𝑑 , however, is that the cross-
+sectional distribution of stock returns is known to be highly leptokurtic 
+(see e.g. Bali et al. (2016, Table 7.2)), making it plausible that the func-
+tion 𝑓 generated by the ML process is largely a manifestation of extreme 
+observations. Furthermore, our aim is to identify stocks that are likely 
+
+11 The equal-weighted average return of the stocks in our sample in 193304 
+(193109) is 52.48% (−31.47%), and 598 out of 631 (618 out of 627) such stocks 
+had a positive (negative) return.
+
+Fig. 1. Market Portfolio Price Plots. This ﬁgure plots the monthly cumulative 
+returns of the market portfolio between 193204 and 193303 (Panel A) and 
+between 193009 and 193108 (Panel B), inclusive.
+
+to perform better (or worse) than other stocks, but not necessarily fore-
+cast the magnitude of the diﬀerence in returns. We therefore consider 
+two additional transformations of the excess stock return. The ﬁrst is the 
+normalized excess return, which is constructed to ensure that values of 
+the dependent variable in any given month have a standard normal dis-
+tribution. Speciﬁcally, we deﬁne 𝑟𝑁𝑜𝑟𝑚,𝑖,𝑡 = Θ−1[𝑟𝑎𝑛𝑘𝑖,𝑡∕(𝑁𝑡 + 1)] where 
+Θ−1[⋅] is the inverse standard normal cumulative distribution function, 
+𝑁𝑡 is the number of stocks in our sample in month  𝑡, and  𝑟𝑎𝑛𝑘𝑖,𝑡 is 
+the rank of stock 𝑖’s month 𝑡 return among the month 𝑡 returns of all 
+stocks in our sample, with the stock that has the lowest return having 
+𝑟𝑎𝑛𝑘𝑖,𝑡 = 1 and the stock with the highest return having 𝑟𝑎𝑛𝑘𝑖,𝑡 = 𝑁𝑡. 
+The ﬁnal candidate for the dependent variable is simply the percentile 
+of the given stock’s return among all stocks’ returns in the given month, 
+calculated as 𝑟𝑃 𝑐𝑡𝑙 = 𝑟𝑎𝑛𝑘𝑖,𝑡∕(𝑁𝑡 + 1). Values of 𝑟𝑃 𝑐𝑡𝑙 in any given month 
+have a uniform distribution on the interval from zero to one.
+
+While we consider several diﬀerent transformations of the excess 
+stock  return  as  the  dependent  variable,  we  choose  to  not  consider 
+analogous transformations of the past cumulative returns used as in-
+put  variables  in  our  ML  model.  We  make  this  choice  to  ensure  that 
+our  empirical  setup  is  consistent  with  the  way  a  human  chartist,  as 
+characterized  in  Lo  et  al.  (2000),  would  make  investment  decisions. 
+
+JournalofFinancialEconomics153(2024)1037915S. Murray, Y. Xia and H. Xiao
+
+Table 1
+ML Model Optimization. This table presents the results of tests used to determine the optimal ML model. The tests are run 
+using only data from the 192701-196306 optimization period. We examine all combinations of four ML architectures, two 
+loss functions, three loss function weighting methodologies, and four dependent variables. The ML architectures are feed-
+forward neural network (FNN), convolutional neural network (CNN), long short-term memory (LSTM), and convolutional 
+neural network with long short-term memory (CNNLSTM). The loss functions are the mean squared error (MSE) and the 
+mean absolute error (MAE). The loss function weighting methodologies are to equal-weight each observation (EW), to 
+equal-weight each month and within each month give equal weight to each observation (EWPM), and to equal-weight 
+each month and within each month weight each observation according to its market capitalization (EWPMVW). The four 
+dependent variables we examine are the excess stock return (𝑟), the standardized excess stock return (𝑟𝑆𝑡𝑑 ), the normalized 
+excess stock return (𝑟𝑁𝑜𝑟𝑚), and the percentile of the stock return (𝑟𝑃 𝑐𝑡𝑙). Using each of the 96 possible combinations of 
+implementation choices, we train each model 30 times using data from the even months in even years and odd months 
+in odd years, to generate 30 forecasting functions. We then apply each of the forecasting functions to each observation 
+in odd months in even years and even months in odd years, and for each such observation, take the average of the 30 
+resulting values to be the forecast. The table shows the time-series averages of the monthly cross-sectional Spearman rank 
+correlations between the forecasts and the actual excess return. The column labeled “Dependent Variable” indicates the 
+dependent variable. The column labeled “Weighting Methodology” indicates the weighting methodology. The remaining 
+column headers indicate the ML architecture and loss function. The Spearman rank correlations are shown in percent.
+
+Dependent Variable
+
+Weighting Methodology
+
+𝑟
+
+𝑟𝑆𝑡𝑑
+
+𝑟𝑁𝑜𝑟𝑚
+
+𝑟𝑃 𝑐𝑡𝑙
+
+EW
+EWPM
+EWPMVW
+
+EW
+EWPM
+EWPMVW
+
+EW
+EWPM
+EWPMVW
+
+EW
+EWPM
+EWPMVW
+
+FNN
+MAE
+
+4.6
+4.6
+0.9
+
+3.4
+5.0
+4.7
+
+7.5
+6.9
+3.7
+
+FNN
+MSE
+
+1.6
+1.4
+−0.5
+
+2.3
+1.7
+2.0
+
+1.5
+1.4
+0.4
+
+−2.3
+0.7
+−0.1
+
+−1.6
+−3.0
+−3.1
+
+CNN
+MAE
+
+4.0
+3.8
+0.5
+
+9.7
+8.9
+4.7
+
+9.7
+9.1
+4.3
+
+7.7
+7.8
+1.2
+
+CNN
+MSE
+
+1.0
+1.2
+−2.3
+
+7.3
+7.4
+4.6
+
+8.8
+8.0
+4.3
+
+−2.7
+−3.5
+−1.7
+
+LSTM
+MAE
+
+5.5
+6.7
+2.5
+
+9.8
+9.8
+4.7
+
+10.3
+10.1
+5.2
+
+9.8
+9.6
+4.9
+
+LSTM
+MSE
+
+−1.8
+0.8
+0.9
+
+8.5
+7.6
+5.1
+
+10.2
+10.2
+6.3
+
+9.4
+9.3
+5.7
+
+CNNLSTM
+MAE
+
+CNNLSTM
+MSE
+
+5.3
+5.0
+1.0
+
+10.4
+10.5
+6.0
+
+10.4
+10.6
+6.9
+
+10.2
+10.2
+7.3
+
+0.8
+2.6
+2.0
+
+9.8
+9.9
+4.7
+
+10.7
+10.8
+7.5
+
+10.1
+10.2
+7.8
+
+Speciﬁcally, the chartist would observe a plot of past prices (not trans-
+formed prices) for diﬀerent stocks and from those charts assess which 
+stocks are likely to outperform. The commonality in individual stock 
+returns described above may therefore cause the ML-based forecasts in 
+any given month to be either predominantly high or predominantly low 
+based on whether the market portfolio as a whole has a past return pro-
+ﬁle that leads to a high or low forecast, respectively. A beneﬁt of our 
+approach, however, is that it may help the learning process detect pat-
+terns that are distinct from traditional momentum and reversal signals, 
+which are based on relative past performance. Since all of our tests are 
+cross-sectional in nature, even in a month where all stocks have a high 
+(or low) forecast future return, our tests will still assess whether the 
+forecasts have the ability to discern which stocks are likely to have rel-
+atively high (or low) future returns.
+
+In sum, we consider 96 diﬀerent ML models, found by taking all 
+combinations of four architectures (FNN, CNN, LSTM, CNNLSTM), two 
+loss functions (MSE, MAE), three weighting schemes (EW, EWPM, EW-
+PMVW), and four dependent variables (𝑟, 𝑟𝑆𝑡𝑑 , 𝑟𝑁𝑜𝑟𝑚, 𝑟𝑃 𝑐𝑡𝑙).
+
+To assess the eﬀectiveness of each model, we ﬁrst apply each model 
+to  a  subset  of  the  data  in  the  192701-196306  optimization  period. 
+Speciﬁcally, we ﬁt each model 30 times on data from optimization pe-
+riod sample months 𝑡 corresponding to even months from even years 
+and odd months from odd years (ﬁtting months hereafter). Each model 
+is ﬁt 30 times because the ML process is random. If we run the same 
+model on the same data twice, the two resulting functions will not be 
+the same. Each ﬁtting uses 70% of the observations for training and the 
+other 30% for validation. Because each ﬁtting selects a diﬀerent 30% 
+of observations for validation, our methodology essentially uses cross 
+validation. However, since the 30% of observations used for validation 
+are randomly selected, they come from the same months as the obser-
+vations used for training and may not be considered independent of 
+the training month observations. For this reason, as described in the 
+next  paragraph,  we  evaluate  the  out-of-sample  performance  of  each 
+
+model using non-ﬁtting month observations. Each of the 30 ﬁttings pro-
+duces a diﬀerent forecasting function 𝑓 . We then apply each of these 
+30 forecasting functions 𝑓 to each non-ﬁtting month observation in the 
+optimization period. Finally, for each such observation, we take the av-
+erage of those 30 forecasts to be the forecast based on the given ML 
+model.12 This approach of averaging several forecasts is referred to as 
+“ensemble averaging.”13 In Section VI and Figure A3 of the Internet Ap-
+pendix, we show that using an average of 30 forecasts removes almost 
+all randomness from the ensemble forecast. Removing this randomness 
+is important to ensure that our results can be replicated by future re-
+searchers.  In  the  end,  for  each  non-ﬁtting  month  observation  in  the 
+optimization period, we have 96 diﬀerent ensemble forecasts, one cor-
+responding to each diﬀerent ML model.
+
+We evaluate the models using the time-series average of the monthly 
+cross-sectional Spearman rank correlations between forecasts and ac-
+tual  excess  returns,  calculated  from  non-ﬁtting  month  observations. 
+We use Spearman rank, instead of Pearson product-moment, correla-
+tions because our main tests are portfolio analyses that rely solely on 
+the ordering of stocks with respect to the forecasts. Furthermore, be-
+cause several of the forecasts are for transformed versions of the future 
+excess stock return, the linearity assumption inherent in the Pearson 
+correlation is unlikely to hold. Table 1 presents the average Spearman 
+rank  correlations  for  each  model.  The  highest  average  correlation  is 
+generated by the CNNLSTM architecture using the MSE loss function 
+with EWPM weights and 𝑟𝑁𝑜𝑟𝑚 as the dependent variable. We therefore 
+choose  this  model  (CNNLSTM,  MSE,  EWPM,  and  𝑟𝑁𝑜𝑟𝑚)  to  generate 
+
+12 Krizhevsky et al. (2012), Sutskever et al. (2014), and Krogh and Vedelsby 
+(1995) discuss the beneﬁts of taking the average of multiple forecasts when 
+using neural networks.
+13 Other papers that use ensemble averaging in asset pricing applications are 
+Moritz and Zimmermann (2016), Gu et al. (2020, 2021), Bianchi et al. (2021), 
+Bali et al. (2022), and Jiang et al. (2022).
+
+JournalofFinancialEconomics153(2024)1037916S. Murray, Y. Xia and H. Xiao
+
+75”, “𝑃
+
+Table 2
+ML-Based Forecast Summary Statistics. This table presents summary statistics for the ML-based return forecasts, 𝑀𝐿𝐸𝑅. 
+𝑀𝐿𝐸𝑅 is a forecast of the normalized excess stock return. The column labeled “Period” indicates the period used 
+25”, 
+to calculate the summary statistics in the given row. The columns labeled “Mean”, “S.D.”, “Min.”, “𝑃
+“Median”, “𝑃
+99”, and “Max.” present the time-series averages of the monthly cross-sectional mean, standard 
+deviation, and the minimum, ﬁrst percentile, ﬁfth percentile, 25th percentile, median, 75th percentile, 95th percentile, 
+99th percentile, and maximum, respectively, values of 𝑀𝐿𝐸𝑅. The column labeled “n” shows the time-series average 
+of the number of observations in each month. The set of stocks included in the month 𝑡 sample is all common shares 
+of US-based ﬁrms that are listed on the NYSE, AMEX, or NASDAQ as of the end of month 𝑡 − 1. We also require that a 
+return is available for each stock in each of months 𝑡 − 12 through 𝑡 − 1, and that the stock’s market capitalization as of 
+the end of month 𝑡 − 1 is available. Values of 𝑀𝐿𝐸𝑅 are calculated as of the end of month 𝑡 − 1.
+
+95”, “𝑃
+
+5”, “𝑃
+
+1”, “𝑃
+
+Period
+
+196307-202212
+
+196307-197412
+197501-198412
+198501-199412
+199501-200412
+200501-201412
+201501-202212
+
+Mean
+
+−0.02
+
+−0.01
+−0.01
+−0.02
+−0.04
+−0.01
+−0.02
+
+S.D.
+
+0.11
+
+0.09
+0.11
+0.12
+0.12
+0.10
+0.10
+
+Min.
+
+−0.61
+
+−0.53
+−0.75
+−0.66
+−0.61
+−0.53
+−0.57
+
+𝑃
+1
+−0.33
+
+−0.28
+−0.35
+−0.38
+−0.36
+−0.33
+−0.32
+
+𝑃
+5
+−0.22
+
+−0.17
+−0.21
+−0.24
+−0.26
+−0.21
+−0.22
+
+𝑃
+
+25
+−0.07
+
+−0.06
+−0.06
+−0.07
+−0.11
+−0.06
+−0.07
+
+Median
+
+−0.00
+
+−0.00
+0.01
+−0.00
+−0.02
+0.00
+0.00
+
+𝑃
+
+75
+0.05
+
+0.04
+0.06
+0.05
+0.04
+0.05
+0.05
+
+𝑃
+
+95
+0.12
+
+0.12
+0.13
+0.15
+0.12
+0.11
+0.10
+
+𝑃
+
+99
+0.19
+
+0.20
+0.20
+0.26
+0.20
+0.15
+0.14
+
+Max.
+
+n
+
+0.38
+
+0.41
+0.40
+0.57
+0.38
+0.26
+0.21
+
+4166
+
+2245
+4332
+5337
+5792
+3956
+3486
+
+our focal ML-based forecasts, 𝑀𝐿𝐸𝑅. Notably, small deviations from 
+this model, such as using the MAE loss function, EW weights, or either 
+𝑟𝑆𝑡𝑑 or 𝑟𝑃 𝑐𝑡𝑙 as the dependent variable, also perform well. This suggests 
+that variation in performance across models is not spurious and that our 
+optimization procedure is likely to have merit. Ex-post tests of the eﬀec-
+tiveness of our optimization procedure, discussed in Section 6, conﬁrm 
+this hypothesis.
+
+3.2.  ML-based forecasts
+
+2
+
+1
+𝑖,𝑡
+
+> 𝑡
+
+1, 𝑡
+
+1 and 𝑡
+
+2, inclusive. Speciﬁcally, for any 𝑡
+,𝑡
+1
+2
+𝑖,𝑡
+
+We generate our focal ML-based forecasts, 𝑀𝐿𝐸𝑅, by applying the 
+ML model to expanding-window past subsets of our sample, and us-
+ing the functions generated by these expanding window ﬁts to produce 
+forecasts for subsequent periods.14 In general, we deﬁne 𝑀𝐿𝐸𝑅𝑡
+,𝑡
+2
+to be the forecast of the normalized excess return of stock 𝑖 in month 
+𝑡 that results from ﬁtting our ML model on data from the period be-
+1, 𝑖, and 
+tween months 𝑡
+𝑡, we calculate 𝑀𝐿𝐸𝑅𝑡
+as follows. First, we apply the ML process 
+30 times to observations for all stocks from sample months between 
+𝑡
+1 and  𝑡
+2,  inclusive.  The  result  is  30  diﬀerent  forecasting  functions. 
+We then apply each of these 30 functions to the cumulative returns 
+of stock 𝑖 in months 𝑡 − 12 through 𝑡 − 1. The result is 30 diﬀerent fore-
+casts of the normalized excess return of stock 𝑖 in month 𝑡. We then 
+take 𝑀𝐿𝐸𝑅𝑡
+to be the average of these 30 forecasts. For example, 
+to calculate 𝑀𝐿𝐸𝑅192701,196306
+, we ﬁrst run the ML process 30 times 
+using all observations in our sample from months 𝑡 between 192701 
+and 196306, inclusive. We then apply each of the resulting forecast-
+ing functions to the monthly cumulative returns of stock 𝑋 that would 
+be observed in stock 𝑋’s price plot covering the period from 200709 
+through 200808. The result of applying these functions to these cumu-
+lative returns is 30 forecasts of the normalized excess return of stock 𝑋
+in 200809. We then take 𝑀𝐿𝐸𝑅192701,196306
+to be the average of these 
+30 forecast values.
+
+𝑋,200809
+
+𝑋,200809
+
+1
+𝑖,𝑡
+
+,𝑡
+2
+
+The expanding windows to which we apply the ML process cover 
+sample  months  𝑡 between  192701  and  each  of  196306,  197412, 
+198412,  199412,  200412,  and  201412.  As  a  result,  we  calculate 
+𝑀𝐿𝐸𝑅192701,196306
+𝑀𝐿𝐸𝑅192701,197412
+,
+𝑖,𝑡
+𝑖,𝑡
+𝑀𝐿𝐸𝑅192701,199412
+for 
+𝑖,𝑡
+
+, 
+,  𝑀𝐿𝐸𝑅192701,200412
+𝑖,𝑡
+
+,  and  𝑀𝐿𝐸𝑅192701,201412
+
+𝑀𝐿𝐸𝑅192701,198412
+𝑖,𝑡
+
+, 
+
+𝑖,𝑡
+
+each stock 𝑖 and month 𝑡 observation in our sample. The forecast nor-
+malized excess return of stock 𝑖 in month 𝑡 that we use in our focal 
+empirical tests, 𝑀𝐿𝐸𝑅𝑖,𝑡, is the forecast based on the most recent past 
+execution of the ﬁtting process. We therefore have:
+
+𝑀𝐿𝐸𝑅𝑖,𝑡 =
+
+⎧
+⎪
+⎪
+⎪
+⎪
+⎨
+⎪
+⎪
+⎪
+⎪
+⎩
+
+𝑀𝐿𝐸𝑅192701,196306
+𝑖,𝑡
+𝑀𝐿𝐸𝑅192701,197412
+𝑖,𝑡
+𝑀𝐿𝐸𝑅192701,198412
+𝑖,𝑡
+𝑀𝐿𝐸𝑅192701,199412
+𝑖,𝑡
+𝑀𝐿𝐸𝑅192701,200412
+𝑖,𝑡
+𝑀𝐿𝐸𝑅192701,201412
+𝑖,𝑡
+
+,
+
+,
+
+,
+
+,
+
+,
+
+,
+
+if 196307 ≤ 𝑡 ≤ 197412;
+if 197501 ≤ 𝑡 ≤ 198412;
+if 198501 ≤ 𝑡 ≤ 199412;
+if 199501 ≤ 𝑡 ≤ 200412;
+if 200501 ≤ 𝑡 ≤ 201412;
+if 201501 ≤ 𝑡 ≤ 202212.
+
+3.3.  Summary statistics
+
+Table 2 presents the time-series averages of monthly cross-sectional 
+summary statistics for 𝑀𝐿𝐸𝑅 for the entire 196307-202212 test pe-
+riod and for subperiods of the test period. In interpreting the forecasts, 
+recall that the forecasts are for the normalized future excess return, not 
+the excess return itself. In the average month, 𝑀𝐿𝐸𝑅 has a mean of 
+−0.02, a median very close to zero, and a cross-sectional standard devi-
+ation of 0.11. Extreme negative values of 𝑀𝐿𝐸𝑅 occur more frequently 
+than extreme positive values, since the minimum, ﬁrst percentile, and 
+ﬁfth percentile values are further below the mean than the 95th per-
+centile, 99th percentile, and maximum values, respectively, are above 
+it. The prevalence of large negative values of 𝑀𝐿𝐸𝑅 compared to large 
+positive values should not impact most of our asset pricing tests, since 
+we focus on portfolio analyses, which rely on the ordering (but not the 
+magnitude or distribution) of 𝑀𝐿𝐸𝑅 across stocks. In the average test 
+period month, our sample contains 4,166 stocks. The subperiod results 
+indicate that the cross-sectional distribution of 𝑀𝐿𝐸𝑅 is highly consis-
+tent through time, since the salient characteristics of the cross-sectional 
+distribution of 𝑀𝐿𝐸𝑅 do not change much across the diﬀerent sub-
+periods. The number of stocks in the sample ranges from an average 
+of 2,245 stocks per month for the 196307-197412 subperiod to 5,792 
+stocks per month for the 199501-200412 subperiod.
+
+14 Similar to Gu et al. (2020), we use only past data to ﬁt our model to ensure 
+that our forecasts are based on patterns that could have been learned by the type 
+of chartist described in Lo et al. (2000) and used for return prediction. Some 
+papers (e.g. Kozak et al. (2020)) that describe the factor structure of returns 
+with less of a focus on return prediction use primarily cross-validation to assess 
+out-of-sample performance.
+
+4.  Predictive power of ML-based forecasts
+
+We turn now to our main objective, which is to investigate the re-
+lation between the ML-based return forecasts and the cross-section of 
+future stock returns. The EMH predicts that 𝑀𝐿𝐸𝑅 should have no 
+ability to predict cross-sectional variation in future stock returns.
+
+JournalofFinancialEconomics153(2024)1037917S. Murray, Y. Xia and H. Xiao
+
+Table 3
+Portfolio Analysis. This table presents the results of a portfolio analysis examining the ability of 𝑀𝐿𝐸𝑅 to predict the cross-
+section of future stock returns. At the end of each month 𝑡 − 1, all stocks in the month 𝑡 sample are sorted into 10 portfolios 
+based on an ascending ordering of 𝑀𝐿𝐸𝑅. The breakpoints used to determine which stocks are in which portfolio are the deciles 
+of 𝑀𝐿𝐸𝑅 calculated using only stocks listed on the NYSE. The month 𝑡 excess return of each portfolio is then taken to be the 
+market capitalization-weighted average month 𝑡 excess return of all stocks in the portfolio, with market capitalization calculated 
+as of the end of month 𝑡 − 1. We also calculate the excess return of a zero-cost portfolio that is long portfolio 10 and short 
+portfolio 1. The columns labeled “𝑀𝐿𝐸𝑅 1” through “𝑀𝐿𝐸𝑅 10” present results for decile portfolios 1 through 10. The column 
+labeled “𝑀𝐿𝐸𝑅 10 − 1” presents results for the zero-cost long-short portfolio that is long the decile 10 portfolio and short the 
+decile 1 portfolio. The rows labeled “𝑟” and “SD” present the time-series averages and standard deviations, respectively, of the 
+monthly portfolio excess returns for each of the portfolios, reported in percent per month. The row labeled “Sharpe” presents the 
+annualized Sharpe ratio of each portfolio. The values in parentheses are 𝑡-statistics, calculated following Newey and West (1987)
+using 12 lags, testing the null hypothesis that the average monthly excess return is equal to zero. The analysis covers return 
+months 𝑡 from July 1963 through December 2022, inclusive.
+
+𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅
+10 − 1
+6
+
+10
+
+7
+
+1
+
+2
+
+3
+
+4
+
+5
+
+8
+
+9
+
+−0.14
+(−0.55)
+
+6.46
+−0.08
+
+0.32
+(1.39)
+
+5.66
+0.20
+
+0.39
+(1.89)
+
+5.26
+0.26
+
+0.55
+(2.77)
+
+5.11
+0.37
+
+0.54
+(2.91)
+
+4.71
+0.40
+
+0.65
+(3.94)
+
+4.63
+0.49
+
+0.71
+(4.10)
+
+4.50
+0.55
+
+0.66
+(3.99)
+
+4.38
+0.52
+
+0.77
+(4.36)
+
+4.47
+0.59
+
+0.93
+(5.18)
+
+5.03
+0.64
+
+1.08
+(5.51)
+
+4.79
+0.78
+
+Value
+
+𝑟
+
+SD
+Sharpe
+
+4.1.  𝑀𝐿𝐸𝑅-sorted portfolio returns
+
+We test the EMH by examining the performance of portfolios formed 
+by sorting stocks based on 𝑀𝐿𝐸𝑅. Each month 𝑡, we sort all stocks into 
+decile portfolios based on an ascending ordering of 𝑀𝐿𝐸𝑅, which is 
+calculated from data available at the end of month 𝑡 − 1. The break-
+points determining which stocks are in which portfolios are the deciles 
+of 𝑀𝐿𝐸𝑅 calculated from the subset of stocks that are listed on the 
+NYSE at the end of month 𝑡 − 1. The month 𝑡 excess return of each port-
+folio is calculated as the weighted average excess return of all stocks 
+in the portfolio, with weights proportional to market capitalization at 
+the end of month 𝑡 − 1 (value-weighted hereafter).15 We also calculate 
+the excess return of a zero-cost portfolio that is long the decile 10 port-
+folio and short the decile one portfolio (10−1 portfolio hereafter). Our 
+portfolio construction methodology follows Hou et al. (2020) and is in-
+tended to limit the impact of small-capitalization stocks on our analysis.
+Table 3 presents  the  time-series  averages  of  the  monthly  portfo-
+lio excess returns during the 196307-202212 test period. The average 
+monthly excess returns increase nearly monotonically from −0.14% for 
+decile portfolio one to 0.93% for portfolio 10. The average excess return 
+of the 𝑀𝐿𝐸𝑅 10 − 1 portfolio of 1.08% per month is highly statistically 
+signiﬁcant, with a Newey and West (1987) 𝑡-statistic of 5.51. This port-
+folio’s annualized Sharpe ratio is 0.78, which is higher than that of the 
+market factor (0.42), the factors in the Fama and French (2015) factor 
+model (between 0.26 and 0.51), the momentum factor (0.53), and the 
+reversal factor (0.51) during the same 196307-202212 period.16 The 
+patterns in average excess returns contradict the prediction of the EMH 
+that technical analysis should be fruitless.
+
+4.2.  Risk-adjusted returns of 𝑀𝐿𝐸𝑅-sorted portfolios
+
+A reﬁned version of the EMH allows for proﬁtable technical strate-
+gies if the associated average returns are compensation for risk. Asset 
+pricing theory predicts that expected stock returns are a function of co-
+variances between individual stock returns and innovations in priced 
+risk factors, or betas. Stocks with similar betas, therefore, are likely to 
+have both similar expected returns and similar past return patterns due 
+to their covariances with factor innovations. However, by deﬁnition, 
+
+15 In Section VII and Table A3 (Section VIII and Table A4) of the Internet 
+Appendix, we show that our results hold when using equal-weighted portfolios 
+(breakpoints calculated from all stocks).
+16 Monthly excess factor returns are from Ken French’s website. Factor Sharpe 
+ratios are not tabulated.
+
+factor innovations are unpredictable and serially uncorrelated, making 
+it unlikely that covariances with factor innovations produce return pat-
+terns that repeat through time. For the ML-based forecasts to predict 
+the cross-section of future stock returns, there must be repeated pat-
+terns in past returns that are informative about future expected returns. 
+There is good economic reason, therefore, to think that the diﬀerences 
+in average excess returns between the 𝑀𝐿𝐸𝑅-sorted portfolios are not 
+a manifestation of exposure to systematic risk factors. Nonetheless, we 
+investigate whether exposure to systematic risk factors can explain the 
+performance of the 𝑀𝐿𝐸𝑅-sorted portfolios.
+
+4.2.1.  Full sample factor model regressions
+
+We  begin  by  using  factor  analysis  to  estimate  the  average  risk-
+adjusted excess return (alpha) of the 𝑀𝐿𝐸𝑅 10 − 1 portfolio.17 The 
+portfolio’s alpha is calculated as the intercept coeﬃcient from a time-
+series regression of excess portfolio returns on excess factor returns. A 
+non-zero (zero) alpha indicates that exposures to the systematic risk fac-
+tors captured by the factor model do not explain (explain) the portfolio’s 
+average excess return. Since the true factor model that prices securities 
+is not known, we conduct the analyses using six previously-established 
+empirical models: a one-factor market model (CAPM), the three-factor 
+model of Fama and French (1993, FF), the four-factor model of Carhart 
+(1997, FFC), the FFC model augmented with a short-term reversal fac-
+tor (FFC+REV), the ﬁve-factor model of Fama and French (2015, FF5), 
+and the four-factor model of Hou et al. (2015, Q).18
+
+Table 4 Panel A shows that regardless of which model is used, the 
+alpha of the 𝑀𝐿𝐸𝑅 10 − 1 portfolio is positive, economically large, 
+and statistically signiﬁcant. Because the momentum and reversal fac-
+tors are constructed by sorting stocks on variables calculated only from 
+past returns, it is not surprising that the 𝑀𝐿𝐸𝑅 10 − 1 portfolio’s al-
+pha is smaller when using the FFC and FFC+REV models than when 
+using the CAPM, FF, and FF5 models. That the alpha with respect to 
+the Q model is similar to that of the FFC model is consistent with Hou 
+et  al.  (2015)’s  ﬁnding  that  the  Q  model  explains  the  momentum  ef-
+fect. However, even when using the FFC+REV model, which includes 
+
+17 In Section IX and Table A5 of the Internet Appendix, we present the results 
+of analyses examining risk-adjusted returns for each of the individual decile 
+portfolios.
+18 Monthly excess returns for factors in the CAPM, FF, FFC, FFC+REV, and FF5 
+models are from Ken French’s website. Monthly excess returns for the factors in 
+the Q model are from Chen Xue’s website: http://global -q .org /factors .html. Q 
+model factor excess returns are available for the period from 196701-202112, 
+thus all analyses using the Q factor model are subject to this data constraint.
+
+JournalofFinancialEconomics153(2024)1037918S. Murray, Y. Xia and H. Xiao
+
+√
+
+Table 4
+Risk-Adjusted Returns. This table presents the results of analyses examining whether the average re-
+turns of the portfolios formed by sorting on ML-based forecasts are compensation for risk. Panel A 
+presents the results of factor model regressions of the excess returns of the 𝑀𝐿𝐸𝑅 10 − 1 portfolio on 
+the excess returns of the factors in diﬀerent factor models. The 𝑀𝐿𝐸𝑅 10 − 1 portfolio is the same 
+as that whose average excess returns are shown in Table 3. The rows labeled “𝛼”, “𝑆𝐷(𝜖)”, and “Adj. 
+𝑅2” present the intercept, residual standard deviation, and adjusted 𝑅2 , respectively, of the regres-
+sion. The row labeled “Sharpe(𝛼 + 𝜖)” presents the annualized Sharpe ratio of the portfolio that is long 
+the 𝑀𝐿𝐸𝑅 10 − 1 portfolio and short the factor portfolios in amounts dictated by the slope coeﬃ-
+cients estimated by the regression, calculated as the alpha divided by the residual standard deviation, 
+times 
+12. Panel B presents results from 6-month non-overlapping subperiod factor model regressions 
+estimated using daily excess return data. The row labeled “𝛼” presents the average monthly alphas (in-
+tercept coeﬃcients multiplied by 21) from these regressions. The row labeled “𝑆𝐷(𝜖)” presents the 
+21. The standard deviation of the 
+standard deviation of the residuals from these regressions times 
+residuals from these regressions is calculated by using the residuals from the individual short subperiod 
+regressions to generate a full time-series of daily residuals for the entire 196301-202212 period and 
+calculating the standard deviation of this full time-series of residuals. The row labeled “Sharpe(𝛼 + 𝜖)” 
+presents the annualized Sharpe ratio of the portfolio, calculated by dividing the average monthly alpha 
+12. The row labeled “Adj. 𝑅2” 
+by the monthly standard deviation of the residuals and multiplying by 
+presents the average adjusted 𝑅2 value from the short subperiod regressions. Except for the column la-
+beled “Value”, the column headers indicate the factor model used to generate the results in the given 
+column. All excess returns, standard deviations, and alphas are reported in percent per month. The val-
+ues in parentheses are 𝑡-statistics testing the null hypothesis that the average monthly alpha is equal 
+to zero. The 𝑡-statistics in Panel A are calculated following Newey and West (1987) using 12 lags. The 
+analyses cover return months 𝑡 from July 1963 through December 2022, inclusive.
+
+√
+
+√
+
+Panel A: 𝑀𝐿𝐸𝑅 10 − 1 Portfolio Full Sample Factor Regressions
+
+Value
+
+𝛼
+
+𝑆𝐷 (𝜖)
+Sharpe(𝛼 + 𝜖)
+Adj. 𝑅2
+
+CAPM
+
+1.20
+(6.43)
+4.68
+0.89
+4.18%
+
+FF
+
+1.24
+(7.28)
+4.51
+0.95
+10.89%
+
+FFC
+
+0.79
+(5.23)
+4.00
+0.68
+29.90%
+
+FFC+REV
+
+0.45
+(3.58)
+3.41
+0.46
+49.05%
+
+Panel B: 𝑀𝐿𝐸𝑅 10 − 1 Portfolio Average Short Subperiod Factor Regressions
+
+Value
+
+𝛼
+
+𝑆𝐷 (𝜖)
+Sharpe(𝛼 + 𝜖)
+Adj. 𝑅2
+
+CAPM
+
+1.30
+(8.46)
+4.27
+1.06
+10.42%
+
+FF
+
+1.39
+(9.56)
+3.75
+1.28
+25.22%
+
+FFC
+
+1.48
+(11.57)
+3.45
+1.49
+32.02%
+
+FFC+REV
+
+0.56
+(3.77)
+3.24
+0.59
+37.36%
+
+FF5
+
+1.02
+(6.67)
+4.38
+0.81
+15.90%
+
+FF5
+
+1.30
+(9.51)
+3.57
+1.26
+29.28%
+
+Q
+
+0.71
+(3.78)
+4.30
+0.57
+22.15%
+
+Q
+
+1.20
+(9.32)
+3.60
+1.15
+28.74%
+
+both the momentum and reversal factors, the 𝑀𝐿𝐸𝑅 10 − 1 portfo-
+lio’s alpha of 0.45% per month (𝑡-statistic = 3.58) is economically large 
+and highly signiﬁcant. Furthermore, while the adjusted 𝑅2 values from 
+the FFC and FFC+REV model regressions of  29.90% and  49.05%, re-
+spectively, are higher than those of other models, even the model that 
+includes both the momentum and reversal factors (FFC+REV) explains 
+less than half of the 𝑀𝐿𝐸𝑅 10 − 1 portfolio’s variance. Thus, while 
+there is overlap between the ML-based forecasts and each of momen-
+tum and reversal, the 𝑀𝐿𝐸𝑅 10 − 1 portfolio’s returns also contain 
+a substantial component that is unrelated to these eﬀects. We present 
+further evidence supporting this conclusion in Section 5.3.
+
+4.2.2.  Short subperiod factor model regressions
+
+A potential concern with the full-sample factor model regressions 
+is that the betas of the 𝑀𝐿𝐸𝑅 10 − 1 portfolio may be time-varying. 
+Ehsani  and  Linnainmaa  (2022) show  that  the  momentum  factor  has 
+time-varying factor betas. It is possible that the 𝑀𝐿𝐸𝑅 10 − 1 port-
+folio has similar characteristics. If the factor exposures of the 𝑀𝐿𝐸𝑅
+10 − 1 portfolio are time-varying, then the alpha estimated from the 
+full sample factor model regression may be a biased estimate of the 
+portfolio’s true alpha. To address this concern, we follow Lewellen and 
+Nagel (2006) and run factor model regressions using daily data from 
+non-overlapping short subperiods of our data, and examine the average 
+alpha from these regressions. Speciﬁcally, for each 6-month subperiod 
+during our 196307-202212 test period, we regress the daily excess re-
+
+turns of the 𝑀𝐿𝐸𝑅 10 − 1 portfolio on the daily factor excess returns.19
+We multiply the intercept coeﬃcient by 21 because there are approx-
+imately 21 days in the average month, and take this value to be the 
+monthly alpha of the 𝑀𝐿𝐸𝑅 10 − 1 portfolio during the given sub-
+period. The average alphas from these subperiod regressions, shown in 
+Panel B of Table 4, are economically large and highly statistically signif-
+icant for all factor models, ranging from 0.56% per month (𝑡-statistic = 
+3.77) for the FFC+REV model to 1.48% per month (𝑡-statistic = 11.57) 
+for the FFC model. These results provide no indication that time-varying 
+factor exposures explain the performance of the 𝑀𝐿𝐸𝑅 10 − 1 portfo-
+lio.
+
+4.2.3.  Additional tests of risk-based explanation
+
+We  conduct  two  sets  of  additional  analyses  investigating  a  risk-
+based  explanation  for  the  diﬀerences  in  the  average  returns  of  the 
+𝑀𝐿𝐸𝑅 decile portfolios. First, we examine ex-ante hedged returns of 
+
+19 To calculate daily excess returns of the 𝑀𝐿𝐸𝑅 10 − 1 portfolio, we ﬁrst 
+calculate the daily excess returns of the individual 𝑀𝐿𝐸𝑅 decile portfolios. 
+As in our focal analysis, the stocks held in each decile portfolio are updated 
+monthly. The excess return of each decile portfolio on any day 𝑑 is taken to be 
+the value-weighted average excess stock return of all stocks in the portfolio on 
+the given day, where the market capitalization values used for weighting are 
+as of the close of the previous trading day. The 𝑀𝐿𝐸𝑅 10 − 1 portfolio excess 
+return is then taken to be the excess return of the 𝑀𝐿𝐸𝑅 10 portfolio minus 
+that of the 𝑀𝐿𝐸𝑅 1 portfolio. The ﬁrst 6-month subperiod covers 196307-
+196312 and the last 6-month subperiod covers 202207-202212.
+
+JournalofFinancialEconomics153(2024)1037919S. Murray, Y. Xia and H. Xiao
+
+Table 5
+Portfolio Subperiod Analysis. This table describes the performance of the 𝑀𝐿𝐸𝑅 decile portfolios during diﬀerent subperiods. The portfolios are 
+the exact same portfolios whose performances are examined in Table 3. The column labeled “Subperiod” indicates the subperiod covered by each 
+analysis. The columns labeled “𝑀𝐿𝐸𝑅 1” through “𝑀𝐿𝐸𝑅 10” and “𝑀𝐿𝐸𝑅 10 − 1” present results for the portfolio indicated in the column 
+header. The rows labeled “𝑟” and “Sharpe” present the time-series averages of the monthly portfolio excess returns, reported in percent per month, 
+and the annualized Sharpe ratios, respectively, for each of the portfolios in the given period. The values in parentheses are 𝑡-statistics, calculated 
+following Newey and West (1987) using 12 lags, testing the null hypothesis that the average monthly excess return is equal to zero.
+
+Subperiod
+
+196307-197412
+
+Value
+
+𝑟
+
+Sharpe
+
+197501-198412
+
+𝑟
+
+Sharpe
+
+198501-199412
+
+𝑟
+
+Sharpe
+
+1995012-20041
+
+𝑟
+
+Sharpe
+
+200501-201412
+
+𝑟
+
+Sharpe
+
+201501-202212
+
+𝑟
+
+Sharpe
+
+𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅
+10 − 1
+6
+
+10
+
+7
+
+1
+
+2
+
+3
+
+4
+
+5
+
+8
+
+9
+
+−0.90
+(−1.39)
+−0.56
+
+0.16
+(0.31)
+0.09
+
+−0.17
+(−0.57)
+−0.13
+
+−0.14
+(−0.18)
+−0.06
+
+0.48
+(0.67)
+0.24
+
+−0.19
+(−0.23)
+−0.09
+
+−0.47
+(−0.84)
+−0.32
+
+−0.26
+(−0.49)
+−0.19
+
+−0.14
+(−0.32)
+−0.10
+
+−0.20
+(−0.50)
+−0.15
+
+−0.03
+(−0.09)
+−0.03
+
+0.27
+(0.58)
+0.17
+
+0.49
+(1.51)
+0.37
+
+0.66
+(1.15)
+0.35
+
+0.49
+(0.67)
+0.27
+
+0.66
+(0.99)
+0.38
+
+0.42
+(0.89)
+0.30
+
+0.44
+(1.54)
+0.34
+
+0.50
+(0.96)
+0.30
+
+0.91
+(1.51)
+0.57
+
+0.43
+(0.71)
+0.23
+
+0.65
+(1.38)
+0.47
+
+0.63
+(2.08)
+0.51
+
+0.68
+(1.17)
+0.41
+
+0.62
+(1.09)
+0.42
+
+1.07
+(1.94)
+0.62
+
+0.65
+(1.46)
+0.50
+
+0.85
+(2.49)
+0.65
+
+0.55
+(1.14)
+0.40
+
+0.59
+(1.19)
+0.45
+
+1.00
+(1.83)
+0.61
+
+0.66
+(1.60)
+0.50
+
+0.78
+(2.49)
+0.59
+
+0.93
+(2.28)
+0.67
+
+0.97
+(2.35)
+0.76
+
+0.70
+(1.40)
+0.46
+
+0.15
+(0.33)
+0.12
+
+0.85
+(1.90)
+0.63
+
+0.79
+(2.67)
+0.59
+
+0.72
+(1.52)
+0.58
+
+0.88
+(2.13)
+0.72
+
+1.03
+(2.16)
+0.73
+
+0.07
+(0.17)
+0.06
+
+0.81
+(2.00)
+0.62
+
+0.84
+(2.68)
+0.63
+
+0.94
+(2.60)
+0.83
+
+0.64
+(1.28)
+0.52
+
+0.77
+(2.04)
+0.58
+
+−0.03
+(−0.07)
+−0.02
+
+1.03
+(2.28)
+0.73
+
+0.98
+(3.19)
+0.71
+
+1.10
+(2.51)
+0.96
+
+0.56
+(1.18)
+0.46
+
+1.17
+(2.99)
+0.85
+
+0.25
+(0.62)
+0.17
+
+1.47
+(3.13)
+0.93
+
+1.00
+(2.77)
+0.67
+
+1.57
+(4.06)
+1.16
+
+0.40
+(0.71)
+0.27
+
+1.01
+(3.16)
+0.78
+
+1.15
+(3.10)
+1.16
+
+1.32
+(4.41)
+1.15
+
+1.17
+(4.07)
+1.16
+
+1.71
+(3.21)
+0.90
+
+−0.08
+(−0.15)
+−0.05
+
+1.20
+(2.13)
+0.75
+
+the  𝑀𝐿𝐸𝑅 portfolios.  In  these  tests,  the  factor  hedge  ratios  of  the 
+portfolios are estimated from regressions that use data from prior to 
+portfolio formation. Because the hedge ratios are known at the time of 
+portfolio formation and updated monthly, this approach ensures that 
+the resulting alphas are those of a tradable portfolio while also accom-
+modating  time-varying  betas.  The  results  of  these  tests,  described  in 
+Section X and Tables A6 and A7 of the Internet Appendix, indicate that 
+the alpha of the 𝑀𝐿𝐸𝑅 10 − 1 portfolio is positive, economically large, 
+and highly statistically signiﬁcant for all factor models.
+
+Second, we examine the total risk of the 𝑀𝐿𝐸𝑅 decile portfolios. 
+If the dispersion in average excess returns of the 𝑀𝐿𝐸𝑅 decile portfo-
+lios is due to risk, we would expect a positive, negative, negative, and 
+negative relation between the average excess returns and the standard 
+deviation, skewness, value at risk, and expected shortfall, respectively, 
+of these portfolios. Analyses of the total risk of the 𝑀𝐿𝐸𝑅 decile port-
+folios, shown in Section XI and Table A8 of the Internet Appendix, ﬁnd 
+no evidence of these patterns.
+
+In sum, our results suggest that the patterns in the average returns 
+of the portfolios formed by sorting on the ML-based forecasts do not 
+have a risk-based explanation.
+
+4.3.  Predictive power in subperiods
+
+We  next  examine  whether  the  predictive  power  of  the  ML-based 
+forecasts is speciﬁc to certain subperiods. The cumulative performance 
+of the 𝑀𝐿𝐸𝑅 10 − 1 portfolio, plotted in Fig. 2, indicates that the pre-
+dictive power of  𝑀𝐿𝐸𝑅 is stable through time. With the exception 
+of large losses in 2009, the cumulative excess return of the  𝑀𝐿𝐸𝑅
+10 − 1 portfolio has a positive trajectory. In Section XII and Tables A9 
+and A10 of the Internet Appendix, we show that the large losses in 2009 
+are driven by an unusually large momentum tilt of the 𝑀𝐿𝐸𝑅 10 − 1
+portfolio, combined with large momentum losses, during 200904 and 
+200908.
+
+Table 5 reports  the  average  excess  returns  of  the  𝑀𝐿𝐸𝑅-sorted 
+portfolios during several subperiods. Consistent with Fig. 2, with the ex-
+ception of the 200501-201412 subperiod, the 𝑀𝐿𝐸𝑅 10 − 1 portfolio 
+generates a large, positive, and statistically signiﬁcant average excess 
+
+Fig. 2. Plot of Cumulative Performance of 𝑀𝐿𝐸𝑅 Long-Short Portfolio. This 
+ﬁgure plots the cumulative log excess returns of the 𝑀𝐿𝐸𝑅 10 − 1 portfolio. 
+The cumulative log excess return of the 𝑀𝐿𝐸𝑅 10 − 1 portfolio in any month 
+𝑡 is taken to be the cumulative log return (excess return plus risk-free asset 
+return) of the portfolio in that month minus the cumulative log risk-free asset 
+return for the same month.
+
+return of more than 1% per month in each subperiod. During the most 
+recent 201501-202212 subperiod, the average excess return of 1.20%
+per month is highly signiﬁcant (𝑡-statistic = 2.13). However, even ex-
+cluding 200501-201412, the Sharpe ratio of the 𝑀𝐿𝐸𝑅 10 − 1 portfolio 
+is lower in later subperiods than in earlier subperiods. Thus, while there 
+is evidence that the 𝑀𝐿𝐸𝑅 10 − 1 portfolio continues to generate al-
+pha during the most recent subperiod, there is also evidence that its 
+performance is weakening through time.
+
+JournalofFinancialEconomics153(2024)10379110S. Murray, Y. Xia and H. Xiao
+
+Table 6
+Predictive Power Among Large Stocks. This table presents the results of portfolio analyses examining the ability of the ML-based forecasts to predict the 
+cross-section of future stock returns among large stocks. The construction of the portfolios is exactly the same as was used to construct the portfolios whose 
+performances are examined in Table 3, except that we vary the set of stocks used in the calculation of the portfolio breakpoints and the set of stocks that 
+are sorted into the portfolios. The column labeled “Breakpoints” indicates the set of stocks used to calculate the breakpoints. The column labeled “Holdings” 
+indicates the set of stocks sorted into the portfolios. The 𝑆𝑖𝑧𝑒 > 𝑃 NYSE
+) subsets include all 
+(NYSE-listed) stocks with market capitalizations greater than the 20th and 50th percentile values, respectively, among NYSE-listed stocks as of the end of 
+month 𝑡 − 1. The Top 500 subset includes the top 500 stocks by market capitalization at the end of month 𝑡 − 1. The columns labeled “𝑀𝐿𝐸𝑅 1” through 
+“𝑀𝐿𝐸𝑅 10” and “𝑀𝐿𝐸𝑅 10 − 1” present results for the portfolio indicated in the column header. The table shows the average excess return of each 
+portfolio. All excess returns are reported in percent per month. The values in parentheses are 𝑡-statistics, calculated following Newey and West (1987) using 
+12 lags, testing the null hypothesis that the average monthly excess return is equal to zero. The analyses cover return months 𝑡 from July 1963 through 
+December 2022, inclusive.
+
+(NYSE/𝑆𝑖𝑧𝑒 > 𝑃 NYSE
+
+(NYSE/𝑆𝑖𝑧𝑒 > 𝑃 NYSE
+
+) and 𝑆𝑖𝑧𝑒 > 𝑃 NYSE
+
+20
+
+20
+
+50
+
+50
+
+Breakpoints
+
+𝑆𝑖𝑧𝑒 > 𝑃 NYSE
+
+20
+
+Holdings
+
+𝑆𝑖𝑧𝑒 > 𝑃 NYSE
+
+20
+
+NYSE/𝑆𝑖𝑧𝑒 > 𝑃 NYSE
+
+20
+
+𝑆𝑖𝑧𝑒 > 𝑃 NYSE
+
+20
+
+𝑆𝑖𝑧𝑒 > 𝑃 NYSE
+
+50
+
+𝑆𝑖𝑧𝑒 > 𝑃 NYSE
+
+50
+
+NYSE/𝑆𝑖𝑧𝑒 > 𝑃 NYSE
+
+50
+
+𝑆𝑖𝑧𝑒 > 𝑃 NYSE
+
+50
+
+Top 500
+
+Top 500
+
+4.4.  Predictive power for large stocks
+
+𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅
+10 − 1
+6
+
+10
+
+7
+
+1
+
+2
+
+3
+
+4
+
+5
+
+8
+
+9
+
+−0.13
+(−0.52)
+
+0.00
+(0.01)
+
+0.04
+(0.17)
+
+0.10
+(0.42)
+
+0.10
+(0.41)
+
+0.34
+(1.43)
+
+0.35
+(1.53)
+
+0.33
+(1.52)
+
+0.37
+(1.80)
+
+0.43
+(1.93)
+
+0.39
+(1.92)
+
+0.44
+(2.31)
+
+0.48
+(2.34)
+
+0.46
+(2.27)
+
+0.37
+(1.88)
+
+0.57
+(2.90)
+
+0.61
+(3.14)
+
+0.52
+(2.78)
+
+0.61
+(3.38)
+
+0.58
+(3.10)
+
+0.53
+(2.86)
+
+0.51
+(2.85)
+
+0.52
+(2.92)
+
+0.55
+(3.21)
+
+0.48
+(2.95)
+
+0.60
+(3.53)
+
+0.63
+(3.75)
+
+0.61
+(3.68)
+
+0.62
+(3.63)
+
+0.64
+(3.82)
+
+0.75
+(4.37)
+
+0.74
+(4.50)
+
+0.64
+(3.72)
+
+0.66
+(3.97)
+
+0.58
+(3.26)
+
+0.62
+(3.78)
+
+0.64
+(3.77)
+
+0.62
+(3.70)
+
+0.66
+(3.91)
+
+0.66
+(3.91)
+
+0.75
+(4.26)
+
+0.74
+(4.31)
+
+0.77
+(4.52)
+
+0.75
+(4.37)
+
+0.73
+(4.14)
+
+0.92
+(5.14)
+
+0.91
+(5.07)
+
+0.85
+(4.60)
+
+0.87
+(4.82)
+
+0.82
+(4.56)
+
+1.06
+(5.68)
+
+0.91
+(5.10)
+
+0.81
+(4.63)
+
+0.77
+(4.66)
+
+0.72
+(4.37)
+
+Recent work shows that many return anomalies are concentrated 
+among small stocks (Fama and French (2008, 2018), Hou et al. (2020)) 
+and that trading costs make such anomalies unproﬁtable to trade (Novy-
+Marx and Velikov (2016), Detzel et al. (2023)). The portfolios examined 
+to this point are value-weighted and constructed using breakpoints cal-
+culated from only NYSE-listed stocks. Hou et al. (2020) show that this 
+approach minimizes the inﬂuence of small stocks on the results of the 
+analyses.  Nonetheless,  to  ensure  that  our  results  persist  when  small 
+stocks are excluded, we repeat the portfolio analysis using subsets of 
+our sample that exclude small stocks from both the set of stocks held 
+in the portfolios and the set of stocks used to calculate the breakpoints. 
+We deﬁne the 𝑆𝑖𝑧𝑒 > 𝑃 NYSE
+) and 𝑆𝑖𝑧𝑒 > 𝑃 NYSE
+20
+(NYSE/𝑆𝑖𝑧𝑒 > 𝑃 NYSE
+) subsets to be the sets of (NYSE-listed) stocks with 
+market capitalizations greater than the 20th and 50th percentile val-
+ues, respectively, among NYSE-listed stocks, and the Top 500 subset 
+to include only the top 500 stocks by market capitalization. Each of 
+the market capitalization-based criteria are evaluated monthly using all 
+stocks in the sample for the given month. We continue to use value-
+weighted portfolios for all of these tests.
+
+(NYSE/𝑆𝑖𝑧𝑒 > 𝑃 NYSE
+
+20
+
+50
+
+50
+
+20
+
+The results of these analyses are shown in Table 6. When we use the 
+𝑆𝑖𝑧𝑒 > 𝑃 NYSE
+subset both to calculate the breakpoints and as the set 
+of stocks held in the portfolios, the 𝑀𝐿𝐸𝑅 10 − 1 portfolio generates 
+an average excess return of 1.06% per month (𝑡-statistic = 5.68). This 
+result is extremely similar to that of our main test whose results are 
+shown in Table 3. Indeed, the correlation between the excess returns 
+of these two portfolios is 0.96 (untabulated). These results strongly sug-
+gest that the inﬂuence of small stocks on our focal tests is minimal. As 
+we impose more stringent restrictions on the size of the stocks used in 
+the analyses, the average excess returns of the 𝑀𝐿𝐸𝑅 10 − 1 portfolio 
+and associated 𝑡-statistics become slightly smaller. However, even when 
+we use only the largest 500 stocks both to calculate the breakpoints and 
+as the set of stocks held in the portfolios, the average excess return of 
+the 𝑀𝐿𝐸𝑅 10 − 1 portfolio of 0.72% per month (𝑡-statistic = 4.37) 
+remains economically large and highly statistically signiﬁcant. Further-
+more, regardless of the set of stocks used to calculate the breakpoints or 
+held in the portfolios, the decile one (10) portfolio generates the lowest 
+(highest) average excess return of all portfolios. These tests show that 
+
+the predictive power of the ML-based forecasts is strong among large 
+stocks.
+
+5.  Characterization of ML-based forecasts
+
+Having demonstrated that the ML-based forecasts have strong ability 
+to predict the cross-section of future stock returns, we proceed now to 
+further characterize this predictive power.
+
+5.1.  Stability of forecasting relation
+
+Our  ﬁrst  tests  characterizing  the  ML-based  forecasts  examine  the 
+stability of the relation between past price patterns and future stock 
+returns  (forecasting  relation  hereafter).  Speciﬁcally,  we  investigate 
+whether price patterns associated with high (low) future stock returns 
+in the early part of our test period continue to be associated with high 
+(low) stock returns for the duration of our test period. If the forecast-
+ing relation is stable, these relations could be learned over a prolonged 
+period of time, thereby further suggesting the viability of charting.
+
+, 
+
+𝑀𝐿𝐸𝑅196307,197412
+𝑖,𝑡
+
+𝑀𝐿𝐸𝑅197501,198412
+𝑖,𝑡
+
+, 
+, 𝑀𝐿𝐸𝑅199501,200412
+𝑖,𝑡
+
+To  assess  the  stability  of  the  forecasting  relation,  we  deﬁne 
+𝑀𝐿𝐸𝑅192701,196306
+,
+𝑖,𝑡
+𝑀𝐿𝐸𝑅198501,199412
+to be 
+𝑖,𝑡
+the forecasts for stock 𝑖 in month 𝑡 based on the forecasting function 
+generated by running the ML process on data from the months between 
+and inclusive of those in the superscripts. If the forecasting functions 
+learned using data from two subperiods are similar and both predict the 
+cross-section of returns, it would indicate stability in the forecasting re-
+lation.
+
+, and 𝑀𝐿𝐸𝑅200501,201412
+
+𝑖,𝑡
+
+We test whether the forecasting functions learned using data from 
+two  diﬀerent  subperiods  are  similar  in  three  ways.  First,  we  calcu-
+late the monthly cross-sectional Spearman rank correlations between 
+the  forecasts  for  all  months  in  the  test  period  that  are  not  included 
+in  the  data  used  to  generate  either  forecasting  function.  For  exam-
+ple,  we  calculate  the  correlations  between  𝑀𝐿𝐸𝑅196307,197412 and 
+𝑀𝐿𝐸𝑅199501,200412 using forecasts from all months in 196307-202212 
+excluding 196307-197412 and 199501-200412. The time-series aver-
+ages of these correlations, shown in Table 7 under “Forecast Correla-
+tions”, are all positive and of substantial magnitude, but decrease as the 
+time between the ﬁtting periods increases.
+
+JournalofFinancialEconomics153(2024)10379111S. Murray, Y. Xia and H. Xiao
+
+Table 7
+Stability of Forecasting Relation. This table presents the results of analyses examining the stability of the forecasting relation. We deﬁne 𝑀𝐿𝐸𝑅𝑡
+as the ML-based forecast generated by applying the ML process to data from months 𝑡 between 𝑡
+2, inclusive. The columns under the “Forecast 
+Correlations” heading present the time-series averages of monthly cross-sectional Spearman rank correlations between pairs of forecasts. The columns 
+under the “10 − 1 Common Holdings” heading present the time-series averages of the monthly percentages, in decimal format (i.e. 0.01 = 1%) of holdings 
+in the 10 − 1 portfolios that are common to both portfolios. The percentage of common holdings in any pair of 10 − 1 portfolios in any month is the 
+number of stocks held in the same direction (both long or both short) in both portfolios divided by the average of the number of stocks in the portfolios. 
+The columns under the “10 − 1 Return Correlations” heading present the time-series Pearson product-moment correlations between the excess returns 
+of the 10 − 1 portfolios. With the exception of the sort variable, the 10 − 1 portfolios are constructed in exactly the same manner as those whose returns 
+are examined in Table 3. All analyses use data from all months in the 196307-202212 test period except those months whose data are used by the ML 
+process to generate the forecasting function upon which either forecast is based.
+
+1 and 𝑡
+
+,𝑡
+
+1
+
+2
+
+Forecast Correlations
+
+10 − 1 Common Holdings
+
+10 − 1 Return Correlations
+
+2
+1
+4
+7
+9
+1
+,
+7
+0
+3
+6
+9
+1
+
+𝑅
+𝐸
+𝐿
+𝑀
+
+0.62
+
+2
+1
+4
+8
+9
+1
+,
+1
+0
+5
+7
+9
+1
+
+𝑅
+𝐸
+𝐿
+𝑀
+
+0.56
+0.74
+
+2
+1
+4
+9
+9
+1
+,
+1
+0
+5
+8
+9
+1
+
+𝑅
+𝐸
+𝐿
+𝑀
+
+0.50
+0.73
+0.80
+
+2
+1
+4
+0
+0
+2
+,
+1
+0
+5
+9
+9
+1
+
+𝑅
+𝐸
+𝐿
+𝑀
+
+0.49
+0.71
+0.78
+0.84
+
+2
+1
+4
+1
+0
+2
+,
+1
+0
+5
+0
+0
+2
+
+𝑅
+𝐸
+𝐿
+𝑀
+
+0.31
+0.57
+0.68
+0.77
+0.75
+
+2
+1
+4
+7
+9
+1
+,
+7
+0
+3
+6
+9
+1
+
+𝑅
+𝐸
+𝐿
+𝑀
+
+0.50
+
+2
+1
+4
+8
+9
+1
+,
+1
+0
+5
+7
+9
+1
+
+𝑅
+𝐸
+𝐿
+𝑀
+
+0.48
+0.60
+
+2
+1
+4
+9
+9
+1
+,
+1
+0
+5
+8
+9
+1
+
+𝑅
+𝐸
+𝐿
+𝑀
+
+0.41
+0.58
+0.64
+
+2
+1
+4
+0
+0
+2
+,
+1
+0
+5
+9
+9
+1
+
+𝑅
+𝐸
+𝐿
+𝑀
+
+0.41
+0.57
+0.62
+0.65
+
+2
+1
+4
+1
+0
+2
+,
+1
+0
+5
+0
+0
+2
+
+𝑅
+𝐸
+𝐿
+𝑀
+
+0.30
+0.45
+0.52
+0.58
+0.56
+
+2
+1
+4
+7
+9
+1
+,
+7
+0
+3
+6
+9
+1
+
+𝑅
+𝐸
+𝐿
+𝑀
+
+0.60
+
+2
+1
+4
+8
+9
+1
+,
+1
+0
+5
+7
+9
+1
+
+𝑅
+𝐸
+𝐿
+𝑀
+
+0.54
+0.84
+
+2
+1
+4
+9
+9
+1
+,
+1
+0
+5
+8
+9
+1
+
+𝑅
+𝐸
+𝐿
+𝑀
+
+0.37
+0.79
+0.84
+
+2
+1
+4
+0
+0
+2
+,
+1
+0
+5
+9
+9
+1
+
+𝑅
+𝐸
+𝐿
+𝑀
+
+0.41
+0.80
+0.88
+0.91
+
+2
+1
+4
+1
+0
+2
+,
+1
+0
+5
+0
+0
+2
+
+𝑅
+𝐸
+𝐿
+𝑀
+
+0.30
+0.66
+0.81
+0.85
+0.83
+
+𝑀𝐿𝐸𝑅192701,196306
+𝑀𝐿𝐸𝑅196307,197412
+𝑀𝐿𝐸𝑅197501,198412
+𝑀𝐿𝐸𝑅198501,199412
+𝑀𝐿𝐸𝑅199501,200412
+
+Second,  using  each  forecast  as  the  sort  variable,  we  construct 
+monthly decile portfolios using the exact same process as was used to 
+construct the portfolios examined in section 4. For each pair of fore-
+casts, we then calculate the percentage of stocks that are common to 
+both 10 − 1 portfolios. For any pair of portfolios in any given month, 
+this percentage is calculated as the number of stocks that are held in the 
+same direction in both portfolios, i.e. long in both portfolios or short in 
+both portfolios, divided by the average number of stocks in the two 
+portfolios. In Table 7 under the “10 − 1 Common Holdings” heading, 
+we present the time-series averages of these percentages for each pair 
+of portfolios, once again using only months during the test period that 
+are not used in either ﬁt. Consistent with the patterns in the forecast cor-
+relations, there is substantial commonality in the holdings of all pairs of 
+10 − 1 portfolios, but this commonality decreases as the time between 
+the ﬁtting periods used by the ML process to generate the forecasting 
+functions increases.
+
+Third,  we  calculate  the  Pearson  product-moment  correlations  be-
+tween the monthly excess returns of each pair of 10 − 1 portfolios using 
+only excess returns from months in the test period not used in the ﬁtting 
+process upon which either forecast is based. These correlations, shown 
+under “10 − 1 Return Correlations” in Table 7, are once again large for 
+all pairs of forecasts, but decrease as the time between the ﬁtting peri-
+ods increases.
+
+The  results  of  all  three  of  these  analyses  suggest  that  while  the 
+forecasting function changes through time, this change is slow. Further-
+more, the similarities between the forecasts generated by applying the 
+ML process to data from 192701-196306 and 200501-201412 indicate 
+that there is a substantial time-invariant component of the forecasting 
+function.
+
+To  test  whether  the  ML-based  forecasts  generated  by  ﬁtting  data 
+from each given subperiod predict the cross-section of returns in dif-
+ferent subperiods, in Table 8 we present the average excess returns of 
+the 10 − 1 portfolios formed by sorting on each of 𝑀𝐿𝐸𝑅192701,196306
+, 
+𝑖,𝑡
+𝑀𝐿𝐸𝑅196307,197412
+𝑀𝐿𝐸𝑅198501,199412
+𝑀𝐿𝐸𝑅197501,198412
+, 
+, 
+,
+𝑖,𝑡
+𝑖,𝑡
+𝑖,𝑡
+𝑀𝐿𝐸𝑅199501,200412
+, and 𝑀𝐿𝐸𝑅200501,201412
+in all subperiods exclud-
+𝑖,𝑡
+ing that used by the ML process to learn the forecasting function. While 
+analyses that use a forecast based on a ﬁt period subsequent to the pe-
+riod whose returns are examined are not reﬂective of obtainable trading 
+proﬁts, such analyses are valid statistical tests of the stability of the fore-
+casting relation. The results show that the 10 − 1 portfolios formed by 
+sorting on each of the ML-based forecasts generate economically large 
+and in most cases statistically signiﬁcant average excess returns in all 
+
+𝑖,𝑡
+
+Table 8
+Subperiod-Based Forecasts and Returns. This table presents the results of 
+portfolio analyses examining the ability of ML-based forecasts generated 
+by  applying  the  ML  process  to  data  from  one  subperiod  to  predict  the 
+cross-section of stock returns during other subperiods. The column labeled 
+“Return Period” indicates the period for which the excess portfolio returns 
+are examined. The remaining column names indicate the variable used to 
+construct the portfolios. 𝑀𝐿𝐸𝑅𝑡
+2 is the ML-based forecast generated by 
+2, inclusive. 
+applying the ML process to data from months 𝑡 between 𝑡
+With the exception of the sort variable, the portfolio construction methodol-
+ogy is identical to that used to construct the portfolios examined in Table 3. 
+The table presents the average monthly excess return of the 10 − 1 portfolio 
+formed by sorting on the given variable during the given subperiod. All ex-
+cess returns are reported in percent per month. The values in parentheses 
+are 𝑡-statistics, calculated following Newey and West (1987) using 12 lags, 
+testing the null hypothesis that the average monthly excess return is equal 
+to zero.
+
+1 and 𝑡
+
+,𝑡
+
+1
+
+6
+0
+3
+6
+9
+1
+,
+1
+0
+7
+2
+9
+1
+
+𝑅
+𝐸
+𝐿
+𝑀
+
+1.15
+(3.93)
+
+1.23
+(3.01)
+
+0.86
+(2.94)
+
+1.57
+(3.12)
+
+0.02
+(0.06)
+
+0.90
+(2.38)
+
+2
+1
+4
+7
+9
+1
+,
+7
+0
+3
+6
+9
+1
+
+𝑅
+𝐸
+𝐿
+𝑀
+
+1.43
+(4.09)
+
+1.27
+(3.79)
+
+1.44
+(2.42)
+
+−0.18
+(−0.45)
+
+0.88
+(1.73)
+
+2
+1
+4
+8
+9
+1
+,
+1
+0
+5
+7
+9
+1
+
+𝑅
+𝐸
+𝐿
+𝑀
+
+1.35
+(3.49)
+
+1.28
+(3.83)
+
+1.08
+(1.44)
+
+0.02
+(0.05)
+
+1.03
+(1.73)
+
+2
+1
+4
+9
+9
+1
+,
+1
+0
+5
+8
+9
+1
+
+𝑅
+𝐸
+𝐿
+𝑀
+
+1.46
+(3.57)
+
+1.19
+(3.18)
+
+1.31
+(1.95)
+
+0.20
+(0.35)
+
+1.38
+(2.00)
+
+2
+1
+4
+0
+0
+2
+,
+1
+0
+5
+9
+9
+1
+
+𝑅
+𝐸
+𝐿
+𝑀
+
+1.43
+(3.62)
+
+1.32
+(3.47)
+
+1.21
+(3.16)
+
+−0.02
+(−0.04)
+
+1.27
+(1.82)
+
+2
+1
+4
+1
+0
+2
+,
+1
+0
+5
+0
+0
+2
+
+𝑅
+𝐸
+𝐿
+𝑀
+
+0.82
+(1.85)
+
+0.58
+(1.41)
+
+1.05
+(2.57)
+
+0.52
+(0.62)
+
+0.51
+(0.70)
+
+Return Period
+
+196307-197412
+
+197501-198412
+
+198501-199412
+
+199501-200412
+
+200501-201412
+
+201501-202212
+
+subperiods except for 200501-201412, during which, as shown in Sec-
+tion 4.3,  the  𝑀𝐿𝐸𝑅 10 − 1 portfolio  performs  poorly.  Notably,  the 
+𝑀𝐿𝐸𝑅192701,196306 10 − 1 portfolio earns an average excess return of 
+0.90% per month (𝑡-statistic = 2.38) during the 201501-202212 subpe-
+riod. Thus, forecasts based on a ﬁt of the data ending in 196306 contain 
+strong predictive power more than 50 years later. Taken together, the 
+
+JournalofFinancialEconomics153(2024)10379112S. Murray, Y. Xia and H. Xiao
+
+Table 9
+Expanding-Window and Rolling-Window Forecast Portfolios. This table presents the results of portfolio analyses examining the 
+ability of ML-based forecasts based on expanding window (𝑀𝐿𝐸𝑅) and rolling-window (𝑀𝐿𝐸𝑅𝑅𝑜𝑙𝑙 ) ﬁt periods to predict the 
+cross-section of future stock returns. With the exception of the sort variable for the portfolios formed by sorting on 𝑀𝐿𝐸𝑅𝑅𝑜𝑙𝑙 , 
+the portfolio construction methodology is identical to that used to construct the portfolios examined in Table 3. The column 
+labeled “Sort Variable” indicates the variable used to sort stocks into portfolios. The columns labeled “1” through “10” present 
+results for decile portfolios 1 through 10 formed by sorting on the given variable. The column labeled “10 − 1” presents 
+results for the zero-cost long-short portfolio that is long the decile 10 portfolio and short the decile 1 portfolio. The rows 
+with “𝑟” and “SD” in the column labeled “Value” present the time-series averages and standard deviations, respectively, of 
+the monthly portfolio excess returns for each of the portfolios, reported in percent per month. The rows with “Sharpe” in the 
+“Value” column present the annualized Sharpe ratio of the given portfolio. The values in parentheses are 𝑡-statistics, calculated 
+following Newey and West (1987) using 12 lags, testing the null hypothesis that the average monthly excess return is equal to 
+zero. The analyses cover return months 𝑡 from July 1963 through December 2022, inclusive.
+
+Sort Variable
+
+Value
+
+1
+
+𝑀𝐿𝐸𝑅
+
+𝑟
+
+SD
+Sharpe
+
+𝑀𝐿𝐸𝑅𝑅𝑜𝑙𝑙
+
+𝑟
+
+SD
+Sharpe
+
+−0.14
+(−0.55)
+6.46
+−0.08
+
+−0.13
+(−0.43)
+7.17
+−0.06
+
+2
+
+0.32
+(1.39)
+5.66
+0.20
+
+0.30
+(1.21)
+6.40
+0.16
+
+3
+
+0.39
+(1.89)
+5.26
+0.26
+
+0.43
+(1.83)
+5.76
+0.26
+
+4
+
+0.55
+(2.77)
+5.11
+0.37
+
+0.56
+(2.68)
+5.26
+0.37
+
+5
+
+0.54
+(2.91)
+4.71
+0.40
+
+0.60
+(3.32)
+4.89
+0.43
+
+6
+
+0.65
+(3.94)
+4.63
+0.49
+
+0.63
+(3.46)
+4.66
+0.47
+
+7
+
+0.71
+(4.10)
+4.50
+0.55
+
+0.72
+(4.43)
+4.50
+0.55
+
+8
+
+0.66
+(3.99)
+4.38
+0.52
+
+0.65
+(4.01)
+4.45
+0.50
+
+9
+
+10
+
+10 − 1
+
+0.77
+(4.36)
+4.47
+0.59
+
+0.76
+(4.60)
+4.28
+0.61
+
+0.93
+(5.18)
+5.03
+0.64
+
+0.84
+(4.96)
+4.61
+0.63
+
+1.08
+(5.51)
+4.79
+0.78
+
+0.96
+(4.24)
+5.37
+0.62
+
+results in Tables 7 and 8 indicate a high degree of stability in the fore-
+casting function, although it may also contain a slowly time-varying 
+component.
+
+The  combination  of  time-invariant  and  slowly  time-varying  com-
+ponents  of  the  forecasting  relation  suggests  that  there  is  a  trade-
+oﬀ  to  be  made  when  deciding  what  data  to  use  in  the  ML  pro-
+cess.  The  time-invariant  component  will  be  better  estimated  when 
+more  data  are  used  in  the  learning  process.  The  time-varying  com-
+ponent will be better estimated by using only more recent data. We 
+investigate  this  tradeoﬀ  by  comparing  the  performance  of  portfo-
+lios  formed  by  sorting  on  our  focal  forecasts  (𝑀𝐿𝐸𝑅)  which  use 
+expanding-window  ﬁt  periods,  and  forecasts  based  on  forecasting 
+functions  generated  from  rolling-window  ﬁt  periods  (𝑀𝐿𝐸𝑅𝑅𝑜𝑙𝑙
+). 
+for  stock  𝑖 in  month  𝑡 is  deﬁned  as  𝑀𝐿𝐸𝑅192701,196306
+𝑀𝐿𝐸𝑅𝑅𝑜𝑙𝑙
+for  months  𝑡 in  196307-197412,  𝑀𝐿𝐸𝑅196307,197412 for  months  𝑡 in 
+197501-198412, 𝑀𝐿𝐸𝑅197501,198412 for months 𝑡 in 198501-199412, 
+𝑀𝐿𝐸𝑅198501,199412 for months 𝑡 in 199501-200412, 𝑀𝐿𝐸𝑅199501,200412
+for months 𝑡 in 200501-201412, and 𝑀𝐿𝐸𝑅200501,201412 for months 𝑡
+in 201501-202212. If the tradeoﬀ between the use of more data from 
+a prolonged period and less data from a shorter but more recent time 
+period favors the former, then the 𝑀𝐿𝐸𝑅 10 − 1 portfolio should out-
+perform the 𝑀𝐿𝐸𝑅𝑅𝑜𝑙𝑙 10 − 1 portfolio, and vice versa.
+
+Table 9 shows that the average monthly excess return and Sharpe ra-
+tio of the 𝑀𝐿𝐸𝑅𝑅𝑜𝑙𝑙 10 − 1 portfolio of 0.96% (𝑡-statistic = 4.24) and 
+0.62, respectively, are lower, but only by a small amount, than the cor-
+responding values of 1.08% (𝑡-statistic = 5.51) and 0.78, respectively, 
+for the 𝑀𝐿𝐸𝑅 10 − 1 portfolio. The results suggest that the tradeoﬀ be-
+tween using more data from a longer time period and less data from a 
+shorter time period in the ML process favors, but only slightly, the use 
+of more data from a longer time period.
+
+5.2.  Nonlinearity and interactions in the forecasting function
+
+The results in Section 5.1 demonstrate that the forecasting relation 
+is highly stable through time, but gives no indication of its functional 
+form. The main beneﬁt of using neural networks to generate forecasts 
+is that they are capable of discerning highly-complex relations that may 
+include nonlinear components and components based on interactions of 
+the input variables. The challenge that comes with this beneﬁt is that 
+the complexities of the forecasting function are diﬃcult, if not impossi-
+ble, to succinctly describe. If the nonlinear and interaction components 
+are  important  for  prediction,  it  would  indicate  that  traditional  tech-
+niques such as linear regression, as well as ML methodologies that do 
+
+not capture interaction eﬀects, are suboptimal for return forecasting. If 
+nonlinearities are important but interactions are unimportant, it would 
+indicate that the components of the forecasting function relevant for 
+prediction can be described as the summation of components related 
+to each of the historical cumulative returns, which would substantially 
+facilitate description of the forecasts. If neither nonlinearities nor inter-
+actions are important, then the components of the forecasting function 
+that are relevant for cross-sectional prediction are simply the slope co-
+eﬃcients associated with each past return. Our next tests, therefore, 
+examine the prevalence of nonlinear and interaction components in the 
+forecasting function, and the degree to which such components are im-
+portant for predicting the cross-section of future stock returns.
+
+We begin by graphically examining the forecasting function for ev-
+idence  of  nonlinearities  and  interactions.  Fig. 3 presents  univariate 
+partial-dependence plots of the relation between 𝑀𝐿𝐸𝑅 and 𝐶𝑅𝑘, for 
+𝑘 ∈ {1, 2, … , 12}, based on a ﬁt of the data from 192701-196306. The 
+plotted values of 𝑀𝐿𝐸𝑅 are calculated by setting 𝐶𝑅𝑗 for each stock 
+and each 𝑗 ∈ {1, 2, … , 12}, 𝑗 ≠ 𝑘, to its mean among all observations 
+in the sample from 196307-202212. We focus on plots based on the ﬁt 
+using data ending in 196306 because these data are included in each 
+of the expanding windows used to calculate 𝑀𝐿𝐸𝑅, and thus aﬀect 
+the forecasting function for all ﬁt periods.20 The plots indicate that the 
+forecasting function is highly nonlinear, and in most cases nonmono-
+tonic, in the input variables. The plots for 𝐶𝑅
+10 are all highly 
+2
+nonmonotonic, and several of the plots indicate multiple sign changes 
+for the slope of the relation between the given input variable and the 
+forecast. Furthermore, the plots show that these instances of nonmono-
+tonicity are not isolated to extreme values of the focal input variable, 
+where the forecasting function may be unreliable due to a small num-
+ber of observations with similar values in the data used in the learning 
+process.
+
+, … , 𝐶𝑅
+
+To  graphically  illustrate  interactions  in  the  forecasting  function, 
+Fig. 4 presents examples of bivariate partial-dependence plots depict-
+ing the relation between 𝑀𝐿𝐸𝑅 and 𝐶𝑅𝑘 calculated using the 10th, 
+30th, 50th, 70th, and 90th percentile values of one other input variable, 
+𝐶𝑅𝑗 , with 𝐶𝑅𝑙, 𝑙 ∈ 1, 2, … , 12, 𝑙 ≠ 𝑗 and 𝑙 ≠ 𝑘 set to its mean, using the 
+forecasting function based on a ﬁt of the data from 192701-196306. The 
+percentiles and mean values are based on all observations from 196307-
+
+20 In Section XIII and Figure A4 of the Internet Appendix, we present similar 
+plots for other ﬁt periods.
+
+JournalofFinancialEconomics153(2024)10379113S. Murray, Y. Xia and H. Xiao
+
+Fig. 3. Univariate Partial-Dependence Plots for ML-Based Forecasts. This ﬁgure presents partial dependence plots for the ML-based forecasting function. The function 
+whose partial dependence plots are shown is based on a ﬁt of the data from 192701 through 196306. Each plot depicts the relation between one of 𝐶𝑅
+12, 
+1
+indicated on the 𝑥-axis, and the value of 𝑀𝐿𝐸𝑅, indicated on the 𝑦-axis, with all other input variables set to their sample means based on all observations in the 
+sample from 196307 through 202212. The range of values included on the 𝑥-axis in each plot is −100 to the 99th percentile value of the variable shown on the 
+𝑥-axis, calculated using observations in the sample from 196307 through 202212.
+
+, … , 𝐶𝑅
+
+202212. If there are no interactions between 𝐶𝑅𝑗 and 𝐶𝑅𝑘, the lines 
+corresponding to the diﬀerent percentiles of 𝐶𝑅𝑗 will be parallel.21
+
+4. When 𝐶𝑅
+
+12 in the forecasting function. For high values of 𝐶𝑅
+
+The left panel in Fig. 4 indicates strong interactions between 𝐶𝑅
+4
+and 𝐶𝑅
+12 (the 70th 
+and 90th percentiles), 𝑀𝐿𝐸𝑅 is decreasing in 𝐶𝑅
+4 for values of 𝐶𝑅
+4
+below and slightly above zero, and then increasing for higher values 
+of 𝐶𝑅
+12 is taken at its 30th or 50th percentile values, the 
+slopes of 𝑀𝐿𝐸𝑅 take the opposite signs. The middle panel illustrates 
+substantial interactions between 𝐶𝑅
+10 is taken 
+at its 30th (70th) percentile value, for values of 𝐶𝑅
+9 between approxi-
+mately −50 and 0, 𝑀𝐿𝐸𝑅 is decreasing (increasing). Finally, the right 
+panel shows an example where interactions are much less severe. The 
+slopes of the relation between 𝑀𝐿𝐸𝑅 and 𝐶𝑅
+10 are quite similar for 
+all depicted percentiles of 𝐶𝑅
+
+10. When 𝐶𝑅
+
+9 and 𝐶𝑅
+
+To formally assess the amount of cross-sectional variation in 𝑀𝐿𝐸𝑅
+that is driven by the nonlinear and interaction components, we conduct 
+a Fama and MacBeth (1973, FM hereafter) regression analysis of the re-
+12. Speciﬁcally, each month 𝑡, 
+lation between 𝑀𝐿𝐸𝑅 and 𝐶𝑅
+1
+we run a cross-sectional OLS regression of 𝑀𝐿𝐸𝑅 on 𝐶𝑅
+12. 
+1
+Panel A of Table 10 presents the time-series averages of the monthly 
+
+, … , 𝐶𝑅
+
+, … , 𝐶𝑅
+
+4.
+
+21 Plots for all pairs of input variables 𝐶𝑅𝑗 and 𝐶𝑅𝑘 are presented in Sec-
+tion XIV and Figure A5 of the Internet Appendix.
+
+cross-sectional  coeﬃcients  and  adjusted  𝑅2 values.  The  average  ad-
+justed 𝑅2 of these regressions is 37.55%, indicating that only slightly 
+more than a third of the total variation in 𝑀𝐿𝐸𝑅 is explained by a 
+linear combination of 𝐶𝑅
+12, and therefore that nonlinear and 
+1
+interaction components of the forecasting function account for most of 
+the cross-sectional variation in the forecasts.
+
+, … , 𝐶𝑅
+
+, … , 𝐶𝑅
+
+To test the importance of the nonlinearities and interactions for pre-
+dicting future stock returns, we once again conduct FM regressions, this 
+time  using  the  future  excess  stock  return  as  the  dependent  variable 
+and  𝑀𝐿𝐸𝑅 and  𝐶𝑅
+12 as independent variables. The slope 
+1
+coeﬃcient on 𝑀𝐿𝐸𝑅 measures the relation between future stock re-
+turns and the component of 𝑀𝐿𝐸𝑅 that is linearly orthogonal to the 
+other independent variables, namely 𝐶𝑅
+12, and thus can be 
+1
+used to assess the importance of the nonlinear and interaction compo-
+nents of 𝑀𝐿𝐸𝑅 in prediction. We note, however, that our use of linear 
+regression  here  assumes  a  linear  relation  between  the  component  of 
+𝑀𝐿𝐸𝑅 that is orthogonal to 𝐶𝑅
+12 and future stock returns. 
+1
+Since our ML model uses the normalized excess stock return as the de-
+pendent variable, there is no strong reason to believe that the relation 
+between  this  orthogonal  component  of  𝑀𝐿𝐸𝑅 and  future  (not  nor-
+malized) excess stock returns is linear. While this may make economic 
+interpretation of the magnitude of the slope coeﬃcient diﬃcult, a statis-
+tically signiﬁcant coeﬃcient on 𝑀𝐿𝐸𝑅 would be strong evidence that 
+
+, … , 𝐶𝑅
+
+, … , 𝐶𝑅
+
+JournalofFinancialEconomics153(2024)10379114S. Murray, Y. Xia and H. Xiao
+
+Fig. 3. (continued)
+
+the nonlinear and/or interaction components of the ML-based forecasts 
+are important for prediction. In addition to equal-weighted (i.e. OLS) 
+regressions, for consistency with our value-weighted portfolio analyses, 
+we also run the FM regression analysis using value-weighted (i.e. WLS) 
+regressions with market capitalization as the weight variable. The re-
+sults in Panel B of Table 10 show that the average coeﬃcient on 𝑀𝐿𝐸𝑅
+of 5.95 (𝑡-statistic = 9.06) in the equal-weighted regressions and 2.81
+(𝑡-statistic = 5.47) in the value-weighted regressions are both highly 
+statistically  signiﬁcant,  indicating  that  nonlinearities  and/or  interac-
+tions in the forecasting function are important for future stock return 
+prediction.
+
+We  next  endeavor  to  discern  between  nonlinear  and  interaction 
+components of the ML-based forecasts. To investigate the amount of 
+cross-sectional variation in 𝑀𝐿𝐸𝑅 that is associated with the interac-
+tion component of the forecasts, we run a FM regression analysis using 
+𝑀𝐿𝐸𝑅 as the dependent variable and 𝐶𝑅
+12 as well as terms 
+1
+that capture the nonlinear components of the forecasts as independent 
+variables. To capture the nonlinear components, we deﬁne 𝑀𝐿𝐸𝑅𝐶𝑅𝑘
+to be the value of the forecasting function evaluated using the true value 
+of 𝐶𝑅𝑘 with values of 𝐶𝑅𝑗 , for 𝑗 ∈ 1, … , 12 and 𝑗 ≠ 𝑘, set to their mean 
+values among all observations in the given month.22 𝑀𝐿𝐸𝑅𝐶𝑅𝑘 cap-
+tures the nonlinear component of the forecasting function with respect 
+to 𝐶𝑅𝑘. The component of 𝑀𝐿𝐸𝑅 that cannot be captured by a lin-
+
+, … , 𝐶𝑅
+
+ear combination of the 𝐶𝑅𝑘 and 𝑀𝐿𝐸𝑅𝐶𝑅𝑘 , 𝑘 ∈ 1, 2, … , 12, therefore, 
+must be driven by interactions in the forecasting function. Panel C of 
+Table 10 shows that the average adjusted 𝑅2 from these cross-sectional 
+regressions is  55.36%, which is substantially higher than the  37.55%
+adjusted 𝑅2 from the regressions that used only 𝐶𝑅
+12 as inde-
+1
+pendent variables, but still far from a perfect 100%. This indicates that 
+while a non-trivial portion of variation in 𝑀𝐿𝐸𝑅 is driven by the lin-
+ear and nonlinear components of the forecasting function, there is also 
+a substantial component, represented by the unexplained variation in 
+the regression, that is attributable to interaction eﬀects.
+
+, … , 𝐶𝑅
+
+, … , 𝐶𝑅
+
+12, 𝑀𝐿𝐸𝑅𝐶𝑅
+
+To investigate the importance of the interaction component of the 
+ML-based forecasts for predicting the cross-section of future stock re-
+turns, we run equal-weighted and value-weighted FM regression analy-
+ses using the future excess stock return as the dependent variable and 
+𝐶𝑅
+, and 𝑀𝐿𝐸𝑅 as indepen-
+, … , 𝑀𝐿𝐸𝑅𝐶𝑅
+1
+12
+dent variables. In these regressions, the coeﬃcient on 𝑀𝐿𝐸𝑅 measures 
+the relation between the interaction component of the ML-based fore-
+casts and future stock returns. Panel D of Table 10 shows that for both 
+equal-weighted and value-weighted regressions, the average slope coef-
+ﬁcient of 𝑀𝐿𝐸𝑅 is positive and highly signiﬁcant, indicating that the 
+interaction components of the forecasting function play an important 
+role in prediction.
+
+1
+
+22 If the forecasting function has no interaction components, then the choice 
+of values for 𝐶𝑅𝑗 will have no impact on our results. Nonetheless, in Section XV 
+and Table A11 of the Internet Appendix, we conduct similar analyses using zero, 
+
+instead of the monthly mean values, for the 𝐶𝑅𝑗 when calculating 𝑀𝐿𝐸𝑅𝐶𝑅𝑘 , 
+and ﬁnd that this has no qualitative impact on our results.
+
+JournalofFinancialEconomics153(2024)10379115S. Murray, Y. Xia and H. Xiao
+
+5.3.  Momentum and reversal
+
+Our next tests examine the extent to which the predictive power of 
+the ML-based forecasts is related to the momentum and reversal eﬀects. 
+Our measure of momentum, 𝑀𝑜𝑚, is the cumulative stock return dur-
+ing the 11-month period covering months 𝑡 − 12 through 𝑡 − 2, inclusive 
+(skipping month 𝑡 − 1). We measure reversal with 𝑅𝑒𝑣, deﬁned as the 
+stock return in month 𝑡 − 1. While the asset pricing literature has doc-
+umented hundreds of variables that predict future stock returns, these 
+two eﬀects are of particular relevance here because both 𝑀𝑜𝑚 and 𝑅𝑒𝑣
+can be discerned from historical price plots.23 In fact, both 𝑀𝑜𝑚 and 
+𝑅𝑒𝑣 are very simple functions of the cumulative returns 𝐶𝑅
+1
+12
+that  are  the  inputs  to  the  forecasting  function.  Speciﬁcally,  𝑀𝑜𝑚 =
+𝐶𝑅
+12∕100 + 1)∕(𝐶𝑅
+11∕100 + 1) − 1].24 It is there-
+fore highly plausible that the predictive power of 𝑀𝐿𝐸𝑅 is, at least in 
+part, driven by the predictive power of 𝑀𝑜𝑚 and 𝑅𝑒𝑣.
+
+11 and 𝑅𝑒𝑣 = 100[(𝐶𝑅
+
+, … , 𝐶𝑅
+
+, … , 𝐶𝑅
+
+In  addition  to  𝑀𝑜𝑚 and  𝑅𝑒𝑣,  we  calculate  ML-based  forecasts, 
+which we denote 𝑀𝐿𝐸𝑅𝑀𝑜𝑚,𝑅𝑒𝑣
+, that use only 𝑀𝑜𝑚 and 𝑅𝑒𝑣 as input 
+variables. The ML model used to calculate 𝑀𝐿𝐸𝑅𝑀𝑜𝑚,𝑅𝑒𝑣
+is identical 
+to that used to calculate 𝑀𝐿𝐸𝑅, except for the use of 𝑀𝑜𝑚 and 𝑅𝑒𝑣, 
+instead of  𝐶𝑅
+12, as input variables. Our objective in calcu-
+1
+lating 𝑀𝐿𝐸𝑅𝑀𝑜𝑚,𝑅𝑒𝑣
+is to capture any nonlinearities and interaction 
+eﬀects in the predictive power of 𝑀𝑜𝑚 and 𝑅𝑒𝑣. In Section XVI and 
+Table A12 of the Internet Appendix, we construct decile portfolios by 
+sorting on each of 𝑀𝑜𝑚, 𝑅𝑒𝑣, and 𝑀𝐿𝐸𝑅𝑀𝑜𝑚,𝑅𝑒𝑣
+, and ﬁnd that all 
+three variables predict the cross-section of future stock returns in our 
+test period sample.
+
+5.3.1.  Relations between ML-based forecasts, momentum, and reversal
+
+We  examine  the  strength  of  the  relations  between  the  ML-based 
+forecasts,  momentum,  and  reversal  by  running  FM  regression  analy-
+ses with 𝑀𝐿𝐸𝑅 as the dependent variable and combinations of 𝑀𝑜𝑚, 
+𝑅𝑒𝑣, and 𝑀𝐿𝐸𝑅𝑀𝑜𝑚,𝑅𝑒𝑣
+as independent variables. Table 11 shows that 
+when  𝑀𝑜𝑚 (𝑅𝑒𝑣) is the only independent variable, the average ad-
+justed 𝑅2 from the cross-sectional regressions is 10.14% (26.68%). When 
+𝑀𝐿𝐸𝑅𝑀𝑜𝑚,𝑅𝑒𝑣
+is the only independent variable, the average adjusted 
+𝑅2 increases  to  55.01%,  indicating  that  while  𝑀𝐿𝐸𝑅𝑀𝑜𝑚,𝑅𝑒𝑣
+and 
+𝑀𝐿𝐸𝑅 have substantial commonality, a large component of 𝑀𝐿𝐸𝑅
+is unrelated to 𝑀𝐿𝐸𝑅𝑀𝑜𝑚,𝑅𝑒𝑣
+. When 𝑀𝑜𝑚, 𝑅𝑒𝑣, and 𝑀𝐿𝐸𝑅𝑀𝑜𝑚,𝑅𝑒𝑣
+are all included as independent variables, the average adjusted 𝑅2 of 
+57.20% is only slightly higher than when 𝑀𝐿𝐸𝑅𝑀𝑜𝑚,𝑅𝑒𝑣
+is the only in-
+dependent variable. This suggests that 𝑀𝐿𝐸𝑅𝑀𝑜𝑚,𝑅𝑒𝑣
+captures most of 
+the commonality between 𝑀𝐿𝐸𝑅 and each of 𝑀𝑜𝑚 and 𝑅𝑒𝑣. More 
+importantly, the results indicate that, as expected, 𝑀𝐿𝐸𝑅 has compo-
+nents related to both momentum and reversal. However, 𝑀𝐿𝐸𝑅 also 
+has a very substantial component that is unrelated to these eﬀects.
+
+5.3.2.  Predictive power controlling for momentum and reversal
+
+To investigate whether the predictive power of 𝑀𝐿𝐸𝑅 is, at least 
+in  part,  distinct  from  momentum  and  reversal,  we  examine  the  per-
+formance  of  portfolios  with  similar  levels  of  the  control  variable(s), 
+𝑀𝑜𝑚,  𝑅𝑒𝑣, and  𝑀𝐿𝐸𝑅𝑀𝑜𝑚,𝑅𝑒𝑣
+, but diﬀerent levels of  𝑀𝐿𝐸𝑅. We 
+construct both bivariate portfolios, which control for 𝑀𝑜𝑚, 𝑅𝑒𝑣, and 
+𝑀𝐿𝐸𝑅𝑀𝑜𝑚,𝑅𝑒𝑣
+one at a time, and trivariate portfolios that simultane-
+ously control for 𝑀𝑜𝑚 and 𝑅𝑒𝑣. If the predictive power of 𝑀𝐿𝐸𝑅 is 
+unexplained (explained) by the control variable(s), we expect to ﬁnd a 
+strong pattern (no pattern) in average excess returns across portfolios 
+containing stocks with diﬀerent levels of 𝑀𝐿𝐸𝑅 but similar levels of 
+the control variable(s).
+
+23 See Hou et al. (2015), Harvey et al. (2016), McLean and Pontiﬀ (2016), and 
+Linnainmaa and Roberts (2018) for lists of variables that have been documented 
+to predict the cross-section of future stock returns.
+24 The multiplication and divisions by 100 are because 𝑀𝑜𝑚, 𝑅𝑒𝑣, 𝐶𝑅
+𝐶𝑅
+
+11, and 
+
+12 are recorded in percent.
+
+Fig. 4. Bivariate Partial-Dependence Plots for ML-Based Forecasts. This ﬁgure 
+presents examples of bivariate partial dependence plots for the ML-based fore-
+casting function. The plots depict the relation between 𝐶𝑅𝑗 (plotted on the 
+𝑥-axis) and 𝑀𝐿𝐸𝑅 (plotted on the 𝑦-axis) when 𝐶𝑅𝑘 is taken to be its 10th 
+(black line), 30th (red line), 50th (blue line), 70th (green line), and 90th (purple 
+line) percentile values, and 𝐶𝑅𝑙 , 𝑙 ∈ {1, 2, … , 12}, 𝑙 ≠ 𝑗, and 𝑙 ≠ 𝑘, is taken to 
+be its mean value calculated using all observations in the sample from 196307 
+through 202212. The plot on the top (middle) [bottom] takes 𝑗 = 4 and 𝑘 = 12
+(𝑗 = 9 and 𝑘 = 10) [𝑗 = 10 and 𝑘 = 4]. The function whose partial dependence 
+plots are shown is based on a ﬁt of the data from 192701 through 196306. The 
+range of values included on the 𝑥-axis is −100 to the 99th percentile value of 
+𝐶𝑅𝑗 , calculated using observations in the sample from 196307 through 202212. 
+(For interpretation of the colors in the ﬁgure(s), the reader is referred to the web 
+version of this article.)
+
+In sum, Figs. 3 and 4 and the results in Table 10 demonstrate that the 
+ML-based forecasting function has substantial nonlinear and interaction 
+components  that  play  an  important  role  in  the  ability  of  𝑀𝐿𝐸𝑅 to 
+predict the cross-section of future stock returns.
+
+JournalofFinancialEconomics153(2024)10379116S. Murray, Y. Xia and H. Xiao
+
+1
+
+, … , 𝐶𝑅
+
+, … , 𝑀𝐿𝐸𝑅𝐶𝑅
+
+Table 10
+Nonlinearities and Interactions in the Forecasting Function. This table presents the results of Fama and MacBeth (1973)
+regression analyses examining nonlinearity and interactions of the ML-based forecasts 𝑀𝐿𝐸𝑅. Each month 𝑡 we run a 
+cross-sectional regression of the dependent variable on one or more independent variables. The results in Panel A are for 
+12 as independent variables. The results in Panel B 
+regressions with 𝑀𝐿𝐸𝑅 as the dependent variable and 𝐶𝑅
+1
+12 as inde-
+are for regressions with the future excess stock return as the dependent variable and 𝑀𝐿𝐸𝑅 and 𝐶𝑅
+, … , 𝐶𝑅
+1
+pendent variables. The results in Panel C are for regressions with 𝑀𝐿𝐸𝑅 as the dependent variable and 𝐶𝑅
+12, 
+, … , 𝐶𝑅
+1
+and 𝑀𝐿𝐸𝑅𝐶𝑅
+as independent variables. The results in Panel D are for regressions with the future ex-
+as independent 
+cess stock return as the dependent variable and 𝑀𝐿𝐸𝑅, 𝐶𝑅
+1
+variables. 𝑀𝐿𝐸𝑅𝐶𝑅𝑘 is the value of the ML-based forecast calculated using 𝐶𝑅𝑘 and the within-month means of 𝐶𝑅𝑗 for 
+𝑗 ∈ {1, … , 12} and 𝑗 ≠ 𝑘, as the values of the input variables, and therefore captures the component of the ML-based forecast 
+that is nonlinear in 𝐶𝑅𝑘. In Panels B and D, the sections with “EW” and “VW” in the “Weight” column present results for 
+equal-weighted and market capitalization-weighted regressions, respectively. The table presents the time-series averages of 
+the monthly cross-sectional coeﬃcients, along with 𝑡-statistics, calculated following Newey and West (1987) using 12 lags, 
+testing the null hypothesis that the average coeﬃcient is equal to zero (in parentheses). The column labeled “Adj. 𝑅2” in 
+Panels A and C presents the time-series average of adjusted 𝑅2 values from the monthly cross-sectional regressions. In Panels 
+A and C, we report the estimated slope coeﬃcients times 100. The analyses cover sample months 𝑡 from July 1963 through 
+December 2022, inclusive.
+
+12, and 𝑀𝐿𝐸𝑅𝐶𝑅
+
+, … , 𝑀𝐿𝐸𝑅𝐶𝑅
+
+, … , 𝐶𝑅
+
+12
+
+12
+
+1
+
+Panel A: FM Regressions of 𝑀𝐿𝐸𝑅 on 𝐶𝑅
+1
+
+, … , 𝐶𝑅
+
+12
+
+𝐶𝑅
+
+1
+0.029
+(11.81)
+
+𝐶𝑅
+
+7
+0.012
+(3.31)
+
+𝐶𝑅
+
+2
+0.022
+(13.19)
+
+𝐶𝑅
+
+8
+0.033
+(9.36)
+
+𝐶𝑅
+
+3
+0.006
+(2.82)
+
+𝐶𝑅
+
+9
+−0.065
+(−11.18)
+
+𝐶𝑅
+
+4
+0.009
+(6.39)
+
+𝐶𝑅
+
+10
+0.131
+(16.94)
+
+𝐶𝑅
+
+5
+0.004
+(2.59)
+
+𝐶𝑅
+
+11
+0.251
+(17.00)
+
+𝐶𝑅
+
+6
+0.002
+(1.12)
+
+𝐶𝑅
+
+12
+−0.276
+(−15.52)
+
+Adj. 𝑅2
+
+37.55%
+
+Panel B: FM Regressions of Future Excess Returns on 𝑀𝐿𝐸𝑅 and 𝐶𝑅
+1
+
+, … , 𝐶𝑅
+
+12
+
+Weight
+
+EW
+
+𝑀𝐿𝐸𝑅
+
+5.95
+(9.06)
+
+VW
+
+𝑀𝐿𝐸𝑅
+
+2.81
+(5.47)
+
+𝐶𝑅
+
+1
+0.01
+(2.21)
+
+𝐶𝑅
+
+7
+−0.00
+(−0.90)
+
+𝐶𝑅
+
+1
+0.00
+(0.96)
+
+𝐶𝑅
+
+7
+0.01
+(2.43)
+
+𝐶𝑅
+
+2
+0.00
+(0.76)
+
+𝐶𝑅
+
+8
+−0.00
+(−0.75)
+
+𝐶𝑅
+
+2
+0.00
+(1.08)
+
+𝐶𝑅
+
+8
+0.00
+(0.04)
+
+𝐶𝑅
+
+3
+−0.00
+(−1.89)
+
+𝐶𝑅
+
+9
+0.00
+(0.50)
+
+𝐶𝑅
+
+3
+−0.01
+(−3.66)
+
+𝐶𝑅
+
+9
+−0.00
+(−1.19)
+
+𝐶𝑅
+
+4
+0.00
+(1.69)
+
+𝐶𝑅
+
+10
+−0.00
+(−0.67)
+
+𝐶𝑅
+
+4
+0.02
+(4.23)
+
+𝐶𝑅
+
+10
+0.00
+(0.54)
+
+𝐶𝑅
+
+5
+−0.00
+(−1.62)
+
+𝐶𝑅
+
+11
+0.02
+(4.31)
+
+𝐶𝑅
+
+5
+−0.00
+(−0.13)
+
+𝐶𝑅
+
+11
+0.02
+(3.84)
+
+𝐶𝑅
+
+6
+0.00
+(0.13)
+
+𝐶𝑅
+
+12
+−0.01
+(−2.52)
+
+𝐶𝑅
+
+6
+−0.01
+(−2.97)
+
+𝐶𝑅
+
+12
+−0.01
+(−2.43)
+
+Panel C: FM Regressions of 𝑀𝐿𝐸𝑅 on 𝐶𝑅
+1
+
+, … , 𝐶𝑅
+
+12, and 𝑀𝐿𝐸𝑅𝐶𝑅
+
+1
+
+, … , 𝑀𝐿𝐸𝑅𝐶𝑅
+
+12
+
+𝐶𝑅
+
+1
+−0.009
+(−2.61)
+
+𝐶𝑅
+
+7
+0.011
+(3.29)
+
+𝐶𝑅
+
+2
+0.009
+(5.04)
+
+𝐶𝑅
+
+8
+0.029
+(8.14)
+
+𝐶𝑅
+
+3
+0.001
+(0.30)
+
+𝐶𝑅
+
+9
+−0.080
+(−13.47)
+
+𝐶𝑅
+
+4
+0.008
+(6.56)
+
+𝐶𝑅
+
+10
+0.131
+(16.48)
+
+𝐶𝑅
+
+5
+0.003
+(2.09)
+
+𝐶𝑅
+
+11
+0.197
+(16.04)
+
+𝐶𝑅
+
+6
+−0.000
+(−0.15)
+
+𝐶𝑅
+
+12
+−0.235
+(−19.62)
+
+𝑀𝐿𝐸𝑅𝐶𝑅
+
+1
+
+𝑀𝐿𝐸𝑅𝐶𝑅
+
+2
+
+𝑀𝐿𝐸𝑅𝐶𝑅
+
+3
+
+𝑀𝐿𝐸𝑅𝐶𝑅
+
+4
+
+𝑀𝐿𝐸𝑅𝐶𝑅
+
+5
+
+𝑀𝐿𝐸𝑅𝐶𝑅
+
+6
+
+282.503
+(11.97)
+
+89.942
+(8.20)
+
+𝑀𝐿𝐸𝑅𝐶𝑅
+
+7
+
+𝑀𝐿𝐸𝑅𝐶𝑅
+
+8
+
+18.418
+(5.39)
+
+20.680
+(14.28)
+
+51.901
+(7.20)
+
+𝑀𝐿𝐸𝑅𝐶𝑅
+
+9
+
+−18.183
+(−11.48)
+
+31.352
+(6.76)
+
+23.228
+(8.76)
+
+7.921
+(4.05)
+
+𝑀𝐿𝐸𝑅𝐶𝑅
+
+10
+
+𝑀𝐿𝐸𝑅𝐶𝑅
+
+11
+
+𝑀𝐿𝐸𝑅𝐶𝑅
+
+12
+
+1.162
+(0.86)
+
+30.575
+(22.06)
+
+15.374
+(8.78)
+
+Adj. 𝑅2
+
+55.36%
+
+(continued on next page)
+
+To construct bivariate portfolios, each month 𝑡 we sort stocks into 
+ﬁve  groups  based  on  an  ascending  ordering  of  the  control  variable. 
+We then sort all stocks within each control variable-based group into 
+ﬁve portfolios based on an ascending ordering of 𝑀𝐿𝐸𝑅. We take the 
+month 𝑡 excess return for each of the resulting 25 portfolios to be the 
+value-weighted average month 𝑡 excess return of all stocks in the port-
+folio. To create a single portfolio for each 𝑀𝐿𝐸𝑅 quintile, we deﬁne 
+the month 𝑡 excess return of the bivariate 𝑀𝐿𝐸𝑅 quintile 𝑘 portfolio 
+to be the equal-weighted average of the month 𝑡 excess returns of the 
+
+ﬁve 𝑀𝐿𝐸𝑅 quintile 𝑘 portfolios (one for each control variable quin-
+tile). Finally, we deﬁne the month 𝑡 bivariate 𝑀𝐿𝐸𝑅 5 − 1 portfolio 
+excess return to be the month 𝑡 excess return of the bivariate 𝑀𝐿𝐸𝑅
+quintile ﬁve portfolio minus that of the bivariate 𝑀𝐿𝐸𝑅 quintile one 
+portfolio.
+
+We construct the trivariate portfolios in a similar manner, except 
+before sorting on 𝑀𝐿𝐸𝑅 we sort on both 𝑀𝑜𝑚 and 𝑅𝑒𝑣. Speciﬁcally, 
+each month 𝑡 we sort the stocks in our sample into 25 groups based 
+on  the  intersections  of  ﬁve  𝑀𝑜𝑚 groups  and  ﬁve  𝑅𝑒𝑣 groups  con-
+
+JournalofFinancialEconomics153(2024)10379117S. Murray, Y. Xia and H. Xiao
+
+Table 10 (continued)
+
+Panel D: FM Regressions of Future Excess Returns on 𝑀𝐿𝐸𝑅, 𝐶𝑅
+1
+
+, … , 𝐶𝑅
+
+12 and 𝑀𝐿𝐸𝑅𝐶𝑅
+
+1
+
+, … , 𝑀𝐿𝐸𝑅𝐶𝑅
+
+12
+
+Weight
+
+Slope Coeﬃcients
+
+EW
+
+𝑀𝐿𝐸𝑅
+
+5.94
+(10.29)
+
+VW
+
+𝑀𝐿𝐸𝑅
+
+3.08
+(6.47)
+
+𝐶𝑅
+
+1
+−0.00
+(−0.21)
+
+𝐶𝑅
+
+7
+−0.00
+(−1.34)
+
+𝐶𝑅
+
+2
+0.00
+(0.05)
+
+𝐶𝑅
+
+8
+−0.00
+(−0.50)
+
+𝐶𝑅
+
+3
+−0.00
+(−2.09)
+
+𝐶𝑅
+
+9
+0.00
+(0.37)
+
+𝐶𝑅
+
+4
+0.00
+(1.12)
+
+𝐶𝑅
+
+10
+−0.00
+(−0.89)
+
+𝐶𝑅
+
+5
+−0.00
+(−1.82)
+
+𝐶𝑅
+
+11
+0.02
+(4.27)
+
+𝐶𝑅
+
+6
+0.00
+(0.63)
+
+𝐶𝑅
+
+12
+−0.01
+(−2.63)
+
+𝑀𝐿𝐸𝑅𝐶𝑅
+
+1
+
+𝑀𝐿𝐸𝑅𝐶𝑅
+
+2
+
+𝑀𝐿𝐸𝑅𝐶𝑅
+
+3
+
+𝑀𝐿𝐸𝑅𝐶𝑅
+
+4
+
+𝑀𝐿𝐸𝑅𝐶𝑅
+
+5
+
+𝑀𝐿𝐸𝑅𝐶𝑅
+
+6
+
+61.58
+(1.68)
+
+12.01
+(1.00)
+
+0.37
+(0.04)
+
+4.53
+(0.96)
+
+−8.79
+(−2.00)
+
+4.35
+(1.55)
+
+𝑀𝐿𝐸𝑅𝐶𝑅
+
+7
+
+𝑀𝐿𝐸𝑅𝐶𝑅
+
+8
+
+𝑀𝐿𝐸𝑅𝐶𝑅
+
+9
+
+𝑀𝐿𝐸𝑅𝐶𝑅
+
+10
+
+𝑀𝐿𝐸𝑅𝐶𝑅
+
+11
+
+𝑀𝐿𝐸𝑅𝐶𝑅
+
+12
+
+−1.17
+(−0.56)
+
+𝐶𝑅
+
+1
+0.00
+(0.69)
+
+𝐶𝑅
+
+7
+0.01
+(2.12)
+
+−0.86
+(−1.14)
+
+𝐶𝑅
+
+2
+0.00
+(0.66)
+
+𝐶𝑅
+
+8
+−0.00
+(−0.24)
+
+−0.15
+(−0.22)
+
+𝐶𝑅
+
+3
+−0.01
+(−3.05)
+
+𝐶𝑅
+
+9
+−0.00
+(−0.38)
+
+−0.16
+(−0.26)
+
+𝐶𝑅
+
+4
+0.01
+(3.84)
+
+𝐶𝑅
+
+10
+0.00
+(0.51)
+
+0.52
+(1.28)
+
+𝐶𝑅
+
+5
+−0.00
+(−0.37)
+
+𝐶𝑅
+
+11
+0.02
+(3.79)
+
+−0.00
+(−0.00)
+
+𝐶𝑅
+
+6
+−0.01
+(−2.86)
+
+𝐶𝑅
+
+12
+−0.01
+(−1.73)
+
+𝑀𝐿𝐸𝑅𝐶𝑅
+
+1
+
+𝑀𝐿𝐸𝑅𝐶𝑅
+
+2
+
+𝑀𝐿𝐸𝑅𝐶𝑅
+
+3
+
+𝑀𝐿𝐸𝑅𝐶𝑅
+
+4
+
+𝑀𝐿𝐸𝑅𝐶𝑅
+
+5
+
+𝑀𝐿𝐸𝑅𝐶𝑅
+
+6
+
+31.43
+(0.69)
+
+1.42
+(0.07)
+
+−4.79
+(−0.44)
+
+−1.14
+(−0.17)
+
+−2.45
+(−0.40)
+
+0.82
+(0.20)
+
+𝑀𝐿𝐸𝑅𝐶𝑅
+
+7
+
+𝑀𝐿𝐸𝑅𝐶𝑅
+
+8
+
+𝑀𝐿𝐸𝑅𝐶𝑅
+
+9
+
+𝑀𝐿𝐸𝑅𝐶𝑅
+
+10
+
+𝑀𝐿𝐸𝑅𝐶𝑅
+
+11
+
+𝑀𝐿𝐸𝑅𝐶𝑅
+
+12
+
+−0.04
+(−0.02)
+
+−0.07
+(−0.07)
+
+0.75
+(0.72)
+
+0.16
+(0.18)
+
+−0.11
+(−0.20)
+
+0.87
+(1.61)
+
+Table 11
+Relations between ML-Based Forecasts, Momentum, and Reversal. This 
+table presents the results of Fama and MacBeth (1973) regression anal-
+yses examining the ability of 𝑀𝑜𝑚, 𝑅𝑒𝑣, and 𝑀𝐿𝐸𝑅𝑀𝑜𝑚,𝑅𝑒𝑣 to explain 
+variation in 𝑀𝐿𝐸𝑅. The process for conducting the Fama and Mac-
+Beth (1973) regression analyses is exactly as described in Table 10. The 
+dependent variable in the regressions is 𝑀𝐿𝐸𝑅 and the independent 
+variables are combinations of 𝑀𝑜𝑚, 𝑅𝑒𝑣, and 𝑀𝐿𝐸𝑅𝑀𝑜𝑚,𝑅𝑒𝑣. Results 
+for diﬀerent regression speciﬁcations are shown in diﬀerent columns 
+of the table. The table presents the time-series averages of monthly 
+cross-sectional regression coeﬃcients, along with 𝑡-statistics, calculated 
+following Newey and West (1987) using 12 lags, testing the null hy-
+pothesis that the average coeﬃcient is equal to zero (in parentheses). 
+The rows labeled “𝑀𝑜𝑚”, “𝑅𝑒𝑣”, and “𝑀𝐿𝐸𝑅𝑀𝑜𝑚,𝑅𝑒𝑣” present results 
+pertaining to the coeﬃcient on the indicated variable. The row labeled 
+“Adj. 𝑅2” shows the average adjusted 𝑅2 from the cross-sectional re-
+gressions. The analyses cover sample months 𝑡 from July 1963 through 
+December 2022, inclusive.
+
+(2)
+
+(3)
+
+(1)
+
+0.001
+(31.50)
+
+−0.004
+(−72.27)
+
+𝑀𝑜𝑚
+
+𝑅𝑒𝑣
+
+𝑀𝐿𝐸𝑅𝑀𝑜𝑚,𝑅𝑒𝑣
+
+(4)
+
+0.000
+(10.93)
+−0.000
+(−7.81)
+0.815
+(102.38)
+
+57.20%
+
+0.878
+(207.32)
+
+55.01%
+
+Adj. 𝑅2
+
+10.14%
+
+26.68%
+
+structed from independent sorts on 𝑀𝑜𝑚 and 𝑅𝑒𝑣. Using stocks within 
+each of the 25 groups, we then sort stocks into ﬁve 𝑀𝐿𝐸𝑅 portfo-
+lios. The result is 125 portfolios, for which we calculate the month 𝑡
+value-weighted excess returns. We then deﬁne the excess return of the 
+trivariate quintile 𝑀𝐿𝐸𝑅 quintile 𝑘 portfolio to be the equal-weighted 
+average of the month 𝑡 excess returns of the 25 portfolios (one for each 
+intersection  of  the  𝑀𝑜𝑚 and  𝑅𝑒𝑣 groups)  corresponding  to  the  𝑘th 
+
+𝑀𝐿𝐸𝑅 quintile. Finally, we deﬁne month 𝑡 trivariate 𝑀𝐿𝐸𝑅 5 − 1
+portfolio excess return to be the month 𝑡 excess return of the trivari-
+ate 𝑀𝐿𝐸𝑅 quintile ﬁve portfolio minus that of the trivariate 𝑀𝐿𝐸𝑅
+quintile one portfolio.
+
+We use quintile portfolios, instead of decile portfolios, for these anal-
+yses to ensure that each portfolio is populated in each month. To enable 
+comparison with a benchmark that does not control for either 𝑀𝑜𝑚 or 
+𝑅𝑒𝑣, we also construct univariate 𝑀𝐿𝐸𝑅 quintile portfolios using ex-
+actly the same procedure as was used to construct the 𝑀𝐿𝐸𝑅 decile 
+portfolios examined in Section 4, except with ﬁve, instead of 10, port-
+folios.  The  values  of  𝑀𝑜𝑚,  𝑅𝑒𝑣,  and  𝑀𝐿𝐸𝑅 used  to  construct  the 
+portfolios are measured as of the end of month 𝑡 − 1 and the break-
+points used in all sorts are calculated using only NYSE-listed stocks.
+
+The average monthly univariate, bivariate, and trivariate 𝑀𝐿𝐸𝑅
+quintile portfolio excess returns are shown in Table 12. The univari-
+ate 𝑀𝐿𝐸𝑅 5 − 1 portfolio generates an average excess return of 0.72%
+per month (𝑡-statistic = 4.64) and the average excess returns of the in-
+dividual quintile portfolios monotonically increase across the 𝑀𝐿𝐸𝑅
+quintiles. The average excess return of the bivariate 𝑀𝐿𝐸𝑅 5 − 1 port-
+folio constructed to control for 𝑀𝑜𝑚 is 0.72% per month (𝑡-statistic = 
+6.28), which is similar to that of the univariate 𝑀𝐿𝐸𝑅 5 − 1 portfo-
+lio. The reason for this similarity is that, as discussed in Section XII of 
+the Internet Appendix, controlling for momentum causes the bivariate 
+𝑀𝐿𝐸𝑅 5 − 1 portfolio to avoid some large losses realized by the uni-
+variate 𝑀𝐿𝐸𝑅 5 − 1 portfolio that are associated with the momentum 
+eﬀect. The bivariate 𝑀𝐿𝐸𝑅 5 − 1 portfolio that controls for 𝑅𝑒𝑣 has 
+an average excess return of 0.61% per month (𝑡-statistic = 3.79). When 
+𝑀𝐿𝐸𝑅𝑀𝑜𝑚,𝑅𝑒𝑣
+is used as the control variable, the 𝑀𝐿𝐸𝑅 5 − 1 portfo-
+lio generates 0.44% per month (𝑡-statistic = 3.99). This is substantially 
+less than the 0.72% generated by the univarate 𝑀𝐿𝐸𝑅 5 − 1 portfolio, 
+but still economically large and highly statistically signiﬁcant.
+
+Finally, the trivariate 𝑀𝐿𝐸𝑅 5 − 1 portfolio has an average excess 
+return of 0.40% per month (𝑡-statistic = 3.79). The similarity of the av-
+erage excess returns of the bivariate portfolio analysis that controls for 
+
+JournalofFinancialEconomics153(2024)10379118S. Murray, Y. Xia and H. Xiao
+
+Table 12
+Multivariate Portfolio Analysis - Control for Momentum and Reversal. This table presents the 
+results of univariate, bivariate, and trivariate portfolio analyses examining the ability of the 
+ML-based forecasts to predict the cross-section of future stock returns after controlling for mo-
+mentum and reversal. The procedure used to generate the univariate portfolios is identical to 
+that used to generate the portfolios in Table 3, except we create ﬁve quintile portfolios instead 
+of 10 decile portfolios. The bivariate portfolios are constructed by sorting all stocks into quin-
+tiles based on a control variable, either 𝑀𝑜𝑚, 𝑅𝑒𝑣, or 𝑀𝐿𝐸𝑅𝑀𝑜𝑚,𝑅𝑒𝑣, and then within each 
+control variable quintile, into ﬁve 𝑀𝐿𝐸𝑅 portfolios. The trivariate portfolios are formed by 
+independently sorting stocks into quintiles of 𝑀𝑜𝑚 and 𝑅𝑒𝑣, and then sorting stocks in each 
+of the 25 groups formed by the intersections of the 𝑀𝑜𝑚 and 𝑅𝑒𝑣 quintiles, into 𝑀𝐿𝐸𝑅 quin-
+tiles. Breakpoints for all sorts are calculated using only NYSE-listed stocks. Values of 𝑀𝐿𝐸𝑅, 
+𝑀𝑜𝑚, 𝑅𝑒𝑣, and 𝑀𝐿𝐸𝑅𝑀𝑜𝑚,𝑅𝑒𝑣 are calculated as of the end of month 𝑡 − 1. The month 𝑡 ex-
+cess return of each of the resulting portfolios is taken to be the market capitalization-weighted 
+average month 𝑡 excess return of all stocks in the given portfolio, with market capitalization 
+calculated as of the end of month 𝑡 − 1. For the bivariate (trivariate) portfolios, the month 
+𝑡 excess return of the 𝑀𝐿𝐸𝑅 quintile 𝑘 portfolio is taken to be the equal-weighted aver-
+age, across all quintiles of the control variable (across all 25 𝑀𝑜𝑚 and 𝑅𝑒𝑣 groups), of the 
+𝑀𝐿𝐸𝑅 quintile 𝑘 portfolio. Finally, the 𝑀𝐿𝐸𝑅 5 − 1 portfolio excess return is taken to be 
+the diﬀerence between the 𝑀𝐿𝐸𝑅 quintile ﬁve and quintile one portfolio excess returns. 
+The table presents the time-series averages of the monthly portfolio excess returns for each of 
+the 𝑀𝐿𝐸𝑅 quintile portfolios. The column labeled “Control Variable(s)” indicates the con-
+trol variable(s) used to construct the portfolios. The columns labeled “𝑀𝐿𝐸𝑅 1” through 
+“𝑀𝐿𝐸𝑅 5” and “𝑀𝐿𝐸𝑅 5 − 1” present the average monthly excess portfolio returns along 
+with 𝑡-statistics, calculated following Newey and West (1987) using 12 lags, testing the null 
+hypothesis that the average monthly excess return of the given portfolio is equal to zero. All 
+excess returns are reported in percent per month. The analyses cover return months 𝑡 from 
+July 1963 through December 2022, inclusive.
+
+Control Variable(s)
+
+𝑀𝐿𝐸𝑅
+1
+
+𝑀𝐿𝐸𝑅
+2
+
+𝑀𝐿𝐸𝑅
+3
+
+𝑀𝐿𝐸𝑅
+4
+
+𝑀𝐿𝐸𝑅
+5
+
+𝑀𝐿𝐸𝑅
+5 − 1
+
+None
+(Univariate)
+
+𝑀𝑜𝑚
+
+(Bivariate)
+
+𝑅𝑒𝑣
+
+(Bivariate)
+
+𝑀𝐿𝐸𝑅𝑀𝑜𝑚,𝑅𝑒𝑣
+
+(Bivariate)
+
+𝑀𝑜𝑚 and 𝑅𝑒𝑣
+(Trivariate)
+
+0.12
+(0.50)
+
+0.12
+(0.53)
+
+0.22
+(0.84)
+
+0.32
+(1.46)
+
+0.39
+(1.65)
+
+0.47
+(2.37)
+
+0.40
+(1.96)
+
+0.53
+(2.64)
+
+0.50
+(2.54)
+
+0.52
+(2.54)
+
+0.60
+(3.52)
+
+0.62
+(3.42)
+
+0.63
+(3.63)
+
+0.57
+(3.18)
+
+0.62
+(3.24)
+
+0.68
+(4.12)
+
+0.75
+(4.20)
+
+0.64
+(3.87)
+
+0.64
+(3.77)
+
+0.74
+(4.09)
+
+0.85
+(4.91)
+
+0.84
+(4.62)
+
+0.83
+(4.89)
+
+0.76
+(4.35)
+
+0.79
+(4.35)
+
+0.72
+(4.64)
+
+0.72
+(6.28)
+
+0.61
+(3.79)
+
+0.44
+(3.99)
+
+0.40
+(3.79)
+
+𝑀𝐿𝐸𝑅𝑀𝑜𝑚,𝑅𝑒𝑣
+and the trivariate portfolio analysis that controls for 
+𝑀𝑜𝑚 and 𝑅𝑒𝑣 is not surprising because the trivariate portfolio anal-
+ysis captures both nonlinearities and interaction eﬀects in the ability 
+of 𝑀𝑜𝑚 and 𝑅𝑒𝑣 to predict the cross-section of future stock returns. 
+As with the univariate portfolios, the bivariate and trivariate portfo-
+lios exhibit monotonically increasing average excess returns across the 
+𝑀𝐿𝐸𝑅 quintiles.
+
+The results of the multivariate portfolio analyses show that while 
+momentum  and  reversal  contribute  to  𝑀𝐿𝐸𝑅’s  predictive  power, 
+𝑀𝐿𝐸𝑅 also has substantial predictive power that is unrelated to these 
+eﬀects.  In  Section XVII  and  Table A13  of  the  Internet  Appendix  we 
+show that FM regression analyses examining the ability of 𝑀𝐿𝐸𝑅 to 
+predict the future stock returns after controlling for 𝑀𝑜𝑚, 𝑅𝑒𝑣, and 
+𝑀𝐿𝐸𝑅𝑀𝑜𝑚,𝑅𝑒𝑣
+
+lead to the same conclusion.
+
+5.4.  Image-based forecasts
+
+In addition to momentum and reversal, there is some evidence of 
+other technical signals that predict future stock returns. Most notably, 
+Jiang et al. (2022, JKX hereafter) show that forecasts generated by ap-
+plying a convolutional neural network to images depicting past price 
+and volume data are informative about future returns. We therefore ex-
+amine whether controlling for JKX’s forecasts explains the predictive 
+power of 𝑀𝐿𝐸𝑅. Speciﬁcally, we control for each of JKX’s forecasts 
+that are designed to predict one-month-ahead stock returns. These fore-
+
+casts are based on charts of 60 days (𝐼60∕𝑅20), 20 days (𝐼20∕𝑅20), 
+and 5 days (𝐼5∕𝑅20) of past daily return and volume data.25 The fore-
+casts are available for sample months 𝑡 from 200102-202001. All tests 
+that use these variables cover this period.
+
+5.4.1.  Relations between ML-based forecasts and image-based forecasts
+
+We begin by examining the strength of the relation between the JKX 
+variables and 𝑀𝐿𝐸𝑅 by running FM regression analyses with 𝑀𝐿𝐸𝑅
+as  the  dependent  variable  and  combinations  of  𝐼60∕𝑅20,  𝐼20∕𝑅20, 
+and 𝐼5∕𝑅20 as independent variables. Table 13 shows that the average 
+adjusted 𝑅2s from these cross-sectional regressions are 7.23%, 2.43%, 
+and 1.07% when only 𝐼60∕𝑅20, 𝐼20∕𝑅20, and 𝐼5∕𝑅20, respectively, 
+are included as independent variables. When all three JKX variables 
+are included in the regression speciﬁcation, the average adjusted 𝑅2
+is 7.86%. In all speciﬁcations, the average slope coeﬃcient on each of 
+the JKX variables is signiﬁcantly positive. The results therefore indi-
+cate that while there is some commonality in the forecasts, most of the 
+variation in 𝑀𝐿𝐸𝑅 is unexplained by the JKX variables. The stronger 
+relation between 𝑀𝐿𝐸𝑅 and 𝐼60∕𝑅20 than between 𝑀𝐿𝐸𝑅 and ei-
+ther 𝐼20∕𝑅20 or 𝐼5∕𝑅20 is likely due to the greater overlap in the past 
+data used to generate these forecasts.
+
+25 We are very grateful to Bryan Kelly and Dacheng Xiu for sharing their stock, 
+month-level forecasts.
+
+JournalofFinancialEconomics153(2024)10379119S. Murray, Y. Xia and H. Xiao
+
+Table 13
+Relations between ML-Based Forecasts and Image-Based Fore-
+casts.  This  table  presents  the  results  of  Fama  and  MacBeth 
+(1973) regression analyses examining the ability of 𝐼60∕𝑅20, 
+𝐼20∕𝑅20, and 𝐼5∕𝑅20 to explain variation in 𝑀𝐿𝐸𝑅. The 
+process for conducting the Fama and MacBeth (1973) regres-
+sion  analyses  is  exactly  as  described  in  Table 10.  The  de-
+pendent variable in the regressions is 𝑀𝐿𝐸𝑅 and the inde-
+pendent  variables  are  combinations  of  𝐼60∕𝑅20,  𝐼20∕𝑅20, 
+and 𝐼5∕𝑅20. Results for diﬀerent regression speciﬁcations are 
+shown in diﬀerent columns of the table. The table presents the 
+time-series averages of monthly cross-sectional regression co-
+eﬃcients, along with 𝑡-statistics, calculated following Newey 
+and West (1987) using 12 lags, testing the null hypothesis that 
+the average coeﬃcient is equal to zero (in parentheses). The 
+rows labeled “𝐼60∕𝑅20”, “𝐼20∕𝑅20”, and “𝐼5∕𝑅20” present 
+results pertaining to the coeﬃcient on the indicated variable. 
+The  row  labeled  “Adj.  𝑅2”  shows  the  average  adjusted  𝑅2
+from the cross-sectional regressions. The analyses cover sample 
+months 𝑡 from February 2001 through January 2020, inclusive.
+
+(2)
+
+(3)
+
+(1)
+
+0.586
+(58.46)
+
+0.300
+(30.03)
+
+𝐼60∕𝑅20
+
+𝐼20∕𝑅20
+
+𝐼5∕𝑅20
+
+Adj. 𝑅2
+
+7.23%
+
+2.43%
+
+0.225
+(16.66)
+
+1.07%
+
+(4)
+
+0.559
+(56.62)
+0.024
+(2.46)
+0.059
+(4.92)
+
+7.86%
+
+5.4.2.  Alphas relative to factor models with image-based forecast factors
+
+To test whether the predictive power of 𝑀𝐿𝐸𝑅 is subsumed by that 
+of the image-based forecasts of JKX, we ﬁrst investigate whether the 
+performance of the 𝑀𝐿𝐸𝑅 10 − 1 portfolio can be explained by factors 
+based on 𝐼60∕𝑅20, 𝐼20∕𝑅20, and 𝐼5∕𝑅20. For each image based fore-
+cast 𝑋 ∈ {𝐼60∕𝑅20, 𝐼20∕𝑅20, 𝐼5∕𝑅20}, we construct a factor using a 
+methodology similar to that of Fama and French (1993).26 Speciﬁcally, 
+each month 𝑡, we sort all stocks into two groups based on market capi-
+talization, using the median market capitalization of NYSE-listed stocks 
+at the end of month 𝑡 − 1 as the breakpoint. Independently, we sort 
+all stocks into three groups based on 𝑋 measured at the end of month 
+𝑡 − 1, using the 30th percentile and 70th percentile values of 𝑋 calcu-
+lated using only NYSE-listed stocks as the breakpoints. The intersections 
+of the two market capitalization-based groups and three groups formed 
+by sorting on 𝑋 make six portfolios. We take the month 𝑡 excess return 
+of each of these portfolios to be the market capitalization-weighted av-
+erage month 𝑡 excess return of all stocks in the given portfolio. The 
+excess return of the factor based on 𝑋, which we denote 𝐹𝑋 , is deﬁned 
+as the average excess return of the two portfolios that contain stocks 
+with values of 𝑋 above the NYSE 70th percentile minus the average ex-
+cess return of the two portfolios that contain stocks with values of 𝑋
+below the NYSE 30th percentile. We then augment each of the CAPM, 
+FF, FFC, FFC+REV, FF5, and Q factor models with 𝐹𝐼60∕𝑅20, 𝐹𝐼20∕𝑅20, 
+and 𝐹𝐼5∕𝑅20 and conduct factor model regressions of the 𝑀𝐿𝐸𝑅 10 − 1
+portfolio excess returns using these augmented factor models.
+
+Since the analyses using factors based on the image-based forecasts 
+cover only the 200102-202001 subperiod for which the image-based 
+forecasts are available, we begin by describing the performance of the 
+𝑀𝐿𝐸𝑅 10 − 1 portfolio during this subperiod. Table 14 shows that 
+the average excess return of the 𝑀𝐿𝐸𝑅 10 − 1 portfolio during this 
+period  is  0.82% per  month,  which  is  economically  large  but  statisti-
+
+cally insigniﬁcant, with a 𝑡-statistic of 1.72. We attribute the statistical 
+insigniﬁcance of the 𝑀𝐿𝐸𝑅 10 − 1 portfolio’s average excess return 
+during this period to the reduced test power associated with the short-
+ened length of the sample period (19 years compared to 59.5 years for 
+the full sample period).27 Furthermore, the 𝑀𝐿𝐸𝑅 10 − 1 portfolio’s 
+average excess return of 0.82% per month during the 200102-202001 
+subperiod covered by these tests is lower than the 1.08% per month gen-
+erated by this portfolio during the full sample period, suggesting that 
+measures of the 𝑀𝐿𝐸𝑅 10 − 1 portfolio’s performance based on this 
+sample may be downward-biased estimates of the corresponding true 
+population values.28
+
+The top of Table 15 shows the monthly alphas of the 𝑀𝐿𝐸𝑅 10 − 1
+portfolio during the 200102-202001 subperiod relative to previously-
+established  factor  models.  Despite  the  concerns  about  bias  and  test 
+power,  the  monthly  alphas  with  respect  to  the  CAPM,  FF,  FFC,  and 
+FFC+REV  models  of  1.15% (𝑡-statistic  =  2.50),  1.19% (𝑡-statistic  = 
+2.56),  0.75% (𝑡-statistic  =  2.38),  and  0.64% (𝑡-statistic  =  2.48),  re-
+spectively, are all economically large and highly statistically signiﬁcant. 
+The monthly alphas with respect to the FF5 and Q models of 0.65% (𝑡-
+statistic = 1.88) and 0.45% (𝑡-statistic = 1.16), respectively, are both 
+insigniﬁcant. As shown in Section 4.2 and Table 4, the alphas with re-
+spect to all models are highly signiﬁcant when estimated using the full 
+sample period. We therefore attribute the insigniﬁcance of the FF5 and 
+Q factor model alphas during the 200102-202001 subperiod to some 
+combination of low test power and potential bias. The insigniﬁcance 
+of these alphas makes it impractical to assess whether the predictive 
+power  of  𝑀𝐿𝐸𝑅 is  subsumed  by  that  of  the  image-based  forecasts 
+based on the statistical signiﬁcance of the alphas from the augmented 
+factor model regressions. Our interpretation of the results of the factor 
+model regressions that use the augmented factor models will therefore 
+focus on the reduction in alpha relative to the unaugmented model, the 
+change in the adjusted 𝑅2 relative to the unaugmented model, and the 
+slope coeﬃcients on 𝐹𝐼60∕𝑅20, 𝐹𝐼20∕𝑅20, and 𝐹𝐼5∕𝑅20. If the predictive 
+power of  𝑀𝐿𝐸𝑅 is subsumed by that of the image-based forecasts, 
+we expect the estimated alpha from the augmented factor model to be 
+much lower than that of the unaugmented model and close to zero, the 
+adjusted 𝑅2 from the augmented model to be substantially higher than 
+that of the unaugmented model, and the slope coeﬃcients on 𝐹𝐼60∕𝑅20, 
+𝐹𝐼20∕𝑅20, and 𝐹𝐼5∕𝑅20 to be large and signiﬁcant.
+
+Table 15 shows that the 𝑀𝐿𝐸𝑅 10 − 1 portfolio’s alphas with re-
+spect to the augmented CAPM, FF, FFC, and FFC+REV factor models of 
+1.01% (𝑡-statistic = 2.79), 1.10% (𝑡-statistic = 3.09), 0.67% (𝑡-statistic 
+= 2.30), and 0.61% (𝑡-statistic = 2.44), respectively, are once again all 
+economically large and highly signiﬁcant. Thus, for all unaugmented 
+factor models that produced a signiﬁcant 𝑀𝐿𝐸𝑅 10 − 1 portfolio al-
+pha during 200102-202001 subperiod, the corresponding augmented 
+model alpha is also signiﬁcant. While the slope coeﬃcient on 𝐹𝐼60∕𝑅20
+when using the augmented CAPM and FF models is signiﬁcantly posi-
+tive, this slope coeﬃcient is small and insigniﬁcant when using in the 
+augmented FFC and FFC+REV models. Furthermore, the alphas and ad-
+justed 𝑅2 values from the augmented FFC and FFC+REV factor models 
+are nearly unchanged from those of the corresponding unaugmented 
+models.  These  results  indicate  that  any  commonality  in  the  predic-
+tive power of 𝑀𝐿𝐸𝑅 and the image-based forecasts is because both 
+𝑀𝐿𝐸𝑅 and the image-based forecasts have components related to mo-
+mentum and reversal. When using the FF5 and Q factor models, the 
+results show that the augmented models produce alphas that are simi-
+lar to, and adjusted 𝑅2 values that are only slightly higher than, those 
+of the corresponding unaugmented models. The slope coeﬃcients on 
+
+26 In Section XVIII and Table A14 of the Internet Appendix, we repeat our 
+tests using factors deﬁned as the excess return of the long-short portfolio con-
+structed from decile portfolios formed by sorting on the JKX variables and ﬁnd 
+no qualitative change in the results of our analyses.
+
+27 Other papers with short sample periods (e.g. Martin (2017)) face similar 
+issues of low statistical power.
+28 The 𝑀𝐿𝐸𝑅 10 − 1 produces an average excess return greater than 0.82%
+per month in 397 of 487 consecutive 19-year subperiods during the full 196307-
+202212 sample period.
+
+JournalofFinancialEconomics153(2024)10379120S. Murray, Y. Xia and H. Xiao
+
+Table 14
+Portfolio Analysis - 200102-202001. This table presents the results of a portfolio analysis examining the ability of 𝑀𝐿𝐸𝑅 to 
+predict the cross-section of future stock returns during the 200102-202001 period. The analysis is identical to that whose results 
+are shown in Table 3 except that the results presented in this table are for return months 𝑡 from February 2001 through January 
+2020, inclusive.
+
+𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅 𝑀𝐿𝐸𝑅
+10 − 1
+6
+
+10
+
+7
+
+1
+
+2
+
+3
+
+4
+
+5
+
+8
+
+9
+
+−0.02
+(−0.03)
+
+7.52
+−0.01
+
+0.41
+(0.86)
+
+6.21
+0.23
+
+0.50
+(1.22)
+
+5.57
+0.31
+
+0.56
+(1.46)
+
+5.30
+0.36
+
+0.52
+(1.56)
+
+4.44
+0.40
+
+0.71
+(2.58)
+
+4.22
+0.59
+
+0.68
+(2.37)
+
+4.00
+0.59
+
+0.58
+(1.90)
+
+3.98
+0.51
+
+0.68
+(2.36)
+
+3.88
+0.61
+
+0.80
+(2.32)
+
+4.50
+0.62
+
+0.82
+(1.72)
+
+5.75
+0.49
+
+Value
+
+𝑟
+
+SD
+Sharpe
+
+Table 15
+Alphas Using Image-Based Forecast Factors. This table presents the results of factor model regressions of the excess 
+returns of the 𝑀𝐿𝐸𝑅 10 − 1 portfolio on the excess returns of factors in diﬀerent factor models. The 𝑀𝐿𝐸𝑅 10 − 1
+portfolio is the same as that whose average excess returns are shown in Table 3. The excess return of the 𝐹𝑋 factor, for 
+𝑋 ∈ {𝐼60∕𝑅20, 𝐼20∕𝑅20, 𝐼5∕𝑅20}, is that of the long-short portfolio formed by sorting on both market capitalization 
+and 𝑋, constructed using a methodology, described in Section 5.4.2, similar to that of Fama and French (1993). The 
+column labeled “Model” indicates the factor model, where “Base Model” refers to the model indicated in the header 
+of columns other than the “Model” and “Value” columns and “Base Model+ 𝐹𝐼60∕𝑅20 + 𝐹𝐼20∕𝑅20 + 𝐹𝐼5∕𝑅20” refers to a 
+model that augments the factors in the model shown in the column header with 𝐹𝐼60∕𝑅20, 𝐹𝐼20,𝑅20, and 𝐹𝐼5∕𝑅20. The rows 
+with “𝛼” and “Adj. 𝑅2” in the “Value” column present the intercept and adjusted 𝑅2, respectively, of the regression. 
+The rows with “𝛽𝐹𝑋 ” in the “Value” column present the slope coeﬃcient on 𝐹𝑋 from the regression. Alphas are reported 
+in percent per month. The values in parentheses are 𝑡-statistics, calculated following Newey and West (1987) using 12 
+lags, testing the null hypothesis that the average monthly alpha or slope coeﬃcient is equal to zero. The analyses cover 
+return months 𝑡 from February 2001 through January 2020, inclusive.
+
+Model
+
+Base Model
+
+Value
+
+𝛼
+
+Adj. 𝑅2
+
+Base Model+ 𝐹𝐼60∕𝑅20 + 𝐹𝐼20∕𝑅20 + 𝐹𝐼5∕𝑅20
+
+𝛼
+
+𝛽𝐹𝐼60∕𝑅20
+
+𝛽𝐹𝐼20∕𝑅20
+
+𝛽𝐹𝐼5∕𝑅20
+
+Adj. 𝑅2
+
+CAPM
+
+1.15
+(2.50)
+19.88%
+
+1.01
+(2.79)
+1.20
+(3.29)
+−0.33
+(−1.10)
+−0.23
+(−0.78)
+27.80%
+
+FF
+
+FFC
+
+FFC+REV
+
+FF5
+
+Q
+
+1.19
+(2.56)
+22.42%
+
+1.10
+(3.09)
+1.20
+(3.31)
+−0.39
+(−1.32)
+−0.28
+(−0.93)
+29.82%
+
+0.75
+(2.38)
+57.20%
+
+0.67
+(2.30)
+0.18
+(0.67)
+0.18
+(0.70)
+−0.12
+(−0.51)
+56.94%
+
+0.64
+(2.48)
+65.38%
+
+0.61
+(2.44)
+0.31
+(1.41)
+0.19
+(0.73)
+−0.28
+(−1.47)
+65.61%
+
+0.65
+(1.88)
+30.82%
+
+0.72
+(2.64)
+0.83
+(1.83)
+−0.31
+(−1.08)
+−0.22
+(−0.68)
+33.70%
+
+0.45
+(1.16)
+48.96%
+
+0.47
+(1.36)
+0.38
+(1.39)
+−0.11
+(−0.42)
+−0.23
+(−0.98)
+50.70%
+
+each  of  𝐹𝐼60∕𝑅20,  𝐹𝐼20∕𝑅20,  and  𝐹𝐼5∕𝑅20 are  also  insigniﬁcant  in  the 
+augmented FF5 and Q factor models.
+
+In  sum,  the  results  in  Table 15 support  the  conclusion  that  the 
+predictive  power  of  𝑀𝐿𝐸𝑅 remains  strong  after  controlling  for  the 
+image-based forecasts of JKX.
+
+5.4.3.  Additional tests that control for image-based forecasts
+
+We conduct several additional tests to further investigate whether 
+the predictive power of 𝑀𝐿𝐸𝑅 persists after controlling for the image-
+based forecasts of JKX. Our ﬁrst such tests are bivariate portfolio anal-
+yses. The results of these tests, presented in Section XIX and Table A15 
+of  the  Internet  Appendix,  demonstrate  that  portfolios  constructed  to 
+be neutral to one of the JKX variables while taking long (short) posi-
+tions in stocks with high (low) values of 𝑀𝐿𝐸𝑅 generate economically 
+large and highly statistically signiﬁcant average excess returns. These 
+tests provide further evidence that the predictive power of 𝑀𝐿𝐸𝑅 is 
+distinct from that of 𝐼60∕𝑅20, 𝐼20∕𝑅20, and 𝐼5∕𝑅20.
+
+We next investigate the ability of the JKX variables to explain the 
+predictive  power  of  𝑀𝐿𝐸𝑅 using  FM  regression  analyses  with  the 
+one-month-ahead  excess  stock  return  as  the  dependent  variable  and 
+combinations of 𝑀𝐿𝐸𝑅, 𝐼60∕𝑅20, 𝐼20∕𝑅20, 𝐼5∕𝑅20, 𝑀𝑜𝑚, 𝑅𝑒𝑣, and 
+𝑀𝐿𝐸𝑅𝑀𝑜𝑚,𝑅𝑒𝑣
+as independent variables. These analyses allow us to 
+simultaneously control for all of the JKX variables, as well as momen-
+tum and reversal. The results of these tests, presented in Section XX 
+and Table A16 of the Internet Appendix, show that regardless of which 
+
+combination of the JKX variables, 𝑀𝑜𝑚, 𝑅𝑒𝑣, and 𝑀𝐿𝐸𝑅𝑀𝑜𝑚,𝑅𝑒𝑣
+is 
+included as controls in the regression speciﬁcation, the average coeﬃ-
+cient on 𝑀𝐿𝐸𝑅 remains positive and highly statistically signiﬁcant.
+
+Our next tests investigate whether the predictive power of 𝑀𝐿𝐸𝑅
+persists after accounting for any potential nonlinearity in the relation 
+between the JKX variables and 𝑀𝐿𝐸𝑅. Including the JKX variables 
+as controls in FM regression analyses may not eﬀectively control for 
+the  relation  between  𝑀𝐿𝐸𝑅 and  these  variables  if  the  relation  be-
+tween the JKX variables and 𝑀𝐿𝐸𝑅 is not linear. To assess the degree 
+of nonlinearity in the relations between these variables, we begin by 
+generating plots of 𝑀𝐿𝐸𝑅 and the JKX variables. These plots, shown 
+in  Figure A6  of  the  Internet  Appendix,  provide  no  evidence  of  non-
+linear relations between 𝑀𝐿𝐸𝑅 and the JKX variables. We then run 
+FM regression analyses that include, in addition to the untransformed 
+JKX  variables,  the  natural  log,  square  root,  and  square  of  𝐼60∕𝑅20, 
+𝐼20∕𝑅20, and 𝐼5∕𝑅20 as independent variables in the regressions.29
+High correlations between the untransformed and transformed versions 
+of the JKX variables cause multicollinearity challenges with these re-
+
+29 Our approach is similar to that of Kirby (2020), who includes the squared 
+and cubed values, as well as pairwise interactions, of stock-level characteristics 
+in cross-sectional regressions designed to estimate the returns associated with 
+pure play factor portfolios when the relation between the characteristics and 
+expected returns is nonlinear.
+
+JournalofFinancialEconomics153(2024)10379121S. Murray, Y. Xia and H. Xiao
+
+gressions that make it diﬃcult to interpret the slope coeﬃcients on the 
+JKX variables. These issues do not aﬀect the average slope coeﬃcients 
+on 𝑀𝐿𝐸𝑅, which remain positive and highly statistically signiﬁcant in 
+all such tests (untabulated). Finally, to address the concern of nonlinear-
+ity while overcoming the challenges associated with multicollinearity 
+in the FM regression analyses, we use feed forward neural networks 
+to create forecasts of 𝑀𝐿𝐸𝑅 based on the JKX variables, and include 
+these forecasts, which we denote 𝐸[𝑀𝐿𝐸𝑅|JKX], as a control in FM 
+regressions analyses. The calculation of  𝐸[𝑀𝐿𝐸𝑅|JKX] is described 
+in detail in Section XX of the Internet Appendix. The results of tests 
+using  𝐸[𝑀𝐿𝐸𝑅|JKX] are  shown  in  Tables A17  and A18  of  the  In-
+ternet Appendix. In all speciﬁcations, the average slope coeﬃcient on 
+𝑀𝐿𝐸𝑅 remains positive and highly statistically signiﬁcant after con-
+trolling for 𝐸[𝑀𝐿𝐸𝑅|JKX]. These tests, therefore, provide additional 
+evidence that the predictive power of 𝑀𝐿𝐸𝑅 is distinct from that of 
+the image-based forecasts of JKX.
+
+Our ﬁnal tests investigating whether the predictive power of 𝑀𝐿𝐸𝑅
+persists after controlling for the JKX forecasts use the omitted factor 
+methodology of Giglio and Xiu (2021, GX hereafter). As described in 
+Section XXI and Table A19 of the Internet Appendix, we use the GX 
+methodology to estimate the risk premium of the univariate 𝑀𝐿𝐸𝑅
+10 − 1 portfolio based on a large set of base test assets that does not 
+include portfolios formed by sorting on the JKX variables (JKX port-
+folios hereafter), and then again with an augmented set of test assets 
+that includes JKX portfolios. We ﬁnd that adding the JKX portfolios 
+to  the  set  of  test  assets  has  almost  no  eﬀect  on  the  estimate  of  the 
+𝑀𝐿𝐸𝑅 10 − 1 portfolio’s risk premium, indicating that the JKX vari-
+ables do not provide incremental ability to explain the predictive power 
+of 𝑀𝐿𝐸𝑅 relative to the variables underlying the base set of test as-
+sets. Furthermore, regardless of whether the set of assets used in the GX 
+methodology includes or excludes the JKX portfolios, the estimates of 
+the 𝑀𝐿𝐸𝑅 10 − 1 portfolio’s risk premium are much smaller than the 
+average excess return of the 𝑀𝐿𝐸𝑅 10 − 1 portfolio and statistically 
+insigniﬁcant, indicating that the predictive power of 𝑀𝐿𝐸𝑅 is not sub-
+sumed by a combination of the variables used in the construction of the 
+test assets.
+
+Summarily,  the  results  of  these  portfolio  analyses,  FM  regression 
+analyses,  and  analyses  using  the  GX  methodology,  indicate  that  the 
+ability of 𝑀𝐿𝐸𝑅 to predict the cross-section of future stock returns 
+remains strong after controlling for the image-based forecasts of JKX, 
+momentum, and reversal.
+
+5.5.  Technical signals
+
+We  next  examine  whether  the  predictive  power  of  our  ML-based 
+forecasts is subsumed by previously-studied technical trading signals. 
+The technical signals we use come from Neely et al. (2014, NRTZ here-
+after) and  Freyberger  et  al.  (2020,  FNW  hereafter).  NRTZ  study  14 
+technical signals, each of which is an indicator set to one (zero) for 
+stocks with positive (negative) forecasts. These signals are well-suited 
+for our purposes because, like 𝑀𝐿𝐸𝑅, they are based on monthly re-
+turn data. Six of these signals are based on moving average prices, two 
+are momentum-based signals, and the remaining six are derived from 
+on-balance volume (OBV). The moving average signals (𝐼𝑀𝐴(𝑠)≥𝑀𝐴(𝑙)) 
+are  set  to  one  if  the  moving  average  price  over  the  past  𝑠 months 
+(𝑀𝐴(𝑠))  is  greater  than  or  equal  to  the  moving  average  price  over 
+the  past  𝑙 months  (𝑀𝐴(𝑙)),  and  zero  otherwise,  where  𝑠 ∈ {1, 2, 3}
+and 𝑙 ∈ {9, 12}. The momentum signals (𝐼𝑃𝑡≥𝑃𝑡−𝑚 ) are set to one if the 
+current price is greater than or equal to the price 𝑚 months ago, and 
+zero otherwise, for 𝑚 ∈ {9, 12}. The OBV signals (𝐼𝑀𝐴𝑂𝐵𝑉 (𝑠)≥𝑀𝐴𝑂𝐵𝑉 (𝑙)) 
+take the value one if the moving average OBV over the past 𝑠 months 
+(𝑀𝐴𝑂𝐵𝑉 (𝑠)) is greater than or equal to the moving average OBV over 
+the past 𝑙 months (𝑀𝐴𝑂𝐵𝑉 (𝑙)), for 𝑠 ∈ {1, 2, 3} and 𝑙 ∈ {9, 12}. The 
+OBV of any stock 𝑖 in any month 𝑡 is the sum over all months 𝑘 be-
+ginning when the stock is listed and ending in month 𝑡, of the stock’s 
+month 𝑘 signed trading volume, where the signed trading volume is the 
+
+stock’s trading volume (the negative of the stock’s trading volume) if 
+the stock’s price at the end of month 𝑘 is greater than or equal to (less 
+than) its price at the end of month 𝑘 − 1.30
+
+FNW study the joint predictive power of 62 stock-level character-
+istic variables, many of which they characterize as “trading friction” 
+variables.  We  use  14  trading  frictions  variables  examined  in  FNW, 
+most of which are calculated from past market data and thus may be 
+discernable from plots depicting such data.31 These variables include 
+total volatility (𝑇 𝑜𝑡𝑉 𝑜𝑙) and idiosyncratic volatility (𝐼𝑑𝑖𝑜𝑉 𝑜𝑙) calcu-
+lated  following  Ang  et  al.  (2006),  price  relative  to  its  52-week  high 
+(𝑃 𝑟𝑖𝑐𝑒∕𝐻𝑖𝑔ℎ, see George and Hwang (2004)), the maximum daily re-
+turn  in  the  past  month  (𝑀𝑎𝑥,  see  Bali  et  al.  (2011)),  the  standard 
+deviation of daily turnover (𝜎𝑇 𝑢𝑟𝑛) and the standard deviation of daily 
+volume (𝜎𝑉 𝑜𝑙𝑢𝑚𝑒) of Chordia et al. (2001), beta (𝛽𝐹 𝑃 ) calculated fol-
+lowing  Frazzini  and  Pedersen  (2014),  beta  (𝛽𝐿𝑁 )  calculated  follow-
+ing  Lewellen  and  Nagel  (2006),  detrended  market-adjusted  turnover 
+(𝐷𝑇 𝑂)  and  standardized  unexpected  volume  (𝑆𝑈 𝑉 )  of  Garﬁnkel 
+(2009),  turnover  (𝑇 𝑢𝑟𝑛,  see  Datar  et  al.  (1998)),  total  assets  (𝐴𝑇 ), 
+market capitalization (𝑀𝑘𝑡𝐶𝑎𝑝), and industry-demeaned market cap-
+italization (𝑀𝑘𝑡𝐶𝑎𝑝𝐼𝑛𝑑𝐴𝑑𝑗 ). Detailed descriptions of the calculations of 
+these variables are in Section XXII of the Internet Appendix. While 𝐴𝑇 , 
+𝑀𝑘𝑡𝐶𝑎𝑝, and 𝑀𝑘𝑡𝐶𝑎𝑝𝐼𝑛𝑑𝐴𝑑𝑗 are not calculated from histories of mar-
+ket data, we include them because they are plausibly related to market 
+frictions that may manifest in patterns evident in historical price plots.
+In Panel A of Table 16 we present the average excess returns of long-
+short portfolios formed by sorting on 𝑀𝐿𝐸𝑅 that are neutral to one of 
+the NRTZ technical signals. For each NRTZ technical signal, we sort 
+stocks with each value of the signal (zero or one) into decile 𝑀𝐿𝐸𝑅
+portfolios using NYSE breakpoints. We calculate the excess returns of 
+each of the resulting value-weighted portfolios, and take the 𝑀𝐿𝐸𝑅
+10 − 1 portfolio excess return to be the equal-weighted average excess 
+return of the two 𝑀𝐿𝐸𝑅 decile 10 portfolios minus that of the two 
+𝑀𝐿𝐸𝑅 decile  one  portfolios.  The  results  show  that  the  average  ex-
+cess returns of each of these 𝑀𝐿𝐸𝑅 10 − 1 portfolios is positive, large 
+in magnitude, and highly statistically signiﬁcant, with all associated 𝑡-
+statistics being 5.67 or higher.
+
+Table 16 Panel B presents the average monthly excess returns of 
+𝑀𝐿𝐸𝑅 5 − 1 portfolios that are constructed to be neutral to a FNW 
+technical  variable.  The  methodology  used  to  construct  these  portfo-
+lios is identical to that used to construct the 𝑀𝐿𝐸𝑅 5 − 1 portfolios 
+that control for momentum and reversal, discussed in Section 5.3.2, ex-
+cept we use one of the FNW technical signals as the ﬁrst sort variable. 
+The average monthly excess returns of the 𝑀𝐿𝐸𝑅 5 − 1 portfolios that 
+are neutral to the FNW technical signals are all positive, economically 
+large, and highly statistically signiﬁcant, ranging from 0.70% (𝑡-statistic 
+= 6.26) when controlling for 𝛽𝐹 𝑃 to 1.02% (𝑡-statistic = 6.20) when 
+controlling for 𝑀𝑘𝑡𝐶𝑎𝑝.
+
+In  Section XXIII  and  Table A20  of  the  Internet  Appendix  we  use 
+equal-weighted and value-weighted FM regression analyses to further 
+investigate whether the predictive power of 𝑀𝐿𝐸𝑅 persists after con-
+trolling for the technical signals. Regardless of which set of technical 
+variables we include as controls in the regression speciﬁcation, the aver-
+age coeﬃcient on 𝑀𝐿𝐸𝑅 is positive and highly statistically signiﬁcant. 
+Finally, we use the excess returns of a long-short portfolio generated 
+by FNW as a factor in factor model regressions.32 FNW construct this 
+portfolio by sorting stocks based on a composite forecast calculated by 
+
+30 Our deﬁnitions follow those of NRTZ. Prices and volumes are adjusted for 
+splits and stock dividends.
+31 FNW use 15 trading friction variables in their analyses. We use the 14 vari-
+ables  that  are  available  for  the  entirety  of  our  sample  period.  Due  to  data 
+constraints discussed in Chung and Zhang (2014), the average daily bid-ask 
+spread variable (denoted “Spread” in FNW, see their Table 1) cannot be calcu-
+lated for a large portion of our sample period.
+32 We thank Michael Weber for sharing the excess returns of this portfolio.
+
+JournalofFinancialEconomics153(2024)10379122S. Murray, Y. Xia and H. Xiao
+
+Table 16
+Multivariate Portfolio Analysis - Control for Technical Signals. This table presents the results of bivariate portfolio analyses examining the ability 
+of the ML-based forecasts to predict the cross-section of future stock returns after controlling for other technical signals. The technical signals 
+are those used by Neely et al. (2014, NRTZ) and Freyberger et al. (2020, FNW), described in Section 5.5. Panel A presents the average excess 
+returns of 𝑀𝐿𝐸𝑅 10 − 1 portfolios designed to be neutral to diﬀerent NRTZ technical signals (indicated in the column headers). At the end of 
+each month 𝑡 − 1, stocks with each value of the given technical signal (either 0 or 1), are sorted into decile portfolios based on an ascending 
+ordering of 𝑀𝐿𝐸𝑅 using breakpoints calculated from NYSE-listed stocks. The month 𝑡 excess return of each portfolio is then taken to be the 
+market capitalization-weighted average month 𝑡 excess return of all stocks in the portfolio, with market capitalization calculated as of the end 
+of month 𝑡 − 1. The 𝑀𝐿𝐸𝑅 10 − 1 portfolio excess return is taken to be the equal-weighted average excess return of the two decile 10 𝑀𝐿𝐸𝑅
+portfolios minus that of the two decile 1 portfolios. Panel B presents the average excess returns of 𝑀𝐿𝐸𝑅 5 − 1 portfolios designed to be 
+neutral to diﬀerent FNW technical signals (indicated in the column headers). The methodology used to construct these 𝑀𝐿𝐸𝑅 5 − 1 portfolios 
+is identical to that used to construct the bivariate portfolios examined in Table 12 except that one of the FNW technical signals is used as the ﬁrst 
+sort variable. The values in parentheses are 𝑡-statistics, calculated following Newey and West (1987) using 12 lags, testing the null hypothesis 
+that the average monthly excess return is equal to zero. The analyses cover return months 𝑡 from July 1963 through December 2022, inclusive.
+
+Panel A: 𝑀𝐿𝐸𝑅 10 − 1 Port. Avg. Excess Return - Control for NRTZ Variables
+
+)
+9
+(
+𝐴
+𝑀
+≥
+)
+1
+(
+𝐴
+𝑀
+𝐼
+
+)
+2
+1
+(
+𝐴
+𝑀
+≥
+)
+1
+(
+𝐴
+𝑀
+𝐼
+
+)
+9
+(
+𝐴
+𝑀
+≥
+)
+2
+(
+𝐴
+𝑀
+𝐼
+
+)
+2
+1
+(
+𝐴
+𝑀
+≥
+)
+2
+(
+𝐴
+𝑀
+𝐼
+
+)
+9
+(
+𝐴
+𝑀
+≥
+)
+3
+(
+𝐴
+𝑀
+𝐼
+
+)
+2
+1
+(
+𝐴
+𝑀
+≥
+)
+3
+(
+𝐴
+𝑀
+𝐼
+
+9
+−
+
+𝑡
+
+𝑃
+≥
+𝑃
+
+𝑡
+
+𝐼
+
+2
+1
+−
+
+𝑡
+
+𝑃
+≥
+𝑃
+
+𝑡
+
+𝐼
+
+)
+9
+(
+𝐴
+𝑀
+𝑉
+𝐵
+𝑂
+≥
+)
+1
+(
+𝐴
+𝑀
+𝑉
+𝐵
+𝑂
+𝐼
+
+)
+2
+1
+(
+𝐴
+𝑀
+𝑉
+𝐵
+𝑂
+≥
+)
+1
+(
+𝐴
+𝑀
+𝑉
+𝐵
+𝑂
+𝐼
+
+)
+9
+(
+𝐴
+𝑀
+𝑉
+𝐵
+𝑂
+≥
+)
+2
+(
+𝐴
+𝑀
+𝑉
+𝐵
+𝑂
+𝐼
+
+)
+2
+1
+(
+𝐴
+𝑀
+𝑉
+𝐵
+𝑂
+≥
+)
+2
+(
+𝐴
+𝑀
+𝑉
+𝐵
+𝑂
+𝐼
+
+)
+9
+(
+𝐴
+𝑀
+𝑉
+𝐵
+𝑂
+≥
+)
+3
+(
+𝐴
+𝑀
+𝑉
+𝐵
+𝑂
+𝐼
+
+)
+2
+1
+(
+𝐴
+𝑀
+𝑉
+𝐵
+𝑂
+≥
+)
+3
+(
+𝐴
+𝑀
+𝑉
+𝐵
+𝑂
+𝐼
+
+1.13
+(5.67)
+
+1.19
+(7.01)
+
+1.15
+(6.70)
+
+1.18
+(7.63)
+
+1.07
+(6.50)
+
+1.08
+(6.68)
+
+1.15
+(6.73)
+
+1.10
+(6.77)
+
+1.17
+(6.07)
+
+1.15
+(6.06)
+
+1.15
+(6.10)
+
+1.11
+(6.03)
+
+1.10
+(5.77)
+
+1.09
+(6.07)
+
+Panel B: 𝑀𝐿𝐸𝑅 5 − 1 Port. Avg. Excess Return - Control for FNW Variables
+
+𝑙
+𝑜
+𝑉
+𝑡
+𝑜
+𝑇
+
+𝑙
+𝑜
+𝑉
+𝑜
+𝑖
+𝑑
+𝐼
+
+ℎ
+𝑔
+𝑖
+𝐻
+∕
+𝑒
+𝑐
+𝑖
+𝑟
+𝑃
+
+0.75
+(6.85)
+
+0.83
+(6.88)
+
+0.75
+(4.66)
+
+𝑥
+𝑎
+
+𝑀
+
+0.80
+(6.87)
+
+𝑛
+𝑟
+𝑢
+𝑇
+𝜎
+
+0.83
+(6.17)
+
+𝑒
+𝑚
+𝑢
+𝑙
+𝑜
+𝑉
+𝜎
+
+0.94
+(5.76)
+
+𝑃
+𝐹
+
+𝛽
+
+0.70
+(6.26)
+
+𝑁
+𝐿
+
+𝛽
+
+0.76
+(6.59)
+
+𝑂
+𝑇
+𝐷
+
+0.80
+(6.02)
+
+𝑉
+𝑈
+𝑆
+
+0.79
+(5.11)
+
+𝑛
+𝑟
+𝑢
+𝑇
+
+0.81
+(6.16)
+
+𝑇
+𝐴
+
+0.97
+(6.55)
+
+𝑗
+𝑑
+𝐴
+𝑑
+𝑛
+𝐼
+
+𝑝
+𝑎
+𝐶
+𝑡
+𝑘
+𝑀
+
+𝑝
+𝑎
+𝐶
+𝑡
+𝑘
+𝑀
+
+1.02
+(6.20)
+
+0.93
+(5.60)
+
+applying the adaptive group LASSO methodology to 62 stock-level char-
+acteristics, which include the technical variables mentioned above, past 
+return-based variables including  𝑀𝑜𝑚 and  𝑅𝑒𝑣, and many variables 
+constructed from ﬁnancial statement data. The results of these tests, 
+discussed in detail and presented in Section XXIV and Table A21 of the 
+Internet Appendix, show that the 𝑀𝐿𝐸𝑅 10 −1 portfolio generates pos-
+itive, economically large, and highly statistically signiﬁcant alpha with 
+respect to traditional factor models augmented with the excess returns 
+of FNW’s long-short portfolio.
+
+We conclude from these tests that the predictive power of the ML-
+based forecasts is not subsumed by previously-studied technical signals.
+
+5.6.  Visual analysis of charts
+
+Our ﬁnal analyses characterizing the predictive power of 𝑀𝐿𝐸𝑅
+aim to describe what charts that predict high or low future returns look 
+like. We begin by plotting the average chart for the focal 𝑀𝐿𝐸𝑅 decile 
+portfolios that we examined in Table 3. Speciﬁcally, for each month 𝑡
+and each decile portfolio, we calculate the value-weighted mean value 
+of 𝐶𝑅𝑘 for 𝑘 ∈ {1, 2, … , 12}. In Fig. 5, we plot the time-series averages 
+of these monthly mean values of 𝐶𝑅𝑘 for each portfolio.33 As would be 
+expected, the features that show up most prominently in the charts are 
+the momentum and reversal eﬀects. Speciﬁcally, the charts show that 
+the average values of 𝐶𝑅
+11, which is identical to 𝑀𝑜𝑚, are increasing 
+across the 𝑀𝐿𝐸𝑅 deciles. The large negative (positive) slope of the 
+chart associated with 𝑀𝐿𝐸𝑅 decile 10 (1) stocks in month 12 reﬂects 
+the large negative (positive) average returns, or values of 𝑅𝑒𝑣, of such 
+stocks in the last month prior to portfolio formation.
+
+33 The charts generated using equal-weighted mean values of 𝐶𝑅𝑘, presented 
+in Section XXV and Figure A7 of the Internet Appendix, are qualitatively the 
+same as those of the value-weighted charts.
+
+Fig. 5. Average Charts for 𝑀𝐿𝐸𝑅 Decile Portfolios. This ﬁgure depicts the 
+average chart for stocks within each 𝑀𝐿𝐸𝑅 decile portfolio. The portfolios 
+are the same portfolios as those whose returns are described in Table 3. For 
+each portfolio in each month 𝑡, we calculate the value-weighted mean value 
+of 𝑘th monthly cumulative return that would appear in charts of the stocks’ 
+cumulative monthly returns over the past year, 𝐶𝑅𝑘. We then calculate the 
+time-series averages of these monthly means for each decile portfolio and each 
+value of 𝑘 ∈ {1, 2, … , 12}. The 𝑥-axis depicts the month 𝑘 in the chart. The 𝑦-
+axis depicts the time-series average of the monthly mean cumulative returns. 
+Values for diﬀerent 𝑀𝐿𝐸𝑅 decile portfolios are shown in diﬀerent colors, as 
+indicated in the legend. For interpretation of the colors in the ﬁgure(s), the 
+reader is referred to the web version of this article. The analysis covers sample 
+months 𝑡 from July 1963 through December 2022, inclusive.
+
+JournalofFinancialEconomics153(2024)10379123S. Murray, Y. Xia and H. Xiao
+
+To discern the features of charts that are important for return predic-
+tion but distinct from momentum or reversal, we examine a subsample 
+of  stocks  in  which  the  momentum  and  reversal  eﬀects  do  not  exist. 
+The exact process and empirical results that we use to identify such a 
+subsample are described in detail in Section XXVI and Table A22 of the 
+Internet Appendix. Here, we summarize. We begin by taking only stocks 
+with moderate values of 𝑀𝑜𝑚 and 𝑅𝑒𝑣. Speciﬁcally, each month 𝑡, we 
+take only stocks with values of 𝑀𝑜𝑚 and 𝑅𝑒𝑣 that are between the 20th 
+and 80th percentile values among NYSE-listed stocks of both of these 
+variables in the given month. We ﬁnd that while the momentum ef-
+fect does not exist in this subsample, the reversal eﬀect remains strong 
+among these stocks. Thus, we incrementally shrink the range of values 
+of 𝑅𝑒𝑣 that we include in the subsample until we ﬁnd a subsample in 
+which the reversal eﬀect does not exist. The subsample selected using 
+this process includes the intersection of stocks with 𝑀𝑜𝑚 between the 
+20th and 80th NYSE percentile values of 𝑀𝑜𝑚 and stocks with 𝑅𝑒𝑣 be-
+tween the 40th and 60th NYSE percentile values of 𝑅𝑒𝑣. All percentiles 
+in these analyses are calculated using only NYSE-listed stocks. In this 
+subsample, the average excess return of the long-short quintile portfo-
+lio formed by sorting 𝑀𝑜𝑚 is 0.04% per month (𝑡-statistic = 0.31) and 
+that of 𝑅𝑒𝑣 is −0.06% per month (𝑡-statistic = −0.52), both of which 
+are economically small and statistically insigniﬁcant, indicating that the 
+momentum and reversal eﬀects are non-existent in this subsample of 
+stocks.  The  long-short  portfolio  formed  by  sorting  on  𝑀𝐿𝐸𝑅,  how-
+ever, produces an economically large and highly statistically signiﬁcant 
+average excess return of 0.37% per month (𝑡-statistic = 2.23). Since 
+the momentum and reversal eﬀects are non-existent, the results demon-
+strate that the chart patterns picked up by the ML-based forecasts that 
+are relevant for return prediction in this subsample are something other 
+than momentum and reversal.
+
+To visualize the features of the charts associated with the predictive 
+power of the ML-based forecasts in this subsample, we create charts 
+of the average values of  𝐶𝑅𝑘 among stocks with diﬀerent values of 
+𝑀𝐿𝐸𝑅. Since this subsample does have substantial variation in 𝑀𝑜𝑚, 
+to clearly expose features of the charts that are distinct from 𝑀𝑜𝑚, we 
+separate this subsample into six diﬀerent 𝑀𝑜𝑚-based groups. Speciﬁ-
+cally, we create separate charts for stocks with values of 𝑀𝑜𝑚 between 
+the 20th and 30th (decile 3), 30th and 40th (decile 4), 40th and 50th 
+(decile 5), 50th and 60th (decile 6), 60th and 70th (decile 7), and 70th 
+and 80th (decile 8) NYSE percentiles of 𝑀𝑜𝑚. We then create 𝑀𝐿𝐸𝑅-
+sorted quintile portfolios using stocks in each of these six groups and 
+construct the chart of the average value-weighted means of 𝐶𝑅𝑘 for 
+each of these portfolios.34 These charts, shown in Fig. 6, exhibit a few 
+striking patterns. First, in all six plots, the average stock in the 𝑀𝐿𝐸𝑅
+quintile 5 (1) portfolio has a substantial increase (decrease) in value 
+in month 10, followed by a substantial decrease (increase) in value in 
+month 11. Furthermore, among stocks in 𝑀𝑜𝑚 deciles 3-5, and to a 
+lesser degree decile 6, we see that stocks with low values of 𝑀𝐿𝐸𝑅, 
+and thus low forecast returns, actually tend to have the highest aver-
+age cumulative returns in months 1-6 in the chart, and then tend to 
+underperform in months 7-10.
+
+The charts demonstrate that, even among stocks with similar values 
+of 𝑀𝑜𝑚 and 𝑅𝑒𝑣, stocks with high and low ML-based forecasts tend to 
+have suﬃciently diﬀerent charts for the patterns to be recognized by a 
+human chart reader. This, combined with the fact that these ML-based 
+forecasts predict future stock returns, albeit not through the momentum 
+and/or reversal channels, suggests that human chartists can produce 
+forecasts that form the basis of successful investment strategies that are 
+distinct from the momentum and reversal eﬀects.
+
+6.  Ex-post evaluation of optimization procedure
+
+Our ﬁnal tests evaluate the success of the optimization procedure 
+that determined which ML model would be used to generate our fo-
+cal  forecasts.  Speciﬁcally,  we  evaluate  whether  ML  models  that  the 
+optimization process, which used data from the 192701-196306 opti-
+mization period, identiﬁed as performing well, also produced superior 
+out-of-sample forecasts during the 196307-202212 test period. To do 
+so, we calculate forecasts using each of the 95 alternative ML models 
+that were not selected by the optimization process. With the exception 
+of the ML model, all other aspects of calculating these alternative ML-
+based forecasts are identical to those used to calculate 𝑀𝐿𝐸𝑅.
+
+To evaluate the ability of the diﬀerent forecasts to predict future 
+stock returns, we repeat the decile portfolio analysis whose results are 
+shown  in  Table 3 using  each  of  these  diﬀerent  forecasts.  Table 17
+presents the average monthly excess return of the 10 − 1 portfolio gen-
+erated from each of these analyses. All but one of the 96 ML models 
+examined (95 alternative models plus the selected model used to cal-
+culated 𝑀𝐿𝐸𝑅) produce 10 − 1 portfolios that have positive average 
+excess returns, 90 of which are statistically signiﬁcant at the 5% level. 
+The fact that most models perform well during the test period suggests 
+that our results are quite robust and not highly sensitive to the choice of 
+ML model. Furthermore, while the model used to calculate 𝑀𝐿𝐸𝑅 per-
+forms well, there are 30 (32) alternative models whose 10 − 1 portfolios 
+produce average monthly excess returns (𝑡-statistics) that are greater 
+than the 1.08% per month (𝑡-statistic of 5.51) generated by the 𝑀𝐿𝐸𝑅
+10 − 1 portfolio. Thus, the model selected by the optimization process 
+performs well relative to most other candidate models in out-of-sample 
+tests, but as would be expected based on noise in the optimization pro-
+cess, there are models that performed better than that selected as our 
+focal model.
+
+In Fig. 7 we graphically depict the relation between performance 
+of the forecasts as measured by the optimization process, and the out-
+of-sample test period performance of the associated 10 − 1 portfolio. 
+Speciﬁcally, we plot on the 𝑥-axis the Spearman rank correlations be-
+tween the forecasts and future stock returns that were used to evaluate 
+model performance in the optimization period (reported in Table 1), 
+and on the 𝑦-axis the annualized Sharpe ratios of the 10 − 1 portfo-
+lios associated with the given model during the test period. The plot 
+illustrates  a  clear  positive  relation  between  the  optimization  period 
+Spearman rank correlations and test period Sharpe ratios. The corre-
+lation between these values is 0.69.35
+
+Taken together, the results in Table 17 and Fig. 7 demonstrate that 
+the optimization process works as expected. The strong positive relation 
+between performance during the optimization period and performance 
+during the test period shows that ex-ante optimization is useful for de-
+termining which ML model to employ for out-of-sample use. However, 
+the optimization process is noisy, and thus is unlikely to select the sin-
+gle model that will produce the best out-of-sample performance. Indeed, 
+in our tests, approximately one third of the alternative models outper-
+formed the model selected by the optimization process.
+
+7.  Conclusion
+
+We test the weak form of the EMH by examining whether ML-based 
+forecasts generated from past return data easily observable in histori-
+cal price plots can predict the cross-section of future stock returns. We 
+begin by using the 192701-196306 period to determine the optimal ML 
+model to use to generate our ML-based forecasts. We ﬁnd that using 
+a convolutional neural network with long short-term memory as the 
+ML architecture, the mean-squared-error as the loss function, weighting 
+observations in the loss function in a manner that gives the same total 
+
+34 In Section XXVII and Figure A8 of the Internet Appendix, we show that 
+charts created from equal-weighted values of 𝐶𝑅𝑘 are qualitatively the same as 
+those in Fig. 6.
+
+35 The correlation between the optimization period Spearman rank correla-
+tions and the test period average excess returns is 0.68.
+
+JournalofFinancialEconomics153(2024)10379124S. Murray, Y. Xia and H. Xiao
+
+Fig. 6. Average Charts for 𝑀𝐿𝐸𝑅 Quintile Portfolios in Subsample without Momentum and Reversal Eﬀects. This ﬁgure shows plots that depict the average chart 
+for stocks within diﬀerent subsets of our sample. The portfolios whose charts are depicted in Panels A, B, C, D, E, and F contain only stocks with values of 𝑅𝑒𝑣
+between the 40th and 60th percentile values of 𝑅𝑒𝑣 and values of 𝑀𝑜𝑚 between the 20th and 30th, 30th and 40th, 40th and 50th, 50th and 60th, 60th and 70th, 
+and 70th and 80th percentile values of 𝑀𝑜𝑚, respectively. All percentiles are calculated on a monthly basis using only stocks listed on the NYSE. In each panel, all 
+stocks in the given 𝑅𝑒𝑣- and 𝑀𝑜𝑚-based subset are sorted into 5 quintile portfolios based on 𝑀𝐿𝐸𝑅 using breakpoints calculated from only NYSE-listed stocks. 
+For each portfolio in each month, we calculate the value-weighted mean value of the 𝑘th monthly cumulative return that would appear in charts of the stocks’ 
+cumulative monthly returns over the past year, 𝐶𝑅𝑘, 𝑘 ∈ {1, 2, … , 12}. We then calculate the time-series averages of these monthly value-weighted means for each 
+quintile portfolio and each value of 𝑘. The 𝑥-axis depicts the month 𝑘 in the plot. The 𝑦-axis depicts the time-series average of the monthly mean cumulative return. 
+Values for diﬀerent 𝑀𝐿𝐸𝑅 quintile portfolios are shown in diﬀerent colors, as indicated in the legends. For interpretation of the colors in the ﬁgure(s), the reader 
+is referred to the web version of this article. The analysis covers sample months 𝑡 from July 1963 through December 2022, inclusive.
+
+JournalofFinancialEconomics153(2024)10379125S. Murray, Y. Xia and H. Xiao
+
+Table 17
+Alternative ML Models. This table presents the average monthly excess return for the long-short portfolio formed by sorting on 
+ML-based forecasts generated using diﬀerent ML models. We use each ML model described in Table 1 to generate forecasts of 
+future stock returns using, with the exception of the ML model, the exact same procedure as was used to calculate 𝑀𝐿𝐸𝑅. 
+We then construct decile portfolios formed by sorting on each of the diﬀerent forecasts using the exact same decile portfolio 
+construction methodology as was used in Table 3. The table presents the average monthly excess returns for the 10 − 1 portfolio 
+formed using each of the forecasts. 𝑡-statistics, calculated following Newey and West (1987) using 12 lags, testing the null 
+hypothesis that the average monthly excess return is equal to zero, are shown in parentheses. The column labeled “Dependent 
+Variable” indicates the dependent variable. The column labeled “Weighting Methodology” indicates the weighting methodology. 
+The remaining column headers indicate the ML architecture and loss function. The analyses cover return months 𝑡 from July 
+1963 through December 2022, inclusive.
+
+Dependent Variable
+
+Weighting Methodology
+
+𝑟
+
+𝑟𝑆𝑡𝑑
+
+𝑟𝑁𝑜𝑟𝑚
+
+𝑟𝑃 𝑐𝑡𝑙
+
+EW
+
+EWPM
+
+EWPMVW
+
+EW
+
+EWPM
+
+EWPMVW
+
+EW
+
+EWPM
+
+EWPMVW
+
+EW
+
+EWPM
+
+EWPMVW
+
+FNN
+MAE
+
+0.93
+(4.36)
+0.90
+(4.44)
+0.79
+(3.39)
+
+0.62
+(2.42)
+0.52
+(2.02)
+−0.02
+(−0.08)
+
+1.03
+(4.32)
+0.95
+(3.94)
+0.92
+(4.15)
+
+1.03
+(4.16)
+1.12
+(4.66)
+1.01
+(4.04)
+
+FNN
+MSE
+
+0.58
+(2.50)
+0.61
+(2.40)
+0.39
+(1.42)
+
+0.03
+(0.12)
+0.09
+(0.35)
+0.56
+(2.37)
+
+0.66
+(2.59)
+0.85
+(3.45)
+0.68
+(3.01)
+
+0.06
+(0.17)
+0.26
+(0.93)
+0.70
+(2.45)
+
+CNN
+MAE
+
+0.77
+(3.34)
+0.71
+(3.33)
+0.81
+(4.18)
+
+1.15
+(5.60)
+1.04
+(5.32)
+0.39
+(2.54)
+
+1.15
+(5.30)
+1.17
+(5.74)
+0.76
+(4.84)
+
+1.05
+(4.81)
+0.94
+(4.96)
+0.43
+(2.45)
+
+CNN
+MSE
+
+0.64
+(3.30)
+0.44
+(1.98)
+0.53
+(2.17)
+
+1.28
+(6.34)
+1.29
+(6.71)
+0.79
+(4.59)
+
+1.19
+(5.52)
+1.18
+(5.47)
+0.79
+(4.59)
+
+0.82
+(3.70)
+0.91
+(4.68)
+0.63
+(4.02)
+
+LSTM
+MAE
+
+0.88
+(3.63)
+0.97
+(4.50)
+0.75
+(3.59)
+
+1.03
+(4.67)
+0.98
+(5.06)
+0.84
+(5.92)
+
+1.16
+(5.11)
+1.12
+(5.55)
+1.06
+(6.36)
+
+1.09
+(4.81)
+1.16
+(5.81)
+1.10
+(7.37)
+
+LSTM
+MSE
+
+0.83
+(4.23)
+0.80
+(3.83)
+0.71
+(3.96)
+
+1.29
+(7.73)
+1.34
+(8.27)
+1.05
+(7.46)
+
+1.19
+(5.49)
+1.12
+(5.69)
+1.13
+(7.23)
+
+1.22
+(6.05)
+1.18
+(6.37)
+1.08
+(7.56)
+
+CNNLSTM
+MAE
+
+CNNLSTM
+MSE
+
+0.82
+(3.59)
+0.88
+(4.04)
+0.73
+(3.50)
+
+1.03
+(4.95)
+1.04
+(5.60)
+0.60
+(4.10)
+
+1.17
+(5.20)
+1.23
+(6.24)
+0.97
+(5.59)
+
+1.10
+(5.20)
+1.19
+(6.51)
+0.96
+(6.57)
+
+0.92
+(4.60)
+1.07
+(5.62)
+0.87
+(4.32)
+
+1.41
+(7.54)
+1.34
+(7.40)
+0.81
+(5.67)
+
+1.21
+(5.87)
+1.08
+(5.51)
+0.92
+(6.94)
+
+1.24
+(5.98)
+1.22
+(6.67)
+0.96
+(5.84)
+
+weight to observations in each month and equal-weight to each stock 
+within each month, and a normalized measure of the future stock re-
+turn as the dependent variable, optimizes the ML model performance 
+during the 192701-196306 optimization period. Our use of data from 
+the early part of our sample period to determine the optimal ML model 
+overcomes concerns about data mining and the out-of-sample validity 
+of our results.
+
+We use the selected ML model to generate out-of-sample forecasts 
+of future stock returns during our 196307-202212 test period. Portfolio 
+analyses demonstrate that the ML-based forecasts are a strong predictor 
+of the cross-section of future stock returns. Factor analyses and other 
+risk metrics provide no indication that the variation in average returns 
+associated with the ML-based forecasts reﬂects compensation for risk. 
+Further tests demonstrate that the predictive power of the ML-based 
+forecasts is strong during most subperiods of our main test period, in-
+cluding the most recent 201501-202212 period. We also ﬁnd that the 
+forecasts are eﬀective among the largest 500 stocks in our sample, in-
+dicating that the predictive power is not limited to small and illiquid 
+stocks.
+
+The forecasting function generated by the ML process is highly stable 
+through time. Portfolios formed by sorting on forecasts based on ﬁtting 
+data from nonoverlapping subperiods have similar holdings and exhibit 
+similar performance. Furthermore, we ﬁnd only a small improvement in 
+performance when using forecasts based on applying the learning pro-
+cess to data from an expanding window compared to a rolling window. 
+The results of regression analyses show that the forecasting function 
+has substantial nonlinear and interaction components, and that these 
+components are important for prediction. While the ML-based forecasts 
+
+contain nonnegligible components related to the momentum and rever-
+sal eﬀects, the majority of the predictive power is unrelated to these 
+phenomena. Similarly, ML-based forecasts based on images depicting 
+historical price and volume data and previously-studied technical sig-
+nals  fail  to  explain  the  predictive  power  of  our  ML-based  forecasts. 
+Visual examination reveals diﬀerences in price charts associated with 
+high and low future returns that are easily discernable by the human 
+eye and distinct from momentum and reversal, suggesting the viability 
+of charting by humans as a fruitful investment technique.
+
+Finally, we conduct an ex-post analysis of the eﬀectiveness of the 
+optimization procedure we undertake to select the ML model used in 
+our focal tests. Variation in the performance of diﬀerent ML models 
+during the 192701-196306 optimization period is strongly correlated 
+with the out-of-sample performance of the associated forecasts during 
+the 196307-202212 test period, indicating that the optimization pro-
+cedure has substantial ability to discern the eﬀectiveness of diﬀerent 
+ML models. However, approximately one third of the ML models exam-
+ined have better out-of-sample performance than the selected model, 
+suggesting that there is substantial noise in the optimization process. 
+Long-short portfolios based on forecasts produced by all but one of the 
+96 ML models we examine generate positive out-of-sample average ex-
+cess returns, almost all of which are statistically signiﬁcant, indicating 
+that our ﬁndings are robust to the use of diﬀerent ML models.
+
+Our results are strong evidence contrary to the main prediction of 
+the EMH that proﬁtable portfolios cannot be constructed from only in-
+formation contained in historical returns. While one might reasonably 
+argue that the momentum and reversal eﬀects are already strong evi-
+dence contradicting the EMH, the complexity of the relations between 
+
+JournalofFinancialEconomics153(2024)10379126S. Murray, Y. Xia and H. Xiao
+
+which is supported by National Science Foundation grant number ACI-
+1548562 (Towns et al. (2014)) and the Advanced Research Computing 
+Technology and Innovation Core (ARCTIC) resources at Georgia State 
+University’s Research Solutions made available by the National Science 
+Foundation Major Research Instrumentation (MRI) grant number CNS-
+1920024.
+
+Appendix A.  Supplementary material
+
+Supplementary material related to this article can be found online 
+
+at https://doi .org /10 .1016 /j .jﬁneco .2024 .103791.
+
+References
+
+Fig. 7. Relation Between Optimization Period and Test Period Performance. 
+This ﬁgure depicts the relation between the 192701-196306 optimization pe-
+riod performance and the 196307-202212 test period performance of ML-based 
+forecasts calculated using diﬀerent ML models. The 𝑥-axis depicts the Spearman 
+rank correlations used to evaluate the ML model during the 192701-196306 
+optimization period, which are shown in Table 1. The 𝑦-axis depicts the annual-
+ized Sharpe ratios during the 196307-202212 test period of the 10 − 1 portfolios 
+formed by sorting stocks based on the forecasts generated by diﬀerent ML mod-
+els. Each point represents the results for a diﬀerent ML model.
+
+past  price  patterns  and  future  returns  indicate  that  violations  of  the 
+EMH are much more intricate than previously understood. Our ﬁndings 
+also suggest that technical analysis, or charting, has greater merit than 
+acknowledged in academic work, and shed light on why this investment 
+technique remains prevalent among investment practitioners.
+
+Declaration of competing interest
+
+The authors declare that they have no known competing ﬁnancial 
+interests or personal relationships that could have appeared to inﬂuence 
+the work reported in this paper.
+
+Data availability
+
+The authors do not have permission to share data.  However, the 
+code to extract the required data from Wharton Research Data Services, 
+along with all code required to reproduce the paper and an example 
+of the sample we use with mostly randomized data, can be found at 
+Mendeley Data under DOI https://dx .doi .org /10 .17632 /x63r376783 .2.
+
+Acknowledgements
+
+Nikolai Roussanov was the editor for this article. We thank Nikolai 
+Roussanov (the editor), an anonymous referee, Vikas Agarwal, Turan 
+Bali, Bryan Kelly, Markus Pelger, Chip Ryan, Baozhong Yang, Guofu 
+Zhou, and seminar participants at the 2020 Australasian Finance and 
+Banking Conference, 2020 Conference on Asia-Paciﬁc Financial Mar-
+kets, 2020 International Risk Management Conference, 2020 Shanghai-
+Edinburgh Fintech Conference, 2020 World Finance & Banking Sym-
+posium, the 2021 Southwestern Finance Association Conference, 2021 
+University  of  Miami  Research  Conference  on  Machine  Learning  and 
+Business, the University of Alabama, and Georgia State University for 
+feedback that has substantially improved this paper. This work used 
+the Extreme Science and Engineering Discovery Environment (XSEDE), 
+
+Allen, F., Karjalainen, R., 1999. Using genetic algorithms to ﬁnd technical trading rules. 
+
+J. Financ. Econ. 51, 245–271.
+
+Ang, A., Hodrick, R.J., Xing, Y., Zhang, X., 2006. The cross-section of volatility and ex-
+
+pected returns. J. Finance 61, 259–299.
+
+Bajgrowicz, P., Scaillet, O., 2012. Technical trading revisited: false discoveries, persis-
+
+tence tests, and transaction costs. J. Financ. Econ. 106, 473–491.
+
+Bali, T.G., Cakici, N., Whitelaw, R.F., 2011. Maxing out: stocks as lotteries and the cross-
+
+section of expected returns. J. Financ. Econ. 99, 427–446.
+
+Bali, T.G., Engle, R.F., Murray, S., 2016. Empirical Asset Pricing: The Cross Section of 
+
+Stock Returns. John Wiley & Sons.
+
+Bali, T.G., Goyal, A., Huang, D., Jiang, F., Wen, Q., 2022. Predicting corporate bond 
+returns:  Merton  meets  machine  learning.  Available  at  SSRN:  https://ssrn .com /
+abstract =3686164.
+
+Bessembinder, H., Chan, K., 1998. Market eﬃciency and the returns to technical analysis. 
+
+Bianchi, D., Büchner, M., Tamoni, A., 2021. Bond risk premiums with machine learning. 
+
+Financ. Manag., 5–17.
+
+Rev. Financ. Stud. 34, 1046–1089.
+
+Brock, W., Lakonishok, J., LeBaron, B., 1992. Simple technical trading rules and the 
+
+stochastic properties of stock returns. J. Finance 47, 1731–1764.
+
+Bryzgalova, S., Pelger, M., Zhu, J., 2023. Forest through the trees: building cross-sections 
+of stock returns. J. Finance. Forthcoming. https://papers .ssrn .com /sol3 /papers .cfm ?
+abstract _id =3493458.
+
+Carhart, M.M., 1997. On persistence in mutual fund performance. J. Finance 52, 57–82.
+Chang, P.K., Osler, C.L., 1999. Methodical madness: technical analysis and the irrational-
+
+ity of exchange-rate forecasts. Econ. J. 109, 636–661.
+
+Chen, L., Pelger, M., Zhu, J., 2023. Deep learning in asset pricing. Manag. Sci. https://
+
+doi .org /10 .1287 /mnsc .2023 .4695. Forthcoming.
+
+Chinco, A., Clark-Joseph, A.D., Ye, M., 2019. Sparse signals in the cross-section of returns. 
+
+J. Finance 74, 449–492.
+
+Chordia, T., Subrahmanyam, A., Anshuman, V.R., 2001. Trading activity and expected 
+
+stock returns. J. Financ. Econ. 59, 3–32.
+
+Chung, K.H., Zhang, H., 2014. A simple approximation of intraday spreads using daily 
+
+Datar, V.T., Naik, N.Y., Radcliﬀe, R., 1998. Liquidity and stock returns: an alternative 
+
+data. J. Financ. Mark. 17, 94–120.
+
+test. J. Financ. Mark. 1, 203–219.
+
+Detzel, A.L., Novy-Marx, R., Velikov, M., 2023. Model comparison with transaction costs. 
+
+J. Finance. https://doi .org /10 .1111 /joﬁ .13225. Forthcoming.
+
+Ehsani, S., Linnainmaa, J.T., 2022. Factor momentum and the momentum factor. J. Fi-
+
+Fama, E.F., 1991. Eﬃcient capital markets: II. J. Finance 46, 1575–1617.
+Fama, E.F., French, K.R., 1992. The cross-section of expected stock returns. J. Finance 47, 
+
+Fama, E.F., French, K.R., 1993. Common risk factors in the returns on stocks and bonds. 
+
+nance 77, 1877–1919.
+
+427–465.
+
+J. Financ. Econ. 33, 3–56.
+
+Fama, E.F., French, K.R., 2008. Dissecting anomalies. J. Finance 63, 1653–1678.
+Fama, E.F., French, K.R., 2015. A ﬁve-factor asset pricing model. J. Financ. Econ. 116, 
+
+Fama, E.F., French, K.R., 2018. Choosing factors. J. Financ. Econ. 128, 234–252.
+Fama, E.F., MacBeth, J.D., 1973. Risk, return, and equilibrium: empirical tests. J. Polit. 
+
+1–22.
+
+Econ. 81, 607–636.
+
+Feng, G., He, J., Polson, N.G., 2018. Deep learning for predicting asset returns. arXiv 
+
+preprint. https://arxiv .org /pdf /1804 .09314 .pdf.
+
+Feng, G., He, J., Polson, N.G., Xu, J., 2023. Deep learning in characteristics-sorted factor 
+models. J. Financ. Quant. Anal. Forthcoming. https://papers .ssrn .com /sol3 /papers .
+cfm ?abstract _id =3243683.
+
+Frazzini, A., Pedersen, L.H., 2014. Betting against beta. J. Financ. Econ. 111, 1–25.
+Freyberger, J., Neuhierl, A., Weber, M., 2020. Dissecting characteristics nonparametri-
+
+cally. Rev. Financ. Stud. 33, 2326–2377.
+
+Garﬁnkel, J.A., 2009. Measuring investors’ opinion divergence. J. Account. Res. 47, 
+
+1317–1348.
+
+Gehrig, T., Menkhoﬀ, L., 2006. Extended evidence on the use of technical analysis in 
+
+foreign exchange. Int. J. Financ. Econ. 11, 327–338.
+
+George, T.J., Hwang, C.Y., 2004. The 52-week high and momentum investing. J. Fi-
+
+nance 59, 2145–2176.
+
+JournalofFinancialEconomics153(2024)10379127Gu, S., Kelly, B., Xiu, D., 2021. Autoencoder asset pricing models. J. Econom. 222, 
+
+ity? J. Finance 71, 5–32.
+
+Stud. 33, 2223–2273.
+
+429–450.
+
+Guijarro-Ordonez, J., Pelger, M., Zanotti, G., 2023. Deep learning statistical arbitrage. 
+
+dence. J. Bank. Finance 34, 2573–2586.
+
+Available at SSRN: https://ssrn .com /abstract =3862004.
+
+Messmer, M., 2017. Deep learning and the cross-section of expected stock returns. Avail-
+
+Han, Y., Yang, K., Zhou, G., 2013. A new anomaly: the cross-sectional proﬁtability of 
+
+able at SSRN: https://ssrn .com /abstract =3081555.
+
+S. Murray, Y. Xia and H. Xiao
+
+Giglio,  S.,  Xiu,  D.,  2021.  Asset  pricing  with  omitted  factors.  J.  Polit.  Econ. 129, 
+
+1947–1990.
+
+Giglio, S., Liao, Y., Xiu, D., 2021. Thousands of alpha tests. Rev. Financ. Stud. 34, 
+
+3456–3496.
+
+Goodfellow, I., Bengio, Y., Courville, A., 2016. Deep Learning. MIT Press.
+Green, J., Hand, J.R., Zhang, X.F., 2017. The characteristics that provide independent in-
+formation about average us monthly stock returns. Rev. Financ. Stud. 30, 4389–4436.
+Gu, S., Kelly, B., Xiu, D., 2020. Empirical asset pricing via machine learning. Rev. Financ. 
+
+technical analysis. J. Financ. Quant. Anal. 48, 1433–1461.
+
+Harvey, C.R., Liu, Y., Zhu, H., 2016. ...and the cross-section of expected returns. Rev. 
+
+Financ. Stud. 29, 5–68.
+
+Hoseinzade, E., Haratizadeh, S., 2019. Cnnpred: CNN-based stock market prediction using 
+
+a diverse set of variables. Expert Syst. Appl. 129, 273–285.
+
+Hou, K., Xue, C., Zhang, L., 2015. Digesting anomalies: an investment approach. Rev. 
+
+Financ. Stud. 28, 650–705.
+
+Hou,  K.,  Xue,  C.,  Zhang,  L.,  2020.  Replicating  anomalies.  Rev.  Financ.  Stud. 33, 
+
+2019–2133.
+
+Jegadeesh, N., 1990. Evidence of predictable behavior of security returns. J. Finance 45, 
+
+881–898.
+
+Jegadeesh, N., 2000. Foundations of technical analysis: computational algorithms, statis-
+tical inference, and empirical implementation: discussion. J. Finance 55, 1765–1770.
+Jegadeesh, N., Titman, S., 1993. Returns to buying winners and selling losers: implications 
+
+for stock market eﬃciency. J. Finance 48, 65–91.
+
+Jiang, J., Kelly, B.T., Xiu, D., 2022. (Re-)imag(in)ing price trend. J. Finance. https://
+
+Kelly, B.T., Pruitt, S., Su, Y., 2019. Characteristics are covariances: a uniﬁed model of risk 
+
+doi .org /10 .1111 /joﬁ .13268. Forthcoming.
+
+and return. J. Financ. Econ. 134, 501–524.
+
+Kirby, C., 2020. Firm characteristics, cross-sectional regression estimates, and asset pric-
+
+ing tests. Rev. Asset Pricing Stud. 10, 290–334.
+
+Kozak, S., Nagel, S., Santosh, S., 2020. Shrinking the cross-section. J. Financ. Econ. 135, 
+
+271–292.
+
+Krizhevsky, A., Sutskever, I., Hinton, G.E., 2012. Imagenet classiﬁcation with deep con-
+
+volutional neural networks. Adv. Neural Inf. Process. Syst. 25, 1097–1105.
+
+Krogh, A., Vedelsby, J., 1995. Validation, and active learning. Adv. Neural Inf. Process. 
+
+LeBaron, B., 1999. Technical trading rule proﬁtability and foreign exchange intervention. 
+
+Syst. 7 (7), 231–238.
+
+J. Int. Econ. 49, 125–143.
+
+LeCun, Y., Bengio, Y., Hinton, G., 2015. Deep learning. Nature 521, 436–444.
+Lehmann, B.N., 1990. Fads, martingales, and market eﬃciency. Q. J. Econ. 105, 1–28.
+Lettau, M., Pelger, M., 2020. Factors that ﬁt the time series and cross-section of stock 
+
+returns. Rev. Financ. Stud. 33, 2274–2325.
+
+Levich, R.M., Thomas III, L.R., 1993. The signiﬁcance of technical trading-rule proﬁts 
+in the foreign exchange market: a bootstrap approach. J. Int. Money Financ. 12, 
+451–474.
+
+Lewellen, J., Nagel, S., 2006. The conditional CAPM does not explain asset-pricing anoma-
+
+lies. J. Financ. Econ. 82, 289–314.
+
+Rev. Financ. Stud. 31, 2606–2649.
+
+Lo, A.W., Hasanhodzic, J., 2010. The Heretics of Finance: Conversations with Leading 
+
+Practitioners of Technical Analysis, vol. 16. John Wiley and Sons.
+
+Lo, A.W., MacKinlay, A.C., 1990. Data-snooping biases in tests of ﬁnancial asset pricing 
+
+models. Rev. Financ. Stud. 3, 431–467.
+
+Lo, A.W., Mamaysky, H., Wang, J., 2000. Foundations of technical analysis: computa-
+tional algorithms, statistical inference, and empirical implementation. J. Finance 55, 
+1705–1765.
+
+Martin, I., 2017. What is the expected return on the market? Q. J. Econ. 132, 367–433.
+McLean, R.D., Pontiﬀ, J., 2016. Does academic research destroy stock return predictabil-
+
+Menkhoﬀ, L., 2010. The use of technical analysis by fund managers: international evi-
+
+Messmer, M., Audrino, F., 2020. The lasso and the factor zoo - expected returns in the 
+
+cross-section. Available at SSRN: https://ssrn .com /abstract =2930436.
+
+Moritz, B., Zimmermann, T., 2016. Tree-based conditional portfolio sorts: the relation be-
+tween past and future stock returns. Available at SSRN: https://ssrn .com /abstract =
+2740751.
+
+Moskowitz, T.J., Ooi, Y.H., Pedersen, L.H., 2012. Time series momentum. J. Financ. 
+
+Econ. 104, 228–250.
+
+Neely, C., Weller, P., Dittmar, R., 1997. Is technical analysis in the foreign exchange 
+market proﬁtable? A genetic programming approach. J. Financ. Quant. Anal. 32, 
+405–426.
+
+Neely, C.J., 2002. The temporal pattern of trading rule returns and exchange rate in-
+tervention: intervention does not generate technical trading proﬁts. J. Int. Econ. 58, 
+211–232.
+
+Neely, C.J., Rapach, D.E., Tu, J., Zhou, G., 2014. Forecasting the equity risk premium: the 
+
+role of technical indicators. Manag. Sci. 60, 1772–1791.
+
+Newey, W.K., West, K.D., 1987. A simple, positive semi-deﬁnite, heteroskedasticity and 
+
+autocorrelation consistent covariance matrix. Econometrica 55, 703–708.
+
+Novy-Marx, R., Velikov, M., 2016. A taxonomy of anomalies and their trading costs. Rev. 
+
+Financ. Stud. 29, 104–147.
+
+Osler, C.L., 2003. Currency orders and exchange rate dynamics: an explanation for the 
+
+predictive success of technical analysis. J. Finance 58, 1791–1819.
+
+Rapach, D.E., Strauss, J.K., Zhou, G., 2013. International stock return predictability: what 
+
+is the role of the United States? J. Finance 68, 1633–1662.
+
+Ready, M.J., 2002. Proﬁts from technical trading rules. Financ. Manag. 31, 43–61.
+Rossi, A.G., 2018. Predicting stock market returns with machine learning. Working Paper.
+Schwert, G.W., 2003. Anomalies and market eﬃciency. In: Constantinides, G., Harris, M., 
+Stulz, R.M. (Eds.), Handbook of the Economics of Finance. Elsevier Science, B.V., 
+Netherlands, pp. 939–974. Chapter 15.
+
+Shumway, T., 1997. The delisting bias in CRSP data. J. Finance 52, 327–340.
+Sullivan, R., Timmermann, A., White, H., 1999. Data-snooping, technical trading rule 
+
+performance, and the bootstrap. J. Finance 54, 1647–1691.
+
+Sutskever, I., Vinyals, O., Le, Q.V., 2014. Sequence to sequence learning with neural 
+
+networks. Adv. Neural Inf. Process. Syst. 27.
+
+Sweeney, R.J., 1986. Beating the foreign exchange market. J. Finance 41, 163–182.
+Towns, J., Cockerill, T., Dahan, M., Foster, I., Gaither, K., Grimshaw, A., Hazlewood, 
+V., Lathrop, S., Lifka, D., Peterson, G.D., et al., 2014. XSEDE: accelerating scientiﬁc 
+discovery. Comput. Sci. Eng. 16, 62–74.
+
+Zhu, Y., Zhou, G., 2009. Technical analysis: an asset allocation perspective on the use of 
+
+Linnainmaa, J.T., Roberts, M.R., 2018. The history of the cross-section of stock returns. 
+
+moving averages. J. Financ. Econ. 92, 519–544.
+
+JournalofFinancialEconomics153(2024)10379128

@@ -1,0 +1,3336 @@
+Contents lists available at ScienceDirect
+
+Journal of Financial Economics
+
+journal homepage: www.elsevier.com/locate/jfec
+
+Regulatory costs of being public: Evidence from bunching estimation ✩
+Michael Ewens a,∗, Kairong Xiao b,∗, Ting Xu c,∗
+a Columbia Business School and NBER, United States of America
+b Columbia Business School, United States of America
+c Rotman School of Management, University of Toronto, Canada
+
+A  R  T  I  C  L  E 
+
+I  N  F  O
+
+A  B  S  T  R  A  C  T
+
+We quantify the costs of major disclosure and governance regulations by exploiting a regulatory quirk: many 
+rules trigger when a ﬁrm’s public ﬂoat exceeds a threshold. Consistent with ﬁrms avoiding costly regulation, 
+we document signiﬁcant bunching around three major regulatory thresholds. Estimations reveal that the three 
+examined rules’ compliance costs range from 1.2% to 1.8% of market capitalization for ﬁrms near thresholds. 
+For a median U.S. public company, total costs amount to 4.3% of market capitalization, and at least 2.3% 
+absent regulatory avoidance frictions. These cost estimates are robust across various extrapolation assumptions, 
+ranging from 2.1% to 6.3% of market capitalization. Regulatory costs have a greater impact on private ﬁrms’ IPO 
+decisions than on public ﬁrms’ going private decisions, but such costs only explain a small part of the decline in 
+the number of public ﬁrms.
+
+Dataset link: https://github .com /
+michaelewens /public _ﬂoat _regulation
+
+Dataset link: Replication package for paper
+(Original Data)
+
+JEL classiﬁcation:
+G28
+G32
+K22
+
+Keywords:
+Costs of being public
+Bunching estimator
+Capital market regulation
+Disappearing public ﬁrms
+
+0.  Introduction
+
+A central explanation for the decline in the number of publicly listed 
+companies in the U.S. is the increased burden of disclosure and gover-
+nance regulations. Indeed, practitioners often point to heightened regu-
+latory costs as the culprit of the disappearing public ﬁrms, while recent 
+major de-regulations such as the 2012 JOBS Act were directly motivated 
+by the perceived costs of being public. For instance, in the comment 
+letter to the SEC, Morgenstern and Nealis (2004) write that (p. 1) “the 
+
+Sarbanes-Oxley Act of 2002 and it’s implementing regulations have sig-
+niﬁcantly increased the costs and regulatory burdens associated with 
+being a public company.” These issues continue today. Presumably an-
+ticipating pushback to proposed climate disclosure rules in 2022, the 
+associated SEC proposal incorporates regulatory cost estimates.1 Thus, 
+estimating regulatory costs is a central part of the debate on the regula-
+tion’s merits. Understanding the role of regulations in the cost of being 
+public and the decline in the number of public ﬁrms can address con-
+cerns on possible capital market dysfunction (Weild, 2011, p. 1).
+
+✩ Dimitris Papanikolaou was the editor for this article. We thank the editor, two anonymous referees, Reena Aggarwal, Scott Bauguess, Shai Bernstein, Tara 
+Bhandari, Audra Boone, Matthias Breuer, Susan Chaplinsky, Jacelly Cespedes, Joan Ferra-Mensa, Laura Field, Kathleen Hanley, Justin Hopkins, Peter Iliev, Joseph 
+Kalmenovitz, Simi Kedia, Elizabeth Kempf, Marc Lipson, Xiaoding Liu, Elena Loutskina, Katie Moon, Marius A. K. Ring, Jay Ritter, Laura Starks, Paul Tetlock, Emily 
+Wang, Joshua White, Frank Zhou, and seminar and conference participants at SFS Cavalcade, Drexel Corporate Governance Conference, Utah Winter Finance Con-
+ference, AFA, MFA, Texas Finance Festival, UT Dallas Finance Conference, CICF, the Securities and Exchange Commission, Berkeley, Toronto Rotman, Georgetown, 
+Minnesota Carlson, UVA Darden, Columbia, Caltech, Stripe, Florida International University, the Junior Corporate Finance Workshop, and the Junior Entrepreneurial 
+Finance/Innovation Lunch Group for helpful comments. We thank John Graham and Jie Yang for sharing data and Tianchen Zhao for excellent research assistance. 
+Data on public ﬂoats is available here: https://github .com /michaelewens /public _ﬂoat _regulation.
+* Corresponding authors.
+
+E-mail addresses: michael.ewens@columbia.edu (M. Ewens), kairong.xiao@gsb.columbia.edu (K. Xiao), tingxu.xu@rotman.utoronto.ca (T. Xu).
+
+1 See section IV.C and referenced public comments in “The Enhancement and Standardization of Climate-Related Disclosures for Investors” (Release Nos. 33-
+11042).
+
+https://doi.org/10.1016/j.jﬁneco.2023.103775
+Received 11 September 2022; Received in revised form 19 December 2023; Accepted 28 December 2023
+
+JournalofFinancialEconomics153(2024)103775Availableonline12January20240304-405X/©2024ElsevierB.V.Allrightsreserved.M. Ewens, K. Xiao and T. Xu
+
+Researchers have explored this “regulatory overreach hypothesis”, 
+but the evidence is mixed.2 A key challenge faced by the prior literature 
+is that ﬁrms often engage in regulatory avoidance in response to regu-
+lations, as many public ﬁrm regulations trigger only when a ﬁrm’s size 
+exceeds a certain threshold. Firms seeking to avoid costly regulation 
+can bunch their public ﬂoat below the threshold. Such manipulation 
+may create challenges for traditional identiﬁcation strategies. Further-
+more,  the  existing  evidence  has  been  mainly  qualitative  rather  than 
+quantitative and considers only partial direct costs (e.g., in-house la-
+bor costs). Most existing literature provides regulatory exposure indices 
+rather than the quantitative estimates of dollar value of regulatory costs 
+central to policy making decisions. As Leuz and Wysocki (2016) write 
+in their survey of the literature (p. 529): “evidence on the causal ef-
+fects of disclosure and ﬁnancial reporting regulation is often diﬃcult to 
+obtain and still relatively rare; [. . . ] while we have a lot of evidence 
+that is qualitatively useful, we are still far from being able to perform 
+quantitative cost-beneﬁt analyses.”
+
+In this paper, we advance the literature in two ways. First, rather 
+than  facing  manipulation  as  an  identiﬁcation  impediment,  we  build 
+upon Dharmapala (2022), who ﬁrst uses a bunching approach (Saez, 
+2010;  Chetty  et  al.,  2011;  Kleven  and  Waseem,  2013)  to  document 
+statistically  signiﬁcant  bunching  of  public  ﬁrms  below  a  regulatory 
+threshold.  We  demonstrate  that  ﬁrms’  endogenous  bunching  around 
+regulatory thresholds can be used to infer regulatory costs. The cen-
+tral insight of the approach is a revealed preference argument: greater 
+bunching by public ﬁrms to avoid ﬁnancial regulation implies higher 
+regulatory costs. This approach allows us to analyze multiple regulatory 
+changes over 20 years, which provide a more comprehensive under-
+standing of the regulatory costs borne by public ﬁrms. The method also 
+outputs cost estimates that aggregate both direct and indirect costs net 
+of the beneﬁts from compliance. Second, this approach quantiﬁes the 
+monetary value of regulatory costs, which allows us to conduct a novel 
+set of counterfactual analyses on the eﬀects of regulation on the choice 
+of public and private status. Quantiﬁcation crucially improves upon ex-
+isting estimates, which typically only reveal cross-sectional variations 
+in regulatory costs. The regulatory cost estimates are also critical inputs 
+into regulators’ and policymakers’ quantitative cost-beneﬁt analyses.
+
+We begin by examining three major regulatory thresholds on a ﬁr-
+m’s public ﬂoat (i.e., value of trading equity) introduced since 1992. 
+Each regulatory threshold is associated with a set of exemptions from 
+disclosure and internal governance rules. The ﬁrst threshold is $25m, 
+which stemmed from the introduction of the “Small Business Issuers” 
+and scaled disclosures in 1992. Firms below $25m ﬂoat had less strin-
+gent disclosure requirements on ﬁnancial data, business operation, risk, 
+and governance.3 The second threshold is $75m introduced in 2002. 
+Firms below $75m are exempted from the SOX 404 requirement to hire 
+an outside auditor to attest to their internal controls. The third thresh-
+old is $700m implemented in the JOBS Act in 2012. Newly public ﬁrms 
+below this threshold (“Emerging Growth Companies”) receive several 
+ﬁnancial reporting accommodations, deferred compliance with new ac-
+counting rules, and an exemption from SOX 404(b). These regulatory 
+thresholds create variation in the major components of disclosure and 
+internal governance regulations faced by public ﬁrms.
+
+2 Earlier works such as Gao et al. (2013) and Doidge et al. (2013) cast doubt 
+on this narrative by noting that the decline in IPOs precedes major regulatory 
+changes such as Sarbanes-Oxley (SOX). In contrast, recent work such as Dambra 
+et al. (2015) ﬁnds that IPO activity partially increased after the regulatory re-
+lief of the 2012 JOBS Act. Other explanations of the decline in the number of 
+public ﬁrms include declining business dynamism (Decker et al., 2016; Doidge 
+et al., 2017), shifting investment to intangibles (Kahle and Stulz, 2017; Doidge 
+et al., 2018), increased availability of private equity (Ewens and Farre-Mensa, 
+2020), changing economies of scale and scope (Gao et al., 2013), and changing 
+acquisition behavior (Gao et al., 2013; Eckbo and Lithell, 2021).
+3 These scaled disclosures were later expanded to ﬁrms with less than $75m 
+ﬂoat in 2008 with the introduction of “Small Reporting Companies.”.
+
+These thresholds appear to lead to signiﬁcant bunching in the distri-
+bution of ﬁrms’ public ﬂoat in the years the regulations are in place.4 As 
+shown by Fig. 1, the density falls discretely at each regulatory threshold. 
+On its own, such bunching provides compelling evidence that regula-
+tions triggered by these thresholds impose signiﬁcant compliance costs 
+on ﬁrms, and that these costs seem to outweigh the regulations’ poten-
+tial beneﬁts to ﬁrms such as lower costs of capital. We ﬁnd that ﬁrms 
+close  to  the  thresholds  manipulate  their  public  ﬂoat  mainly  by  sub-
+stituting debt for equity, without changing their operations or insider 
+ownership.
+
+The validity of bunching estimation relies on the “smoothness” as-
+sumption: the distribution of the public ﬂoat is smooth in the absence 
+of regulation. Consistent with this identifying assumption, we ﬁnd no 
+excess mass in years before the regulatory threshold is introduced or af-
+ter it is eliminated, making it unlikely that other factors are changing at 
+the threshold. We also ﬁnd no excess mass around placebo thresholds 
+without regulations.
+
+Motivated by the above bunching patterns, we develop a model to 
+guide our estimation. In the model, ﬁrms can avoid regulatory costs by 
+reducing their public ﬂoat to a level below the regulatory threshold. 
+However, bunching distorts ﬁrms’ leverage away from the optimum. 
+Firms thus face a trade-oﬀ between regulatory costs and capital struc-
+ture distortion costs. The optimal bunching choice depends on how far 
+away a ﬁrm’s undistorted public ﬂoat is from the regulatory threshold. 
+Firms that are just above the threshold shrink their public ﬂoat to avoid 
+regulation because the associated leverage distortion is small. Firms that 
+are far above the threshold do not bunch because the cost of leverage 
+distortion outweighs the cost of regulation. There exists a marginal ﬁrm 
+that is indiﬀerent between the two costs and hence bunching or not. We 
+can infer the net regulatory cost facing this marginal ﬁrm from its lever-
+age distortion cost.
+
+To estimate the marginal ﬁrm, we employ the fuzzy bunching es-
+timator  by  Alvero  and  Xiao  (2020),  which  is  suitable  for  the  noisy 
+bunching  patterns  in  our  public  ﬂoat  data.  This  estimator  infers  the 
+marginal ﬁrm from the area between the actual cumulative distribu-
+tion function (CDF) with regulation and the counterfactual CDF in the 
+absence of the regulation. We then translate the estimated ﬂoat distor-
+tion to a dollar value of regulatory costs facing the marginal ﬁrm using 
+the  leverage  distortion  cost  function  from  Binsbergen  et  al.  (2010). 
+Finally,  we  extrapolate  the  regulatory  costs  to  other  ﬁrms  using  the 
+sensitivities  of  the  regulatory  costs  to  ﬁrm  characteristics  estimated 
+from subsample analysis and the relative share of variable versus ﬁxed 
+costs  estimated  from  SEC  surveys  (SEC,  2011)  and  Audit  Analytics 
+data.
+
+Our estimates show that the net present value of compliance costs 
+ranges from 1.2% to 1.8% of market capitalization for ﬁrms near regu-
+latory thresholds. For a median U.S. public company, total costs amount 
+to  4.3%  of  market  capitalization,  and  at  least  2.3%  absent  regula-
+tory avoidance frictions. These cost estimates are robust across vari-
+ous extrapolation assumptions, ranging from 2.1% to 6.3% of market 
+capitalization.  In  the  cross-section,  we  ﬁnd  that  ﬁrms  facing  higher 
+competition or growth experience higher regulatory costs, consistent 
+with existing theories. Aggregate regulatory costs have increased sig-
+niﬁcantly  in  the  ﬁrst  few  years  after  SOX,  but  have  been  declining 
+since, especially after the JOBS Act. Smaller ﬁrms bear disproportionate 
+amounts of regulatory costs relative to their size because a large portion 
+of these costs is ﬁxed. Nevertheless, various regulatory exemptions in-
+troduced by the SEC substantially alleviated the regulatory burden for 
+ﬁrms below the regulatory thresholds.
+
+Using  the  estimated  regulatory  costs,  we  investigate  how  regula-
+tion aﬀects the number of public ﬁrms. Doidge et al. (2017) show that 
+the decline in the number of public ﬁrms is driven by both low IPO 
+
+4 Gao et al. (2009), Iliev (2010), Weber and Yang (2020), Liu (2020), and 
+Dharmapala (2022) have also documented bunching below $75m.
+
+JournalofFinancialEconomics153(2024)1037752M. Ewens, K. Xiao and T. Xu
+
+Fig. 1. CDFs and Histograms for Public Float around Regulatory Thresholds. These ﬁgures show the cumulative distribution functions and histograms for 
+ﬁrms’ public ﬂoat around regulatory thresholds in bunching and non-bunching years. Bunching years are years when the threshold-based regulation is in place. 
+Non-bunching years are years before the regulation is introduced or after it expires.
+
+rates  and  high  delisting  rates,  each  explaining  about  half  of  the  de-
+cline. We ﬁrst examine the eﬀect of regulatory costs on private ﬁrms’ 
+IPO decisions, using a sample of 21,066 VC-backed ﬁrms. We ﬁnd that 
+regulatory costs signiﬁcantly impact these ﬁrms’ decisions to go pub-
+lic: a one-standard-deviation increase in regulatory costs is associated 
+with a 6.5% decrease in IPO likelihood. However, our counterfactual 
+analysis shows that major regulatory changes in the 2000s have had 
+
+limited impact on IPO volumes. Removing SOX only increases the av-
+erage annual IPO likelihood after 2000 from 0.95% to 0.96%, because 
+many potential IPO candidates are small enough to be exempted from 
+this regulation. Removing all estimated regulatory costs increases the 
+average annual IPO likelihood after 2000 from 0.95% to 1.4%, which 
+explains only 7.3% of the decline in IPO likelihood from pre-2000 to 
+post-2000.
+
+JournalofFinancialEconomics153(2024)1037753M. Ewens, K. Xiao and T. Xu
+
+Next, we examine the impact of the estimated regulatory costs on 
+public ﬁrms’ decisions to go private. We ﬁnd that they cannot explain 
+going private decisions. This ﬁnding is likely to be explained by the 
+fact that some of the regulatory costs are irreversible, upfront costs, 
+which would enter into ﬁrms’ going public decisions but are sunk costs 
+for their going private decisions. Our result is consistent with Kaplan 
+(1989), Guo et al. (2011), and Bernstein and Sheen (2016), who show 
+that many going-private deals are motivated by ﬁnancial or operational 
+engineering reasons, rather than to avoid regulatory costs. Our result 
+also echos Leuz (2007), Leuz et al. (2008), and Bartlett (2009), who ﬁnd 
+little evidence on the eﬀect of regulations on going private transactions.
+Overall,  our  ﬁndings  suggest  that  regulatory  costs  aﬀect  ﬁrms’ 
+public-vs-private  choice  mainly  through  their  going  public  decision. 
+Nevertheless, regulatory costs only explain a small fraction of the disap-
+peared IPOs, in contrast to the popular claim by practitioners. Instead, 
+our  results  are  consistent  with  Gao  et  al.  (2013) and  Doidge  et  al. 
+(2013), who suggest that regulatory changes in the early 2000s did not 
+cause the decline of public ﬁrms.
+
+Although we believe our estimation approach addresses some lim-
+itations  in  the  current  literature,  its  implementation  requires  several 
+assumptions. First, although we study three major regulatory changes 
+over 20 years, the bunching estimator only uses threshold-based regu-
+lations and thus excludes uniformly implemented regulations (e.g., Reg 
+FD or the introduction of EDGAR). Nevertheless, our analysis covers im-
+portant regulatory changes that are often attributed to changes in the 
+number of public ﬁrms, such as SOX in 2002 and JOBS Act in 2012. 
+Second, our baseline bunching estimation forms the counterfactual dis-
+tribution using the years before the regulatory threshold is introduced 
+or  after  it  is  eliminated.  We  show  that  our  estimates  are  robust  to 
+dropping the two years before regulation changes to exclude potential 
+anticipation-based bunching or using a smooth polynominal to estimate 
+counterfactual distributions in the bunching samples. Third, we use the 
+leverage distortion costs estimated by Binsbergen et al. (2010) to trans-
+late observed bunching to a dollar value of regulatory costs. The main 
+results are robust to alternative parameters for leverage distortion costs 
+and the Korteweg (2010) leverage distortion cost function. Finally, our 
+extrapolation relies on a decomposition of variable versus ﬁxed costs, 
+estimated using data that largely reﬂect direct rather than indirect com-
+pliance costs and omit compliance beneﬁts. To assess the robustness 
+of this extrapolation method, we bound our estimates in the range of 
+2.1%–7.8% after varying assumptions about variable vs. ﬁxed costs, ad-
+justing the extrapolation model, and accounting for omitted variables 
+and statistical variations.
+
+This paper contributes to a growing literature on the disappearing 
+public ﬁrms puzzle. Aside from the “regulatory overreach hypothesis” 
+and the aforementioned papers, the literature has also proposed ﬁve 
+other major hypotheses: (1) declining business dynamism (Decker et al., 
+2016; Doidge et al., 2017), (2) shifting investment to intangibles (Kahle 
+and Stulz, 2017; Doidge et al., 2018), (3) increased availability of pri-
+vate equity (Ewens and Farre-Mensa, 2020), (4) changing economies of 
+scale and scope (Gao et al., 2013), and (5) changing acquisition behav-
+ior (Gao et al., 2013; Eckbo and Lithell, 2021). Using the new bunching 
+estimation  strategy  developed  from  the  public  economics  literature, 
+our paper provides an in-depth study of the “regulatory overreach hy-
+pothesis”  by  estimating  the  regulatory  costs  of  being  a  public  ﬁrm, 
+examining the margins through which regulatory costs aﬀect public-
+vs-private decisions, and quantifying how much of the decline in IPOs 
+can be attributed to heightened regulatory costs. Our study suggests 
+that regulatory costs only explain a small fraction of the decline in pub-
+lic ﬁrms; non-regulatory factors facing public ﬁrms seem to be playing 
+a more important role.
+
+Our paper also adds to the extensive literature studying the impact 
+of disclosure and internal governance regulations on ﬁrms. As surveyed 
+by Leuz and Wysocki (2016), most of this literature has been qualita-
+tive. We quantify the net compliance costs of these regulations, pro-
+viding useful inputs to regulators’ cost-beneﬁt analysis. Our estimates 
+
+also shed light on the ongoing debate on whether public ﬁrms face ex-
+cessive regulatory burdens (Coates, 2007). Related to our work, Gao et 
+al. (2009), Iliev (2010), Alsabah and Moon (2020), Weber and Yang 
+(2020), and Liu (2020) study the eﬀects of regulatory thresholds on 
+public ﬁrms’ outcomes such as earnings quality, audit fees, leverage, 
+and stock prices.5 While these works have also documented bunching, 
+we are the ﬁrst to use a bunching estimator to translate bunching to dol-
+lar costs of regulations. Rather than facing regulatory avoidance as an 
+identiﬁcation challenge, our approach exploits it for identiﬁcation. Our 
+approach thus complements traditional identiﬁcation strategies such as 
+diﬀerence-in-diﬀerences and regression discontinuity by expanding the 
+scope of regulations that can be studied. Our work closely aligns with 
+Dharmapala (2022), which pioneered the use of a bunching method to 
+identify statistically signiﬁcant bunching below the $75 million thresh-
+old following SOX. Our paper extends Dharmapala (2022) by showing 
+that bunching ﬁrms adjust primarily through changing capital struc-
+ture. Furthermore, drawing upon the debt cost function developed by 
+Binsbergen et al. (2010) and Korteweg (2010), our research uniquely 
+quantiﬁes the regulatory costs derived from bunching. This novel step 
+carries substantial implications for researchers and policymakers seek-
+ing to grasp the dollar value of regulatory costs. Our paper also diﬀers 
+from Bertomeu et al. (2020) and Cheynel and Liu-Watts (2020), who 
+estimate the cost of voluntary disclosure, rather than the costs of man-
+dated disclosure and internal controls.
+
+Our  paper  also  advances  the  literature  on  regulatory  economics. 
+An important question in this literature is how to measure regulatory 
+burdens.  Existing  literature  has  proposed  various  measures,  such  as 
+the number of rules facing ﬁrms (Porta et al., 1998; Al-Ubaydli and 
+McLaughlin, 2017), number of employees hired by regulators (Jackson, 
+2007),  labor  spending  on  compliance-related  occupations  (Simkovic 
+and Zhang, 2020), hours ﬁrms spend on regulatory paperwork (Kalmen-
+ovitz,  2019),  complexity  of  regulatory  languages  (Amadxarif  et  al., 
+2019),  and  how  frequently  ﬁrms  mention  regulations  in  their  10-K 
+(Gong and Yannelis, 2018; Calomiris et al., 2020). We introduce a re-
+vealed preference approach using regulatory-based bunching that com-
+plements existing approaches in several ways. First, existing approaches 
+often generate an index of regulatory exposure, while we directly quan-
+tify the dollar costs of regulations, which can be used as inputs into 
+regulators’ cost-beneﬁt analysis. Second, most existing measures only 
+capture direct regulatory costs (e.g., paperwork costs, labor costs, or 
+external fees), while our revealed preference approach additionally cap-
+tures indirect costs, such as proprietary costs, diversion of managerial 
+attention, and operational distortions. Our approach also nets out the 
+beneﬁts of compliance to generate a net cost estimate. That said, our 
+approach can only be applied to threshold-based regulations, which is a 
+limitation. Nevertheless, many regulations are threshold-based and are 
+increasingly so. Thus, our approach has ample applications.
+
+Finally, our application of bunching estimation to public ﬁrms adds 
+to a growing literature that uses the bunching technique to study ﬁ-
+nance  topics.  Prior  applications  include  mortgage (DeFusco  and  Pa-
+ciorek,  2017;  DeFusco  et  al.,  2020),  small  business  lending  (Bachas 
+et  al.,  2020b,a),  municipal  bonds  (Dagostino,  2018),  student  loans 
+(Fagereng and Ring, 2021), bankruptcy fees (Antill, 2020), and banks 
+(Alvero et al., 2023). The prior literature typically uses large adminis-
+trative data with little noise. Hence, their bunching pattern exhibits a 
+sharp density spike at the threshold and is suitable for the traditional 
+
+5 Dambra et al. (2015), Chaplinsky et al. (2017), Barth et al. (2017), and 
+Dambra and Gustafson (2020) study the impact of JOBS Act on IPO ﬁrms; 
+Coates and Srinivasan (2014) survey the literature on the eﬀect of SOX on ﬁrm 
+outcomes; Iliev and Vitanova (2019) study the eﬀect of Say-on-Pay on compen-
+sation and ﬁrm value. Similarly, several papers also noted regulatory avoidance 
+behavior in other contexts. See, for example, Ballew et al. (2021), Bouwman et 
+al. (2018), and Bindal et al. (2020) on banking regulation, Bernard et al. (2018)
+on disclosure of private ﬁrms, and Schivardi and Torrini (2008) and Amirapu 
+and Gechter (2020) on labor regulation.
+
+JournalofFinancialEconomics153(2024)1037754M. Ewens, K. Xiao and T. Xu
+
+“sharp bunching” approach. Our setting has a smaller sample size and 
+the running variable contains more randomness (i.e., public ﬂoat ﬂuc-
+tuates with stock prices). Thus, the bunching pattern is much noisier. 
+Alvero and Xiao (2020) show that using the sharp bunching approach 
+on noisy data would lead to under-estimation. Given that many corpo-
+rate ﬁnance settings feature relatively small samples and noisy data, the 
+Alvero and Xiao (2020) fuzzy bunching methodology used here can be 
+fruitfully applied to future research.
+
+1.  Data and institutional background
+
+1.1.  Data sources
+
+The  SEC  uses  public  ﬂoat  to  determine  ﬁrms’  compliance  status 
+with multiple regulations. Formally, it is deﬁned as the market value 
+of all outstanding common equity (voting and non-voting) held by non-
+aﬃliates at the end of the second ﬁscal quarter.6 Firms must disclose 
+their public ﬂoat according to this deﬁnition at the top of their 10-K. 
+We collect public ﬂoat data for all U.S. listed ﬁrms from 10-K ﬁlings (in-
+cluding 10-KSB, 10-KT, and 10-K405) using a customized web-crawling 
+script. We restrict to all ﬁscal years from 1994 (the year EDGAR starts 
+and ﬁnancial statements are machine-readable) to 2018. We further re-
+quire ﬁrms to have non-missing sales in Compustat and non-missing 
+public ﬂoat. These restrictions exclude shell and pink sheet companies. 
+We match these ﬁrms to Jay Ritter’s IPO database to identify the year a 
+ﬁrm went public. To estimate the cost structure of regulatory costs, we 
+obtain audit fees data from Audit Analytics and SOX 404 compliance 
+costs data reported in a SEC survey SEC (2011). Lastly, we use a sample 
+of VC-backed ﬁrms from VentureSource to study the impact of regula-
+tory costs on IPO decisions. We also use a sample of public ﬁrms that 
+went through going private transactions (identiﬁed using 13e-3 ﬁlings) 
+to study the impact of regulatory costs on going private decisions.
+
+1.2.  Institutional background
+
+SEC regulations on public ﬁrms can be characterized into two ma-
+jor categories: disclosure and governance. In this section, we describe 
+the institutional details surrounding several regulatory reliefs oﬀered by 
+the SEC in the past three decades, which helps shed light on regulatory 
+costs faced by public ﬁrms. We focus on four types of regulatory reliefs: 
+scaled disclosure, non-accelerated ﬁling, exemption from SOX Section 
+404, and Emerging Growth Company beneﬁts. These beneﬁts apply to 
+ﬁrms of diﬀerent sizes as determined by their public ﬂoat, and some-
+times by their revenue. For each rule change, we also provide the SEC’s 
+original assessment of costs and beneﬁts. Although our bunching esti-
+mation does not rely on the exogeneity of these regulatory changes, we 
+detail their history and potential lobbying or anticipation in Appendix 
+Section A.1.2.
+
+Scaled  Disclosure. Enacted  in  August  of  1992,  the  SEC  imple-
+mented a new set of rules centered on the SB-2 registration form and 
+reﬁned  the  class  of  companies  called  “Small  Business  Issuers”  (SBI). 
+These new rules reﬁned Regulation S-K, a regulation about the infor-
+mation requirements in ﬁlings. These regulatory changes signiﬁcantly 
+expanded the set of companies that could take advantage of scaled dis-
+closure from Form S-18. Some of the scaled disclosures included pared 
+down selected ﬁnancial data, simpliﬁed description of business, limited 
+executive compensation information, no disclosure on beneﬁcial own-
+ership and less extensive details provided in annual reports. Appendix 
+Table A.1 provides the full list of scaled disclosure items.
+
+6 Before 2002, public ﬂoat was computed within 60 days of 10-K ﬁling date. 
+Rule 405 deﬁnes an aﬃliate as a “person that directly, or indirectly through one 
+or more intermediaries, controls, is controlled by, or is under common control 
+with” an issuer. Appendix Section A.1.1 provides more details on public ﬂoat 
+data.
+
+The 1992 rule change resulted in the introduction of small business 
+annual reports (10-KSB) and quarterly reports (10-QSB). In its simplest 
+form, a company could use the new SBI deﬁnition if it had a public ﬂoat 
+less than $25m and annual revenues less than $25m. Once a company 
+began reporting with the SEC, it remained SBI until either its revenue 
+or public ﬂoat exceeded the $25m threshold for two consecutive years 
+(in its 10-KSB). In 2008, the scaled disclosure regulatory relief was ex-
+panded to a broader set of ﬁrms called “Smaller Reporting Companies” 
+(SRC), deﬁned as ﬁrms with less than $75m public ﬂoat and less than 
+$50m in revenues (see Appendix A.1.4 for details on SRC). With the 
+introduction of SRC, the SEC eliminated all SBI ﬁlings as such as 10-
+KSB and 10-QSB. The $25m threshold for scaled disclosure thus ends in 
+2008.
+
+Non-Accelerated Filer. First proposed in 1998 and eventually en-
+acted in April 2002, the SEC created a new category of registered ﬁrms 
+called “Accelerated Filers.” Such ﬁrms were required to ﬁle their ﬁnal-
+ized annual and quarterly reports within 75 and 35 days of the end of 
+the ﬁscal period, respectively. Before this change, all registered ﬁrms 
+had to ﬁle these reports within 90 and 45 days. The stated goal was 
+“modernizing the periodic reporting system and improving the useful-
+ness of periodic reports to investors.” (SEC, 2002, sec I.B) Importantly 
+for our purposes, the SEC and public commenters recognized that the 
+burden of accelerating ﬁling may be higher for smaller ﬁrms. After the 
+phase-in period, the new rule applied to ﬁrms whose public ﬂoat was 
+$75 million or more as of the last business day of its most recently com-
+pleted second ﬁscal quarter, among other conditions that accelerated 
+ﬁlers need to satisfy.7 Firms that did not satisfy these conditions are 
+“Non-Accelerated Filers.”
+
+SOX Section 404 Exemption. The passage of the Sarbanes-Oxley 
+(SOX)  Act  in  2002  introduced  many  new  disclosure  and  governance 
+rules for public companies. Section 404 concerns a ﬁrm’s internal con-
+trols and is widely considered as the costliest part of SOX (Zhang, 2007; 
+Gao et al., 2009). Expecting a disproportionate burden of this section 
+on small ﬁrms, the law provided an initial 5-month extension to both 
+part (a) and (b) to ﬁrms with public ﬂoats less than $75m in 2002. The 
+former requires that ﬁrms provide a management’s report on their in-
+ternal controls, while the latter requires that the ﬁrm hire an outside 
+auditor to attest to the ﬁrm’s internal controls. Firms with ﬂoats above 
+this threshold – accelerated ﬁlers – had to comply with 404(a) and (b) 
+on or after November 15, 2004. Firms whose public ﬂoat did not exceed 
+$75m – non-accelerated ﬁlers – in 2002, 2003 or 2004 could choose to 
+not comply with both parts of Section 404. These exemptions were later 
+extended multiple times and then made permanent.8
+
+Emerging Growth Companies. The JOBS Act (2012) introduced 
+the “Emerging Growth Company” (EGC) category for ﬁrms that went 
+public after December 8, 2011. A company qualiﬁes as an EGC if it has 
+total annual gross revenues of less than $1 billion ($1.07 billion after 
+2017) during its most recently completed ﬁscal year and, as of Decem-
+ber 8, 2011, had not sold common equity securities under a registration 
+statement. A company retains its EGC status until it crosses one of the 
+following thresholds: 1) reaching $1 billion ($1.07 billion after 2017) 
+in gross revenue, 2) past the ﬁfth anniversary of its IPO, 3) issuing more 
+than $1 billion of non-convertible debt within a three-year period, 4) 
+
+7 These conditions include i) The company has been subject to the reporting 
+requirements of Section 13(a) or 15(d) of the Exchange Act for a period of at 
+least 12 calendar months; ii) The company has previously ﬁled at least one 
+annual report pursuant to Section 13(a) or 15(d) of the Exchange Act; iii) The 
+company is not eligible to use Forms 10-KSB and 10-QSB.
+8 The delay in compliance was later extended in September 2005 to 2007 
+(SEC Release NOS. 33-8731; 34-54295; File No. S7-06-03). In August 2006, 
+non-accelerated ﬁlers were given extensions of 404(a) to 2007 and 404(b) to 
+2008. The SEC notes in that report for both rules, these “deadline[s] could be 
+further postponed.” The exemption from 404(b) continued to be extended until 
+non-accelerated ﬁlers were permanently exempt with the passage of the Dodd-
+Frank Act in 2010.
+
+JournalofFinancialEconomics153(2024)1037755M. Ewens, K. Xiao and T. Xu
+
+Table 1
+Summary of regulatory thresholds.
+
+Panel A: Key Public Float Thresholds
+
+Time period
+
+Scaled Disclosure
+
+1992–2002
+2003–2007
+2008–2011
+2012–2018
+
+< $25 mil
+< $25 mil
+< $75 mil
+< $75 mil
+
+Non-accelerated ﬁler
+(NAF)
+
+Exempt from SOX
+Section 404
+
+Emerging Growth
+Company (EGC)
+
+< $75 mil
+< $75 mil
+< $75 mil
+
+< $75 mil
+< $75 mil
+< $75 mil
+
+< $700 mil
+
+Panel B: Public Float Intervals and Associated Regulatory Beneﬁts
+
+Time Period
+
+1992–2002
+2003–2007
+
+2008–2011
+2012–2018
+
+< 25 mil
+
+25–75 mil
+
+75–700 mil
+
+> 700 mil
+
+Scaled disclosure
+Scaled disclosure
++ ﬁling delay + 404 exempt
+Scaled disclosure + ﬁling delay + 404 exempt
+Scaled disclosure + ﬁling delay + 404 exempt
++ EGC beneﬁts
+
+N/A
+ﬁling delay + 404 exempt
+
+N/A
+N/A
+
+N/A
+EGC beneﬁts
+
+N/A
+N/A
+
+N/A
+N/A
+
+Binding Thresholds
+
+25 for SD
+25 for SD
+75 for 15d+404
+75 for SD+delay+404
+75 for SD+delay+404
+700 for EGC
+
+This table summarizes regulatory thresholds used in our paper. Panel A presents the time-varying threshold for each type of regulatory beneﬁts. Panel B summarize 
+the set of regulatory beneﬁts enjoyed by ﬁrms in each public ﬂoat interval. The last column of Panel B summarizes key exploitable thresholds in each time period 
+and the associated beneﬁts each threshold identiﬁes.
+
+has more than $700 million public ﬂoat (i.e., becomes a large acceler-
+ate ﬁler). We focus on the last public ﬂoat threshold because it is more 
+diﬃcult to manipulate gross revenue and it is rare for new public ﬁrms 
+to issue more than $1 billion of non-convertible public debt in the ﬁrst 
+ﬁve years post-IPO. Notably, although a ﬁrm can transition out of the 
+EGC status, it cannot transition into EGC if it did not elect EGC status 
+during IPO ﬁling.
+
+There  are  several  beneﬁts  of  being  an  EGC,  which  are  best  sum-
+marized as a combination of scaled disclosure and relaxation of some 
+internal governance rules. First, an EGC ﬁler faces less extensive dis-
+closure requirements in initial and subsequent registration statements, 
+particularly in the description of executive compensation and the time 
+periods covered by the MD&A section; they also enjoy delayed ﬁling 
+of 10-K and 10-Q relative to large accelerated ﬁlers. Second, EGC ﬁlers 
+need only provide two years’ rather than three years’ of audited ﬁnan-
+cial statements in initial registration statement and subsequent annual 
+reports. Third, EGC ﬁlers do not need to provide an auditor attesta-
+tion of internal control under SOX 404(b). Fourth, these ﬁlers can delay 
+compliance with new accounting standards. Lastly, EGC ﬁlers can use 
+test-the-waters communications with qualiﬁed institutional buyers and 
+institutional accredited investors when issuing securities.9
+
+1.3.  Summary of regulatory thresholds
+
+Despite the above regulations’ diﬀerences, they share a common el-
+igibility criterion—public ﬂoat.10 Panel A of Table 1 summarizes the 
+various  regulatory  reliefs  described  above  and  the  associated  public 
+ﬂoat cutoﬀs. Panel B describes the set of regulatory beneﬁts enjoyed by 
+ﬁrms in diﬀerent public ﬂoat categories. In particular, the last column 
+summarizes the key thresholds that can be exploited in each time pe-
+riod and the associated beneﬁts if ﬁrms stay below the threshold. These 
+variations in cutoﬀs and their eﬀective periods give us a rich empirical 
+setting to separately identify the value of diﬀerent regulatory reliefs.
+
+9 Since 2007, being below $700m ﬂoat also gives ﬁrms additional 15 days in 
+ﬁling 10-Ks and 10-Qs relative to large accelerated ﬁlers that are above $700m. 
+However, as documented in both Alsabah and Moon (2020) and our Fig. 1, 
+there is no bunching in ﬂoat below $700m before 2012 when there was ﬁling 
+delay beneﬁts but no other EGC beneﬁts, suggesting that the value of this 15-
+day ﬁling delay is negligible for ﬁrms around $700m ﬂoat.
+10 For regulations that also have a revenue-based threshold, we condition on 
+ﬁrms being below the revenue threshold in forming our samples, so that pub-
+lic ﬂoat is the only relevant margin for regulatory avoidance. We do not ﬁnd 
+signiﬁcant bunching below the revenue thresholds (see Figure A.1), consistent 
+with revenue being much harder to manipulate than public ﬂoat.
+
+Our empirical design exploits ﬁrms’ bunching behavior around three 
+public ﬂoat cutoﬀs: $25m, $75m, and $700m.11 Panel C of Table 3 sum-
+marizes the thresholds and samples used to identify diﬀerent sets of 
+regulatory reliefs. Speciﬁcally, we use the period when the regulatory 
+relief is in place as the bunching period, and the period before the relief 
+is introduced (or after it expires) as the non-bunching period. The non-
+bunching period acts as the counterfactual distribution of ﬁrms’ public 
+ﬂoat in the absence of bunching incentives. We use bunching around 
+$25m in 1994–2007 to identify the value of scaled disclosure, bunching 
+around $75m in 2003–2007 to identify the value of SOX 404 exemp-
+tion and delayed ﬁling, and bunching around $700m in 2012–2018 to 
+identify the value of EGC beneﬁts. Section 3.4 provides more details on 
+the estimation samples.
+
+1.4.  How signiﬁcant are these regulations?
+
+The regulations detailed above constitute important components of 
+regulations faced by U.S. registered (i.e., public) ﬁrm. For example, the 
+internal governance provisions of SOX only emerged with the law’s pas-
+sage and are widely regarded as the costliest part of SOX (Zhang, 2007; 
+Gao et al., 2009). The regulations studied here capture the two funda-
+mental goals of the Securities Act of 1933: 1) requiring that investors 
+receive ﬁnancial and other signiﬁcant information, and 2) prohibiting 
+fraud and misrepresentations. However, quantifying the importance of 
+these rules relative to all public ﬁrm regulations is challenging. That 
+said,  in  Appendix  Section A.1.5,  we  attempt  one  quantiﬁcation  of  a 
+threshold regulation’s scope using the Small Business Issuer (SBI) clas-
+siﬁcation introduced in 1992.
+
+1.4.1.  Other public ﬁrm regulations
+
+Although the regulations we study capture the two fundamental as-
+pects of the Securities Act of 1933, it is important to note that they 
+do not encompass all regulations faced by public ﬁrms. For example, 
+we do not study regulations related to securities exchange and trad-
+ing, which are regulated by the Securities Exchange Act of 1934. We 
+also do not study industry-speciﬁc regulations, such as regulations on 
+ﬁnancial  institutions  (e.g.,  Dodd-Frank  Act)  or  mining  safety  regula-
+tions on mining companies. Many of these industry-speciﬁc regulations 
+apply  to  both  public  and  private  ﬁrms  and  hence  should  not  aﬀect 
+ﬁrms’  public-vs-private  choice,  which  we  study  in  Section 5.  Lastly, 
+
+11 In certain periods, the $75m and $700m thresholds were also associated 
+with a few alternative regulations. We discuss these regulations in Section 6.1
+and show that they do not aﬀect our estimates.
+
+JournalofFinancialEconomics153(2024)1037756M. Ewens, K. Xiao and T. Xu
+
+our methodology precludes us from studying uniformly implemented 
+regulations that are not threshold-based such as Reg FD and options 
+expensing requirements. A more comprehensive list of non-threshold-
+based SEC regulations is summarized in Appendix Table A.3.
+
+2.  Empirical facts
+
+2.1.  Bunching at regulatory thresholds
+
+Fig. 1 shows the distributions of ﬁrms’ public ﬂoat around the three 
+regulatory thresholds detailed in Section 1.2. The left panels plot the 
+CDFs and the right panels plot the histograms. If there is bunching in 
+public ﬂoat, the CDF should be steeper before the cutoﬀ and ﬂatter after 
+the cutoﬀ, leading to a bulge in the distribution relative to the counter-
+factual CDF without bunching. Further, the histogram should also show 
+a sharp drop in density after the cutoﬀ than before it. Fig. 1 shows just 
+such a pattern. For all three thresholds, the CDF in bunching years is 
+more concave than that in non-bunching years, generating a clearly vis-
+ible gap between the two. The histograms also show a sharp drop in the 
+density of ﬁrms’ public ﬂoat after the cutoﬀs in bunching years and a 
+smooth density around the cutoﬀs in non-bunching years. These bunch-
+ing patterns themselves suggest that the regulations triggered by these 
+thresholds are on average costly for ﬁrms, so that they are willing to 
+avoid them.12 In contrast, in Fig. 2, we ﬁnd no bunching nor diﬀerences 
+in ﬂoat distributions across bunching and non-bunching years around 
+three placebo thresholds unrelated to any regulations. These placebo 
+ﬁgures suggest that the ﬂoat distribution in non-bunching years serves 
+as a good counterfactual for the distribution in bunching years. Our 
+bunching estimators exploit these bunching patterns to estimate the im-
+plied regulatory beneﬁts associated with staying below the regulatory 
+cutoﬀs.
+
+2.2.  How ﬁrms manipulate public ﬂoat
+
+In this section, we examine how ﬁrms manipulate their public ﬂoat, 
+which  directly  informs  how  we  model  the  costs  of  bunching  in  Sec-
+tion 3.2. Firms can 1) reduce investment, 2) increase debt, or 3) increase 
+inside ownership to fund the reduction in public ﬂoat. The ﬁrst margin 
+concerns ﬁrms’ operations while the latter two concern the ﬁnancing 
+side of ﬁrms’ balance sheet. If a ﬁrm reduces equity without increas-
+ing debt, its operation (and thus investment) would need to shrink. On 
+the other hand, if a ﬁrm keeps its operations constant, a shortfall in 
+equity will need to be ﬁlled with debt, leading to higher leverage. Al-
+ternatively,  ﬁrms  could  keep  both  leverage  and  investment  constant 
+and only adjust the fraction of shares held by insiders vis-à-vis public 
+investors.13
+
+To test the above margins, we compare the characteristics of ﬁrms 
+just above and just below each threshold. If, for example, ﬁrms ma-
+nipulate ﬂoat by substituting debt for equity, we should observe that 
+bunching  ﬁrms  on  average  have  higher  leverage  than  similar  non-
+bunching  ﬁrms.  Given  that  bunching  ﬁrms  tend  to  concentrate  just 
+below the threshold, we should in turn observe that ﬁrms just below 
+the threshold have higher leverage on average than ﬁrms just above it. 
+One concern with the above comparison is that ﬁrms on the two sides of 
+the threshold may be inherently diﬀerent due to their size diﬀerences. 
+To address this, we further compare the diﬀerences in bunching and 
+non-bunching years. In non-bunching years, any diﬀerences between 
+
+12 The bunching patterns do not imply that regulatory compliance is on net 
+costly for all ﬁrms. For example, some ﬁrms may ﬁnd it beneﬁcial to voluntarily 
+comply even if they are below the threshold. This may happen if the signaling 
+value of voluntary compliance outweighs the costs of compliance.
+13 Theoretically ﬁrms can also manipulate their quarterly earnings to inﬂuence 
+stock prices. However, second quarter earnings are typically announced after 
+the end of the second quarter (i.e., when public ﬂoat is computed), making 
+such manipulation infeasible for most ﬁrms.
+
+ﬁrms above and below threshold should reﬂect their inherent diﬀer-
+ences, rather than the outcome of manipulation. Hence, we estimate 
+the following speciﬁcation on a small window of ﬁrms around each of 
+the three thresholds:
+𝑌𝑖,𝑡 = 𝜃 × Below threshold𝑖,𝑡 + 𝛽 × Below threshold𝑖,𝑡 × Bunching years𝑡
+
+(1)
+
++ 𝑋𝑖,𝑡 + 𝜀𝑖,𝑡
+indicates  a  ﬁrm’s  public  ﬂoat  being  below 
+where  Below threshold𝑖,𝑡
+threshold,  Bunching years𝑡 indicates  treated  years  as  in  Table 3,  and 
+𝑋𝑖,𝑡 is  a  vector  of  controls  that  include  industry  ﬁxed  eﬀects,  year 
+ﬁxed  eﬀects,  and  the  lagged  dependent  variable.  To  address  the  po-
+tential bias introduced when using the lagged dependent variable as 
+a control, we use the twice-lagged level of the dependent variable as 
+an  instrument.  The  dependent  variable  𝑌𝑖,𝑡 is  book  leverage,  invest-
+ment, or fraction of non-aﬃliated shares (i.e., one minus the fraction 
+of closely-held shares). We do not include ﬁrm ﬁxed eﬀects because 
+most  ﬁrms  show  up  only  once  in  our  narrow  window  sample.  As 
+such, our comparisons are largely cross-sectional rather than within-
+ﬁrm.
+
+Table 2 reports the estimation results where each panel considers a 
+diﬀerent threshold. Column 1 shows that public ﬂoat distortion leads 
+to increases in book leverage. In contrast, the remaining columns show 
+that ﬁrms neither alter their investment nor insider ownership around 
+the threshold changes. Column 2 considers the standard CAPEX-based 
+measure of investment. Columns 3 and 4 use alternative measures of in-
+vestment that incorporate intangibles such as R&D and SG&A (Ewens 
+et  al.,  2020).  The  signs  are  as  predicted  in  some  speciﬁcations,  but 
+lack statistical and economic signiﬁcance. The ﬁnal column reports the 
+change in insider ownership result. The coeﬃcient estimates are statisti-
+cally and economically insigniﬁcant. Figure A.2 shows that, in bunching 
+years relative to non-bunching years, there is a run-up in book leverage 
+from ﬁscal Q1 to Q2, when public ﬂoat is measured, and that the higher 
+leverage sustains into Q3. This ﬁnding corroborates the idea that ﬁrms 
+bunch by manipulating leverage.
+
+Table A.4 further examines whether ﬁrms change other aspects of 
+their operations to avoid regulation. Using the same speciﬁcation as Ta-
+ble 2, we ﬁnd no signiﬁcant changes in a wide variety of operational 
+outcomes, including total assets, tangibility, asset turnover, and prof-
+itability, consistent with no changes in investment. We also examine 
+how ﬁrms reduce their public ﬂoat, regardless of how they fund these 
+reductions. The main way is to increase payouts, including dividends 
+and  repurchases.  Column  5  of  Table A.4  conﬁrms  this:  in  bunching 
+years ﬁrms just below the thresholds have higher total payouts than 
+ﬁrms just above.
+
+Overall, these results together suggest that ﬁrms keep their public 
+ﬂoat below threshold through increasing payouts, while using debt to 
+ﬁll the equity shortfall with unchanged operations. This is likely due 
+to the fact investment is often lumpy and irreversible, while leverage 
+can be adjusted in a more granular manner. Consistent with our ﬁnd-
+ing, Weber and Yang (2020) and Alsabah and Moon (2020) also ﬁnd 
+leverage to be the main margin of adjustment around the $75m and 
+$700m threshold, respectively. In the following exercise, we infer the 
+regulatory costs based on the adjustment of leverage.
+
+3.  Bunching estimator of regulatory costs
+
+This section lays out the bunching estimator that we use to quantify 
+
+regulatory costs.
+
+3.1.  A primer for bunching estimation
+
+The public ﬁnance and labor economics literatures originally devel-
+oped bunching estimation to analyze taxpayers’ strategic response to 
+changes in tax rates at tax brackets (Saez, 2010; Chetty et al., 2011; 
+Kleven and Waseem, 2013). The key idea is simple: if a threshold-based 
+policy results in a discrete change in the payoﬀ function of rational 
+
+JournalofFinancialEconomics153(2024)1037757M. Ewens, K. Xiao and T. Xu
+
+Fig. 2. CDFs and Histograms for Public Float around Placebo Thresholds. These ﬁgures show the cumulative distribution functions and histograms for ﬁrms’ 
+public ﬂoat around three placebo thresholds that are below our actual regulatory thresholds: $15M, $60M, and $500M. The samples are based on the same sample 
+periods and ﬁlters as for our main samples, except for public ﬂoat range.
+
+agents, then some agents should bunch at the threshold, and the extent 
+of bunching should reveal the underlying economic parameters about 
+the policy or the payoﬀ function.
+
+Bunching  estimation  typically  involves  two  steps.  First,  one  esti-
+mates a behavioral response to the threshold using the bunching vari-
+able distribution. The goal here is to answer the question: how many 
+agents choose to bunch? In the second step, the behavioral response is 
+
+translated to a structural parameter through the lens of an economic 
+model of the agent’s payoﬀ. The observed bunching is a result of two 
+forces: (1) policy-induced payoﬀ change (how costly it is to cross the 
+threshold), and (2) the elasticity of the behavioral response (how costly 
+it is to manipulate the bunching variable). Larger policy-induced pay-
+oﬀ change or higher elasticity of the behavioral response will lead to 
+greater observed bunching.
+
+JournalofFinancialEconomics153(2024)1037758M. Ewens, K. Xiao and T. Xu
+
+Table 2
+How ﬁrms manipulate public ﬂoat.
+
+Dep. var.
+
+Below $25m × Bunching years
+
+Year FE and SIC3 FE
+N
+Mean of dep. var.
+
+Below $75m × Bunching years
+
+Year FE and SIC3 FE
+N
+Mean of dep. var.
+
+Below $700m × Bunching years
+
+Year FE and SIC3 FE
+N
+Mean of dep. var.
+
+0.050*
+[0.028]
+Yes
+229
+0.199
+
+Book leverage
+(1)
+
+Investment1
+(2)
+
+Investment2
+(3)
+
+Investment3
+(4)
+
+Non-aﬀ. own.
+(5)
+
+Panel A. $25m threshold
+
+0.098*
+[0.050]
+Yes
+1213
+0.263
+
+Panel B. $75m threshold
+
+0.014**
+[0.006]
+Yes
+3117
+0.170
+
+Panel C. $700m threshold
+
+0.025
+[0.025]
+Yes
+1120
+0.055
+
+-0.008
+[0.009]
+Yes
+3015
+0.047
+
+-0.016
+[0.010]
+Yes
+228
+0.057
+
+0.013
+[0.023]
+Yes
+1119
+0.131
+
+-0.011
+[0.008]
+Yes
+3003
+0.09
+
+-0.003
+[0.029]
+Yes
+227
+0.12
+
+0.013
+[0.039]
+Yes
+1077
+0.192
+
+-0.013
+[0.010]
+Yes
+2867
+0.133
+
+0.003
+[0.036]
+Yes
+226
+0.172
+
+-0.034
+[0.090]
+Yes
+571
+0.743
+
+0.032
+[0.045]
+Yes
+2240
+0.729
+
+-0.012
+[0.043]
+Yes
+185
+0.800
+
+This table examines how ﬁrms manipulate public ﬂoat around regulatory thresholds. Speciﬁcally, we compare book leverage, investment, and non-aﬃliated owner-
+ship between ﬁrms just above and those just below the threshold, in bunching and non-bunching years. The three panels correspond to samples around the $25M, 
+$75M, and $700M thresholds, respectively. Book leverage is total debt divided by total assets; 𝐼𝑛𝑣𝑒𝑠𝑡𝑚𝑒𝑛𝑡1 is capex divided by lagged total assets; 𝐼𝑛𝑣𝑒𝑠𝑡𝑚𝑒𝑛𝑡2 is 
+(capex + R&D) divided by lagged (total assets + knowledge capital); 𝐼𝑛𝑣𝑒𝑠𝑡𝑚𝑒𝑛𝑡3 is (capex + R&D + 𝛾*SG&A) divided by lagged (total assets + knowledge capital 
++ organizational capital), where 𝛾, knowledge capital, and organizational capital are from Ewens et al. (2020); Non-aﬀ. own. is the fraction of shares held by public 
+investors. Samples in the top (middle) (bottom) panel focus on ﬁrms with a public ﬂoat between $20M and $30M ($60M and $90M) ($600M and $800M). Bunching 
+and non-bunching years are deﬁned in Table 3. All panels include year ﬁxed eﬀects, industry (3-digit SIC) ﬁxed eﬀects, and the lagged dependent variable in year 
+𝑡 − 1. The lagged dependent variable is instrumented using the twice-lagged value in 𝑡 − 2. Robust standard errors clustered by industry and year are in parentheses. 
+* indicates statistical signiﬁcance at the 10% level, ** at the 5% level, and *** at the 1% level.
+
+Table 3
+Bunching estimates of regulatory costs.
+
+Threshold
+
+Marginal ﬁrm (𝑒) ($m)
+
+Regulatory costs (k) ($m)
+
+PV(regulatory costs)/Public ﬂoat (%)
+
+Non-bunching fraction (𝛼)
+
+Δ Leverage
+
+Public ﬂoat/Assets (𝜂)
+Tobin’s Q (𝑞)
+Interest rate (𝑟)
+Marginal cost of debt (𝛽)
+
+Bunching sample
+Non-bunching sample
+Identiﬁed regulation
+
+Sample size
+
+$ 25 mil
+(1)
+
+26.869
+[0.349]
+0.022
+[0.007]
+1.205
+[0.404]
+0.470
+[0.136]
+0.051
+[0.010]
+
+2.000
+2.720
+0.115
+4.637
+
+1994-2007
+2009-2018
+Scaled
+disclosure
+1378
+
+$ 75 mil
+(2)
+
+Panel A. Estimates
+
+94.524
+[1.786]
+0.132
+[0.020]
+1.841
+[0.281]
+0.770
+[0.048]
+0.108
+[0.010]
+
+Panel B. Parameters
+
+0.880
+1.680
+0.093
+5.130
+
+Panel C. Sample
+
+2003-2007
+1994-2002
+SOX 404+
+ﬁling delay
+10028
+
+$ 700 mil
+(3)
+
+833.416
+[12.371]
+0.873
+[0.125]
+1.164
+[0.167]
+0.510
+[0.131]
+0.070
+[0.007]
+
+1.572
+3.570
+0.049
+6.192
+
+2012-2018
+1997-2011
+EGC
+beneﬁts
+1575
+
+This table presents the bunching estimation results. Marginal ﬁrm is the public ﬂoat of the ﬁrm that is indiﬀerent between 
+bunching and not bunching. Regulatory costs are the estimated annual costs of regulation 𝑘 and are in $ million. PV(regulatory 
+costs)/Public ﬂoat is the percentage of the present value of future regulatory costs over public ﬂoat. Bootstrapped standard 
+errors are reported in brackets.
+
+We adapt the existing bunching method to our setting in two ways. 
+First, in the classic bunching setting, the policy-induced payoﬀ change 
+is known (e.g., changes in tax rate) and the goal is to estimate the elas-
+ticity  of  the  behavioral  change  (e.g.,  labor  supply  elasticity).  In  our 
+
+setting, the elasticity of the behavioral response is known (i.e., the lever-
+age distortion cost for ﬁrms) and the goal is to estimate the unknown 
+policy-induced payoﬀ change (i.e., regulatory costs). Second, in a classic 
+bunching setting, agents would only bunch at the regulatory threshold, 
+
+JournalofFinancialEconomics153(2024)1037759M. Ewens, K. Xiao and T. Xu
+
+creating a sharp spike at the regulatory threshold in the probability den-
+sity function (PDF) (see Fig. 4(a)). In our setting, ﬁrms cannot perfectly 
+control their public ﬂoat due to volatility in share price. Firms may also 
+“overshoot” and bunch far below the threshold to avoid crossing the 
+threshold due to share price appreciations. As a result, the bunching pat-
+tern is quite fuzzy, as shown in the right panel of Fig. 1. We thus use the 
+fuzzy bunching estimator developed by Alvero and Xiao (2020). Intu-
+itively, bunching creates a bulge in the cumulative distribution function 
+(CDF), as shown in Fig. 4(b). The fuzzy bunching estimator uses this 
+bunching bulge’s area to measure bunching. We detail this method in 
+Section 3.3.
+
+3.2.  Model
+
+We now describe the economic model of the payoﬀ of the ﬁrms. 
+Suppose there is a set of ﬁrms indexed by the optimal equity that they 
+would like to choose in the absence of regulatory distortions, 𝑧. Since 
+we ﬁnd that ﬁrms do not manipulate insider ownership, we use equity 
+and public ﬂoat interchangeably in the model. Now a regulation im-
+poses a cost of 𝑘(𝑧) if a ﬁrm’s equity is above 𝑒. Note that regulatory 
+costs may be a function of ﬁrm size 𝑧 since a portion of compliance costs 
+could be variable costs that scale with size. Firms choose the quantity 
+of equity 𝑒 relative to the undistorted level 𝑧 to maximize its payoﬀ:
+
+max
+𝑒
+
+−Φ (𝑒 − 𝑧) − 𝑘(𝑧)𝟏{
+
+}
+.
+
+𝑒≥𝑒
+
+(2)
+
+The ﬁrst term of the payoﬀ function, Φ, captures the costs that a 
+ﬁrm incurs if its actual equity 𝑒 deviates from its undistorted optimum 
+𝑧. Motivated by the empirical ﬁndings in Section 2 that ﬁrms bunch by 
+substituting debt for equity, Φ can be interpreted as the capital structure 
+distortion costs. We obtain the functional form of Φ from Binsbergen et 
+al. (2010, 2011)14:
+
+Φ(𝑒 − 𝑧) =
+
+(
+
+𝛽𝜂𝑞𝑧𝑟2
+
+1 −
+
+)
+
+2
+
+𝑒
+𝑧
+
+1
+2
+
+(3)
+
+where 𝑒 is the actual equity; 𝑧 is the optimal equity in the absence of 
+regulatory distortion; 𝛽 is the slope of marginal cost curve of debt from 
+Binsbergen et al. (2010, 2011); 𝜂 is public ﬂoat-to-book asset ratio; 𝑞
+is Tobin’s Q; 𝑟 is interest rate on debt. In Section A.4.5, we show that 
+our estimates are robust to using an alternative leverage distortion cost 
+function from Korteweg (2010).
+
+Our main estimation uses ﬁrms just above the ﬂoat of the marginal 
+bunching  ﬁrm  in  the  bunching  period  to  parameterize  𝜂,  𝑞,  and  𝑟, 
+because these ﬁrms are uncontaminated by potential bunching incen-
+tives.15 In Section 6.3, we show that our estimates are similar if we use 
+ﬁrms around the ﬂoat of the marginal bunching ﬁrm to obtain these pa-
+rameters. We do not use data in the non-bunching period because these 
+ﬁnancial ratios can vary signiﬁcantly with market conditions. Binsber-
+gen  et  al.  (2010) estimate  𝛽 to  be  4.733  for  the  average  Compustat 
+ﬁrm. We estimate a local version of 𝛽 on the subsample of ﬁrms around 
+each of the thresholds, following Binsbergen et al. (2010)’s method. Ta-
+ble A.14 shows that the local 𝛽 is 4.637, 5.130 and 6.192 for the three 
+thresholds, respectively.
+
+14 Binsbergen et al. (2010, 2011) estimate marginal cost of debt functions for 
+individual ﬁrm-years from variations in the tax beneﬁts of debt. They then sim-
+ulate the marginal beneﬁt functions of debt according to the tax code. The 
+cost of leverage distortion is the triangular area between the marginal cost 
+and marginal beneﬁt curves of leverage as shown in Figure 1 of Binsbergen 
+𝛽 (Δ𝐼𝑂𝐵)2 𝑣, where IOB is interest over book assets 𝑎, and 
+et al. (2011), or  1
+2
+𝑣 is ﬁrm value. Using the notations in this paper, the leverage distortion cost 
+for a ﬁrm with optimal ﬂoat 𝑧 bunching at 𝑒 is Φ (𝑒 − 𝑧) = 1
+𝛽 (Δ𝐼𝑂𝐵)2 𝑣 =
+)
+2
+2
+𝑒
+𝑧 − 1
+
+𝑞𝑧 = 1
+1
+𝛽
+2
+2
+15 Speciﬁcally, we use ﬁrms with a ﬂoat in [$27m, $33m], [$95m, $105m], 
+and [$840m, $1000m] for the $25m, $75m, and $700m threshold, respectively.
+
+(
+𝛽𝑟2𝜂𝑞𝑧 
+
+𝑞𝑎 = 1
+2
+
+𝑟(𝑒−𝑧)
+𝑎
+
+𝛽𝑟2 𝑧
+𝑎
+
+1 −
+
+)
+
+)
+
+(
+
+(
+
+𝑒
+𝑧
+
+.
+
+2
+
+2
+
+𝑒≥𝑒
+
+The second term of the payoﬀ function (2), 𝑘(𝑧)𝟏{
+
+}, is the cost 
+of regulation for a ﬁrm of size 𝑧. If a ﬁrm’s equity is above a regu-
+latory threshold, 𝑒, then the ﬁrm is subject to that regulation which 
+imposes a cost of 𝑘(𝑧). 𝑘(𝑧) captures both the direct costs of regulation, 
+including fees to lawyers and accountants and costs of investing in the 
+internal control system, and the indirect costs, including the competi-
+tion eﬀect of disclosing proprietary information, productivity loss from 
+diverting resources from operation to compliance, and any constraints 
+regulations impose on ﬁrms’ operating decisions. The indirect costs are 
+typically diﬃcult to measure because they are not recorded in ﬁnancial 
+statements. However, indirect costs aﬀect ﬁrms’ bunching decisions so 
+that they can be estimated via our revealed preference approach. 𝑘(𝑧)
+may also include the beneﬁts of regulation for those in compliance. For 
+instance, better disclosure can reduce a ﬁrm’s cost of capital. Thus, 𝑘(𝑧)
+should be interpreted as the net cost of regulation: compliance costs 
+net of the beneﬁts from compliance. We do not attempt to separately 
+identify compliance costs and the beneﬁts of compliance because for 
+ﬁrms’ compliance decisions or their public-private choice, what matters 
+is the net costs. Importantly, this net cost function does not incorporate 
+the social beneﬁts of regulations, such as the eﬀects on competition, in-
+vestor welfare, and other general equilibrium outcomes. Instead, we are 
+interested in the net cost facing ﬁrms that have to comply with these 
+regulations, which is a useful input for policymakers to compare against 
+the social beneﬁts of regulations.
+
+Fig. 3 shows the optimal choice of equity under diﬀerent scenar-
+ios. Fig. 3(a) shows that, in the absence of the regulation, ﬁrms choose 
+the optimal equity amount 𝑒 = 𝑧 to minimize capital structure distor-
+tion. However, after the regulation is introduced, the payoﬀ function 
+is shifted downward by 𝑘 in the region where the equity is above the 
+regulatory threshold, as shown by Fig. 3(b). The discrete jump in regu-
+latory costs creates an incentive to bunch. Speciﬁcally, ﬁrms just above 
+the regulatory threshold ﬁnd it more proﬁtable to reduce their equity 
+to 𝑒 and avoid the regulatory costs. However, bunching is costly be-
+cause of the costs from sub-optimal leverage, Φ (𝑒 − 𝑧). The loss in ﬁrm 
+value is an increasing function of the undistorted equity because larger 
+ﬁrms need to reduce more equity to bunch below the threshold, thus 
+leading to a larger loss in ﬁrm value. Fig. 3(c) shows that if a ﬁrm’s 
+undistorted equity is far larger than the threshold, then it chooses not 
+to bunch and instead incur the regulatory costs, 𝑘(𝑧). There exists a 
+marginal  ﬁrm  𝑧 = 𝑒 that  is  indiﬀerent  between  bunching  and  incur-
+ring regulatory costs, as shown in Fig. 3(d). The indiﬀerence condition 
+of the marginal ﬁrm reveals the regulatory costs. Formally, regulatory 
+costs can be calculated as follows:
+
+𝑘(𝑒) = Φ
+
+(
+
+)
+
+𝑒 − 𝑒
+
+(4)
+
+where 𝑒 is the regulatory threshold and 𝑒 is the undistorted equity of 
+the marginal ﬁrm that is indiﬀerent between bunching or not bunching. 
+The marginal ﬁrm 𝑒 is unique under a mild regularity condition, Φ𝑧𝑧(𝑧 −
+𝑒) > 𝑘𝑧𝑧. If we know the size of the marginal ﬁrm 𝑒, we can estimate 
+the regulatory cost 𝑘(𝑧) for the marginal ﬁrm. In Section 3.3, we will 
+estimate the value of the function 𝑘(𝑧) at one point—the corresponding 
+marginal ﬁrm, 𝑒—for each threshold. In Section 4.3, we will extrapolate 
+the regulatory cost to ﬁrms of other sizes based on the fraction of ﬁxed 
+versus variable costs as well as other ﬁrm characteristics.
+
+So far, our discussion holds the undistorted equity 𝑧 constant for 
+each ﬁrm. However, the model also applies to a setting where 𝑧 grows 
+over time. In this case, ﬁrms decide whether to bunch each year, de-
+pending on how far the undistorted optimal equity in that year is from 
+the regulatory threshold. If the undistorted equity exceeds the regula-
+tory threshold by a small amount, the ﬁrm will bunch at the threshold. 
+The ﬁrm may stop bunching after a few years when the undistorted eq-
+uity has grown much larger, and it becomes too costly to bunch. The 
+implicit assumption is that ﬁrms do not have to commit to a bunching 
+decision. Instead, they can decide whether to bunch period by period. 
+This  assumption  is  reasonable  because  ﬁrms  can  adjust  their  public 
+
+JournalofFinancialEconomics153(2024)10377510M. Ewens, K. Xiao and T. Xu
+
+Fig. 3. Firm Payoﬀ as a Function of Public Float. This ﬁgure illustrates the shape of a ﬁrm’s payoﬀ as a function of the public ﬂoat 𝑒. Panel (a) illustrates a concave 
+payoﬀ function in the absence of a regulatory threshold. Panel (b) shows a new payoﬀ function when a regulatory threshold is introduced at 𝑒. The discontinuity in 
+the payoﬀ induces ﬁrms whose public ﬂoat was somewhat above the threshold to bunch. Panel (c) shows a ﬁrm whose undistorted optimal ﬂoat is way above the 
+regulatory threshold and therefore chooses not to bunch. Panel (d) shows a payoﬀ function for the marginal bunching ﬁrm who is indiﬀerent between bunching and 
+not bunching.
+
+ﬂoats regularly by changing their payout policy. This assumption is also 
+consistent with Figure A.3, which shows that most ﬁrms stay below the 
+threshold for just a few years.
+
+3.3.  Estimation
+
+We use the Alvero and Xiao (2020) fuzzy bunching estimator. Intu-
+itively, bunching creates a bulge in the CDF, as shown in Fig. 4(b). The 
+fuzzy bunching estimator uses the area of this bunching bulge to infer 
+the marginal ﬁrm 𝑒. Note that the marginal ﬁrm is not an actual ﬁrm. 
+It is a hypothetical ﬁrm of a particular ﬂoat size that will be indiﬀerent 
+between bunching or not. Formally, the bunching range Δ𝑒 ≡ 𝑒 − 𝑒 is 
+given by:
+√
+
+) ,
+
+(5)
+
+̂Δ𝑒 =
+
+2𝐴
+(
+𝑒
+
+𝑓
+0
+
+(
+𝐹 (𝑒) − 𝐹
+
+)
+0 (𝑒)
+
+𝑑𝑒 is the bunching area, and 𝐹 and 𝐹
+
+where 𝐴 ≡ ∫
+0 are 
+the actual and counterfactual CDFs, respectively. The intuition of the 
+fuzzy bunching estimator can be shown in Fig. 4(b): the bunching area 
+can be approximated by a triangle with a height of 𝑓
+0Δ𝑒 and a base 
+of Δ𝑒. The area of the triangle is then 𝐴 = 𝑓
+0(Δ𝑒)2∕2, from which we 
+can then solve for the bunching range Δ𝑒. Note that the integration 
+can be calculated over the entire sample range or an interval that just 
+contains the bulge. In theory, using a larger window will not bias the 
+results because the actual and counterfactual distributions should over-
+lap with each other outside of the bunching range (Alvero and Xiao, 
+2020). In the data, there could be confounding regulations far away 
+from the threshold, which may contaminate our estimation. Therefore, 
+
+in  the  estimation,  we  use  a  window  that  just  contains  the  bunching 
+bulge for each threshold. We have also veriﬁed that no other regulatory 
+thresholds exist in our estimation window that would contaminate our 
+estimation.
+
+In many bunching settings, agents face optimization frictions such as 
+switching costs, constraints, inattention, or inertia. In the context of our 
+setting, constraints such as debt covenant restrictions and governance 
+requirements (e.g., board approval) could limit the manager’s ability to 
+control ﬂoat. Ignoring such frictions may bias the bunching estimates 
+(Chetty, 2012). In the estimation, we follow Kleven and Waseem (2013)
+to introduce a parameter 𝛼 to account for optimization frictions. This 
+parameter can be interpreted as the fraction of non-optimizing ﬁrms 
+that are not responding to bunching incentives. An analogous notion 
+for the non-optimizing agents is the non-compliers in the instrumental 
+variable approach and the fuzzy regression discontinuity design. 𝛼 can 
+be estimated from the probability mass in the dominated region [𝑒, 𝑒]
+using the following formula:
+
+(
+
+𝐹
+
+2
+
+𝑓
+0
+
+̂𝛼 =
+
+(
+
+𝑒
+(
+
+)
+
+)
+
+𝑒
+
+))
+
+(
+𝑒
+
+− 𝐹
+(𝑒 − 𝑒)
+
+− 1.
+
+(6)
+
+Note that in the presence of data noise, some mass may be moved into 
+the dominated region. The above formula corrects this displaced mass.
+The bunching range Δ𝑒 adjusted for optimization frictions is given 
+
+by:
+
+̂Δ𝑒 =
+
+√
+
+2𝐴
+(1 − 𝛼)𝑓
+0
+
+) .
+
+(
+𝑒
+
+(7)
+
+JournalofFinancialEconomics153(2024)10377511M. Ewens, K. Xiao and T. Xu
+
+Fig. 4. Moments of Distribution Functions Used in Bunching Estimator.
+This ﬁgure shows the probability density function (upper panel) and the cu-
+mulative distribution function (lower panel) of public ﬂoat in the presence of 
+bunching. 𝑒 is the regulatory threshold. 𝑒 is the ﬂoat of the marginal bunch-
+ing ﬁrm. Δ𝑒 is the bunching range from 𝑒 to 𝑒. 𝐵 is the excess mass at 𝑒. 𝐴
+is the area between the cumulative distribution functions before and after the 
+regulation. 𝑓
+
+0 is the probability density at 𝑒.
+
+3.4.  Estimation samples
+
+We estimate the above bunching model on samples of ﬁrms around 
+each  of  our  three  regulatory  thresholds.  For  each  threshold,  we  use 
+the years since its introduction as the “bunching sample” and exam-
+ine the distribution of ﬁrms’ public ﬂoat around that threshold. We also 
+construct the “non-bunching sample” using years before the threshold’s 
+introduction or after its expiration, which provides the counterfactual 
+distribution of ﬁrms’ public ﬂoat in the absence of bunching incentives.
+Speciﬁcally, to analyze ﬁrms’ bunching below the $25m threshold, 
+we focus on ﬁrms that were Small Business Issuers (SBI) in the previous 
+ﬁscal year and will be eligible this year if public ﬂoat stays below $25m. 
+These are the ﬁrms with less than $25m gross revenue in the current 
+and previous ﬁscal years and whose public ﬂoat is less than $25m in 
+the previous ﬁscal year. The sample period to construct the bunching 
+distribution (bunching period) is 1994 to 2007. Since scaled disclosure 
+
+was extended from ﬁrms below $25m ﬂoat to those below $75m in 
+2008, the $25M cutoﬀ no longer applies after 2008. The sample period 
+to  construct  the  counterfactual  distribution  (non-bunching  period)  is 
+thus 2009 to 2018.16
+
+To exploit the $75m threshold, we focus on non-accelerated ﬁler 
+ﬁrms that had less than $75m public ﬂoat in the previous ﬁscal year. We 
+focus on the bunching period of 2003 to 2007 to identify the combined 
+value of SOX 404 internal control exemption plus delayed ﬁling of 10-
+Ks and 10-Qs. Our non-bunching period is 1994 to 2002.
+
+Last, we analyze ﬁrms’ bunching around the $700m threshold for 
+Emerging Growth Company status. We obtain all IPOs from 1997 to 
+2018 from Jay Ritter’s website (Ritter, 2020), the Kenney-Patton IPO 
+Database (Kenney and Patton, 2013), and SDC. We restrict the sample 
+to U.S. issuers with a positive public ﬂoat after IPO. Because ﬁrms can-
+not transition back into EGC after transitioning out, we restrict to ﬁrms 
+that were EGC-eligible in the previous year, i.e., ﬁrm-years with less 
+than $1 billion gross revenue in the previous and current ﬁscal years,17
+and with less than $700m public ﬂoat in the previous ﬁscal year. Ad-
+ditionally, we restrict to the ﬁrst three years after IPO since ﬁrms have 
+the strongest incentives to bunch for EGC beneﬁts when they are newly 
+public (Alsabah and Moon, 2020). Our bunching period is from 2012 to 
+2018 and our non-bunching period is from 1997 to 2011.
+
+Bunching estimation needs to be done in a local window around 
+the regulatory threshold to avoid other thresholds or other confound-
+ing factors. Following the literature, we choose the estimation windows 
+visually so that they just contain the bunching bulge. Our baseline esti-
+mation uses [$23m, $29.5m] for the $25m threshold, [$67.5m, $105m] 
+for the $75m threshold, and [$630m, $840m] for the $700m threshold. 
+We assess the robustness of the results with respect to the estimation 
+window in Section 6.6.
+
+4.  Estimation results
+
+4.1.  Baseline results
+
+Table 3 reports the bunching estimates of regulatory costs for each 
+of the three thresholds. We ﬁrst examine the $25m threshold in column 
+1, which identiﬁes the costs of enhanced disclosure. We ﬁnd that the 
+marginal ﬁrm that is indiﬀerent between bunching and not bunching 
+has a $26.9m undistorted public ﬂoat. Bunching of this marginal ﬁrm 
+leads  to  a  leverage  distortion  of  5.1  percentage  points.  The  indiﬀer-
+ence condition of this marginal ﬁrm implies that the annual regulatory 
+costs associated with enhanced disclosure are around $0.022 million per 
+year. Using the cost of equity faced by the marginal ﬁrm, 6.7%, to dis-
+count the perpetuity of annual regulatory costs, we ﬁnd that the present 
+value of these regulatory costs accounts for 1.2% of the marginal bunch-
+ing ﬁrm’s public ﬂoat. The share of non-optimizing agents, 𝛼, is 0.47, 
+which suggests a fair amount of optimization frictions. For comparison, 
+Kleven and Waseem (2013) ﬁnd a non-optimizing share of 0.5–0.8 in 
+a sample of individual taxpayers, while Best et al. (2015) ﬁnd a non-
+optimizing share of 0.36 in a sample of mortgage borrowers.18
+
+16 We exclude the transitioning year 2008 from our non-bunching period be-
+cause ﬁrms could still choose to ﬁle as a Small Business Issuer in 2008 if their 
+ﬁscal year ends after December 15th. Theoretically, we could also use the years 
+before the introduction of this threshold (i.e., pre-1992) as the non-bunching 
+period, but this precedes the introduction of EDGAR, which precludes from 
+collecting public ﬂoat data. We could not use a post-expiration period as the 
+non-bunching period for the $75mil and $700mil thresholds because they are 
+still in place and have not expired.
+17 The gross revenue threshold was adjusted to $1.07 billion from 2017 on-
+ward.
+18 If we assume that the share of non-optimizing agents is zero, that is, no 
+frictions in regulatory avoidance, the estimated regulatory costs would be 30%-
+60% lower than the baseline, depending on the threshold, as shown in Ta-
+ble A.18.
+
+JournalofFinancialEconomics153(2024)10377512M. Ewens, K. Xiao and T. Xu
+
+Table 4
+Benchmarking estimated regulatory costs.
+
+Threshold
+
+$ 25 mil
+(1)
+
+$ 75 mil
+(2)
+
+$ 700 mil
+(3)
+
+Regulatory costs (k)
+
+0.022
+
+0.132
+
+0.873
+
+Identiﬁed regulations
+
+Scaled
+disclosure
+
+SOX 404 +
+ﬁling delay
+
+EGC
+beneﬁts
+
+Total assets
+EBITDA
+Net income
+
+k/Total assets
+k/EBITDA
+k/Net income
+
+14.70
+-0.23
+-0.90
+
+0.15%
+-9.71%
+-2.45%
+
+117.68
+11.24
+4.33
+
+0.11%
+1.17%
+3.05%
+
+566.30
+35.35
+6.19
+
+0.15%
+2.47%
+14.11%
+
+This table benchmarks the estimated annual regulation costs 
+𝑘 against the marginal bunching ﬁrms’ total assets, EBITDA, 
+and net income. All numbers are in millions of USD except 
+percentages.
+
+Column  2  reports  the  estimation  for  the  $75m  threshold  in  the 
+2003–2007 period. This threshold relates to the regulatory costs of SOX 
+404 and accelerated ﬁling deadlines. Here, the marginal bunching ﬁrm 
+has an undistorted ﬂoat of $94.5m. Bunching of this marginal ﬁrm leads 
+to an increase in leverage ratio of 10.8 percentage points. The indiﬀer-
+ence condition of this marginal ﬁrm implies that the annual regulatory 
+costs associated with SOX 404 compliance and accelerated ﬁling are 
+$0.132 million per year. Based on a local discount rate of 7.6%, the 
+present value of these annual regulatory costs accounts for 1.84% of 
+the marginal bunching ﬁrm’s ﬁrm value.
+
+Lastly, column 3 reports the estimates for the $700m threshold. This 
+threshold identiﬁes regulatory costs of losing EGC beneﬁts, which con-
+tain scaled disclosure, SOX 404 exemption, and a few other regulatory 
+reliefs on disclosure and security issuance. The estimates show that the 
+marginal bunching ﬁrm has an undistorted ﬂoat of $833m. Bunching 
+of this marginal ﬁrm leads to an increase in leverage ratio of 7 per-
+centage points. The magnitude of this leverage change is close to that 
+documented in Alsabah and Moon (2020). The indiﬀerence condition 
+of this marginal bunching ﬁrm implies that the annual regulatory costs 
+associated with losing EGC beneﬁts are around $0.87 million per year. 
+The present value of these annual regulatory costs, based on a local 
+discount rate of 9%, represents 1.16% of the marginal bunching ﬁrm’s 
+public ﬂoat.
+
+To further facilitate the interpretation of the magnitude of our es-
+timated regulatory costs, we benchmark these costs against the total 
+assets and proﬁts of the marginal bunching ﬁrm. Table 4 reports the 
+results. For the marginal ﬁrm that bunches for the $25m threshold, an-
+nual  enhanced  disclosure  costs  around  0.15%  of  its  total  assets.  For 
+the marginal ﬁrm bunching for the $75m threshold, annual SOX 404 
+compliance and accelerated ﬁling cost 0.1% of its total assets, 1.2% of 
+EBITDA, and 3.1% of net income. Finally, for the newly public marginal 
+ﬁrm bunching for the $700m threshold, the annual cost of losing all 
+EGC beneﬁts (a combination of disclosure and internal control reliefs) 
+amounts to 0.15% of its total assets, 2.5% of EBITDA, and 14.1% of net 
+income. These results suggest that small ﬁrms as well as newly public 
+ﬁrms face particularly high regulatory costs as a percentage of their size 
+and proﬁt.
+
+4.2.  Heterogeneity
+
+So  far,  we  estimate  the  regulatory  costs  for  the  marginal  ﬁrm  in 
+the full sample. A natural question is whether the regulatory costs vary 
+across subsamples of ﬁrms with diﬀerent characteristics. To this end, 
+we consider eight covariates that may inﬂuence regulatory compliance 
+costs: Tobin’s Q, ROA, tangibility, cash ratio, asset turnover, Hoberg-
+Phillips industry competition, and two indicators for manufacturing and 
+ﬁnancial/utilities industries, respectively. Because these characteristics 
+
+may  correlate  with  each  other,  we  orthogonalize  them  against  each 
+other  and  public  ﬂoat  to  capture  their  incremental  eﬀects.  We  then 
+split our estimation samples by each characteristic at the median and 
+re-estimate the regulatory costs for each subsample.
+
+Panel  A  of  Table 5 reports  the  results.  Three  ﬁndings  emerge: 
+1) Firms facing higher competition bear higher regulatory costs than 
+those facing lower competition, consistent with competition increasing 
+the proprietary cost of disclosure, as well as limited beneﬁts of internal 
+governance when external governance is strong (Giroud and Mueller, 
+2010). 2) High-Tobin’s Q, low-tangibility, or non-manufacturing ﬁrms 
+generally face higher regulatory costs than other ﬁrms, consistent with 
+regulatory compliance being more distortionary for high-growth ﬁrms 
+with more intangible assets. 3) Financial and utility ﬁrms face slightly 
+lower  regulatory  costs  than  ﬁrms  in  other  industries.  One  possible 
+explanation  is  that  these  ﬁrms,  being  subject  to  additional  industry-
+speciﬁc  regulations,  ﬁnd  compliance  with  SEC  regulations  relatively 
+easier compared with other ﬁrms
+
+Our baseline estimates are the average regulatory costs facing the 
+marginal ﬁrm over the estimation sample period. It is, however, possi-
+ble that changes in actual or perceived enforcement may lead to changes 
+in perceived regulatory costs over time. To this end, we conduct a sub-
+sample analysis by splitting each of our estimation samples into two 
+equal halves. We do this for each of the three thresholds and split both 
+the bunching period (i.e., “treatment” sample) and the non-bunching 
+period (i.e., “control” sample) by the corresponding mid-year. This gen-
+erates separate estimates for earlier versus later years. The bottom two 
+rows of Panel A, Table 5 show the results. We ﬁnd that the regulatory 
+costs are in fact relatively stable over time: earlier period estimates are 
+similar to those for later periods.
+
+4.3.  Extrapolation
+
+Our baseline estimation provides an estimate of the regulatory costs 
+facing a hypothetical marginal ﬁrm that has a size of 𝑒. In this section, 
+we extrapolate these estimates to ﬁrms of other sizes. The extrapolation 
+exploits the extent to which the regulatory costs are variable (i.e., pro-
+portional to size) versus ﬁxed. If the regulatory costs are all ﬁxed costs, 
+then all ﬁrms have the same regulatory costs as the marginal ﬁrm re-
+gardless of ﬁrm size. However, if the regulatory costs are all variable, 
+then  the  regulatory  costs  should  scale  proportionally  with  ﬁrm  size. 
+Formally, we deﬁne 𝜅
+0 as the sensitivity of the regulatory costs to ﬁrm 
+size. The incremental regulatory costs of a ﬁrm of size 𝑧𝑖 relative to the 
+marginal ﬁrm of size 𝑒 is 𝜅
+
+0(ln 𝑧𝑖 − ln 𝑒).
+We estimate the sensitivity of regulatory cost to ﬁrm size, 𝜅
+
+0, using 
+two sets of data. First, we use surveyed SOX 404 compliance costs from 
+the  SEC  study  (SEC,  2011)  to  estimate  their  relationship  with  ﬁrms’ 
+public ﬂoat.19 Note that we do not require ﬁrms to truthfully report 
+compliance costs in the survey data – the self-reported costs could be 
+biased. We simply require that ﬁrms do not bias the variable and ﬁxed 
+components diﬀerentially, which is a much weaker assumption. We also 
+do not require the survey to capture all cost components – it could omit 
+indirect  costs  or  the  beneﬁts  of  compliance.  We  simply  require  that 
+these omitted costs have similar ﬁxed-vs-variable decomposition as the 
+reported costs. Second, we use the relationship between pre-SOX au-
+dit  fees  from  Audit  Analytics  and  ﬁrms’  public  ﬂoat  to  estimate  the 
+cost structure of disclosure compliance. Pre-SOX audit fees mainly cap-
+ture ﬁnancial reporting costs and do not include internal control costs. 
+Last, we use the relationship between post-SOX audit fees, which cap-
+ture both disclosure and internal control costs, and ﬁrms’ public ﬂoat 
+to estimate the cost structure of EGC beneﬁts. In both cases, we ex-
+clude from Audit Analytics data ﬁrm-years that are exempted from the 
+relevant regulation.
+
+19 The SEC study only reports the average itemized compliance costs by pub-
+lic ﬂoat interval and time period. We treat each ﬂoat interval-period as one 
+observation and weight the observations by the number of responding ﬁrms.
+
+JournalofFinancialEconomics153(2024)10377513M. Ewens, K. Xiao and T. Xu
+
+Table 5
+Heterogeneity and extrapolation.
+
+Panel A: Heterogeneity
+
+$25 mil
+
+$75 mil
+
+$700 mil
+
+$25 mil
+
+$75 mil
+
+$700 mil
+
+Regulatory costs (𝑘) ($m)
+
+PV(regulatory costs)/Public ﬂoat (%)
+
+Baseline
+Low Tobin’s Q
+High Tobin’s Q
+Low tangibility
+High tangibility
+Low HP competition
+High HP competition
+Non-manufac.
+Manufac.
+Non-ﬁn. or utility
+Fin & utility
+Low ROA
+High ROA
+Low cash ratio
+High cash ratio
+Low turnover
+High turnover
+
+Early sample period
+Late sample period
+
+0.022
+0.016
+0.040
+0.029
+0.033
+0.018
+0.044
+0.053
+0.011
+0.032
+0.029
+0.015
+0.040
+0.035
+0.021
+0.046
+0.025
+
+0.023
+0.019
+
+0.132
+0.143
+0.149
+0.187
+0.093
+0.142
+0.142
+0.186
+0.094
+0.172
+0.130
+0.165
+0.088
+0.133
+0.154
+0.130
+0.150
+
+0.113
+0.156
+
+Panel B: Extrapolation Parameters
+
+𝜅𝑛
+(Extrapolation coeﬃcient)
+
+Ln(public ﬂoat)
+
+Tobin’s Q
+
+Tangibility
+
+HP competition
+
+Manufacturing
+
+Fin. & utility
+
+ROA
+
+Cash ratio
+
+Asset turnover
+
+$25m
+
+0.412
+[0.027]
+0.052
+[0.043]
+0.442
+[2.694]
+0.032
+[0.031]
+-2.275
+[0.872]
+-0.245
+[1.790]
+0.874
+[0.683]
+-1.329
+[1.575]
+-0.576
+[0.716]
+
+$75m
+
+0.456
+[0.028]
+0.008
+[0.066]
+-2.538
+[2.749]
+0.000
+[0.016]
+-0.943
+[0.832]
+-0.706
+[1.454]
+-1.585
+[1.736]
+0.480
+[1.420]
+0.145
+[0.449]
+
+0.873
+0.602
+0.940
+0.943
+0.819
+0.769
+0.951
+0.939
+0.812
+0.937
+0.836
+0.791
+0.934
+0.933
+0.729
+0.803
+0.945
+
+0.889
+0.948
+
+$700m
+
+0.423
+[0.019]
+0.077
+[0.071]
+-0.440
+[2.155]
+0.009
+[0.013]
+-0.190
+[0.357]
+-0.216
+[0.934]
+0.466
+[2.020]
+-0.577
+[1.215]
+0.208
+[0.828]
+
+1.205
+0.873
+2.175
+1.580
+1.793
+0.987
+2.373
+2.835
+0.606
+1.750
+1.598
+0.869
+2.146
+1.898
+1.165
+2.467
+1.405
+
+1.257
+1.050
+
+1.841
+1.968
+2.045
+2.495
+1.340
+1.959
+1.960
+2.476
+1.363
+2.314
+1.812
+2.241
+1.283
+1.848
+2.103
+1.817
+2.054
+
+1.596
+2.130
+
+𝑥𝑛
+(Covariate value for marginal ﬁrms)
+
+$25m
+
+17.106
+
+2.719
+
+0.056
+
+2.522
+
+0.376
+
+0.315
+
+-0.063
+
+0.133
+
+0.114
+
+$75m
+
+18.364
+
+1.683
+
+0.089
+
+3.078
+
+0.391
+
+0.248
+
+0.013
+
+0.104
+
+0.520
+
+1.164
+0.826
+1.245
+1.249
+1.097
+1.036
+1.258
+1.244
+1.089
+1.242
+1.119
+1.063
+1.237
+1.237
+0.986
+1.078
+1.251
+
+1.183
+1.254
+
+$700m
+
+20.541
+
+3.571
+
+0.039
+
+4.221
+
+0.364
+
+0.152
+
+0.022
+
+0.422
+
+0.393
+
+Panel A shows the heterogeneity of our baseline estimates in Table 3 across diﬀerent cuts. The ﬁrst row shows our baseline results. The other rows show heterogeneity 
+(split at median except for indicators) along Tobin’s Q, tangibility, Hoberg-Phillips product market competition, tangibility, manufacturing indicator, ﬁnancial and 
+utility indicator, ROA, cash ratio, and asset turnover. The last two rows show subsample results by earlier or later sample periods. Regulatory costs are the estimated 
+annual costs of regulation 𝑘 in $ million. PV/Public ﬂoat is present value of future regulatory costs as a percentage of public ﬂoat discounted at local discount rates. 
+Panel B shows the parameters for our multivariate extrapolation. 𝜅𝑛 is the sensitivity of log regulatory costs to covariates estimated from sub-sample analysis in 
+Panel A. The bootstrapped standard errors for 𝜅𝑛 are reported in brackets (see Appendix Section A.4.2 for details on boostrapping). 𝑥𝑛 is the value of the covariate 
+for the marginal ﬁrm estimated by averaging across ﬁrms around the ﬂoat of the marginal ﬁrm.
+
+To guide our extrapolation, we ﬁrst plot the non-parametric rela-
+tionship between regulatory costs and public ﬂoat to learn about the 
+function form. Figure A.4 shows binned scatter plots and local polyno-
+mial smoothing plots of ln(ﬂoat) and ln(audit fees). We see a near-linear 
+relationship.20 Based on this, we estimate the following parametric re-
+lationship between reported regulatory costs and ﬁrms’ public ﬂoat:
+
+ln(compliance costs𝑖,𝑡) = 𝜅 ln(public ﬂoat𝑖,𝑡) + 𝛿𝑡 + 𝜖𝑖,𝑡.
+
+(8)
+
+Table A.5 reports the estimates based on equation (8). Panel A re-
+ports  the  results  for  surveyed  SOX  404  compliance  costs.  Column  1 
+estimates the elasticity of 404(b) audit fees to public ﬂoat to be 0.432. 
+
+20 The red line plots the parametric relationship estimated from equation (8), 
+which closely tracks the non-parametric plots.
+
+We obtain an estimate of 0.456 when looking at the total SOX 404 com-
+pliance costs in column 5, which we use as our estimate of 𝜅
+0. Columns 
+1 and 2 of Panel B report the relationship between pre-SOX audit fees 
+and public ﬂoat. Based on the coeﬃcient for audit fees in column 1, we 
+estimate the elasticity of disclosure cost to public ﬂoat to be 0.412. Al-
+though we do not have data on reported values of EGC beneﬁts, we can 
+approximate its cost structure using post-SOX audit fees, which capture 
+both disclosure and internal control costs. Column 2 of Panel B reports 
+the relationship between post-SOX audit fees and public ﬂoat. The coef-
+ﬁcient estimate implies an elasticity of combined disclosure and internal 
+control cost to public ﬂoat of 0.423, which reassuringly lies between the 
+elasticities for disclosure costs and internal control costs.
+
+Regulatory costs can also vary with ﬁrm characteristics other than 
+size. We can project regulatory costs conditional on ﬁrm characteristics 
+based on the estimates in the subsamples sorted by ﬁrm characteristics, 
+as shown in Panel A of Table 5. Speciﬁcally, we calculate the sensitivity 
+
+JournalofFinancialEconomics153(2024)10377514M. Ewens, K. Xiao and T. Xu
+
+of regulatory costs to each characteristic using 𝜅𝑛 = Δ ln 𝑘𝑛∕Δ𝑥𝑛, where 
+Δ ln 𝑘𝑛 and Δ𝑥𝑛 are the diﬀerence in the estimated log regulatory costs 
+and diﬀerence in the 𝑛’th ﬁrm characteristic across the two subsamples, 
+respectively. To capture incremental eﬀects in a multivariate extrapola-
+tion, we orthogonalize 𝑥𝑛 against each other as well as ln(public ﬂoat) 
+before computing 𝜅𝑛.21 Then, for a ﬁrm 𝑖 whose 𝑛’th covariate is 𝑥𝑛,𝑖, 
+the incremental regulatory costs relative to the marginal ﬁrm are given 
+by 𝜅𝑛(𝑥𝑛,𝑖 − 𝑥𝑛), where 𝑥𝑛 is the value of that covariate for the marginal 
+ﬁrm.
+
+Taking things together, we can estimate the regulatory costs for ﬁrm 
+
+𝑖 using the following equation:
+
+ln 𝑘𝑖 = ln 𝑘 + 𝜅
+
+0(ln 𝑧𝑖 − ln 𝑒) +
+
+𝑁∑
+
+𝑛=1
+
+𝜅𝑛(𝑥𝑛,𝑖 − 𝑥𝑛),
+
+(9)
+
+where  𝑘 is  the  regulatory  costs  estimated  for  the  marginal  ﬁrm  in 
+Table 3,  𝜅
+0 is  the  sensitivity  of  log  regulatory  costs  to  public  ﬂoat 
+(capturing the degree to which regulatory costs are variable), 𝑧𝑖 and 
+𝑒 are the public ﬂoat of ﬁrm 𝑖 and the marginal ﬁrm, respectively, 𝜅𝑛
+is the sensitivity of log regulatory costs to the 𝑛’th orthogonalized co-
+variate, 𝑥𝑛,𝑖 and 𝑥𝑛 are the value of the 𝑛’th covariate for ﬁrm 𝑖 and the 
+marginal ﬁrm, respectively. The estimated sensitivities (𝜅𝑛) and covari-
+ate values for marginal ﬁrms (𝑥𝑛) are reported in Panel B of Table 5. 
+Appendix A.4.1 summarizes the detailed steps of our multivariate ex-
+trapolation.
+
+The extrapolation requires more assumptions than those of the base-
+line  bunching  estimation.  First,  since  the  decomposition  of  variable 
+versus  ﬁxed  costs  is  estimated  using  data  that  largely  reﬂect  direct 
+rather than indirect compliance costs and omit compliance beneﬁts, we 
+implicitly assume that the beneﬁt of compliance (or indirect costs) has 
+the same ﬁxed-vs-variable decomposition as the direct cost. Second, we 
+assume that the relationship between regulatory costs and ﬁrm char-
+acteristics is largely stable across ﬁrm sizes. While the extrapolation 
+exercise allows us to make broader points, it faces the trade-oﬀ between 
+external validity and clean identiﬁcation. To address the concern that 
+our estimates are driven by a particular assumption, in the next section, 
+we also provide a range of estimates based on alternative assumptions.
+
+4.4.  Regulatory costs across ﬁrms and over time
+
+Using the above extrapolation, we can compute the regulatory costs 
+for  companies  of  any  public  ﬂoat  in  any  year  in  our  data.  For  the 
+median-sized US public ﬁrm with a $102m ﬂoat, it faces annual en-
+hanced  disclosure  costs  of  $0.036m,  SOX  404  compliance  costs  of 
+$0.129m,  and  combined  costs  of  disclosure  and  internal  governance 
+captured by EGC beneﬁts of $0.361m. These costs are 0.25%, 0.88%, 
+and  2.46%  of  the  median  ﬁrm’s  EBITDA,  respectively.  Based  on  an 
+8.25% local discount rate, the combined annual disclosure and inter-
+nal governance costs of $0.361m translate to 4.3% of the median ﬁrm’s 
+public ﬂoat on a present value basis, with a 95th conﬁdence interval of 
+[2.60%, 7.77%] based on bootstrapped standard errors.22 These regula-
+tory costs are therefore economically meaningful for a median US public 
+company.23 The  estimate  is  robust  to  several  alternative  estimations 
+of the cost structure parameter, including a non-parametric estimator, 
+
+21 We orthogonalize covariates in the full sample of ﬁrms rather than local 
+samples close to thresholds because the extrapolation is across thresholds over 
+all ﬁrms. Our results are similar if we orthogonalize the two industry dummies 
+using logit rather than linear probability model (see Table A.6).
+22 While it might be tempting to sum up these three costs to calculate the total 
+costs confronting the median public ﬁrm, this approach would be incorrect. The 
+reason is that the third estimate already encompasses the ﬁrst two as discussed 
+in Section 4.1. Appendix Section A.4.2 details our bootstrapping method.
+23 If the extrapolation is based on the estimates in Table A.18 where the share 
+of non-optimizing agents is assumed to be zero, the total regulatory costs for a 
+median U.S. public ﬁrm would be 2.3%.
+
+adjusting for potential omitted variables, and exploiting plausibly ex-
+ogenous variations from M&As. We can also extrapolate based on ﬂoat 
+alone or orthogonalize dummy covariates using Logit with little change 
+in results. We summarize these robustness estimates in Table A.6 and 
+discuss the details in Section 6.7.
+
+The  extrapolation  also  allows  a  comparison  of  the  cost  estimates 
+across the three thresholds. For example, we can extrapolate the values 
+of scaled disclosure and SOX 404 exemption from the corresponding 
+thresholds  to  the  marginal  ﬁrm  bunching  for  $700m  for  EGC  bene-
+ﬁts.  This  yields  a  combined  value  of  $0.58m  for  the  marginal  EGC 
+bunching ﬁrm. This value is lower than the estimated total EGC ben-
+eﬁts  of  $0.87m.  Such  a  diﬀerence  can  be  attributed  to  the  fact  that 
+EGC beneﬁts include not only scaled disclosure, 404(b) exemption, and 
+delayed ﬁling, but also shorter ﬁnancial history disclosure in the regis-
+tration statement, delayed compliance with new accounting rules, and 
+the ability to use test-the-waters communications with investors when 
+issuing securities. Our estimates suggest that these latter beneﬁts could 
+be highly valuable for newly public ﬁrms.
+
+We next examine the variations of the estimated regulatory costs 
+across ﬁrms and over time. We ﬁrst sum up all regulatory costs identi-
+ﬁed above to the ﬁrm-year level based on a ﬁrm’s public ﬂoat and the 
+regulations in place in that year. Table A.7 summarizes this aggregation, 
+which is derived from Table 1. We then use a heatmap to illustrate the 
+variation of the present value of total regulatory costs as a percentage 
+of ﬁrm’s public ﬂoat, by public ﬂoat and year. Fig. 5 shows the result. 
+The vertical axis represents public ﬂoat, while the horizontal axis indi-
+cates year. Each cell on the graph represents ﬁrms of a speciﬁc size in 
+a particular year. The warmth of the color indicates the magnitude of 
+the regulatory costs. We ﬁnd that smaller ﬁrms face heavier regulatory 
+burden than larger ﬁrms in the early sample period. For example, at the 
+beginning of our sample period, ﬁrms with $10m ﬂoat spend 10% of 
+their public ﬂoat on regulatory costs. In contrast, ﬁrms around $1 bil-
+lion ﬂoat spend 0.8% of their public ﬂoat on regulatory costs. After SOX 
+in 2002, medium-sized ﬁrms ($75m–$700m) experienced a large jump 
+in regulatory costs relative to their size and proﬁt. The regulatory bur-
+den on medium and small ﬁrms were greatly lifted by the 2012 JOBS 
+Act.24
+
+Last,  we  aggregate  our  identiﬁed  regulatory  costs  across  all  pub-
+lic ﬁrms in the U.S. and plot out the aggregate trends. Fig. 6 shows 
+the time series for aggregate annual regulatory costs in dollars and as 
+a percentage of aggregate EBITDA. The variation in aggregate regula-
+tory costs primarily stems from changes in regulations over the years, 
+shifts in ﬁrm size distributions, and to a lesser extent, adjustments in 
+other ﬁrm characteristics. We ﬁnd that the aggregate regulatory costs 
+increased from less than $3 billion in late 1990s to almost $5 billion in 
+2018. There is a substantial jump after SOX, followed by a dip during 
+ﬁnancial crisis. Regulatory costs as a percentage of EBITDA increased 
+from 0.21% before SOX to 0.29% after SOX. Since 2005, there has been 
+a steady decline. Interestingly, JOBS Act did not lead to a noticeable 
+decline in aggregate regulatory costs, likely because it only aﬀects a 
+small number of newly public ﬁrms. By 2018, regulatory costs relative 
+to EBITDA have dropped to their pre-SOX levels.
+
+4.5.  Comparing with existing estimates
+
+How do our estimates compare with existing estimates from surveys 
+and previous research? We note a few caveats before any such compari-
+son. First, existing evidence is limited due to the challenge of accurately 
+identifying regulatory costs, so it is often diﬃcult to ﬁnd an exact coun-
+terpart for our estimate. Second, some existing evidence is based on 
+
+24 Figure A.5 plots the relationship between public ﬂoat and the present value 
+of regulatory costs scaled by ﬂoat for each of three periods: pre-SOX, post-SOX 
+& pre-JOBS, and post-JOBS. Figure A.6 shows the heatmap for the raw, unscaled 
+regulatory costs.
+
+JournalofFinancialEconomics153(2024)10377515M. Ewens, K. Xiao and T. Xu
+
+Fig. 5. Estimated Present Value of Regulatory Costs Scaled by Public Float. These ﬁgures show, by public ﬂoat and year, the estimated present value of total 
+annual regulatory costs scaled by ﬁrms’ public ﬂoat. Panel A shows it for ﬁrms that went public less than 5 years ago (hence JOBS Act would apply after 2012). 
+Panel B shows it for ﬁrms that went public more than 5 years ago. We estimate present values by discounting a constant perpetuity of annual costs at the cost of 
+equity faced by ﬁrms of a particular public ﬂoat.
+
+surveys on ﬁrms or CEOs. As shown by Parker (2018) and Alvero et 
+al. (2023), ﬁrms may have incentives to over-report their compliance 
+costs in surveys in order to seek regulatory relief. Third, our bunching 
+estimator estimates the net costs of regulation (i.e., compliance costs 
+
+minus the beneﬁts of compliance due to lower costs of capital). In con-
+trast, existing databases or research often report gross compliance costs. 
+Last, our estimates incorporate the indirect costs of compliance in ad-
+dition to direct costs, while most existing estimates only capture direct 
+
+JournalofFinancialEconomics153(2024)10377516M. Ewens, K. Xiao and T. Xu
+
+Table 6
+Regulatory costs and IPOs.
+
+Regulatory costs (ln)
+
+Imputed public ﬂoat (ln)
+
+Total funding raised (ln)
+
+Years since founding
+
+Industry-year FE
+State FE
+Observations
+
+IPO
+
+(1)
+Coeﬃcients
+
+-0.055∗∗∗
+[0.016]
+
+0.242∗∗∗
+[0.025]
+
+0.877∗∗∗
+[0.031]
+
+-0.066∗∗∗
+[0.008]
+
+Yes
+Yes
+110,666
+
+(2)
+Marginal Eﬀects
+
+-0.021∗∗∗
+[0.006]
+
+0.090∗∗∗
+[0.011]
+
+0.327∗∗∗
+[0.015]
+
+-0.025∗∗∗
+[0.003]
+
+Yes
+Yes
+110,666
+
+Fig. 6. Estimated Aggregate Regulatory Costs. This ﬁgure shows the esti-
+mated aggregate regulatory costs over time for all public ﬁrms with a non-zero 
+public ﬂoat. The dashed line shows the dollar costs in millions of USD. The 
+solid line shows the percentage share of aggregate regulatory costs relative to 
+aggregate EBITDA.
+
+costs. With these caveats in mind, Section A.3 in the Appendix provides 
+several comparisons to alternative methods of regulatory cost estima-
+tion. Overall, our results compare as expected given the diﬀerences in 
+regulations, data inputs, and modeling assumptions.
+
+This table estimates a logit model of the IPO decision on a panel of VC-backed 
+private ﬁrms. Column 1 reports the logit coeﬃcients and column 2 reports the 
+marginal eﬀects on percentage-point likelihood of going public. The sample 
+is a panel of 21,066 VC-backed ﬁrms from ﬁrst VC round to the year before 
+exit or failure from 1992 to 2018. Regulatory costs are the compliance costs 
+estimated from Table 3 and extrapolated to all ﬁrm sizes. Imputed public ﬂoat
+is the imputed public ﬂoat upon IPO based on the most recent round of VC 
+valuation (see Section 5.1 for details on imputation). Total funding raised is the 
+cumulative sum of funding raised from VC. We control for state and industry-
+year ﬁxed eﬀects. Standard errors are clustered by ﬁrm.
+
+4.6.  How regulators can use our estimates
+
+Our estimates are of interest to regulators, who routinely conduct 
+cost-beneﬁt  analysis  on  existing  regulations.  For  example,  regulators 
+can compare our net cost estimate with the social beneﬁts of a reg-
+ulation to gauge its optimality. Our bunching approach complements 
+existing  methods  to  estimate  regulatory  costs,  such  as  ﬁrm  surveys 
+or  reduced-form  regression  analysis  of  ﬁrms’  ﬁnancial  data.  Because 
+the bunching approach estimates regulatory costs from ﬁrms’ revealed 
+preference, it is not prone to misreporting concerns in surveys; it also 
+captures all net costs relevant to ﬁrms, including indirect costs. Further-
+more, the bunching approach applies to settings in which reduced-form 
+regressions may be biased by ﬁrms’ strategic responses to regulations. 
+Our estimates can also inform the rule-making of new regulatory pro-
+posals when the new rules bear similarity to existing ones, or when 
+regulators conduct pilot experiments on a subset of ﬁrms. That said, for 
+brand new regulations without precedents or any reference data from 
+experiments, the bunching approach cannot be used for ex-ante cost-
+beneﬁt analysis.
+
+5.  Regulatory costs and disappearing public ﬁrms
+
+In this section, we examine how much our estimated regulatory costs 
+can explain the disappearing public ﬁrms puzzle. We explore both the 
+entry to and exit from public market. Doidge et al. (2017) show that 
+each margin accounts for roughly half of the disappearing public ﬁrms 
+since the 1990s.
+
+5.1.  Regulatory costs and IPO volume
+
+We model the probability that ﬁrm 𝑖 goes public in year 𝑡 using a 
+
+logit model:
+
+Pr(IPO)𝑖,𝑡 =
+
+(
+𝛽 ln 𝑘𝑖,𝑡 + 𝛾𝑋𝑖,𝑡
+(
+
+)
+
+𝛽 ln 𝑘𝑖,𝑡 + 𝛾𝑋𝑖,𝑡
+
+exp
+
+1 + exp
+
+) .
+
+(10)
+
+where 𝑘𝑖,𝑡 is the regulatory costs borne by ﬁrm 𝑖 in year 𝑡 if it chooses to 
+go public. The vector 𝑋𝑖,𝑡 contains ﬁrm characteristics that aﬀect the net 
+
+beneﬁts of IPO. The model is based on Chemmanur et al. (2010), except 
+that we add regulatory costs as an additional explanatory variable.
+
+We estimate the above logit model using maximum likelihood on 
+a panel of 21,066 U.S. venture capital(VC)-backed ﬁrms from 1992 to 
+2018, of which 1,956 went public. Such ﬁrms are an important pipeline 
+of IPOs, representing half of the IPO ﬁrms in our sample period (e.g., 
+Ritter,  2020;  Ewens  and  Farre-Mensa,  2020)  To  ensure  a  clean  risk-
+set  of  private  ﬁrm-years  that  face  going  public  decisions,  we  track 
+startups  from  their  ﬁrst  VC  round  until  exit  or  failure.  We  estimate 
+public  ﬂoat  upon  IPO  from  last  round  valuation  using  the  following 
+equation: Public Float𝑖,𝑡 = Last valuation𝑖,𝑡 × Avg( Primary shares×Share price
+)𝑡 ×
+Avg( Secondary shares+Primary shares
+)𝑡. We obtain the average ratio of raised 
+amount to pre-money valuation from VentureSource and the average 
+ratio of tradable shares (i.e., primary plus secondary) to primary shares 
+from SDC. Both ratios are estimated at the yearly level. If a startup’s 
+valuation is missing in a given year, we linearly extrapolate using two 
+known valuations. Startups with no reported valuations are excluded 
+from the sample. We control for total ﬁnancing raised, years since ﬁrst 
+VC round, and dummies for ﬁrms’ headquarter state. We also include 
+industry-year ﬁxed eﬀects to absorb sectoral shocks and changes in reg-
+ulations that apply uniformly to all ﬁrms.
+
+Pre-money valuation
+
+Primary shares
+
+Given that we control for public ﬂoat and the imputed regulatory 
+cost depends on public ﬂoat, our identifying variation comes from dis-
+continuous changes in regulatory costs over time for a given ﬁrm size 
+and across size thresholds for a given year, as induced by regulatory 
+changes. This allows us to exploit the more exogenous variations in reg-
+ulatory costs. Diﬀerent from prior papers that study a particular reform, 
+we use all regulatory changes to estimate the elasticity of IPO to the dol-
+lar cost of regulations, rather than to a regulatory change itself. Our use 
+of imputed public ﬂoat also makes sure that our regression is not subject 
+to the endogeneity concern from ﬂoat manipulation.
+
+Table 6 presents the estimated results. Column 1 shows the logit 
+coeﬃcients and column 2 shows the marginal eﬀects on percentage-
+point likelihood of going public. We ﬁnd that a one-standard-deviation 
+increase in our estimated regulatory costs is associated with a 7% de-
+crease in the probability of a VC-backed ﬁrm going public in a year. We 
+also ﬁnd that years since ﬁrst round negatively predicts IPO likelihood. 
+
+JournalofFinancialEconomics153(2024)10377517M. Ewens, K. Xiao and T. Xu
+
+Table 7
+Counterfactual simulation of regulatory costs and IPOs.
+
+Actual regulation
+(1)
+
+Actual regulation
+(2)
+
+No SOX
+(3)
+
+No JOBS Act
+(4)
+
+Zero regulation
+(5)
+
+Pre-2000
+
+Post-2000
+
+0.061
+0.242
+0.963
+50.6
+921.0
+352.9
+
+0.152
+0.455
+0.747
+37.7
+714.3
+315.5
+
+0.000
+0.000
+1.391
+70.2
+1329.6
+574.1
+
+0.082
+0.485
+6.933
+141.4
+1044.0
+105.6
+
+Regulatory costs ($m)
+Regulatory costs / Public ﬂoat (%)
+IPO probability (%)
+Yearly no. of IPOs
+Total no. of IPOs
+Total IPO public ﬂoat ($b)
+
+0.100
+0.256
+0.954
+50.2
+912.0
+340.9
+Column 1 shows the actual IPO outcomes before 2000 and columns 2 to 5 show counterfactual IPO outcomes under 
+diﬀerent regulatory scenarios after 2000. Actual regulation is the baseline scenario based on actual regulations. No 
+SOX estimates are based on regulatory costs without SOX (see Panel A of Table A.8). No JOBS Act estimates are 
+based on regulatory costs without JOBS Act (see Panel B of Table A.8). Zero regulation estimates are based on zero 
+regulatory costs after 2000. Regulatory costs are the average annual regulatory costs facing potential IPO ﬁrms (i.e., 
+VC-backed ﬁrms) in the corresponding period. Regulatory costs / Public Float is the average ratio of annual regulatory 
+costs relative to public ﬂoat for a potential IPO ﬁrm in the corresponding period. IPO probability is the average 
+predicted probability that a potential IPO candidate will go public in the corresponding period. Yearly no. of IPOs
+is the average yearly predicted total number of IPOs, obtained by summing up predicted IPO probabilities in each 
+year and take the yearly average over the corresponding period. Total no. of IPOs is the predicted total number of 
+IPOs, obtained by summing up predicted IPO probabilities across the sample in the corresponding period. Total IPO 
+public ﬂoat is the predicted aggregate public ﬂoat of IPO ﬁrms over the corresponding period, obtained by weighted 
+summing the public ﬂoat of potential IPO ﬁrms weighted by IPO probabilities.
+
+The result that regulatory costs signiﬁcantly impact private ﬁrms’ deci-
+sion to go public echoes the ﬁndings in Lowry et al. (2017), Aghamolla 
+and Thakor (2019), and Breuer (2021). However, this is the ﬁrst sen-
+sitivity estimation of the IPO decision to the dollar value of regulatory 
+costs, rather than its response to a speciﬁc regulatory reform.
+
+Using the estimated model, we conduct a set of counterfactual anal-
+yses of IPO outcomes by varying the regulatory costs 𝑘𝑖,𝑡 after 2000, the 
+period that witnessed dramatically lower numbers of IPOs. Columns 1 
+and 2 of Table 7 present the IPO outcomes before and after 2000 in 
+the data. Columns 3 to 5 present the IPO outcomes after 2000 in three 
+counterfactual scenarios. First, we consider a counterfactual scenario 
+without SOX. Panel B of Table A.8 summarizes the regulatory burden 
+borne by ﬁrms in diﬀerent size group under this scenario. Column 3 
+shows that there is a slight increase in the probability of IPO and IPO 
+volumes. In particular, removing SOX only increases average annual 
+IPO likelihood post 2000 from 0.95% to 0.96% and leads to 9 more 
+IPOs. The result may appear surprising given that the costs of SOX 404 
+are substantial. However, further investigation reveals that, in our sam-
+ple, 82% of VC-backed ﬁrm would have a public ﬂoat below SOX 404 
+exemption threshold upon IPO, which suggests that most VC-backed 
+ﬁrms would be exempted from SOX 404 if going public. This ﬁnding 
+is also consistent with Gao et al. (2013) and Doidge et al. (2013), who 
+argue that the decline in IPOs is unlikely to be driven by SOX.
+
+Prior research such as Dambra et al. (2015) ﬁnds that the IPO market 
+partially recovered after 2012 passage of the JOBS Act. We examine 
+how much of the recovery in IPOs can be explained by the reduction in 
+the regulatory costs. To this end, we consider a scenario where the JOBS 
+Act is absent in column 4 of Table 7. We show that, had JOBS Act not 
+passed, the average annual IPO likelihood among VC-backed ﬁrms after 
+2000 would decrease from 0.95% to 0.75%. Further, the total number 
+of VC-backed IPOs after 2000 would drop from 912 to 714, and the 
+aggregate public ﬂoat of these IPO ﬁrms decrease from $341b to $316b. 
+The decline in the number of IPOs translates to an average 28.2 fewer 
+IPOs per year over the period of 2012 to 2018, when JOBS Act was 
+in eﬀect. This estimate is somewhat larger than that of Dambra et al. 
+(2015), who show that JOBS Act has led to 21 additional IPOs per year 
+using a very diﬀerent empirical methodology.
+
+Finally, column 5 of Table 7 considers a scenario where all regu-
+latory costs in Table 3 are zero post-2000. Removing these regulatory 
+costs would increase post-2000 IPO likelihood among VC-backed ﬁrms 
+from 0.95% to 1.4%. The average yearly number of VC-backed IPOs 
+over 2000–2018 would increase from 50.2 to 70.2. While the eﬀects 
+
+are substantial, they would not oﬀset the dramatic decrease in IPO vol-
+ume after 2000. Removing all identiﬁed regulations increases average 
+annual IPO likelihood post 2000 by 0.437%, which, compared with the 
+6% drop in IPO likelihood from before to after 2000, explains only 7.3% 
+of the decline in IPO likelihood. Similarly, removing all regulatory costs 
+after 2000 increases the average yearly number of IPOs over this period 
+by 20, which oﬀsets only 22% of the decrease in yearly IPO volume 
+from pre-2000 to post-2000.
+
+Fig. 7 shows our yearly counterfactual estimates for average regula-
+tory costs facing potential IPO ﬁrms, annual IPO probability, and yearly 
+number of IPOs. They conﬁrm the limited role played by SOX and the 
+signiﬁcant  impact  of  JOBS  Act  on  IPO  volumes  after  2012.  Further, 
+Panels B and C of Fig. 7 demonstrate that even removing all identiﬁ-
+able post-2000 regulatory costs does not remove the strong declining 
+trend in IPO likelihood and volume. Thus, regulatory cost itself is un-
+likely to explain the full magnitude of IPO declines in the U.S. over 
+the past two decades. Non-regulatory factors, such as decline in busi-
+ness dynamism (Decker et al., 2016), shifting investment to intangibles 
+(Kahle and Stulz, 2017; Doidge et al., 2018), abundant private equity 
+ﬁnancing (Ewens and Farre-Mensa, 2020), changing economies of scale 
+and scope (Gao et al., 2013), and changing acquisition behavior (Gao et 
+al., 2013; Eckbo and Lithell, 2021) are likely to play a more important 
+role.
+
+5.2.  Regulatory costs and going private transactions
+
+We also estimate the eﬀect of regulatory costs on public ﬁrms’ deci-
+sion to go private. We model the probability of going private using the 
+following logit speciﬁcation, following Lehn and Poulsen (1989) and 
+Engel et al. (2007):
+
+exp
+
+(
+𝛽 ln 𝑘𝑖,𝑡 + 𝛾𝑋𝑖,𝑡
+(
+
+)
+
+) .
+
+(11)
+
+Pr(GoingPrivate)𝑖,𝑡 =
+
+1 + exp
+
+𝛽 ln 𝑘𝑖,𝑡 + 𝛾𝑋𝑖,𝑡
+where 𝑘𝑖,𝑡 is the regulatory costs borne by ﬁrm 𝑖 in year 𝑡 if it stays 
+public. The vector 𝑋𝑖,𝑡 contains lagged ﬁrm characteristics that aﬀect 
+the net beneﬁts of going private, including log public ﬂoat, book lever-
+age, log total assets, ROA, investment-to-asset ratio, log sales growth, 
+market-to-book ratio, annual stock return, log number of analysts, and 
+institutional ownership. We also include state ﬁxed eﬀects as well as 
+industry-year  ﬁxed  eﬀects  to  absorb  industry-level  shocks  and  non-
+threshold-based regulatory changes that apply to all ﬁrms.
+
+JournalofFinancialEconomics153(2024)10377518M. Ewens, K. Xiao and T. Xu
+
+Table 8
+Regulatory costs and going private transactions.
+
+Going Private
+
+(1)
+Coeﬃcients
+
+(2)
+Marginal Eﬀects
+
+Regulatory costs (ln)
+
+Public ﬂoat (ln)
+
+Leverage
+
+Ln(total assets)
+
+Tangibility
+
+Investment-to-assets
+
+Sales growth
+
+M/B
+
+Stock return
+
+No. of analysts (ln)
+
+Institutional ownership
+
+-0.013
+[0.012]
+
+-0.180∗∗∗
+[0.015]
+
+0.257∗∗
+[0.114]
+
+0.080∗∗∗
+[0.028]
+
+0.332
+[0.218]
+
+-0.082
+[0.570]
+
+-0.298∗∗∗
+[0.086]
+
+-0.010∗∗
+[0.005]
+
+-0.204∗∗∗
+[0.063]
+
+-0.232∗∗∗
+[0.082]
+
+-1.013∗∗∗
+[0.249]
+
+-0.010
+[0.008]
+
+-0.125∗∗∗
+[0.013]
+
+0.177∗∗
+[0.079]
+
+0.056∗∗∗
+[0.020]
+
+0.229
+[0.152]
+
+-0.056
+[0.394]
+
+-0.206∗∗∗
+[0.061]
+
+-0.007∗∗
+[0.003]
+
+-0.141∗∗∗
+[0.044]
+
+-0.161∗∗∗
+[0.057]
+
+-0.700∗∗∗
+[0.170]
+
+Yes
+Yes
+43,464
+
+Industry-year FE
+State FE
+Observations
+
+Yes
+Yes
+43,464
+This table estimates a logit model of going private decisions on a panel of public 
+ﬁrms from 1995 to 2017. Column 1 reports the logit coeﬃcients and column 
+2 reports the marginal eﬀects on percentage-point likelihood of going private. 
+The sample includes 674 ﬁrms that went private during our sample period and 
+3,543 ﬁrms that were public as of 2018. The dependent variable is a dummy 
+equal to one if a ﬁrm goes private in the next year. Columns 1 and 2 present 
+the logit coeﬃcients and the marginal eﬀects, respectively. Regulatory costs are 
+the compliance costs estimated from Table 3 and extrapolated to all ﬁrm sizes. 
+We control for industry (SIC 1-digit)-year ﬁxed eﬀects and state ﬁxed eﬀects. 
+Standard errors are clustered by ﬁrm.
+
+a ﬁling of Form 15 or Form 25 within the next two years to ensure 
+that the security was indeed de-registered. This yields 949 going private 
+transactions, out of which 676 can be matched to Compustat ﬁrms with 
+non-missing control variables.
+
+Table 8 presents  the  logit  regression  results.  Consistent  with  the 
+prior literature, lower market cap, growth, valuation, stock return, an-
+alyst coverage, and institution ownership predict higher probability of 
+going  private,  while  lower  leverage  and  proﬁtability  predict  the  op-
+posite.  However,  we  do  not  ﬁnd  regulatory  costs  to  be  a  signiﬁcant 
+factor in public ﬁrms’ going private decisions. Instead, the sign of the 
+coeﬃcient is the opposite: higher regulatory costs slightly reduce the
+probability of going private. This null result echoes the mixed ﬁndings 
+in prior literature on the eﬀect of SOX on going private transactions 
+(Engel et al., 2007; Leuz, 2007; Leuz et al., 2008; Bartlett, 2009), and 
+could be explained by the fact that some of the regulatory costs are up-
+front and irreversible (e.g., setting up internal control system). Hence, 
+these costs will be sunk costs for public ﬁrms’ going private decisions 
+but will enter into private ﬁrms’ going public decisions. Further, many 
+PE deals are motivated by ﬁnancial or operational engineering reasons 
+(Kaplan, 1989; Guo et al., 2011; Bernstein and Sheen, 2016), rather 
+than avoidance of regulatory costs.
+
+Fig. 7. IPO Counterfactual Simulations. These ﬁgures show counterfactual 
+regulatory costs facing potential IPO ﬁrms (Panel A), annual IPO likelihood 
+(Panel B), and the annual number of IPOs (Panel C) for four regulatory scenar-
+ios after 2000: 1) actual, 2) no JOBS Act, 3) no SOX 404, and 4) zero regulation 
+costs. Estimations are based on the model in Table 6 and counterfactual regula-
+tion costs in Tables A.7 and A.8.
+
+We estimate the above logit model of going private decisions on a 
+panel of 4,195 U.S. public ﬁrms from 1995 to 2017. Following Bharath 
+and Dittmar (2010), we identify going private transactions using 13e-
+3 ﬁlings. Sample inclusion requires that these ﬁlings are followed by 
+
+JournalofFinancialEconomics153(2024)10377519M. Ewens, K. Xiao and T. Xu
+
+5.3.  Summary
+
+Overall, our estimated regulatory costs aﬀect ﬁrms’ public-vs-private 
+choice mainly through their going public rather than going private de-
+cisions. However, regulatory costs only explain a small fraction of the 
+disappeared IPOs, in contrast to the popular claim by practitioners. In-
+stead, our results are consistent with the view of Gao et al. (2013) and 
+Doidge et al. (2013), who suggest that the regulatory changes in the 
+early 2000s did not cause the disappearance of public ﬁrms.
+
+These results come with several caveats. First, our results concern 
+the eﬀects of threshold-based regulations identiﬁable in our bunching 
+estimation. Our counterfactual analysis leaves out regulations that are 
+not threshold-based as reviewed in Table A.3. Nevertheless, our anal-
+ysis covers the major regulatory changes that are often attributed to 
+the  decline  in  public  ﬁrms,  such  as  SOX.  Second,  the  counterfactual 
+analysis  oﬀers  useful  comparative  statics  on  the  partial-equilibrium 
+relation  between  regulatory  costs  and  IPO  volumes.  However,  these 
+regulations may generate social beneﬁts to the overall public market. 
+Firms’ compliance and listing choices may also impose externalities on 
+one another. Our counterfactual analysis should not be interpreted as 
+a general equilibrium or welfare analysis of these regulations on the 
+overall IPO market. Third, our IPO counterfactuals use a sample of VC-
+backed ﬁrms, which represent around 50% of all IPOs. Non-VC-backed 
+ﬁrms may have diﬀerent sensitivity to regulatory costs when making 
+their IPO decisions. Last, in our IPO and going-private regressions, the 
+regulatory  cost  control  is  a  generated  regressor.  Thus,  its  coeﬃcient 
+estimate’s standard errors may be understated (Chen et al., 2023). Ta-
+ble A.9 shows that our results are similar if we obtain standard errors by 
+jointly bootstrapping both the bunching estimation and the IPO regres-
+sion. Measurement errors from a generated regression may also lead us 
+to underestimate the eﬀects of regulatory costs on the probability of 
+going public or private. Caveats aside, the counterfactual exercises pro-
+vide informative results on the debate on the cause of the disappearing 
+IPO puzzle.
+
+6.  Robustness and further analyses
+
+In this section, we show the results are robust to a variety of al-
+ternative assumptions, sampling choice, or consideration of alternative 
+regulations. Appendix Section A.4 provides details on each of these ad-
+ditional investigations.
+
+6.1.  Alternative regulations around the $75m and $700m thresholds
+
+In addition to the regulations discussed in Section 1.2, the $75m 
+and $700m thresholds were also associated with some beneﬁts in secu-
+rity issuance in certain periods if ﬁrms are above these thresholds. The 
+$75m  threshold  was  also  brieﬂy  associated  with  an  exemption  from 
+Say-on-Pay in 2010 and 2011. Appendix Section A.4.3 shows that these 
+alternative regulations do not signiﬁcantly bias our estimates.
+
+6.2.  Alternative counterfactual distributions
+
+One might be concerned about ﬁrms’ anticipation of threshold reg-
+ulations, or whether the ﬁrm size distribution in non-bunching period 
+is a good counterfactual for the distribution in the bunching period. 
+Appendix  Section  A.4.4  presents  alternative  tests  and  counterfactual 
+distributions to address these concerns. The results are quantitatively 
+similar.
+
+6.3.  Alternative parameter choices
+
+6.4.  Agency issues
+
+Our model assumes that managers choose whether to bunch to max-
+imize ﬁrm value. One may worry that this assumption may be violated 
+for ﬁrms with substantial agency issues. A priori, the bias from agency 
+issues can be either positive or negative. On the one hand, entrenched 
+managers may be averse to taking on additional debt to bunch, lead-
+ing to a downward bias in our estimates. On the other hand, regulatory 
+compliance may be more costly to managers than to shareholders, lead-
+ing  to  an  upward  bias.  To  address  this  concern,  we  re-estimate  the 
+regulatory costs excluding ﬁrms that may have severe agency issues. 
+In particular, we drop ﬁrms in the bottom decile of institutional owner-
+ship and ﬁrms in the bottom decile of board independence. The results 
+are reported in Table A.16. The estimates are similar to our baseline 
+estimates.
+
+6.5.  Time-variation in regulatory costs and enforcement
+
+Our baseline estimation concerns the average regulatory costs in the 
+estimation  sample.  One  may  be  concerned  that  the  regulatory  costs 
+may vary over time due to changes in regulation or variations in en-
+forcement. We showed in Section 4.2 that our estimates are relatively 
+stable over time. Appendix Section A.4.6 further shows that the degree 
+of enforcement regarding accounting and auditing exhibits limited time 
+variation.
+
+6.6.  Alternative estimation windows
+
+Our baseline estimation uses [$23m, $29.5m] for the $25m thresh-
+old, [$67.5m, $105m] for the $75m threshold, and [$630m, $840m] 
+for the $700m threshold. We show robustness to using diﬀerent win-
+dow  lengths  (wider  or  narrower  by  1%,  5%,  and  10%)  in  Appendix 
+Table A.17.
+
+6.7.  Alternative extrapolated regulatory costs for the median US ﬁrm
+
+We consider a few robustness for the extrapolated regulatory costs 
+facing the median-sized US public ﬁrm in Table A.6. First, we orthogo-
+nalize the two industry dummies using logit rather than a linear prob-
+ability model as in the baseline. The estimate of regulatory costs facing 
+the median ﬁrm becomes 4.44%, which is close to the baseline estimate 
+of 4.29%. Second, using a univariate extrapolation based on public ﬂoat 
+only, we obtain an alternative estimate of 4.27%. Third, using variation 
+in local non-parametric relationship between ln(ﬂoat) and ln(reg costs)
+in Figure A.4, we obtain a cost interval of [2.09%, 6.30%] for the me-
+dian ﬁrm. Fourth, using the Oster (2019) test to obtain a bias-adjusted 
+estimate of the cost structure parameter (Table A.21), we obtain a cost 
+interval of [2.05%, 6.27%] for the median ﬁrm. Finally, using M&As 
+as shocks to ﬁrms’ public ﬂoat, we estimate an alternative cost struc-
+ture parameter of 0.402, which translates to a cost estimate of 4.5% 
+for the median ﬁrm. Overall, these ranges and alternative values pro-
+vide reasonable bounds on our baseline 4.3% estimate. It is reassuring 
+that, although they reﬂect variations in diﬀerent assumptions, they are 
+comparable in magnitude.
+
+6.8.  Dynamic considerations in IPO analysis
+
+In our baseline estimation, we relate the IPO decision to the im-
+mediate regulatory cost a ﬁrm faces when it goes public. We show in 
+Appendix Section A.4.7 that our IPO results are robust to ﬁrms’ dynamic 
+expectations about future regulatory costs.
+
+7.  Conclusion
+
+Appendix Section A.4.5 demonstrates that our results are robust to 
+alternative parameter values and alternative cost function for estimat-
+ing the leverage distortion cost.
+
+This  paper  studies  the  connection  between  regulatory  costs  and 
+ﬁrms’ public-vs-private choice by exploiting a regulatory quirk: many 
+
+JournalofFinancialEconomics153(2024)10377520M. Ewens, K. Xiao and T. Xu
+
+rules trigger when a ﬁrm’s public ﬂoat exceeds a threshold. We ﬁnd that 
+ﬁrms increase their leverage to move their public ﬂoat below the thresh-
+olds. We estimate regulatory costs from the extent of this avoidance 
+using a revealed preference approach. The regulatory costs of being a 
+public ﬁrm are substantial: various disclosure and internal governance 
+rules lead to a total compliance costs ranging from 2.1% to 6.3% of 
+market capitalization for a median U.S. public ﬁrm (our preferred esti-
+mate is 4.3%). Regulatory costs have greater impact on private ﬁrms’ 
+IPO decisions than on public ﬁrms’ going private decisions. However, 
+heightened regulatory costs only explain a small fraction of the decline 
+in the number of public ﬁrms over the last two decades. Our results sug-
+gest that non-regulatory factors likely played an more important role in 
+explaining the decline in the number of U.S. public ﬁrms.
+
+CRediT authorship contribution statement
+
+Michael  Ewens: Conceptualization,  Data  curation,  Formal  analy-
+sis, Investigation, Methodology, Project administration, Resources, Soft-
+ware, Supervision, Validation, Visualization, Writing – original draft, 
+Writing  –  review  &  editing. Kairong  Xiao: Conceptualization,  Data 
+curation, Formal analysis, Investigation, Methodology, Project admin-
+istration,  Resources,  Software,  Supervision,  Validation,  Visualization, 
+Writing – original draft, Writing – review & editing. Ting Xu: Concep-
+tualization, Data curation, Formal analysis, Investigation, Methodology, 
+Project  administration,  Resources,  Software,  Supervision,  Validation, 
+Visualization, Writing – original draft, Writing – review & editing.
+
+Declaration of competing interest
+
+The authors declare that they have no known competing ﬁnancial 
+interests or personal relationships that could have appeared to inﬂuence 
+the work reported in this paper.
+
+Data availability
+
+Some  data  is  available  https://github .com /michaelewens /public _
+
+ﬂoat _regulation, but the VC data requires a subscription.
+
+Replication package for paper (Original Data) (Mendeley Data).
+
+Appendix A.  Supplementary material
+
+Supplementary material related to this article can be found online 
+
+at https://doi .org /10 .1016 /j .jﬁneco .2023 .103775.
+
+References
+
+Aghamolla, C., Thakor, R.T., 2019. Do mandatory disclosure requirements for private 
+
+ﬁrms increase the propensity of going public? Available at SSRN 3428780.
+
+Al-Ubaydli, O., McLaughlin, P.A., 2017. Regdata: a numerical database on industry-
+speciﬁc  regulations  for  all  United  States  industries  and  federal  regulations, 
+1997–2012. Regul. Gov. 11, 109–123.
+
+Alsabah, K., Moon, S.K., 2020. IPO regulation and initial capital structure: Evidence from 
+
+the JOBS Act. Working paper.
+
+Alvero, A., Ando, S., Xiao, K., 2023. Watch what they do, not what they say: estimating 
+regulatory costs from revealed preferences. Rev. Financ. Stud. 36, 2224–2273.
+
+Alvero, A., Xiao, K., 2020. Fuzzy bunching. Available at SSRN 3611447.
+Amadxarif, Z., Brookes, J., Garbarino, N., Patel, R., Walczak, E., 2019. The language of 
+
+rules: textual complexity in banking reforms.
+
+Amirapu, A., Gechter, M., 2020. Labor regulations and the cost of corruption: evidence 
+
+from the Indian ﬁrm size distribution. Rev. Econ. Stat. 102, 34–48.
+
+Antill, S., 2020. Are bankruptcy professional fees excessively high? Available at SSRN 
+
+3554835.
+
+Bachas, N., Kim, O.S., Yannelis, C., 2020a. Loan guarantees and credit supply. J. Financ. 
+
+Bartlett  III,  R.P.,  2009.  Going  private  but  staying  public:  reexamining  the  eﬀect  of 
+
+Sarbanes-Oxley on ﬁrms’ going-private decisions. Univ. Chic. Law Rev. 76, 7.
+
+Bernard, D., Burgstahler, D., Kaya, D., 2018. Size management by European private ﬁrms 
+
+to minimize proprietary costs of disclosure. J. Account. Econ. 66, 94–122.
+
+Bernstein, S., Sheen, A., 2016. The operational consequences of private equity buyouts: 
+
+evidence from the restaurant industry. Rev. Financ. Stud. 29, 2387–2418.
+
+Bertomeu, J., Ma, P., Marinovic, I., 2020. How often do managers withhold information? 
+
+Account. Rev. 95, 73–102.
+
+Best, M., Cloyne, J., Ilzetzki, E., Kleven, H.J., 2015. Interest rates, debt and intertemporal 
+allocation: evidence from notched mortgage contracts in the United Kingdom.
+Bharath, S.T., Dittmar, A.K., 2010. Why do ﬁrms use private equity to opt out of public 
+
+markets? Rev. Financ. Stud. 23, 1771–1818.
+
+Bindal, S., Bouwman, C.H., Johnson, S.A., et al., 2020. Bank regulatory size thresholds, 
+merger and acquisition behavior, and small business lending. J. Corp. Finance 62, 
+101519.
+
+Binsbergen,  J.H.v.,  Graham,  J.R,  Yang,  J.,  2010.  The  cost  of  debt.  J.  Finance 65, 
+
+2089–2136.
+
+Binsbergen, J.H.v., Graham, J.R, Yang, J., 2011. An empirical model of optimal capital 
+
+structure. J. Appl. Corp. Finance 23, 34–59.
+
+Bouwman, C.H., Johnson, S.A., et al., 2018. Diﬀerential bank behaviors around the Dodd–
+
+Frank Act size thresholds. J. Financ. Intermed. 34, 47–57.
+
+Breuer, M., 2021. How does ﬁnancial-reporting regulation aﬀect industry-wide resource 
+
+allocation? J. Account. Res. 59, 59–110.
+
+Calomiris, C.W., Mamaysky, H., Yang, R., 2020. Measuring the cost of regulation: a text-
+based approach. SSRN Scholarly Paper ID 3550922. Social Science Research Net-
+work. Rochester, NY. https://papers .ssrn .com /abstract =3550922. https://doi .org /
+10 .2139 /ssrn .3550922.
+
+Chaplinsky, S., Hanley, K.W., Moon, S.K., 2017. The JOBS Act and the costs of going 
+
+public. J. Account. Res. 55, 795–836.
+
+Chemmanur, T.J., He, S., Nandy, D.K., 2010. The going-public decision and the product 
+
+market. Rev. Financ. Stud. 23, 1855–1908.
+
+Chen, W., Hribar, P., Melessa, S., 2023. Standard error biases when using generated re-
+
+gressors in accounting research. J. Account. Res. 61, 531–569.
+
+Chetty, R., 2012. Bounds on elasticities with optimization frictions: a synthesis of micro 
+
+and macro evidence on labor supply. Econometrica 80, 969–1018.
+
+Chetty, R., Friedman, J.N., Olsen, T., Pistaferri, L., 2011. Adjustment costs, ﬁrm responses, 
+and micro vs. macro labor supply elasticities: evidence from Danish tax records. Q. J. 
+Econ. 126, 749–804.
+
+Cheynel, E., Liu-Watts, M., 2020. A simple structural estimator of disclosure costs. Rev. 
+
+Acc. Stud. 25, 201–245.
+
+Coates, J.C., Srinivasan, S., 2014. SOX after ten years: a multidisciplinary review. Ac-
+
+count. Horiz. 28, 627–671. https://doi .org /10 .2308 /acch -50759.
+
+Coates, J.C.I., 2007. The goals and promise of the Sarbanes-Oxley Act. J. Econ. Per-
+
+spect. 21, 91–116.
+
+Dagostino, R., 2018. The impact of bank ﬁnancing on municipalities’ bond issuance and 
+
+the real economy. Working Paper. University of Rochester.
+
+Dambra, M., Field, L.C., Gustafson, M.T., 2015. The JOBS Act and IPO volume: evidence 
+
+that disclosure costs aﬀect the IPO decision. J. Financ. Econ. 116, 121–143.
+
+Dambra, M., Gustafson, M., 2020. Do the burdens to being public aﬀect the investment 
+
+and innovation of newly public ﬁrms? Manag. Sci.
+
+Decker, R.A., Haltiwanger, J., Jarmin, R.S., Miranda, J., 2016. Declining business dy-
+namism: what we know and the way forward. Am. Econ. Rev. 106, 203–207.
+
+DeFusco, A.A., Johnson, S., Mondragon, J., 2020. Regulating household leverage. Rev. 
+
+Econ. Stud. 87, 914–958.
+
+DeFusco, A.A., Paciorek, A., 2017. The interest rate elasticity of mortgage demand: ev-
+idence from bunching at the conforming loan limit. Am. Econ. J.: Econ. Policy 9, 
+210–240.
+
+Dharmapala, D., 2022. Estimating ﬁrms’ responses to securities regulation using a bunch-
+
+ing approach. Am. Law Econ. Rev. 24 (2), 449–494.
+
+Doidge, C., Kahle, K.M., Karolyi, G.A., Stulz, R.M., 2018. Eclipse of the public corporation 
+
+or eclipse of the public markets? J. Appl. Corp. Finance 30, 8–16.
+
+Doidge, C., Karolyi, G.A., Stulz, R.M., 2013. The US left behind? Financial globalization 
+
+and the rise of IPOs outside the US. J. Financ. Econ. 110, 546–573.
+
+Doidge, C., Karolyi, G.A., Stulz, R.M., 2017. The US listing gap. J. Financ. Econ. 123, 
+
+464–487.
+
+Eckbo, B.E., Lithell, M., 2021. Merger-driven listing dynamics. Working paper.
+Engel, E., Hayes, R.M., Wang, X., 2007. The Sarbanes–Oxley Act and ﬁrms’ going-private 
+
+decisions. J. Account. Econ. 44, 116–145.
+
+Ewens, M., Farre-Mensa, J., 2020. The deregulation of the private equity markets and the 
+
+decline in IPOs. Rev. Financ. Stud. 33, 5463–5509.
+
+Ewens, M., Peters, R.H., Wang, S., 2020. Measuring intangible capital with market prices. 
+
+Working paper.
+
+Fagereng, A., Ring, M.A.K., 2021. Financial frictions and the non-distortionary eﬀects of 
+
+Gao, F., Wu, J.S., Zimmerman, J., 2009. Unintended consequences of granting small ﬁrms 
+exemptions from securities regulation: evidence from the Sarbanes-Oxley Act. J. Ac-
+count. Res. 47, 459–506.
+
+Gao, X., Ritter, J.R., Zhu, Z., 2013. Where have all the IPOs gone? J. Financ. Quant. 
+
+Anal. 48, 1663–1692.
+
+Bachas, N., Liu, E., Morrison, D., 2020b. Market power in small business lending: a two 
+
+delayed taxation. Available at SSRN 3791384.
+
+Econ.
+
+dimensional bunching approach.
+
+Ballew, H., Iselin, M., Nicoletti, A., 2021. Accounting-based thresholds and growth deci-
+
+sions in the banking industry. Rev. Acc. Stud., 1–43.
+
+Barth, M.E., Landsman, W.R., Taylor, D.J., 2017. The JOBS Act and information uncer-
+
+tainty in IPO ﬁrms. Account. Rev. 92, 25–47.
+
+JournalofFinancialEconomics153(2024)10377521Giroud, X., Mueller, H.M., 2010. Does corporate governance matter in competitive indus-
+
+tries? J. Financ. Econ. 95, 312–331.
+
+Gong, K., Yannelis, C., 2018. Measuring the impact of regulation on ﬁrms. Rev. Financ. 
+
+Stud. R&R.
+
+479–517.
+
+Guo, S., Hotchkiss, E.S., Song, W., 2011. Do buyouts (still) create value? J. Finance 66, 
+
+Iliev, P., 2010. The eﬀect of SOX Section 404: costs, earnings quality, and stock prices. 
+
+J. Finance 65, 1163–1196.
+
+Res. 54, 525–622. https://doi .org /10 .1111 /1475 -679X .12115. https://onlinelibrary .
+wiley .com /doi /abs /10 .1111 /1475 -679X .12115.
+
+Liu, L.Y., 2020. Long-run economic consequences of ﬁrms’ avoidance behavior in the 
+
+threshold regulation: Evidence from the Sarbanes-Oxley Act. Working paper.
+
+Lowry, M., Michaely, R., Volkova, E., 2017. Initial public oﬀerings: a synthesis of the liter-
+ature and directions for future research. Found. Trends® Finance 11 (3–4), 154–320.
+Morgenstern, M., Nealis, P., 2004. The impact of Sarbanes-Oxley on mid-cap issues. 
+
+https://www .sec .gov /info /smallbus /mmorgensternmidcap .pdf.
+
+Iliev, P., Vitanova, S., 2019. The eﬀect of the say-on-pay vote in the United States. Manag. 
+
+Oster, E., 2019. Unobservable selection and coeﬃcient stability: theory and evidence. 
+
+Jackson, H.E., 2007. The impact of enforcement: a reﬂection. Univ. Pa. Law Rev. 156, 
+
+Kahle, K.M., Stulz, R.M., 2017. Is the US public corporation in trouble? J. Econ. Per-
+
+J. Polit. Econ. 106, 1113–1155.
+
+Kalmenovitz, J., 2019. Regulatory intensity and ﬁrm-speciﬁc exposure. NYU Stern School 
+
+site .warrington .uﬂ .edu /ritter /ipo -data/.
+
+M. Ewens, K. Xiao and T. Xu
+
+Sci. 65, 4505–4521.
+
+400.
+
+spect. 31, 67–88.
+
+of Business.
+
+nance 44, 611–632.
+
+Kenney, M., Patton, D., 2013. Firm database of emerging growth initial public oﬀerings 
+
+SEC, 2002. Acceleration of periodic report ﬁling dates and disclosure concerning website 
+
+J. Bus. Econ. Stat. 37, 187–204.
+
+Parker, R., 2018. Hyping the cost of regulation. Regul. Rev.
+Porta, R.L., Lopez-de Silanes, F., Shleifer, A., Vishny, R.W., 1998. Law and ﬁnance. 
+
+Ritter, J., 2020. Initial public oﬀerings: updated statistics. Data retrieved from https://
+
+Saez, E., 2010. Do taxpayers bunch at kink points? Am. Econ. J.: Econ. Policy 2, 180–212.
+Schivardi, F., Torrini, R., 2008. Identifying the eﬀects of ﬁring restrictions through size-
+
+contingent diﬀerences in regulation. Labour Econ. 15, 482–511.
+
+access to reports. https://www .sec .gov /rules /ﬁnal /33 -8128 .htm.
+
+SEC, 2011. Study and Recommendations on Section 404(b) of the Sarbanes-Oxley Act of 
+2002 for Issuers with Public Float Between $75 and $250 Million. Technical Report. 
+Staﬀ of the Oﬃce of the Chief Accountant. U.S. Securities and Exchange Commission.
+Simkovic, M., Zhang, M.B., 2020. Regulation and technology-driven entry: measurement 
+
+and micro-evidence. Available at SSRN 3205589.
+
+Weber, D.P., Yang, Y.S., 2020. The debt-equity choice when regulatory thresholds are 
+
+based on equity values: evidence from sox 404. Account. Rev. 95, 339–364.
+
+Weild, D., 2011. How to revive small-cap IPOs. Wall St. J.
+Zhang, I.X., 2007. Economic consequences of the Sarbanes–Oxley Act of 2002. J. Account. 
+
+Econ. 44, 74–115.
+
+Kaplan, S., 1989. Management buyouts: evidence on taxes as a source of value. J. Fi-
+
+(IPOs) from 1990 through 2010.
+
+Kleven, H.J., Waseem, M., 2013. Using notches to uncover optimization frictions and 
+structural elasticities: theory and evidence from Pakistan. Q. J. Econ. 128, 669–723.
+
+Korteweg, A., 2010. The net beneﬁts to leverage. J. Finance 65, 2137–2170.
+Lehn, K., Poulsen, A., 1989. Free cash ﬂow and stockholder gains in going private trans-
+
+actions. J. Finance 44, 771–787.
+
+Leuz, C., 2007. Was the Sarbanes–Oxley Act of 2002 really this costly? A discussion of evi-
+dence from event returns and going-private decisions. J. Account. Econ. 44, 146–165.
+Leuz, C., Triantis, A., Wang, T.Y., 2008. Why do ﬁrms go dark? Causes and economic 
+consequences of voluntary SEC deregistrations. J. Account. Econ. 45, 181–208.
+Leuz,  C.,  Wysocki,  P.D.,  2016.  The  economics  of  disclosure  and  ﬁnancial  re-
+porting  regulation:  evidence  and  suggestions  for  future  research.  J.  Account. 
+
+JournalofFinancialEconomics153(2024)10377522
